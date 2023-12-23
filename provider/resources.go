@@ -21,7 +21,6 @@ import (
 
 	"github.com/matrixorigin/pulumi-tencentcloud/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
-	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge/tokens"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
 	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -61,7 +60,7 @@ func Provider() tfbridge.ProviderInfo {
 		// Change this to your personal name (or a company name) that you
 		// would like to be shown in the Pulumi Registry if this package is published
 		// there.
-		Publisher: "Pulumi",
+		Publisher: "Matrixorigin",
 		// LogoURL is optional but useful to help identify your package in the Pulumi Registry
 		// if this package is published there.
 		//
@@ -79,7 +78,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:   []string{"pulumi", "tencentcloud", "category/cloud"},
 		License:    "Apache-2.0",
 		Homepage:   "https://www.pulumi.com",
-		Repository: "https://github.com/pulumi/pulumi-tencentcloud",
+		Repository: "https://github.com/matrixorigin/pulumi-tencentcloud",
 		// The GitHub Org for the provider - defaults to `terraform-providers`. Note that this
 		// should match the TF provider module's require directive, not any replace directives.
 		GitHubOrg: "",
@@ -130,7 +129,7 @@ func Provider() tfbridge.ProviderInfo {
 		},
 		Golang: &tfbridge.GolangInfo{
 			ImportBasePath: filepath.Join(
-				fmt.Sprintf("github.com/pulumi/pulumi-%[1]s/sdk/", mainPkg),
+				fmt.Sprintf("github.com/matrixorigin/pulumi-%[1]s/sdk/", mainPkg),
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,
@@ -147,8 +146,8 @@ func Provider() tfbridge.ProviderInfo {
 	// These are new API's that you may opt to use to automatically compute resource tokens,
 	// and apply auto aliasing for full backwards compatibility.
 	// For more information, please reference: https://pkg.go.dev/github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge#ProviderInfo.ComputeTokens
-	prov.MustComputeTokens(tokens.SingleModule("tencentcloud_", mainMod,
-		tokens.MakeStandard(mainPkg)))
+	//prov.MustComputeTokens(tokens.SingleModule("tencentcloud_", mainMod,
+	//	tokens.MakeStandard(mainPkg)))
 	prov.SetAutonaming(255, "-")
 
 	return prov

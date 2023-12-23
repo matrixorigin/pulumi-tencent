@@ -4,14 +4,14 @@ SHELL            := /bin/bash
 PACK             := tencentcloud
 ORG              := matrixorigin
 PROJECT          := github.com/${ORG}/pulumi-${PACK}
-NODE_MODULE_NAME := @pulumi/${PACK}
+NODE_MODULE_NAME := @matrixorigin/${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
-VERSION         := $(shell pulumictl get version)
+VERSION         := "v0.1.16"
 
 TESTPARALLELISM := 4
 
