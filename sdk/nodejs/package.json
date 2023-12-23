@@ -24,6 +24,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "tencentcloud"
+        "name": "tencentcloud",
+        "server": "github://api.github.com/matrixorigin"
     }
 }
