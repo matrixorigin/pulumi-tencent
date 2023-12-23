@@ -14,7 +14,6 @@ builds:
       - arm64
     goos:
       - darwin
-      - windows
       - linux
     ldflags:
       # The line below MUST align with the module in current provider/go.mod
