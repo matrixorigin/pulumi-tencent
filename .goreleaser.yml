@@ -1,9 +1,18 @@
 version: 2
+before:
+  hooks:
+    - rm -rf dist
 archives:
   - id: archive
+    builds:
+      - main
     name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
+    files:
+      - none*
+
 builds:
   - binary: pulumi-resource-tencentcloud
+    id: main
     dir: provider
     env:
       - CGO_ENABLED=0
@@ -21,5 +30,5 @@ release:
   disable: false
   prerelease: auto
 checksum:
-  name_template: '{{ .Binary }}-{{ .Tag }}-checksums.txt'
+  name_template: 'pulumi-tencentcloud-{{ .Tag }}-checksums.txt'
   algorithm: sha256
