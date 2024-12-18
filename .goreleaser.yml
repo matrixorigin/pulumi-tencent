@@ -26,5 +26,3 @@ release:
 checksum:
   name_template: '{{ .Binary }}-{{ .Tag }}-checksums.txt'
   algorithm: sha256
-snapshot:
-  name_template: '{{ .Tag }}-SNAPSHOT'
