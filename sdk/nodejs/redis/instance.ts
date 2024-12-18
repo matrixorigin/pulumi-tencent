@@ -53,8 +53,12 @@ export class Instance extends pulumi.CustomResource {
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
     /**
+     * Dedicated Cluster ID.
+     */
+    public /*out*/ readonly dedicatedClusterId!: pulumi.Output<string>;
+    /**
      * Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-     * instead of staying recycle bin. Note: only works for `PREPAID` instance.
+     * instead of staying recycle bin.
      */
     public readonly forceDelete!: pulumi.Output<boolean | undefined>;
     /**
@@ -64,7 +68,8 @@ export class Instance extends pulumi.CustomResource {
     /**
      * The memory volume of an available instance(in MB), please refer to
      * `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-     * of the instance; when Redis is cluster type, it represents memory size of per sharding.
+     * of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+     * master-slave instance.
      */
     public readonly memSize!: pulumi.Output<number>;
     /**
@@ -106,6 +111,11 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly prepaidPeriod!: pulumi.Output<number | undefined>;
     /**
+     * Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+     * cluster version. Default is `local`.
+     */
+    public readonly productVersion!: pulumi.Output<string>;
+    /**
      * Specifies which project the instance should belong to.
      */
     public readonly projectId!: pulumi.Output<number | undefined>;
@@ -113,6 +123,10 @@ export class Instance extends pulumi.CustomResource {
      * Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
      */
     public readonly recycle!: pulumi.Output<number | undefined>;
+    /**
+     * Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+     */
+    public readonly redisClusterId!: pulumi.Output<string>;
     /**
      * The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
      * `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
@@ -173,6 +187,10 @@ export class Instance extends pulumi.CustomResource {
      * `changeBaseToVpc`, this parameter needs to be configured.
      */
     public readonly vpcId!: pulumi.Output<string>;
+    /**
+     * Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+     */
+    public readonly waitSwitch!: pulumi.Output<number | undefined>;
 
     /**
      * Create a Instance resource with the given unique name, arguments, and options.
@@ -191,6 +209,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["availabilityZone"] = state ? state.availabilityZone : undefined;
             resourceInputs["chargeType"] = state ? state.chargeType : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
+            resourceInputs["dedicatedClusterId"] = state ? state.dedicatedClusterId : undefined;
             resourceInputs["forceDelete"] = state ? state.forceDelete : undefined;
             resourceInputs["ip"] = state ? state.ip : undefined;
             resourceInputs["memSize"] = state ? state.memSize : undefined;
@@ -202,8 +221,10 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["password"] = state ? state.password : undefined;
             resourceInputs["port"] = state ? state.port : undefined;
             resourceInputs["prepaidPeriod"] = state ? state.prepaidPeriod : undefined;
+            resourceInputs["productVersion"] = state ? state.productVersion : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
             resourceInputs["recycle"] = state ? state.recycle : undefined;
+            resourceInputs["redisClusterId"] = state ? state.redisClusterId : undefined;
             resourceInputs["redisReplicasNum"] = state ? state.redisReplicasNum : undefined;
             resourceInputs["redisShardNum"] = state ? state.redisShardNum : undefined;
             resourceInputs["replicaZoneIds"] = state ? state.replicaZoneIds : undefined;
@@ -215,6 +236,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["type"] = state ? state.type : undefined;
             resourceInputs["typeId"] = state ? state.typeId : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
+            resourceInputs["waitSwitch"] = state ? state.waitSwitch : undefined;
         } else {
             const args = argsOrState as InstanceArgs | undefined;
             if ((!args || args.availabilityZone === undefined) && !opts.urn) {
@@ -236,8 +258,10 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["port"] = args ? args.port : undefined;
             resourceInputs["prepaidPeriod"] = args ? args.prepaidPeriod : undefined;
+            resourceInputs["productVersion"] = args ? args.productVersion : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
             resourceInputs["recycle"] = args ? args.recycle : undefined;
+            resourceInputs["redisClusterId"] = args ? args.redisClusterId : undefined;
             resourceInputs["redisReplicasNum"] = args ? args.redisReplicasNum : undefined;
             resourceInputs["redisShardNum"] = args ? args.redisShardNum : undefined;
             resourceInputs["replicaZoneIds"] = args ? args.replicaZoneIds : undefined;
@@ -248,7 +272,9 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["type"] = args ? args.type : undefined;
             resourceInputs["typeId"] = args ? args.typeId : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["waitSwitch"] = args ? args.waitSwitch : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
+            resourceInputs["dedicatedClusterId"] = undefined /*out*/;
             resourceInputs["nodeInfos"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         }
@@ -282,8 +308,12 @@ export interface InstanceState {
      */
     createTime?: pulumi.Input<string>;
     /**
+     * Dedicated Cluster ID.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
+    /**
      * Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-     * instead of staying recycle bin. Note: only works for `PREPAID` instance.
+     * instead of staying recycle bin.
      */
     forceDelete?: pulumi.Input<boolean>;
     /**
@@ -293,7 +323,8 @@ export interface InstanceState {
     /**
      * The memory volume of an available instance(in MB), please refer to
      * `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-     * of the instance; when Redis is cluster type, it represents memory size of per sharding.
+     * of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+     * master-slave instance.
      */
     memSize?: pulumi.Input<number>;
     /**
@@ -335,6 +366,11 @@ export interface InstanceState {
      */
     prepaidPeriod?: pulumi.Input<number>;
     /**
+     * Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+     * cluster version. Default is `local`.
+     */
+    productVersion?: pulumi.Input<string>;
+    /**
      * Specifies which project the instance should belong to.
      */
     projectId?: pulumi.Input<number>;
@@ -342,6 +378,10 @@ export interface InstanceState {
      * Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
      */
     recycle?: pulumi.Input<number>;
+    /**
+     * Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+     */
+    redisClusterId?: pulumi.Input<string>;
     /**
      * The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
      * `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
@@ -402,6 +442,10 @@ export interface InstanceState {
      * `changeBaseToVpc`, this parameter needs to be configured.
      */
     vpcId?: pulumi.Input<string>;
+    /**
+     * Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+     */
+    waitSwitch?: pulumi.Input<number>;
 }
 
 /**
@@ -424,7 +468,7 @@ export interface InstanceArgs {
     chargeType?: pulumi.Input<string>;
     /**
      * Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-     * instead of staying recycle bin. Note: only works for `PREPAID` instance.
+     * instead of staying recycle bin.
      */
     forceDelete?: pulumi.Input<boolean>;
     /**
@@ -434,7 +478,8 @@ export interface InstanceArgs {
     /**
      * The memory volume of an available instance(in MB), please refer to
      * `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-     * of the instance; when Redis is cluster type, it represents memory size of per sharding.
+     * of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+     * master-slave instance.
      */
     memSize: pulumi.Input<number>;
     /**
@@ -472,6 +517,11 @@ export interface InstanceArgs {
      */
     prepaidPeriod?: pulumi.Input<number>;
     /**
+     * Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+     * cluster version. Default is `local`.
+     */
+    productVersion?: pulumi.Input<string>;
+    /**
      * Specifies which project the instance should belong to.
      */
     projectId?: pulumi.Input<number>;
@@ -479,6 +529,10 @@ export interface InstanceArgs {
      * Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
      */
     recycle?: pulumi.Input<number>;
+    /**
+     * Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+     */
+    redisClusterId?: pulumi.Input<string>;
     /**
      * The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
      * `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
@@ -535,4 +589,8 @@ export interface InstanceArgs {
      * `changeBaseToVpc`, this parameter needs to be configured.
      */
     vpcId?: pulumi.Input<string>;
+    /**
+     * Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+     */
+    waitSwitch?: pulumi.Input<number>;
 }

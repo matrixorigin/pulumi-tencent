@@ -16,6 +16,7 @@ __all__ = [
     'AlarmAnalysisConfigInfo',
     'AlarmCallBack',
     'AlarmMonitorTime',
+    'AlarmMultiCondition',
     'AlarmNoticeNoticeReceiver',
     'AlarmNoticeWebCallback',
     'CkafkaConsumerCkafka',
@@ -42,6 +43,7 @@ __all__ = [
     'CosShipperFilterRule',
     'DataTransformDstResource',
     'IndexRule',
+    'IndexRuleDynamicIndex',
     'IndexRuleFullText',
     'IndexRuleKeyValue',
     'IndexRuleKeyValueKeyValue',
@@ -52,7 +54,16 @@ __all__ = [
     'KafkaRechargeLogRechargeRule',
     'KafkaRechargeProtocol',
     'MachineGroupMachineGroupType',
+    'NoticeContentNoticeContents',
+    'NoticeContentNoticeContentsRecoveryContent',
+    'NoticeContentNoticeContentsTriggerContent',
     'ScheduledSqlDstResource',
+    'TopicExtends',
+    'TopicExtendsAnonymousAccess',
+    'TopicExtendsAnonymousAccessCondition',
+    'GetLogsetsFilterResult',
+    'GetLogsetsLogsetResult',
+    'GetLogsetsLogsetTagResult',
     'GetMachineGroupConfigsConfigResult',
     'GetMachineGroupConfigsConfigExcludePathResult',
     'GetMachineGroupConfigsConfigExtractRuleResult',
@@ -75,6 +86,8 @@ class AlarmAlarmTarget(dict):
             suggest = "start_time_offset"
         elif key == "topicId":
             suggest = "topic_id"
+        elif key == "syntaxRule":
+            suggest = "syntax_rule"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in AlarmAlarmTarget. Access the value via the '{suggest}' property getter instead.")
@@ -93,13 +106,16 @@ class AlarmAlarmTarget(dict):
                  number: int,
                  query: str,
                  start_time_offset: int,
-                 topic_id: str):
+                 topic_id: str,
+                 syntax_rule: Optional[int] = None):
         pulumi.set(__self__, "end_time_offset", end_time_offset)
         pulumi.set(__self__, "logset_id", logset_id)
         pulumi.set(__self__, "number", number)
         pulumi.set(__self__, "query", query)
         pulumi.set(__self__, "start_time_offset", start_time_offset)
         pulumi.set(__self__, "topic_id", topic_id)
+        if syntax_rule is not None:
+            pulumi.set(__self__, "syntax_rule", syntax_rule)
 
     @property
     @pulumi.getter(name="endTimeOffset")
@@ -130,6 +146,11 @@ class AlarmAlarmTarget(dict):
     @pulumi.getter(name="topicId")
     def topic_id(self) -> str:
         return pulumi.get(self, "topic_id")
+
+    @property
+    @pulumi.getter(name="syntaxRule")
+    def syntax_rule(self) -> Optional[int]:
+        return pulumi.get(self, "syntax_rule")
 
 
 @pulumi.output_type
@@ -242,6 +263,44 @@ class AlarmMonitorTime(dict):
 
 
 @pulumi.output_type
+class AlarmMultiCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "alarmLevel":
+            suggest = "alarm_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AlarmMultiCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AlarmMultiCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AlarmMultiCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 alarm_level: Optional[int] = None,
+                 condition: Optional[str] = None):
+        if alarm_level is not None:
+            pulumi.set(__self__, "alarm_level", alarm_level)
+        if condition is not None:
+            pulumi.set(__self__, "condition", condition)
+
+    @property
+    @pulumi.getter(name="alarmLevel")
+    def alarm_level(self) -> Optional[int]:
+        return pulumi.get(self, "alarm_level")
+
+    @property
+    @pulumi.getter
+    def condition(self) -> Optional[str]:
+        return pulumi.get(self, "condition")
+
+
+@pulumi.output_type
 class AlarmNoticeNoticeReceiver(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -254,6 +313,8 @@ class AlarmNoticeNoticeReceiver(dict):
             suggest = "receiver_type"
         elif key == "endTime":
             suggest = "end_time"
+        elif key == "noticeContentId":
+            suggest = "notice_content_id"
         elif key == "startTime":
             suggest = "start_time"
 
@@ -274,6 +335,7 @@ class AlarmNoticeNoticeReceiver(dict):
                  receiver_type: str,
                  end_time: Optional[str] = None,
                  index: Optional[int] = None,
+                 notice_content_id: Optional[str] = None,
                  start_time: Optional[str] = None):
         pulumi.set(__self__, "receiver_channels", receiver_channels)
         pulumi.set(__self__, "receiver_ids", receiver_ids)
@@ -282,6 +344,8 @@ class AlarmNoticeNoticeReceiver(dict):
             pulumi.set(__self__, "end_time", end_time)
         if index is not None:
             pulumi.set(__self__, "index", index)
+        if notice_content_id is not None:
+            pulumi.set(__self__, "notice_content_id", notice_content_id)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
 
@@ -311,6 +375,11 @@ class AlarmNoticeNoticeReceiver(dict):
         return pulumi.get(self, "index")
 
     @property
+    @pulumi.getter(name="noticeContentId")
+    def notice_content_id(self) -> Optional[str]:
+        return pulumi.get(self, "notice_content_id")
+
+    @property
     @pulumi.getter(name="startTime")
     def start_time(self) -> Optional[str]:
         return pulumi.get(self, "start_time")
@@ -323,6 +392,14 @@ class AlarmNoticeWebCallback(dict):
         suggest = None
         if key == "callbackType":
             suggest = "callback_type"
+        elif key == "noticeContentId":
+            suggest = "notice_content_id"
+        elif key == "remindType":
+            suggest = "remind_type"
+        elif key == "userIds":
+            suggest = "user_ids"
+        elif key == "webCallbackId":
+            suggest = "web_callback_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in AlarmNoticeWebCallback. Access the value via the '{suggest}' property getter instead.")
@@ -341,7 +418,12 @@ class AlarmNoticeWebCallback(dict):
                  body: Optional[str] = None,
                  headers: Optional[Sequence[str]] = None,
                  index: Optional[int] = None,
-                 method: Optional[str] = None):
+                 method: Optional[str] = None,
+                 mobiles: Optional[Sequence[str]] = None,
+                 notice_content_id: Optional[str] = None,
+                 remind_type: Optional[int] = None,
+                 user_ids: Optional[Sequence[str]] = None,
+                 web_callback_id: Optional[str] = None):
         pulumi.set(__self__, "callback_type", callback_type)
         pulumi.set(__self__, "url", url)
         if body is not None:
@@ -352,6 +434,16 @@ class AlarmNoticeWebCallback(dict):
             pulumi.set(__self__, "index", index)
         if method is not None:
             pulumi.set(__self__, "method", method)
+        if mobiles is not None:
+            pulumi.set(__self__, "mobiles", mobiles)
+        if notice_content_id is not None:
+            pulumi.set(__self__, "notice_content_id", notice_content_id)
+        if remind_type is not None:
+            pulumi.set(__self__, "remind_type", remind_type)
+        if user_ids is not None:
+            pulumi.set(__self__, "user_ids", user_ids)
+        if web_callback_id is not None:
+            pulumi.set(__self__, "web_callback_id", web_callback_id)
 
     @property
     @pulumi.getter(name="callbackType")
@@ -366,11 +458,17 @@ class AlarmNoticeWebCallback(dict):
     @property
     @pulumi.getter
     def body(self) -> Optional[str]:
+        warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+        pulumi.log.warn("""body is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
+
         return pulumi.get(self, "body")
 
     @property
     @pulumi.getter
     def headers(self) -> Optional[Sequence[str]]:
+        warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+        pulumi.log.warn("""headers is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
+
         return pulumi.get(self, "headers")
 
     @property
@@ -382,6 +480,31 @@ class AlarmNoticeWebCallback(dict):
     @pulumi.getter
     def method(self) -> Optional[str]:
         return pulumi.get(self, "method")
+
+    @property
+    @pulumi.getter
+    def mobiles(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "mobiles")
+
+    @property
+    @pulumi.getter(name="noticeContentId")
+    def notice_content_id(self) -> Optional[str]:
+        return pulumi.get(self, "notice_content_id")
+
+    @property
+    @pulumi.getter(name="remindType")
+    def remind_type(self) -> Optional[int]:
+        return pulumi.get(self, "remind_type")
+
+    @property
+    @pulumi.getter(name="userIds")
+    def user_ids(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "user_ids")
+
+    @property
+    @pulumi.getter(name="webCallbackId")
+    def web_callback_id(self) -> Optional[str]:
+        return pulumi.get(self, "web_callback_id")
 
 
 @pulumi.output_type
@@ -1640,7 +1763,9 @@ class IndexRule(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "fullText":
+        if key == "dynamicIndex":
+            suggest = "dynamic_index"
+        elif key == "fullText":
             suggest = "full_text"
         elif key == "keyValue":
             suggest = "key_value"
@@ -1657,15 +1782,23 @@ class IndexRule(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 dynamic_index: Optional['outputs.IndexRuleDynamicIndex'] = None,
                  full_text: Optional['outputs.IndexRuleFullText'] = None,
                  key_value: Optional['outputs.IndexRuleKeyValue'] = None,
                  tag: Optional['outputs.IndexRuleTag'] = None):
+        if dynamic_index is not None:
+            pulumi.set(__self__, "dynamic_index", dynamic_index)
         if full_text is not None:
             pulumi.set(__self__, "full_text", full_text)
         if key_value is not None:
             pulumi.set(__self__, "key_value", key_value)
         if tag is not None:
             pulumi.set(__self__, "tag", tag)
+
+    @property
+    @pulumi.getter(name="dynamicIndex")
+    def dynamic_index(self) -> Optional['outputs.IndexRuleDynamicIndex']:
+        return pulumi.get(self, "dynamic_index")
 
     @property
     @pulumi.getter(name="fullText")
@@ -1681,6 +1814,18 @@ class IndexRule(dict):
     @pulumi.getter
     def tag(self) -> Optional['outputs.IndexRuleTag']:
         return pulumi.get(self, "tag")
+
+
+@pulumi.output_type
+class IndexRuleDynamicIndex(dict):
+    def __init__(__self__, *,
+                 status: bool):
+        pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter
+    def status(self) -> bool:
+        return pulumi.get(self, "status")
 
 
 @pulumi.output_type
@@ -2183,6 +2328,111 @@ class MachineGroupMachineGroupType(dict):
 
 
 @pulumi.output_type
+class NoticeContentNoticeContents(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "recoveryContent":
+            suggest = "recovery_content"
+        elif key == "triggerContent":
+            suggest = "trigger_content"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in NoticeContentNoticeContents. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        NoticeContentNoticeContents.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        NoticeContentNoticeContents.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: str,
+                 recovery_content: Optional['outputs.NoticeContentNoticeContentsRecoveryContent'] = None,
+                 trigger_content: Optional['outputs.NoticeContentNoticeContentsTriggerContent'] = None):
+        pulumi.set(__self__, "type", type)
+        if recovery_content is not None:
+            pulumi.set(__self__, "recovery_content", recovery_content)
+        if trigger_content is not None:
+            pulumi.set(__self__, "trigger_content", trigger_content)
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="recoveryContent")
+    def recovery_content(self) -> Optional['outputs.NoticeContentNoticeContentsRecoveryContent']:
+        return pulumi.get(self, "recovery_content")
+
+    @property
+    @pulumi.getter(name="triggerContent")
+    def trigger_content(self) -> Optional['outputs.NoticeContentNoticeContentsTriggerContent']:
+        return pulumi.get(self, "trigger_content")
+
+
+@pulumi.output_type
+class NoticeContentNoticeContentsRecoveryContent(dict):
+    def __init__(__self__, *,
+                 content: Optional[str] = None,
+                 headers: Optional[Sequence[str]] = None,
+                 title: Optional[str] = None):
+        if content is not None:
+            pulumi.set(__self__, "content", content)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @property
+    @pulumi.getter
+    def content(self) -> Optional[str]:
+        return pulumi.get(self, "content")
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "headers")
+
+    @property
+    @pulumi.getter
+    def title(self) -> Optional[str]:
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
+class NoticeContentNoticeContentsTriggerContent(dict):
+    def __init__(__self__, *,
+                 content: Optional[str] = None,
+                 headers: Optional[Sequence[str]] = None,
+                 title: Optional[str] = None):
+        if content is not None:
+            pulumi.set(__self__, "content", content)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @property
+    @pulumi.getter
+    def content(self) -> Optional[str]:
+        return pulumi.get(self, "content")
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "headers")
+
+    @property
+    @pulumi.getter
+    def title(self) -> Optional[str]:
+        return pulumi.get(self, "title")
+
+
+@pulumi.output_type
 class ScheduledSqlDstResource(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -2237,6 +2487,195 @@ class ScheduledSqlDstResource(dict):
     @pulumi.getter
     def region(self) -> Optional[str]:
         return pulumi.get(self, "region")
+
+
+@pulumi.output_type
+class TopicExtends(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "anonymousAccess":
+            suggest = "anonymous_access"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopicExtends. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopicExtends.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopicExtends.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 anonymous_access: Optional['outputs.TopicExtendsAnonymousAccess'] = None):
+        if anonymous_access is not None:
+            pulumi.set(__self__, "anonymous_access", anonymous_access)
+
+    @property
+    @pulumi.getter(name="anonymousAccess")
+    def anonymous_access(self) -> Optional['outputs.TopicExtendsAnonymousAccess']:
+        return pulumi.get(self, "anonymous_access")
+
+
+@pulumi.output_type
+class TopicExtendsAnonymousAccess(dict):
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['outputs.TopicExtendsAnonymousAccessCondition']] = None,
+                 operations: Optional[Sequence[str]] = None):
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if operations is not None:
+            pulumi.set(__self__, "operations", operations)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.TopicExtendsAnonymousAccessCondition']]:
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter
+    def operations(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "operations")
+
+
+@pulumi.output_type
+class TopicExtendsAnonymousAccessCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "conditionValue":
+            suggest = "condition_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TopicExtendsAnonymousAccessCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TopicExtendsAnonymousAccessCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TopicExtendsAnonymousAccessCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 attributes: Optional[str] = None,
+                 condition_value: Optional[str] = None,
+                 rule: Optional[int] = None):
+        if attributes is not None:
+            pulumi.set(__self__, "attributes", attributes)
+        if condition_value is not None:
+            pulumi.set(__self__, "condition_value", condition_value)
+        if rule is not None:
+            pulumi.set(__self__, "rule", rule)
+
+    @property
+    @pulumi.getter
+    def attributes(self) -> Optional[str]:
+        return pulumi.get(self, "attributes")
+
+    @property
+    @pulumi.getter(name="conditionValue")
+    def condition_value(self) -> Optional[str]:
+        return pulumi.get(self, "condition_value")
+
+    @property
+    @pulumi.getter
+    def rule(self) -> Optional[int]:
+        return pulumi.get(self, "rule")
+
+
+@pulumi.output_type
+class GetLogsetsFilterResult(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetLogsetsLogsetResult(dict):
+    def __init__(__self__, *,
+                 assumer_name: str,
+                 create_time: str,
+                 logset_id: str,
+                 logset_name: str,
+                 role_name: str,
+                 tags: Sequence['outputs.GetLogsetsLogsetTagResult'],
+                 topic_count: int):
+        pulumi.set(__self__, "assumer_name", assumer_name)
+        pulumi.set(__self__, "create_time", create_time)
+        pulumi.set(__self__, "logset_id", logset_id)
+        pulumi.set(__self__, "logset_name", logset_name)
+        pulumi.set(__self__, "role_name", role_name)
+        pulumi.set(__self__, "tags", tags)
+        pulumi.set(__self__, "topic_count", topic_count)
+
+    @property
+    @pulumi.getter(name="assumerName")
+    def assumer_name(self) -> str:
+        return pulumi.get(self, "assumer_name")
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> str:
+        return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter(name="logsetId")
+    def logset_id(self) -> str:
+        return pulumi.get(self, "logset_id")
+
+    @property
+    @pulumi.getter(name="logsetName")
+    def logset_name(self) -> str:
+        return pulumi.get(self, "logset_name")
+
+    @property
+    @pulumi.getter(name="roleName")
+    def role_name(self) -> str:
+        return pulumi.get(self, "role_name")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetLogsetsLogsetTagResult']:
+        return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="topicCount")
+    def topic_count(self) -> int:
+        return pulumi.get(self, "topic_count")
+
+
+@pulumi.output_type
+class GetLogsetsLogsetTagResult(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 value: str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
 
 
 @pulumi.output_type

@@ -18,10 +18,10 @@ type Zone struct {
 	// Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
 	// refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
 	AliasZoneName pulumi.StringPtrOutput `pulumi:"aliasZoneName"`
-	// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-	// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-	// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-	// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+	// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+	// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+	// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+	// availability zone (excluding Chinese mainland).
 	Area pulumi.StringOutput `pulumi:"area"`
 	// NS list allocated by Tencent Cloud.
 	NameServers pulumi.StringArrayOutput `pulumi:"nameServers"`
@@ -38,8 +38,8 @@ type Zone struct {
 	Status pulumi.StringOutput `pulumi:"status"`
 	// Tag description list.
 	Tags pulumi.MapOutput `pulumi:"tags"`
-	// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-	// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+	// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+	// access; full: NS access; noDomainAccess: No domain access.
 	Type pulumi.StringOutput `pulumi:"type"`
 	// Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
 	// without a domain name, please leave this value empty.
@@ -91,10 +91,10 @@ type zoneState struct {
 	// Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
 	// refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
 	AliasZoneName *string `pulumi:"aliasZoneName"`
-	// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-	// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-	// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-	// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+	// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+	// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+	// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+	// availability zone (excluding Chinese mainland).
 	Area *string `pulumi:"area"`
 	// NS list allocated by Tencent Cloud.
 	NameServers []string `pulumi:"nameServers"`
@@ -111,8 +111,8 @@ type zoneState struct {
 	Status *string `pulumi:"status"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
-	// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-	// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+	// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+	// access; full: NS access; noDomainAccess: No domain access.
 	Type *string `pulumi:"type"`
 	// Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
 	// without a domain name, please leave this value empty.
@@ -123,10 +123,10 @@ type ZoneState struct {
 	// Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
 	// refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
 	AliasZoneName pulumi.StringPtrInput
-	// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-	// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-	// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-	// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+	// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+	// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+	// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+	// availability zone (excluding Chinese mainland).
 	Area pulumi.StringPtrInput
 	// NS list allocated by Tencent Cloud.
 	NameServers pulumi.StringArrayInput
@@ -143,8 +143,8 @@ type ZoneState struct {
 	Status pulumi.StringPtrInput
 	// Tag description list.
 	Tags pulumi.MapInput
-	// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-	// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+	// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+	// access; full: NS access; noDomainAccess: No domain access.
 	Type pulumi.StringPtrInput
 	// Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
 	// without a domain name, please leave this value empty.
@@ -159,10 +159,10 @@ type zoneArgs struct {
 	// Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
 	// refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
 	AliasZoneName *string `pulumi:"aliasZoneName"`
-	// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-	// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-	// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-	// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+	// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+	// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+	// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+	// availability zone (excluding Chinese mainland).
 	Area string `pulumi:"area"`
 	// Indicates whether the site is disabled.
 	Paused *bool `pulumi:"paused"`
@@ -172,8 +172,8 @@ type zoneArgs struct {
 	PlanId string `pulumi:"planId"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
-	// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-	// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+	// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+	// access; full: NS access; noDomainAccess: No domain access.
 	Type string `pulumi:"type"`
 	// Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
 	// without a domain name, please leave this value empty.
@@ -185,10 +185,10 @@ type ZoneArgs struct {
 	// Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
 	// refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
 	AliasZoneName pulumi.StringPtrInput
-	// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-	// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-	// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-	// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+	// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+	// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+	// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+	// availability zone (excluding Chinese mainland).
 	Area pulumi.StringInput
 	// Indicates whether the site is disabled.
 	Paused pulumi.BoolPtrInput
@@ -198,8 +198,8 @@ type ZoneArgs struct {
 	PlanId pulumi.StringInput
 	// Tag description list.
 	Tags pulumi.MapInput
-	// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-	// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+	// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+	// access; full: NS access; noDomainAccess: No domain access.
 	Type pulumi.StringInput
 	// Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
 	// without a domain name, please leave this value empty.
@@ -299,10 +299,10 @@ func (o ZoneOutput) AliasZoneName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Zone) pulumi.StringPtrOutput { return v.AliasZoneName }).(pulumi.StringPtrOutput)
 }
 
-// When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-// values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-// `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-// mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+// When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+// parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+// value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+// availability zone (excluding Chinese mainland).
 func (o ZoneOutput) Area() pulumi.StringOutput {
 	return o.ApplyT(func(v *Zone) pulumi.StringOutput { return v.Area }).(pulumi.StringOutput)
 }
@@ -340,8 +340,8 @@ func (o ZoneOutput) Tags() pulumi.MapOutput {
 	return o.ApplyT(func(v *Zone) pulumi.MapOutput { return v.Tags }).(pulumi.MapOutput)
 }
 
-// Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-// values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+// Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+// access; full: NS access; noDomainAccess: No domain access.
 func (o ZoneOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *Zone) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }

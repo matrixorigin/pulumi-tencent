@@ -39,15 +39,15 @@ export class Acl extends pulumi.CustomResource {
     /**
      * Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     public readonly egresses!: pulumi.Output<string[] | undefined>;
     /**
      * Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     public readonly ingresses!: pulumi.Output<string[] | undefined>;
     /**
@@ -110,15 +110,15 @@ export interface AclState {
     /**
      * Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     egresses?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     ingresses?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -142,15 +142,15 @@ export interface AclArgs {
     /**
      * Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     egresses?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
      * 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-     * `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-     * is `ICMP` or `ALL`, the 'port' must be `ALL`.
+     * `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+     * or `ALL`, the 'port' must be `ALL`.
      */
     ingresses?: pulumi.Input<pulumi.Input<string>[]>;
     /**

@@ -37,21 +37,21 @@ export class Resource extends pulumi.CustomResource {
      */
     public readonly autoRenewFlag!: pulumi.Output<number>;
     /**
+     * Subnet segments that require service activation.
+     */
+    public readonly cidrBlock!: pulumi.Output<string>;
+    /**
      * Deploy region.
      */
     public readonly deployRegion!: pulumi.Output<string>;
     /**
      * Deploy zone.
      */
-    public readonly deployZone!: pulumi.Output<string | undefined>;
+    public readonly deployZone!: pulumi.Output<string>;
     /**
-     * Number of bandwidth expansion packets (4M).
+     * Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
      */
     public readonly packageBandwidth!: pulumi.Output<number>;
-    /**
-     * Number of authorized point extension packages (50 points).
-     */
-    public readonly packageNode!: pulumi.Output<number>;
     /**
      * Resource type.Value:standard/pro.
      */
@@ -65,13 +65,17 @@ export class Resource extends pulumi.CustomResource {
      */
     public readonly subnetId!: pulumi.Output<string>;
     /**
-     * Billing time.
+     * Billing time. This field is mandatory, with a minimum value of 1.
      */
-    public readonly timeSpan!: pulumi.Output<number>;
+    public readonly timeSpan!: pulumi.Output<number | undefined>;
     /**
-     * Billing cycle, only support m: month.
+     * Billing cycle, only support m: month. This field is mandatory, fill in m.
      */
-    public readonly timeUnit!: pulumi.Output<string>;
+    public readonly timeUnit!: pulumi.Output<string | undefined>;
+    /**
+     * The network segment corresponding to the VPC that requires service activation.
+     */
+    public readonly vpcCidrBlock!: pulumi.Output<string>;
     /**
      * Deploy resource vpcId.
      */
@@ -91,23 +95,30 @@ export class Resource extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as ResourceState | undefined;
             resourceInputs["autoRenewFlag"] = state ? state.autoRenewFlag : undefined;
+            resourceInputs["cidrBlock"] = state ? state.cidrBlock : undefined;
             resourceInputs["deployRegion"] = state ? state.deployRegion : undefined;
             resourceInputs["deployZone"] = state ? state.deployZone : undefined;
             resourceInputs["packageBandwidth"] = state ? state.packageBandwidth : undefined;
-            resourceInputs["packageNode"] = state ? state.packageNode : undefined;
             resourceInputs["resourceEdition"] = state ? state.resourceEdition : undefined;
             resourceInputs["resourceNode"] = state ? state.resourceNode : undefined;
             resourceInputs["subnetId"] = state ? state.subnetId : undefined;
             resourceInputs["timeSpan"] = state ? state.timeSpan : undefined;
             resourceInputs["timeUnit"] = state ? state.timeUnit : undefined;
+            resourceInputs["vpcCidrBlock"] = state ? state.vpcCidrBlock : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
         } else {
             const args = argsOrState as ResourceArgs | undefined;
             if ((!args || args.autoRenewFlag === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'autoRenewFlag'");
             }
+            if ((!args || args.cidrBlock === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'cidrBlock'");
+            }
             if ((!args || args.deployRegion === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'deployRegion'");
+            }
+            if ((!args || args.deployZone === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'deployZone'");
             }
             if ((!args || args.resourceEdition === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'resourceEdition'");
@@ -118,25 +129,23 @@ export class Resource extends pulumi.CustomResource {
             if ((!args || args.subnetId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'subnetId'");
             }
-            if ((!args || args.timeSpan === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'timeSpan'");
-            }
-            if ((!args || args.timeUnit === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'timeUnit'");
+            if ((!args || args.vpcCidrBlock === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'vpcCidrBlock'");
             }
             if ((!args || args.vpcId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'vpcId'");
             }
             resourceInputs["autoRenewFlag"] = args ? args.autoRenewFlag : undefined;
+            resourceInputs["cidrBlock"] = args ? args.cidrBlock : undefined;
             resourceInputs["deployRegion"] = args ? args.deployRegion : undefined;
             resourceInputs["deployZone"] = args ? args.deployZone : undefined;
             resourceInputs["packageBandwidth"] = args ? args.packageBandwidth : undefined;
-            resourceInputs["packageNode"] = args ? args.packageNode : undefined;
             resourceInputs["resourceEdition"] = args ? args.resourceEdition : undefined;
             resourceInputs["resourceNode"] = args ? args.resourceNode : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["timeSpan"] = args ? args.timeSpan : undefined;
             resourceInputs["timeUnit"] = args ? args.timeUnit : undefined;
+            resourceInputs["vpcCidrBlock"] = args ? args.vpcCidrBlock : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -153,6 +162,10 @@ export interface ResourceState {
      */
     autoRenewFlag?: pulumi.Input<number>;
     /**
+     * Subnet segments that require service activation.
+     */
+    cidrBlock?: pulumi.Input<string>;
+    /**
      * Deploy region.
      */
     deployRegion?: pulumi.Input<string>;
@@ -161,13 +174,9 @@ export interface ResourceState {
      */
     deployZone?: pulumi.Input<string>;
     /**
-     * Number of bandwidth expansion packets (4M).
+     * Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
      */
     packageBandwidth?: pulumi.Input<number>;
-    /**
-     * Number of authorized point extension packages (50 points).
-     */
-    packageNode?: pulumi.Input<number>;
     /**
      * Resource type.Value:standard/pro.
      */
@@ -181,13 +190,17 @@ export interface ResourceState {
      */
     subnetId?: pulumi.Input<string>;
     /**
-     * Billing time.
+     * Billing time. This field is mandatory, with a minimum value of 1.
      */
     timeSpan?: pulumi.Input<number>;
     /**
-     * Billing cycle, only support m: month.
+     * Billing cycle, only support m: month. This field is mandatory, fill in m.
      */
     timeUnit?: pulumi.Input<string>;
+    /**
+     * The network segment corresponding to the VPC that requires service activation.
+     */
+    vpcCidrBlock?: pulumi.Input<string>;
     /**
      * Deploy resource vpcId.
      */
@@ -203,21 +216,21 @@ export interface ResourceArgs {
      */
     autoRenewFlag: pulumi.Input<number>;
     /**
+     * Subnet segments that require service activation.
+     */
+    cidrBlock: pulumi.Input<string>;
+    /**
      * Deploy region.
      */
     deployRegion: pulumi.Input<string>;
     /**
      * Deploy zone.
      */
-    deployZone?: pulumi.Input<string>;
+    deployZone: pulumi.Input<string>;
     /**
-     * Number of bandwidth expansion packets (4M).
+     * Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
      */
     packageBandwidth?: pulumi.Input<number>;
-    /**
-     * Number of authorized point extension packages (50 points).
-     */
-    packageNode?: pulumi.Input<number>;
     /**
      * Resource type.Value:standard/pro.
      */
@@ -231,13 +244,17 @@ export interface ResourceArgs {
      */
     subnetId: pulumi.Input<string>;
     /**
-     * Billing time.
+     * Billing time. This field is mandatory, with a minimum value of 1.
      */
-    timeSpan: pulumi.Input<number>;
+    timeSpan?: pulumi.Input<number>;
     /**
-     * Billing cycle, only support m: month.
+     * Billing cycle, only support m: month. This field is mandatory, fill in m.
      */
-    timeUnit: pulumi.Input<string>;
+    timeUnit?: pulumi.Input<string>;
+    /**
+     * The network segment corresponding to the VPC that requires service activation.
+     */
+    vpcCidrBlock: pulumi.Input<string>;
     /**
      * Deploy resource vpcId.
      */

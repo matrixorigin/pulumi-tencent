@@ -37,7 +37,7 @@ export class TmpInstance extends pulumi.CustomResource {
      */
     public /*out*/ readonly apiRootPath!: pulumi.Output<string>;
     /**
-     * Data retention time.
+     * Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
      */
     public readonly dataRetentionTime!: pulumi.Output<number>;
     /**
@@ -138,7 +138,7 @@ export interface TmpInstanceState {
      */
     apiRootPath?: pulumi.Input<string>;
     /**
-     * Data retention time.
+     * Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
      */
     dataRetentionTime?: pulumi.Input<number>;
     /**
@@ -180,7 +180,7 @@ export interface TmpInstanceState {
  */
 export interface TmpInstanceArgs {
     /**
-     * Data retention time.
+     * Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
      */
     dataRetentionTime: pulumi.Input<number>;
     /**

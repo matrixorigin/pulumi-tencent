@@ -23,29 +23,34 @@ type Instance struct {
 	// on this field will be suppressed when using the `db_node_set`.
 	AvailabilityZone pulumi.StringOutput `pulumi:"availabilityZone"`
 	// Specify DB backup plan.
-	BackupPlan InstanceBackupPlanPtrOutput `pulumi:"backupPlan"`
+	BackupPlan InstanceBackupPlanOutput `pulumi:"backupPlan"`
 	// Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
 	// from `POSTPAID_BY_HOUR` to `PREPAID`.
 	ChargeType pulumi.StringPtrOutput `pulumi:"chargeType"`
 	// Charset of the root account. Valid values are `UTF8`,`LATIN1`.
 	Charset pulumi.StringPtrOutput `pulumi:"charset"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntOutput `pulumi:"cpu"`
 	// Create time of the postgresql instance.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
 	// supports updating the minor kernel version immediately.
 	DbKernelVersion pulumi.StringOutput `pulumi:"dbKernelVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	DbMajorVersion pulumi.StringOutput `pulumi:"dbMajorVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	//
 	// Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 	DbMajorVesion pulumi.StringOutput `pulumi:"dbMajorVesion"`
 	// Specify instance node info for disaster migration.
 	DbNodeSets InstanceDbNodeSetArrayOutput `pulumi:"dbNodeSets"`
-	// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
-	EngineVersion pulumi.StringPtrOutput `pulumi:"engineVersion"`
+	// Whether to enable instance deletion protection. Default: false.
+	DeleteProtection pulumi.BoolPtrOutput `pulumi:"deleteProtection"`
+	// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+	// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
+	EngineVersion pulumi.StringOutput `pulumi:"engineVersion"`
 	// KeyId of the custom key.
 	KmsKeyId pulumi.StringOutput `pulumi:"kmsKeyId"`
 	// Region of the custom key.
@@ -170,22 +175,27 @@ type instanceState struct {
 	ChargeType *string `pulumi:"chargeType"`
 	// Charset of the root account. Valid values are `UTF8`,`LATIN1`.
 	Charset *string `pulumi:"charset"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu *int `pulumi:"cpu"`
 	// Create time of the postgresql instance.
 	CreateTime *string `pulumi:"createTime"`
 	// PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
 	// supports updating the minor kernel version immediately.
 	DbKernelVersion *string `pulumi:"dbKernelVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	DbMajorVersion *string `pulumi:"dbMajorVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	//
 	// Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 	DbMajorVesion *string `pulumi:"dbMajorVesion"`
 	// Specify instance node info for disaster migration.
 	DbNodeSets []InstanceDbNodeSet `pulumi:"dbNodeSets"`
-	// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+	// Whether to enable instance deletion protection. Default: false.
+	DeleteProtection *bool `pulumi:"deleteProtection"`
+	// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+	// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
 	EngineVersion *string `pulumi:"engineVersion"`
 	// KeyId of the custom key.
 	KmsKeyId *string `pulumi:"kmsKeyId"`
@@ -257,22 +267,27 @@ type InstanceState struct {
 	ChargeType pulumi.StringPtrInput
 	// Charset of the root account. Valid values are `UTF8`,`LATIN1`.
 	Charset pulumi.StringPtrInput
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntPtrInput
 	// Create time of the postgresql instance.
 	CreateTime pulumi.StringPtrInput
 	// PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
 	// supports updating the minor kernel version immediately.
 	DbKernelVersion pulumi.StringPtrInput
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	DbMajorVersion pulumi.StringPtrInput
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	//
 	// Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 	DbMajorVesion pulumi.StringPtrInput
 	// Specify instance node info for disaster migration.
 	DbNodeSets InstanceDbNodeSetArrayInput
-	// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+	// Whether to enable instance deletion protection. Default: false.
+	DeleteProtection pulumi.BoolPtrInput
+	// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+	// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
 	EngineVersion pulumi.StringPtrInput
 	// KeyId of the custom key.
 	KmsKeyId pulumi.StringPtrInput
@@ -348,20 +363,25 @@ type instanceArgs struct {
 	ChargeType *string `pulumi:"chargeType"`
 	// Charset of the root account. Valid values are `UTF8`,`LATIN1`.
 	Charset *string `pulumi:"charset"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu *int `pulumi:"cpu"`
 	// PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
 	// supports updating the minor kernel version immediately.
 	DbKernelVersion *string `pulumi:"dbKernelVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	DbMajorVersion *string `pulumi:"dbMajorVersion"`
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	//
 	// Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 	DbMajorVesion *string `pulumi:"dbMajorVesion"`
 	// Specify instance node info for disaster migration.
 	DbNodeSets []InstanceDbNodeSet `pulumi:"dbNodeSets"`
-	// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+	// Whether to enable instance deletion protection. Default: false.
+	DeleteProtection *bool `pulumi:"deleteProtection"`
+	// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+	// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
 	EngineVersion *string `pulumi:"engineVersion"`
 	// KeyId of the custom key.
 	KmsKeyId *string `pulumi:"kmsKeyId"`
@@ -424,20 +444,25 @@ type InstanceArgs struct {
 	ChargeType pulumi.StringPtrInput
 	// Charset of the root account. Valid values are `UTF8`,`LATIN1`.
 	Charset pulumi.StringPtrInput
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntPtrInput
 	// PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
 	// supports updating the minor kernel version immediately.
 	DbKernelVersion pulumi.StringPtrInput
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	DbMajorVersion pulumi.StringPtrInput
-	// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-	// of PostgreSQL DBMajorVersion will be created.
+	// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+	// latest kernel of PostgreSQL DBMajorVersion will be created.
 	//
 	// Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 	DbMajorVesion pulumi.StringPtrInput
 	// Specify instance node info for disaster migration.
 	DbNodeSets InstanceDbNodeSetArrayInput
-	// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+	// Whether to enable instance deletion protection. Default: false.
+	DeleteProtection pulumi.BoolPtrInput
+	// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+	// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
 	EngineVersion pulumi.StringPtrInput
 	// KeyId of the custom key.
 	KmsKeyId pulumi.StringPtrInput
@@ -588,8 +613,8 @@ func (o InstanceOutput) AvailabilityZone() pulumi.StringOutput {
 }
 
 // Specify DB backup plan.
-func (o InstanceOutput) BackupPlan() InstanceBackupPlanPtrOutput {
-	return o.ApplyT(func(v *Instance) InstanceBackupPlanPtrOutput { return v.BackupPlan }).(InstanceBackupPlanPtrOutput)
+func (o InstanceOutput) BackupPlan() InstanceBackupPlanOutput {
+	return o.ApplyT(func(v *Instance) InstanceBackupPlanOutput { return v.BackupPlan }).(InstanceBackupPlanOutput)
 }
 
 // Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
@@ -603,6 +628,11 @@ func (o InstanceOutput) Charset() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.Charset }).(pulumi.StringPtrOutput)
 }
 
+// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+func (o InstanceOutput) Cpu() pulumi.IntOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.Cpu }).(pulumi.IntOutput)
+}
+
 // Create time of the postgresql instance.
 func (o InstanceOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -614,14 +644,14 @@ func (o InstanceOutput) DbKernelVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.DbKernelVersion }).(pulumi.StringOutput)
 }
 
-// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-// of PostgreSQL DBMajorVersion will be created.
+// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+// latest kernel of PostgreSQL DBMajorVersion will be created.
 func (o InstanceOutput) DbMajorVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.DbMajorVersion }).(pulumi.StringOutput)
 }
 
-// PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-// of PostgreSQL DBMajorVersion will be created.
+// PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+// latest kernel of PostgreSQL DBMajorVersion will be created.
 //
 // Deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.
 func (o InstanceOutput) DbMajorVesion() pulumi.StringOutput {
@@ -633,9 +663,15 @@ func (o InstanceOutput) DbNodeSets() InstanceDbNodeSetArrayOutput {
 	return o.ApplyT(func(v *Instance) InstanceDbNodeSetArrayOutput { return v.DbNodeSets }).(InstanceDbNodeSetArrayOutput)
 }
 
-// Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
-func (o InstanceOutput) EngineVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.EngineVersion }).(pulumi.StringPtrOutput)
+// Whether to enable instance deletion protection. Default: false.
+func (o InstanceOutput) DeleteProtection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.DeleteProtection }).(pulumi.BoolPtrOutput)
+}
+
+// Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+// `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
+func (o InstanceOutput) EngineVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.EngineVersion }).(pulumi.StringOutput)
 }
 
 // KeyId of the custom key.

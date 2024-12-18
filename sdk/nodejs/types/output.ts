@@ -965,6 +965,7 @@ export namespace As {
         systemDiskSize: number;
         systemDiskType: string;
         userData: string;
+        versionNumber: number;
     }
 
     export interface GetScalingConfigsConfigurationListDataDisk {
@@ -1024,6 +1025,11 @@ export namespace As {
         threshold: number;
     }
 
+    export interface LifecycleHookLifecycleCommand {
+        commandId: string;
+        parameters?: string;
+    }
+
     export interface LoadBalancerForwardLoadBalancer {
         listenerId: string;
         loadBalancerId: string;
@@ -1066,6 +1072,17 @@ export namespace As {
         weight: number;
     }
 
+    export interface StartInstanceRefreshRefreshSettings {
+        checkInstanceTargetHealth?: boolean;
+        rollingUpdateSettings: outputs.As.StartInstanceRefreshRefreshSettingsRollingUpdateSettings;
+    }
+
+    export interface StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+        batchNumber: number;
+        batchPause?: string;
+        maxSurge?: number;
+    }
+
 }
 
 export namespace Audit {
@@ -1074,12 +1091,44 @@ export namespace Audit {
         cosRegionName: string;
     }
 
+    export interface GetEventsEvent {
+        accountId?: number;
+        cloudAuditEvent?: string;
+        errorCode?: number;
+        eventId?: string;
+        eventName?: string;
+        eventNameCn?: string;
+        eventRegion?: string;
+        eventSource?: string;
+        eventTime?: string;
+        location?: string;
+        requestId?: string;
+        resourceRegion?: string;
+        resourceTypeCn?: string;
+        resources?: outputs.Audit.GetEventsEventResources;
+        secretId?: string;
+        sourceIpAddress?: string;
+        username?: string;
+    }
+
+    export interface GetEventsEventResources {
+        resourceName?: string;
+        resourceType?: string;
+    }
+
+    export interface GetEventsLookupAttribute {
+        attributeKey: string;
+        attributeValue?: string;
+    }
+
     export interface GetKeyAliasAuditKeyAliasList {
         keyAlias: string;
         keyId: string;
     }
 
     export interface TrackStorage {
+        storageAccountId?: string;
+        storageAppId?: string;
         storageName: string;
         storagePrefix: string;
         storageRegion: string;
@@ -1111,6 +1160,14 @@ export namespace Availability {
         id: string;
         name: string;
         state: string;
+    }
+
+}
+
+export namespace Batch {
+    export interface ApplyAccountBaselinesBaselineConfigItem {
+        configuration?: string;
+        identifier?: string;
     }
 
 }
@@ -1269,6 +1326,25 @@ export namespace Cam {
         serviceType: string;
     }
 
+    export interface GetRoleDetailRoleInfo {
+        addTime: string;
+        consoleLogin: number;
+        deletionTaskId: string;
+        description: string;
+        policyDocument: string;
+        roleId: string;
+        roleName: string;
+        roleType: string;
+        sessionDuration: number;
+        tags: outputs.Cam.GetRoleDetailRoleInfoTag[];
+        updateTime: string;
+    }
+
+    export interface GetRoleDetailRoleInfoTag {
+        key: string;
+        value: string;
+    }
+
     export interface GetRolePolicyAttachmentsRolePolicyAttachmentList {
         createMode: number;
         createTime: string;
@@ -1299,6 +1375,17 @@ export namespace Cam {
         lastSecretUsedDate: number;
         lastUsedDate: string;
         secretId: string;
+    }
+
+    export interface GetSubAccountsSubAccount {
+        createTime: string;
+        lastLoginIp: string;
+        lastLoginTime: string;
+        name: string;
+        remark: string;
+        uid: number;
+        uin: number;
+        userType: number;
     }
 
     export interface GetUserPolicyAttachmentsUserPolicyAttachmentList {
@@ -1422,6 +1509,7 @@ export namespace Cbs {
         availabilityZone: string;
         chargeType: string;
         createTime: string;
+        dedicatedClusterId: string;
         encrypt: boolean;
         instanceId: string;
         prepaidRenewFlag: string;
@@ -1441,6 +1529,7 @@ export namespace Cbs {
         availabilityZone: string;
         chargeType: string;
         createTime: string;
+        dedicatedClusterId: string;
         encrypt: boolean;
         instanceId: string;
         prepaidRenewFlag: string;
@@ -1518,6 +1607,47 @@ export namespace Ccn {
         state: string;
     }
 
+    export interface GetRouteTableInputPoliciesPolicySet {
+        createTime?: string;
+        policyVersion?: number;
+        policys?: outputs.Ccn.GetRouteTableInputPoliciesPolicySetPolicy[];
+    }
+
+    export interface GetRouteTableInputPoliciesPolicySetPolicy {
+        action: string;
+        asPathOperateMode?: string;
+        description: string;
+        operateAsPath?: string;
+        routeConditions: outputs.Ccn.GetRouteTableInputPoliciesPolicySetPolicyRouteCondition[];
+    }
+
+    export interface GetRouteTableInputPoliciesPolicySetPolicyRouteCondition {
+        matchPattern: number;
+        name: string;
+        values: string[];
+    }
+
+    export interface GetRoutesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetRoutesRouteList {
+        destinationCidrBlock: string;
+        enabled: boolean;
+        extraState: string;
+        instanceExtraName: string;
+        instanceId: string;
+        instanceName: string;
+        instanceRegion: string;
+        instanceType: string;
+        instanceUin: string;
+        isBgp: boolean;
+        routeId: string;
+        routePriority: number;
+        updateTime: string;
+    }
+
     export interface InstancesAcceptAttachInstance {
         description?: string;
         instanceId: string;
@@ -1540,6 +1670,130 @@ export namespace Ccn {
         instanceRegion: string;
         instanceType?: string;
         routeTableId?: string;
+    }
+
+    export interface RouteTableAssociateInstanceConfigInstance {
+        instanceId: string;
+        instanceType: string;
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicy {
+        action: string;
+        broadcastConditions: outputs.Ccn.RouteTableBroadcastPoliciesPolicyBroadcastCondition[];
+        description: string;
+        routeConditions: outputs.Ccn.RouteTableBroadcastPoliciesPolicyRouteCondition[];
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicyBroadcastCondition {
+        matchPattern: number;
+        name: string;
+        values: string[];
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicyRouteCondition {
+        matchPattern: number;
+        name: string;
+        values: string[];
+    }
+
+    export interface RouteTableInputPoliciesPolicy {
+        action: string;
+        description: string;
+        routeConditions: outputs.Ccn.RouteTableInputPoliciesPolicyRouteCondition[];
+    }
+
+    export interface RouteTableInputPoliciesPolicyRouteCondition {
+        matchPattern: number;
+        name: string;
+        values: string[];
+    }
+
+    export interface RouteTableSelectionPoliciesSelectionPolicy {
+        description: string;
+        instanceId: string;
+        instanceType: string;
+        routeTableId: string;
+        sourceCidrBlock: string;
+    }
+
+}
+
+export namespace Cdc {
+    export interface GetDedicatedClusterHostsHostInfoSet {
+        cpuAvailable: number;
+        cpuTotal: number;
+        expireTime: string;
+        hostId: string;
+        hostIp: string;
+        hostStatus: string;
+        hostType: string;
+        memAvailable: number;
+        memTotal: number;
+        runTime: string;
+        serviceType: string;
+    }
+
+    export interface GetDedicatedClusterInstanceTypesDedicatedClusterInstanceTypeSet {
+        cpu: number;
+        cpuType: string;
+        fpga: number;
+        gpu: number;
+        instanceBandwidth: number;
+        instanceFamily: string;
+        instancePps: number;
+        instanceType: string;
+        memory: number;
+        networkCard: number;
+        remark: string;
+        status: string;
+        storageBlockAmount: number;
+        typeName: string;
+        zone: string;
+    }
+
+    export interface GetDedicatedClusterOrdersDedicatedClusterOrderSet {
+        action: string;
+        cpu: number;
+        createTime: string;
+        dedicatedClusterId: string;
+        dedicatedClusterOrderId: string;
+        dedicatedClusterOrderItems: outputs.Cdc.GetDedicatedClusterOrdersDedicatedClusterOrderSetDedicatedClusterOrderItem[];
+        dedicatedClusterTypeId: string;
+        gpu: number;
+        mem: number;
+        orderStatus: string;
+        orderType: string;
+        payStatus: number;
+        payType: string;
+        powerDraw: number;
+        supportedInstanceFamilies: string[];
+        supportedStorageTypes: string[];
+        supportedUplinkSpeeds: number[];
+        timeSpan: number;
+        timeUnit: string;
+        weight: number;
+    }
+
+    export interface GetDedicatedClusterOrdersDedicatedClusterOrderSetDedicatedClusterOrderItem {
+        computeFormat: string;
+        count: number;
+        createTime: string;
+        dedicatedClusterTypeId: string;
+        description: string;
+        name: string;
+        powerDraw: number;
+        subOrderId: string;
+        subOrderPayStatus: number;
+        subOrderStatus: string;
+        supportedInstanceFamilies: string[];
+        supportedStorageTypes: string[];
+        supportedUplinkSpeeds: number[];
+        totalCpu: number;
+        totalGpu: number;
+        totalMem: number;
+        typeFamily: string;
+        typeName: string;
+        weight: number;
     }
 
 }
@@ -1758,7 +2012,7 @@ export namespace Cdn {
         certificateName: string;
         deployTime: string;
         expireTime: string;
-        message?: string;
+        message: string;
         privateKey?: string;
     }
 
@@ -1806,6 +2060,7 @@ export namespace Cdn {
         backupOriginType?: string;
         backupServerName?: string;
         cosPrivateAccess?: string;
+        originCompany?: string;
         originLists: string[];
         originPullProtocol?: string;
         originType: string;
@@ -1823,6 +2078,14 @@ export namespace Cdn {
     }
 
     export interface DomainOssPrivateAccess {
+        accessKey?: string;
+        bucket?: string;
+        region?: string;
+        secretKey?: string;
+        switch: string;
+    }
+
+    export interface DomainOthersPrivateAccess {
         accessKey?: string;
         bucket?: string;
         region?: string;
@@ -1986,6 +2249,155 @@ export namespace Cdn {
         taskId: string;
         updateTime: string;
         url: string;
+    }
+
+}
+
+export namespace Cdwdoris {
+    export interface GetInstancesInstancesList {
+        accessInfo: string;
+        bindSGs: string[];
+        buildVersion: string;
+        canAttachCbs: boolean;
+        caseSensitive: number;
+        characteristics: string[];
+        clsLogSetId: string;
+        clsTopicId: string;
+        components: string;
+        coolDownBucket: string;
+        coreSummary: outputs.Cdwdoris.GetInstancesInstancesListCoreSummary;
+        cosBucketName: string;
+        cosMoveFactor: number;
+        createTime: string;
+        eip: string;
+        enableCoolDown: number;
+        enableMultiZones: boolean;
+        enableXmlConfig: number;
+        expireTime: string;
+        flowMsg: string;
+        graceShutdownWaitSeconds: string;
+        ha: string;
+        haType: number;
+        hasClsTopic: boolean;
+        id: number;
+        instanceId: string;
+        instanceName: string;
+        isWhiteSGs: boolean;
+        kind: string;
+        masterSummary: outputs.Cdwdoris.GetInstancesInstancesListMasterSummary;
+        monitor: string;
+        payMode: string;
+        region: string;
+        regionDesc: string;
+        regionId: number;
+        renewFlag: boolean;
+        restartTimeout: string;
+        status: string;
+        statusDesc: string;
+        subnetId: string;
+        tags: outputs.Cdwdoris.GetInstancesInstancesListTag[];
+        userNetworkInfos: string;
+        version: string;
+        vpcId: string;
+        zone: string;
+        zoneDesc: string;
+    }
+
+    export interface GetInstancesInstancesListCoreSummary {
+        attachCbsSpec: outputs.Cdwdoris.GetInstancesInstancesListCoreSummaryAttachCbsSpec;
+        core: number;
+        disk: number;
+        diskCount: number;
+        diskDesc: string;
+        diskType: string;
+        encrypt: number;
+        maxDiskSize: number;
+        memory: number;
+        nodeSize: number;
+        spec: string;
+        specCore: number;
+        specMemory: number;
+        subProductType: string;
+    }
+
+    export interface GetInstancesInstancesListCoreSummaryAttachCbsSpec {
+        diskCount?: number;
+        diskDesc?: string;
+        diskSize?: number;
+        diskType?: string;
+    }
+
+    export interface GetInstancesInstancesListMasterSummary {
+        attachCbsSpec: outputs.Cdwdoris.GetInstancesInstancesListMasterSummaryAttachCbsSpec;
+        core: number;
+        disk: number;
+        diskCount: number;
+        diskDesc: string;
+        diskType: string;
+        encrypt: number;
+        maxDiskSize: number;
+        memory: number;
+        nodeSize: number;
+        spec: string;
+        specCore: number;
+        specMemory: number;
+        subProductType: string;
+    }
+
+    export interface GetInstancesInstancesListMasterSummaryAttachCbsSpec {
+        diskCount?: number;
+        diskDesc?: string;
+        diskSize?: number;
+        diskType?: string;
+    }
+
+    export interface GetInstancesInstancesListTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetInstancesSearchTag {
+        allValue?: number;
+        tagKey?: string;
+        tagValue?: string;
+    }
+
+    export interface InstanceBeSpec {
+        count: number;
+        diskSize: number;
+        specName: string;
+    }
+
+    export interface InstanceChargeProperties {
+        chargeType?: string;
+        renewFlag?: number;
+        timeSpan?: number;
+        timeUnit?: string;
+    }
+
+    export interface InstanceFeSpec {
+        count: number;
+        diskSize: number;
+        specName: string;
+    }
+
+    export interface InstanceTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface InstanceUserMultiZoneInfos {
+        subnetId?: string;
+        subnetIpNum?: number;
+        zone?: string;
+    }
+
+    export interface WorkloadGroupWorkloadGroup {
+        cpuHardLimit?: string;
+        cpuShare?: number;
+        enableMemoryOverCommit?: boolean;
+        memoryLimit?: number;
+        workloadGroupName?: string;
     }
 
 }
@@ -2156,6 +2568,12 @@ export namespace Cfw {
         deployRegion: string;
         width: number;
         zoneSets: string[];
+    }
+
+    export interface VpcPolicyBetaList {
+        lastTime?: string;
+        taskId?: number;
+        taskName?: string;
     }
 
 }
@@ -4856,6 +5274,54 @@ export namespace Ckafka {
 
 }
 
+export namespace Classic {
+    export interface GetElasticPublicIpv6sAddressSet {
+        addressId: string;
+        addressIp: string;
+        addressName: string;
+        addressStatus: string;
+        addressType: string;
+        antiDdosPackageId: string;
+        bandwidth: number;
+        bandwidthPackageId: string;
+        cascadeRelease: boolean;
+        createdTime: string;
+        deadlineDate: string;
+        dedicatedClusterId: string;
+        egress: string;
+        eipAlgType: outputs.Classic.GetElasticPublicIpv6sAddressSetEipAlgType;
+        instanceId: string;
+        instanceType: string;
+        internetChargeType: string;
+        internetServiceProvider: string;
+        isArrears: boolean;
+        isBlocked: boolean;
+        isEipDirectConnection: boolean;
+        localBgp: boolean;
+        networkInterfaceId: string;
+        privateAddressIp: string;
+        renewFlag: string;
+        tagSets: outputs.Classic.GetElasticPublicIpv6sAddressSetTagSet[];
+        unVpcId: string;
+    }
+
+    export interface GetElasticPublicIpv6sAddressSetEipAlgType {
+        ftp: boolean;
+        sip: boolean;
+    }
+
+    export interface GetElasticPublicIpv6sAddressSetTagSet {
+        key: string;
+        value?: string;
+    }
+
+    export interface GetElasticPublicIpv6sFilter {
+        name: string;
+        values: string[];
+    }
+
+}
+
 export namespace Clb {
     export interface AttachmentTarget {
         eniIp?: string;
@@ -4885,6 +5351,7 @@ export namespace Clb {
     }
 
     export interface GetAttachmentsAttachmentListTarget {
+        eniIp: string;
         instanceId: string;
         port: number;
         weight: number;
@@ -5189,6 +5656,7 @@ export namespace Clb {
         clbId: string;
         clbName: string;
         clbVips: string[];
+        clusterId: string;
         createTime: string;
         internetBandwidthMaxOut: number;
         internetChargeType: string;
@@ -5436,6 +5904,11 @@ export namespace Clb {
         subnetId: string;
     }
 
+    export interface ListenerRuleOauth {
+        oauthEnable: boolean;
+        oauthFailureStatus: string;
+    }
+
     export interface ReplaceCertForLbsCertificate {
         certCaContent?: string;
         certCaId?: string;
@@ -5454,8 +5927,9 @@ export namespace Clb {
 
     export interface TargetGroupAttachmentsAssociation {
         listenerId?: string;
+        loadBalancerId?: string;
         locationId?: string;
-        targetGroupId: string;
+        targetGroupId?: string;
     }
 
     export interface TargetGroupTargetGroupInstance {
@@ -5530,6 +6004,25 @@ export namespace Clickhouse {
         totalBytes: number;
         vCluster: string;
         zooPath: string;
+    }
+
+    export interface GetInstanceNodesInstanceNodesList {
+        cluster: string;
+        core: number;
+        diskSize: number;
+        diskType: string;
+        ip: string;
+        isChProxy: boolean;
+        memory: number;
+        nodeGroups: outputs.Clickhouse.GetInstanceNodesInstanceNodesListNodeGroup[];
+        rip: string;
+        spec: string;
+    }
+
+    export interface GetInstanceNodesInstanceNodesListNodeGroup {
+        groupName: string;
+        replicaName: string;
+        shardName: string;
     }
 
     export interface GetSpecAttachCbsSpec {
@@ -5632,6 +6125,7 @@ export namespace Cls {
         number: number;
         query: string;
         startTimeOffset: number;
+        syntaxRule: number;
         topicId: string;
     }
 
@@ -5657,9 +6151,15 @@ export namespace Cls {
         type: string;
     }
 
+    export interface AlarmMultiCondition {
+        alarmLevel: number;
+        condition?: string;
+    }
+
     export interface AlarmNoticeNoticeReceiver {
         endTime?: string;
-        index?: number;
+        index: number;
+        noticeContentId?: string;
         receiverChannels: string[];
         receiverIds: number[];
         receiverType: string;
@@ -5667,12 +6167,23 @@ export namespace Cls {
     }
 
     export interface AlarmNoticeWebCallback {
+        /**
+         * @deprecated This parameter is deprecated. Please use `notice_content_id`.
+         */
         body?: string;
         callbackType: string;
+        /**
+         * @deprecated This parameter is deprecated. Please use `notice_content_id`.
+         */
         headers?: string[];
-        index?: number;
+        index: number;
         method?: string;
+        mobiles?: string[];
+        noticeContentId?: string;
+        remindType?: number;
         url: string;
+        userIds?: string[];
+        webCallbackId?: string;
     }
 
     export interface CkafkaConsumerCkafka {
@@ -5855,6 +6366,26 @@ export namespace Cls {
         topicId: string;
     }
 
+    export interface GetLogsetsFilter {
+        key: string;
+        values: string[];
+    }
+
+    export interface GetLogsetsLogset {
+        assumerName: string;
+        createTime: string;
+        logsetId: string;
+        logsetName: string;
+        roleName: string;
+        tags: outputs.Cls.GetLogsetsLogsetTag[];
+        topicCount: number;
+    }
+
+    export interface GetLogsetsLogsetTag {
+        key: string;
+        value: string;
+    }
+
     export interface GetMachineGroupConfigsConfig {
         configId: string;
         createTime: string;
@@ -5929,9 +6460,14 @@ export namespace Cls {
     }
 
     export interface IndexRule {
+        dynamicIndex?: outputs.Cls.IndexRuleDynamicIndex;
         fullText?: outputs.Cls.IndexRuleFullText;
         keyValue?: outputs.Cls.IndexRuleKeyValue;
         tag?: outputs.Cls.IndexRuleTag;
+    }
+
+    export interface IndexRuleDynamicIndex {
+        status: boolean;
     }
 
     export interface IndexRuleFullText {
@@ -6003,11 +6539,44 @@ export namespace Cls {
         values: string[];
     }
 
+    export interface NoticeContentNoticeContents {
+        recoveryContent?: outputs.Cls.NoticeContentNoticeContentsRecoveryContent;
+        triggerContent?: outputs.Cls.NoticeContentNoticeContentsTriggerContent;
+        type: string;
+    }
+
+    export interface NoticeContentNoticeContentsRecoveryContent {
+        content?: string;
+        headers?: string[];
+        title?: string;
+    }
+
+    export interface NoticeContentNoticeContentsTriggerContent {
+        content?: string;
+        headers?: string[];
+        title?: string;
+    }
+
     export interface ScheduledSqlDstResource {
         bizType?: number;
         metricName?: string;
         region?: string;
         topicId: string;
+    }
+
+    export interface TopicExtends {
+        anonymousAccess?: outputs.Cls.TopicExtendsAnonymousAccess;
+    }
+
+    export interface TopicExtendsAnonymousAccess {
+        conditions?: outputs.Cls.TopicExtendsAnonymousAccessCondition[];
+        operations?: string[];
+    }
+
+    export interface TopicExtendsAnonymousAccessCondition {
+        attributes?: string;
+        conditionValue?: string;
+        rule?: number;
     }
 
 }
@@ -6145,12 +6714,17 @@ export namespace Cos {
     }
 
     export interface BucketLifecycleRule {
+        abortIncompleteMultipartUpload?: outputs.Cos.BucketLifecycleRuleAbortIncompleteMultipartUpload;
         expiration?: outputs.Cos.BucketLifecycleRuleExpiration;
         filterPrefix: string;
-        id?: string;
+        id: string;
         nonCurrentExpiration?: outputs.Cos.BucketLifecycleRuleNonCurrentExpiration;
         nonCurrentTransitions?: outputs.Cos.BucketLifecycleRuleNonCurrentTransition[];
         transitions?: outputs.Cos.BucketLifecycleRuleTransition[];
+    }
+
+    export interface BucketLifecycleRuleAbortIncompleteMultipartUpload {
+        daysAfterInitiation: number;
     }
 
     export interface BucketLifecycleRuleExpiration {
@@ -6204,6 +6778,7 @@ export namespace Cos {
         endpoint: string;
         errorDocument?: string;
         indexDocument?: string;
+        redirectAllRequestsTo: string;
     }
 
     export interface GetBatchsJob {
@@ -6304,11 +6879,16 @@ export namespace Cos {
     }
 
     export interface GetBucketsBucketListLifecycleRule {
+        abortIncompleteMultipartUploads: outputs.Cos.GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload[];
         expirations: outputs.Cos.GetBucketsBucketListLifecycleRuleExpiration[];
         filterPrefix: string;
         nonCurrentExpirations: outputs.Cos.GetBucketsBucketListLifecycleRuleNonCurrentExpiration[];
         nonCurrentTransitions: outputs.Cos.GetBucketsBucketListLifecycleRuleNonCurrentTransition[];
         transitions: outputs.Cos.GetBucketsBucketListLifecycleRuleTransition[];
+    }
+
+    export interface GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload {
+        daysAfterInitiation: number;
     }
 
     export interface GetBucketsBucketListLifecycleRuleExpiration {
@@ -6352,6 +6932,48 @@ export namespace Cos {
     export interface GetBucketsBucketListWebsite {
         errorDocument: string;
         indexDocument: string;
+    }
+
+}
+
+export namespace Csip {
+    export interface RiskCenterAsset {
+        arn?: string;
+        asset?: string;
+        assetName?: string;
+        assetType?: string;
+        instanceType?: string;
+        region?: string;
+    }
+
+    export interface RiskCenterTaskAdvanceCfg {
+        cfgRisks?: outputs.Csip.RiskCenterTaskAdvanceCfgCfgRisk[];
+        portRisks?: outputs.Csip.RiskCenterTaskAdvanceCfgPortRisk[];
+        vulRisks?: outputs.Csip.RiskCenterTaskAdvanceCfgVulRisk[];
+        weakPwdRisks?: outputs.Csip.RiskCenterTaskAdvanceCfgWeakPwdRisk[];
+    }
+
+    export interface RiskCenterTaskAdvanceCfgCfgRisk {
+        enable: number;
+        itemId: string;
+        resourceType: string;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgPortRisk {
+        checkType: number;
+        detail: string;
+        enable: number;
+        portSets: string;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgVulRisk {
+        enable: number;
+        riskId: string;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgWeakPwdRisk {
+        checkItemId: number;
+        enable: number;
     }
 
 }
@@ -6616,6 +7238,11 @@ export namespace Css {
 }
 
 export namespace Cvm {
+    export interface ActionTimerActionTimer {
+        actionTime?: string;
+        timerAction?: string;
+    }
+
     export interface ChcConfigBmcVirtualPrivateCloud {
         asVpcGateway?: boolean;
         ipv6AddressCount: number;
@@ -6681,6 +7308,9 @@ export namespace Cvm {
     export interface GetChcHostsChcHostSetPlacement {
         hostId: string;
         hostIds: string[];
+        /**
+         * @deprecated It has been deprecated from version 1.81.108.
+         */
         hostIps: string[];
         projectId: number;
         zone: string;
@@ -6816,6 +7446,9 @@ export namespace Cvm {
 
     export interface LaunchTemplatePlacement {
         hostIds?: string[];
+        /**
+         * @deprecated It has been deprecated from version 1.81.108.
+         */
         hostIps?: string[];
         projectId?: number;
         zone: string;
@@ -7074,6 +7707,18 @@ export namespace Cynosdb {
         dbHost: string;
         dbPrivilege: string;
         dbUserName: string;
+    }
+
+    export interface ClusterInstanceInitInfo {
+        cpu: number;
+        deviceType?: string;
+        instanceCount: number;
+        instanceType: string;
+        maxRoCount?: number;
+        maxRoCpu?: number;
+        memory: number;
+        minRoCount?: number;
+        minRoCpu?: number;
     }
 
     export interface ClusterParamItem {
@@ -9216,6 +9861,18 @@ export namespace Deprecatedsecurity {
 
 }
 
+export namespace Deprecatedvpc {
+    export interface Ipv6EniAddressIpv6Address {
+        address: string;
+        addressId?: string;
+        description?: string;
+        isWanIpBlocked?: boolean;
+        primary?: boolean;
+        state?: string;
+    }
+
+}
+
 export namespace Dlc {
     export interface AddUsersToWorkGroupAttachmentAddInfo {
         userIds: string[];
@@ -10860,6 +11517,54 @@ export namespace Eips {
 
 }
 
+export namespace Elastic {
+    export interface GetPublicIpv6sAddressSet {
+        addressId: string;
+        addressIp: string;
+        addressName: string;
+        addressStatus: string;
+        addressType: string;
+        antiDdosPackageId: string;
+        bandwidth: number;
+        bandwidthPackageId: string;
+        cascadeRelease: boolean;
+        createdTime: string;
+        deadlineDate: string;
+        dedicatedClusterId: string;
+        egress: string;
+        eipAlgType: outputs.Elastic.GetPublicIpv6sAddressSetEipAlgType;
+        instanceId: string;
+        instanceType: string;
+        internetChargeType: string;
+        internetServiceProvider: string;
+        isArrears: boolean;
+        isBlocked: boolean;
+        isEipDirectConnection: boolean;
+        localBgp: boolean;
+        networkInterfaceId: string;
+        privateAddressIp: string;
+        renewFlag: string;
+        tagSets: outputs.Elastic.GetPublicIpv6sAddressSetTagSet[];
+        unVpcId: string;
+    }
+
+    export interface GetPublicIpv6sAddressSetEipAlgType {
+        ftp: boolean;
+        sip: boolean;
+    }
+
+    export interface GetPublicIpv6sAddressSetTagSet {
+        key: string;
+        value?: string;
+    }
+
+    export interface GetPublicIpv6sFilter {
+        name: string;
+        values: string[];
+    }
+
+}
+
 export namespace Elasticsearch {
     export interface DiagnoseDiagnoseJobMeta {
         jobDescription: string;
@@ -11200,6 +11905,11 @@ export namespace Elasticsearch {
         zone: string;
     }
 
+    export interface InstanceCosBackup {
+        backupTime: string;
+        isAutoBackup: boolean;
+    }
+
     export interface InstanceEsAcl {
         blackLists: string[];
         whiteLists: string[];
@@ -11246,14 +11956,30 @@ export namespace Elasticsearch {
 }
 
 export namespace Emr {
+    export interface ClusterPlacementInfo {
+        projectId: number;
+        zone: string;
+    }
+
+    export interface ClusterPreExecutedFileSetting {
+        args?: string[];
+        cosFileName?: string;
+        cosFileUri?: string;
+        cosSecretId?: string;
+        cosSecretKey?: string;
+        remark?: string;
+        runOrder?: number;
+        whenRun?: string;
+    }
+
     export interface ClusterResourceSpec {
-        commonCount?: number;
+        commonCount: number;
         commonResourceSpec?: outputs.Emr.ClusterResourceSpecCommonResourceSpec;
-        coreCount?: number;
+        coreCount: number;
         coreResourceSpec?: outputs.Emr.ClusterResourceSpecCoreResourceSpec;
-        masterCount?: number;
+        masterCount: number;
         masterResourceSpec?: outputs.Emr.ClusterResourceSpecMasterResourceSpec;
-        taskCount?: number;
+        taskCount: number;
         taskResourceSpec?: outputs.Emr.ClusterResourceSpecTaskResourceSpec;
     }
 
@@ -11262,9 +11988,16 @@ export namespace Emr {
         diskSize?: number;
         diskType?: string;
         memSize?: number;
+        multiDisks: outputs.Emr.ClusterResourceSpecCommonResourceSpecMultiDisk[];
         rootSize?: number;
         spec?: string;
         storageType?: number;
+    }
+
+    export interface ClusterResourceSpecCommonResourceSpecMultiDisk {
+        count: number;
+        diskType: string;
+        volume: number;
     }
 
     export interface ClusterResourceSpecCoreResourceSpec {
@@ -11272,9 +12005,16 @@ export namespace Emr {
         diskSize?: number;
         diskType?: string;
         memSize?: number;
+        multiDisks: outputs.Emr.ClusterResourceSpecCoreResourceSpecMultiDisk[];
         rootSize?: number;
         spec?: string;
         storageType?: number;
+    }
+
+    export interface ClusterResourceSpecCoreResourceSpecMultiDisk {
+        count: number;
+        diskType: string;
+        volume: number;
     }
 
     export interface ClusterResourceSpecMasterResourceSpec {
@@ -11282,9 +12022,16 @@ export namespace Emr {
         diskSize?: number;
         diskType?: string;
         memSize?: number;
+        multiDisks: outputs.Emr.ClusterResourceSpecMasterResourceSpecMultiDisk[];
         rootSize?: number;
         spec?: string;
         storageType?: number;
+    }
+
+    export interface ClusterResourceSpecMasterResourceSpecMultiDisk {
+        count: number;
+        diskType: string;
+        volume: number;
     }
 
     export interface ClusterResourceSpecTaskResourceSpec {
@@ -11292,9 +12039,21 @@ export namespace Emr {
         diskSize?: number;
         diskType?: string;
         memSize?: number;
+        multiDisks: outputs.Emr.ClusterResourceSpecTaskResourceSpecMultiDisk[];
         rootSize?: number;
         spec?: string;
         storageType?: number;
+    }
+
+    export interface ClusterResourceSpecTaskResourceSpecMultiDisk {
+        count: number;
+        diskType: string;
+        volume: number;
+    }
+
+    export interface ClusterTerminateNodeInfo {
+        cvmInstanceIds?: string[];
+        nodeFlag?: string;
     }
 
     export interface GetAutoScaleRecordsFilter {
@@ -11439,15 +12198,37 @@ export namespace Eni {
         primary: boolean;
     }
 
+    export interface Ipv4AddressPrivateIpAddress {
+        addressId: string;
+        description: string;
+        isWanIpBlocked: boolean;
+        primary: boolean;
+        privateIpAddress: string;
+        publicIpAddress: string;
+        qosLevel: string;
+        state: string;
+    }
+
+    export interface Ipv6AddressIpv6Address {
+        address: string;
+        addressId: string;
+        description?: string;
+        isWanIpBlocked: boolean;
+        primary: boolean;
+        state: string;
+    }
+
 }
 
 export namespace Enis {
     export interface GetInstanceEni {
+        cdcId: string;
         createTime: string;
         description: string;
         id: string;
         instanceId: string;
         ipv4s: outputs.Enis.GetInstanceEniIpv4[];
+        ipv6s: outputs.Enis.GetInstanceEniIpv6[];
         mac: string;
         name: string;
         primary: boolean;
@@ -11462,6 +12243,36 @@ export namespace Enis {
         description: string;
         ip: string;
         primary: boolean;
+    }
+
+    export interface GetInstanceEniIpv6 {
+        address: string;
+        addressId: string;
+        description: string;
+        isWanIpBlocked: boolean;
+        primary: boolean;
+    }
+
+}
+
+export namespace Events {
+    export interface AuditTrackFilters {
+        resourceFields?: outputs.Events.AuditTrackFiltersResourceField[];
+    }
+
+    export interface AuditTrackFiltersResourceField {
+        actionType: string;
+        eventNames: string[];
+        resourceType: string;
+    }
+
+    export interface AuditTrackStorage {
+        storageAccountId?: string;
+        storageAppId?: string;
+        storageName: string;
+        storagePrefix: string;
+        storageRegion: string;
+        storageType: string;
     }
 
 }
@@ -11596,6 +12407,7 @@ export namespace Gaap {
         domain: string;
         gaapAuth: boolean;
         gaapAuthId: string;
+        isDefaultServer: boolean;
         realserverAuth: boolean;
         realserverCertificateDomain: string;
         /**
@@ -11664,6 +12476,8 @@ export namespace Gaap {
         protocol: string;
         proxyId: string;
         status: number;
+        tlsCiphers: string;
+        tlsSupportVersions: string[];
     }
 
     export interface GetListenerRealServersBindRealServerSet {
@@ -11751,6 +12565,7 @@ export namespace Gaap {
         ip: string;
         ipAddressVersion: string;
         ipLists: outputs.Gaap.GetProxyDetailProxyDetailIpList[];
+        isSupportTlsChoice: number;
         modifyConfigTime: number;
         networkType: string;
         packageType: string;
@@ -11978,7 +12793,87 @@ export namespace Ha {
 
 }
 
+export namespace Identity {
+    export interface CenterRoleConfigurationPermissionCustomPoliciesAttachmentPolicy {
+        addTime: string;
+        rolePolicyDocument: string;
+        rolePolicyName: string;
+        rolePolicyType: string;
+    }
+
+    export interface GetCenterGroupsGroup {
+        createTime?: string;
+        description?: string;
+        groupId?: string;
+        groupName?: string;
+        groupType?: string;
+        isSelected?: boolean;
+        memberCount?: number;
+        updateTime?: string;
+    }
+
+    export interface GetCenterRoleConfigurationsRoleConfiguration {
+        createTime?: string;
+        description?: string;
+        isSelected?: boolean;
+        relayState?: string;
+        roleConfigurationId?: string;
+        roleConfigurationName?: string;
+        sessionDuration?: number;
+        updateTime?: string;
+    }
+
+    export interface GetCenterUsersUser {
+        createTime?: string;
+        description?: string;
+        displayName?: string;
+        email?: string;
+        firstName?: string;
+        isSelected?: boolean;
+        lastName?: string;
+        updateTime?: string;
+        userId?: string;
+        userName?: string;
+        userStatus?: string;
+        userType?: string;
+    }
+
+}
+
 export namespace Image {
+    export interface GetFromFamilyImage {
+        architecture: string;
+        createdTime: string;
+        imageCreator: string;
+        imageDeprecated: boolean;
+        imageDescription: string;
+        imageFamily: string;
+        imageId: string;
+        imageName: string;
+        imageSize: number;
+        imageSource: string;
+        imageState: string;
+        imageType: string;
+        isSupportCloudinit: boolean;
+        licenseType: string;
+        osName: string;
+        platform: string;
+        snapshotSets: outputs.Image.GetFromFamilyImageSnapshotSet[];
+        syncPercent: number;
+        tags: outputs.Image.GetFromFamilyImageTag[];
+    }
+
+    export interface GetFromFamilyImageSnapshotSet {
+        diskSize: number;
+        diskUsage: string;
+        snapshotId: string;
+    }
+
+    export interface GetFromFamilyImageTag {
+        key: string;
+        value: string;
+    }
+
     export interface GetInstanceFilter {
         name: string;
         values: string[];
@@ -12037,6 +12932,7 @@ export namespace Instance {
         dataDiskSnapshotId?: string;
         dataDiskType: string;
         deleteWithInstance?: boolean;
+        deleteWithInstancePrepaid?: boolean;
         encrypt?: boolean;
         throughputPerformance?: number;
     }
@@ -12051,6 +12947,7 @@ export namespace Instances {
         cpu: number;
         createTime: string;
         dataDisks: outputs.Instances.GetInstanceInstanceListDataDisk[];
+        dedicatedClusterId: string;
         expiredTime: string;
         imageId: string;
         instanceChargeType: string;
@@ -12061,6 +12958,7 @@ export namespace Instances {
         internetChargeType: string;
         internetMaxBandwidthOut: number;
         memory: number;
+        osName: string;
         privateIp: string;
         projectId: number;
         publicIp: string;
@@ -12071,6 +12969,7 @@ export namespace Instances {
         systemDiskSize: number;
         systemDiskType: string;
         tags: {[key: string]: any};
+        uuid: string;
         vpcId: string;
     }
 
@@ -12116,6 +13015,19 @@ export namespace Instances {
         dataDiskSize: number;
         dataDiskType: string;
         deleteWithInstance: boolean;
+    }
+
+}
+
+export namespace Invite {
+    export interface OrganizationMemberOperationAuthFile {
+        name: string;
+        url: string;
+    }
+
+    export interface OrganizationMemberOperationTag {
+        tagKey: string;
+        tagValue: string;
     }
 
 }
@@ -12217,8 +13129,13 @@ export namespace Kubernetes {
         dockerGraphPath?: string;
         extraArgs?: string[];
         gpuArgs?: outputs.Kubernetes.ClusterAttachmentWorkerConfigGpuArgs;
+        /**
+         * @deprecated This argument was deprecated, use `unschedulable` instead.
+         */
         isSchedule?: boolean;
         mountTarget?: string;
+        preStartUserScript?: string;
+        taints?: outputs.Kubernetes.ClusterAttachmentWorkerConfigTaint[];
         userData?: string;
     }
 
@@ -12242,11 +13159,30 @@ export namespace Kubernetes {
     export interface ClusterAttachmentWorkerConfigOverrides {
         dataDisks?: outputs.Kubernetes.ClusterAttachmentWorkerConfigOverridesDataDisk[];
         desiredPodNum?: number;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         dockerGraphPath?: string;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         extraArgs?: string[];
         gpuArgs?: outputs.Kubernetes.ClusterAttachmentWorkerConfigOverridesGpuArgs;
+        /**
+         * @deprecated This argument was deprecated, use `unschedulable` instead.
+         */
         isSchedule?: boolean;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         mountTarget?: string;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
+        preStartUserScript?: string;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         userData?: string;
     }
 
@@ -12265,6 +13201,12 @@ export namespace Kubernetes {
         customDriver?: {[key: string]: any};
         driver?: {[key: string]: any};
         migEnable?: boolean;
+    }
+
+    export interface ClusterAttachmentWorkerConfigTaint {
+        effect?: string;
+        key?: string;
+        value?: string;
     }
 
     export interface ClusterAuthOptions {
@@ -12301,7 +13243,58 @@ export namespace Kubernetes {
     }
 
     export interface ClusterExistInstanceInstancesPara {
+        enhancedMonitorService?: boolean;
+        enhancedSecurityService?: boolean;
         instanceIds: string[];
+        keyIds?: string[];
+        masterConfig?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfig;
+        password?: string;
+        securityGroupIds?: string[];
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfig {
+        dataDisk?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigDataDisk;
+        desiredPodNumber?: number;
+        dockerGraphPath?: string;
+        extraArgs?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigExtraArgs;
+        gpuArgs?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigGpuArgs;
+        labels?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigLabel[];
+        mountTarget?: string;
+        taints?: outputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigTaint[];
+        unschedulable?: number;
+        userScript?: string;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+        autoFormatAndMount?: boolean;
+        diskPartition?: string;
+        diskSize?: number;
+        diskType?: string;
+        fileSystem?: string;
+        mountTarget?: string;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+        kubelets?: string[];
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+        cuda?: {[key: string]: any};
+        cudnn?: {[key: string]: any};
+        customDriver?: {[key: string]: any};
+        driver?: {[key: string]: any};
+        migEnable?: boolean;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigLabel {
+        name: string;
+        value: string;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigTaint {
+        effect?: string;
+        key?: string;
+        value?: string;
     }
 
     export interface ClusterExtensionAddon {
@@ -12312,6 +13305,58 @@ export namespace Kubernetes {
     export interface ClusterLogAgent {
         enabled: boolean;
         kubeletRootDir?: string;
+    }
+
+    export interface ClusterMasterAttachmentExtraArgs {
+        etcds?: string[];
+        kubeApiServers?: string[];
+        kubeControllerManagers?: string[];
+        kubeSchedulers?: string[];
+    }
+
+    export interface ClusterMasterAttachmentMasterConfig {
+        dataDisk?: outputs.Kubernetes.ClusterMasterAttachmentMasterConfigDataDisk;
+        desiredPodNumber?: number;
+        dockerGraphPath?: string;
+        extraArgs?: outputs.Kubernetes.ClusterMasterAttachmentMasterConfigExtraArgs;
+        gpuArgs?: outputs.Kubernetes.ClusterMasterAttachmentMasterConfigGpuArgs;
+        labels?: outputs.Kubernetes.ClusterMasterAttachmentMasterConfigLabel[];
+        mountTarget?: string;
+        taints?: outputs.Kubernetes.ClusterMasterAttachmentMasterConfigTaint[];
+        unschedulable?: number;
+        userScript?: string;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigDataDisk {
+        autoFormatAndMount?: boolean;
+        diskPartition?: string;
+        diskSize?: number;
+        diskType?: string;
+        fileSystem?: string;
+        mountTarget?: string;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigExtraArgs {
+        kubelets?: string[];
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigGpuArgs {
+        cuda?: {[key: string]: any};
+        cudnn?: {[key: string]: any};
+        customDriver?: {[key: string]: any};
+        driver?: {[key: string]: any};
+        migEnable?: boolean;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigLabel {
+        name: string;
+        value: string;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigTaint {
+        effect?: string;
+        key?: string;
+        value?: string;
     }
 
     export interface ClusterMasterConfig {
@@ -12366,6 +13411,12 @@ export namespace Kubernetes {
         scaleInUtilizationThreshold: number;
         skipNodesWithLocalStorage: boolean;
         skipNodesWithSystemPods: boolean;
+    }
+
+    export interface ClusterResourceDeleteOption {
+        deleteMode: string;
+        resourceType: string;
+        skipDeletionProtection?: boolean;
     }
 
     export interface ClusterWorkerConfig {
@@ -12448,6 +13499,10 @@ export namespace Kubernetes {
     }
 
     export interface GetClusterCommonNamesList {
+        commonName: string;
+        /**
+         * @deprecated It has been deprecated from version 1.81.140. Please use `common_name`.
+         */
         commonNames: string;
         subaccountUin: string;
     }
@@ -12546,6 +13601,121 @@ export namespace Kubernetes {
         nodeCount: number;
         otherCount: number;
         podCount: number;
+    }
+
+    export interface GetClusterNativeNodePoolsFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetClusterNativeNodePoolsNodePool {
+        annotations: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolAnnotation[];
+        clusterId: string;
+        createdAt: string;
+        deletionProtection: boolean;
+        labels: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolLabel[];
+        lifeState: string;
+        name: string;
+        natives: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNative[];
+        nodePoolId: string;
+        tags: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolTag[];
+        taints: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolTaint[];
+        type: string;
+        unschedulable: boolean;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolAnnotation {
+        name: string;
+        value: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolLabel {
+        name: string;
+        value: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNative {
+        autoRepair: boolean;
+        dataDisks: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeDataDisk[];
+        enableAutoscaling: boolean;
+        healthCheckPolicyName: string;
+        hostNamePattern: string;
+        instanceChargePrepaids: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid[];
+        instanceChargeType: string;
+        instanceTypes: string[];
+        internetAccessibles: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeInternetAccessible[];
+        keyIds: string[];
+        kubeletArgs: string[];
+        lifecycles: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeLifecycle[];
+        managements: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeManagement[];
+        replicas: number;
+        runtimeRootDir: string;
+        scalings: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeScaling[];
+        securityGroupIds: string[];
+        subnetIds: string[];
+        systemDisks: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolNativeSystemDisk[];
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeDataDisk {
+        autoFormatAndMount: boolean;
+        diskPartition: string;
+        diskSize: number;
+        diskType: string;
+        encrypt: string;
+        fileSystem: string;
+        kmsKeyId: string;
+        mountTarget: string;
+        snapshotId: string;
+        throughputPerformance: number;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid {
+        period: number;
+        renewFlag: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeInternetAccessible {
+        bandwidthPackageId: string;
+        chargeType: string;
+        maxBandwidthOut: number;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeLifecycle {
+        postInit: string;
+        preInit: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeManagement {
+        hosts: string[];
+        kernelArgs: string[];
+        nameservers: string[];
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeScaling {
+        createPolicy: string;
+        maxReplicas: number;
+        minReplicas: number;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolNativeSystemDisk {
+        diskSize: number;
+        diskType: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolTag {
+        resourceType: string;
+        tags: outputs.Kubernetes.GetClusterNativeNodePoolsNodePoolTagTag[];
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolTagTag {
+        key: string;
+        value: string;
+    }
+
+    export interface GetClusterNativeNodePoolsNodePoolTaint {
+        effect: string;
+        key: string;
+        value: string;
     }
 
     export interface GetClusterNodePoolsFilter {
@@ -12660,6 +13830,7 @@ export namespace Kubernetes {
     }
 
     export interface GetClustersList {
+        cdcId: string;
         certificationAuthority: string;
         claimExpiredSeconds: number;
         clusterAsEnabled: boolean;
@@ -12716,6 +13887,112 @@ export namespace Kubernetes {
         lanIp: string;
     }
 
+    export interface HealthCheckPolicyRule {
+        autoRepairEnabled: boolean;
+        enabled: boolean;
+        name: string;
+    }
+
+    export interface NativeNodePoolAnnotation {
+        name: string;
+        value: string;
+    }
+
+    export interface NativeNodePoolLabel {
+        name: string;
+        value: string;
+    }
+
+    export interface NativeNodePoolNative {
+        autoRepair?: boolean;
+        dataDisks?: outputs.Kubernetes.NativeNodePoolNativeDataDisk[];
+        enableAutoscaling?: boolean;
+        healthCheckPolicyName?: string;
+        hostNamePattern?: string;
+        instanceChargePrepaid: outputs.Kubernetes.NativeNodePoolNativeInstanceChargePrepaid;
+        instanceChargeType: string;
+        instanceTypes: string[];
+        internetAccessible: outputs.Kubernetes.NativeNodePoolNativeInternetAccessible;
+        keyIds?: string[];
+        kubeletArgs?: string[];
+        lifecycle: outputs.Kubernetes.NativeNodePoolNativeLifecycle;
+        machineType: string;
+        management: outputs.Kubernetes.NativeNodePoolNativeManagement;
+        replicas: number;
+        runtimeRootDir: string;
+        scaling: outputs.Kubernetes.NativeNodePoolNativeScaling;
+        securityGroupIds: string[];
+        subnetIds: string[];
+        systemDisk: outputs.Kubernetes.NativeNodePoolNativeSystemDisk;
+    }
+
+    export interface NativeNodePoolNativeDataDisk {
+        autoFormatAndMount: boolean;
+        diskPartition?: string;
+        diskSize: number;
+        diskType: string;
+        encrypt?: string;
+        fileSystem?: string;
+        kmsKeyId?: string;
+        mountTarget?: string;
+        snapshotId?: string;
+        throughputPerformance?: number;
+    }
+
+    export interface NativeNodePoolNativeInstanceChargePrepaid {
+        period: number;
+        renewFlag?: string;
+    }
+
+    export interface NativeNodePoolNativeInternetAccessible {
+        bandwidthPackageId?: string;
+        chargeType: string;
+        maxBandwidthOut: number;
+    }
+
+    export interface NativeNodePoolNativeLifecycle {
+        postInit?: string;
+        preInit?: string;
+    }
+
+    export interface NativeNodePoolNativeManagement {
+        hosts?: string[];
+        kernelArgs?: string[];
+        nameservers: string[];
+    }
+
+    export interface NativeNodePoolNativeScaling {
+        createPolicy: string;
+        maxReplicas: number;
+        minReplicas: number;
+    }
+
+    export interface NativeNodePoolNativeSystemDisk {
+        diskSize: number;
+        diskType: string;
+    }
+
+    export interface NativeNodePoolTag {
+        resourceType?: string;
+        tags?: outputs.Kubernetes.NativeNodePoolTagTag[];
+    }
+
+    export interface NativeNodePoolTagTag {
+        key?: string;
+        value?: string;
+    }
+
+    export interface NativeNodePoolTaint {
+        effect?: string;
+        key?: string;
+        value?: string;
+    }
+
+    export interface NodePoolAnnotation {
+        name: string;
+        value: string;
+    }
+
     export interface NodePoolAutoScalingConfig {
         backupInstanceTypes?: string[];
         bandwidthPackageId?: string;
@@ -12729,6 +14006,7 @@ export namespace Kubernetes {
         instanceChargeTypePrepaidPeriod?: number;
         instanceChargeTypePrepaidRenewFlag: string;
         instanceName: string;
+        instanceNameStyle: string;
         instanceType: string;
         internetChargeType?: string;
         internetMaxBandwidthOut?: number;
@@ -12763,6 +14041,7 @@ export namespace Kubernetes {
         gpuArgs?: outputs.Kubernetes.NodePoolNodeConfigGpuArgs;
         isSchedule?: boolean;
         mountTarget?: string;
+        preStartUserScript?: string;
         userData?: string;
     }
 
@@ -12791,6 +14070,7 @@ export namespace Kubernetes {
 
     export interface ScaleWorkerDataDisk {
         autoFormatAndMount?: boolean;
+        diskPartition?: string;
         diskSize?: number;
         diskType?: string;
         fileSystem?: string;
@@ -12803,6 +14083,12 @@ export namespace Kubernetes {
         customDriver?: {[key: string]: any};
         driver?: {[key: string]: any};
         migEnable?: boolean;
+    }
+
+    export interface ScaleWorkerTaint {
+        effect?: string;
+        key?: string;
+        value?: string;
     }
 
     export interface ScaleWorkerWorkerConfig {
@@ -12832,19 +14118,37 @@ export namespace Kubernetes {
         subnetId: string;
         systemDiskSize?: number;
         systemDiskType?: string;
+        tags: outputs.Kubernetes.ScaleWorkerWorkerConfigTag[];
         userData?: string;
     }
 
     export interface ScaleWorkerWorkerConfigDataDisk {
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         autoFormatAndMount?: boolean;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         diskPartition?: string;
         diskSize?: number;
         diskType?: string;
         encrypt?: boolean;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         fileSystem?: string;
         kmsKeyId?: string;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         mountTarget?: string;
         snapshotId?: string;
+    }
+
+    export interface ScaleWorkerWorkerConfigTag {
+        key: string;
+        value: string;
     }
 
     export interface ScaleWorkerWorkerInstancesList {
@@ -13206,6 +14510,64 @@ export namespace Lighthouse {
 
 }
 
+export namespace Lite {
+    export interface GetHbaseInstancesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetHbaseInstancesInstanceList {
+        addTime: string;
+        appId: number;
+        clusterId: string;
+        clusterName: string;
+        id: number;
+        payMode: number;
+        regionId: number;
+        status: number;
+        statusDesc: string;
+        subnetId: number;
+        tags: outputs.Lite.GetHbaseInstancesInstanceListTag[];
+        vpcId: number;
+        zone: string;
+        zoneId: number;
+        zoneSettings: outputs.Lite.GetHbaseInstancesInstanceListZoneSetting[];
+    }
+
+    export interface GetHbaseInstancesInstanceListTag {
+        tagKey?: string;
+        tagValue?: string;
+    }
+
+    export interface GetHbaseInstancesInstanceListZoneSetting {
+        nodeNum: number;
+        vpcSettings: outputs.Lite.GetHbaseInstancesInstanceListZoneSettingVpcSetting[];
+        zone: string;
+    }
+
+    export interface GetHbaseInstancesInstanceListZoneSettingVpcSetting {
+        subnetId: string;
+        vpcId: string;
+    }
+
+    export interface HbaseInstanceTag {
+        tagKey?: string;
+        tagValue?: string;
+    }
+
+    export interface HbaseInstanceZoneSetting {
+        nodeNum: number;
+        vpcSettings: outputs.Lite.HbaseInstanceZoneSettingVpcSettings;
+        zone: string;
+    }
+
+    export interface HbaseInstanceZoneSettingVpcSettings {
+        subnetId: string;
+        vpcId: string;
+    }
+
+}
+
 export namespace Mariadb {
     export interface AccountPrivilegesAccounts {
         host: string;
@@ -13288,13 +14650,18 @@ export namespace Mariadb {
         dbVersionId: string;
         instanceId: string;
         instanceName: string;
+        internetDomain: string;
+        internetIp: string;
+        internetPort: number;
         memory: number;
         projectId: number;
         region: string;
         resourceTags: outputs.Mariadb.GetDbInstancesInstanceResourceTag[];
         storage: number;
         subnetId: string;
+        vip: string;
         vpcId: string;
+        vport: number;
         zone: string;
     }
 
@@ -13626,13 +14993,33 @@ export namespace Mongodb {
         namespace: string;
     }
 
+    export interface InstanceAddNodeList {
+        role: string;
+        zone: string;
+    }
+
     export interface InstanceBackupDownloadTaskBackupSet {
         replicaSetId: string;
+    }
+
+    export interface InstanceRemoveNodeList {
+        nodeName: string;
+        role: string;
+        zone: string;
     }
 
     export interface InstanceStandbyInstanceList {
         standbyInstanceId: string;
         standbyInstanceRegion: string;
+    }
+
+    export interface InstanceTransparentDataEncryptionKeyInfoList {
+        createTime: string;
+        keyId: string;
+        keyName: string;
+        keyOrigin: string;
+        keyUsage: string;
+        status: string;
     }
 
 }
@@ -14519,6 +15906,58 @@ export namespace Monitor {
         value: number;
     }
 
+    export interface GetTmpInstancesInstanceSet {
+        alertRuleLimit: number;
+        apiRootPath: string;
+        authToken: string;
+        autoRenewFlag: number;
+        chargeStatus: number;
+        createdAt: string;
+        dataRetentionTime: number;
+        enableGrafana: number;
+        expireTime: string;
+        grafanaInstanceId: string;
+        grafanaIpWhiteList: string;
+        grafanaStatus: number;
+        grafanaUrl: string;
+        grants: outputs.Monitor.GetTmpInstancesInstanceSetGrant[];
+        instanceChargeType: number;
+        instanceId: string;
+        instanceName: string;
+        instanceStatus: number;
+        ipv4Address: string;
+        isNearExpire: number;
+        migrationType: number;
+        proxyAddress: string;
+        recordingRuleLimit: number;
+        regionId: number;
+        remoteWrite: string;
+        specName: string;
+        subnetId: string;
+        tagSpecifications: outputs.Monitor.GetTmpInstancesInstanceSetTagSpecification[];
+        vpcId: string;
+        zone: string;
+    }
+
+    export interface GetTmpInstancesInstanceSetGrant {
+        hasAgentManage: number;
+        hasApiOperation: number;
+        hasChargeOperation: number;
+        hasGrafanaStatusChange: number;
+        hasTkeManage: number;
+        hasVpcDisplay: number;
+    }
+
+    export interface GetTmpInstancesInstanceSetTagSpecification {
+        key: string;
+        value: string;
+    }
+
+    export interface GetTmpInstancesTagFilter {
+        key: string;
+        value: string;
+    }
+
     export interface GetTmpRegionsRegionSet {
         area: string;
         region: string;
@@ -14537,6 +15976,28 @@ export namespace Monitor {
     export interface PolicyBindingObjectDimension {
         dimensionsJson: string;
         uniqueId: string;
+    }
+
+    export interface TmpAlertGroupCustomReceiver {
+        allowedTimeRanges?: outputs.Monitor.TmpAlertGroupCustomReceiverAllowedTimeRange[];
+        clusterId?: string;
+        clusterType?: string;
+        type?: string;
+        url?: string;
+    }
+
+    export interface TmpAlertGroupCustomReceiverAllowedTimeRange {
+        end?: string;
+        start?: string;
+    }
+
+    export interface TmpAlertGroupRule {
+        annotations?: {[key: string]: any};
+        duration?: string;
+        expr?: string;
+        labels?: {[key: string]: any};
+        ruleName?: string;
+        state?: number;
     }
 
     export interface TmpAlertRuleAnnotation {
@@ -14612,6 +16073,7 @@ export namespace Monitor {
         inClusterPodConfig?: outputs.Monitor.TmpTkeClusterAgentAgentsInClusterPodConfig;
         notInstallBasicScrape?: boolean;
         notScrape?: boolean;
+        openDefaultRecord: boolean;
         region: string;
         status: string;
     }
@@ -15113,6 +16575,7 @@ export namespace Mps {
         createTime: string;
         outputDir: string;
         outputStorages: outputs.Mps.GetSchedulesScheduleInfoSetOutputStorage[];
+        resourceId: string;
         scheduleId: number;
         scheduleName: string;
         status: string;
@@ -18587,6 +20050,15 @@ export namespace Oceanus {
         values: string[];
     }
 
+    export interface GetJobEventsEvent {
+        description: string;
+        message: string;
+        runningOrderId: number;
+        solutionLink: string;
+        timestamp: number;
+        type: string;
+    }
+
     export interface GetJobSubmissionLogJobInstanceList {
         jobInstanceStartTime: string;
         runningOrderId: number;
@@ -18878,6 +20350,26 @@ export namespace Organization {
         name: string;
     }
 
+    export interface GetNodesItem {
+        createTime: string;
+        name: string;
+        nodeId: number;
+        parentNodeId: number;
+        remark: string;
+        tags: outputs.Organization.GetNodesItemTag[];
+        updateTime: string;
+    }
+
+    export interface GetNodesItemTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetNodesTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
     export interface GetOrgAuthNodeItem {
         authName: string;
         managers: outputs.Organization.GetOrgAuthNodeItemManager[];
@@ -18910,6 +20402,28 @@ export namespace Organization {
         totalCost: number;
     }
 
+    export interface GetOrgShareAreaItem {
+        area: string;
+        areaId: number;
+        name: string;
+    }
+
+    export interface GetServicesItem {
+        canAssignCount: number;
+        consoleUrl: string;
+        description: string;
+        document: string;
+        grantStatus: string;
+        isAssign: number;
+        isSetManagementScope: number;
+        isUsageStatus: number;
+        memberNum: string;
+        product: string;
+        productName: string;
+        serviceGrant: number;
+        serviceId: number;
+    }
+
     export interface InstanceOrgPermission {
         id: number;
         name: string;
@@ -18925,6 +20439,10 @@ export namespace Organization {
     export interface OrgMemberOrgPermission {
         id: number;
         name: string;
+    }
+
+    export interface OrgShareUnitMemberMember {
+        shareMemberUin: number;
     }
 
 }
@@ -18943,6 +20461,57 @@ export namespace Placement {
 }
 
 export namespace Postgresql {
+    export interface AccountPrivilegesOperationModifyPrivilegeSet {
+        databasePrivilege?: outputs.Postgresql.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege;
+        isCascade?: boolean;
+        modifyType?: string;
+    }
+
+    export interface AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege {
+        object?: outputs.Postgresql.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject;
+        privilegeSets?: string[];
+    }
+
+    export interface AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject {
+        databaseName?: string;
+        objectName: string;
+        objectType: string;
+        schemaName?: string;
+        tableName?: string;
+    }
+
+    export interface CloneDbInstanceDbNodeSet {
+        dedicatedClusterId?: string;
+        role: string;
+        zone: string;
+    }
+
+    export interface CloneDbInstanceTagList {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetAccountPrivilegesDatabaseObjectSet {
+        databaseName?: string;
+        objectName: string;
+        objectType: string;
+        schemaName?: string;
+        tableName?: string;
+    }
+
+    export interface GetAccountPrivilegesPrivilegeSet {
+        objects: outputs.Postgresql.GetAccountPrivilegesPrivilegeSetObject[];
+        privilegeSets: string[];
+    }
+
+    export interface GetAccountPrivilegesPrivilegeSetObject {
+        databaseName: string;
+        objectName: string;
+        objectType: string;
+        schemaName: string;
+        tableName: string;
+    }
+
     export interface GetBackupDownloadUrlsBackupDownloadRestriction {
         ipRestrictionEffect?: string;
         ipSets?: string[];
@@ -18986,6 +20555,25 @@ export namespace Postgresql {
         dbVersion: string;
         status: string;
         supportedFeatureNames: string[];
+    }
+
+    export interface GetDedicatedClustersDedicatedClusterSet {
+        cpuAvailable?: number;
+        cpuTotal?: number;
+        dedicatedClusterId?: string;
+        diskAvailable?: number;
+        diskTotal?: number;
+        instanceCount?: number;
+        memAvailable?: number;
+        memTotal?: number;
+        name?: string;
+        standbyDedicatedClusterSets?: string[];
+        zone?: string;
+    }
+
+    export interface GetDedicatedClustersFilter {
+        name?: string;
+        values?: string[];
     }
 
     export interface GetDefaultParametersParamInfoSet {
@@ -19245,13 +20833,14 @@ export namespace Postgresql {
     }
 
     export interface InstanceBackupPlan {
-        backupPeriods?: string[];
-        baseBackupRetentionPeriod?: number;
-        maxBackupStartTime?: string;
-        minBackupStartTime?: string;
+        backupPeriods: string[];
+        baseBackupRetentionPeriod: number;
+        maxBackupStartTime: string;
+        minBackupStartTime: string;
     }
 
     export interface InstanceDbNodeSet {
+        dedicatedClusterId?: string;
         role?: string;
         zone: string;
     }
@@ -19261,9 +20850,111 @@ export namespace Postgresql {
         name: string;
     }
 
+    export interface ReadonlyGroupNetInfoList {
+        ip: string;
+        port: number;
+    }
+
 }
 
 export namespace PrivateDns {
+    export interface GetEndPointsEndPointSet {
+        endPointId: string;
+        endPointName: string;
+        endPointServiceId: string;
+        endPointVipSets: string[];
+        regionCode: string;
+        tags: outputs.PrivateDns.GetEndPointsEndPointSetTag[];
+    }
+
+    export interface GetEndPointsEndPointSetTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetEndPointsFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetForwardRulesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetForwardRulesForwardRuleSet {
+        createdAt: string;
+        domain: string;
+        endPointId: string;
+        endPointName: string;
+        forwardAddresses: string[];
+        ruleId: string;
+        ruleName: string;
+        ruleType: string;
+        tags: outputs.PrivateDns.GetForwardRulesForwardRuleSetTag[];
+        updatedAt: string;
+        vpcSets: outputs.PrivateDns.GetForwardRulesForwardRuleSetVpcSet[];
+        zoneId: string;
+    }
+
+    export interface GetForwardRulesForwardRuleSetTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetForwardRulesForwardRuleSetVpcSet {
+        region: string;
+        uniqVpcId: string;
+    }
+
+    export interface GetPrivateZoneListFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetPrivateZoneListPrivateZoneSet {
+        accountVpcSets: outputs.PrivateDns.GetPrivateZoneListPrivateZoneSetAccountVpcSet[];
+        cnameSpeedupStatus: string;
+        createdOn: string;
+        deletedVpcSets: outputs.PrivateDns.GetPrivateZoneListPrivateZoneSetDeletedVpcSet[];
+        dnsForwardStatus: string;
+        domain: string;
+        endPointName: string;
+        forwardAddress: string;
+        forwardRuleName: string;
+        forwardRuleType: string;
+        isCustomTld: boolean;
+        ownerUin: number;
+        recordCount: number;
+        remark: string;
+        status: string;
+        tags: outputs.PrivateDns.GetPrivateZoneListPrivateZoneSetTag[];
+        updatedOn: string;
+        vpcSets: outputs.PrivateDns.GetPrivateZoneListPrivateZoneSetVpcSet[];
+        zoneId: string;
+    }
+
+    export interface GetPrivateZoneListPrivateZoneSetAccountVpcSet {
+        region: string;
+        uin: string;
+        uniqVpcId: string;
+    }
+
+    export interface GetPrivateZoneListPrivateZoneSetDeletedVpcSet {
+        region: string;
+        uniqVpcId: string;
+    }
+
+    export interface GetPrivateZoneListPrivateZoneSetTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetPrivateZoneListPrivateZoneSetVpcSet {
+        region: string;
+        uniqVpcId: string;
+    }
+
     export interface GetRecordsFilter {
         name: string;
         values: string[];
@@ -20014,6 +21705,35 @@ export namespace Redis {
         vpcLists: string[];
     }
 
+    export interface GetClustersResource {
+        appId: number;
+        autoRenewFlag: number;
+        baseBundles: outputs.Redis.GetClustersResourceBaseBundle[];
+        clusterName: string;
+        dedicatedClusterId: string;
+        endTime: string;
+        payMode: number;
+        projectId: number;
+        redisClusterId: string;
+        regionId: number;
+        resourceBundles: outputs.Redis.GetClustersResourceResourceBundle[];
+        startTime: string;
+        status: number;
+        zoneId: number;
+    }
+
+    export interface GetClustersResourceBaseBundle {
+        availableMemory: number;
+        count: number;
+        resourceBundleName: string;
+    }
+
+    export interface GetClustersResourceResourceBundle {
+        availableMemory: number;
+        count: number;
+        resourceBundleName: string;
+    }
+
     export interface GetInstanceNodeInfoProxy {
         nodeId: string;
         zoneId: number;
@@ -20251,6 +21971,29 @@ export namespace Rum {
 }
 
 export namespace Scf {
+    export interface CustomDomainCertConfig {
+        certificateId?: string;
+    }
+
+    export interface CustomDomainEndpointsConfig {
+        functionName: string;
+        namespace: string;
+        pathMatch: string;
+        pathRewrites?: outputs.Scf.CustomDomainEndpointsConfigPathRewrite[];
+        qualifier: string;
+    }
+
+    export interface CustomDomainEndpointsConfigPathRewrite {
+        path: string;
+        rewrite: string;
+        type: string;
+    }
+
+    export interface CustomDomainWafConfig {
+        wafInstanceId?: string;
+        wafOpen?: string;
+    }
+
     export interface FunctionAliasRoutingConfig {
         additionalVersionMatches?: outputs.Scf.FunctionAliasRoutingConfigAdditionalVersionMatch[];
         additionalVersionWeights?: outputs.Scf.FunctionAliasRoutingConfigAdditionalVersionWeight[];
@@ -20769,6 +22512,22 @@ export namespace Ses {
 
 }
 
+export namespace Sg {
+    export interface RuleData {
+        description: string;
+        destContent: string;
+        destType: string;
+        orderIndex: string;
+        port?: string;
+        protocol?: string;
+        ruleAction: string;
+        serviceTemplateId?: string;
+        sourceContent: string;
+        sourceType: string;
+    }
+
+}
+
 export namespace Sqlserver {
     export interface BusinessIntelligenceInstanceResourceTag {
         tagKey?: string;
@@ -21084,6 +22843,17 @@ export namespace Sqlserver {
 }
 
 export namespace Ssl {
+    export interface CheckCertificateDomainVerificationOperationVerificationResult {
+        caCheck: number;
+        checkValues: string[];
+        domain: string;
+        frequently: boolean;
+        issued: boolean;
+        localCheck: number;
+        localCheckFailReason: string;
+        verifyType: string;
+    }
+
     export interface FreeCertificateDvAuth {
         dvAuthKey: string;
         dvAuthValue: string;
@@ -21101,11 +22871,13 @@ export namespace Ssl {
         key: string;
         name: string;
         orderId: string;
+        ownerUin: string;
         productZhName: string;
         projectId: number;
         status: number;
         subjectNames: string[];
         type: string;
+        validityPeriod: string;
     }
 
     export interface GetCertificatesCertificateDvAuth {
@@ -22183,6 +23955,7 @@ export namespace Tcr {
     export interface InstanceReplication {
         id: string;
         regionId?: number;
+        regionName?: string;
         synTag?: boolean;
     }
 
@@ -22244,6 +24017,14 @@ export namespace Tcr {
     export interface WebhookTriggerTriggerTargetHeader {
         key: string;
         values: string[];
+    }
+
+}
+
+export namespace Tcss {
+    export interface ImageRegistryConnDetectConfig {
+        quuid?: string;
+        uuid?: string;
     }
 
 }
@@ -22352,6 +24133,7 @@ export namespace Tdmq {
     export interface GetProInstancesInstance {
         autoRenewFlag: number;
         configDisplay: string;
+        createTime: string;
         expireTime: number;
         instanceId: string;
         instanceName: string;
@@ -22365,7 +24147,13 @@ export namespace Tdmq {
         specName: string;
         status: number;
         subnetId: string;
+        tags: outputs.Tdmq.GetProInstancesInstanceTag[];
         vpcId: string;
+    }
+
+    export interface GetProInstancesInstanceTag {
+        tagKey: string;
+        tagValue: string;
     }
 
     export interface GetPublishersFilter {
@@ -22576,6 +24364,12 @@ export namespace Tdmq {
         vpcId: string;
     }
 
+    export interface RocketmqVipInstanceIpRule {
+        allow: boolean;
+        ipRule: string;
+        remark: string;
+    }
+
     export interface RocketmqVipInstanceVpcInfo {
         subnetId: string;
         vpcId: string;
@@ -22765,6 +24559,24 @@ export namespace Teo {
         type: string;
     }
 
+    export interface FunctionRuleFunctionRuleCondition {
+        ruleConditions: outputs.Teo.FunctionRuleFunctionRuleConditionRuleCondition[];
+    }
+
+    export interface FunctionRuleFunctionRuleConditionRuleCondition {
+        ignoreCase?: boolean;
+        name?: string;
+        operator: string;
+        target: string;
+        values?: string[];
+    }
+
+    export interface FunctionRuntimeEnvironmentEnvironmentVariable {
+        key: string;
+        type: string;
+        value: string;
+    }
+
     export interface GetRuleEngineSettingsAction {
         action: string;
         properties: outputs.Teo.GetRuleEngineSettingsActionProperty[];
@@ -22816,23 +24628,89 @@ export namespace Teo {
         siteNumber: number;
     }
 
-    export interface OriginGroupOriginRecord {
-        areas?: string[];
-        port: number;
+    export interface L4ProxyDdosProtectionConfig {
+        levelMainland?: string;
+        levelOverseas?: string;
+        maxBandwidthMainland?: number;
+    }
+
+    export interface OriginGroupRecord {
         private?: boolean;
-        privateParameters?: outputs.Teo.OriginGroupOriginRecordPrivateParameter[];
+        privateParameters?: outputs.Teo.OriginGroupRecordPrivateParameter[];
         record: string;
         recordId: string;
+        type?: string;
         weight?: number;
     }
 
-    export interface OriginGroupOriginRecordPrivateParameter {
+    export interface OriginGroupRecordPrivateParameter {
         name: string;
         value: string;
     }
 
+    export interface OriginGroupReference {
+        instanceId: string;
+        instanceName: string;
+        instanceType: string;
+    }
+
+    export interface RealtimeLogDeliveryCls {
+        logSetId: string;
+        logSetRegion: string;
+        topicId: string;
+    }
+
+    export interface RealtimeLogDeliveryCustomEndpoint {
+        accessId?: string;
+        accessKey?: string;
+        compressType?: string;
+        headers?: outputs.Teo.RealtimeLogDeliveryCustomEndpointHeader[];
+        protocol?: string;
+        url: string;
+    }
+
+    export interface RealtimeLogDeliveryCustomEndpointHeader {
+        name: string;
+        value: string;
+    }
+
+    export interface RealtimeLogDeliveryCustomField {
+        enabled?: boolean;
+        name: string;
+        value: string;
+    }
+
+    export interface RealtimeLogDeliveryDeliveryCondition {
+        conditions?: outputs.Teo.RealtimeLogDeliveryDeliveryConditionCondition[];
+    }
+
+    export interface RealtimeLogDeliveryDeliveryConditionCondition {
+        key: string;
+        operator: string;
+        values: string[];
+    }
+
+    export interface RealtimeLogDeliveryLogFormat {
+        batchPrefix?: string;
+        batchSuffix?: string;
+        fieldDelimiter?: string;
+        formatType: string;
+        recordDelimiter?: string;
+        recordPrefix?: string;
+        recordSuffix?: string;
+    }
+
+    export interface RealtimeLogDeliveryS3 {
+        accessId: string;
+        accessKey: string;
+        bucket: string;
+        compressType?: string;
+        endpoint: string;
+        region: string;
+    }
+
     export interface RuleEngineRule {
-        actions: outputs.Teo.RuleEngineRuleAction[];
+        actions?: outputs.Teo.RuleEngineRuleAction[];
         ors: outputs.Teo.RuleEngineRuleOr[];
         subRules?: outputs.Teo.RuleEngineRuleSubRule[];
     }
@@ -22884,7 +24762,7 @@ export namespace Teo {
         name?: string;
         operator: string;
         target: string;
-        values: string[];
+        values?: string[];
     }
 
     export interface RuleEngineRuleSubRule {
@@ -22893,7 +24771,7 @@ export namespace Teo {
     }
 
     export interface RuleEngineRuleSubRuleRule {
-        actions: outputs.Teo.RuleEngineRuleSubRuleRuleAction[];
+        actions?: outputs.Teo.RuleEngineRuleSubRuleRuleAction[];
         ors: outputs.Teo.RuleEngineRuleSubRuleRuleOr[];
     }
 
@@ -22944,7 +24822,13 @@ export namespace Teo {
         name?: string;
         operator: string;
         target: string;
-        values: string[];
+        values?: string[];
+    }
+
+    export interface SecurityIpGroupIpGroup {
+        contents: string[];
+        groupId: number;
+        name: string;
     }
 
     export interface ZoneOwnershipVerification {
@@ -22965,7 +24849,6 @@ export namespace Teo {
 
     export interface ZoneSettingCacheCache {
         cacheTime: number;
-        ignoreCacheControl: string;
         switch: string;
     }
 
@@ -23038,7 +24921,6 @@ export namespace Teo {
 
     export interface ZoneSettingOrigin {
         backupOrigins: string[];
-        cosPrivateAccess: string;
         originPullProtocol: string;
         origins: string[];
     }
@@ -23063,6 +24945,84 @@ export namespace Teo {
     export interface ZoneSettingWebSocket {
         switch: string;
         timeout?: number;
+    }
+
+}
+
+export namespace Thpc {
+    export interface WorkspacesDataDisk {
+        burstPerformance?: boolean;
+        deleteWithInstance?: boolean;
+        diskId: string;
+        diskSize?: number;
+        diskType?: string;
+        encrypt?: boolean;
+        kmsKeyId?: string;
+        snapshotId?: string;
+        throughputPerformance?: number;
+    }
+
+    export interface WorkspacesEnhancedService {
+        automationService?: outputs.Thpc.WorkspacesEnhancedServiceAutomationService;
+        monitorService?: outputs.Thpc.WorkspacesEnhancedServiceMonitorService;
+        securityService?: outputs.Thpc.WorkspacesEnhancedServiceSecurityService;
+    }
+
+    export interface WorkspacesEnhancedServiceAutomationService {
+        enabled?: boolean;
+    }
+
+    export interface WorkspacesEnhancedServiceMonitorService {
+        enabled?: boolean;
+    }
+
+    export interface WorkspacesEnhancedServiceSecurityService {
+        enabled?: boolean;
+    }
+
+    export interface WorkspacesInternetAccessible {
+        bandwidthPackageId?: string;
+        internetChargeType?: string;
+        internetMaxBandwidthOut: number;
+        publicIpAssigned: boolean;
+    }
+
+    export interface WorkspacesLoginSettings {
+        keyIds?: string[];
+        password?: string;
+    }
+
+    export interface WorkspacesPlacement {
+        projectId?: number;
+        zone: string;
+    }
+
+    export interface WorkspacesSpaceChargePrepaid {
+        period?: number;
+        renewFlag?: string;
+    }
+
+    export interface WorkspacesSystemDisk {
+        diskId: string;
+        diskSize: number;
+        diskType?: string;
+    }
+
+    export interface WorkspacesTagSpecification {
+        tags: outputs.Thpc.WorkspacesTagSpecificationTag[];
+    }
+
+    export interface WorkspacesTagSpecificationTag {
+        key: string;
+        value: string;
+    }
+
+    export interface WorkspacesVirtualPrivateCloud {
+        asVpcGateway?: boolean;
+        ipv6AddressCount?: number;
+        privateIpAddresses: string[];
+        subnetId: string;
+        vpcId: string;
     }
 
 }
@@ -23145,6 +25105,12 @@ export namespace Tse {
     export interface CngwGroupNodeConfig {
         number: number;
         specification: string;
+    }
+
+    export interface CngwNetworkAccessControlAccessControl {
+        cidrBlackLists?: string[];
+        cidrWhiteLists?: string[];
+        mode: string;
     }
 
     export interface CngwRouteHeader {
@@ -23259,6 +25225,63 @@ export namespace Tse {
         port: number;
         source?: string;
         weight: number;
+    }
+
+    export interface CngwStrategyConfig {
+        behavior?: outputs.Tse.CngwStrategyConfigBehavior;
+        createTime?: string;
+        maxReplicas?: number;
+        metrics?: outputs.Tse.CngwStrategyConfigMetric[];
+        modifyTime?: string;
+        strategyId?: string;
+    }
+
+    export interface CngwStrategyConfigBehavior {
+        scaleDown?: outputs.Tse.CngwStrategyConfigBehaviorScaleDown;
+        scaleUp?: outputs.Tse.CngwStrategyConfigBehaviorScaleUp;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleDown {
+        policies?: outputs.Tse.CngwStrategyConfigBehaviorScaleDownPolicy[];
+        selectPolicy?: string;
+        stabilizationWindowSeconds?: number;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleDownPolicy {
+        periodSeconds?: number;
+        type?: string;
+        value?: number;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleUp {
+        policies?: outputs.Tse.CngwStrategyConfigBehaviorScaleUpPolicy[];
+        selectPolicy?: string;
+        stabilizationWindowSeconds?: number;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleUpPolicy {
+        periodSeconds?: number;
+        type?: string;
+        value?: number;
+    }
+
+    export interface CngwStrategyConfigMetric {
+        resourceName?: string;
+        targetType: string;
+        targetValue?: number;
+        type?: string;
+    }
+
+    export interface CngwStrategyCronConfig {
+        params?: outputs.Tse.CngwStrategyCronConfigParam[];
+        strategyId?: string;
+    }
+
+    export interface CngwStrategyCronConfigParam {
+        crontab?: string;
+        period?: string;
+        startAt?: string;
+        targetReplicas?: number;
     }
 
     export interface GetAccessAddressEnvAddressInfo {
@@ -24565,6 +26588,8 @@ export namespace Vod {
     export interface AdaptiveDynamicStreamingTemplateStreamInfo {
         audio: outputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoAudio;
         removeAudio?: boolean;
+        removeVideo: boolean;
+        tehdConfig: outputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig;
         video: outputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoVideo;
     }
 
@@ -24575,13 +26600,22 @@ export namespace Vod {
         sampleRate: number;
     }
 
+    export interface AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig {
+        maxVideoBitrate: number;
+        type: string;
+    }
+
     export interface AdaptiveDynamicStreamingTemplateStreamInfoVideo {
         bitrate: number;
         codec: string;
+        codecTag: string;
         fillType?: string;
         fps: number;
+        gop: number;
         height?: number;
+        preserveHdrSwitch: string;
         resolutionAdaptive?: boolean;
+        vcrf: number;
         width?: number;
     }
 
@@ -24785,6 +26819,14 @@ export namespace Vod {
         name: string;
     }
 
+    export interface ProcedureTemplateAiAnalysisTask {
+        definition: string;
+    }
+
+    export interface ProcedureTemplateAiRecognitionTask {
+        definition: string;
+    }
+
     export interface ProcedureTemplateMediaProcessTask {
         adaptiveDynamicStreamingTaskLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList[];
         animatedGraphicTaskLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskAnimatedGraphicTaskList[];
@@ -24797,6 +26839,7 @@ export namespace Vod {
 
     export interface ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList {
         definition: string;
+        subtitleLists: string[];
         watermarkLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkList[];
     }
 
@@ -24849,6 +26892,7 @@ export namespace Vod {
     export interface ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList {
         definition: string;
         extTimeOffsetLists?: string[];
+        timeOffsetLists: number[];
         watermarkLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList[];
     }
 
@@ -24861,9 +26905,22 @@ export namespace Vod {
     }
 
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskList {
+        copyRightWatermark: outputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark;
         definition: string;
+        endTimeOffset: number;
+        headTailLists: outputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList[];
         mosaicLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList[];
+        startTimeOffset: number;
+        traceWatermark: outputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark;
         watermarkLists?: outputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList[];
+    }
+
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark {
+        text: string;
+    }
+
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList {
+        definition: string;
     }
 
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList {
@@ -24876,12 +26933,21 @@ export namespace Vod {
         yPos?: string;
     }
 
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark {
+        switch: string;
+    }
+
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList {
         definition: string;
         endTimeOffset?: number;
         startTimeOffset?: number;
         svgContent?: string;
         textContent?: string;
+    }
+
+    export interface ProcedureTemplateReviewAudioVideoTask {
+        definition: string;
+        reviewContents: string[];
     }
 
     export interface SuperPlayerConfigDrmStreamingInfo {
@@ -24891,6 +26957,52 @@ export namespace Vod {
     export interface SuperPlayerConfigResolutionName {
         minEdgeLength: number;
         name: string;
+    }
+
+    export interface TranscodeTemplateAudioTemplate {
+        audioChannel?: number;
+        bitrate: number;
+        codec: string;
+        sampleRate: number;
+    }
+
+    export interface TranscodeTemplateTehdConfig {
+        maxVideoBitrate?: number;
+        type: string;
+    }
+
+    export interface TranscodeTemplateVideoTemplate {
+        bitrate: number;
+        codec: string;
+        codecTag?: string;
+        fillType?: string;
+        fps: number;
+        gop?: number;
+        height?: number;
+        preserveHdrSwitch?: string;
+        resolutionAdaptive?: string;
+        vcrf?: number;
+        width?: number;
+    }
+
+    export interface WatermarkTemplateImageTemplate {
+        height: string;
+        imageContent: string;
+        repeatType: string;
+        transparency: number;
+        width: string;
+    }
+
+    export interface WatermarkTemplateSvgTemplate {
+        height: string;
+        width: string;
+    }
+
+    export interface WatermarkTemplateTextTemplate {
+        fontAlpha: number;
+        fontColor: string;
+        fontSize: string;
+        fontType: string;
     }
 
 }
@@ -25224,6 +27336,7 @@ export namespace Vpc {
     export interface GetSubnetsInstanceList {
         availabilityZone: string;
         availableIpCount: number;
+        cdcId: string;
         cidrBlock: string;
         createTime: string;
         isDefault: boolean;
@@ -25248,15 +27361,6 @@ export namespace Vpc {
         resourceType: string;
         subnetId: string;
         vpcId: string;
-    }
-
-    export interface Ipv6EniAddressIpv6Address {
-        address: string;
-        addressId?: string;
-        description?: string;
-        isWanIpBlocked?: boolean;
-        primary?: boolean;
-        state?: string;
     }
 
     export interface Ipv6SubnetCidrBlockIpv6SubnetCidrBlocks {
@@ -25313,6 +27417,19 @@ export namespace Vpc {
 }
 
 export namespace Vpn {
+    export interface ConnectionBgpConfig {
+        localBgpIp: string;
+        remoteBgpIp: string;
+        tunnelCidr: string;
+    }
+
+    export interface ConnectionHealthCheckConfig {
+        probeInterval?: number;
+        probeThreshold?: number;
+        probeTimeout?: number;
+        probeType?: string;
+    }
+
     export interface ConnectionSecurityGroupPolicy {
         localCidrBlock: string;
         remoteCidrBlocks: string[];
@@ -25577,34 +27694,6 @@ export namespace Waf {
         writeConfig: string;
     }
 
-    export interface GetWafInfosHostList {
-        domain: string;
-        domainId: string;
-        flowMode: number;
-        loadBalancers: outputs.Waf.GetWafInfosHostListLoadBalancer[];
-        status: number;
-    }
-
-    export interface GetWafInfosHostListLoadBalancer {
-        listenerId: string;
-        listenerName: string;
-        loadBalancerId: string;
-        loadBalancerName: string;
-        loadBalancerType: string;
-        numericalVpcId: number;
-        protocol: string;
-        region: string;
-        vip: string;
-        vport: number;
-        zone: string;
-    }
-
-    export interface GetWafInfosParam {
-        domainId?: string;
-        listenerId?: string;
-        loadBalancerId: string;
-    }
-
     export interface IpAccessControlItem {
         action: number;
         id: string;
@@ -25613,6 +27702,24 @@ export namespace Waf {
         source: string;
         validStatus: number;
         validTs: number;
+    }
+
+    export interface IpAccessControlV2JobDateTime {
+        crons?: outputs.Waf.IpAccessControlV2JobDateTimeCron[];
+        timeTZone?: string;
+        timeds?: outputs.Waf.IpAccessControlV2JobDateTimeTimed[];
+    }
+
+    export interface IpAccessControlV2JobDateTimeCron {
+        days?: number[];
+        endTime?: string;
+        startTime?: string;
+        wDays?: number[];
+    }
+
+    export interface IpAccessControlV2JobDateTimeTimed {
+        endDateTime?: number;
+        startDateTime?: number;
     }
 
     export interface SaasDomainPort {
@@ -26166,10 +28273,26 @@ export namespace Wedata {
 
 export namespace config {
     export interface AssumeRole {
+        externalId?: string;
         policy?: string;
         roleArn: string;
         sessionDuration: number;
         sessionName: string;
+    }
+
+    export interface AssumeRoleWithSaml {
+        principalArn: string;
+        roleArn: string;
+        samlAssertion: string;
+        sessionDuration: number;
+        sessionName: string;
+    }
+
+    export interface AssumeRoleWithWebIdentity {
+        roleArn: string;
+        sessionDuration: number;
+        sessionName: string;
+        webIdentityToken: string;
     }
 
 }

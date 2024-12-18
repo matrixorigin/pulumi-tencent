@@ -43,11 +43,15 @@ export class RuleEngine extends pulumi.CustomResource {
      */
     public readonly ruleName!: pulumi.Output<string>;
     /**
+     * Rule priority, the larger the value, the higher the priority, the minimum is 1.
+     */
+    public /*out*/ readonly rulePriority!: pulumi.Output<number>;
+    /**
      * Rule items list.
      */
     public readonly rules!: pulumi.Output<outputs.Teo.RuleEngineRule[]>;
     /**
-     * Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+     * Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
      */
     public readonly status!: pulumi.Output<string>;
     /**
@@ -74,6 +78,7 @@ export class RuleEngine extends pulumi.CustomResource {
             const state = argsOrState as RuleEngineState | undefined;
             resourceInputs["ruleId"] = state ? state.ruleId : undefined;
             resourceInputs["ruleName"] = state ? state.ruleName : undefined;
+            resourceInputs["rulePriority"] = state ? state.rulePriority : undefined;
             resourceInputs["rules"] = state ? state.rules : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
@@ -98,6 +103,7 @@ export class RuleEngine extends pulumi.CustomResource {
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["zoneId"] = args ? args.zoneId : undefined;
             resourceInputs["ruleId"] = undefined /*out*/;
+            resourceInputs["rulePriority"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(RuleEngine.__pulumiType, name, resourceInputs, opts);
@@ -117,11 +123,15 @@ export interface RuleEngineState {
      */
     ruleName?: pulumi.Input<string>;
     /**
+     * Rule priority, the larger the value, the higher the priority, the minimum is 1.
+     */
+    rulePriority?: pulumi.Input<number>;
+    /**
      * Rule items list.
      */
     rules?: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRule>[]>;
     /**
-     * Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+     * Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
      */
     status?: pulumi.Input<string>;
     /**
@@ -147,7 +157,7 @@ export interface RuleEngineArgs {
      */
     rules: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRule>[]>;
     /**
-     * Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+     * Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
      */
     status: pulumi.Input<string>;
     /**

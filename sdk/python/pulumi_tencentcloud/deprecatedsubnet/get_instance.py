@@ -21,10 +21,13 @@ class GetInstanceResult:
     """
     A collection of values returned by getInstance.
     """
-    def __init__(__self__, availability_zone=None, cidr_block=None, id=None, name=None, route_table_id=None, subnet_id=None, vpc_id=None):
+    def __init__(__self__, availability_zone=None, cdc_id=None, cidr_block=None, id=None, name=None, route_table_id=None, subnet_id=None, vpc_id=None):
         if availability_zone and not isinstance(availability_zone, str):
             raise TypeError("Expected argument 'availability_zone' to be a str")
         pulumi.set(__self__, "availability_zone", availability_zone)
+        if cdc_id and not isinstance(cdc_id, str):
+            raise TypeError("Expected argument 'cdc_id' to be a str")
+        pulumi.set(__self__, "cdc_id", cdc_id)
         if cidr_block and not isinstance(cidr_block, str):
             raise TypeError("Expected argument 'cidr_block' to be a str")
         pulumi.set(__self__, "cidr_block", cidr_block)
@@ -48,6 +51,11 @@ class GetInstanceResult:
     @pulumi.getter(name="availabilityZone")
     def availability_zone(self) -> str:
         return pulumi.get(self, "availability_zone")
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> str:
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="cidrBlock")
@@ -90,6 +98,7 @@ class AwaitableGetInstanceResult(GetInstanceResult):
             yield self
         return GetInstanceResult(
             availability_zone=self.availability_zone,
+            cdc_id=self.cdc_id,
             cidr_block=self.cidr_block,
             id=self.id,
             name=self.name,
@@ -98,13 +107,15 @@ class AwaitableGetInstanceResult(GetInstanceResult):
             vpc_id=self.vpc_id)
 
 
-def get_instance(subnet_id: Optional[str] = None,
+def get_instance(cdc_id: Optional[str] = None,
+                 subnet_id: Optional[str] = None,
                  vpc_id: Optional[str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetInstanceResult:
     """
     Use this data source to access information about an existing resource.
     """
     __args__ = dict()
+    __args__['cdcId'] = cdc_id
     __args__['subnetId'] = subnet_id
     __args__['vpcId'] = vpc_id
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -112,6 +123,7 @@ def get_instance(subnet_id: Optional[str] = None,
 
     return AwaitableGetInstanceResult(
         availability_zone=pulumi.get(__ret__, 'availability_zone'),
+        cdc_id=pulumi.get(__ret__, 'cdc_id'),
         cidr_block=pulumi.get(__ret__, 'cidr_block'),
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
@@ -121,7 +133,8 @@ def get_instance(subnet_id: Optional[str] = None,
 
 
 @_utilities.lift_output_func(get_instance)
-def get_instance_output(subnet_id: Optional[pulumi.Input[str]] = None,
+def get_instance_output(cdc_id: Optional[pulumi.Input[Optional[str]]] = None,
+                        subnet_id: Optional[pulumi.Input[str]] = None,
                         vpc_id: Optional[pulumi.Input[str]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetInstanceResult]:
     """

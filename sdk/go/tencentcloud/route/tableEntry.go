@@ -21,11 +21,13 @@ type TableEntry struct {
 	DestinationCidrBlock pulumi.StringOutput `pulumi:"destinationCidrBlock"`
 	// Whether the entry is disabled, default is `false`.
 	Disabled pulumi.BoolPtrOutput `pulumi:"disabled"`
-	// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+	// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 	NextHub pulumi.StringOutput `pulumi:"nextHub"`
 	// Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
 	// `LOCAL_GATEWAY`.
 	NextType pulumi.StringOutput `pulumi:"nextType"`
+	// ID of route table entry.
+	RouteItemId pulumi.StringOutput `pulumi:"routeItemId"`
 	// ID of routing table to which this entry belongs.
 	RouteTableId pulumi.StringOutput `pulumi:"routeTableId"`
 }
@@ -78,11 +80,13 @@ type tableEntryState struct {
 	DestinationCidrBlock *string `pulumi:"destinationCidrBlock"`
 	// Whether the entry is disabled, default is `false`.
 	Disabled *bool `pulumi:"disabled"`
-	// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+	// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 	NextHub *string `pulumi:"nextHub"`
 	// Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
 	// `LOCAL_GATEWAY`.
 	NextType *string `pulumi:"nextType"`
+	// ID of route table entry.
+	RouteItemId *string `pulumi:"routeItemId"`
 	// ID of routing table to which this entry belongs.
 	RouteTableId *string `pulumi:"routeTableId"`
 }
@@ -94,11 +98,13 @@ type TableEntryState struct {
 	DestinationCidrBlock pulumi.StringPtrInput
 	// Whether the entry is disabled, default is `false`.
 	Disabled pulumi.BoolPtrInput
-	// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+	// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 	NextHub pulumi.StringPtrInput
 	// Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
 	// `LOCAL_GATEWAY`.
 	NextType pulumi.StringPtrInput
+	// ID of route table entry.
+	RouteItemId pulumi.StringPtrInput
 	// ID of routing table to which this entry belongs.
 	RouteTableId pulumi.StringPtrInput
 }
@@ -114,7 +120,7 @@ type tableEntryArgs struct {
 	DestinationCidrBlock string `pulumi:"destinationCidrBlock"`
 	// Whether the entry is disabled, default is `false`.
 	Disabled *bool `pulumi:"disabled"`
-	// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+	// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 	NextHub string `pulumi:"nextHub"`
 	// Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
 	// `LOCAL_GATEWAY`.
@@ -131,7 +137,7 @@ type TableEntryArgs struct {
 	DestinationCidrBlock pulumi.StringInput
 	// Whether the entry is disabled, default is `false`.
 	Disabled pulumi.BoolPtrInput
-	// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+	// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 	NextHub pulumi.StringInput
 	// Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
 	// `LOCAL_GATEWAY`.
@@ -242,7 +248,7 @@ func (o TableEntryOutput) Disabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *TableEntry) pulumi.BoolPtrOutput { return v.Disabled }).(pulumi.BoolPtrOutput)
 }
 
-// ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+// ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
 func (o TableEntryOutput) NextHub() pulumi.StringOutput {
 	return o.ApplyT(func(v *TableEntry) pulumi.StringOutput { return v.NextHub }).(pulumi.StringOutput)
 }
@@ -251,6 +257,11 @@ func (o TableEntryOutput) NextHub() pulumi.StringOutput {
 // `LOCAL_GATEWAY`.
 func (o TableEntryOutput) NextType() pulumi.StringOutput {
 	return o.ApplyT(func(v *TableEntry) pulumi.StringOutput { return v.NextType }).(pulumi.StringOutput)
+}
+
+// ID of route table entry.
+func (o TableEntryOutput) RouteItemId() pulumi.StringOutput {
+	return o.ApplyT(func(v *TableEntry) pulumi.StringOutput { return v.RouteItemId }).(pulumi.StringOutput)
 }
 
 // ID of routing table to which this entry belongs.

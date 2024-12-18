@@ -45,7 +45,7 @@ export class TableEntry extends pulumi.CustomResource {
      */
     public readonly disabled!: pulumi.Output<boolean | undefined>;
     /**
-     * ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+     * ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
      */
     public readonly nextHub!: pulumi.Output<string>;
     /**
@@ -53,6 +53,10 @@ export class TableEntry extends pulumi.CustomResource {
      * `LOCAL_GATEWAY`.
      */
     public readonly nextType!: pulumi.Output<string>;
+    /**
+     * ID of route table entry.
+     */
+    public /*out*/ readonly routeItemId!: pulumi.Output<string>;
     /**
      * ID of routing table to which this entry belongs.
      */
@@ -76,6 +80,7 @@ export class TableEntry extends pulumi.CustomResource {
             resourceInputs["disabled"] = state ? state.disabled : undefined;
             resourceInputs["nextHub"] = state ? state.nextHub : undefined;
             resourceInputs["nextType"] = state ? state.nextType : undefined;
+            resourceInputs["routeItemId"] = state ? state.routeItemId : undefined;
             resourceInputs["routeTableId"] = state ? state.routeTableId : undefined;
         } else {
             const args = argsOrState as TableEntryArgs | undefined;
@@ -97,6 +102,7 @@ export class TableEntry extends pulumi.CustomResource {
             resourceInputs["nextHub"] = args ? args.nextHub : undefined;
             resourceInputs["nextType"] = args ? args.nextType : undefined;
             resourceInputs["routeTableId"] = args ? args.routeTableId : undefined;
+            resourceInputs["routeItemId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(TableEntry.__pulumiType, name, resourceInputs, opts);
@@ -120,7 +126,7 @@ export interface TableEntryState {
      */
     disabled?: pulumi.Input<boolean>;
     /**
-     * ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+     * ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
      */
     nextHub?: pulumi.Input<string>;
     /**
@@ -128,6 +134,10 @@ export interface TableEntryState {
      * `LOCAL_GATEWAY`.
      */
     nextType?: pulumi.Input<string>;
+    /**
+     * ID of route table entry.
+     */
+    routeItemId?: pulumi.Input<string>;
     /**
      * ID of routing table to which this entry belongs.
      */
@@ -151,7 +161,7 @@ export interface TableEntryArgs {
      */
     disabled?: pulumi.Input<boolean>;
     /**
-     * ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+     * ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
      */
     nextHub: pulumi.Input<string>;
     /**

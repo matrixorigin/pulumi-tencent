@@ -17,6 +17,8 @@ type DatasourceCloud struct {
 
 	// Charset.
 	Charset pulumi.StringOutput `pulumi:"charset"`
+	// Cluster id.
+	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
 	// Third-party datasource identification, this parameter can be ignored.
 	DataOrigin pulumi.StringPtrOutput `pulumi:"dataOrigin"`
 	// Third-party datasource project id, this parameter can be ignored.
@@ -117,6 +119,8 @@ func GetDatasourceCloud(ctx *pulumi.Context,
 type datasourceCloudState struct {
 	// Charset.
 	Charset *string `pulumi:"charset"`
+	// Cluster id.
+	ClusterId *string `pulumi:"clusterId"`
 	// Third-party datasource identification, this parameter can be ignored.
 	DataOrigin *string `pulumi:"dataOrigin"`
 	// Third-party datasource project id, this parameter can be ignored.
@@ -154,6 +158,8 @@ type datasourceCloudState struct {
 type DatasourceCloudState struct {
 	// Charset.
 	Charset pulumi.StringPtrInput
+	// Cluster id.
+	ClusterId pulumi.StringPtrInput
 	// Third-party datasource identification, this parameter can be ignored.
 	DataOrigin pulumi.StringPtrInput
 	// Third-party datasource project id, this parameter can be ignored.
@@ -195,6 +201,8 @@ func (DatasourceCloudState) ElementType() reflect.Type {
 type datasourceCloudArgs struct {
 	// Charset.
 	Charset string `pulumi:"charset"`
+	// Cluster id.
+	ClusterId *string `pulumi:"clusterId"`
 	// Third-party datasource identification, this parameter can be ignored.
 	DataOrigin *string `pulumi:"dataOrigin"`
 	// Third-party datasource project id, this parameter can be ignored.
@@ -233,6 +241,8 @@ type datasourceCloudArgs struct {
 type DatasourceCloudArgs struct {
 	// Charset.
 	Charset pulumi.StringInput
+	// Cluster id.
+	ClusterId pulumi.StringPtrInput
 	// Third-party datasource identification, this parameter can be ignored.
 	DataOrigin pulumi.StringPtrInput
 	// Third-party datasource project id, this parameter can be ignored.
@@ -357,6 +367,11 @@ func (o DatasourceCloudOutput) ToDatasourceCloudOutputWithContext(ctx context.Co
 // Charset.
 func (o DatasourceCloudOutput) Charset() pulumi.StringOutput {
 	return o.ApplyT(func(v *DatasourceCloud) pulumi.StringOutput { return v.Charset }).(pulumi.StringOutput)
+}
+
+// Cluster id.
+func (o DatasourceCloudOutput) ClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DatasourceCloud) pulumi.StringPtrOutput { return v.ClusterId }).(pulumi.StringPtrOutput)
 }
 
 // Third-party datasource identification, this parameter can be ignored.

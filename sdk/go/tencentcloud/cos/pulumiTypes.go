@@ -3355,12 +3355,13 @@ func (o BucketInventorySchedulePtrOutput) Frequency() pulumi.StringPtrOutput {
 }
 
 type BucketLifecycleRule struct {
-	Expiration            *BucketLifecycleRuleExpiration            `pulumi:"expiration"`
-	FilterPrefix          string                                    `pulumi:"filterPrefix"`
-	Id                    *string                                   `pulumi:"id"`
-	NonCurrentExpiration  *BucketLifecycleRuleNonCurrentExpiration  `pulumi:"nonCurrentExpiration"`
-	NonCurrentTransitions []BucketLifecycleRuleNonCurrentTransition `pulumi:"nonCurrentTransitions"`
-	Transitions           []BucketLifecycleRuleTransition           `pulumi:"transitions"`
+	AbortIncompleteMultipartUpload *BucketLifecycleRuleAbortIncompleteMultipartUpload `pulumi:"abortIncompleteMultipartUpload"`
+	Expiration                     *BucketLifecycleRuleExpiration                     `pulumi:"expiration"`
+	FilterPrefix                   string                                             `pulumi:"filterPrefix"`
+	Id                             *string                                            `pulumi:"id"`
+	NonCurrentExpiration           *BucketLifecycleRuleNonCurrentExpiration           `pulumi:"nonCurrentExpiration"`
+	NonCurrentTransitions          []BucketLifecycleRuleNonCurrentTransition          `pulumi:"nonCurrentTransitions"`
+	Transitions                    []BucketLifecycleRuleTransition                    `pulumi:"transitions"`
 }
 
 // BucketLifecycleRuleInput is an input type that accepts BucketLifecycleRuleArgs and BucketLifecycleRuleOutput values.
@@ -3375,12 +3376,13 @@ type BucketLifecycleRuleInput interface {
 }
 
 type BucketLifecycleRuleArgs struct {
-	Expiration            BucketLifecycleRuleExpirationPtrInput             `pulumi:"expiration"`
-	FilterPrefix          pulumi.StringInput                                `pulumi:"filterPrefix"`
-	Id                    pulumi.StringPtrInput                             `pulumi:"id"`
-	NonCurrentExpiration  BucketLifecycleRuleNonCurrentExpirationPtrInput   `pulumi:"nonCurrentExpiration"`
-	NonCurrentTransitions BucketLifecycleRuleNonCurrentTransitionArrayInput `pulumi:"nonCurrentTransitions"`
-	Transitions           BucketLifecycleRuleTransitionArrayInput           `pulumi:"transitions"`
+	AbortIncompleteMultipartUpload BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput `pulumi:"abortIncompleteMultipartUpload"`
+	Expiration                     BucketLifecycleRuleExpirationPtrInput                     `pulumi:"expiration"`
+	FilterPrefix                   pulumi.StringInput                                        `pulumi:"filterPrefix"`
+	Id                             pulumi.StringPtrInput                                     `pulumi:"id"`
+	NonCurrentExpiration           BucketLifecycleRuleNonCurrentExpirationPtrInput           `pulumi:"nonCurrentExpiration"`
+	NonCurrentTransitions          BucketLifecycleRuleNonCurrentTransitionArrayInput         `pulumi:"nonCurrentTransitions"`
+	Transitions                    BucketLifecycleRuleTransitionArrayInput                   `pulumi:"transitions"`
 }
 
 func (BucketLifecycleRuleArgs) ElementType() reflect.Type {
@@ -3434,6 +3436,12 @@ func (o BucketLifecycleRuleOutput) ToBucketLifecycleRuleOutputWithContext(ctx co
 	return o
 }
 
+func (o BucketLifecycleRuleOutput) AbortIncompleteMultipartUpload() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return o.ApplyT(func(v BucketLifecycleRule) *BucketLifecycleRuleAbortIncompleteMultipartUpload {
+		return v.AbortIncompleteMultipartUpload
+	}).(BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput)
+}
+
 func (o BucketLifecycleRuleOutput) Expiration() BucketLifecycleRuleExpirationPtrOutput {
 	return o.ApplyT(func(v BucketLifecycleRule) *BucketLifecycleRuleExpiration { return v.Expiration }).(BucketLifecycleRuleExpirationPtrOutput)
 }
@@ -3476,6 +3484,139 @@ func (o BucketLifecycleRuleArrayOutput) Index(i pulumi.IntInput) BucketLifecycle
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) BucketLifecycleRule {
 		return vs[0].([]BucketLifecycleRule)[vs[1].(int)]
 	}).(BucketLifecycleRuleOutput)
+}
+
+type BucketLifecycleRuleAbortIncompleteMultipartUpload struct {
+	DaysAfterInitiation int `pulumi:"daysAfterInitiation"`
+}
+
+// BucketLifecycleRuleAbortIncompleteMultipartUploadInput is an input type that accepts BucketLifecycleRuleAbortIncompleteMultipartUploadArgs and BucketLifecycleRuleAbortIncompleteMultipartUploadOutput values.
+// You can construct a concrete instance of `BucketLifecycleRuleAbortIncompleteMultipartUploadInput` via:
+//
+//	BucketLifecycleRuleAbortIncompleteMultipartUploadArgs{...}
+type BucketLifecycleRuleAbortIncompleteMultipartUploadInput interface {
+	pulumi.Input
+
+	ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadOutput
+	ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadOutput
+}
+
+type BucketLifecycleRuleAbortIncompleteMultipartUploadArgs struct {
+	DaysAfterInitiation pulumi.IntInput `pulumi:"daysAfterInitiation"`
+}
+
+func (BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*BucketLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (i BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return i.ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(context.Background())
+}
+
+func (i BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BucketLifecycleRuleAbortIncompleteMultipartUploadOutput)
+}
+
+func (i BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return i.ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(context.Background())
+}
+
+func (i BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BucketLifecycleRuleAbortIncompleteMultipartUploadOutput).ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(ctx)
+}
+
+// BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput is an input type that accepts BucketLifecycleRuleAbortIncompleteMultipartUploadArgs, BucketLifecycleRuleAbortIncompleteMultipartUploadPtr and BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput values.
+// You can construct a concrete instance of `BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput` via:
+//
+//	        BucketLifecycleRuleAbortIncompleteMultipartUploadArgs{...}
+//
+//	or:
+//
+//	        nil
+type BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput interface {
+	pulumi.Input
+
+	ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput
+	ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput
+}
+
+type bucketLifecycleRuleAbortIncompleteMultipartUploadPtrType BucketLifecycleRuleAbortIncompleteMultipartUploadArgs
+
+func BucketLifecycleRuleAbortIncompleteMultipartUploadPtr(v *BucketLifecycleRuleAbortIncompleteMultipartUploadArgs) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput {
+	return (*bucketLifecycleRuleAbortIncompleteMultipartUploadPtrType)(v)
+}
+
+func (*bucketLifecycleRuleAbortIncompleteMultipartUploadPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**BucketLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (i *bucketLifecycleRuleAbortIncompleteMultipartUploadPtrType) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return i.ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(context.Background())
+}
+
+func (i *bucketLifecycleRuleAbortIncompleteMultipartUploadPtrType) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput)
+}
+
+type BucketLifecycleRuleAbortIncompleteMultipartUploadOutput struct{ *pulumi.OutputState }
+
+func (BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*BucketLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return o
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return o
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return o.ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(context.Background())
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v BucketLifecycleRuleAbortIncompleteMultipartUpload) *BucketLifecycleRuleAbortIncompleteMultipartUpload {
+		return &v
+	}).(BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput)
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadOutput) DaysAfterInitiation() pulumi.IntOutput {
+	return o.ApplyT(func(v BucketLifecycleRuleAbortIncompleteMultipartUpload) int { return v.DaysAfterInitiation }).(pulumi.IntOutput)
+}
+
+type BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput struct{ *pulumi.OutputState }
+
+func (BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**BucketLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput() BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return o
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput) ToBucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutputWithContext(ctx context.Context) BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput {
+	return o
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput) Elem() BucketLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return o.ApplyT(func(v *BucketLifecycleRuleAbortIncompleteMultipartUpload) BucketLifecycleRuleAbortIncompleteMultipartUpload {
+		if v != nil {
+			return *v
+		}
+		var ret BucketLifecycleRuleAbortIncompleteMultipartUpload
+		return ret
+	}).(BucketLifecycleRuleAbortIncompleteMultipartUploadOutput)
+}
+
+func (o BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput) DaysAfterInitiation() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *BucketLifecycleRuleAbortIncompleteMultipartUpload) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.DaysAfterInitiation
+	}).(pulumi.IntPtrOutput)
 }
 
 type BucketLifecycleRuleExpiration struct {
@@ -4347,9 +4488,10 @@ func (o BucketReplicaRuleArrayOutput) Index(i pulumi.IntInput) BucketReplicaRule
 }
 
 type BucketWebsite struct {
-	Endpoint      *string `pulumi:"endpoint"`
-	ErrorDocument *string `pulumi:"errorDocument"`
-	IndexDocument *string `pulumi:"indexDocument"`
+	Endpoint              *string `pulumi:"endpoint"`
+	ErrorDocument         *string `pulumi:"errorDocument"`
+	IndexDocument         *string `pulumi:"indexDocument"`
+	RedirectAllRequestsTo *string `pulumi:"redirectAllRequestsTo"`
 }
 
 // BucketWebsiteInput is an input type that accepts BucketWebsiteArgs and BucketWebsiteOutput values.
@@ -4364,9 +4506,10 @@ type BucketWebsiteInput interface {
 }
 
 type BucketWebsiteArgs struct {
-	Endpoint      pulumi.StringPtrInput `pulumi:"endpoint"`
-	ErrorDocument pulumi.StringPtrInput `pulumi:"errorDocument"`
-	IndexDocument pulumi.StringPtrInput `pulumi:"indexDocument"`
+	Endpoint              pulumi.StringPtrInput `pulumi:"endpoint"`
+	ErrorDocument         pulumi.StringPtrInput `pulumi:"errorDocument"`
+	IndexDocument         pulumi.StringPtrInput `pulumi:"indexDocument"`
+	RedirectAllRequestsTo pulumi.StringPtrInput `pulumi:"redirectAllRequestsTo"`
 }
 
 func (BucketWebsiteArgs) ElementType() reflect.Type {
@@ -4458,6 +4601,10 @@ func (o BucketWebsiteOutput) IndexDocument() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v BucketWebsite) *string { return v.IndexDocument }).(pulumi.StringPtrOutput)
 }
 
+func (o BucketWebsiteOutput) RedirectAllRequestsTo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v BucketWebsite) *string { return v.RedirectAllRequestsTo }).(pulumi.StringPtrOutput)
+}
+
 type BucketWebsitePtrOutput struct{ *pulumi.OutputState }
 
 func (BucketWebsitePtrOutput) ElementType() reflect.Type {
@@ -4506,6 +4653,15 @@ func (o BucketWebsitePtrOutput) IndexDocument() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.IndexDocument
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o BucketWebsitePtrOutput) RedirectAllRequestsTo() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *BucketWebsite) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RedirectAllRequestsTo
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -6080,11 +6236,12 @@ func (o GetBucketsBucketListCorsRuleArrayOutput) Index(i pulumi.IntInput) GetBuc
 }
 
 type GetBucketsBucketListLifecycleRule struct {
-	Expirations           []GetBucketsBucketListLifecycleRuleExpiration           `pulumi:"expirations"`
-	FilterPrefix          string                                                  `pulumi:"filterPrefix"`
-	NonCurrentExpirations []GetBucketsBucketListLifecycleRuleNonCurrentExpiration `pulumi:"nonCurrentExpirations"`
-	NonCurrentTransitions []GetBucketsBucketListLifecycleRuleNonCurrentTransition `pulumi:"nonCurrentTransitions"`
-	Transitions           []GetBucketsBucketListLifecycleRuleTransition           `pulumi:"transitions"`
+	AbortIncompleteMultipartUploads []GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload `pulumi:"abortIncompleteMultipartUploads"`
+	Expirations                     []GetBucketsBucketListLifecycleRuleExpiration                     `pulumi:"expirations"`
+	FilterPrefix                    string                                                            `pulumi:"filterPrefix"`
+	NonCurrentExpirations           []GetBucketsBucketListLifecycleRuleNonCurrentExpiration           `pulumi:"nonCurrentExpirations"`
+	NonCurrentTransitions           []GetBucketsBucketListLifecycleRuleNonCurrentTransition           `pulumi:"nonCurrentTransitions"`
+	Transitions                     []GetBucketsBucketListLifecycleRuleTransition                     `pulumi:"transitions"`
 }
 
 // GetBucketsBucketListLifecycleRuleInput is an input type that accepts GetBucketsBucketListLifecycleRuleArgs and GetBucketsBucketListLifecycleRuleOutput values.
@@ -6099,11 +6256,12 @@ type GetBucketsBucketListLifecycleRuleInput interface {
 }
 
 type GetBucketsBucketListLifecycleRuleArgs struct {
-	Expirations           GetBucketsBucketListLifecycleRuleExpirationArrayInput           `pulumi:"expirations"`
-	FilterPrefix          pulumi.StringInput                                              `pulumi:"filterPrefix"`
-	NonCurrentExpirations GetBucketsBucketListLifecycleRuleNonCurrentExpirationArrayInput `pulumi:"nonCurrentExpirations"`
-	NonCurrentTransitions GetBucketsBucketListLifecycleRuleNonCurrentTransitionArrayInput `pulumi:"nonCurrentTransitions"`
-	Transitions           GetBucketsBucketListLifecycleRuleTransitionArrayInput           `pulumi:"transitions"`
+	AbortIncompleteMultipartUploads GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayInput `pulumi:"abortIncompleteMultipartUploads"`
+	Expirations                     GetBucketsBucketListLifecycleRuleExpirationArrayInput                     `pulumi:"expirations"`
+	FilterPrefix                    pulumi.StringInput                                                        `pulumi:"filterPrefix"`
+	NonCurrentExpirations           GetBucketsBucketListLifecycleRuleNonCurrentExpirationArrayInput           `pulumi:"nonCurrentExpirations"`
+	NonCurrentTransitions           GetBucketsBucketListLifecycleRuleNonCurrentTransitionArrayInput           `pulumi:"nonCurrentTransitions"`
+	Transitions                     GetBucketsBucketListLifecycleRuleTransitionArrayInput                     `pulumi:"transitions"`
 }
 
 func (GetBucketsBucketListLifecycleRuleArgs) ElementType() reflect.Type {
@@ -6157,6 +6315,12 @@ func (o GetBucketsBucketListLifecycleRuleOutput) ToGetBucketsBucketListLifecycle
 	return o
 }
 
+func (o GetBucketsBucketListLifecycleRuleOutput) AbortIncompleteMultipartUploads() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput {
+	return o.ApplyT(func(v GetBucketsBucketListLifecycleRule) []GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload {
+		return v.AbortIncompleteMultipartUploads
+	}).(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput)
+}
+
 func (o GetBucketsBucketListLifecycleRuleOutput) Expirations() GetBucketsBucketListLifecycleRuleExpirationArrayOutput {
 	return o.ApplyT(func(v GetBucketsBucketListLifecycleRule) []GetBucketsBucketListLifecycleRuleExpiration {
 		return v.Expirations
@@ -6203,6 +6367,102 @@ func (o GetBucketsBucketListLifecycleRuleArrayOutput) Index(i pulumi.IntInput) G
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetBucketsBucketListLifecycleRule {
 		return vs[0].([]GetBucketsBucketListLifecycleRule)[vs[1].(int)]
 	}).(GetBucketsBucketListLifecycleRuleOutput)
+}
+
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload struct {
+	DaysAfterInitiation int `pulumi:"daysAfterInitiation"`
+}
+
+// GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadInput is an input type that accepts GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs and GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput values.
+// You can construct a concrete instance of `GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadInput` via:
+//
+//	GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs{...}
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadInput interface {
+	pulumi.Input
+
+	ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput
+	ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput
+}
+
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs struct {
+	DaysAfterInitiation pulumi.IntInput `pulumi:"daysAfterInitiation"`
+}
+
+func (GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (i GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return i.ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(context.Background())
+}
+
+func (i GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(ctx context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput)
+}
+
+// GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayInput is an input type that accepts GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray and GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput values.
+// You can construct a concrete instance of `GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayInput` via:
+//
+//	GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray{ GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs{...} }
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayInput interface {
+	pulumi.Input
+
+	ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput
+	ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutputWithContext(context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput
+}
+
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray []GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadInput
+
+func (GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (i GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput {
+	return i.ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutputWithContext(context.Background())
+}
+
+func (i GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutputWithContext(ctx context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput)
+}
+
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput struct{ *pulumi.OutputState }
+
+func (GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return o
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutputWithContext(ctx context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return o
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput) DaysAfterInitiation() pulumi.IntOutput {
+	return o.ApplyT(func(v GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload) int {
+		return v.DaysAfterInitiation
+	}).(pulumi.IntOutput)
+}
+
+type GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput struct{ *pulumi.OutputState }
+
+func (GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload)(nil)).Elem()
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput() GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput {
+	return o
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput) ToGetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutputWithContext(ctx context.Context) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput {
+	return o
+}
+
+func (o GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput) Index(i pulumi.IntInput) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload {
+		return vs[0].([]GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUpload)[vs[1].(int)]
+	}).(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput)
 }
 
 type GetBucketsBucketListLifecycleRuleExpiration struct {
@@ -6998,6 +7258,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketInventorySchedulePtrInput)(nil)).Elem(), BucketInventoryScheduleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleInput)(nil)).Elem(), BucketLifecycleRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleArrayInput)(nil)).Elem(), BucketLifecycleRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleAbortIncompleteMultipartUploadInput)(nil)).Elem(), BucketLifecycleRuleAbortIncompleteMultipartUploadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleAbortIncompleteMultipartUploadPtrInput)(nil)).Elem(), BucketLifecycleRuleAbortIncompleteMultipartUploadArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleExpirationInput)(nil)).Elem(), BucketLifecycleRuleExpirationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleExpirationPtrInput)(nil)).Elem(), BucketLifecycleRuleExpirationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*BucketLifecycleRuleNonCurrentExpirationInput)(nil)).Elem(), BucketLifecycleRuleNonCurrentExpirationArgs{})
@@ -7044,6 +7306,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListCorsRuleArrayInput)(nil)).Elem(), GetBucketsBucketListCorsRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleArrayInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleExpirationInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleExpirationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleExpirationArrayInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleExpirationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBucketsBucketListLifecycleRuleNonCurrentExpirationInput)(nil)).Elem(), GetBucketsBucketListLifecycleRuleNonCurrentExpirationArgs{})
@@ -7102,6 +7366,8 @@ func init() {
 	pulumi.RegisterOutputType(BucketInventorySchedulePtrOutput{})
 	pulumi.RegisterOutputType(BucketLifecycleRuleOutput{})
 	pulumi.RegisterOutputType(BucketLifecycleRuleArrayOutput{})
+	pulumi.RegisterOutputType(BucketLifecycleRuleAbortIncompleteMultipartUploadOutput{})
+	pulumi.RegisterOutputType(BucketLifecycleRuleAbortIncompleteMultipartUploadPtrOutput{})
 	pulumi.RegisterOutputType(BucketLifecycleRuleExpirationOutput{})
 	pulumi.RegisterOutputType(BucketLifecycleRuleExpirationPtrOutput{})
 	pulumi.RegisterOutputType(BucketLifecycleRuleNonCurrentExpirationOutput{})
@@ -7148,6 +7414,8 @@ func init() {
 	pulumi.RegisterOutputType(GetBucketsBucketListCorsRuleArrayOutput{})
 	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleOutput{})
 	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleArrayOutput{})
+	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadOutput{})
+	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadArrayOutput{})
 	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleExpirationOutput{})
 	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleExpirationArrayOutput{})
 	pulumi.RegisterOutputType(GetBucketsBucketListLifecycleRuleNonCurrentExpirationOutput{})

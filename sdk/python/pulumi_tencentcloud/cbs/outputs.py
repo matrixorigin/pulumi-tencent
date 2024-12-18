@@ -159,6 +159,7 @@ class GetStoragesSetStorageListResult(dict):
                  availability_zone: str,
                  charge_type: str,
                  create_time: str,
+                 dedicated_cluster_id: str,
                  encrypt: bool,
                  instance_id: str,
                  prepaid_renew_flag: str,
@@ -175,6 +176,7 @@ class GetStoragesSetStorageListResult(dict):
         pulumi.set(__self__, "availability_zone", availability_zone)
         pulumi.set(__self__, "charge_type", charge_type)
         pulumi.set(__self__, "create_time", create_time)
+        pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         pulumi.set(__self__, "encrypt", encrypt)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "prepaid_renew_flag", prepaid_renew_flag)
@@ -207,6 +209,11 @@ class GetStoragesSetStorageListResult(dict):
     @pulumi.getter(name="createTime")
     def create_time(self) -> str:
         return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> str:
+        return pulumi.get(self, "dedicated_cluster_id")
 
     @property
     @pulumi.getter
@@ -276,6 +283,7 @@ class GetStoragesStorageListResult(dict):
                  availability_zone: str,
                  charge_type: str,
                  create_time: str,
+                 dedicated_cluster_id: str,
                  encrypt: bool,
                  instance_id: str,
                  prepaid_renew_flag: str,
@@ -292,6 +300,7 @@ class GetStoragesStorageListResult(dict):
         pulumi.set(__self__, "availability_zone", availability_zone)
         pulumi.set(__self__, "charge_type", charge_type)
         pulumi.set(__self__, "create_time", create_time)
+        pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         pulumi.set(__self__, "encrypt", encrypt)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "prepaid_renew_flag", prepaid_renew_flag)
@@ -324,6 +333,11 @@ class GetStoragesStorageListResult(dict):
     @pulumi.getter(name="createTime")
     def create_time(self) -> str:
         return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> str:
+        return pulumi.get(self, "dedicated_cluster_id")
 
     @property
     @pulumi.getter

@@ -15,6 +15,8 @@ import (
 type Alarm struct {
 	pulumi.CustomResourceState
 
+	// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+	AlarmLevel pulumi.IntOutput `pulumi:"alarmLevel"`
 	// list of alarm notice id.
 	AlarmNoticeIds pulumi.StringArrayOutput `pulumi:"alarmNoticeIds"`
 	// alarm repeat cycle.
@@ -24,17 +26,19 @@ type Alarm struct {
 	// multidimensional analysis.
 	Analyses AlarmAnalysisArrayOutput `pulumi:"analyses"`
 	// user define callback.
-	CallBack AlarmCallBackPtrOutput `pulumi:"callBack"`
-	// triggering conditions.
-	Condition pulumi.StringOutput `pulumi:"condition"`
+	CallBack AlarmCallBackOutput `pulumi:"callBack"`
+	// Trigger condition.
+	Condition pulumi.StringPtrOutput `pulumi:"condition"`
 	// user define alarm notice.
 	MessageTemplate pulumi.StringPtrOutput `pulumi:"messageTemplate"`
 	// monitor task execution time.
 	MonitorTime AlarmMonitorTimeOutput `pulumi:"monitorTime"`
+	// Multiple triggering conditions.
+	MultiConditions AlarmMultiConditionArrayOutput `pulumi:"multiConditions"`
 	// log alarm name.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// whether to enable the alarm policy.
-	Status pulumi.BoolPtrOutput `pulumi:"status"`
+	Status pulumi.BoolOutput `pulumi:"status"`
 	// Tag description list.
 	Tags pulumi.MapOutput `pulumi:"tags"`
 	// continuous cycle.
@@ -56,9 +60,6 @@ func NewAlarm(ctx *pulumi.Context,
 	}
 	if args.AlarmTargets == nil {
 		return nil, errors.New("invalid value for required argument 'AlarmTargets'")
-	}
-	if args.Condition == nil {
-		return nil, errors.New("invalid value for required argument 'Condition'")
 	}
 	if args.MonitorTime == nil {
 		return nil, errors.New("invalid value for required argument 'MonitorTime'")
@@ -89,6 +90,8 @@ func GetAlarm(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Alarm resources.
 type alarmState struct {
+	// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+	AlarmLevel *int `pulumi:"alarmLevel"`
 	// list of alarm notice id.
 	AlarmNoticeIds []string `pulumi:"alarmNoticeIds"`
 	// alarm repeat cycle.
@@ -99,12 +102,14 @@ type alarmState struct {
 	Analyses []AlarmAnalysis `pulumi:"analyses"`
 	// user define callback.
 	CallBack *AlarmCallBack `pulumi:"callBack"`
-	// triggering conditions.
+	// Trigger condition.
 	Condition *string `pulumi:"condition"`
 	// user define alarm notice.
 	MessageTemplate *string `pulumi:"messageTemplate"`
 	// monitor task execution time.
 	MonitorTime *AlarmMonitorTime `pulumi:"monitorTime"`
+	// Multiple triggering conditions.
+	MultiConditions []AlarmMultiCondition `pulumi:"multiConditions"`
 	// log alarm name.
 	Name *string `pulumi:"name"`
 	// whether to enable the alarm policy.
@@ -116,6 +121,8 @@ type alarmState struct {
 }
 
 type AlarmState struct {
+	// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+	AlarmLevel pulumi.IntPtrInput
 	// list of alarm notice id.
 	AlarmNoticeIds pulumi.StringArrayInput
 	// alarm repeat cycle.
@@ -126,12 +133,14 @@ type AlarmState struct {
 	Analyses AlarmAnalysisArrayInput
 	// user define callback.
 	CallBack AlarmCallBackPtrInput
-	// triggering conditions.
+	// Trigger condition.
 	Condition pulumi.StringPtrInput
 	// user define alarm notice.
 	MessageTemplate pulumi.StringPtrInput
 	// monitor task execution time.
 	MonitorTime AlarmMonitorTimePtrInput
+	// Multiple triggering conditions.
+	MultiConditions AlarmMultiConditionArrayInput
 	// log alarm name.
 	Name pulumi.StringPtrInput
 	// whether to enable the alarm policy.
@@ -147,6 +156,8 @@ func (AlarmState) ElementType() reflect.Type {
 }
 
 type alarmArgs struct {
+	// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+	AlarmLevel *int `pulumi:"alarmLevel"`
 	// list of alarm notice id.
 	AlarmNoticeIds []string `pulumi:"alarmNoticeIds"`
 	// alarm repeat cycle.
@@ -157,12 +168,14 @@ type alarmArgs struct {
 	Analyses []AlarmAnalysis `pulumi:"analyses"`
 	// user define callback.
 	CallBack *AlarmCallBack `pulumi:"callBack"`
-	// triggering conditions.
-	Condition string `pulumi:"condition"`
+	// Trigger condition.
+	Condition *string `pulumi:"condition"`
 	// user define alarm notice.
 	MessageTemplate *string `pulumi:"messageTemplate"`
 	// monitor task execution time.
 	MonitorTime AlarmMonitorTime `pulumi:"monitorTime"`
+	// Multiple triggering conditions.
+	MultiConditions []AlarmMultiCondition `pulumi:"multiConditions"`
 	// log alarm name.
 	Name *string `pulumi:"name"`
 	// whether to enable the alarm policy.
@@ -175,6 +188,8 @@ type alarmArgs struct {
 
 // The set of arguments for constructing a Alarm resource.
 type AlarmArgs struct {
+	// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+	AlarmLevel pulumi.IntPtrInput
 	// list of alarm notice id.
 	AlarmNoticeIds pulumi.StringArrayInput
 	// alarm repeat cycle.
@@ -185,12 +200,14 @@ type AlarmArgs struct {
 	Analyses AlarmAnalysisArrayInput
 	// user define callback.
 	CallBack AlarmCallBackPtrInput
-	// triggering conditions.
-	Condition pulumi.StringInput
+	// Trigger condition.
+	Condition pulumi.StringPtrInput
 	// user define alarm notice.
 	MessageTemplate pulumi.StringPtrInput
 	// monitor task execution time.
 	MonitorTime AlarmMonitorTimeInput
+	// Multiple triggering conditions.
+	MultiConditions AlarmMultiConditionArrayInput
 	// log alarm name.
 	Name pulumi.StringPtrInput
 	// whether to enable the alarm policy.
@@ -288,6 +305,11 @@ func (o AlarmOutput) ToAlarmOutputWithContext(ctx context.Context) AlarmOutput {
 	return o
 }
 
+// Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+func (o AlarmOutput) AlarmLevel() pulumi.IntOutput {
+	return o.ApplyT(func(v *Alarm) pulumi.IntOutput { return v.AlarmLevel }).(pulumi.IntOutput)
+}
+
 // list of alarm notice id.
 func (o AlarmOutput) AlarmNoticeIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Alarm) pulumi.StringArrayOutput { return v.AlarmNoticeIds }).(pulumi.StringArrayOutput)
@@ -309,13 +331,13 @@ func (o AlarmOutput) Analyses() AlarmAnalysisArrayOutput {
 }
 
 // user define callback.
-func (o AlarmOutput) CallBack() AlarmCallBackPtrOutput {
-	return o.ApplyT(func(v *Alarm) AlarmCallBackPtrOutput { return v.CallBack }).(AlarmCallBackPtrOutput)
+func (o AlarmOutput) CallBack() AlarmCallBackOutput {
+	return o.ApplyT(func(v *Alarm) AlarmCallBackOutput { return v.CallBack }).(AlarmCallBackOutput)
 }
 
-// triggering conditions.
-func (o AlarmOutput) Condition() pulumi.StringOutput {
-	return o.ApplyT(func(v *Alarm) pulumi.StringOutput { return v.Condition }).(pulumi.StringOutput)
+// Trigger condition.
+func (o AlarmOutput) Condition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Alarm) pulumi.StringPtrOutput { return v.Condition }).(pulumi.StringPtrOutput)
 }
 
 // user define alarm notice.
@@ -328,14 +350,19 @@ func (o AlarmOutput) MonitorTime() AlarmMonitorTimeOutput {
 	return o.ApplyT(func(v *Alarm) AlarmMonitorTimeOutput { return v.MonitorTime }).(AlarmMonitorTimeOutput)
 }
 
+// Multiple triggering conditions.
+func (o AlarmOutput) MultiConditions() AlarmMultiConditionArrayOutput {
+	return o.ApplyT(func(v *Alarm) AlarmMultiConditionArrayOutput { return v.MultiConditions }).(AlarmMultiConditionArrayOutput)
+}
+
 // log alarm name.
 func (o AlarmOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Alarm) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
 // whether to enable the alarm policy.
-func (o AlarmOutput) Status() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Alarm) pulumi.BoolPtrOutput { return v.Status }).(pulumi.BoolPtrOutput)
+func (o AlarmOutput) Status() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Alarm) pulumi.BoolOutput { return v.Status }).(pulumi.BoolOutput)
 }
 
 // Tag description list.

@@ -14,6 +14,7 @@ __all__ = [
     'FunctionTargetsAttachmentFunctionTargetsArgs',
     'FunctionTargetsAttachmentFunctionTargetsFunctionArgs',
     'InstanceSnatIpArgs',
+    'ListenerRuleOauthArgs',
     'ReplaceCertForLbsCertificateArgs',
     'SnatIpIpArgs',
     'TargetGroupAttachmentsAssociationArgs',
@@ -186,6 +187,35 @@ class InstanceSnatIpArgs:
 
 
 @pulumi.input_type
+class ListenerRuleOauthArgs:
+    def __init__(__self__, *,
+                 oauth_enable: Optional[pulumi.Input[bool]] = None,
+                 oauth_failure_status: Optional[pulumi.Input[str]] = None):
+        if oauth_enable is not None:
+            pulumi.set(__self__, "oauth_enable", oauth_enable)
+        if oauth_failure_status is not None:
+            pulumi.set(__self__, "oauth_failure_status", oauth_failure_status)
+
+    @property
+    @pulumi.getter(name="oauthEnable")
+    def oauth_enable(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "oauth_enable")
+
+    @oauth_enable.setter
+    def oauth_enable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "oauth_enable", value)
+
+    @property
+    @pulumi.getter(name="oauthFailureStatus")
+    def oauth_failure_status(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "oauth_failure_status")
+
+    @oauth_failure_status.setter
+    def oauth_failure_status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "oauth_failure_status", value)
+
+
+@pulumi.input_type
 class ReplaceCertForLbsCertificateArgs:
     def __init__(__self__, *,
                  cert_ca_content: Optional[pulumi.Input[str]] = None,
@@ -316,23 +346,18 @@ class SnatIpIpArgs:
 @pulumi.input_type
 class TargetGroupAttachmentsAssociationArgs:
     def __init__(__self__, *,
-                 target_group_id: pulumi.Input[str],
                  listener_id: Optional[pulumi.Input[str]] = None,
-                 location_id: Optional[pulumi.Input[str]] = None):
-        pulumi.set(__self__, "target_group_id", target_group_id)
+                 load_balancer_id: Optional[pulumi.Input[str]] = None,
+                 location_id: Optional[pulumi.Input[str]] = None,
+                 target_group_id: Optional[pulumi.Input[str]] = None):
         if listener_id is not None:
             pulumi.set(__self__, "listener_id", listener_id)
+        if load_balancer_id is not None:
+            pulumi.set(__self__, "load_balancer_id", load_balancer_id)
         if location_id is not None:
             pulumi.set(__self__, "location_id", location_id)
-
-    @property
-    @pulumi.getter(name="targetGroupId")
-    def target_group_id(self) -> pulumi.Input[str]:
-        return pulumi.get(self, "target_group_id")
-
-    @target_group_id.setter
-    def target_group_id(self, value: pulumi.Input[str]):
-        pulumi.set(self, "target_group_id", value)
+        if target_group_id is not None:
+            pulumi.set(__self__, "target_group_id", target_group_id)
 
     @property
     @pulumi.getter(name="listenerId")
@@ -344,6 +369,15 @@ class TargetGroupAttachmentsAssociationArgs:
         pulumi.set(self, "listener_id", value)
 
     @property
+    @pulumi.getter(name="loadBalancerId")
+    def load_balancer_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "load_balancer_id")
+
+    @load_balancer_id.setter
+    def load_balancer_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "load_balancer_id", value)
+
+    @property
     @pulumi.getter(name="locationId")
     def location_id(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "location_id")
@@ -351,6 +385,15 @@ class TargetGroupAttachmentsAssociationArgs:
     @location_id.setter
     def location_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "location_id", value)
+
+    @property
+    @pulumi.getter(name="targetGroupId")
+    def target_group_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "target_group_id")
+
+    @target_group_id.setter
+    def target_group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target_group_id", value)
 
 
 @pulumi.input_type

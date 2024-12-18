@@ -25,15 +25,15 @@ class ZoneArgs:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         The set of arguments for constructing a Zone resource.
-        :param pulumi.Input[str] area: When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-               values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-               `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-               mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        :param pulumi.Input[str] area: When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+               parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+               value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+               availability zone (excluding Chinese mainland).
         :param pulumi.Input[str] plan_id: The target Plan ID to be bound. When you have an existing Plan in your account, you can fill in this parameter to
                directly bind the site to the Plan. If you do not have a Plan that can be bound at the moment, please go to the console
                to purchase a Plan to complete the site creation.
-        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-               values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+               access; full: NS access; noDomainAccess: No domain access.
         :param pulumi.Input[str] zone_name: Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
                without a domain name, please leave this value empty.
         :param pulumi.Input[str] alias_zone_name: Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
@@ -56,10 +56,10 @@ class ZoneArgs:
     @pulumi.getter
     def area(self) -> pulumi.Input[str]:
         """
-        When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-        values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-        `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-        mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+        parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+        value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+        availability zone (excluding Chinese mainland).
         """
         return pulumi.get(self, "area")
 
@@ -85,8 +85,8 @@ class ZoneArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-        values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+        access; full: NS access; noDomainAccess: No domain access.
         """
         return pulumi.get(self, "type")
 
@@ -162,10 +162,10 @@ class _ZoneState:
         Input properties used for looking up and filtering Zone resources.
         :param pulumi.Input[str] alias_zone_name: Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
                refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
-        :param pulumi.Input[str] area: When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-               values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-               `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-               mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        :param pulumi.Input[str] area: When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+               parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+               value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+               availability zone (excluding Chinese mainland).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] name_servers: NS list allocated by Tencent Cloud.
         :param pulumi.Input[Sequence[pulumi.Input['ZoneOwnershipVerificationArgs']]] ownership_verifications: Ownership verification information. Note: This field may return null, indicating that no valid value can be obtained.
         :param pulumi.Input[bool] paused: Indicates whether the site is disabled.
@@ -175,8 +175,8 @@ class _ZoneState:
         :param pulumi.Input[str] status: Site status. Valid values: `active`: NS is switched; `pending`: NS is not switched; `moved`: NS is moved; `deactivated`:
                this site is blocked.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-               values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+               access; full: NS access; noDomainAccess: No domain access.
         :param pulumi.Input[str] zone_name: Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
                without a domain name, please leave this value empty.
         """
@@ -218,10 +218,10 @@ class _ZoneState:
     @pulumi.getter
     def area(self) -> Optional[pulumi.Input[str]]:
         """
-        When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-        values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-        `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-        mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+        parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+        value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+        availability zone (excluding Chinese mainland).
         """
         return pulumi.get(self, "area")
 
@@ -308,8 +308,8 @@ class _ZoneState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-        values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+        access; full: NS access; noDomainAccess: No domain access.
         """
         return pulumi.get(self, "type")
 
@@ -350,17 +350,17 @@ class Zone(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] alias_zone_name: Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
                refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
-        :param pulumi.Input[str] area: When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-               values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-               `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-               mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        :param pulumi.Input[str] area: When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+               parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+               value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+               availability zone (excluding Chinese mainland).
         :param pulumi.Input[bool] paused: Indicates whether the site is disabled.
         :param pulumi.Input[str] plan_id: The target Plan ID to be bound. When you have an existing Plan in your account, you can fill in this parameter to
                directly bind the site to the Plan. If you do not have a Plan that can be bound at the moment, please go to the console
                to purchase a Plan to complete the site creation.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-               values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+               access; full: NS access; noDomainAccess: No domain access.
         :param pulumi.Input[str] zone_name: Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
                without a domain name, please leave this value empty.
         """
@@ -450,10 +450,10 @@ class Zone(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] alias_zone_name: Alias site identifier. Limit the input to a combination of numbers, English, - and _, within 20 characters. For details,
                refer to the alias site identifier. If there is no such usage scenario, leave this field empty.
-        :param pulumi.Input[str] area: When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-               values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-               `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-               mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        :param pulumi.Input[str] area: When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+               parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+               value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+               availability zone (excluding Chinese mainland).
         :param pulumi.Input[Sequence[pulumi.Input[str]]] name_servers: NS list allocated by Tencent Cloud.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ZoneOwnershipVerificationArgs']]]] ownership_verifications: Ownership verification information. Note: This field may return null, indicating that no valid value can be obtained.
         :param pulumi.Input[bool] paused: Indicates whether the site is disabled.
@@ -463,8 +463,8 @@ class Zone(pulumi.CustomResource):
         :param pulumi.Input[str] status: Site status. Valid values: `active`: NS is switched; `pending`: NS is not switched; `moved`: NS is moved; `deactivated`:
                this site is blocked.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-               values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        :param pulumi.Input[str] type: Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+               access; full: NS access; noDomainAccess: No domain access.
         :param pulumi.Input[str] zone_name: Site name. When accessing CNAME/NS, please pass the second-level domain (example.com) as the site name; when accessing
                without a domain name, please leave this value empty.
         """
@@ -497,10 +497,10 @@ class Zone(pulumi.CustomResource):
     @pulumi.getter
     def area(self) -> pulumi.Output[str]:
         """
-        When the `type` value is `partial` or `full`, the acceleration region of the L7 domain name. The following are the
-        values of this parameter, and the default value is `overseas` if not filled in. When the `type` value is
-        `noDomainAccess`, please leave this value empty. Valid values: `global`: Global availability zone; `mainland`: Chinese
-        mainland availability zone; `overseas`: Global availability zone (excluding Chinese mainland).
+        When the Type value is partial/full, the acceleration region of the L7 domain name. The following are the values of this
+        parameter, and the default value is overseas if not filled in. When the Type value is noDomainAccess, please leave this
+        value empty: - global: Global availability zone. - mainland: Chinese mainland availability zone. - overseas: Global
+        availability zone (excluding Chinese mainland).
         """
         return pulumi.get(self, "area")
 
@@ -559,8 +559,8 @@ class Zone(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[str]:
         """
-        Site access type. The value of this parameter is as follows, and the default is `partial` if not filled in. Valid
-        values: `partial`: CNAME access; `full`: NS access; `noDomainAccess`: No domain access.
+        Site access type. The value of this parameter is as follows, and the default is partial if not filled in:partial: CNAME
+        access; full: NS access; noDomainAccess: No domain access.
         """
         return pulumi.get(self, "type")
 

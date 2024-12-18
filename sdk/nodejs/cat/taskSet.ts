@@ -47,6 +47,10 @@ export class TaskSet extends pulumi.CustomResource {
      */
     public readonly interval!: pulumi.Output<number>;
     /**
+     * `0`-Unlimit ip type, `1`-IPv4, `2`-IPv6.
+     */
+    public readonly nodeIpType!: pulumi.Output<number>;
+    /**
      * Task Nodes.
      */
     public readonly nodes!: pulumi.Output<string[]>;
@@ -96,6 +100,7 @@ export class TaskSet extends pulumi.CustomResource {
             resourceInputs["batchTasks"] = state ? state.batchTasks : undefined;
             resourceInputs["cron"] = state ? state.cron : undefined;
             resourceInputs["interval"] = state ? state.interval : undefined;
+            resourceInputs["nodeIpType"] = state ? state.nodeIpType : undefined;
             resourceInputs["nodes"] = state ? state.nodes : undefined;
             resourceInputs["operate"] = state ? state.operate : undefined;
             resourceInputs["parameters"] = state ? state.parameters : undefined;
@@ -127,6 +132,7 @@ export class TaskSet extends pulumi.CustomResource {
             resourceInputs["batchTasks"] = args ? args.batchTasks : undefined;
             resourceInputs["cron"] = args ? args.cron : undefined;
             resourceInputs["interval"] = args ? args.interval : undefined;
+            resourceInputs["nodeIpType"] = args ? args.nodeIpType : undefined;
             resourceInputs["nodes"] = args ? args.nodes : undefined;
             resourceInputs["operate"] = args ? args.operate : undefined;
             resourceInputs["parameters"] = args ? args.parameters : undefined;
@@ -157,6 +163,10 @@ export interface TaskSetState {
      * Task interval minutes in (1,5,10,15,30,60,120,240).
      */
     interval?: pulumi.Input<number>;
+    /**
+     * `0`-Unlimit ip type, `1`-IPv4, `2`-IPv6.
+     */
+    nodeIpType?: pulumi.Input<number>;
     /**
      * Task Nodes.
      */
@@ -208,6 +218,10 @@ export interface TaskSetArgs {
      * Task interval minutes in (1,5,10,15,30,60,120,240).
      */
     interval: pulumi.Input<number>;
+    /**
+     * `0`-Unlimit ip type, `1`-IPv4, `2`-IPv6.
+     */
+    nodeIpType?: pulumi.Input<number>;
     /**
      * Task Nodes.
      */

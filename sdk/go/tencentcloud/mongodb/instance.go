@@ -15,6 +15,8 @@ import (
 type Instance struct {
 	pulumi.CustomResourceState
 
+	// Add node attribute list.
+	AddNodeLists InstanceAddNodeListArrayOutput `pulumi:"addNodeLists"`
 	// Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 	// `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 	// `1` for creation.
@@ -45,6 +47,12 @@ type Instance struct {
 	// Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
 	// `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
 	MachineType pulumi.StringOutput `pulumi:"machineType"`
+	// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+	// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+	MaintenanceEnd pulumi.StringOutput `pulumi:"maintenanceEnd"`
+	// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+	// 00:30.
+	MaintenanceStart pulumi.StringOutput `pulumi:"maintenanceStart"`
 	// Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 	Memory pulumi.IntOutput `pulumi:"memory"`
 	// The number of nodes in each replica set. Default value: 3.
@@ -56,6 +64,8 @@ type Instance struct {
 	PrepaidPeriod pulumi.IntPtrOutput `pulumi:"prepaidPeriod"`
 	// ID of the project which the instance belongs.
 	ProjectId pulumi.IntPtrOutput `pulumi:"projectId"`
+	// Add node attribute list.
+	RemoveNodeLists InstanceRemoveNodeListArrayOutput `pulumi:"removeNodeLists"`
 	// ID of the security group.
 	SecurityGroups pulumi.StringArrayOutput `pulumi:"securityGroups"`
 	// List of standby instances' info.
@@ -132,6 +142,8 @@ func GetInstance(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Instance resources.
 type instanceState struct {
+	// Add node attribute list.
+	AddNodeLists []InstanceAddNodeList `pulumi:"addNodeLists"`
 	// Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 	// `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 	// `1` for creation.
@@ -162,6 +174,12 @@ type instanceState struct {
 	// Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
 	// `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
 	MachineType *string `pulumi:"machineType"`
+	// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+	// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+	MaintenanceEnd *string `pulumi:"maintenanceEnd"`
+	// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+	// 00:30.
+	MaintenanceStart *string `pulumi:"maintenanceStart"`
 	// Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 	Memory *int `pulumi:"memory"`
 	// The number of nodes in each replica set. Default value: 3.
@@ -173,6 +191,8 @@ type instanceState struct {
 	PrepaidPeriod *int `pulumi:"prepaidPeriod"`
 	// ID of the project which the instance belongs.
 	ProjectId *int `pulumi:"projectId"`
+	// Add node attribute list.
+	RemoveNodeLists []InstanceRemoveNodeList `pulumi:"removeNodeLists"`
 	// ID of the security group.
 	SecurityGroups []string `pulumi:"securityGroups"`
 	// List of standby instances' info.
@@ -195,6 +215,8 @@ type instanceState struct {
 }
 
 type InstanceState struct {
+	// Add node attribute list.
+	AddNodeLists InstanceAddNodeListArrayInput
 	// Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 	// `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 	// `1` for creation.
@@ -225,6 +247,12 @@ type InstanceState struct {
 	// Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
 	// `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
 	MachineType pulumi.StringPtrInput
+	// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+	// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+	MaintenanceEnd pulumi.StringPtrInput
+	// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+	// 00:30.
+	MaintenanceStart pulumi.StringPtrInput
 	// Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 	Memory pulumi.IntPtrInput
 	// The number of nodes in each replica set. Default value: 3.
@@ -236,6 +264,8 @@ type InstanceState struct {
 	PrepaidPeriod pulumi.IntPtrInput
 	// ID of the project which the instance belongs.
 	ProjectId pulumi.IntPtrInput
+	// Add node attribute list.
+	RemoveNodeLists InstanceRemoveNodeListArrayInput
 	// ID of the security group.
 	SecurityGroups pulumi.StringArrayInput
 	// List of standby instances' info.
@@ -262,6 +292,8 @@ func (InstanceState) ElementType() reflect.Type {
 }
 
 type instanceArgs struct {
+	// Add node attribute list.
+	AddNodeLists []InstanceAddNodeList `pulumi:"addNodeLists"`
 	// Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 	// `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 	// `1` for creation.
@@ -290,6 +322,12 @@ type instanceArgs struct {
 	// Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
 	// `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
 	MachineType string `pulumi:"machineType"`
+	// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+	// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+	MaintenanceEnd *string `pulumi:"maintenanceEnd"`
+	// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+	// 00:30.
+	MaintenanceStart *string `pulumi:"maintenanceStart"`
 	// Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 	Memory int `pulumi:"memory"`
 	// The number of nodes in each replica set. Default value: 3.
@@ -301,6 +339,8 @@ type instanceArgs struct {
 	PrepaidPeriod *int `pulumi:"prepaidPeriod"`
 	// ID of the project which the instance belongs.
 	ProjectId *int `pulumi:"projectId"`
+	// Add node attribute list.
+	RemoveNodeLists []InstanceRemoveNodeList `pulumi:"removeNodeLists"`
 	// ID of the security group.
 	SecurityGroups []string `pulumi:"securityGroups"`
 	// ID of the subnet within this VPC. The value is required if `vpc_id` is set.
@@ -315,6 +355,8 @@ type instanceArgs struct {
 
 // The set of arguments for constructing a Instance resource.
 type InstanceArgs struct {
+	// Add node attribute list.
+	AddNodeLists InstanceAddNodeListArrayInput
 	// Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 	// `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 	// `1` for creation.
@@ -343,6 +385,12 @@ type InstanceArgs struct {
 	// Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
 	// `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
 	MachineType pulumi.StringInput
+	// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+	// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+	MaintenanceEnd pulumi.StringPtrInput
+	// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+	// 00:30.
+	MaintenanceStart pulumi.StringPtrInput
 	// Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 	Memory pulumi.IntInput
 	// The number of nodes in each replica set. Default value: 3.
@@ -354,6 +402,8 @@ type InstanceArgs struct {
 	PrepaidPeriod pulumi.IntPtrInput
 	// ID of the project which the instance belongs.
 	ProjectId pulumi.IntPtrInput
+	// Add node attribute list.
+	RemoveNodeLists InstanceRemoveNodeListArrayInput
 	// ID of the security group.
 	SecurityGroups pulumi.StringArrayInput
 	// ID of the subnet within this VPC. The value is required if `vpc_id` is set.
@@ -453,6 +503,11 @@ func (o InstanceOutput) ToInstanceOutputWithContext(ctx context.Context) Instanc
 	return o
 }
 
+// Add node attribute list.
+func (o InstanceOutput) AddNodeLists() InstanceAddNodeListArrayOutput {
+	return o.ApplyT(func(v *Instance) InstanceAddNodeListArrayOutput { return v.AddNodeLists }).(InstanceAddNodeListArrayOutput)
+}
+
 // Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
 // `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
 // `1` for creation.
@@ -510,6 +565,18 @@ func (o InstanceOutput) MachineType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.MachineType }).(pulumi.StringOutput)
 }
 
+// Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+// time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+func (o InstanceOutput) MaintenanceEnd() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.MaintenanceEnd }).(pulumi.StringOutput)
+}
+
+// Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+// 00:30.
+func (o InstanceOutput) MaintenanceStart() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.MaintenanceStart }).(pulumi.StringOutput)
+}
+
 // Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
 func (o InstanceOutput) Memory() pulumi.IntOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.Memory }).(pulumi.IntOutput)
@@ -534,6 +601,11 @@ func (o InstanceOutput) PrepaidPeriod() pulumi.IntPtrOutput {
 // ID of the project which the instance belongs.
 func (o InstanceOutput) ProjectId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.ProjectId }).(pulumi.IntPtrOutput)
+}
+
+// Add node attribute list.
+func (o InstanceOutput) RemoveNodeLists() InstanceRemoveNodeListArrayOutput {
+	return o.ApplyT(func(v *Instance) InstanceRemoveNodeListArrayOutput { return v.RemoveNodeLists }).(InstanceRemoveNodeListArrayOutput)
 }
 
 // ID of the security group.

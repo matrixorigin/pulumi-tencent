@@ -20,6 +20,11 @@ export type CkafkaConsumer = import("./ckafkaConsumer").CkafkaConsumer;
 export const CkafkaConsumer: typeof import("./ckafkaConsumer").CkafkaConsumer = null as any;
 utilities.lazyLoad(exports, ["CkafkaConsumer"], () => require("./ckafkaConsumer"));
 
+export { CloudProductLogTaskArgs, CloudProductLogTaskState } from "./cloudProductLogTask";
+export type CloudProductLogTask = import("./cloudProductLogTask").CloudProductLogTask;
+export const CloudProductLogTask: typeof import("./cloudProductLogTask").CloudProductLogTask = null as any;
+utilities.lazyLoad(exports, ["CloudProductLogTask"], () => require("./cloudProductLogTask"));
+
 export { ConfigArgs, ConfigState } from "./config";
 export type Config = import("./config").Config;
 export const Config: typeof import("./config").Config = null as any;
@@ -54,6 +59,11 @@ export { ExportArgs, ExportState } from "./export";
 export type Export = import("./export").Export;
 export const Export: typeof import("./export").Export = null as any;
 utilities.lazyLoad(exports, ["Export"], () => require("./export"));
+
+export { GetLogsetsArgs, GetLogsetsResult, GetLogsetsOutputArgs } from "./getLogsets";
+export const getLogsets: typeof import("./getLogsets").getLogsets = null as any;
+export const getLogsetsOutput: typeof import("./getLogsets").getLogsetsOutput = null as any;
+utilities.lazyLoad(exports, ["getLogsets","getLogsetsOutput"], () => require("./getLogsets"));
 
 export { GetMachineGroupConfigsArgs, GetMachineGroupConfigsResult, GetMachineGroupConfigsOutputArgs } from "./getMachineGroupConfigs";
 export const getMachineGroupConfigs: typeof import("./getMachineGroupConfigs").getMachineGroupConfigs = null as any;
@@ -90,6 +100,11 @@ export type MachineGroup = import("./machineGroup").MachineGroup;
 export const MachineGroup: typeof import("./machineGroup").MachineGroup = null as any;
 utilities.lazyLoad(exports, ["MachineGroup"], () => require("./machineGroup"));
 
+export { NoticeContentArgs, NoticeContentState } from "./noticeContent";
+export type NoticeContent = import("./noticeContent").NoticeContent;
+export const NoticeContent: typeof import("./noticeContent").NoticeContent = null as any;
+utilities.lazyLoad(exports, ["NoticeContent"], () => require("./noticeContent"));
+
 export { ScheduledSqlArgs, ScheduledSqlState } from "./scheduledSql";
 export type ScheduledSql = import("./scheduledSql").ScheduledSql;
 export const ScheduledSql: typeof import("./scheduledSql").ScheduledSql = null as any;
@@ -111,6 +126,8 @@ const _module = {
                 return new AlarmNotice(name, <any>undefined, { urn })
             case "tencentcloud:Cls/ckafkaConsumer:CkafkaConsumer":
                 return new CkafkaConsumer(name, <any>undefined, { urn })
+            case "tencentcloud:Cls/cloudProductLogTask:CloudProductLogTask":
+                return new CloudProductLogTask(name, <any>undefined, { urn })
             case "tencentcloud:Cls/config:Config":
                 return new Config(name, <any>undefined, { urn })
             case "tencentcloud:Cls/configAttachment:ConfigAttachment":
@@ -133,6 +150,8 @@ const _module = {
                 return new Logset(name, <any>undefined, { urn })
             case "tencentcloud:Cls/machineGroup:MachineGroup":
                 return new MachineGroup(name, <any>undefined, { urn })
+            case "tencentcloud:Cls/noticeContent:NoticeContent":
+                return new NoticeContent(name, <any>undefined, { urn })
             case "tencentcloud:Cls/scheduledSql:ScheduledSql":
                 return new ScheduledSql(name, <any>undefined, { urn })
             case "tencentcloud:Cls/topic:Topic":
@@ -145,6 +164,7 @@ const _module = {
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/alarm", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/alarmNotice", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/ckafkaConsumer", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Cls/cloudProductLogTask", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/config", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/configAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/configExtra", _module)
@@ -156,5 +176,6 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Cls/index", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/kafkaRecharge", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/logset", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/machineGroup", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Cls/noticeContent", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/scheduledSql", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Cls/topic", _module)

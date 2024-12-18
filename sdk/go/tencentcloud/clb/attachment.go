@@ -17,6 +17,8 @@ type Attachment struct {
 
 	// ID of the CLB.
 	ClbId pulumi.StringOutput `pulumi:"clbId"`
+	// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Domain pulumi.StringPtrOutput `pulumi:"domain"`
 	// ID of the CLB listener.
 	ListenerId pulumi.StringOutput `pulumi:"listenerId"`
 	// Type of protocol within the listener.
@@ -25,6 +27,8 @@ type Attachment struct {
 	RuleId pulumi.StringPtrOutput `pulumi:"ruleId"`
 	// Information of the backends to be attached.
 	Targets AttachmentTargetArrayOutput `pulumi:"targets"`
+	// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Url pulumi.StringPtrOutput `pulumi:"url"`
 }
 
 // NewAttachment registers a new resource with the given unique name, arguments, and options.
@@ -68,6 +72,8 @@ func GetAttachment(ctx *pulumi.Context,
 type attachmentState struct {
 	// ID of the CLB.
 	ClbId *string `pulumi:"clbId"`
+	// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Domain *string `pulumi:"domain"`
 	// ID of the CLB listener.
 	ListenerId *string `pulumi:"listenerId"`
 	// Type of protocol within the listener.
@@ -76,11 +82,15 @@ type attachmentState struct {
 	RuleId *string `pulumi:"ruleId"`
 	// Information of the backends to be attached.
 	Targets []AttachmentTarget `pulumi:"targets"`
+	// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Url *string `pulumi:"url"`
 }
 
 type AttachmentState struct {
 	// ID of the CLB.
 	ClbId pulumi.StringPtrInput
+	// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Domain pulumi.StringPtrInput
 	// ID of the CLB listener.
 	ListenerId pulumi.StringPtrInput
 	// Type of protocol within the listener.
@@ -89,6 +99,8 @@ type AttachmentState struct {
 	RuleId pulumi.StringPtrInput
 	// Information of the backends to be attached.
 	Targets AttachmentTargetArrayInput
+	// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Url pulumi.StringPtrInput
 }
 
 func (AttachmentState) ElementType() reflect.Type {
@@ -98,24 +110,32 @@ func (AttachmentState) ElementType() reflect.Type {
 type attachmentArgs struct {
 	// ID of the CLB.
 	ClbId string `pulumi:"clbId"`
+	// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Domain *string `pulumi:"domain"`
 	// ID of the CLB listener.
 	ListenerId string `pulumi:"listenerId"`
 	// ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
 	RuleId *string `pulumi:"ruleId"`
 	// Information of the backends to be attached.
 	Targets []AttachmentTarget `pulumi:"targets"`
+	// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Url *string `pulumi:"url"`
 }
 
 // The set of arguments for constructing a Attachment resource.
 type AttachmentArgs struct {
 	// ID of the CLB.
 	ClbId pulumi.StringInput
+	// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Domain pulumi.StringPtrInput
 	// ID of the CLB listener.
 	ListenerId pulumi.StringInput
 	// ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
 	RuleId pulumi.StringPtrInput
 	// Information of the backends to be attached.
 	Targets AttachmentTargetArrayInput
+	// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+	Url pulumi.StringPtrInput
 }
 
 func (AttachmentArgs) ElementType() reflect.Type {
@@ -210,6 +230,11 @@ func (o AttachmentOutput) ClbId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Attachment) pulumi.StringOutput { return v.ClbId }).(pulumi.StringOutput)
 }
 
+// Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+func (o AttachmentOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Attachment) pulumi.StringPtrOutput { return v.Domain }).(pulumi.StringPtrOutput)
+}
+
 // ID of the CLB listener.
 func (o AttachmentOutput) ListenerId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Attachment) pulumi.StringOutput { return v.ListenerId }).(pulumi.StringOutput)
@@ -228,6 +253,11 @@ func (o AttachmentOutput) RuleId() pulumi.StringPtrOutput {
 // Information of the backends to be attached.
 func (o AttachmentOutput) Targets() AttachmentTargetArrayOutput {
 	return o.ApplyT(func(v *Attachment) AttachmentTargetArrayOutput { return v.Targets }).(AttachmentTargetArrayOutput)
+}
+
+// URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+func (o AttachmentOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Attachment) pulumi.StringPtrOutput { return v.Url }).(pulumi.StringPtrOutput)
 }
 
 type AttachmentArrayOutput struct{ *pulumi.OutputState }

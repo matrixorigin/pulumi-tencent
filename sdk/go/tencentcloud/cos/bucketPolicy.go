@@ -18,7 +18,14 @@ type BucketPolicy struct {
 	// The name of a bucket to be created. Bucket format should be [custom name]-[appid], for example `mycos-1258798060`.
 	Bucket pulumi.StringOutput `pulumi:"bucket"`
 	// The text of the policy. For more info please refer to [Tencent official
-	// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+	// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+	// document is as follows: Example of specifying a bucket:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 	Policy pulumi.StringOutput `pulumi:"policy"`
 }
 
@@ -61,7 +68,14 @@ type bucketPolicyState struct {
 	// The name of a bucket to be created. Bucket format should be [custom name]-[appid], for example `mycos-1258798060`.
 	Bucket *string `pulumi:"bucket"`
 	// The text of the policy. For more info please refer to [Tencent official
-	// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+	// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+	// document is as follows: Example of specifying a bucket:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 	Policy *string `pulumi:"policy"`
 }
 
@@ -69,7 +83,14 @@ type BucketPolicyState struct {
 	// The name of a bucket to be created. Bucket format should be [custom name]-[appid], for example `mycos-1258798060`.
 	Bucket pulumi.StringPtrInput
 	// The text of the policy. For more info please refer to [Tencent official
-	// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+	// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+	// document is as follows: Example of specifying a bucket:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 	Policy pulumi.StringPtrInput
 }
 
@@ -81,7 +102,14 @@ type bucketPolicyArgs struct {
 	// The name of a bucket to be created. Bucket format should be [custom name]-[appid], for example `mycos-1258798060`.
 	Bucket string `pulumi:"bucket"`
 	// The text of the policy. For more info please refer to [Tencent official
-	// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+	// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+	// document is as follows: Example of specifying a bucket:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 	Policy string `pulumi:"policy"`
 }
 
@@ -90,7 +118,14 @@ type BucketPolicyArgs struct {
 	// The name of a bucket to be created. Bucket format should be [custom name]-[appid], for example `mycos-1258798060`.
 	Bucket pulumi.StringInput
 	// The text of the policy. For more info please refer to [Tencent official
-	// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+	// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+	// document is as follows: Example of specifying a bucket:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+	// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 	Policy pulumi.StringInput
 }
 
@@ -187,7 +222,14 @@ func (o BucketPolicyOutput) Bucket() pulumi.StringOutput {
 }
 
 // The text of the policy. For more info please refer to [Tencent official
-// doc](https://intl.cloud.tencent.com/document/product/436/18023).
+// doc](https://intl.cloud.tencent.com/document/product/436/18023), The six-segment resource scenario example in the
+// document is as follows: Example of specifying a bucket:
+// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/*`, In the cdc scenario:
+// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/*`; Example of specifying a folder:
+// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/*`, In the cdc scenario:
+// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/*`; Specified object example:
+// `qcs::cos:ap-guangzhou:uid/1250000000:examplebucket-1250000000/folder/exampleobject`, In the cdc scenario:
+// `qcs::cos:ap-guangzhou:uid/1250000000:cdc_cluster-123456_examplebucket-1250000000/folder/exampleobject`.
 func (o BucketPolicyOutput) Policy() pulumi.StringOutput {
 	return o.ApplyT(func(v *BucketPolicy) pulumi.StringOutput { return v.Policy }).(pulumi.StringOutput)
 }

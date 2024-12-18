@@ -35,6 +35,10 @@ export class Alarm extends pulumi.CustomResource {
     }
 
     /**
+     * Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+     */
+    public readonly alarmLevel!: pulumi.Output<number>;
+    /**
      * list of alarm notice id.
      */
     public readonly alarmNoticeIds!: pulumi.Output<string[]>;
@@ -53,11 +57,11 @@ export class Alarm extends pulumi.CustomResource {
     /**
      * user define callback.
      */
-    public readonly callBack!: pulumi.Output<outputs.Cls.AlarmCallBack | undefined>;
+    public readonly callBack!: pulumi.Output<outputs.Cls.AlarmCallBack>;
     /**
-     * triggering conditions.
+     * Trigger condition.
      */
-    public readonly condition!: pulumi.Output<string>;
+    public readonly condition!: pulumi.Output<string | undefined>;
     /**
      * user define alarm notice.
      */
@@ -67,13 +71,17 @@ export class Alarm extends pulumi.CustomResource {
      */
     public readonly monitorTime!: pulumi.Output<outputs.Cls.AlarmMonitorTime>;
     /**
+     * Multiple triggering conditions.
+     */
+    public readonly multiConditions!: pulumi.Output<outputs.Cls.AlarmMultiCondition[] | undefined>;
+    /**
      * log alarm name.
      */
     public readonly name!: pulumi.Output<string>;
     /**
      * whether to enable the alarm policy.
      */
-    public readonly status!: pulumi.Output<boolean | undefined>;
+    public readonly status!: pulumi.Output<boolean>;
     /**
      * Tag description list.
      */
@@ -96,6 +104,7 @@ export class Alarm extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as AlarmState | undefined;
+            resourceInputs["alarmLevel"] = state ? state.alarmLevel : undefined;
             resourceInputs["alarmNoticeIds"] = state ? state.alarmNoticeIds : undefined;
             resourceInputs["alarmPeriod"] = state ? state.alarmPeriod : undefined;
             resourceInputs["alarmTargets"] = state ? state.alarmTargets : undefined;
@@ -104,6 +113,7 @@ export class Alarm extends pulumi.CustomResource {
             resourceInputs["condition"] = state ? state.condition : undefined;
             resourceInputs["messageTemplate"] = state ? state.messageTemplate : undefined;
             resourceInputs["monitorTime"] = state ? state.monitorTime : undefined;
+            resourceInputs["multiConditions"] = state ? state.multiConditions : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
@@ -119,15 +129,13 @@ export class Alarm extends pulumi.CustomResource {
             if ((!args || args.alarmTargets === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'alarmTargets'");
             }
-            if ((!args || args.condition === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'condition'");
-            }
             if ((!args || args.monitorTime === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'monitorTime'");
             }
             if ((!args || args.triggerCount === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'triggerCount'");
             }
+            resourceInputs["alarmLevel"] = args ? args.alarmLevel : undefined;
             resourceInputs["alarmNoticeIds"] = args ? args.alarmNoticeIds : undefined;
             resourceInputs["alarmPeriod"] = args ? args.alarmPeriod : undefined;
             resourceInputs["alarmTargets"] = args ? args.alarmTargets : undefined;
@@ -136,6 +144,7 @@ export class Alarm extends pulumi.CustomResource {
             resourceInputs["condition"] = args ? args.condition : undefined;
             resourceInputs["messageTemplate"] = args ? args.messageTemplate : undefined;
             resourceInputs["monitorTime"] = args ? args.monitorTime : undefined;
+            resourceInputs["multiConditions"] = args ? args.multiConditions : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["status"] = args ? args.status : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
@@ -150,6 +159,10 @@ export class Alarm extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Alarm resources.
  */
 export interface AlarmState {
+    /**
+     * Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+     */
+    alarmLevel?: pulumi.Input<number>;
     /**
      * list of alarm notice id.
      */
@@ -171,7 +184,7 @@ export interface AlarmState {
      */
     callBack?: pulumi.Input<inputs.Cls.AlarmCallBack>;
     /**
-     * triggering conditions.
+     * Trigger condition.
      */
     condition?: pulumi.Input<string>;
     /**
@@ -182,6 +195,10 @@ export interface AlarmState {
      * monitor task execution time.
      */
     monitorTime?: pulumi.Input<inputs.Cls.AlarmMonitorTime>;
+    /**
+     * Multiple triggering conditions.
+     */
+    multiConditions?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmMultiCondition>[]>;
     /**
      * log alarm name.
      */
@@ -205,6 +222,10 @@ export interface AlarmState {
  */
 export interface AlarmArgs {
     /**
+     * Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+     */
+    alarmLevel?: pulumi.Input<number>;
+    /**
      * list of alarm notice id.
      */
     alarmNoticeIds: pulumi.Input<pulumi.Input<string>[]>;
@@ -225,9 +246,9 @@ export interface AlarmArgs {
      */
     callBack?: pulumi.Input<inputs.Cls.AlarmCallBack>;
     /**
-     * triggering conditions.
+     * Trigger condition.
      */
-    condition: pulumi.Input<string>;
+    condition?: pulumi.Input<string>;
     /**
      * user define alarm notice.
      */
@@ -236,6 +257,10 @@ export interface AlarmArgs {
      * monitor task execution time.
      */
     monitorTime: pulumi.Input<inputs.Cls.AlarmMonitorTime>;
+    /**
+     * Multiple triggering conditions.
+     */
+    multiConditions?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmMultiCondition>[]>;
     /**
      * log alarm name.
      */

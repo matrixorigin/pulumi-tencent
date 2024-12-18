@@ -40,9 +40,9 @@ class FreeCertificateArgs:
         :param pulumi.Input[str] csr_key_parameter: Specify CSR key parameter, only support `"2048"` for now.
         :param pulumi.Input[str] csr_key_password: Specify CSR key password.
         :param pulumi.Input[str] old_certificate_id: Specify old certificate ID, used for re-apply.
-        :param pulumi.Input[str] package_type: Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        :param pulumi.Input[str] package_type: Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         :param pulumi.Input[int] project_id: ID of projects which this certification belong to.
-        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"12"` months for now.
+        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"3"` months for now.
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "dv_auth_method", dv_auth_method)
@@ -180,7 +180,7 @@ class FreeCertificateArgs:
     @pulumi.getter(name="packageType")
     def package_type(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         """
         return pulumi.get(self, "package_type")
 
@@ -204,7 +204,7 @@ class FreeCertificateArgs:
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> Optional[pulumi.Input[str]]:
         """
-        Specify validity period in month, only support `"12"` months for now.
+        Specify validity period in month, only support `"3"` months for now.
         """
         return pulumi.get(self, "validity_period")
 
@@ -260,7 +260,7 @@ class _FreeCertificateState:
         :param pulumi.Input[Sequence[pulumi.Input['FreeCertificateDvAuthArgs']]] dv_auths: DV certification information.
         :param pulumi.Input[str] insert_time: Certificate insert time.
         :param pulumi.Input[str] old_certificate_id: Specify old certificate ID, used for re-apply.
-        :param pulumi.Input[str] package_type: Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        :param pulumi.Input[str] package_type: Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         :param pulumi.Input[str] product_zh_name: Product zh name.
         :param pulumi.Input[int] project_id: ID of projects which this certification belong to.
         :param pulumi.Input[bool] renewable: Indicates whether the certificate renewable.
@@ -270,7 +270,7 @@ class _FreeCertificateState:
                needed.
         :param pulumi.Input[str] status_msg: Certificate status message.
         :param pulumi.Input[str] status_name: Certificate status name.
-        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"12"` months for now.
+        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"3"` months for now.
         :param pulumi.Input[str] vulnerability_status: Vulnerability status.
         """
         if alias is not None:
@@ -521,7 +521,7 @@ class _FreeCertificateState:
     @pulumi.getter(name="packageType")
     def package_type(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         """
         return pulumi.get(self, "package_type")
 
@@ -608,7 +608,7 @@ class _FreeCertificateState:
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> Optional[pulumi.Input[str]]:
         """
-        Specify validity period in month, only support `"12"` months for now.
+        Specify validity period in month, only support `"3"` months for now.
         """
         return pulumi.get(self, "validity_period")
 
@@ -661,9 +661,9 @@ class FreeCertificate(pulumi.CustomResource):
         :param pulumi.Input[str] dv_auth_method: Specify DV authorize method. Available values: `DNS_AUTO` - automatic DNS auth, `DNS` - manual DNS auth, `FILE` - auth
                by file.
         :param pulumi.Input[str] old_certificate_id: Specify old certificate ID, used for re-apply.
-        :param pulumi.Input[str] package_type: Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        :param pulumi.Input[str] package_type: Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         :param pulumi.Input[int] project_id: ID of projects which this certification belong to.
-        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"12"` months for now.
+        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"3"` months for now.
         """
         ...
     @overload
@@ -799,7 +799,7 @@ class FreeCertificate(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['FreeCertificateDvAuthArgs']]]] dv_auths: DV certification information.
         :param pulumi.Input[str] insert_time: Certificate insert time.
         :param pulumi.Input[str] old_certificate_id: Specify old certificate ID, used for re-apply.
-        :param pulumi.Input[str] package_type: Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        :param pulumi.Input[str] package_type: Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         :param pulumi.Input[str] product_zh_name: Product zh name.
         :param pulumi.Input[int] project_id: ID of projects which this certification belong to.
         :param pulumi.Input[bool] renewable: Indicates whether the certificate renewable.
@@ -809,7 +809,7 @@ class FreeCertificate(pulumi.CustomResource):
                needed.
         :param pulumi.Input[str] status_msg: Certificate status message.
         :param pulumi.Input[str] status_name: Certificate status name.
-        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"12"` months for now.
+        :param pulumi.Input[str] validity_period: Specify validity period in month, only support `"3"` months for now.
         :param pulumi.Input[str] vulnerability_status: Vulnerability status.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -976,7 +976,7 @@ class FreeCertificate(pulumi.CustomResource):
     @pulumi.getter(name="packageType")
     def package_type(self) -> pulumi.Output[Optional[str]]:
         """
-        Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+        Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
         """
         return pulumi.get(self, "package_type")
 
@@ -1035,7 +1035,7 @@ class FreeCertificate(pulumi.CustomResource):
     @pulumi.getter(name="validityPeriod")
     def validity_period(self) -> pulumi.Output[Optional[str]]:
         """
-        Specify validity period in month, only support `"12"` months for now.
+        Specify validity period in month, only support `"3"` months for now.
         """
         return pulumi.get(self, "validity_period")
 

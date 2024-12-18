@@ -26,7 +26,7 @@ type SshKeyPairSecret struct {
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// Specifies a KMS CMK to encrypt the secret.If this parameter is left empty, the CMK created by Secrets Manager by default
 	// will be used for encryption.You can also specify a custom KMS CMK created in the same region for encryption.
-	KmsKeyId pulumi.StringPtrOutput `pulumi:"kmsKeyId"`
+	KmsKeyId pulumi.StringOutput `pulumi:"kmsKeyId"`
 	// ID of the project to which the created SSH key belongs.
 	ProjectId pulumi.IntOutput `pulumi:"projectId"`
 	// Secret name, which must be unique in the same region. It can contain 128 bytes of letters, digits, hyphens and
@@ -37,7 +37,7 @@ type SshKeyPairSecret struct {
 	SecretType pulumi.IntOutput `pulumi:"secretType"`
 	// Name of the SSH key pair, which only contains digits, letters and underscores and must start with a digit or letter. The
 	// maximum length is 25 characters.
-	SshKeyName pulumi.StringPtrOutput `pulumi:"sshKeyName"`
+	SshKeyName pulumi.StringOutput `pulumi:"sshKeyName"`
 	// Enable or Disable Secret. Valid values is `Enabled` or `Disabled`. Default is `Enabled`.
 	Status pulumi.StringOutput `pulumi:"status"`
 	// Tags of secret.
@@ -301,8 +301,8 @@ func (o SshKeyPairSecretOutput) Description() pulumi.StringPtrOutput {
 
 // Specifies a KMS CMK to encrypt the secret.If this parameter is left empty, the CMK created by Secrets Manager by default
 // will be used for encryption.You can also specify a custom KMS CMK created in the same region for encryption.
-func (o SshKeyPairSecretOutput) KmsKeyId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SshKeyPairSecret) pulumi.StringPtrOutput { return v.KmsKeyId }).(pulumi.StringPtrOutput)
+func (o SshKeyPairSecretOutput) KmsKeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKeyPairSecret) pulumi.StringOutput { return v.KmsKeyId }).(pulumi.StringOutput)
 }
 
 // ID of the project to which the created SSH key belongs.
@@ -324,8 +324,8 @@ func (o SshKeyPairSecretOutput) SecretType() pulumi.IntOutput {
 
 // Name of the SSH key pair, which only contains digits, letters and underscores and must start with a digit or letter. The
 // maximum length is 25 characters.
-func (o SshKeyPairSecretOutput) SshKeyName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *SshKeyPairSecret) pulumi.StringPtrOutput { return v.SshKeyName }).(pulumi.StringPtrOutput)
+func (o SshKeyPairSecretOutput) SshKeyName() pulumi.StringOutput {
+	return o.ApplyT(func(v *SshKeyPairSecret) pulumi.StringOutput { return v.SshKeyName }).(pulumi.StringOutput)
 }
 
 // Enable or Disable Secret. Valid values is `Enabled` or `Disabled`. Default is `Enabled`.

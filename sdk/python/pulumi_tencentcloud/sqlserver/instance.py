@@ -78,6 +78,9 @@ class InstanceArgs:
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if ha_type is not None:
+            warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+            pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
+        if ha_type is not None:
             pulumi.set(__self__, "ha_type", ha_type)
         if maintenance_start_time is not None:
             pulumi.set(__self__, "maintenance_start_time", maintenance_start_time)
@@ -204,6 +207,9 @@ class InstanceArgs:
         """
         Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
         """
+        warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+        pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
+
         return pulumi.get(self, "ha_type")
 
     @ha_type.setter
@@ -451,6 +457,9 @@ class _InstanceState:
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if ha_type is not None:
+            warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+            pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
+        if ha_type is not None:
             pulumi.set(__self__, "ha_type", ha_type)
         if maintenance_start_time is not None:
             pulumi.set(__self__, "maintenance_start_time", maintenance_start_time)
@@ -575,6 +584,9 @@ class _InstanceState:
         """
         Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
         """
+        warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+        pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
+
         return pulumi.get(self, "ha_type")
 
     @ha_type.setter
@@ -936,6 +948,9 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["availability_zone"] = availability_zone
             __props__.__dict__["charge_type"] = charge_type
             __props__.__dict__["engine_version"] = engine_version
+            if ha_type is not None and not opts.urn:
+                warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+                pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
             __props__.__dict__["ha_type"] = ha_type
             __props__.__dict__["maintenance_start_time"] = maintenance_start_time
             __props__.__dict__["maintenance_time_span"] = maintenance_time_span
@@ -1132,6 +1147,9 @@ class Instance(pulumi.CustomResource):
         """
         Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
         """
+        warnings.warn("""It has been deprecated from version 1.81.136.""", DeprecationWarning)
+        pulumi.log.warn("""ha_type is deprecated: It has been deprecated from version 1.81.136.""")
+
         return pulumi.get(self, "ha_type")
 
     @property
@@ -1170,7 +1188,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="multiZones")
-    def multi_zones(self) -> pulumi.Output[Optional[bool]]:
+    def multi_zones(self) -> pulumi.Output[bool]:
         """
         Indicate whether to deploy across availability zones.
         """

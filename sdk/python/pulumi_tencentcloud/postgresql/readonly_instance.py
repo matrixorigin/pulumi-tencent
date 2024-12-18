@@ -25,6 +25,8 @@ class ReadonlyInstanceArgs:
                  zone: pulumi.Input[str],
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  auto_voucher: Optional[pulumi.Input[int]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
+                 dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
                  instance_charge_type: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  need_support_ipv6: Optional[pulumi.Input[int]] = None,
@@ -45,6 +47,8 @@ class ReadonlyInstanceArgs:
         :param pulumi.Input[str] zone: Availability zone ID, which can be obtained through the Zone field in the returned value of the DescribeZones API.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag, `1` for enabled. NOTES: Only support prepaid instance.
         :param pulumi.Input[int] auto_voucher: Whether to use voucher, `1` for enabled.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated cluster ID.
         :param pulumi.Input[str] instance_charge_type: instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[int] need_support_ipv6: Whether to support IPv6 address access. Valid values: 1 (yes), 0 (no).
@@ -66,6 +70,10 @@ class ReadonlyInstanceArgs:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if auto_voucher is not None:
             pulumi.set(__self__, "auto_voucher", auto_voucher)
+        if cpu is not None:
+            pulumi.set(__self__, "cpu", cpu)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         if instance_charge_type is not None:
             pulumi.set(__self__, "instance_charge_type", instance_charge_type)
         if name is not None:
@@ -213,6 +221,30 @@ class ReadonlyInstanceArgs:
         pulumi.set(self, "auto_voucher", value)
 
     @property
+    @pulumi.getter
+    def cpu(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @cpu.setter
+    def cpu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "cpu", value)
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Dedicated cluster ID.
+        """
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @dedicated_cluster_id.setter
+    def dedicated_cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dedicated_cluster_id", value)
+
+    @property
     @pulumi.getter(name="instanceChargeType")
     def instance_charge_type(self) -> Optional[pulumi.Input[str]]:
         """
@@ -291,8 +323,10 @@ class _ReadonlyInstanceState:
     def __init__(__self__, *,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  auto_voucher: Optional[pulumi.Input[int]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  db_version: Optional[pulumi.Input[str]] = None,
+                 dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
                  instance_charge_type: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
                  master_db_instance_id: Optional[pulumi.Input[str]] = None,
@@ -314,8 +348,10 @@ class _ReadonlyInstanceState:
         Input properties used for looking up and filtering ReadonlyInstance resources.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag, `1` for enabled. NOTES: Only support prepaid instance.
         :param pulumi.Input[int] auto_voucher: Whether to use voucher, `1` for enabled.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] create_time: Create time of the postgresql instance.
         :param pulumi.Input[str] db_version: PostgreSQL kernel version, which must be the same as that of the primary instance.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated cluster ID.
         :param pulumi.Input[str] instance_charge_type: instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
         :param pulumi.Input[str] instance_id: The instance ID of this readonly resource.
         :param pulumi.Input[str] master_db_instance_id: ID of the primary instance to which the read-only replica belongs.
@@ -340,10 +376,14 @@ class _ReadonlyInstanceState:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if auto_voucher is not None:
             pulumi.set(__self__, "auto_voucher", auto_voucher)
+        if cpu is not None:
+            pulumi.set(__self__, "cpu", cpu)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
         if db_version is not None:
             pulumi.set(__self__, "db_version", db_version)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         if instance_charge_type is not None:
             pulumi.set(__self__, "instance_charge_type", instance_charge_type)
         if instance_id is not None:
@@ -404,6 +444,18 @@ class _ReadonlyInstanceState:
         pulumi.set(self, "auto_voucher", value)
 
     @property
+    @pulumi.getter
+    def cpu(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @cpu.setter
+    def cpu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "cpu", value)
+
+    @property
     @pulumi.getter(name="createTime")
     def create_time(self) -> Optional[pulumi.Input[str]]:
         """
@@ -426,6 +478,18 @@ class _ReadonlyInstanceState:
     @db_version.setter
     def db_version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "db_version", value)
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Dedicated cluster ID.
+        """
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @dedicated_cluster_id.setter
+    def dedicated_cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dedicated_cluster_id", value)
 
     @property
     @pulumi.getter(name="instanceChargeType")
@@ -641,7 +705,9 @@ class ReadonlyInstance(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  auto_voucher: Optional[pulumi.Input[int]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  db_version: Optional[pulumi.Input[str]] = None,
+                 dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
                  instance_charge_type: Optional[pulumi.Input[str]] = None,
                  master_db_instance_id: Optional[pulumi.Input[str]] = None,
                  memory: Optional[pulumi.Input[int]] = None,
@@ -663,7 +729,9 @@ class ReadonlyInstance(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag, `1` for enabled. NOTES: Only support prepaid instance.
         :param pulumi.Input[int] auto_voucher: Whether to use voucher, `1` for enabled.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] db_version: PostgreSQL kernel version, which must be the same as that of the primary instance.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated cluster ID.
         :param pulumi.Input[str] instance_charge_type: instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
         :param pulumi.Input[str] master_db_instance_id: ID of the primary instance to which the read-only replica belongs.
         :param pulumi.Input[int] memory: Memory size(in GB). Allowed value must be larger than `memory` that data source `tencentcloud_postgresql_specinfos`
@@ -706,7 +774,9 @@ class ReadonlyInstance(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  auto_voucher: Optional[pulumi.Input[int]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  db_version: Optional[pulumi.Input[str]] = None,
+                 dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
                  instance_charge_type: Optional[pulumi.Input[str]] = None,
                  master_db_instance_id: Optional[pulumi.Input[str]] = None,
                  memory: Optional[pulumi.Input[int]] = None,
@@ -732,9 +802,11 @@ class ReadonlyInstance(pulumi.CustomResource):
 
             __props__.__dict__["auto_renew_flag"] = auto_renew_flag
             __props__.__dict__["auto_voucher"] = auto_voucher
+            __props__.__dict__["cpu"] = cpu
             if db_version is None and not opts.urn:
                 raise TypeError("Missing required property 'db_version'")
             __props__.__dict__["db_version"] = db_version
+            __props__.__dict__["dedicated_cluster_id"] = dedicated_cluster_id
             __props__.__dict__["instance_charge_type"] = instance_charge_type
             if master_db_instance_id is None and not opts.urn:
                 raise TypeError("Missing required property 'master_db_instance_id'")
@@ -781,8 +853,10 @@ class ReadonlyInstance(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             auto_renew_flag: Optional[pulumi.Input[int]] = None,
             auto_voucher: Optional[pulumi.Input[int]] = None,
+            cpu: Optional[pulumi.Input[int]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             db_version: Optional[pulumi.Input[str]] = None,
+            dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
             instance_charge_type: Optional[pulumi.Input[str]] = None,
             instance_id: Optional[pulumi.Input[str]] = None,
             master_db_instance_id: Optional[pulumi.Input[str]] = None,
@@ -809,8 +883,10 @@ class ReadonlyInstance(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag, `1` for enabled. NOTES: Only support prepaid instance.
         :param pulumi.Input[int] auto_voucher: Whether to use voucher, `1` for enabled.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] create_time: Create time of the postgresql instance.
         :param pulumi.Input[str] db_version: PostgreSQL kernel version, which must be the same as that of the primary instance.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated cluster ID.
         :param pulumi.Input[str] instance_charge_type: instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
         :param pulumi.Input[str] instance_id: The instance ID of this readonly resource.
         :param pulumi.Input[str] master_db_instance_id: ID of the primary instance to which the read-only replica belongs.
@@ -837,8 +913,10 @@ class ReadonlyInstance(pulumi.CustomResource):
 
         __props__.__dict__["auto_renew_flag"] = auto_renew_flag
         __props__.__dict__["auto_voucher"] = auto_voucher
+        __props__.__dict__["cpu"] = cpu
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["db_version"] = db_version
+        __props__.__dict__["dedicated_cluster_id"] = dedicated_cluster_id
         __props__.__dict__["instance_charge_type"] = instance_charge_type
         __props__.__dict__["instance_id"] = instance_id
         __props__.__dict__["master_db_instance_id"] = master_db_instance_id
@@ -875,6 +953,14 @@ class ReadonlyInstance(pulumi.CustomResource):
         return pulumi.get(self, "auto_voucher")
 
     @property
+    @pulumi.getter
+    def cpu(self) -> pulumi.Output[int]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @property
     @pulumi.getter(name="createTime")
     def create_time(self) -> pulumi.Output[str]:
         """
@@ -889,6 +975,14 @@ class ReadonlyInstance(pulumi.CustomResource):
         PostgreSQL kernel version, which must be the same as that of the primary instance.
         """
         return pulumi.get(self, "db_version")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        Dedicated cluster ID.
+        """
+        return pulumi.get(self, "dedicated_cluster_id")
 
     @property
     @pulumi.getter(name="instanceChargeType")

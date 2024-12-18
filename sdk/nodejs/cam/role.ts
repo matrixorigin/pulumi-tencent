@@ -56,9 +56,13 @@ export class Role extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * RoleArn Information for Roles.
+     */
+    public /*out*/ readonly roleArn!: pulumi.Output<string>;
+    /**
      * The maximum validity period of the temporary key for creating a role.
      */
-    public readonly sessionDuration!: pulumi.Output<number | undefined>;
+    public readonly sessionDuration!: pulumi.Output<number>;
     /**
      * A list of tags used to associate different resources.
      */
@@ -86,6 +90,7 @@ export class Role extends pulumi.CustomResource {
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["document"] = state ? state.document : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["roleArn"] = state ? state.roleArn : undefined;
             resourceInputs["sessionDuration"] = state ? state.sessionDuration : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["updateTime"] = state ? state.updateTime : undefined;
@@ -101,6 +106,7 @@ export class Role extends pulumi.CustomResource {
             resourceInputs["sessionDuration"] = args ? args.sessionDuration : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
+            resourceInputs["roleArn"] = undefined /*out*/;
             resourceInputs["updateTime"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -135,6 +141,10 @@ export interface RoleState {
      * Name of CAM role.
      */
     name?: pulumi.Input<string>;
+    /**
+     * RoleArn Information for Roles.
+     */
+    roleArn?: pulumi.Input<string>;
     /**
      * The maximum validity period of the temporary key for creating a role.
      */

@@ -20,6 +20,7 @@ class GatewayArgs:
                  max_concurrent: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nat_product_version: Optional[pulumi.Input[int]] = None,
+                 stock_public_ip_addresses_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  zone: Optional[pulumi.Input[str]] = None):
@@ -28,11 +29,16 @@ class GatewayArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] assigned_eip_sets: EIP IP address set bound to the gateway. The value of at least 1 and at most 10.
         :param pulumi.Input[str] vpc_id: ID of the vpc.
         :param pulumi.Input[int] bandwidth: The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-               `1000`, `2000`, `5000`. Default is 100.
+               `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+               NAT type, this parameter does not need to be filled in and defaults to `5000`.
         :param pulumi.Input[int] max_concurrent: The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-               `1000000`.
+               `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+               not need to be filled in and defaults to `2000000`.
         :param pulumi.Input[str] name: Name of the NAT gateway.
         :param pulumi.Input[int] nat_product_version: 1: traditional NAT, 2: standard NAT, default value is 1.
+        :param pulumi.Input[int] stock_public_ip_addresses_bandwidth_out: The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+               defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+               elastic public IP of that user type.
         :param pulumi.Input[str] subnet_id: Subnet of NAT.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this NAT gateway.
         :param pulumi.Input[str] zone: The availability zone, such as `ap-guangzhou-3`.
@@ -47,6 +53,8 @@ class GatewayArgs:
             pulumi.set(__self__, "name", name)
         if nat_product_version is not None:
             pulumi.set(__self__, "nat_product_version", nat_product_version)
+        if stock_public_ip_addresses_bandwidth_out is not None:
+            pulumi.set(__self__, "stock_public_ip_addresses_bandwidth_out", stock_public_ip_addresses_bandwidth_out)
         if subnet_id is not None:
             pulumi.set(__self__, "subnet_id", subnet_id)
         if tags is not None:
@@ -83,7 +91,8 @@ class GatewayArgs:
     def bandwidth(self) -> Optional[pulumi.Input[int]]:
         """
         The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-        `1000`, `2000`, `5000`. Default is 100.
+        `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+        NAT type, this parameter does not need to be filled in and defaults to `5000`.
         """
         return pulumi.get(self, "bandwidth")
 
@@ -96,7 +105,8 @@ class GatewayArgs:
     def max_concurrent(self) -> Optional[pulumi.Input[int]]:
         """
         The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-        `1000000`.
+        `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+        not need to be filled in and defaults to `2000000`.
         """
         return pulumi.get(self, "max_concurrent")
 
@@ -127,6 +137,20 @@ class GatewayArgs:
     @nat_product_version.setter
     def nat_product_version(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "nat_product_version", value)
+
+    @property
+    @pulumi.getter(name="stockPublicIpAddressesBandwidthOut")
+    def stock_public_ip_addresses_bandwidth_out(self) -> Optional[pulumi.Input[int]]:
+        """
+        The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+        defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+        elastic public IP of that user type.
+        """
+        return pulumi.get(self, "stock_public_ip_addresses_bandwidth_out")
+
+    @stock_public_ip_addresses_bandwidth_out.setter
+    def stock_public_ip_addresses_bandwidth_out(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "stock_public_ip_addresses_bandwidth_out", value)
 
     @property
     @pulumi.getter(name="subnetId")
@@ -174,6 +198,7 @@ class _GatewayState:
                  max_concurrent: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nat_product_version: Optional[pulumi.Input[int]] = None,
+                 stock_public_ip_addresses_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
@@ -182,12 +207,17 @@ class _GatewayState:
         Input properties used for looking up and filtering Gateway resources.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] assigned_eip_sets: EIP IP address set bound to the gateway. The value of at least 1 and at most 10.
         :param pulumi.Input[int] bandwidth: The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-               `1000`, `2000`, `5000`. Default is 100.
+               `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+               NAT type, this parameter does not need to be filled in and defaults to `5000`.
         :param pulumi.Input[str] created_time: Create time of the NAT gateway.
         :param pulumi.Input[int] max_concurrent: The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-               `1000000`.
+               `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+               not need to be filled in and defaults to `2000000`.
         :param pulumi.Input[str] name: Name of the NAT gateway.
         :param pulumi.Input[int] nat_product_version: 1: traditional NAT, 2: standard NAT, default value is 1.
+        :param pulumi.Input[int] stock_public_ip_addresses_bandwidth_out: The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+               defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+               elastic public IP of that user type.
         :param pulumi.Input[str] subnet_id: Subnet of NAT.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this NAT gateway.
         :param pulumi.Input[str] vpc_id: ID of the vpc.
@@ -205,6 +235,8 @@ class _GatewayState:
             pulumi.set(__self__, "name", name)
         if nat_product_version is not None:
             pulumi.set(__self__, "nat_product_version", nat_product_version)
+        if stock_public_ip_addresses_bandwidth_out is not None:
+            pulumi.set(__self__, "stock_public_ip_addresses_bandwidth_out", stock_public_ip_addresses_bandwidth_out)
         if subnet_id is not None:
             pulumi.set(__self__, "subnet_id", subnet_id)
         if tags is not None:
@@ -231,7 +263,8 @@ class _GatewayState:
     def bandwidth(self) -> Optional[pulumi.Input[int]]:
         """
         The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-        `1000`, `2000`, `5000`. Default is 100.
+        `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+        NAT type, this parameter does not need to be filled in and defaults to `5000`.
         """
         return pulumi.get(self, "bandwidth")
 
@@ -256,7 +289,8 @@ class _GatewayState:
     def max_concurrent(self) -> Optional[pulumi.Input[int]]:
         """
         The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-        `1000000`.
+        `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+        not need to be filled in and defaults to `2000000`.
         """
         return pulumi.get(self, "max_concurrent")
 
@@ -287,6 +321,20 @@ class _GatewayState:
     @nat_product_version.setter
     def nat_product_version(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "nat_product_version", value)
+
+    @property
+    @pulumi.getter(name="stockPublicIpAddressesBandwidthOut")
+    def stock_public_ip_addresses_bandwidth_out(self) -> Optional[pulumi.Input[int]]:
+        """
+        The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+        defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+        elastic public IP of that user type.
+        """
+        return pulumi.get(self, "stock_public_ip_addresses_bandwidth_out")
+
+    @stock_public_ip_addresses_bandwidth_out.setter
+    def stock_public_ip_addresses_bandwidth_out(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "stock_public_ip_addresses_bandwidth_out", value)
 
     @property
     @pulumi.getter(name="subnetId")
@@ -347,6 +395,7 @@ class Gateway(pulumi.CustomResource):
                  max_concurrent: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nat_product_version: Optional[pulumi.Input[int]] = None,
+                 stock_public_ip_addresses_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
@@ -358,11 +407,16 @@ class Gateway(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] assigned_eip_sets: EIP IP address set bound to the gateway. The value of at least 1 and at most 10.
         :param pulumi.Input[int] bandwidth: The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-               `1000`, `2000`, `5000`. Default is 100.
+               `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+               NAT type, this parameter does not need to be filled in and defaults to `5000`.
         :param pulumi.Input[int] max_concurrent: The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-               `1000000`.
+               `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+               not need to be filled in and defaults to `2000000`.
         :param pulumi.Input[str] name: Name of the NAT gateway.
         :param pulumi.Input[int] nat_product_version: 1: traditional NAT, 2: standard NAT, default value is 1.
+        :param pulumi.Input[int] stock_public_ip_addresses_bandwidth_out: The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+               defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+               elastic public IP of that user type.
         :param pulumi.Input[str] subnet_id: Subnet of NAT.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this NAT gateway.
         :param pulumi.Input[str] vpc_id: ID of the vpc.
@@ -396,6 +450,7 @@ class Gateway(pulumi.CustomResource):
                  max_concurrent: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  nat_product_version: Optional[pulumi.Input[int]] = None,
+                 stock_public_ip_addresses_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
@@ -416,6 +471,7 @@ class Gateway(pulumi.CustomResource):
             __props__.__dict__["max_concurrent"] = max_concurrent
             __props__.__dict__["name"] = name
             __props__.__dict__["nat_product_version"] = nat_product_version
+            __props__.__dict__["stock_public_ip_addresses_bandwidth_out"] = stock_public_ip_addresses_bandwidth_out
             __props__.__dict__["subnet_id"] = subnet_id
             __props__.__dict__["tags"] = tags
             if vpc_id is None and not opts.urn:
@@ -439,6 +495,7 @@ class Gateway(pulumi.CustomResource):
             max_concurrent: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
             nat_product_version: Optional[pulumi.Input[int]] = None,
+            stock_public_ip_addresses_bandwidth_out: Optional[pulumi.Input[int]] = None,
             subnet_id: Optional[pulumi.Input[str]] = None,
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
             vpc_id: Optional[pulumi.Input[str]] = None,
@@ -452,12 +509,17 @@ class Gateway(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] assigned_eip_sets: EIP IP address set bound to the gateway. The value of at least 1 and at most 10.
         :param pulumi.Input[int] bandwidth: The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-               `1000`, `2000`, `5000`. Default is 100.
+               `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+               NAT type, this parameter does not need to be filled in and defaults to `5000`.
         :param pulumi.Input[str] created_time: Create time of the NAT gateway.
         :param pulumi.Input[int] max_concurrent: The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-               `1000000`.
+               `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+               not need to be filled in and defaults to `2000000`.
         :param pulumi.Input[str] name: Name of the NAT gateway.
         :param pulumi.Input[int] nat_product_version: 1: traditional NAT, 2: standard NAT, default value is 1.
+        :param pulumi.Input[int] stock_public_ip_addresses_bandwidth_out: The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+               defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+               elastic public IP of that user type.
         :param pulumi.Input[str] subnet_id: Subnet of NAT.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this NAT gateway.
         :param pulumi.Input[str] vpc_id: ID of the vpc.
@@ -473,6 +535,7 @@ class Gateway(pulumi.CustomResource):
         __props__.__dict__["max_concurrent"] = max_concurrent
         __props__.__dict__["name"] = name
         __props__.__dict__["nat_product_version"] = nat_product_version
+        __props__.__dict__["stock_public_ip_addresses_bandwidth_out"] = stock_public_ip_addresses_bandwidth_out
         __props__.__dict__["subnet_id"] = subnet_id
         __props__.__dict__["tags"] = tags
         __props__.__dict__["vpc_id"] = vpc_id
@@ -489,10 +552,11 @@ class Gateway(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def bandwidth(self) -> pulumi.Output[Optional[int]]:
+    def bandwidth(self) -> pulumi.Output[int]:
         """
         The maximum public network output bandwidth of NAT gateway (unit: Mbps). Valid values: `20`, `50`, `100`, `200`, `500`,
-        `1000`, `2000`, `5000`. Default is 100.
+        `1000`, `2000`, `5000`. Default is `100`. When the value of parameter `nat_product_version` is 2, which is the standard
+        NAT type, this parameter does not need to be filled in and defaults to `5000`.
         """
         return pulumi.get(self, "bandwidth")
 
@@ -506,10 +570,11 @@ class Gateway(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="maxConcurrent")
-    def max_concurrent(self) -> pulumi.Output[Optional[int]]:
+    def max_concurrent(self) -> pulumi.Output[int]:
         """
         The upper limit of concurrent connection of NAT gateway. Valid values: `1000000`, `3000000`, `10000000`. Default is
-        `1000000`.
+        `1000000`. When the value of parameter `nat_product_version` is 2, which is the standard NAT type, this parameter does
+        not need to be filled in and defaults to `2000000`.
         """
         return pulumi.get(self, "max_concurrent")
 
@@ -528,6 +593,16 @@ class Gateway(pulumi.CustomResource):
         1: traditional NAT, 2: standard NAT, default value is 1.
         """
         return pulumi.get(self, "nat_product_version")
+
+    @property
+    @pulumi.getter(name="stockPublicIpAddressesBandwidthOut")
+    def stock_public_ip_addresses_bandwidth_out(self) -> pulumi.Output[int]:
+        """
+        The elastic public IP bandwidth value (unit: Mbps) for binding NAT gateway. When this parameter is not filled in, it
+        defaults to the bandwidth value of the elastic public IP, and for some users, it defaults to the bandwidth limit of the
+        elastic public IP of that user type.
+        """
+        return pulumi.get(self, "stock_public_ip_addresses_bandwidth_out")
 
     @property
     @pulumi.getter(name="subnetId")

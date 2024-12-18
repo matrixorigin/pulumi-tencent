@@ -210,11 +210,6 @@ export type Ipv6CidrBlock = import("./ipv6CidrBlock").Ipv6CidrBlock;
 export const Ipv6CidrBlock: typeof import("./ipv6CidrBlock").Ipv6CidrBlock = null as any;
 utilities.lazyLoad(exports, ["Ipv6CidrBlock"], () => require("./ipv6CidrBlock"));
 
-export { Ipv6EniAddressArgs, Ipv6EniAddressState } from "./ipv6EniAddress";
-export type Ipv6EniAddress = import("./ipv6EniAddress").Ipv6EniAddress;
-export const Ipv6EniAddress: typeof import("./ipv6EniAddress").Ipv6EniAddress = null as any;
-utilities.lazyLoad(exports, ["Ipv6EniAddress"], () => require("./ipv6EniAddress"));
-
 export { Ipv6SubnetCidrBlockArgs, Ipv6SubnetCidrBlockState } from "./ipv6SubnetCidrBlock";
 export type Ipv6SubnetCidrBlock = import("./ipv6SubnetCidrBlock").Ipv6SubnetCidrBlock;
 export const Ipv6SubnetCidrBlock: typeof import("./ipv6SubnetCidrBlock").Ipv6SubnetCidrBlock = null as any;
@@ -254,6 +249,11 @@ export { PeerConnectRejectOperationArgs, PeerConnectRejectOperationState } from 
 export type PeerConnectRejectOperation = import("./peerConnectRejectOperation").PeerConnectRejectOperation;
 export const PeerConnectRejectOperation: typeof import("./peerConnectRejectOperation").PeerConnectRejectOperation = null as any;
 utilities.lazyLoad(exports, ["PeerConnectRejectOperation"], () => require("./peerConnectRejectOperation"));
+
+export { PrivateNatGatewayArgs, PrivateNatGatewayState } from "./privateNatGateway";
+export type PrivateNatGateway = import("./privateNatGateway").PrivateNatGateway;
+export const PrivateNatGateway: typeof import("./privateNatGateway").PrivateNatGateway = null as any;
+utilities.lazyLoad(exports, ["PrivateNatGateway"], () => require("./privateNatGateway"));
 
 export { ResumeSnapshotInstanceArgs, ResumeSnapshotInstanceState } from "./resumeSnapshotInstance";
 export type ResumeSnapshotInstance = import("./resumeSnapshotInstance").ResumeSnapshotInstance;
@@ -315,8 +315,6 @@ const _module = {
                 return new Instance(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/ipv6CidrBlock:Ipv6CidrBlock":
                 return new Ipv6CidrBlock(name, <any>undefined, { urn })
-            case "tencentcloud:Vpc/ipv6EniAddress:Ipv6EniAddress":
-                return new Ipv6EniAddress(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/ipv6SubnetCidrBlock:Ipv6SubnetCidrBlock":
                 return new Ipv6SubnetCidrBlock(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/localGateway:LocalGateway":
@@ -333,6 +331,8 @@ const _module = {
                 return new PeerConnectManager(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/peerConnectRejectOperation:PeerConnectRejectOperation":
                 return new PeerConnectRejectOperation(name, <any>undefined, { urn })
+            case "tencentcloud:Vpc/privateNatGateway:PrivateNatGateway":
+                return new PrivateNatGateway(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/resumeSnapshotInstance:ResumeSnapshotInstance":
                 return new ResumeSnapshotInstance(name, <any>undefined, { urn })
             case "tencentcloud:Vpc/snapshotPolicy:SnapshotPolicy":
@@ -363,7 +363,6 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/flowLog", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/flowLogConfig", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/instance", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/ipv6CidrBlock", _module)
-pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/ipv6EniAddress", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/ipv6SubnetCidrBlock", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/localGateway", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/netDetect", _module)
@@ -372,6 +371,7 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/notifyRoutes", _modul
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/peerConnectAcceptOperation", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/peerConnectManager", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/peerConnectRejectOperation", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/privateNatGateway", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/resumeSnapshotInstance", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/snapshotPolicy", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vpc/snapshotPolicyAttachment", _module)

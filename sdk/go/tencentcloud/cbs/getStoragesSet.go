@@ -23,26 +23,28 @@ func GetStoragesSet(ctx *pulumi.Context, args *GetStoragesSetArgs, opts ...pulum
 
 // A collection of arguments for invoking getStoragesSet.
 type GetStoragesSetArgs struct {
-	AvailabilityZone *string  `pulumi:"availabilityZone"`
-	ChargeTypes      []string `pulumi:"chargeTypes"`
-	InstanceIps      []string `pulumi:"instanceIps"`
-	InstanceNames    []string `pulumi:"instanceNames"`
-	Portable         *bool    `pulumi:"portable"`
-	ProjectId        *int     `pulumi:"projectId"`
-	ResultOutputFile *string  `pulumi:"resultOutputFile"`
-	StorageId        *string  `pulumi:"storageId"`
-	StorageName      *string  `pulumi:"storageName"`
-	StorageStates    []string `pulumi:"storageStates"`
-	StorageType      *string  `pulumi:"storageType"`
-	StorageUsage     *string  `pulumi:"storageUsage"`
-	TagKeys          []string `pulumi:"tagKeys"`
-	TagValues        []string `pulumi:"tagValues"`
+	AvailabilityZone   *string  `pulumi:"availabilityZone"`
+	ChargeTypes        []string `pulumi:"chargeTypes"`
+	DedicatedClusterId *string  `pulumi:"dedicatedClusterId"`
+	InstanceIps        []string `pulumi:"instanceIps"`
+	InstanceNames      []string `pulumi:"instanceNames"`
+	Portable           *bool    `pulumi:"portable"`
+	ProjectId          *int     `pulumi:"projectId"`
+	ResultOutputFile   *string  `pulumi:"resultOutputFile"`
+	StorageId          *string  `pulumi:"storageId"`
+	StorageName        *string  `pulumi:"storageName"`
+	StorageStates      []string `pulumi:"storageStates"`
+	StorageType        *string  `pulumi:"storageType"`
+	StorageUsage       *string  `pulumi:"storageUsage"`
+	TagKeys            []string `pulumi:"tagKeys"`
+	TagValues          []string `pulumi:"tagValues"`
 }
 
 // A collection of values returned by getStoragesSet.
 type GetStoragesSetResult struct {
-	AvailabilityZone *string  `pulumi:"availabilityZone"`
-	ChargeTypes      []string `pulumi:"chargeTypes"`
+	AvailabilityZone   *string  `pulumi:"availabilityZone"`
+	ChargeTypes        []string `pulumi:"chargeTypes"`
+	DedicatedClusterId *string  `pulumi:"dedicatedClusterId"`
 	// The provider-assigned unique ID for this managed resource.
 	Id               string                      `pulumi:"id"`
 	InstanceIps      []string                    `pulumi:"instanceIps"`
@@ -75,20 +77,21 @@ func GetStoragesSetOutput(ctx *pulumi.Context, args GetStoragesSetOutputArgs, op
 
 // A collection of arguments for invoking getStoragesSet.
 type GetStoragesSetOutputArgs struct {
-	AvailabilityZone pulumi.StringPtrInput   `pulumi:"availabilityZone"`
-	ChargeTypes      pulumi.StringArrayInput `pulumi:"chargeTypes"`
-	InstanceIps      pulumi.StringArrayInput `pulumi:"instanceIps"`
-	InstanceNames    pulumi.StringArrayInput `pulumi:"instanceNames"`
-	Portable         pulumi.BoolPtrInput     `pulumi:"portable"`
-	ProjectId        pulumi.IntPtrInput      `pulumi:"projectId"`
-	ResultOutputFile pulumi.StringPtrInput   `pulumi:"resultOutputFile"`
-	StorageId        pulumi.StringPtrInput   `pulumi:"storageId"`
-	StorageName      pulumi.StringPtrInput   `pulumi:"storageName"`
-	StorageStates    pulumi.StringArrayInput `pulumi:"storageStates"`
-	StorageType      pulumi.StringPtrInput   `pulumi:"storageType"`
-	StorageUsage     pulumi.StringPtrInput   `pulumi:"storageUsage"`
-	TagKeys          pulumi.StringArrayInput `pulumi:"tagKeys"`
-	TagValues        pulumi.StringArrayInput `pulumi:"tagValues"`
+	AvailabilityZone   pulumi.StringPtrInput   `pulumi:"availabilityZone"`
+	ChargeTypes        pulumi.StringArrayInput `pulumi:"chargeTypes"`
+	DedicatedClusterId pulumi.StringPtrInput   `pulumi:"dedicatedClusterId"`
+	InstanceIps        pulumi.StringArrayInput `pulumi:"instanceIps"`
+	InstanceNames      pulumi.StringArrayInput `pulumi:"instanceNames"`
+	Portable           pulumi.BoolPtrInput     `pulumi:"portable"`
+	ProjectId          pulumi.IntPtrInput      `pulumi:"projectId"`
+	ResultOutputFile   pulumi.StringPtrInput   `pulumi:"resultOutputFile"`
+	StorageId          pulumi.StringPtrInput   `pulumi:"storageId"`
+	StorageName        pulumi.StringPtrInput   `pulumi:"storageName"`
+	StorageStates      pulumi.StringArrayInput `pulumi:"storageStates"`
+	StorageType        pulumi.StringPtrInput   `pulumi:"storageType"`
+	StorageUsage       pulumi.StringPtrInput   `pulumi:"storageUsage"`
+	TagKeys            pulumi.StringArrayInput `pulumi:"tagKeys"`
+	TagValues          pulumi.StringArrayInput `pulumi:"tagValues"`
 }
 
 func (GetStoragesSetOutputArgs) ElementType() reflect.Type {
@@ -116,6 +119,10 @@ func (o GetStoragesSetResultOutput) AvailabilityZone() pulumi.StringPtrOutput {
 
 func (o GetStoragesSetResultOutput) ChargeTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetStoragesSetResult) []string { return v.ChargeTypes }).(pulumi.StringArrayOutput)
+}
+
+func (o GetStoragesSetResultOutput) DedicatedClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetStoragesSetResult) *string { return v.DedicatedClusterId }).(pulumi.StringPtrOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.

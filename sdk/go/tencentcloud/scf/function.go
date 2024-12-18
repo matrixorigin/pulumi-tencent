@@ -55,6 +55,8 @@ type Function struct {
 	// Function type. The default value is Event. Enter Event if you need to create a trigger function. Enter HTTP if you need
 	// to create an HTTP function service.
 	FuncType pulumi.StringPtrOutput `pulumi:"funcType"`
+	// function ID.
+	FunctionId pulumi.StringOutput `pulumi:"functionId"`
 	// Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,
 	// numbers, connectors, and underscores, it should start with a letter. The last character cannot be `-` or `_`. Available
 	// length is 2-60.
@@ -179,6 +181,8 @@ type functionState struct {
 	// Function type. The default value is Event. Enter Event if you need to create a trigger function. Enter HTTP if you need
 	// to create an HTTP function service.
 	FuncType *string `pulumi:"funcType"`
+	// function ID.
+	FunctionId *string `pulumi:"functionId"`
 	// Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,
 	// numbers, connectors, and underscores, it should start with a letter. The last character cannot be `-` or `_`. Available
 	// length is 2-60.
@@ -274,6 +278,8 @@ type FunctionState struct {
 	// Function type. The default value is Event. Enter Event if you need to create a trigger function. Enter HTTP if you need
 	// to create an HTTP function service.
 	FuncType pulumi.StringPtrInput
+	// function ID.
+	FunctionId pulumi.StringPtrInput
 	// Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,
 	// numbers, connectors, and underscores, it should start with a letter. The last character cannot be `-` or `_`. Available
 	// length is 2-60.
@@ -653,6 +659,11 @@ func (o FunctionOutput) ErrNo() pulumi.IntOutput {
 // to create an HTTP function service.
 func (o FunctionOutput) FuncType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Function) pulumi.StringPtrOutput { return v.FuncType }).(pulumi.StringPtrOutput)
+}
+
+// function ID.
+func (o FunctionOutput) FunctionId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Function) pulumi.StringOutput { return v.FunctionId }).(pulumi.StringOutput)
 }
 
 // Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,

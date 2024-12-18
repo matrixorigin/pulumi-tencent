@@ -37,21 +37,21 @@ export class Record extends pulumi.CustomResource {
      */
     public readonly mx!: pulumi.Output<number | undefined>;
     /**
-     * Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+     * Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
      */
     public readonly recordType!: pulumi.Output<string>;
     /**
-     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
      */
     public readonly recordValue!: pulumi.Output<string>;
     /**
-     * Subdomain, such as "www", "m", and "@".
+     * Subdomain, such as `www`, `m`, and `@`.
      */
     public readonly subDomain!: pulumi.Output<string>;
     /**
      * Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
      */
-    public readonly ttl!: pulumi.Output<number | undefined>;
+    public readonly ttl!: pulumi.Output<number>;
     /**
      * Record weight. Value range: 1~100.
      */
@@ -117,15 +117,15 @@ export interface RecordState {
      */
     mx?: pulumi.Input<number>;
     /**
-     * Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+     * Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
      */
     recordType?: pulumi.Input<string>;
     /**
-     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
      */
     recordValue?: pulumi.Input<string>;
     /**
-     * Subdomain, such as "www", "m", and "@".
+     * Subdomain, such as `www`, `m`, and `@`.
      */
     subDomain?: pulumi.Input<string>;
     /**
@@ -151,15 +151,15 @@ export interface RecordArgs {
      */
     mx?: pulumi.Input<number>;
     /**
-     * Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+     * Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
      */
     recordType: pulumi.Input<string>;
     /**
-     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+     * Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
      */
     recordValue: pulumi.Input<string>;
     /**
-     * Subdomain, such as "www", "m", and "@".
+     * Subdomain, such as `www`, `m`, and `@`.
      */
     subDomain: pulumi.Input<string>;
     /**

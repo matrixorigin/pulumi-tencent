@@ -8,6 +8,8 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['ReadonlyGroupArgs', 'ReadonlyGroup']
 
@@ -199,6 +201,7 @@ class _ReadonlyGroupState:
                  max_replay_latency: Optional[pulumi.Input[int]] = None,
                  min_delay_eliminate_reserve: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 net_info_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ReadonlyGroupNetInfoListArgs']]]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  replay_lag_eliminate: Optional[pulumi.Input[int]] = None,
                  replay_latency_eliminate: Optional[pulumi.Input[int]] = None,
@@ -213,6 +216,7 @@ class _ReadonlyGroupState:
         :param pulumi.Input[int] max_replay_latency: Delayed log size threshold in MB.
         :param pulumi.Input[int] min_delay_eliminate_reserve: The minimum number of read-only replicas that must be retained in an RO group.
         :param pulumi.Input[str] name: RO group name.
+        :param pulumi.Input[Sequence[pulumi.Input['ReadonlyGroupNetInfoListArgs']]] net_info_lists: List of db instance net info.
         :param pulumi.Input[int] project_id: Project ID.
         :param pulumi.Input[int] replay_lag_eliminate: Whether to remove a read-only replica from an RO group if the delay between the read-only replica and the primary
                instance exceeds the threshold. Valid values: 0 (no), 1 (yes).
@@ -234,6 +238,8 @@ class _ReadonlyGroupState:
             pulumi.set(__self__, "min_delay_eliminate_reserve", min_delay_eliminate_reserve)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if net_info_lists is not None:
+            pulumi.set(__self__, "net_info_lists", net_info_lists)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if replay_lag_eliminate is not None:
@@ -318,6 +324,18 @@ class _ReadonlyGroupState:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="netInfoLists")
+    def net_info_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ReadonlyGroupNetInfoListArgs']]]]:
+        """
+        List of db instance net info.
+        """
+        return pulumi.get(self, "net_info_lists")
+
+    @net_info_lists.setter
+    def net_info_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ReadonlyGroupNetInfoListArgs']]]]):
+        pulumi.set(self, "net_info_lists", value)
 
     @property
     @pulumi.getter(name="projectId")
@@ -502,6 +520,7 @@ class ReadonlyGroup(pulumi.CustomResource):
                 raise TypeError("Missing required property 'vpc_id'")
             __props__.__dict__["vpc_id"] = vpc_id
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["net_info_lists"] = None
         super(ReadonlyGroup, __self__).__init__(
             'tencentcloud:Postgresql/readonlyGroup:ReadonlyGroup',
             resource_name,
@@ -518,6 +537,7 @@ class ReadonlyGroup(pulumi.CustomResource):
             max_replay_latency: Optional[pulumi.Input[int]] = None,
             min_delay_eliminate_reserve: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            net_info_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ReadonlyGroupNetInfoListArgs']]]]] = None,
             project_id: Optional[pulumi.Input[int]] = None,
             replay_lag_eliminate: Optional[pulumi.Input[int]] = None,
             replay_latency_eliminate: Optional[pulumi.Input[int]] = None,
@@ -537,6 +557,7 @@ class ReadonlyGroup(pulumi.CustomResource):
         :param pulumi.Input[int] max_replay_latency: Delayed log size threshold in MB.
         :param pulumi.Input[int] min_delay_eliminate_reserve: The minimum number of read-only replicas that must be retained in an RO group.
         :param pulumi.Input[str] name: RO group name.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ReadonlyGroupNetInfoListArgs']]]] net_info_lists: List of db instance net info.
         :param pulumi.Input[int] project_id: Project ID.
         :param pulumi.Input[int] replay_lag_eliminate: Whether to remove a read-only replica from an RO group if the delay between the read-only replica and the primary
                instance exceeds the threshold. Valid values: 0 (no), 1 (yes).
@@ -556,6 +577,7 @@ class ReadonlyGroup(pulumi.CustomResource):
         __props__.__dict__["max_replay_latency"] = max_replay_latency
         __props__.__dict__["min_delay_eliminate_reserve"] = min_delay_eliminate_reserve
         __props__.__dict__["name"] = name
+        __props__.__dict__["net_info_lists"] = net_info_lists
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["replay_lag_eliminate"] = replay_lag_eliminate
         __props__.__dict__["replay_latency_eliminate"] = replay_latency_eliminate
@@ -611,6 +633,14 @@ class ReadonlyGroup(pulumi.CustomResource):
         RO group name.
         """
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="netInfoLists")
+    def net_info_lists(self) -> pulumi.Output[Sequence['outputs.ReadonlyGroupNetInfoList']]:
+        """
+        List of db instance net info.
+        """
+        return pulumi.get(self, "net_info_lists")
 
     @property
     @pulumi.getter(name="projectId")

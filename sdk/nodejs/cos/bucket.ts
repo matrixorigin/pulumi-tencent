@@ -52,6 +52,10 @@ export class Bucket extends pulumi.CustomResource {
      */
     public readonly bucket!: pulumi.Output<string>;
     /**
+     * CDC cluster ID.
+     */
+    public readonly cdcId!: pulumi.Output<string | undefined>;
+    /**
      * A rule of Cross-Origin Resource Sharing (documented below).
      */
     public readonly corsRules!: pulumi.Output<outputs.Cos.BucketCorsRule[] | undefined>;
@@ -65,7 +69,8 @@ export class Bucket extends pulumi.CustomResource {
      */
     public readonly enableIntelligentTiering!: pulumi.Output<boolean>;
     /**
-     * The server-side encryption algorithm to use. Valid value is `AES256`.
+     * The server-side encryption algorithm to use. Valid values are `AES256`, `KMS` and `cos/kms`, `cos/kms` is for cdc cos
+     * scenario.
      */
     public readonly encryptionAlgorithm!: pulumi.Output<string | undefined>;
     /**
@@ -84,6 +89,11 @@ export class Bucket extends pulumi.CustomResource {
      * visit in 30 consecutive days will be reduced from the standard layer to the low frequency layer.
      */
     public readonly intelligentTieringRequestFrequent!: pulumi.Output<number>;
+    /**
+     * The KMS Master Key ID. This value is valid only when `encryption_algorithm` is set to KMS or cos/kms. Set kms id to the
+     * specified value. If not specified, the default kms id is used.
+     */
+    public readonly kmsId!: pulumi.Output<string | undefined>;
     /**
      * A configuration of object lifecycle management (documented below).
      */
@@ -157,6 +167,7 @@ export class Bucket extends pulumi.CustomResource {
             resourceInputs["acl"] = state ? state.acl : undefined;
             resourceInputs["aclBody"] = state ? state.aclBody : undefined;
             resourceInputs["bucket"] = state ? state.bucket : undefined;
+            resourceInputs["cdcId"] = state ? state.cdcId : undefined;
             resourceInputs["corsRules"] = state ? state.corsRules : undefined;
             resourceInputs["cosBucketUrl"] = state ? state.cosBucketUrl : undefined;
             resourceInputs["enableIntelligentTiering"] = state ? state.enableIntelligentTiering : undefined;
@@ -164,6 +175,7 @@ export class Bucket extends pulumi.CustomResource {
             resourceInputs["forceClean"] = state ? state.forceClean : undefined;
             resourceInputs["intelligentTieringDays"] = state ? state.intelligentTieringDays : undefined;
             resourceInputs["intelligentTieringRequestFrequent"] = state ? state.intelligentTieringRequestFrequent : undefined;
+            resourceInputs["kmsId"] = state ? state.kmsId : undefined;
             resourceInputs["lifecycleRules"] = state ? state.lifecycleRules : undefined;
             resourceInputs["logEnable"] = state ? state.logEnable : undefined;
             resourceInputs["logPrefix"] = state ? state.logPrefix : undefined;
@@ -185,12 +197,14 @@ export class Bucket extends pulumi.CustomResource {
             resourceInputs["acl"] = args ? args.acl : undefined;
             resourceInputs["aclBody"] = args ? args.aclBody : undefined;
             resourceInputs["bucket"] = args ? args.bucket : undefined;
+            resourceInputs["cdcId"] = args ? args.cdcId : undefined;
             resourceInputs["corsRules"] = args ? args.corsRules : undefined;
             resourceInputs["enableIntelligentTiering"] = args ? args.enableIntelligentTiering : undefined;
             resourceInputs["encryptionAlgorithm"] = args ? args.encryptionAlgorithm : undefined;
             resourceInputs["forceClean"] = args ? args.forceClean : undefined;
             resourceInputs["intelligentTieringDays"] = args ? args.intelligentTieringDays : undefined;
             resourceInputs["intelligentTieringRequestFrequent"] = args ? args.intelligentTieringRequestFrequent : undefined;
+            resourceInputs["kmsId"] = args ? args.kmsId : undefined;
             resourceInputs["lifecycleRules"] = args ? args.lifecycleRules : undefined;
             resourceInputs["logEnable"] = args ? args.logEnable : undefined;
             resourceInputs["logPrefix"] = args ? args.logPrefix : undefined;
@@ -232,6 +246,10 @@ export interface BucketState {
      */
     bucket?: pulumi.Input<string>;
     /**
+     * CDC cluster ID.
+     */
+    cdcId?: pulumi.Input<string>;
+    /**
      * A rule of Cross-Origin Resource Sharing (documented below).
      */
     corsRules?: pulumi.Input<pulumi.Input<inputs.Cos.BucketCorsRule>[]>;
@@ -245,7 +263,8 @@ export interface BucketState {
      */
     enableIntelligentTiering?: pulumi.Input<boolean>;
     /**
-     * The server-side encryption algorithm to use. Valid value is `AES256`.
+     * The server-side encryption algorithm to use. Valid values are `AES256`, `KMS` and `cos/kms`, `cos/kms` is for cdc cos
+     * scenario.
      */
     encryptionAlgorithm?: pulumi.Input<string>;
     /**
@@ -264,6 +283,11 @@ export interface BucketState {
      * visit in 30 consecutive days will be reduced from the standard layer to the low frequency layer.
      */
     intelligentTieringRequestFrequent?: pulumi.Input<number>;
+    /**
+     * The KMS Master Key ID. This value is valid only when `encryption_algorithm` is set to KMS or cos/kms. Set kms id to the
+     * specified value. If not specified, the default kms id is used.
+     */
+    kmsId?: pulumi.Input<string>;
     /**
      * A configuration of object lifecycle management (documented below).
      */
@@ -343,6 +367,10 @@ export interface BucketArgs {
      */
     bucket: pulumi.Input<string>;
     /**
+     * CDC cluster ID.
+     */
+    cdcId?: pulumi.Input<string>;
+    /**
      * A rule of Cross-Origin Resource Sharing (documented below).
      */
     corsRules?: pulumi.Input<pulumi.Input<inputs.Cos.BucketCorsRule>[]>;
@@ -352,7 +380,8 @@ export interface BucketArgs {
      */
     enableIntelligentTiering?: pulumi.Input<boolean>;
     /**
-     * The server-side encryption algorithm to use. Valid value is `AES256`.
+     * The server-side encryption algorithm to use. Valid values are `AES256`, `KMS` and `cos/kms`, `cos/kms` is for cdc cos
+     * scenario.
      */
     encryptionAlgorithm?: pulumi.Input<string>;
     /**
@@ -371,6 +400,11 @@ export interface BucketArgs {
      * visit in 30 consecutive days will be reduced from the standard layer to the low frequency layer.
      */
     intelligentTieringRequestFrequent?: pulumi.Input<number>;
+    /**
+     * The KMS Master Key ID. This value is valid only when `encryption_algorithm` is set to KMS or cos/kms. Set kms id to the
+     * specified value. If not specified, the default kms id is used.
+     */
+    kmsId?: pulumi.Input<string>;
     /**
      * A configuration of object lifecycle management (documented below).
      */

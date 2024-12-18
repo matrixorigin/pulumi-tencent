@@ -20,6 +20,7 @@ type GetInstanceInstanceList struct {
 	Cpu                                int                               `pulumi:"cpu"`
 	CreateTime                         string                            `pulumi:"createTime"`
 	DataDisks                          []GetInstanceInstanceListDataDisk `pulumi:"dataDisks"`
+	DedicatedClusterId                 string                            `pulumi:"dedicatedClusterId"`
 	ExpiredTime                        string                            `pulumi:"expiredTime"`
 	ImageId                            string                            `pulumi:"imageId"`
 	InstanceChargeType                 string                            `pulumi:"instanceChargeType"`
@@ -30,6 +31,7 @@ type GetInstanceInstanceList struct {
 	InternetChargeType                 string                            `pulumi:"internetChargeType"`
 	InternetMaxBandwidthOut            int                               `pulumi:"internetMaxBandwidthOut"`
 	Memory                             int                               `pulumi:"memory"`
+	OsName                             string                            `pulumi:"osName"`
 	PrivateIp                          string                            `pulumi:"privateIp"`
 	ProjectId                          int                               `pulumi:"projectId"`
 	PublicIp                           string                            `pulumi:"publicIp"`
@@ -40,6 +42,7 @@ type GetInstanceInstanceList struct {
 	SystemDiskSize                     int                               `pulumi:"systemDiskSize"`
 	SystemDiskType                     string                            `pulumi:"systemDiskType"`
 	Tags                               map[string]interface{}            `pulumi:"tags"`
+	Uuid                               string                            `pulumi:"uuid"`
 	VpcId                              string                            `pulumi:"vpcId"`
 }
 
@@ -61,6 +64,7 @@ type GetInstanceInstanceListArgs struct {
 	Cpu                                pulumi.IntInput                           `pulumi:"cpu"`
 	CreateTime                         pulumi.StringInput                        `pulumi:"createTime"`
 	DataDisks                          GetInstanceInstanceListDataDiskArrayInput `pulumi:"dataDisks"`
+	DedicatedClusterId                 pulumi.StringInput                        `pulumi:"dedicatedClusterId"`
 	ExpiredTime                        pulumi.StringInput                        `pulumi:"expiredTime"`
 	ImageId                            pulumi.StringInput                        `pulumi:"imageId"`
 	InstanceChargeType                 pulumi.StringInput                        `pulumi:"instanceChargeType"`
@@ -71,6 +75,7 @@ type GetInstanceInstanceListArgs struct {
 	InternetChargeType                 pulumi.StringInput                        `pulumi:"internetChargeType"`
 	InternetMaxBandwidthOut            pulumi.IntInput                           `pulumi:"internetMaxBandwidthOut"`
 	Memory                             pulumi.IntInput                           `pulumi:"memory"`
+	OsName                             pulumi.StringInput                        `pulumi:"osName"`
 	PrivateIp                          pulumi.StringInput                        `pulumi:"privateIp"`
 	ProjectId                          pulumi.IntInput                           `pulumi:"projectId"`
 	PublicIp                           pulumi.StringInput                        `pulumi:"publicIp"`
@@ -81,6 +86,7 @@ type GetInstanceInstanceListArgs struct {
 	SystemDiskSize                     pulumi.IntInput                           `pulumi:"systemDiskSize"`
 	SystemDiskType                     pulumi.StringInput                        `pulumi:"systemDiskType"`
 	Tags                               pulumi.MapInput                           `pulumi:"tags"`
+	Uuid                               pulumi.StringInput                        `pulumi:"uuid"`
 	VpcId                              pulumi.StringInput                        `pulumi:"vpcId"`
 }
 
@@ -159,6 +165,10 @@ func (o GetInstanceInstanceListOutput) DataDisks() GetInstanceInstanceListDataDi
 	return o.ApplyT(func(v GetInstanceInstanceList) []GetInstanceInstanceListDataDisk { return v.DataDisks }).(GetInstanceInstanceListDataDiskArrayOutput)
 }
 
+func (o GetInstanceInstanceListOutput) DedicatedClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceInstanceList) string { return v.DedicatedClusterId }).(pulumi.StringOutput)
+}
+
 func (o GetInstanceInstanceListOutput) ExpiredTime() pulumi.StringOutput {
 	return o.ApplyT(func(v GetInstanceInstanceList) string { return v.ExpiredTime }).(pulumi.StringOutput)
 }
@@ -199,6 +209,10 @@ func (o GetInstanceInstanceListOutput) Memory() pulumi.IntOutput {
 	return o.ApplyT(func(v GetInstanceInstanceList) int { return v.Memory }).(pulumi.IntOutput)
 }
 
+func (o GetInstanceInstanceListOutput) OsName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceInstanceList) string { return v.OsName }).(pulumi.StringOutput)
+}
+
 func (o GetInstanceInstanceListOutput) PrivateIp() pulumi.StringOutput {
 	return o.ApplyT(func(v GetInstanceInstanceList) string { return v.PrivateIp }).(pulumi.StringOutput)
 }
@@ -237,6 +251,10 @@ func (o GetInstanceInstanceListOutput) SystemDiskType() pulumi.StringOutput {
 
 func (o GetInstanceInstanceListOutput) Tags() pulumi.MapOutput {
 	return o.ApplyT(func(v GetInstanceInstanceList) map[string]interface{} { return v.Tags }).(pulumi.MapOutput)
+}
+
+func (o GetInstanceInstanceListOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceInstanceList) string { return v.Uuid }).(pulumi.StringOutput)
 }
 
 func (o GetInstanceInstanceListOutput) VpcId() pulumi.StringOutput {

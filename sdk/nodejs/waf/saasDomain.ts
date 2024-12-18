@@ -171,7 +171,7 @@ export class SaasDomain extends pulumi.CustomResource {
      */
     public readonly weights!: pulumi.Output<number[] | undefined>;
     /**
-     * 0:disable xff reset; 1:ensable xff reset.
+     * 0:disable xff reset; 1:enable xff reset.
      */
     public readonly xffReset!: pulumi.Output<number | undefined>;
 
@@ -414,7 +414,7 @@ export interface SaasDomainState {
      */
     weights?: pulumi.Input<pulumi.Input<number>[]>;
     /**
-     * 0:disable xff reset; 1:ensable xff reset.
+     * 0:disable xff reset; 1:enable xff reset.
      */
     xffReset?: pulumi.Input<number>;
 }
@@ -556,7 +556,7 @@ export interface SaasDomainArgs {
      */
     weights?: pulumi.Input<pulumi.Input<number>[]>;
     /**
-     * 0:disable xff reset; 1:ensable xff reset.
+     * 0:disable xff reset; 1:enable xff reset.
      */
     xffReset?: pulumi.Input<number>;
 }

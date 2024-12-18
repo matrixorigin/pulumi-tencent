@@ -39,6 +39,10 @@ export class DatasourceCloud extends pulumi.CustomResource {
      */
     public readonly charset!: pulumi.Output<string>;
     /**
+     * Cluster id.
+     */
+    public readonly clusterId!: pulumi.Output<string | undefined>;
+    /**
      * Third-party datasource identification, this parameter can be ignored.
      */
     public readonly dataOrigin!: pulumi.Output<string | undefined>;
@@ -117,6 +121,7 @@ export class DatasourceCloud extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as DatasourceCloudState | undefined;
             resourceInputs["charset"] = state ? state.charset : undefined;
+            resourceInputs["clusterId"] = state ? state.clusterId : undefined;
             resourceInputs["dataOrigin"] = state ? state.dataOrigin : undefined;
             resourceInputs["dataOriginDatasourceId"] = state ? state.dataOriginDatasourceId : undefined;
             resourceInputs["dataOriginProjectId"] = state ? state.dataOriginProjectId : undefined;
@@ -163,6 +168,7 @@ export class DatasourceCloud extends pulumi.CustomResource {
                 throw new Error("Missing required property 'vpcId'");
             }
             resourceInputs["charset"] = args ? args.charset : undefined;
+            resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["dataOrigin"] = args ? args.dataOrigin : undefined;
             resourceInputs["dataOriginDatasourceId"] = args ? args.dataOriginDatasourceId : undefined;
             resourceInputs["dataOriginProjectId"] = args ? args.dataOriginProjectId : undefined;
@@ -195,6 +201,10 @@ export interface DatasourceCloudState {
      * Charset.
      */
     charset?: pulumi.Input<string>;
+    /**
+     * Cluster id.
+     */
+    clusterId?: pulumi.Input<string>;
     /**
      * Third-party datasource identification, this parameter can be ignored.
      */
@@ -269,6 +279,10 @@ export interface DatasourceCloudArgs {
      * Charset.
      */
     charset: pulumi.Input<string>;
+    /**
+     * Cluster id.
+     */
+    clusterId?: pulumi.Input<string>;
     /**
      * Third-party datasource identification, this parameter can be ignored.
      */

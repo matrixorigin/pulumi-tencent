@@ -23,13 +23,15 @@ func GetInstance(ctx *pulumi.Context, args *GetInstanceArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getInstance.
 type GetInstanceArgs struct {
-	SubnetId string `pulumi:"subnetId"`
-	VpcId    string `pulumi:"vpcId"`
+	CdcId    *string `pulumi:"cdcId"`
+	SubnetId string  `pulumi:"subnetId"`
+	VpcId    string  `pulumi:"vpcId"`
 }
 
 // A collection of values returned by getInstance.
 type GetInstanceResult struct {
 	AvailabilityZone string `pulumi:"availabilityZone"`
+	CdcId            string `pulumi:"cdcId"`
 	CidrBlock        string `pulumi:"cidrBlock"`
 	// The provider-assigned unique ID for this managed resource.
 	Id           string `pulumi:"id"`
@@ -54,8 +56,9 @@ func GetInstanceOutput(ctx *pulumi.Context, args GetInstanceOutputArgs, opts ...
 
 // A collection of arguments for invoking getInstance.
 type GetInstanceOutputArgs struct {
-	SubnetId pulumi.StringInput `pulumi:"subnetId"`
-	VpcId    pulumi.StringInput `pulumi:"vpcId"`
+	CdcId    pulumi.StringPtrInput `pulumi:"cdcId"`
+	SubnetId pulumi.StringInput    `pulumi:"subnetId"`
+	VpcId    pulumi.StringInput    `pulumi:"vpcId"`
 }
 
 func (GetInstanceOutputArgs) ElementType() reflect.Type {
@@ -79,6 +82,10 @@ func (o GetInstanceResultOutput) ToGetInstanceResultOutputWithContext(ctx contex
 
 func (o GetInstanceResultOutput) AvailabilityZone() pulumi.StringOutput {
 	return o.ApplyT(func(v GetInstanceResult) string { return v.AvailabilityZone }).(pulumi.StringOutput)
+}
+
+func (o GetInstanceResultOutput) CdcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceResult) string { return v.CdcId }).(pulumi.StringOutput)
 }
 
 func (o GetInstanceResultOutput) CidrBlock() pulumi.StringOutput {

@@ -12,7 +12,6 @@ from . import outputs
 
 __all__ = [
     'FlowLogFlowLogStorage',
-    'Ipv6EniAddressIpv6Address',
     'Ipv6SubnetCidrBlockIpv6SubnetCidrBlocks',
     'NetworkAclQuintupleNetworkAclQuintupleSet',
     'NetworkAclQuintupleNetworkAclQuintupleSetEgress',
@@ -99,77 +98,6 @@ class FlowLogFlowLogStorage(dict):
     @pulumi.getter(name="storageTopic")
     def storage_topic(self) -> Optional[str]:
         return pulumi.get(self, "storage_topic")
-
-
-@pulumi.output_type
-class Ipv6EniAddressIpv6Address(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "addressId":
-            suggest = "address_id"
-        elif key == "isWanIpBlocked":
-            suggest = "is_wan_ip_blocked"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in Ipv6EniAddressIpv6Address. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        Ipv6EniAddressIpv6Address.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        Ipv6EniAddressIpv6Address.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 address: str,
-                 address_id: Optional[str] = None,
-                 description: Optional[str] = None,
-                 is_wan_ip_blocked: Optional[bool] = None,
-                 primary: Optional[bool] = None,
-                 state: Optional[str] = None):
-        pulumi.set(__self__, "address", address)
-        if address_id is not None:
-            pulumi.set(__self__, "address_id", address_id)
-        if description is not None:
-            pulumi.set(__self__, "description", description)
-        if is_wan_ip_blocked is not None:
-            pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
-        if primary is not None:
-            pulumi.set(__self__, "primary", primary)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
-
-    @property
-    @pulumi.getter
-    def address(self) -> str:
-        return pulumi.get(self, "address")
-
-    @property
-    @pulumi.getter(name="addressId")
-    def address_id(self) -> Optional[str]:
-        return pulumi.get(self, "address_id")
-
-    @property
-    @pulumi.getter
-    def description(self) -> Optional[str]:
-        return pulumi.get(self, "description")
-
-    @property
-    @pulumi.getter(name="isWanIpBlocked")
-    def is_wan_ip_blocked(self) -> Optional[bool]:
-        return pulumi.get(self, "is_wan_ip_blocked")
-
-    @property
-    @pulumi.getter
-    def primary(self) -> Optional[bool]:
-        return pulumi.get(self, "primary")
-
-    @property
-    @pulumi.getter
-    def state(self) -> Optional[str]:
-        return pulumi.get(self, "state")
 
 
 @pulumi.output_type
@@ -2233,6 +2161,7 @@ class GetSubnetsInstanceListResult(dict):
     def __init__(__self__, *,
                  availability_zone: str,
                  available_ip_count: int,
+                 cdc_id: str,
                  cidr_block: str,
                  create_time: str,
                  is_default: bool,
@@ -2244,6 +2173,7 @@ class GetSubnetsInstanceListResult(dict):
                  vpc_id: str):
         pulumi.set(__self__, "availability_zone", availability_zone)
         pulumi.set(__self__, "available_ip_count", available_ip_count)
+        pulumi.set(__self__, "cdc_id", cdc_id)
         pulumi.set(__self__, "cidr_block", cidr_block)
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "is_default", is_default)
@@ -2263,6 +2193,11 @@ class GetSubnetsInstanceListResult(dict):
     @pulumi.getter(name="availableIpCount")
     def available_ip_count(self) -> int:
         return pulumi.get(self, "available_ip_count")
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> str:
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="cidrBlock")

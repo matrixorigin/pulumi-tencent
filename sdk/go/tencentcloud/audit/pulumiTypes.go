@@ -14,10 +14,12 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type TrackStorage struct {
-	StorageName   string `pulumi:"storageName"`
-	StoragePrefix string `pulumi:"storagePrefix"`
-	StorageRegion string `pulumi:"storageRegion"`
-	StorageType   string `pulumi:"storageType"`
+	StorageAccountId *string `pulumi:"storageAccountId"`
+	StorageAppId     *string `pulumi:"storageAppId"`
+	StorageName      string  `pulumi:"storageName"`
+	StoragePrefix    string  `pulumi:"storagePrefix"`
+	StorageRegion    string  `pulumi:"storageRegion"`
+	StorageType      string  `pulumi:"storageType"`
 }
 
 // TrackStorageInput is an input type that accepts TrackStorageArgs and TrackStorageOutput values.
@@ -32,10 +34,12 @@ type TrackStorageInput interface {
 }
 
 type TrackStorageArgs struct {
-	StorageName   pulumi.StringInput `pulumi:"storageName"`
-	StoragePrefix pulumi.StringInput `pulumi:"storagePrefix"`
-	StorageRegion pulumi.StringInput `pulumi:"storageRegion"`
-	StorageType   pulumi.StringInput `pulumi:"storageType"`
+	StorageAccountId pulumi.StringPtrInput `pulumi:"storageAccountId"`
+	StorageAppId     pulumi.StringPtrInput `pulumi:"storageAppId"`
+	StorageName      pulumi.StringInput    `pulumi:"storageName"`
+	StoragePrefix    pulumi.StringInput    `pulumi:"storagePrefix"`
+	StorageRegion    pulumi.StringInput    `pulumi:"storageRegion"`
+	StorageType      pulumi.StringInput    `pulumi:"storageType"`
 }
 
 func (TrackStorageArgs) ElementType() reflect.Type {
@@ -115,6 +119,14 @@ func (o TrackStorageOutput) ToTrackStoragePtrOutputWithContext(ctx context.Conte
 	}).(TrackStoragePtrOutput)
 }
 
+func (o TrackStorageOutput) StorageAccountId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrackStorage) *string { return v.StorageAccountId }).(pulumi.StringPtrOutput)
+}
+
+func (o TrackStorageOutput) StorageAppId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TrackStorage) *string { return v.StorageAppId }).(pulumi.StringPtrOutput)
+}
+
 func (o TrackStorageOutput) StorageName() pulumi.StringOutput {
 	return o.ApplyT(func(v TrackStorage) string { return v.StorageName }).(pulumi.StringOutput)
 }
@@ -153,6 +165,24 @@ func (o TrackStoragePtrOutput) Elem() TrackStorageOutput {
 		var ret TrackStorage
 		return ret
 	}).(TrackStorageOutput)
+}
+
+func (o TrackStoragePtrOutput) StorageAccountId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrackStorage) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StorageAccountId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TrackStoragePtrOutput) StorageAppId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TrackStorage) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StorageAppId
+	}).(pulumi.StringPtrOutput)
 }
 
 func (o TrackStoragePtrOutput) StorageName() pulumi.StringPtrOutput {
@@ -291,6 +321,444 @@ func (o GetCosRegionsAuditCosRegionListArrayOutput) Index(i pulumi.IntInput) Get
 	}).(GetCosRegionsAuditCosRegionListOutput)
 }
 
+type GetEventsEvent struct {
+	AccountId       *int                     `pulumi:"accountId"`
+	CloudAuditEvent *string                  `pulumi:"cloudAuditEvent"`
+	ErrorCode       *int                     `pulumi:"errorCode"`
+	EventId         *string                  `pulumi:"eventId"`
+	EventName       *string                  `pulumi:"eventName"`
+	EventNameCn     *string                  `pulumi:"eventNameCn"`
+	EventRegion     *string                  `pulumi:"eventRegion"`
+	EventSource     *string                  `pulumi:"eventSource"`
+	EventTime       *string                  `pulumi:"eventTime"`
+	Location        *string                  `pulumi:"location"`
+	RequestId       *string                  `pulumi:"requestId"`
+	ResourceRegion  *string                  `pulumi:"resourceRegion"`
+	ResourceTypeCn  *string                  `pulumi:"resourceTypeCn"`
+	Resources       *GetEventsEventResources `pulumi:"resources"`
+	SecretId        *string                  `pulumi:"secretId"`
+	SourceIpAddress *string                  `pulumi:"sourceIpAddress"`
+	Username        *string                  `pulumi:"username"`
+}
+
+// GetEventsEventInput is an input type that accepts GetEventsEventArgs and GetEventsEventOutput values.
+// You can construct a concrete instance of `GetEventsEventInput` via:
+//
+//	GetEventsEventArgs{...}
+type GetEventsEventInput interface {
+	pulumi.Input
+
+	ToGetEventsEventOutput() GetEventsEventOutput
+	ToGetEventsEventOutputWithContext(context.Context) GetEventsEventOutput
+}
+
+type GetEventsEventArgs struct {
+	AccountId       pulumi.IntPtrInput              `pulumi:"accountId"`
+	CloudAuditEvent pulumi.StringPtrInput           `pulumi:"cloudAuditEvent"`
+	ErrorCode       pulumi.IntPtrInput              `pulumi:"errorCode"`
+	EventId         pulumi.StringPtrInput           `pulumi:"eventId"`
+	EventName       pulumi.StringPtrInput           `pulumi:"eventName"`
+	EventNameCn     pulumi.StringPtrInput           `pulumi:"eventNameCn"`
+	EventRegion     pulumi.StringPtrInput           `pulumi:"eventRegion"`
+	EventSource     pulumi.StringPtrInput           `pulumi:"eventSource"`
+	EventTime       pulumi.StringPtrInput           `pulumi:"eventTime"`
+	Location        pulumi.StringPtrInput           `pulumi:"location"`
+	RequestId       pulumi.StringPtrInput           `pulumi:"requestId"`
+	ResourceRegion  pulumi.StringPtrInput           `pulumi:"resourceRegion"`
+	ResourceTypeCn  pulumi.StringPtrInput           `pulumi:"resourceTypeCn"`
+	Resources       GetEventsEventResourcesPtrInput `pulumi:"resources"`
+	SecretId        pulumi.StringPtrInput           `pulumi:"secretId"`
+	SourceIpAddress pulumi.StringPtrInput           `pulumi:"sourceIpAddress"`
+	Username        pulumi.StringPtrInput           `pulumi:"username"`
+}
+
+func (GetEventsEventArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsEvent)(nil)).Elem()
+}
+
+func (i GetEventsEventArgs) ToGetEventsEventOutput() GetEventsEventOutput {
+	return i.ToGetEventsEventOutputWithContext(context.Background())
+}
+
+func (i GetEventsEventArgs) ToGetEventsEventOutputWithContext(ctx context.Context) GetEventsEventOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsEventOutput)
+}
+
+// GetEventsEventArrayInput is an input type that accepts GetEventsEventArray and GetEventsEventArrayOutput values.
+// You can construct a concrete instance of `GetEventsEventArrayInput` via:
+//
+//	GetEventsEventArray{ GetEventsEventArgs{...} }
+type GetEventsEventArrayInput interface {
+	pulumi.Input
+
+	ToGetEventsEventArrayOutput() GetEventsEventArrayOutput
+	ToGetEventsEventArrayOutputWithContext(context.Context) GetEventsEventArrayOutput
+}
+
+type GetEventsEventArray []GetEventsEventInput
+
+func (GetEventsEventArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEventsEvent)(nil)).Elem()
+}
+
+func (i GetEventsEventArray) ToGetEventsEventArrayOutput() GetEventsEventArrayOutput {
+	return i.ToGetEventsEventArrayOutputWithContext(context.Background())
+}
+
+func (i GetEventsEventArray) ToGetEventsEventArrayOutputWithContext(ctx context.Context) GetEventsEventArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsEventArrayOutput)
+}
+
+type GetEventsEventOutput struct{ *pulumi.OutputState }
+
+func (GetEventsEventOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsEvent)(nil)).Elem()
+}
+
+func (o GetEventsEventOutput) ToGetEventsEventOutput() GetEventsEventOutput {
+	return o
+}
+
+func (o GetEventsEventOutput) ToGetEventsEventOutputWithContext(ctx context.Context) GetEventsEventOutput {
+	return o
+}
+
+func (o GetEventsEventOutput) AccountId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *int { return v.AccountId }).(pulumi.IntPtrOutput)
+}
+
+func (o GetEventsEventOutput) CloudAuditEvent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.CloudAuditEvent }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) ErrorCode() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *int { return v.ErrorCode }).(pulumi.IntPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventId }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventName }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventNameCn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventNameCn }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventRegion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventRegion }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventSource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventSource }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) EventTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.EventTime }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) Location() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.Location }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) RequestId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.RequestId }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) ResourceRegion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.ResourceRegion }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) ResourceTypeCn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.ResourceTypeCn }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) Resources() GetEventsEventResourcesPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *GetEventsEventResources { return v.Resources }).(GetEventsEventResourcesPtrOutput)
+}
+
+func (o GetEventsEventOutput) SecretId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.SecretId }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) SourceIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.SourceIpAddress }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventOutput) Username() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEvent) *string { return v.Username }).(pulumi.StringPtrOutput)
+}
+
+type GetEventsEventArrayOutput struct{ *pulumi.OutputState }
+
+func (GetEventsEventArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEventsEvent)(nil)).Elem()
+}
+
+func (o GetEventsEventArrayOutput) ToGetEventsEventArrayOutput() GetEventsEventArrayOutput {
+	return o
+}
+
+func (o GetEventsEventArrayOutput) ToGetEventsEventArrayOutputWithContext(ctx context.Context) GetEventsEventArrayOutput {
+	return o
+}
+
+func (o GetEventsEventArrayOutput) Index(i pulumi.IntInput) GetEventsEventOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetEventsEvent {
+		return vs[0].([]GetEventsEvent)[vs[1].(int)]
+	}).(GetEventsEventOutput)
+}
+
+type GetEventsEventResources struct {
+	ResourceName *string `pulumi:"resourceName"`
+	ResourceType *string `pulumi:"resourceType"`
+}
+
+// GetEventsEventResourcesInput is an input type that accepts GetEventsEventResourcesArgs and GetEventsEventResourcesOutput values.
+// You can construct a concrete instance of `GetEventsEventResourcesInput` via:
+//
+//	GetEventsEventResourcesArgs{...}
+type GetEventsEventResourcesInput interface {
+	pulumi.Input
+
+	ToGetEventsEventResourcesOutput() GetEventsEventResourcesOutput
+	ToGetEventsEventResourcesOutputWithContext(context.Context) GetEventsEventResourcesOutput
+}
+
+type GetEventsEventResourcesArgs struct {
+	ResourceName pulumi.StringPtrInput `pulumi:"resourceName"`
+	ResourceType pulumi.StringPtrInput `pulumi:"resourceType"`
+}
+
+func (GetEventsEventResourcesArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsEventResources)(nil)).Elem()
+}
+
+func (i GetEventsEventResourcesArgs) ToGetEventsEventResourcesOutput() GetEventsEventResourcesOutput {
+	return i.ToGetEventsEventResourcesOutputWithContext(context.Background())
+}
+
+func (i GetEventsEventResourcesArgs) ToGetEventsEventResourcesOutputWithContext(ctx context.Context) GetEventsEventResourcesOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsEventResourcesOutput)
+}
+
+func (i GetEventsEventResourcesArgs) ToGetEventsEventResourcesPtrOutput() GetEventsEventResourcesPtrOutput {
+	return i.ToGetEventsEventResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i GetEventsEventResourcesArgs) ToGetEventsEventResourcesPtrOutputWithContext(ctx context.Context) GetEventsEventResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsEventResourcesOutput).ToGetEventsEventResourcesPtrOutputWithContext(ctx)
+}
+
+// GetEventsEventResourcesPtrInput is an input type that accepts GetEventsEventResourcesArgs, GetEventsEventResourcesPtr and GetEventsEventResourcesPtrOutput values.
+// You can construct a concrete instance of `GetEventsEventResourcesPtrInput` via:
+//
+//	        GetEventsEventResourcesArgs{...}
+//
+//	or:
+//
+//	        nil
+type GetEventsEventResourcesPtrInput interface {
+	pulumi.Input
+
+	ToGetEventsEventResourcesPtrOutput() GetEventsEventResourcesPtrOutput
+	ToGetEventsEventResourcesPtrOutputWithContext(context.Context) GetEventsEventResourcesPtrOutput
+}
+
+type getEventsEventResourcesPtrType GetEventsEventResourcesArgs
+
+func GetEventsEventResourcesPtr(v *GetEventsEventResourcesArgs) GetEventsEventResourcesPtrInput {
+	return (*getEventsEventResourcesPtrType)(v)
+}
+
+func (*getEventsEventResourcesPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetEventsEventResources)(nil)).Elem()
+}
+
+func (i *getEventsEventResourcesPtrType) ToGetEventsEventResourcesPtrOutput() GetEventsEventResourcesPtrOutput {
+	return i.ToGetEventsEventResourcesPtrOutputWithContext(context.Background())
+}
+
+func (i *getEventsEventResourcesPtrType) ToGetEventsEventResourcesPtrOutputWithContext(ctx context.Context) GetEventsEventResourcesPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsEventResourcesPtrOutput)
+}
+
+type GetEventsEventResourcesOutput struct{ *pulumi.OutputState }
+
+func (GetEventsEventResourcesOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsEventResources)(nil)).Elem()
+}
+
+func (o GetEventsEventResourcesOutput) ToGetEventsEventResourcesOutput() GetEventsEventResourcesOutput {
+	return o
+}
+
+func (o GetEventsEventResourcesOutput) ToGetEventsEventResourcesOutputWithContext(ctx context.Context) GetEventsEventResourcesOutput {
+	return o
+}
+
+func (o GetEventsEventResourcesOutput) ToGetEventsEventResourcesPtrOutput() GetEventsEventResourcesPtrOutput {
+	return o.ToGetEventsEventResourcesPtrOutputWithContext(context.Background())
+}
+
+func (o GetEventsEventResourcesOutput) ToGetEventsEventResourcesPtrOutputWithContext(ctx context.Context) GetEventsEventResourcesPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v GetEventsEventResources) *GetEventsEventResources {
+		return &v
+	}).(GetEventsEventResourcesPtrOutput)
+}
+
+func (o GetEventsEventResourcesOutput) ResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEventResources) *string { return v.ResourceName }).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventResourcesOutput) ResourceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsEventResources) *string { return v.ResourceType }).(pulumi.StringPtrOutput)
+}
+
+type GetEventsEventResourcesPtrOutput struct{ *pulumi.OutputState }
+
+func (GetEventsEventResourcesPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**GetEventsEventResources)(nil)).Elem()
+}
+
+func (o GetEventsEventResourcesPtrOutput) ToGetEventsEventResourcesPtrOutput() GetEventsEventResourcesPtrOutput {
+	return o
+}
+
+func (o GetEventsEventResourcesPtrOutput) ToGetEventsEventResourcesPtrOutputWithContext(ctx context.Context) GetEventsEventResourcesPtrOutput {
+	return o
+}
+
+func (o GetEventsEventResourcesPtrOutput) Elem() GetEventsEventResourcesOutput {
+	return o.ApplyT(func(v *GetEventsEventResources) GetEventsEventResources {
+		if v != nil {
+			return *v
+		}
+		var ret GetEventsEventResources
+		return ret
+	}).(GetEventsEventResourcesOutput)
+}
+
+func (o GetEventsEventResourcesPtrOutput) ResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GetEventsEventResources) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceName
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o GetEventsEventResourcesPtrOutput) ResourceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *GetEventsEventResources) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResourceType
+	}).(pulumi.StringPtrOutput)
+}
+
+type GetEventsLookupAttribute struct {
+	AttributeKey   string  `pulumi:"attributeKey"`
+	AttributeValue *string `pulumi:"attributeValue"`
+}
+
+// GetEventsLookupAttributeInput is an input type that accepts GetEventsLookupAttributeArgs and GetEventsLookupAttributeOutput values.
+// You can construct a concrete instance of `GetEventsLookupAttributeInput` via:
+//
+//	GetEventsLookupAttributeArgs{...}
+type GetEventsLookupAttributeInput interface {
+	pulumi.Input
+
+	ToGetEventsLookupAttributeOutput() GetEventsLookupAttributeOutput
+	ToGetEventsLookupAttributeOutputWithContext(context.Context) GetEventsLookupAttributeOutput
+}
+
+type GetEventsLookupAttributeArgs struct {
+	AttributeKey   pulumi.StringInput    `pulumi:"attributeKey"`
+	AttributeValue pulumi.StringPtrInput `pulumi:"attributeValue"`
+}
+
+func (GetEventsLookupAttributeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsLookupAttribute)(nil)).Elem()
+}
+
+func (i GetEventsLookupAttributeArgs) ToGetEventsLookupAttributeOutput() GetEventsLookupAttributeOutput {
+	return i.ToGetEventsLookupAttributeOutputWithContext(context.Background())
+}
+
+func (i GetEventsLookupAttributeArgs) ToGetEventsLookupAttributeOutputWithContext(ctx context.Context) GetEventsLookupAttributeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsLookupAttributeOutput)
+}
+
+// GetEventsLookupAttributeArrayInput is an input type that accepts GetEventsLookupAttributeArray and GetEventsLookupAttributeArrayOutput values.
+// You can construct a concrete instance of `GetEventsLookupAttributeArrayInput` via:
+//
+//	GetEventsLookupAttributeArray{ GetEventsLookupAttributeArgs{...} }
+type GetEventsLookupAttributeArrayInput interface {
+	pulumi.Input
+
+	ToGetEventsLookupAttributeArrayOutput() GetEventsLookupAttributeArrayOutput
+	ToGetEventsLookupAttributeArrayOutputWithContext(context.Context) GetEventsLookupAttributeArrayOutput
+}
+
+type GetEventsLookupAttributeArray []GetEventsLookupAttributeInput
+
+func (GetEventsLookupAttributeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEventsLookupAttribute)(nil)).Elem()
+}
+
+func (i GetEventsLookupAttributeArray) ToGetEventsLookupAttributeArrayOutput() GetEventsLookupAttributeArrayOutput {
+	return i.ToGetEventsLookupAttributeArrayOutputWithContext(context.Background())
+}
+
+func (i GetEventsLookupAttributeArray) ToGetEventsLookupAttributeArrayOutputWithContext(ctx context.Context) GetEventsLookupAttributeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEventsLookupAttributeArrayOutput)
+}
+
+type GetEventsLookupAttributeOutput struct{ *pulumi.OutputState }
+
+func (GetEventsLookupAttributeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEventsLookupAttribute)(nil)).Elem()
+}
+
+func (o GetEventsLookupAttributeOutput) ToGetEventsLookupAttributeOutput() GetEventsLookupAttributeOutput {
+	return o
+}
+
+func (o GetEventsLookupAttributeOutput) ToGetEventsLookupAttributeOutputWithContext(ctx context.Context) GetEventsLookupAttributeOutput {
+	return o
+}
+
+func (o GetEventsLookupAttributeOutput) AttributeKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEventsLookupAttribute) string { return v.AttributeKey }).(pulumi.StringOutput)
+}
+
+func (o GetEventsLookupAttributeOutput) AttributeValue() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetEventsLookupAttribute) *string { return v.AttributeValue }).(pulumi.StringPtrOutput)
+}
+
+type GetEventsLookupAttributeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetEventsLookupAttributeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEventsLookupAttribute)(nil)).Elem()
+}
+
+func (o GetEventsLookupAttributeArrayOutput) ToGetEventsLookupAttributeArrayOutput() GetEventsLookupAttributeArrayOutput {
+	return o
+}
+
+func (o GetEventsLookupAttributeArrayOutput) ToGetEventsLookupAttributeArrayOutputWithContext(ctx context.Context) GetEventsLookupAttributeArrayOutput {
+	return o
+}
+
+func (o GetEventsLookupAttributeArrayOutput) Index(i pulumi.IntInput) GetEventsLookupAttributeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetEventsLookupAttribute {
+		return vs[0].([]GetEventsLookupAttribute)[vs[1].(int)]
+	}).(GetEventsLookupAttributeOutput)
+}
+
 type GetKeyAliasAuditKeyAliasList struct {
 	KeyAlias string `pulumi:"keyAlias"`
 	KeyId    string `pulumi:"keyId"`
@@ -396,12 +864,24 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*TrackStoragePtrInput)(nil)).Elem(), TrackStorageArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCosRegionsAuditCosRegionListInput)(nil)).Elem(), GetCosRegionsAuditCosRegionListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetCosRegionsAuditCosRegionListArrayInput)(nil)).Elem(), GetCosRegionsAuditCosRegionListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsEventInput)(nil)).Elem(), GetEventsEventArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsEventArrayInput)(nil)).Elem(), GetEventsEventArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsEventResourcesInput)(nil)).Elem(), GetEventsEventResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsEventResourcesPtrInput)(nil)).Elem(), GetEventsEventResourcesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsLookupAttributeInput)(nil)).Elem(), GetEventsLookupAttributeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEventsLookupAttributeArrayInput)(nil)).Elem(), GetEventsLookupAttributeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetKeyAliasAuditKeyAliasListInput)(nil)).Elem(), GetKeyAliasAuditKeyAliasListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetKeyAliasAuditKeyAliasListArrayInput)(nil)).Elem(), GetKeyAliasAuditKeyAliasListArray{})
 	pulumi.RegisterOutputType(TrackStorageOutput{})
 	pulumi.RegisterOutputType(TrackStoragePtrOutput{})
 	pulumi.RegisterOutputType(GetCosRegionsAuditCosRegionListOutput{})
 	pulumi.RegisterOutputType(GetCosRegionsAuditCosRegionListArrayOutput{})
+	pulumi.RegisterOutputType(GetEventsEventOutput{})
+	pulumi.RegisterOutputType(GetEventsEventArrayOutput{})
+	pulumi.RegisterOutputType(GetEventsEventResourcesOutput{})
+	pulumi.RegisterOutputType(GetEventsEventResourcesPtrOutput{})
+	pulumi.RegisterOutputType(GetEventsLookupAttributeOutput{})
+	pulumi.RegisterOutputType(GetEventsLookupAttributeArrayOutput{})
 	pulumi.RegisterOutputType(GetKeyAliasAuditKeyAliasListOutput{})
 	pulumi.RegisterOutputType(GetKeyAliasAuditKeyAliasListArrayOutput{})
 }

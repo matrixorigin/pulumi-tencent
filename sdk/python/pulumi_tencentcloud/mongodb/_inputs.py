@@ -11,8 +11,11 @@ from .. import _utilities
 
 __all__ = [
     'InstanceAccountAuthRoleArgs',
+    'InstanceAddNodeListArgs',
     'InstanceBackupDownloadTaskBackupSetArgs',
+    'InstanceRemoveNodeListArgs',
     'InstanceStandbyInstanceListArgs',
+    'InstanceTransparentDataEncryptionKeyInfoListArgs',
 ]
 
 @pulumi.input_type
@@ -43,6 +46,33 @@ class InstanceAccountAuthRoleArgs:
 
 
 @pulumi.input_type
+class InstanceAddNodeListArgs:
+    def __init__(__self__, *,
+                 role: pulumi.Input[str],
+                 zone: pulumi.Input[str]):
+        pulumi.set(__self__, "role", role)
+        pulumi.set(__self__, "zone", zone)
+
+    @property
+    @pulumi.getter
+    def role(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "role")
+
+    @role.setter
+    def role(self, value: pulumi.Input[str]):
+        pulumi.set(self, "role", value)
+
+    @property
+    @pulumi.getter
+    def zone(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "zone")
+
+    @zone.setter
+    def zone(self, value: pulumi.Input[str]):
+        pulumi.set(self, "zone", value)
+
+
+@pulumi.input_type
 class InstanceBackupDownloadTaskBackupSetArgs:
     def __init__(__self__, *,
                  replica_set_id: pulumi.Input[str]):
@@ -56,6 +86,44 @@ class InstanceBackupDownloadTaskBackupSetArgs:
     @replica_set_id.setter
     def replica_set_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "replica_set_id", value)
+
+
+@pulumi.input_type
+class InstanceRemoveNodeListArgs:
+    def __init__(__self__, *,
+                 node_name: pulumi.Input[str],
+                 role: pulumi.Input[str],
+                 zone: pulumi.Input[str]):
+        pulumi.set(__self__, "node_name", node_name)
+        pulumi.set(__self__, "role", role)
+        pulumi.set(__self__, "zone", zone)
+
+    @property
+    @pulumi.getter(name="nodeName")
+    def node_name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "node_name")
+
+    @node_name.setter
+    def node_name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "node_name", value)
+
+    @property
+    @pulumi.getter
+    def role(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "role")
+
+    @role.setter
+    def role(self, value: pulumi.Input[str]):
+        pulumi.set(self, "role", value)
+
+    @property
+    @pulumi.getter
+    def zone(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "zone")
+
+    @zone.setter
+    def zone(self, value: pulumi.Input[str]):
+        pulumi.set(self, "zone", value)
 
 
 @pulumi.input_type
@@ -85,5 +153,82 @@ class InstanceStandbyInstanceListArgs:
     @standby_instance_region.setter
     def standby_instance_region(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "standby_instance_region", value)
+
+
+@pulumi.input_type
+class InstanceTransparentDataEncryptionKeyInfoListArgs:
+    def __init__(__self__, *,
+                 create_time: Optional[pulumi.Input[str]] = None,
+                 key_id: Optional[pulumi.Input[str]] = None,
+                 key_name: Optional[pulumi.Input[str]] = None,
+                 key_origin: Optional[pulumi.Input[str]] = None,
+                 key_usage: Optional[pulumi.Input[str]] = None,
+                 status: Optional[pulumi.Input[str]] = None):
+        if create_time is not None:
+            pulumi.set(__self__, "create_time", create_time)
+        if key_id is not None:
+            pulumi.set(__self__, "key_id", key_id)
+        if key_name is not None:
+            pulumi.set(__self__, "key_name", key_name)
+        if key_origin is not None:
+            pulumi.set(__self__, "key_origin", key_origin)
+        if key_usage is not None:
+            pulumi.set(__self__, "key_usage", key_usage)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "create_time")
+
+    @create_time.setter
+    def create_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "create_time", value)
+
+    @property
+    @pulumi.getter(name="keyId")
+    def key_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key_id")
+
+    @key_id.setter
+    def key_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_id", value)
+
+    @property
+    @pulumi.getter(name="keyName")
+    def key_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key_name")
+
+    @key_name.setter
+    def key_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_name", value)
+
+    @property
+    @pulumi.getter(name="keyOrigin")
+    def key_origin(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key_origin")
+
+    @key_origin.setter
+    def key_origin(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_origin", value)
+
+    @property
+    @pulumi.getter(name="keyUsage")
+    def key_usage(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key_usage")
+
+    @key_usage.setter
+    def key_usage(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key_usage", value)
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "status", value)
 
 

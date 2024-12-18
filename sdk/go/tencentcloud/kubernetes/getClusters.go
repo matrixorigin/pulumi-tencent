@@ -23,10 +23,11 @@ func GetClusters(ctx *pulumi.Context, args *GetClustersArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getClusters.
 type GetClustersArgs struct {
-	ClusterId        *string                `pulumi:"clusterId"`
-	ClusterName      *string                `pulumi:"clusterName"`
-	ResultOutputFile *string                `pulumi:"resultOutputFile"`
-	Tags             map[string]interface{} `pulumi:"tags"`
+	ClusterId            *string                `pulumi:"clusterId"`
+	ClusterName          *string                `pulumi:"clusterName"`
+	KubeConfigFilePrefix *string                `pulumi:"kubeConfigFilePrefix"`
+	ResultOutputFile     *string                `pulumi:"resultOutputFile"`
+	Tags                 map[string]interface{} `pulumi:"tags"`
 }
 
 // A collection of values returned by getClusters.
@@ -34,10 +35,11 @@ type GetClustersResult struct {
 	ClusterId   *string `pulumi:"clusterId"`
 	ClusterName *string `pulumi:"clusterName"`
 	// The provider-assigned unique ID for this managed resource.
-	Id               string                 `pulumi:"id"`
-	Lists            []GetClustersList      `pulumi:"lists"`
-	ResultOutputFile *string                `pulumi:"resultOutputFile"`
-	Tags             map[string]interface{} `pulumi:"tags"`
+	Id                   string                 `pulumi:"id"`
+	KubeConfigFilePrefix *string                `pulumi:"kubeConfigFilePrefix"`
+	Lists                []GetClustersList      `pulumi:"lists"`
+	ResultOutputFile     *string                `pulumi:"resultOutputFile"`
+	Tags                 map[string]interface{} `pulumi:"tags"`
 }
 
 func GetClustersOutput(ctx *pulumi.Context, args GetClustersOutputArgs, opts ...pulumi.InvokeOption) GetClustersResultOutput {
@@ -55,10 +57,11 @@ func GetClustersOutput(ctx *pulumi.Context, args GetClustersOutputArgs, opts ...
 
 // A collection of arguments for invoking getClusters.
 type GetClustersOutputArgs struct {
-	ClusterId        pulumi.StringPtrInput `pulumi:"clusterId"`
-	ClusterName      pulumi.StringPtrInput `pulumi:"clusterName"`
-	ResultOutputFile pulumi.StringPtrInput `pulumi:"resultOutputFile"`
-	Tags             pulumi.MapInput       `pulumi:"tags"`
+	ClusterId            pulumi.StringPtrInput `pulumi:"clusterId"`
+	ClusterName          pulumi.StringPtrInput `pulumi:"clusterName"`
+	KubeConfigFilePrefix pulumi.StringPtrInput `pulumi:"kubeConfigFilePrefix"`
+	ResultOutputFile     pulumi.StringPtrInput `pulumi:"resultOutputFile"`
+	Tags                 pulumi.MapInput       `pulumi:"tags"`
 }
 
 func (GetClustersOutputArgs) ElementType() reflect.Type {
@@ -91,6 +94,10 @@ func (o GetClustersResultOutput) ClusterName() pulumi.StringPtrOutput {
 // The provider-assigned unique ID for this managed resource.
 func (o GetClustersResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClustersResult) string { return v.Id }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResultOutput) KubeConfigFilePrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetClustersResult) *string { return v.KubeConfigFilePrefix }).(pulumi.StringPtrOutput)
 }
 
 func (o GetClustersResultOutput) Lists() GetClustersListArrayOutput {

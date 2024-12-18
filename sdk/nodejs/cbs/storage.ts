@@ -41,9 +41,14 @@ export class Storage extends pulumi.CustomResource {
      */
     public readonly availabilityZone!: pulumi.Output<string>;
     /**
-     * The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+     * The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+     * The default is `POSTPAID_BY_HOUR`.
      */
     public readonly chargeType!: pulumi.Output<string | undefined>;
+    /**
+     * Exclusive cluster id.
+     */
+    public readonly dedicatedClusterId!: pulumi.Output<string | undefined>;
     /**
      * The quota of backup points of cloud disk.
      */
@@ -125,6 +130,7 @@ export class Storage extends pulumi.CustomResource {
             resourceInputs["attached"] = state ? state.attached : undefined;
             resourceInputs["availabilityZone"] = state ? state.availabilityZone : undefined;
             resourceInputs["chargeType"] = state ? state.chargeType : undefined;
+            resourceInputs["dedicatedClusterId"] = state ? state.dedicatedClusterId : undefined;
             resourceInputs["diskBackupQuota"] = state ? state.diskBackupQuota : undefined;
             resourceInputs["encrypt"] = state ? state.encrypt : undefined;
             resourceInputs["forceDelete"] = state ? state.forceDelete : undefined;
@@ -155,6 +161,7 @@ export class Storage extends pulumi.CustomResource {
             }
             resourceInputs["availabilityZone"] = args ? args.availabilityZone : undefined;
             resourceInputs["chargeType"] = args ? args.chargeType : undefined;
+            resourceInputs["dedicatedClusterId"] = args ? args.dedicatedClusterId : undefined;
             resourceInputs["diskBackupQuota"] = args ? args.diskBackupQuota : undefined;
             resourceInputs["encrypt"] = args ? args.encrypt : undefined;
             resourceInputs["forceDelete"] = args ? args.forceDelete : undefined;
@@ -189,9 +196,14 @@ export interface StorageState {
      */
     availabilityZone?: pulumi.Input<string>;
     /**
-     * The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+     * The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+     * The default is `POSTPAID_BY_HOUR`.
      */
     chargeType?: pulumi.Input<string>;
+    /**
+     * Exclusive cluster id.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
     /**
      * The quota of backup points of cloud disk.
      */
@@ -267,9 +279,14 @@ export interface StorageArgs {
      */
     availabilityZone: pulumi.Input<string>;
     /**
-     * The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+     * The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+     * The default is `POSTPAID_BY_HOUR`.
      */
     chargeType?: pulumi.Input<string>;
+    /**
+     * Exclusive cluster id.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
     /**
      * The quota of backup points of cloud disk.
      */

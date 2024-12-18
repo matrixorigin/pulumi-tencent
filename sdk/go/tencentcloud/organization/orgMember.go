@@ -44,6 +44,8 @@ type OrgMember struct {
 	RecordId pulumi.IntPtrOutput `pulumi:"recordId"`
 	// Notes.
 	Remark pulumi.StringPtrOutput `pulumi:"remark"`
+	// Tag description list.
+	Tags pulumi.MapOutput `pulumi:"tags"`
 	// Member update time.
 	UpdateTime pulumi.StringOutput `pulumi:"updateTime"`
 }
@@ -116,6 +118,8 @@ type orgMemberState struct {
 	RecordId *int `pulumi:"recordId"`
 	// Notes.
 	Remark *string `pulumi:"remark"`
+	// Tag description list.
+	Tags map[string]interface{} `pulumi:"tags"`
 	// Member update time.
 	UpdateTime *string `pulumi:"updateTime"`
 }
@@ -150,6 +154,8 @@ type OrgMemberState struct {
 	RecordId pulumi.IntPtrInput
 	// Notes.
 	Remark pulumi.StringPtrInput
+	// Tag description list.
+	Tags pulumi.MapInput
 	// Member update time.
 	UpdateTime pulumi.StringPtrInput
 }
@@ -174,6 +180,8 @@ type orgMemberArgs struct {
 	RecordId *int `pulumi:"recordId"`
 	// Notes.
 	Remark *string `pulumi:"remark"`
+	// Tag description list.
+	Tags map[string]interface{} `pulumi:"tags"`
 }
 
 // The set of arguments for constructing a OrgMember resource.
@@ -193,6 +201,8 @@ type OrgMemberArgs struct {
 	RecordId pulumi.IntPtrInput
 	// Notes.
 	Remark pulumi.StringPtrInput
+	// Tag description list.
+	Tags pulumi.MapInput
 }
 
 func (OrgMemberArgs) ElementType() reflect.Type {
@@ -351,6 +361,11 @@ func (o OrgMemberOutput) RecordId() pulumi.IntPtrOutput {
 // Notes.
 func (o OrgMemberOutput) Remark() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *OrgMember) pulumi.StringPtrOutput { return v.Remark }).(pulumi.StringPtrOutput)
+}
+
+// Tag description list.
+func (o OrgMemberOutput) Tags() pulumi.MapOutput {
+	return o.ApplyT(func(v *OrgMember) pulumi.MapOutput { return v.Tags }).(pulumi.MapOutput)
 }
 
 // Member update time.

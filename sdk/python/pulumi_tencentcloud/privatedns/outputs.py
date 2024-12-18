@@ -8,6 +8,7 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
+from . import outputs
 
 __all__ = [
     'ZoneAccountVpcSet',
@@ -15,6 +16,19 @@ __all__ = [
     'ZoneVpcAttachmentAccountVpcSet',
     'ZoneVpcAttachmentVpcSet',
     'ZoneVpcSet',
+    'GetEndPointsEndPointSetResult',
+    'GetEndPointsEndPointSetTagResult',
+    'GetEndPointsFilterResult',
+    'GetForwardRulesFilterResult',
+    'GetForwardRulesForwardRuleSetResult',
+    'GetForwardRulesForwardRuleSetTagResult',
+    'GetForwardRulesForwardRuleSetVpcSetResult',
+    'GetPrivateZoneListFilterResult',
+    'GetPrivateZoneListPrivateZoneSetResult',
+    'GetPrivateZoneListPrivateZoneSetAccountVpcSetResult',
+    'GetPrivateZoneListPrivateZoneSetDeletedVpcSetResult',
+    'GetPrivateZoneListPrivateZoneSetTagResult',
+    'GetPrivateZoneListPrivateZoneSetVpcSetResult',
     'GetRecordsFilterResult',
     'GetRecordsRecordSetResult',
 ]
@@ -207,6 +221,477 @@ class ZoneVpcSet(dict):
         ZoneVpcSet.__key_warning(key)
         return super().get(key, default)
 
+    def __init__(__self__, *,
+                 region: str,
+                 uniq_vpc_id: str):
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "uniq_vpc_id", uniq_vpc_id)
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="uniqVpcId")
+    def uniq_vpc_id(self) -> str:
+        return pulumi.get(self, "uniq_vpc_id")
+
+
+@pulumi.output_type
+class GetEndPointsEndPointSetResult(dict):
+    def __init__(__self__, *,
+                 end_point_id: str,
+                 end_point_name: str,
+                 end_point_service_id: str,
+                 end_point_vip_sets: Sequence[str],
+                 region_code: str,
+                 tags: Sequence['outputs.GetEndPointsEndPointSetTagResult']):
+        pulumi.set(__self__, "end_point_id", end_point_id)
+        pulumi.set(__self__, "end_point_name", end_point_name)
+        pulumi.set(__self__, "end_point_service_id", end_point_service_id)
+        pulumi.set(__self__, "end_point_vip_sets", end_point_vip_sets)
+        pulumi.set(__self__, "region_code", region_code)
+        pulumi.set(__self__, "tags", tags)
+
+    @property
+    @pulumi.getter(name="endPointId")
+    def end_point_id(self) -> str:
+        return pulumi.get(self, "end_point_id")
+
+    @property
+    @pulumi.getter(name="endPointName")
+    def end_point_name(self) -> str:
+        return pulumi.get(self, "end_point_name")
+
+    @property
+    @pulumi.getter(name="endPointServiceId")
+    def end_point_service_id(self) -> str:
+        return pulumi.get(self, "end_point_service_id")
+
+    @property
+    @pulumi.getter(name="endPointVipSets")
+    def end_point_vip_sets(self) -> Sequence[str]:
+        return pulumi.get(self, "end_point_vip_sets")
+
+    @property
+    @pulumi.getter(name="regionCode")
+    def region_code(self) -> str:
+        return pulumi.get(self, "region_code")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetEndPointsEndPointSetTagResult']:
+        return pulumi.get(self, "tags")
+
+
+@pulumi.output_type
+class GetEndPointsEndPointSetTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
+
+@pulumi.output_type
+class GetEndPointsFilterResult(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetForwardRulesFilterResult(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetForwardRulesForwardRuleSetResult(dict):
+    def __init__(__self__, *,
+                 created_at: str,
+                 domain: str,
+                 end_point_id: str,
+                 end_point_name: str,
+                 forward_addresses: Sequence[str],
+                 rule_id: str,
+                 rule_name: str,
+                 rule_type: str,
+                 tags: Sequence['outputs.GetForwardRulesForwardRuleSetTagResult'],
+                 updated_at: str,
+                 vpc_sets: Sequence['outputs.GetForwardRulesForwardRuleSetVpcSetResult'],
+                 zone_id: str):
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "domain", domain)
+        pulumi.set(__self__, "end_point_id", end_point_id)
+        pulumi.set(__self__, "end_point_name", end_point_name)
+        pulumi.set(__self__, "forward_addresses", forward_addresses)
+        pulumi.set(__self__, "rule_id", rule_id)
+        pulumi.set(__self__, "rule_name", rule_name)
+        pulumi.set(__self__, "rule_type", rule_type)
+        pulumi.set(__self__, "tags", tags)
+        pulumi.set(__self__, "updated_at", updated_at)
+        pulumi.set(__self__, "vpc_sets", vpc_sets)
+        pulumi.set(__self__, "zone_id", zone_id)
+
+    @property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> str:
+        return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter
+    def domain(self) -> str:
+        return pulumi.get(self, "domain")
+
+    @property
+    @pulumi.getter(name="endPointId")
+    def end_point_id(self) -> str:
+        return pulumi.get(self, "end_point_id")
+
+    @property
+    @pulumi.getter(name="endPointName")
+    def end_point_name(self) -> str:
+        return pulumi.get(self, "end_point_name")
+
+    @property
+    @pulumi.getter(name="forwardAddresses")
+    def forward_addresses(self) -> Sequence[str]:
+        return pulumi.get(self, "forward_addresses")
+
+    @property
+    @pulumi.getter(name="ruleId")
+    def rule_id(self) -> str:
+        return pulumi.get(self, "rule_id")
+
+    @property
+    @pulumi.getter(name="ruleName")
+    def rule_name(self) -> str:
+        return pulumi.get(self, "rule_name")
+
+    @property
+    @pulumi.getter(name="ruleType")
+    def rule_type(self) -> str:
+        return pulumi.get(self, "rule_type")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetForwardRulesForwardRuleSetTagResult']:
+        return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="updatedAt")
+    def updated_at(self) -> str:
+        return pulumi.get(self, "updated_at")
+
+    @property
+    @pulumi.getter(name="vpcSets")
+    def vpc_sets(self) -> Sequence['outputs.GetForwardRulesForwardRuleSetVpcSetResult']:
+        return pulumi.get(self, "vpc_sets")
+
+    @property
+    @pulumi.getter(name="zoneId")
+    def zone_id(self) -> str:
+        return pulumi.get(self, "zone_id")
+
+
+@pulumi.output_type
+class GetForwardRulesForwardRuleSetTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
+
+@pulumi.output_type
+class GetForwardRulesForwardRuleSetVpcSetResult(dict):
+    def __init__(__self__, *,
+                 region: str,
+                 uniq_vpc_id: str):
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "uniq_vpc_id", uniq_vpc_id)
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="uniqVpcId")
+    def uniq_vpc_id(self) -> str:
+        return pulumi.get(self, "uniq_vpc_id")
+
+
+@pulumi.output_type
+class GetPrivateZoneListFilterResult(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetPrivateZoneListPrivateZoneSetResult(dict):
+    def __init__(__self__, *,
+                 account_vpc_sets: Sequence['outputs.GetPrivateZoneListPrivateZoneSetAccountVpcSetResult'],
+                 cname_speedup_status: str,
+                 created_on: str,
+                 deleted_vpc_sets: Sequence['outputs.GetPrivateZoneListPrivateZoneSetDeletedVpcSetResult'],
+                 dns_forward_status: str,
+                 domain: str,
+                 end_point_name: str,
+                 forward_address: str,
+                 forward_rule_name: str,
+                 forward_rule_type: str,
+                 is_custom_tld: bool,
+                 owner_uin: int,
+                 record_count: int,
+                 remark: str,
+                 status: str,
+                 tags: Sequence['outputs.GetPrivateZoneListPrivateZoneSetTagResult'],
+                 updated_on: str,
+                 vpc_sets: Sequence['outputs.GetPrivateZoneListPrivateZoneSetVpcSetResult'],
+                 zone_id: str):
+        pulumi.set(__self__, "account_vpc_sets", account_vpc_sets)
+        pulumi.set(__self__, "cname_speedup_status", cname_speedup_status)
+        pulumi.set(__self__, "created_on", created_on)
+        pulumi.set(__self__, "deleted_vpc_sets", deleted_vpc_sets)
+        pulumi.set(__self__, "dns_forward_status", dns_forward_status)
+        pulumi.set(__self__, "domain", domain)
+        pulumi.set(__self__, "end_point_name", end_point_name)
+        pulumi.set(__self__, "forward_address", forward_address)
+        pulumi.set(__self__, "forward_rule_name", forward_rule_name)
+        pulumi.set(__self__, "forward_rule_type", forward_rule_type)
+        pulumi.set(__self__, "is_custom_tld", is_custom_tld)
+        pulumi.set(__self__, "owner_uin", owner_uin)
+        pulumi.set(__self__, "record_count", record_count)
+        pulumi.set(__self__, "remark", remark)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "tags", tags)
+        pulumi.set(__self__, "updated_on", updated_on)
+        pulumi.set(__self__, "vpc_sets", vpc_sets)
+        pulumi.set(__self__, "zone_id", zone_id)
+
+    @property
+    @pulumi.getter(name="accountVpcSets")
+    def account_vpc_sets(self) -> Sequence['outputs.GetPrivateZoneListPrivateZoneSetAccountVpcSetResult']:
+        return pulumi.get(self, "account_vpc_sets")
+
+    @property
+    @pulumi.getter(name="cnameSpeedupStatus")
+    def cname_speedup_status(self) -> str:
+        return pulumi.get(self, "cname_speedup_status")
+
+    @property
+    @pulumi.getter(name="createdOn")
+    def created_on(self) -> str:
+        return pulumi.get(self, "created_on")
+
+    @property
+    @pulumi.getter(name="deletedVpcSets")
+    def deleted_vpc_sets(self) -> Sequence['outputs.GetPrivateZoneListPrivateZoneSetDeletedVpcSetResult']:
+        return pulumi.get(self, "deleted_vpc_sets")
+
+    @property
+    @pulumi.getter(name="dnsForwardStatus")
+    def dns_forward_status(self) -> str:
+        return pulumi.get(self, "dns_forward_status")
+
+    @property
+    @pulumi.getter
+    def domain(self) -> str:
+        return pulumi.get(self, "domain")
+
+    @property
+    @pulumi.getter(name="endPointName")
+    def end_point_name(self) -> str:
+        return pulumi.get(self, "end_point_name")
+
+    @property
+    @pulumi.getter(name="forwardAddress")
+    def forward_address(self) -> str:
+        return pulumi.get(self, "forward_address")
+
+    @property
+    @pulumi.getter(name="forwardRuleName")
+    def forward_rule_name(self) -> str:
+        return pulumi.get(self, "forward_rule_name")
+
+    @property
+    @pulumi.getter(name="forwardRuleType")
+    def forward_rule_type(self) -> str:
+        return pulumi.get(self, "forward_rule_type")
+
+    @property
+    @pulumi.getter(name="isCustomTld")
+    def is_custom_tld(self) -> bool:
+        return pulumi.get(self, "is_custom_tld")
+
+    @property
+    @pulumi.getter(name="ownerUin")
+    def owner_uin(self) -> int:
+        return pulumi.get(self, "owner_uin")
+
+    @property
+    @pulumi.getter(name="recordCount")
+    def record_count(self) -> int:
+        return pulumi.get(self, "record_count")
+
+    @property
+    @pulumi.getter
+    def remark(self) -> str:
+        return pulumi.get(self, "remark")
+
+    @property
+    @pulumi.getter
+    def status(self) -> str:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetPrivateZoneListPrivateZoneSetTagResult']:
+        return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="updatedOn")
+    def updated_on(self) -> str:
+        return pulumi.get(self, "updated_on")
+
+    @property
+    @pulumi.getter(name="vpcSets")
+    def vpc_sets(self) -> Sequence['outputs.GetPrivateZoneListPrivateZoneSetVpcSetResult']:
+        return pulumi.get(self, "vpc_sets")
+
+    @property
+    @pulumi.getter(name="zoneId")
+    def zone_id(self) -> str:
+        return pulumi.get(self, "zone_id")
+
+
+@pulumi.output_type
+class GetPrivateZoneListPrivateZoneSetAccountVpcSetResult(dict):
+    def __init__(__self__, *,
+                 region: str,
+                 uin: str,
+                 uniq_vpc_id: str):
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "uin", uin)
+        pulumi.set(__self__, "uniq_vpc_id", uniq_vpc_id)
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter
+    def uin(self) -> str:
+        return pulumi.get(self, "uin")
+
+    @property
+    @pulumi.getter(name="uniqVpcId")
+    def uniq_vpc_id(self) -> str:
+        return pulumi.get(self, "uniq_vpc_id")
+
+
+@pulumi.output_type
+class GetPrivateZoneListPrivateZoneSetDeletedVpcSetResult(dict):
+    def __init__(__self__, *,
+                 region: str,
+                 uniq_vpc_id: str):
+        pulumi.set(__self__, "region", region)
+        pulumi.set(__self__, "uniq_vpc_id", uniq_vpc_id)
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="uniqVpcId")
+    def uniq_vpc_id(self) -> str:
+        return pulumi.get(self, "uniq_vpc_id")
+
+
+@pulumi.output_type
+class GetPrivateZoneListPrivateZoneSetTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
+
+@pulumi.output_type
+class GetPrivateZoneListPrivateZoneSetVpcSetResult(dict):
     def __init__(__self__, *,
                  region: str,
                  uniq_vpc_id: str):

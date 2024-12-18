@@ -19,7 +19,7 @@ type ObjectCopyOperation struct {
 	Bucket pulumi.StringOutput `pulumi:"bucket"`
 	// Object key.
 	Key pulumi.StringOutput `pulumi:"key"`
-	// Object key.
+	// Source url. In the CDC scenario, the CDC source url is used.
 	SourceUrl pulumi.StringOutput `pulumi:"sourceUrl"`
 }
 
@@ -66,7 +66,7 @@ type objectCopyOperationState struct {
 	Bucket *string `pulumi:"bucket"`
 	// Object key.
 	Key *string `pulumi:"key"`
-	// Object key.
+	// Source url. In the CDC scenario, the CDC source url is used.
 	SourceUrl *string `pulumi:"sourceUrl"`
 }
 
@@ -75,7 +75,7 @@ type ObjectCopyOperationState struct {
 	Bucket pulumi.StringPtrInput
 	// Object key.
 	Key pulumi.StringPtrInput
-	// Object key.
+	// Source url. In the CDC scenario, the CDC source url is used.
 	SourceUrl pulumi.StringPtrInput
 }
 
@@ -88,7 +88,7 @@ type objectCopyOperationArgs struct {
 	Bucket string `pulumi:"bucket"`
 	// Object key.
 	Key string `pulumi:"key"`
-	// Object key.
+	// Source url. In the CDC scenario, the CDC source url is used.
 	SourceUrl string `pulumi:"sourceUrl"`
 }
 
@@ -98,7 +98,7 @@ type ObjectCopyOperationArgs struct {
 	Bucket pulumi.StringInput
 	// Object key.
 	Key pulumi.StringInput
-	// Object key.
+	// Source url. In the CDC scenario, the CDC source url is used.
 	SourceUrl pulumi.StringInput
 }
 
@@ -199,7 +199,7 @@ func (o ObjectCopyOperationOutput) Key() pulumi.StringOutput {
 	return o.ApplyT(func(v *ObjectCopyOperation) pulumi.StringOutput { return v.Key }).(pulumi.StringOutput)
 }
 
-// Object key.
+// Source url. In the CDC scenario, the CDC source url is used.
 func (o ObjectCopyOperationOutput) SourceUrl() pulumi.StringOutput {
 	return o.ApplyT(func(v *ObjectCopyOperation) pulumi.StringOutput { return v.SourceUrl }).(pulumi.StringOutput)
 }

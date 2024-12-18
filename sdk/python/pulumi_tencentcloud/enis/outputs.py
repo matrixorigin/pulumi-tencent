@@ -13,16 +13,19 @@ from . import outputs
 __all__ = [
     'GetInstanceEniResult',
     'GetInstanceEniIpv4Result',
+    'GetInstanceEniIpv6Result',
 ]
 
 @pulumi.output_type
 class GetInstanceEniResult(dict):
     def __init__(__self__, *,
+                 cdc_id: str,
                  create_time: str,
                  description: str,
                  id: str,
                  instance_id: str,
                  ipv4s: Sequence['outputs.GetInstanceEniIpv4Result'],
+                 ipv6s: Sequence['outputs.GetInstanceEniIpv6Result'],
                  mac: str,
                  name: str,
                  primary: bool,
@@ -31,11 +34,13 @@ class GetInstanceEniResult(dict):
                  subnet_id: str,
                  tags: Mapping[str, Any],
                  vpc_id: str):
+        pulumi.set(__self__, "cdc_id", cdc_id)
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "description", description)
         pulumi.set(__self__, "id", id)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "ipv4s", ipv4s)
+        pulumi.set(__self__, "ipv6s", ipv6s)
         pulumi.set(__self__, "mac", mac)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "primary", primary)
@@ -44,6 +49,11 @@ class GetInstanceEniResult(dict):
         pulumi.set(__self__, "subnet_id", subnet_id)
         pulumi.set(__self__, "tags", tags)
         pulumi.set(__self__, "vpc_id", vpc_id)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> str:
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="createTime")
@@ -69,6 +79,11 @@ class GetInstanceEniResult(dict):
     @pulumi.getter
     def ipv4s(self) -> Sequence['outputs.GetInstanceEniIpv4Result']:
         return pulumi.get(self, "ipv4s")
+
+    @property
+    @pulumi.getter
+    def ipv6s(self) -> Sequence['outputs.GetInstanceEniIpv6Result']:
+        return pulumi.get(self, "ipv6s")
 
     @property
     @pulumi.getter
@@ -130,6 +145,46 @@ class GetInstanceEniIpv4Result(dict):
     @pulumi.getter
     def ip(self) -> str:
         return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter
+    def primary(self) -> bool:
+        return pulumi.get(self, "primary")
+
+
+@pulumi.output_type
+class GetInstanceEniIpv6Result(dict):
+    def __init__(__self__, *,
+                 address: str,
+                 address_id: str,
+                 description: str,
+                 is_wan_ip_blocked: bool,
+                 primary: bool):
+        pulumi.set(__self__, "address", address)
+        pulumi.set(__self__, "address_id", address_id)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
+        pulumi.set(__self__, "primary", primary)
+
+    @property
+    @pulumi.getter
+    def address(self) -> str:
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter(name="addressId")
+    def address_id(self) -> str:
+        return pulumi.get(self, "address_id")
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter(name="isWanIpBlocked")
+    def is_wan_ip_blocked(self) -> bool:
+        return pulumi.get(self, "is_wan_ip_blocked")
 
     @property
     @pulumi.getter

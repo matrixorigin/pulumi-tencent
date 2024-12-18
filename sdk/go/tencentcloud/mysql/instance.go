@@ -25,6 +25,8 @@ type Instance struct {
 	Cpu pulumi.IntOutput `pulumi:"cpu"`
 	// Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 	DeviceType pulumi.StringOutput `pulumi:"deviceType"`
+	// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+	EngineType pulumi.StringOutput `pulumi:"engineType"`
 	// The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
 	// Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
 	EngineVersion pulumi.StringPtrOutput `pulumi:"engineVersion"`
@@ -98,6 +100,9 @@ type Instance struct {
 	VolumeSize pulumi.IntOutput `pulumi:"volumeSize"`
 	// ID of VPC, which can be modified once every 24 hours and can't be removed.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
+	// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+	// switch in time window.
+	WaitSwitch pulumi.IntPtrOutput `pulumi:"waitSwitch"`
 }
 
 // NewInstance registers a new resource with the given unique name, arguments, and options.
@@ -156,6 +161,8 @@ type instanceState struct {
 	Cpu *int `pulumi:"cpu"`
 	// Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 	DeviceType *string `pulumi:"deviceType"`
+	// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+	EngineType *string `pulumi:"engineType"`
 	// The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
 	// Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
 	EngineVersion *string `pulumi:"engineVersion"`
@@ -229,6 +236,9 @@ type instanceState struct {
 	VolumeSize *int `pulumi:"volumeSize"`
 	// ID of VPC, which can be modified once every 24 hours and can't be removed.
 	VpcId *string `pulumi:"vpcId"`
+	// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+	// switch in time window.
+	WaitSwitch *int `pulumi:"waitSwitch"`
 }
 
 type InstanceState struct {
@@ -242,6 +252,8 @@ type InstanceState struct {
 	Cpu pulumi.IntPtrInput
 	// Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 	DeviceType pulumi.StringPtrInput
+	// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+	EngineType pulumi.StringPtrInput
 	// The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
 	// Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
 	EngineVersion pulumi.StringPtrInput
@@ -315,6 +327,9 @@ type InstanceState struct {
 	VolumeSize pulumi.IntPtrInput
 	// ID of VPC, which can be modified once every 24 hours and can't be removed.
 	VpcId pulumi.StringPtrInput
+	// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+	// switch in time window.
+	WaitSwitch pulumi.IntPtrInput
 }
 
 func (InstanceState) ElementType() reflect.Type {
@@ -332,6 +347,8 @@ type instanceArgs struct {
 	Cpu *int `pulumi:"cpu"`
 	// Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 	DeviceType *string `pulumi:"deviceType"`
+	// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+	EngineType *string `pulumi:"engineType"`
 	// The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
 	// Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
 	EngineVersion *string `pulumi:"engineVersion"`
@@ -391,6 +408,9 @@ type instanceArgs struct {
 	VolumeSize int `pulumi:"volumeSize"`
 	// ID of VPC, which can be modified once every 24 hours and can't be removed.
 	VpcId *string `pulumi:"vpcId"`
+	// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+	// switch in time window.
+	WaitSwitch *int `pulumi:"waitSwitch"`
 }
 
 // The set of arguments for constructing a Instance resource.
@@ -405,6 +425,8 @@ type InstanceArgs struct {
 	Cpu pulumi.IntPtrInput
 	// Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 	DeviceType pulumi.StringPtrInput
+	// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+	EngineType pulumi.StringPtrInput
 	// The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
 	// Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
 	EngineVersion pulumi.StringPtrInput
@@ -464,6 +486,9 @@ type InstanceArgs struct {
 	VolumeSize pulumi.IntInput
 	// ID of VPC, which can be modified once every 24 hours and can't be removed.
 	VpcId pulumi.StringPtrInput
+	// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+	// switch in time window.
+	WaitSwitch pulumi.IntPtrInput
 }
 
 func (InstanceArgs) ElementType() reflect.Type {
@@ -576,6 +601,11 @@ func (o InstanceOutput) Cpu() pulumi.IntOutput {
 // Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
 func (o InstanceOutput) DeviceType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.DeviceType }).(pulumi.StringOutput)
+}
+
+// Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+func (o InstanceOutput) EngineType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.EngineType }).(pulumi.StringOutput)
 }
 
 // The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
@@ -745,6 +775,12 @@ func (o InstanceOutput) VolumeSize() pulumi.IntOutput {
 // ID of VPC, which can be modified once every 24 hours and can't be removed.
 func (o InstanceOutput) VpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.VpcId }).(pulumi.StringOutput)
+}
+
+// Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+// switch in time window.
+func (o InstanceOutput) WaitSwitch() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.WaitSwitch }).(pulumi.IntPtrOutput)
 }
 
 type InstanceArrayOutput struct{ *pulumi.OutputState }

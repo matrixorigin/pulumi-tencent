@@ -3535,6 +3535,130 @@ func (o GetClustersFilterArrayOutput) Index(i pulumi.IntInput) GetClustersFilter
 	}).(GetClustersFilterOutput)
 }
 
+type GetJobEventsEvent struct {
+	Description    string `pulumi:"description"`
+	Message        string `pulumi:"message"`
+	RunningOrderId int    `pulumi:"runningOrderId"`
+	SolutionLink   string `pulumi:"solutionLink"`
+	Timestamp      int    `pulumi:"timestamp"`
+	Type           string `pulumi:"type"`
+}
+
+// GetJobEventsEventInput is an input type that accepts GetJobEventsEventArgs and GetJobEventsEventOutput values.
+// You can construct a concrete instance of `GetJobEventsEventInput` via:
+//
+//	GetJobEventsEventArgs{...}
+type GetJobEventsEventInput interface {
+	pulumi.Input
+
+	ToGetJobEventsEventOutput() GetJobEventsEventOutput
+	ToGetJobEventsEventOutputWithContext(context.Context) GetJobEventsEventOutput
+}
+
+type GetJobEventsEventArgs struct {
+	Description    pulumi.StringInput `pulumi:"description"`
+	Message        pulumi.StringInput `pulumi:"message"`
+	RunningOrderId pulumi.IntInput    `pulumi:"runningOrderId"`
+	SolutionLink   pulumi.StringInput `pulumi:"solutionLink"`
+	Timestamp      pulumi.IntInput    `pulumi:"timestamp"`
+	Type           pulumi.StringInput `pulumi:"type"`
+}
+
+func (GetJobEventsEventArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetJobEventsEvent)(nil)).Elem()
+}
+
+func (i GetJobEventsEventArgs) ToGetJobEventsEventOutput() GetJobEventsEventOutput {
+	return i.ToGetJobEventsEventOutputWithContext(context.Background())
+}
+
+func (i GetJobEventsEventArgs) ToGetJobEventsEventOutputWithContext(ctx context.Context) GetJobEventsEventOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetJobEventsEventOutput)
+}
+
+// GetJobEventsEventArrayInput is an input type that accepts GetJobEventsEventArray and GetJobEventsEventArrayOutput values.
+// You can construct a concrete instance of `GetJobEventsEventArrayInput` via:
+//
+//	GetJobEventsEventArray{ GetJobEventsEventArgs{...} }
+type GetJobEventsEventArrayInput interface {
+	pulumi.Input
+
+	ToGetJobEventsEventArrayOutput() GetJobEventsEventArrayOutput
+	ToGetJobEventsEventArrayOutputWithContext(context.Context) GetJobEventsEventArrayOutput
+}
+
+type GetJobEventsEventArray []GetJobEventsEventInput
+
+func (GetJobEventsEventArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetJobEventsEvent)(nil)).Elem()
+}
+
+func (i GetJobEventsEventArray) ToGetJobEventsEventArrayOutput() GetJobEventsEventArrayOutput {
+	return i.ToGetJobEventsEventArrayOutputWithContext(context.Background())
+}
+
+func (i GetJobEventsEventArray) ToGetJobEventsEventArrayOutputWithContext(ctx context.Context) GetJobEventsEventArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetJobEventsEventArrayOutput)
+}
+
+type GetJobEventsEventOutput struct{ *pulumi.OutputState }
+
+func (GetJobEventsEventOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetJobEventsEvent)(nil)).Elem()
+}
+
+func (o GetJobEventsEventOutput) ToGetJobEventsEventOutput() GetJobEventsEventOutput {
+	return o
+}
+
+func (o GetJobEventsEventOutput) ToGetJobEventsEventOutputWithContext(ctx context.Context) GetJobEventsEventOutput {
+	return o
+}
+
+func (o GetJobEventsEventOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o GetJobEventsEventOutput) Message() pulumi.StringOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) string { return v.Message }).(pulumi.StringOutput)
+}
+
+func (o GetJobEventsEventOutput) RunningOrderId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) int { return v.RunningOrderId }).(pulumi.IntOutput)
+}
+
+func (o GetJobEventsEventOutput) SolutionLink() pulumi.StringOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) string { return v.SolutionLink }).(pulumi.StringOutput)
+}
+
+func (o GetJobEventsEventOutput) Timestamp() pulumi.IntOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) int { return v.Timestamp }).(pulumi.IntOutput)
+}
+
+func (o GetJobEventsEventOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetJobEventsEvent) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type GetJobEventsEventArrayOutput struct{ *pulumi.OutputState }
+
+func (GetJobEventsEventArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetJobEventsEvent)(nil)).Elem()
+}
+
+func (o GetJobEventsEventArrayOutput) ToGetJobEventsEventArrayOutput() GetJobEventsEventArrayOutput {
+	return o
+}
+
+func (o GetJobEventsEventArrayOutput) ToGetJobEventsEventArrayOutputWithContext(ctx context.Context) GetJobEventsEventArrayOutput {
+	return o
+}
+
+func (o GetJobEventsEventArrayOutput) Index(i pulumi.IntInput) GetJobEventsEventOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetJobEventsEvent {
+		return vs[0].([]GetJobEventsEvent)[vs[1].(int)]
+	}).(GetJobEventsEventOutput)
+}
+
 type GetJobSubmissionLogJobInstanceList struct {
 	JobInstanceStartTime string `pulumi:"jobInstanceStartTime"`
 	RunningOrderId       int    `pulumi:"runningOrderId"`
@@ -5645,6 +5769,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersClusterSetVersionArrayInput)(nil)).Elem(), GetClustersClusterSetVersionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersFilterInput)(nil)).Elem(), GetClustersFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersFilterArrayInput)(nil)).Elem(), GetClustersFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetJobEventsEventInput)(nil)).Elem(), GetJobEventsEventArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetJobEventsEventArrayInput)(nil)).Elem(), GetJobEventsEventArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetJobSubmissionLogJobInstanceListInput)(nil)).Elem(), GetJobSubmissionLogJobInstanceListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetJobSubmissionLogJobInstanceListArrayInput)(nil)).Elem(), GetJobSubmissionLogJobInstanceListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetJobSubmissionLogLogContentListInput)(nil)).Elem(), GetJobSubmissionLogLogContentListArgs{})
@@ -5732,6 +5858,8 @@ func init() {
 	pulumi.RegisterOutputType(GetClustersClusterSetVersionArrayOutput{})
 	pulumi.RegisterOutputType(GetClustersFilterOutput{})
 	pulumi.RegisterOutputType(GetClustersFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetJobEventsEventOutput{})
+	pulumi.RegisterOutputType(GetJobEventsEventArrayOutput{})
 	pulumi.RegisterOutputType(GetJobSubmissionLogJobInstanceListOutput{})
 	pulumi.RegisterOutputType(GetJobSubmissionLogJobInstanceListArrayOutput{})
 	pulumi.RegisterOutputType(GetJobSubmissionLogLogContentListOutput{})

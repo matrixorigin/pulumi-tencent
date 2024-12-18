@@ -427,24 +427,34 @@ class GetDbInstancesInstanceResult(dict):
                  db_version_id: str,
                  instance_id: str,
                  instance_name: str,
+                 internet_domain: str,
+                 internet_ip: str,
+                 internet_port: int,
                  memory: int,
                  project_id: int,
                  region: str,
                  resource_tags: Sequence['outputs.GetDbInstancesInstanceResourceTagResult'],
                  storage: int,
                  subnet_id: str,
+                 vip: str,
                  vpc_id: str,
+                 vport: int,
                  zone: str):
         pulumi.set(__self__, "db_version_id", db_version_id)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "instance_name", instance_name)
+        pulumi.set(__self__, "internet_domain", internet_domain)
+        pulumi.set(__self__, "internet_ip", internet_ip)
+        pulumi.set(__self__, "internet_port", internet_port)
         pulumi.set(__self__, "memory", memory)
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "region", region)
         pulumi.set(__self__, "resource_tags", resource_tags)
         pulumi.set(__self__, "storage", storage)
         pulumi.set(__self__, "subnet_id", subnet_id)
+        pulumi.set(__self__, "vip", vip)
         pulumi.set(__self__, "vpc_id", vpc_id)
+        pulumi.set(__self__, "vport", vport)
         pulumi.set(__self__, "zone", zone)
 
     @property
@@ -461,6 +471,21 @@ class GetDbInstancesInstanceResult(dict):
     @pulumi.getter(name="instanceName")
     def instance_name(self) -> str:
         return pulumi.get(self, "instance_name")
+
+    @property
+    @pulumi.getter(name="internetDomain")
+    def internet_domain(self) -> str:
+        return pulumi.get(self, "internet_domain")
+
+    @property
+    @pulumi.getter(name="internetIp")
+    def internet_ip(self) -> str:
+        return pulumi.get(self, "internet_ip")
+
+    @property
+    @pulumi.getter(name="internetPort")
+    def internet_port(self) -> int:
+        return pulumi.get(self, "internet_port")
 
     @property
     @pulumi.getter
@@ -493,9 +518,19 @@ class GetDbInstancesInstanceResult(dict):
         return pulumi.get(self, "subnet_id")
 
     @property
+    @pulumi.getter
+    def vip(self) -> str:
+        return pulumi.get(self, "vip")
+
+    @property
     @pulumi.getter(name="vpcId")
     def vpc_id(self) -> str:
         return pulumi.get(self, "vpc_id")
+
+    @property
+    @pulumi.getter
+    def vport(self) -> int:
+        return pulumi.get(self, "vport")
 
     @property
     @pulumi.getter

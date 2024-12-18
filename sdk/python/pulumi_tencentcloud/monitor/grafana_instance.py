@@ -15,6 +15,7 @@ __all__ = ['GrafanaInstanceArgs', 'GrafanaInstance']
 class GrafanaInstanceArgs:
     def __init__(__self__, *,
                  instance_name: pulumi.Input[str],
+                 auto_voucher: Optional[pulumi.Input[bool]] = None,
                  enable_internet: Optional[pulumi.Input[bool]] = None,
                  grafana_init_password: Optional[pulumi.Input[str]] = None,
                  is_destroy: Optional[pulumi.Input[bool]] = None,
@@ -25,6 +26,7 @@ class GrafanaInstanceArgs:
         """
         The set of arguments for constructing a GrafanaInstance resource.
         :param pulumi.Input[str] instance_name: Instance name.
+        :param pulumi.Input[bool] auto_voucher: Whether to automatically use vouchers.
         :param pulumi.Input[bool] enable_internet: Control whether grafana could be accessed by internet.
         :param pulumi.Input[str] grafana_init_password: Grafana server admin password.
         :param pulumi.Input[bool] is_destroy: Whether to clean up completely, the default is false.
@@ -34,6 +36,8 @@ class GrafanaInstanceArgs:
         :param pulumi.Input[str] vpc_id: Vpc Id.
         """
         pulumi.set(__self__, "instance_name", instance_name)
+        if auto_voucher is not None:
+            pulumi.set(__self__, "auto_voucher", auto_voucher)
         if enable_internet is not None:
             pulumi.set(__self__, "enable_internet", enable_internet)
         if grafana_init_password is not None:
@@ -63,6 +67,18 @@ class GrafanaInstanceArgs:
     @instance_name.setter
     def instance_name(self, value: pulumi.Input[str]):
         pulumi.set(self, "instance_name", value)
+
+    @property
+    @pulumi.getter(name="autoVoucher")
+    def auto_voucher(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to automatically use vouchers.
+        """
+        return pulumi.get(self, "auto_voucher")
+
+    @auto_voucher.setter
+    def auto_voucher(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_voucher", value)
 
     @property
     @pulumi.getter(name="enableInternet")
@@ -155,6 +171,7 @@ class GrafanaInstanceArgs:
 @pulumi.input_type
 class _GrafanaInstanceState:
     def __init__(__self__, *,
+                 auto_voucher: Optional[pulumi.Input[bool]] = None,
                  enable_internet: Optional[pulumi.Input[bool]] = None,
                  grafana_init_password: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
@@ -170,6 +187,7 @@ class _GrafanaInstanceState:
                  vpc_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering GrafanaInstance resources.
+        :param pulumi.Input[bool] auto_voucher: Whether to automatically use vouchers.
         :param pulumi.Input[bool] enable_internet: Control whether grafana could be accessed by internet.
         :param pulumi.Input[str] grafana_init_password: Grafana server admin password.
         :param pulumi.Input[str] instance_id: Grafana instance id.
@@ -184,6 +202,8 @@ class _GrafanaInstanceState:
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         :param pulumi.Input[str] vpc_id: Vpc Id.
         """
+        if auto_voucher is not None:
+            pulumi.set(__self__, "auto_voucher", auto_voucher)
         if enable_internet is not None:
             pulumi.set(__self__, "enable_internet", enable_internet)
         if grafana_init_password is not None:
@@ -213,6 +233,18 @@ class _GrafanaInstanceState:
             pulumi.set(__self__, "tags", tags)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+
+    @property
+    @pulumi.getter(name="autoVoucher")
+    def auto_voucher(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to automatically use vouchers.
+        """
+        return pulumi.get(self, "auto_voucher")
+
+    @auto_voucher.setter
+    def auto_voucher(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_voucher", value)
 
     @property
     @pulumi.getter(name="enableInternet")
@@ -379,6 +411,7 @@ class GrafanaInstance(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 auto_voucher: Optional[pulumi.Input[bool]] = None,
                  enable_internet: Optional[pulumi.Input[bool]] = None,
                  grafana_init_password: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
@@ -392,6 +425,7 @@ class GrafanaInstance(pulumi.CustomResource):
         Create a GrafanaInstance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] auto_voucher: Whether to automatically use vouchers.
         :param pulumi.Input[bool] enable_internet: Control whether grafana could be accessed by internet.
         :param pulumi.Input[str] grafana_init_password: Grafana server admin password.
         :param pulumi.Input[str] instance_name: Instance name.
@@ -424,6 +458,7 @@ class GrafanaInstance(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 auto_voucher: Optional[pulumi.Input[bool]] = None,
                  enable_internet: Optional[pulumi.Input[bool]] = None,
                  grafana_init_password: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
@@ -441,6 +476,7 @@ class GrafanaInstance(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = GrafanaInstanceArgs.__new__(GrafanaInstanceArgs)
 
+            __props__.__dict__["auto_voucher"] = auto_voucher
             __props__.__dict__["enable_internet"] = enable_internet
             __props__.__dict__["grafana_init_password"] = grafana_init_password
             if instance_name is None and not opts.urn:
@@ -469,6 +505,7 @@ class GrafanaInstance(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            auto_voucher: Optional[pulumi.Input[bool]] = None,
             enable_internet: Optional[pulumi.Input[bool]] = None,
             grafana_init_password: Optional[pulumi.Input[str]] = None,
             instance_id: Optional[pulumi.Input[str]] = None,
@@ -489,6 +526,7 @@ class GrafanaInstance(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] auto_voucher: Whether to automatically use vouchers.
         :param pulumi.Input[bool] enable_internet: Control whether grafana could be accessed by internet.
         :param pulumi.Input[str] grafana_init_password: Grafana server admin password.
         :param pulumi.Input[str] instance_id: Grafana instance id.
@@ -507,6 +545,7 @@ class GrafanaInstance(pulumi.CustomResource):
 
         __props__ = _GrafanaInstanceState.__new__(_GrafanaInstanceState)
 
+        __props__.__dict__["auto_voucher"] = auto_voucher
         __props__.__dict__["enable_internet"] = enable_internet
         __props__.__dict__["grafana_init_password"] = grafana_init_password
         __props__.__dict__["instance_id"] = instance_id
@@ -521,6 +560,14 @@ class GrafanaInstance(pulumi.CustomResource):
         __props__.__dict__["tags"] = tags
         __props__.__dict__["vpc_id"] = vpc_id
         return GrafanaInstance(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="autoVoucher")
+    def auto_voucher(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether to automatically use vouchers.
+        """
+        return pulumi.get(self, "auto_voucher")
 
     @property
     @pulumi.getter(name="enableInternet")

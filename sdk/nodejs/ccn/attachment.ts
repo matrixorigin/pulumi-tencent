@@ -41,7 +41,7 @@ export class Attachment extends pulumi.CustomResource {
      */
     public readonly ccnId!: pulumi.Output<string>;
     /**
-     * Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+     * Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
      * attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
      */
     public readonly ccnUin!: pulumi.Output<string>;
@@ -71,6 +71,10 @@ export class Attachment extends pulumi.CustomResource {
      */
     public /*out*/ readonly routeIds!: pulumi.Output<string[]>;
     /**
+     * Ccn instance route table ID.
+     */
+    public readonly routeTableId!: pulumi.Output<string>;
+    /**
      * States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,
      * `ATTACHING`, `DETACHING` and `DETACHFAILED`. `FAILED` means asynchronous forced disassociation after 2 hours.
      * `DETACHFAILED` means asynchronous forced disassociation after 2 hours.
@@ -99,6 +103,7 @@ export class Attachment extends pulumi.CustomResource {
             resourceInputs["instanceRegion"] = state ? state.instanceRegion : undefined;
             resourceInputs["instanceType"] = state ? state.instanceType : undefined;
             resourceInputs["routeIds"] = state ? state.routeIds : undefined;
+            resourceInputs["routeTableId"] = state ? state.routeTableId : undefined;
             resourceInputs["state"] = state ? state.state : undefined;
         } else {
             const args = argsOrState as AttachmentArgs | undefined;
@@ -120,6 +125,7 @@ export class Attachment extends pulumi.CustomResource {
             resourceInputs["instanceId"] = args ? args.instanceId : undefined;
             resourceInputs["instanceRegion"] = args ? args.instanceRegion : undefined;
             resourceInputs["instanceType"] = args ? args.instanceType : undefined;
+            resourceInputs["routeTableId"] = args ? args.routeTableId : undefined;
             resourceInputs["attachedTime"] = undefined /*out*/;
             resourceInputs["cidrBlocks"] = undefined /*out*/;
             resourceInputs["routeIds"] = undefined /*out*/;
@@ -143,7 +149,7 @@ export interface AttachmentState {
      */
     ccnId?: pulumi.Input<string>;
     /**
-     * Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+     * Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
      * attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
      */
     ccnUin?: pulumi.Input<string>;
@@ -173,6 +179,10 @@ export interface AttachmentState {
      */
     routeIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
+     * Ccn instance route table ID.
+     */
+    routeTableId?: pulumi.Input<string>;
+    /**
      * States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,
      * `ATTACHING`, `DETACHING` and `DETACHFAILED`. `FAILED` means asynchronous forced disassociation after 2 hours.
      * `DETACHFAILED` means asynchronous forced disassociation after 2 hours.
@@ -189,7 +199,7 @@ export interface AttachmentArgs {
      */
     ccnId: pulumi.Input<string>;
     /**
-     * Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+     * Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
      * attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
      */
     ccnUin?: pulumi.Input<string>;
@@ -210,4 +220,8 @@ export interface AttachmentArgs {
      * `VPNGW` type is only for whitelist customer now.
      */
     instanceType: pulumi.Input<string>;
+    /**
+     * Ccn instance route table ID.
+     */
+    routeTableId?: pulumi.Input<string>;
 }

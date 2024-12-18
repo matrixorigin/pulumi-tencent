@@ -35,7 +35,8 @@ from .rocketmq_topic import *
 from .rocketmq_vip_instance import *
 from .role import *
 from .send_rocketmq_message import *
-from .subscription_attachment import *
+from .subscription import *
 from .topic import *
+from .topic_with_full_id import *
 from ._inputs import *
 from . import outputs

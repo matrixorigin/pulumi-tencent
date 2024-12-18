@@ -33,6 +33,7 @@ __all__ = [
     'BucketInventoryOptionalFields',
     'BucketInventorySchedule',
     'BucketLifecycleRule',
+    'BucketLifecycleRuleAbortIncompleteMultipartUpload',
     'BucketLifecycleRuleExpiration',
     'BucketLifecycleRuleNonCurrentExpiration',
     'BucketLifecycleRuleNonCurrentTransition',
@@ -56,6 +57,7 @@ __all__ = [
     'GetBucketsBucketListResult',
     'GetBucketsBucketListCorsRuleResult',
     'GetBucketsBucketListLifecycleRuleResult',
+    'GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadResult',
     'GetBucketsBucketListLifecycleRuleExpirationResult',
     'GetBucketsBucketListLifecycleRuleNonCurrentExpirationResult',
     'GetBucketsBucketListLifecycleRuleNonCurrentTransitionResult',
@@ -969,6 +971,8 @@ class BucketLifecycleRule(dict):
         suggest = None
         if key == "filterPrefix":
             suggest = "filter_prefix"
+        elif key == "abortIncompleteMultipartUpload":
+            suggest = "abort_incomplete_multipart_upload"
         elif key == "nonCurrentExpiration":
             suggest = "non_current_expiration"
         elif key == "nonCurrentTransitions":
@@ -987,12 +991,15 @@ class BucketLifecycleRule(dict):
 
     def __init__(__self__, *,
                  filter_prefix: str,
+                 abort_incomplete_multipart_upload: Optional['outputs.BucketLifecycleRuleAbortIncompleteMultipartUpload'] = None,
                  expiration: Optional['outputs.BucketLifecycleRuleExpiration'] = None,
                  id: Optional[str] = None,
                  non_current_expiration: Optional['outputs.BucketLifecycleRuleNonCurrentExpiration'] = None,
                  non_current_transitions: Optional[Sequence['outputs.BucketLifecycleRuleNonCurrentTransition']] = None,
                  transitions: Optional[Sequence['outputs.BucketLifecycleRuleTransition']] = None):
         pulumi.set(__self__, "filter_prefix", filter_prefix)
+        if abort_incomplete_multipart_upload is not None:
+            pulumi.set(__self__, "abort_incomplete_multipart_upload", abort_incomplete_multipart_upload)
         if expiration is not None:
             pulumi.set(__self__, "expiration", expiration)
         if id is not None:
@@ -1008,6 +1015,11 @@ class BucketLifecycleRule(dict):
     @pulumi.getter(name="filterPrefix")
     def filter_prefix(self) -> str:
         return pulumi.get(self, "filter_prefix")
+
+    @property
+    @pulumi.getter(name="abortIncompleteMultipartUpload")
+    def abort_incomplete_multipart_upload(self) -> Optional['outputs.BucketLifecycleRuleAbortIncompleteMultipartUpload']:
+        return pulumi.get(self, "abort_incomplete_multipart_upload")
 
     @property
     @pulumi.getter
@@ -1033,6 +1045,35 @@ class BucketLifecycleRule(dict):
     @pulumi.getter
     def transitions(self) -> Optional[Sequence['outputs.BucketLifecycleRuleTransition']]:
         return pulumi.get(self, "transitions")
+
+
+@pulumi.output_type
+class BucketLifecycleRuleAbortIncompleteMultipartUpload(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "daysAfterInitiation":
+            suggest = "days_after_initiation"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in BucketLifecycleRuleAbortIncompleteMultipartUpload. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        BucketLifecycleRuleAbortIncompleteMultipartUpload.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        BucketLifecycleRuleAbortIncompleteMultipartUpload.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 days_after_initiation: int):
+        pulumi.set(__self__, "days_after_initiation", days_after_initiation)
+
+    @property
+    @pulumi.getter(name="daysAfterInitiation")
+    def days_after_initiation(self) -> int:
+        return pulumi.get(self, "days_after_initiation")
 
 
 @pulumi.output_type
@@ -1394,6 +1435,8 @@ class BucketWebsite(dict):
             suggest = "error_document"
         elif key == "indexDocument":
             suggest = "index_document"
+        elif key == "redirectAllRequestsTo":
+            suggest = "redirect_all_requests_to"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in BucketWebsite. Access the value via the '{suggest}' property getter instead.")
@@ -1409,13 +1452,16 @@ class BucketWebsite(dict):
     def __init__(__self__, *,
                  endpoint: Optional[str] = None,
                  error_document: Optional[str] = None,
-                 index_document: Optional[str] = None):
+                 index_document: Optional[str] = None,
+                 redirect_all_requests_to: Optional[str] = None):
         if endpoint is not None:
             pulumi.set(__self__, "endpoint", endpoint)
         if error_document is not None:
             pulumi.set(__self__, "error_document", error_document)
         if index_document is not None:
             pulumi.set(__self__, "index_document", index_document)
+        if redirect_all_requests_to is not None:
+            pulumi.set(__self__, "redirect_all_requests_to", redirect_all_requests_to)
 
     @property
     @pulumi.getter
@@ -1431,6 +1477,11 @@ class BucketWebsite(dict):
     @pulumi.getter(name="indexDocument")
     def index_document(self) -> Optional[str]:
         return pulumi.get(self, "index_document")
+
+    @property
+    @pulumi.getter(name="redirectAllRequestsTo")
+    def redirect_all_requests_to(self) -> Optional[str]:
+        return pulumi.get(self, "redirect_all_requests_to")
 
 
 @pulumi.output_type
@@ -1892,16 +1943,23 @@ class GetBucketsBucketListCorsRuleResult(dict):
 @pulumi.output_type
 class GetBucketsBucketListLifecycleRuleResult(dict):
     def __init__(__self__, *,
+                 abort_incomplete_multipart_uploads: Sequence['outputs.GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadResult'],
                  expirations: Sequence['outputs.GetBucketsBucketListLifecycleRuleExpirationResult'],
                  filter_prefix: str,
                  non_current_expirations: Sequence['outputs.GetBucketsBucketListLifecycleRuleNonCurrentExpirationResult'],
                  non_current_transitions: Sequence['outputs.GetBucketsBucketListLifecycleRuleNonCurrentTransitionResult'],
                  transitions: Sequence['outputs.GetBucketsBucketListLifecycleRuleTransitionResult']):
+        pulumi.set(__self__, "abort_incomplete_multipart_uploads", abort_incomplete_multipart_uploads)
         pulumi.set(__self__, "expirations", expirations)
         pulumi.set(__self__, "filter_prefix", filter_prefix)
         pulumi.set(__self__, "non_current_expirations", non_current_expirations)
         pulumi.set(__self__, "non_current_transitions", non_current_transitions)
         pulumi.set(__self__, "transitions", transitions)
+
+    @property
+    @pulumi.getter(name="abortIncompleteMultipartUploads")
+    def abort_incomplete_multipart_uploads(self) -> Sequence['outputs.GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadResult']:
+        return pulumi.get(self, "abort_incomplete_multipart_uploads")
 
     @property
     @pulumi.getter
@@ -1927,6 +1985,18 @@ class GetBucketsBucketListLifecycleRuleResult(dict):
     @pulumi.getter
     def transitions(self) -> Sequence['outputs.GetBucketsBucketListLifecycleRuleTransitionResult']:
         return pulumi.get(self, "transitions")
+
+
+@pulumi.output_type
+class GetBucketsBucketListLifecycleRuleAbortIncompleteMultipartUploadResult(dict):
+    def __init__(__self__, *,
+                 days_after_initiation: int):
+        pulumi.set(__self__, "days_after_initiation", days_after_initiation)
+
+    @property
+    @pulumi.getter(name="daysAfterInitiation")
+    def days_after_initiation(self) -> int:
+        return pulumi.get(self, "days_after_initiation")
 
 
 @pulumi.output_type

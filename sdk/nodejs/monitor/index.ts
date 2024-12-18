@@ -115,6 +115,11 @@ export const getStatisticData: typeof import("./getStatisticData").getStatisticD
 export const getStatisticDataOutput: typeof import("./getStatisticData").getStatisticDataOutput = null as any;
 utilities.lazyLoad(exports, ["getStatisticData","getStatisticDataOutput"], () => require("./getStatisticData"));
 
+export { GetTmpInstancesArgs, GetTmpInstancesResult, GetTmpInstancesOutputArgs } from "./getTmpInstances";
+export const getTmpInstances: typeof import("./getTmpInstances").getTmpInstances = null as any;
+export const getTmpInstancesOutput: typeof import("./getTmpInstances").getTmpInstancesOutput = null as any;
+utilities.lazyLoad(exports, ["getTmpInstances","getTmpInstancesOutput"], () => require("./getTmpInstances"));
+
 export { GetTmpRegionsArgs, GetTmpRegionsResult, GetTmpRegionsOutputArgs } from "./getTmpRegions";
 export const getTmpRegions: typeof import("./getTmpRegions").getTmpRegions = null as any;
 export const getTmpRegionsOutput: typeof import("./getTmpRegions").getTmpRegionsOutput = null as any;
@@ -179,6 +184,11 @@ export { PolicyBindingObjectArgs, PolicyBindingObjectState } from "./policyBindi
 export type PolicyBindingObject = import("./policyBindingObject").PolicyBindingObject;
 export const PolicyBindingObject: typeof import("./policyBindingObject").PolicyBindingObject = null as any;
 utilities.lazyLoad(exports, ["PolicyBindingObject"], () => require("./policyBindingObject"));
+
+export { TmpAlertGroupArgs, TmpAlertGroupState } from "./tmpAlertGroup";
+export type TmpAlertGroup = import("./tmpAlertGroup").TmpAlertGroup;
+export const TmpAlertGroup: typeof import("./tmpAlertGroup").TmpAlertGroup = null as any;
+utilities.lazyLoad(exports, ["TmpAlertGroup"], () => require("./tmpAlertGroup"));
 
 export { TmpAlertRuleArgs, TmpAlertRuleState } from "./tmpAlertRule";
 export type TmpAlertRule = import("./tmpAlertRule").TmpAlertRule;
@@ -297,6 +307,8 @@ const _module = {
                 return new GrafanaWhitelistConfig(name, <any>undefined, { urn })
             case "tencentcloud:Monitor/policyBindingObject:PolicyBindingObject":
                 return new PolicyBindingObject(name, <any>undefined, { urn })
+            case "tencentcloud:Monitor/tmpAlertGroup:TmpAlertGroup":
+                return new TmpAlertGroup(name, <any>undefined, { urn })
             case "tencentcloud:Monitor/tmpAlertRule:TmpAlertRule":
                 return new TmpAlertRule(name, <any>undefined, { urn })
             case "tencentcloud:Monitor/tmpCvmAgent:TmpCvmAgent":
@@ -350,6 +362,7 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/grafanaSsoConfig"
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/grafanaVersionUpgrade", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/grafanaWhitelistConfig", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/policyBindingObject", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/tmpAlertGroup", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/tmpAlertRule", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/tmpCvmAgent", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Monitor/tmpExporterIntegration", _module)

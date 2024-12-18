@@ -43,6 +43,10 @@ export class CngwGroup extends pulumi.CustomResource {
      */
     public readonly gatewayId!: pulumi.Output<string>;
     /**
+     * gateway group id.
+     */
+    public /*out*/ readonly groupId!: pulumi.Output<string>;
+    /**
      * internet configration.
      */
     public readonly internetConfig!: pulumi.Output<outputs.Tse.CngwGroupInternetConfig | undefined>;
@@ -78,6 +82,7 @@ export class CngwGroup extends pulumi.CustomResource {
             const state = argsOrState as CngwGroupState | undefined;
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["gatewayId"] = state ? state.gatewayId : undefined;
+            resourceInputs["groupId"] = state ? state.groupId : undefined;
             resourceInputs["internetConfig"] = state ? state.internetConfig : undefined;
             resourceInputs["internetMaxBandwidthOut"] = state ? state.internetMaxBandwidthOut : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
@@ -101,6 +106,7 @@ export class CngwGroup extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["nodeConfig"] = args ? args.nodeConfig : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
+            resourceInputs["groupId"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(CngwGroup.__pulumiType, name, resourceInputs, opts);
@@ -119,6 +125,10 @@ export interface CngwGroupState {
      * gateway IDonly postpaid gateway supported.
      */
     gatewayId?: pulumi.Input<string>;
+    /**
+     * gateway group id.
+     */
+    groupId?: pulumi.Input<string>;
     /**
      * internet configration.
      */

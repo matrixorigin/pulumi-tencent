@@ -15,11 +15,26 @@ __all__ = ['InstanceArgs', 'Instance']
 
 @pulumi.input_type
 class InstanceArgs:
-    def __init__(__self__):
+    def __init__(__self__, *,
+                 root_node_name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Instance resource.
+        :param pulumi.Input[str] root_node_name: Root node name.
         """
-        pass
+        if root_node_name is not None:
+            pulumi.set(__self__, "root_node_name", root_node_name)
+
+    @property
+    @pulumi.getter(name="rootNodeName")
+    def root_node_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Root node name.
+        """
+        return pulumi.get(self, "root_node_name")
+
+    @root_node_name.setter
+    def root_node_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "root_node_name", value)
 
 
 @pulumi.input_type
@@ -40,7 +55,8 @@ class _InstanceState:
                  org_type: Optional[pulumi.Input[int]] = None,
                  pay_name: Optional[pulumi.Input[str]] = None,
                  pay_uin: Optional[pulumi.Input[str]] = None,
-                 root_node_id: Optional[pulumi.Input[int]] = None):
+                 root_node_id: Optional[pulumi.Input[int]] = None,
+                 root_node_name: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
         :param pulumi.Input[str] create_time: Organize the creation time.Note: This field may return NULL, indicating that the valid value cannot be obtained.
@@ -65,6 +81,7 @@ class _InstanceState:
         :param pulumi.Input[str] pay_name: The name of the payment.Note: This field may return NULL, indicating that the valid value cannot be obtained.
         :param pulumi.Input[str] pay_uin: UIN on behalf of the payer.Note: This field may return NULL, indicating that the valid value cannot be obtained.
         :param pulumi.Input[int] root_node_id: Organize the root node ID.Note: This field may return NULL, indicating that the valid value cannot be obtained.
+        :param pulumi.Input[str] root_node_name: Root node name.
         """
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
@@ -98,6 +115,8 @@ class _InstanceState:
             pulumi.set(__self__, "pay_uin", pay_uin)
         if root_node_id is not None:
             pulumi.set(__self__, "root_node_id", root_node_id)
+        if root_node_name is not None:
+            pulumi.set(__self__, "root_node_name", root_node_name)
 
     @property
     @pulumi.getter(name="createTime")
@@ -297,17 +316,31 @@ class _InstanceState:
     def root_node_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "root_node_id", value)
 
+    @property
+    @pulumi.getter(name="rootNodeName")
+    def root_node_name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Root node name.
+        """
+        return pulumi.get(self, "root_node_name")
+
+    @root_node_name.setter
+    def root_node_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "root_node_name", value)
+
 
 class Instance(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 root_node_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a Instance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] root_node_name: Root node name.
         """
         ...
     @overload
@@ -332,6 +365,7 @@ class Instance(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 root_node_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -341,6 +375,7 @@ class Instance(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = InstanceArgs.__new__(InstanceArgs)
 
+            __props__.__dict__["root_node_name"] = root_node_name
             __props__.__dict__["create_time"] = None
             __props__.__dict__["host_uin"] = None
             __props__.__dict__["is_allow_quit"] = None
@@ -382,7 +417,8 @@ class Instance(pulumi.CustomResource):
             org_type: Optional[pulumi.Input[int]] = None,
             pay_name: Optional[pulumi.Input[str]] = None,
             pay_uin: Optional[pulumi.Input[str]] = None,
-            root_node_id: Optional[pulumi.Input[int]] = None) -> 'Instance':
+            root_node_id: Optional[pulumi.Input[int]] = None,
+            root_node_name: Optional[pulumi.Input[str]] = None) -> 'Instance':
         """
         Get an existing Instance resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -412,6 +448,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] pay_name: The name of the payment.Note: This field may return NULL, indicating that the valid value cannot be obtained.
         :param pulumi.Input[str] pay_uin: UIN on behalf of the payer.Note: This field may return NULL, indicating that the valid value cannot be obtained.
         :param pulumi.Input[int] root_node_id: Organize the root node ID.Note: This field may return NULL, indicating that the valid value cannot be obtained.
+        :param pulumi.Input[str] root_node_name: Root node name.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -433,6 +470,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["pay_name"] = pay_name
         __props__.__dict__["pay_uin"] = pay_uin
         __props__.__dict__["root_node_id"] = root_node_id
+        __props__.__dict__["root_node_name"] = root_node_name
         return Instance(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -568,4 +606,12 @@ class Instance(pulumi.CustomResource):
         Organize the root node ID.Note: This field may return NULL, indicating that the valid value cannot be obtained.
         """
         return pulumi.get(self, "root_node_id")
+
+    @property
+    @pulumi.getter(name="rootNodeName")
+    def root_node_name(self) -> pulumi.Output[str]:
+        """
+        Root node name.
+        """
+        return pulumi.get(self, "root_node_name")
 

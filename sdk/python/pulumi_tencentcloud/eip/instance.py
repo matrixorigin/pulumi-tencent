@@ -19,6 +19,7 @@ class InstanceArgs:
                  applicable_for_clb: Optional[pulumi.Input[bool]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  egress: Optional[pulumi.Input[str]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
@@ -35,6 +36,7 @@ class InstanceArgs:
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. 0 - default state (manual renew); 1 - automatic renew; 2 - explicit no automatic renew. NOTES: Only
                supported prepaid EIP.
         :param pulumi.Input[str] bandwidth_package_id: ID of bandwidth package, it will set when `internet_charge_type` is `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] cdc_id: CDC Unique ID.
         :param pulumi.Input[str] egress: Network egress. It defaults to `center_egress1`. If you want to try the egress feature, please [submit a
                ticket](https://console.cloud.tencent.com/workorder/category).
         :param pulumi.Input[str] internet_charge_type: The charge type of eip. Valid values: `BANDWIDTH_PACKAGE`, `BANDWIDTH_POSTPAID_BY_HOUR`, `BANDWIDTH_PREPAID_BY_MONTH`
@@ -60,6 +62,8 @@ class InstanceArgs:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if bandwidth_package_id is not None:
             pulumi.set(__self__, "bandwidth_package_id", bandwidth_package_id)
+        if cdc_id is not None:
+            pulumi.set(__self__, "cdc_id", cdc_id)
         if egress is not None:
             pulumi.set(__self__, "egress", egress)
         if internet_charge_type is not None:
@@ -140,6 +144,18 @@ class InstanceArgs:
     @bandwidth_package_id.setter
     def bandwidth_package_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "bandwidth_package_id", value)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        CDC Unique ID.
+        """
+        return pulumi.get(self, "cdc_id")
+
+    @cdc_id.setter
+    def cdc_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cdc_id", value)
 
     @property
     @pulumi.getter
@@ -249,6 +265,7 @@ class _InstanceState:
                  applicable_for_clb: Optional[pulumi.Input[bool]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  egress: Optional[pulumi.Input[str]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
@@ -267,6 +284,7 @@ class _InstanceState:
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. 0 - default state (manual renew); 1 - automatic renew; 2 - explicit no automatic renew. NOTES: Only
                supported prepaid EIP.
         :param pulumi.Input[str] bandwidth_package_id: ID of bandwidth package, it will set when `internet_charge_type` is `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] cdc_id: CDC Unique ID.
         :param pulumi.Input[str] egress: Network egress. It defaults to `center_egress1`. If you want to try the egress feature, please [submit a
                ticket](https://console.cloud.tencent.com/workorder/category).
         :param pulumi.Input[str] internet_charge_type: The charge type of eip. Valid values: `BANDWIDTH_PACKAGE`, `BANDWIDTH_POSTPAID_BY_HOUR`, `BANDWIDTH_PREPAID_BY_MONTH`
@@ -294,6 +312,8 @@ class _InstanceState:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if bandwidth_package_id is not None:
             pulumi.set(__self__, "bandwidth_package_id", bandwidth_package_id)
+        if cdc_id is not None:
+            pulumi.set(__self__, "cdc_id", cdc_id)
         if egress is not None:
             pulumi.set(__self__, "egress", egress)
         if internet_charge_type is not None:
@@ -378,6 +398,18 @@ class _InstanceState:
     @bandwidth_package_id.setter
     def bandwidth_package_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "bandwidth_package_id", value)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        CDC Unique ID.
+        """
+        return pulumi.get(self, "cdc_id")
+
+    @cdc_id.setter
+    def cdc_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cdc_id", value)
 
     @property
     @pulumi.getter
@@ -513,6 +545,7 @@ class Instance(pulumi.CustomResource):
                  applicable_for_clb: Optional[pulumi.Input[bool]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  egress: Optional[pulumi.Input[str]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
@@ -532,6 +565,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. 0 - default state (manual renew); 1 - automatic renew; 2 - explicit no automatic renew. NOTES: Only
                supported prepaid EIP.
         :param pulumi.Input[str] bandwidth_package_id: ID of bandwidth package, it will set when `internet_charge_type` is `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] cdc_id: CDC Unique ID.
         :param pulumi.Input[str] egress: Network egress. It defaults to `center_egress1`. If you want to try the egress feature, please [submit a
                ticket](https://console.cloud.tencent.com/workorder/category).
         :param pulumi.Input[str] internet_charge_type: The charge type of eip. Valid values: `BANDWIDTH_PACKAGE`, `BANDWIDTH_POSTPAID_BY_HOUR`, `BANDWIDTH_PREPAID_BY_MONTH`
@@ -572,6 +606,7 @@ class Instance(pulumi.CustomResource):
                  applicable_for_clb: Optional[pulumi.Input[bool]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  egress: Optional[pulumi.Input[str]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
@@ -597,6 +632,7 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["applicable_for_clb"] = applicable_for_clb
             __props__.__dict__["auto_renew_flag"] = auto_renew_flag
             __props__.__dict__["bandwidth_package_id"] = bandwidth_package_id
+            __props__.__dict__["cdc_id"] = cdc_id
             __props__.__dict__["egress"] = egress
             __props__.__dict__["internet_charge_type"] = internet_charge_type
             __props__.__dict__["internet_max_bandwidth_out"] = internet_max_bandwidth_out
@@ -622,6 +658,7 @@ class Instance(pulumi.CustomResource):
             applicable_for_clb: Optional[pulumi.Input[bool]] = None,
             auto_renew_flag: Optional[pulumi.Input[int]] = None,
             bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+            cdc_id: Optional[pulumi.Input[str]] = None,
             egress: Optional[pulumi.Input[str]] = None,
             internet_charge_type: Optional[pulumi.Input[str]] = None,
             internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
@@ -645,6 +682,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. 0 - default state (manual renew); 1 - automatic renew; 2 - explicit no automatic renew. NOTES: Only
                supported prepaid EIP.
         :param pulumi.Input[str] bandwidth_package_id: ID of bandwidth package, it will set when `internet_charge_type` is `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] cdc_id: CDC Unique ID.
         :param pulumi.Input[str] egress: Network egress. It defaults to `center_egress1`. If you want to try the egress feature, please [submit a
                ticket](https://console.cloud.tencent.com/workorder/category).
         :param pulumi.Input[str] internet_charge_type: The charge type of eip. Valid values: `BANDWIDTH_PACKAGE`, `BANDWIDTH_POSTPAID_BY_HOUR`, `BANDWIDTH_PREPAID_BY_MONTH`
@@ -668,6 +706,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["applicable_for_clb"] = applicable_for_clb
         __props__.__dict__["auto_renew_flag"] = auto_renew_flag
         __props__.__dict__["bandwidth_package_id"] = bandwidth_package_id
+        __props__.__dict__["cdc_id"] = cdc_id
         __props__.__dict__["egress"] = egress
         __props__.__dict__["internet_charge_type"] = internet_charge_type
         __props__.__dict__["internet_max_bandwidth_out"] = internet_max_bandwidth_out
@@ -723,6 +762,14 @@ class Instance(pulumi.CustomResource):
         ID of bandwidth package, it will set when `internet_charge_type` is `BANDWIDTH_PACKAGE`.
         """
         return pulumi.get(self, "bandwidth_package_id")
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        CDC Unique ID.
+        """
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter

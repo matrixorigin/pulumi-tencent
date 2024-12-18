@@ -409,6 +409,112 @@ func (o RocketmqClusterVpcArrayOutput) Index(i pulumi.IntInput) RocketmqClusterV
 	}).(RocketmqClusterVpcOutput)
 }
 
+type RocketmqVipInstanceIpRule struct {
+	Allow  bool   `pulumi:"allow"`
+	IpRule string `pulumi:"ipRule"`
+	Remark string `pulumi:"remark"`
+}
+
+// RocketmqVipInstanceIpRuleInput is an input type that accepts RocketmqVipInstanceIpRuleArgs and RocketmqVipInstanceIpRuleOutput values.
+// You can construct a concrete instance of `RocketmqVipInstanceIpRuleInput` via:
+//
+//	RocketmqVipInstanceIpRuleArgs{...}
+type RocketmqVipInstanceIpRuleInput interface {
+	pulumi.Input
+
+	ToRocketmqVipInstanceIpRuleOutput() RocketmqVipInstanceIpRuleOutput
+	ToRocketmqVipInstanceIpRuleOutputWithContext(context.Context) RocketmqVipInstanceIpRuleOutput
+}
+
+type RocketmqVipInstanceIpRuleArgs struct {
+	Allow  pulumi.BoolInput   `pulumi:"allow"`
+	IpRule pulumi.StringInput `pulumi:"ipRule"`
+	Remark pulumi.StringInput `pulumi:"remark"`
+}
+
+func (RocketmqVipInstanceIpRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RocketmqVipInstanceIpRule)(nil)).Elem()
+}
+
+func (i RocketmqVipInstanceIpRuleArgs) ToRocketmqVipInstanceIpRuleOutput() RocketmqVipInstanceIpRuleOutput {
+	return i.ToRocketmqVipInstanceIpRuleOutputWithContext(context.Background())
+}
+
+func (i RocketmqVipInstanceIpRuleArgs) ToRocketmqVipInstanceIpRuleOutputWithContext(ctx context.Context) RocketmqVipInstanceIpRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RocketmqVipInstanceIpRuleOutput)
+}
+
+// RocketmqVipInstanceIpRuleArrayInput is an input type that accepts RocketmqVipInstanceIpRuleArray and RocketmqVipInstanceIpRuleArrayOutput values.
+// You can construct a concrete instance of `RocketmqVipInstanceIpRuleArrayInput` via:
+//
+//	RocketmqVipInstanceIpRuleArray{ RocketmqVipInstanceIpRuleArgs{...} }
+type RocketmqVipInstanceIpRuleArrayInput interface {
+	pulumi.Input
+
+	ToRocketmqVipInstanceIpRuleArrayOutput() RocketmqVipInstanceIpRuleArrayOutput
+	ToRocketmqVipInstanceIpRuleArrayOutputWithContext(context.Context) RocketmqVipInstanceIpRuleArrayOutput
+}
+
+type RocketmqVipInstanceIpRuleArray []RocketmqVipInstanceIpRuleInput
+
+func (RocketmqVipInstanceIpRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RocketmqVipInstanceIpRule)(nil)).Elem()
+}
+
+func (i RocketmqVipInstanceIpRuleArray) ToRocketmqVipInstanceIpRuleArrayOutput() RocketmqVipInstanceIpRuleArrayOutput {
+	return i.ToRocketmqVipInstanceIpRuleArrayOutputWithContext(context.Background())
+}
+
+func (i RocketmqVipInstanceIpRuleArray) ToRocketmqVipInstanceIpRuleArrayOutputWithContext(ctx context.Context) RocketmqVipInstanceIpRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RocketmqVipInstanceIpRuleArrayOutput)
+}
+
+type RocketmqVipInstanceIpRuleOutput struct{ *pulumi.OutputState }
+
+func (RocketmqVipInstanceIpRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RocketmqVipInstanceIpRule)(nil)).Elem()
+}
+
+func (o RocketmqVipInstanceIpRuleOutput) ToRocketmqVipInstanceIpRuleOutput() RocketmqVipInstanceIpRuleOutput {
+	return o
+}
+
+func (o RocketmqVipInstanceIpRuleOutput) ToRocketmqVipInstanceIpRuleOutputWithContext(ctx context.Context) RocketmqVipInstanceIpRuleOutput {
+	return o
+}
+
+func (o RocketmqVipInstanceIpRuleOutput) Allow() pulumi.BoolOutput {
+	return o.ApplyT(func(v RocketmqVipInstanceIpRule) bool { return v.Allow }).(pulumi.BoolOutput)
+}
+
+func (o RocketmqVipInstanceIpRuleOutput) IpRule() pulumi.StringOutput {
+	return o.ApplyT(func(v RocketmqVipInstanceIpRule) string { return v.IpRule }).(pulumi.StringOutput)
+}
+
+func (o RocketmqVipInstanceIpRuleOutput) Remark() pulumi.StringOutput {
+	return o.ApplyT(func(v RocketmqVipInstanceIpRule) string { return v.Remark }).(pulumi.StringOutput)
+}
+
+type RocketmqVipInstanceIpRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (RocketmqVipInstanceIpRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RocketmqVipInstanceIpRule)(nil)).Elem()
+}
+
+func (o RocketmqVipInstanceIpRuleArrayOutput) ToRocketmqVipInstanceIpRuleArrayOutput() RocketmqVipInstanceIpRuleArrayOutput {
+	return o
+}
+
+func (o RocketmqVipInstanceIpRuleArrayOutput) ToRocketmqVipInstanceIpRuleArrayOutputWithContext(ctx context.Context) RocketmqVipInstanceIpRuleArrayOutput {
+	return o
+}
+
+func (o RocketmqVipInstanceIpRuleArrayOutput) Index(i pulumi.IntInput) RocketmqVipInstanceIpRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RocketmqVipInstanceIpRule {
+		return vs[0].([]RocketmqVipInstanceIpRule)[vs[1].(int)]
+	}).(RocketmqVipInstanceIpRuleOutput)
+}
+
 type RocketmqVipInstanceVpcInfo struct {
 	SubnetId string `pulumi:"subnetId"`
 	VpcId    string `pulumi:"vpcId"`
@@ -1150,22 +1256,24 @@ func (o GetProInstancesFilterArrayOutput) Index(i pulumi.IntInput) GetProInstanc
 }
 
 type GetProInstancesInstance struct {
-	AutoRenewFlag   int    `pulumi:"autoRenewFlag"`
-	ConfigDisplay   string `pulumi:"configDisplay"`
-	ExpireTime      int    `pulumi:"expireTime"`
-	InstanceId      string `pulumi:"instanceId"`
-	InstanceName    string `pulumi:"instanceName"`
-	InstanceVersion string `pulumi:"instanceVersion"`
-	MaxBandWidth    int    `pulumi:"maxBandWidth"`
-	MaxStorage      int    `pulumi:"maxStorage"`
-	MaxTps          int    `pulumi:"maxTps"`
-	PayMode         int    `pulumi:"payMode"`
-	Remark          string `pulumi:"remark"`
-	ScalableTps     int    `pulumi:"scalableTps"`
-	SpecName        string `pulumi:"specName"`
-	Status          int    `pulumi:"status"`
-	SubnetId        string `pulumi:"subnetId"`
-	VpcId           string `pulumi:"vpcId"`
+	AutoRenewFlag   int                          `pulumi:"autoRenewFlag"`
+	ConfigDisplay   string                       `pulumi:"configDisplay"`
+	CreateTime      string                       `pulumi:"createTime"`
+	ExpireTime      int                          `pulumi:"expireTime"`
+	InstanceId      string                       `pulumi:"instanceId"`
+	InstanceName    string                       `pulumi:"instanceName"`
+	InstanceVersion string                       `pulumi:"instanceVersion"`
+	MaxBandWidth    int                          `pulumi:"maxBandWidth"`
+	MaxStorage      int                          `pulumi:"maxStorage"`
+	MaxTps          int                          `pulumi:"maxTps"`
+	PayMode         int                          `pulumi:"payMode"`
+	Remark          string                       `pulumi:"remark"`
+	ScalableTps     int                          `pulumi:"scalableTps"`
+	SpecName        string                       `pulumi:"specName"`
+	Status          int                          `pulumi:"status"`
+	SubnetId        string                       `pulumi:"subnetId"`
+	Tags            []GetProInstancesInstanceTag `pulumi:"tags"`
+	VpcId           string                       `pulumi:"vpcId"`
 }
 
 // GetProInstancesInstanceInput is an input type that accepts GetProInstancesInstanceArgs and GetProInstancesInstanceOutput values.
@@ -1180,22 +1288,24 @@ type GetProInstancesInstanceInput interface {
 }
 
 type GetProInstancesInstanceArgs struct {
-	AutoRenewFlag   pulumi.IntInput    `pulumi:"autoRenewFlag"`
-	ConfigDisplay   pulumi.StringInput `pulumi:"configDisplay"`
-	ExpireTime      pulumi.IntInput    `pulumi:"expireTime"`
-	InstanceId      pulumi.StringInput `pulumi:"instanceId"`
-	InstanceName    pulumi.StringInput `pulumi:"instanceName"`
-	InstanceVersion pulumi.StringInput `pulumi:"instanceVersion"`
-	MaxBandWidth    pulumi.IntInput    `pulumi:"maxBandWidth"`
-	MaxStorage      pulumi.IntInput    `pulumi:"maxStorage"`
-	MaxTps          pulumi.IntInput    `pulumi:"maxTps"`
-	PayMode         pulumi.IntInput    `pulumi:"payMode"`
-	Remark          pulumi.StringInput `pulumi:"remark"`
-	ScalableTps     pulumi.IntInput    `pulumi:"scalableTps"`
-	SpecName        pulumi.StringInput `pulumi:"specName"`
-	Status          pulumi.IntInput    `pulumi:"status"`
-	SubnetId        pulumi.StringInput `pulumi:"subnetId"`
-	VpcId           pulumi.StringInput `pulumi:"vpcId"`
+	AutoRenewFlag   pulumi.IntInput                      `pulumi:"autoRenewFlag"`
+	ConfigDisplay   pulumi.StringInput                   `pulumi:"configDisplay"`
+	CreateTime      pulumi.StringInput                   `pulumi:"createTime"`
+	ExpireTime      pulumi.IntInput                      `pulumi:"expireTime"`
+	InstanceId      pulumi.StringInput                   `pulumi:"instanceId"`
+	InstanceName    pulumi.StringInput                   `pulumi:"instanceName"`
+	InstanceVersion pulumi.StringInput                   `pulumi:"instanceVersion"`
+	MaxBandWidth    pulumi.IntInput                      `pulumi:"maxBandWidth"`
+	MaxStorage      pulumi.IntInput                      `pulumi:"maxStorage"`
+	MaxTps          pulumi.IntInput                      `pulumi:"maxTps"`
+	PayMode         pulumi.IntInput                      `pulumi:"payMode"`
+	Remark          pulumi.StringInput                   `pulumi:"remark"`
+	ScalableTps     pulumi.IntInput                      `pulumi:"scalableTps"`
+	SpecName        pulumi.StringInput                   `pulumi:"specName"`
+	Status          pulumi.IntInput                      `pulumi:"status"`
+	SubnetId        pulumi.StringInput                   `pulumi:"subnetId"`
+	Tags            GetProInstancesInstanceTagArrayInput `pulumi:"tags"`
+	VpcId           pulumi.StringInput                   `pulumi:"vpcId"`
 }
 
 func (GetProInstancesInstanceArgs) ElementType() reflect.Type {
@@ -1257,6 +1367,10 @@ func (o GetProInstancesInstanceOutput) ConfigDisplay() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProInstancesInstance) string { return v.ConfigDisplay }).(pulumi.StringOutput)
 }
 
+func (o GetProInstancesInstanceOutput) CreateTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProInstancesInstance) string { return v.CreateTime }).(pulumi.StringOutput)
+}
+
 func (o GetProInstancesInstanceOutput) ExpireTime() pulumi.IntOutput {
 	return o.ApplyT(func(v GetProInstancesInstance) int { return v.ExpireTime }).(pulumi.IntOutput)
 }
@@ -1309,6 +1423,10 @@ func (o GetProInstancesInstanceOutput) SubnetId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProInstancesInstance) string { return v.SubnetId }).(pulumi.StringOutput)
 }
 
+func (o GetProInstancesInstanceOutput) Tags() GetProInstancesInstanceTagArrayOutput {
+	return o.ApplyT(func(v GetProInstancesInstance) []GetProInstancesInstanceTag { return v.Tags }).(GetProInstancesInstanceTagArrayOutput)
+}
+
 func (o GetProInstancesInstanceOutput) VpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetProInstancesInstance) string { return v.VpcId }).(pulumi.StringOutput)
 }
@@ -1331,6 +1449,106 @@ func (o GetProInstancesInstanceArrayOutput) Index(i pulumi.IntInput) GetProInsta
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProInstancesInstance {
 		return vs[0].([]GetProInstancesInstance)[vs[1].(int)]
 	}).(GetProInstancesInstanceOutput)
+}
+
+type GetProInstancesInstanceTag struct {
+	TagKey   string `pulumi:"tagKey"`
+	TagValue string `pulumi:"tagValue"`
+}
+
+// GetProInstancesInstanceTagInput is an input type that accepts GetProInstancesInstanceTagArgs and GetProInstancesInstanceTagOutput values.
+// You can construct a concrete instance of `GetProInstancesInstanceTagInput` via:
+//
+//	GetProInstancesInstanceTagArgs{...}
+type GetProInstancesInstanceTagInput interface {
+	pulumi.Input
+
+	ToGetProInstancesInstanceTagOutput() GetProInstancesInstanceTagOutput
+	ToGetProInstancesInstanceTagOutputWithContext(context.Context) GetProInstancesInstanceTagOutput
+}
+
+type GetProInstancesInstanceTagArgs struct {
+	TagKey   pulumi.StringInput `pulumi:"tagKey"`
+	TagValue pulumi.StringInput `pulumi:"tagValue"`
+}
+
+func (GetProInstancesInstanceTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProInstancesInstanceTag)(nil)).Elem()
+}
+
+func (i GetProInstancesInstanceTagArgs) ToGetProInstancesInstanceTagOutput() GetProInstancesInstanceTagOutput {
+	return i.ToGetProInstancesInstanceTagOutputWithContext(context.Background())
+}
+
+func (i GetProInstancesInstanceTagArgs) ToGetProInstancesInstanceTagOutputWithContext(ctx context.Context) GetProInstancesInstanceTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProInstancesInstanceTagOutput)
+}
+
+// GetProInstancesInstanceTagArrayInput is an input type that accepts GetProInstancesInstanceTagArray and GetProInstancesInstanceTagArrayOutput values.
+// You can construct a concrete instance of `GetProInstancesInstanceTagArrayInput` via:
+//
+//	GetProInstancesInstanceTagArray{ GetProInstancesInstanceTagArgs{...} }
+type GetProInstancesInstanceTagArrayInput interface {
+	pulumi.Input
+
+	ToGetProInstancesInstanceTagArrayOutput() GetProInstancesInstanceTagArrayOutput
+	ToGetProInstancesInstanceTagArrayOutputWithContext(context.Context) GetProInstancesInstanceTagArrayOutput
+}
+
+type GetProInstancesInstanceTagArray []GetProInstancesInstanceTagInput
+
+func (GetProInstancesInstanceTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProInstancesInstanceTag)(nil)).Elem()
+}
+
+func (i GetProInstancesInstanceTagArray) ToGetProInstancesInstanceTagArrayOutput() GetProInstancesInstanceTagArrayOutput {
+	return i.ToGetProInstancesInstanceTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetProInstancesInstanceTagArray) ToGetProInstancesInstanceTagArrayOutputWithContext(ctx context.Context) GetProInstancesInstanceTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetProInstancesInstanceTagArrayOutput)
+}
+
+type GetProInstancesInstanceTagOutput struct{ *pulumi.OutputState }
+
+func (GetProInstancesInstanceTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetProInstancesInstanceTag)(nil)).Elem()
+}
+
+func (o GetProInstancesInstanceTagOutput) ToGetProInstancesInstanceTagOutput() GetProInstancesInstanceTagOutput {
+	return o
+}
+
+func (o GetProInstancesInstanceTagOutput) ToGetProInstancesInstanceTagOutputWithContext(ctx context.Context) GetProInstancesInstanceTagOutput {
+	return o
+}
+
+func (o GetProInstancesInstanceTagOutput) TagKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProInstancesInstanceTag) string { return v.TagKey }).(pulumi.StringOutput)
+}
+
+func (o GetProInstancesInstanceTagOutput) TagValue() pulumi.StringOutput {
+	return o.ApplyT(func(v GetProInstancesInstanceTag) string { return v.TagValue }).(pulumi.StringOutput)
+}
+
+type GetProInstancesInstanceTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetProInstancesInstanceTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetProInstancesInstanceTag)(nil)).Elem()
+}
+
+func (o GetProInstancesInstanceTagArrayOutput) ToGetProInstancesInstanceTagArrayOutput() GetProInstancesInstanceTagArrayOutput {
+	return o
+}
+
+func (o GetProInstancesInstanceTagArrayOutput) ToGetProInstancesInstanceTagArrayOutputWithContext(ctx context.Context) GetProInstancesInstanceTagArrayOutput {
+	return o
+}
+
+func (o GetProInstancesInstanceTagArrayOutput) Index(i pulumi.IntInput) GetProInstancesInstanceTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetProInstancesInstanceTag {
+		return vs[0].([]GetProInstancesInstanceTag)[vs[1].(int)]
+	}).(GetProInstancesInstanceTagOutput)
 }
 
 type GetPublishersFilter struct {
@@ -4020,6 +4238,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProfessionalClusterVpcPtrInput)(nil)).Elem(), ProfessionalClusterVpcArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqClusterVpcInput)(nil)).Elem(), RocketmqClusterVpcArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqClusterVpcArrayInput)(nil)).Elem(), RocketmqClusterVpcArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqVipInstanceIpRuleInput)(nil)).Elem(), RocketmqVipInstanceIpRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqVipInstanceIpRuleArrayInput)(nil)).Elem(), RocketmqVipInstanceIpRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqVipInstanceVpcInfoInput)(nil)).Elem(), RocketmqVipInstanceVpcInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RocketmqVipInstanceVpcInfoPtrInput)(nil)).Elem(), RocketmqVipInstanceVpcInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstanceDetailClusterInfoInput)(nil)).Elem(), GetProInstanceDetailClusterInfoArgs{})
@@ -4034,6 +4254,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstancesFilterArrayInput)(nil)).Elem(), GetProInstancesFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstancesInstanceInput)(nil)).Elem(), GetProInstancesInstanceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstancesInstanceArrayInput)(nil)).Elem(), GetProInstancesInstanceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstancesInstanceTagInput)(nil)).Elem(), GetProInstancesInstanceTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetProInstancesInstanceTagArrayInput)(nil)).Elem(), GetProInstancesInstanceTagArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPublishersFilterInput)(nil)).Elem(), GetPublishersFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPublishersFilterArrayInput)(nil)).Elem(), GetPublishersFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPublishersPublisherInput)(nil)).Elem(), GetPublishersPublisherArgs{})
@@ -4082,6 +4304,8 @@ func init() {
 	pulumi.RegisterOutputType(ProfessionalClusterVpcPtrOutput{})
 	pulumi.RegisterOutputType(RocketmqClusterVpcOutput{})
 	pulumi.RegisterOutputType(RocketmqClusterVpcArrayOutput{})
+	pulumi.RegisterOutputType(RocketmqVipInstanceIpRuleOutput{})
+	pulumi.RegisterOutputType(RocketmqVipInstanceIpRuleArrayOutput{})
 	pulumi.RegisterOutputType(RocketmqVipInstanceVpcInfoOutput{})
 	pulumi.RegisterOutputType(RocketmqVipInstanceVpcInfoPtrOutput{})
 	pulumi.RegisterOutputType(GetProInstanceDetailClusterInfoOutput{})
@@ -4096,6 +4320,8 @@ func init() {
 	pulumi.RegisterOutputType(GetProInstancesFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetProInstancesInstanceOutput{})
 	pulumi.RegisterOutputType(GetProInstancesInstanceArrayOutput{})
+	pulumi.RegisterOutputType(GetProInstancesInstanceTagOutput{})
+	pulumi.RegisterOutputType(GetProInstancesInstanceTagArrayOutput{})
 	pulumi.RegisterOutputType(GetPublishersFilterOutput{})
 	pulumi.RegisterOutputType(GetPublishersFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetPublishersPublisherOutput{})

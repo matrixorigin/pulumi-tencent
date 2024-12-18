@@ -135,6 +135,7 @@ class _CngwGroupState:
     def __init__(__self__, *,
                  description: Optional[pulumi.Input[str]] = None,
                  gateway_id: Optional[pulumi.Input[str]] = None,
+                 group_id: Optional[pulumi.Input[str]] = None,
                  internet_config: Optional[pulumi.Input['CngwGroupInternetConfigArgs']] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
@@ -144,6 +145,7 @@ class _CngwGroupState:
         Input properties used for looking up and filtering CngwGroup resources.
         :param pulumi.Input[str] description: description information of group.
         :param pulumi.Input[str] gateway_id: gateway IDonly postpaid gateway supported.
+        :param pulumi.Input[str] group_id: gateway group id.
         :param pulumi.Input['CngwGroupInternetConfigArgs'] internet_config: internet configration.
         :param pulumi.Input[int] internet_max_bandwidth_out: public network outbound traffic bandwidth,[1,2048]Mbps.
         :param pulumi.Input[str] name: gateway group name.
@@ -154,6 +156,8 @@ class _CngwGroupState:
             pulumi.set(__self__, "description", description)
         if gateway_id is not None:
             pulumi.set(__self__, "gateway_id", gateway_id)
+        if group_id is not None:
+            pulumi.set(__self__, "group_id", group_id)
         if internet_config is not None:
             pulumi.set(__self__, "internet_config", internet_config)
         if internet_max_bandwidth_out is not None:
@@ -188,6 +192,18 @@ class _CngwGroupState:
     @gateway_id.setter
     def gateway_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "gateway_id", value)
+
+    @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        gateway group id.
+        """
+        return pulumi.get(self, "group_id")
+
+    @group_id.setter
+    def group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "group_id", value)
 
     @property
     @pulumi.getter(name="internetConfig")
@@ -327,6 +343,7 @@ class CngwGroup(pulumi.CustomResource):
             if subnet_id is None and not opts.urn:
                 raise TypeError("Missing required property 'subnet_id'")
             __props__.__dict__["subnet_id"] = subnet_id
+            __props__.__dict__["group_id"] = None
         super(CngwGroup, __self__).__init__(
             'tencentcloud:Tse/cngwGroup:CngwGroup',
             resource_name,
@@ -339,6 +356,7 @@ class CngwGroup(pulumi.CustomResource):
             opts: Optional[pulumi.ResourceOptions] = None,
             description: Optional[pulumi.Input[str]] = None,
             gateway_id: Optional[pulumi.Input[str]] = None,
+            group_id: Optional[pulumi.Input[str]] = None,
             internet_config: Optional[pulumi.Input[pulumi.InputType['CngwGroupInternetConfigArgs']]] = None,
             internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
@@ -353,6 +371,7 @@ class CngwGroup(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] description: description information of group.
         :param pulumi.Input[str] gateway_id: gateway IDonly postpaid gateway supported.
+        :param pulumi.Input[str] group_id: gateway group id.
         :param pulumi.Input[pulumi.InputType['CngwGroupInternetConfigArgs']] internet_config: internet configration.
         :param pulumi.Input[int] internet_max_bandwidth_out: public network outbound traffic bandwidth,[1,2048]Mbps.
         :param pulumi.Input[str] name: gateway group name.
@@ -365,6 +384,7 @@ class CngwGroup(pulumi.CustomResource):
 
         __props__.__dict__["description"] = description
         __props__.__dict__["gateway_id"] = gateway_id
+        __props__.__dict__["group_id"] = group_id
         __props__.__dict__["internet_config"] = internet_config
         __props__.__dict__["internet_max_bandwidth_out"] = internet_max_bandwidth_out
         __props__.__dict__["name"] = name
@@ -387,6 +407,14 @@ class CngwGroup(pulumi.CustomResource):
         gateway IDonly postpaid gateway supported.
         """
         return pulumi.get(self, "gateway_id")
+
+    @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> pulumi.Output[str]:
+        """
+        gateway group id.
+        """
+        return pulumi.get(self, "group_id")
 
     @property
     @pulumi.getter(name="internetConfig")

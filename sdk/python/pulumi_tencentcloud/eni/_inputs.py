@@ -12,6 +12,8 @@ from .. import _utilities
 __all__ = [
     'InstanceIpv4Args',
     'InstanceIpv4InfoArgs',
+    'Ipv4AddressPrivateIpAddressArgs',
+    'Ipv6AddressIpv6AddressArgs',
 ]
 
 @pulumi.input_type
@@ -92,5 +94,181 @@ class InstanceIpv4InfoArgs:
     @primary.setter
     def primary(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "primary", value)
+
+
+@pulumi.input_type
+class Ipv4AddressPrivateIpAddressArgs:
+    def __init__(__self__, *,
+                 private_ip_address: pulumi.Input[str],
+                 address_id: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 is_wan_ip_blocked: Optional[pulumi.Input[bool]] = None,
+                 primary: Optional[pulumi.Input[bool]] = None,
+                 public_ip_address: Optional[pulumi.Input[str]] = None,
+                 qos_level: Optional[pulumi.Input[str]] = None,
+                 state: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "private_ip_address", private_ip_address)
+        if address_id is not None:
+            pulumi.set(__self__, "address_id", address_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if is_wan_ip_blocked is not None:
+            pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
+        if primary is not None:
+            pulumi.set(__self__, "primary", primary)
+        if public_ip_address is not None:
+            pulumi.set(__self__, "public_ip_address", public_ip_address)
+        if qos_level is not None:
+            pulumi.set(__self__, "qos_level", qos_level)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter(name="privateIpAddress")
+    def private_ip_address(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "private_ip_address")
+
+    @private_ip_address.setter
+    def private_ip_address(self, value: pulumi.Input[str]):
+        pulumi.set(self, "private_ip_address", value)
+
+    @property
+    @pulumi.getter(name="addressId")
+    def address_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "address_id")
+
+    @address_id.setter
+    def address_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address_id", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter(name="isWanIpBlocked")
+    def is_wan_ip_blocked(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "is_wan_ip_blocked")
+
+    @is_wan_ip_blocked.setter
+    def is_wan_ip_blocked(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "is_wan_ip_blocked", value)
+
+    @property
+    @pulumi.getter
+    def primary(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "primary")
+
+    @primary.setter
+    def primary(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "primary", value)
+
+    @property
+    @pulumi.getter(name="publicIpAddress")
+    def public_ip_address(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "public_ip_address")
+
+    @public_ip_address.setter
+    def public_ip_address(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "public_ip_address", value)
+
+    @property
+    @pulumi.getter(name="qosLevel")
+    def qos_level(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "qos_level")
+
+    @qos_level.setter
+    def qos_level(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "qos_level", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "state", value)
+
+
+@pulumi.input_type
+class Ipv6AddressIpv6AddressArgs:
+    def __init__(__self__, *,
+                 address: pulumi.Input[str],
+                 address_id: Optional[pulumi.Input[str]] = None,
+                 description: Optional[pulumi.Input[str]] = None,
+                 is_wan_ip_blocked: Optional[pulumi.Input[bool]] = None,
+                 primary: Optional[pulumi.Input[bool]] = None,
+                 state: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "address", address)
+        if address_id is not None:
+            pulumi.set(__self__, "address_id", address_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if is_wan_ip_blocked is not None:
+            pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
+        if primary is not None:
+            pulumi.set(__self__, "primary", primary)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def address(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "address")
+
+    @address.setter
+    def address(self, value: pulumi.Input[str]):
+        pulumi.set(self, "address", value)
+
+    @property
+    @pulumi.getter(name="addressId")
+    def address_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "address_id")
+
+    @address_id.setter
+    def address_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address_id", value)
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "description")
+
+    @description.setter
+    def description(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "description", value)
+
+    @property
+    @pulumi.getter(name="isWanIpBlocked")
+    def is_wan_ip_blocked(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "is_wan_ip_blocked")
+
+    @is_wan_ip_blocked.setter
+    def is_wan_ip_blocked(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "is_wan_ip_blocked", value)
+
+    @property
+    @pulumi.getter
+    def primary(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "primary")
+
+    @primary.setter
+    def primary(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "primary", value)
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "state")
+
+    @state.setter
+    def state(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "state", value)
 
 

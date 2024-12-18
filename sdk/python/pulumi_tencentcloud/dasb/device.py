@@ -349,7 +349,7 @@ class Device(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="ipPortSets")
-    def ip_port_sets(self) -> pulumi.Output[Optional[Sequence[str]]]:
+    def ip_port_sets(self) -> pulumi.Output[Sequence[str]]:
         """
         Asset multi-node: fields ip and port.
         """

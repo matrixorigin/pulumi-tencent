@@ -16,83 +16,102 @@ __all__ = ['ClusterArgs', 'Cluster']
 @pulumi.input_type
 class ClusterArgs:
     def __init__(__self__, *,
-                 display_strategy: pulumi.Input[str],
                  instance_name: pulumi.Input[str],
-                 login_settings: pulumi.Input[Mapping[str, Any]],
                  pay_mode: pulumi.Input[int],
-                 placement: pulumi.Input[Mapping[str, Any]],
                  product_id: pulumi.Input[int],
                  softwares: pulumi.Input[Sequence[pulumi.Input[str]]],
                  support_ha: pulumi.Input[int],
-                 time_span: pulumi.Input[int],
-                 time_unit: pulumi.Input[str],
                  vpc_settings: pulumi.Input[Mapping[str, Any]],
+                 auto_renew: Optional[pulumi.Input[int]] = None,
+                 display_strategy: Optional[pulumi.Input[str]] = None,
                  extend_fs_field: Optional[pulumi.Input[str]] = None,
+                 login_settings: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  need_master_wan: Optional[pulumi.Input[str]] = None,
+                 placement: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 placement_info: Optional[pulumi.Input['ClusterPlacementInfoArgs']] = None,
+                 pre_executed_file_settings: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]] = None,
                  resource_spec: Optional[pulumi.Input['ClusterResourceSpecArgs']] = None,
                  sg_id: Optional[pulumi.Input[str]] = None,
-                 tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
+                 tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 terminate_node_infos: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]] = None,
+                 time_span: Optional[pulumi.Input[int]] = None,
+                 time_unit: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Cluster resource.
-        :param pulumi.Input[str] display_strategy: Display strategy of EMR instance.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
-        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings.
         :param pulumi.Input[int] pay_mode: The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
-        :param pulumi.Input[Mapping[str, Any]] placement: The location of the instance.
         :param pulumi.Input[int] product_id: Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-               20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-               represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-               represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+               20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+               represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+               represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+               represents STARROCKS-V2.0.0.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] softwares: The softwares of a EMR instance.
         :param pulumi.Input[int] support_ha: The flag whether the instance support high availability.(0=>not support, 1=>support).
+        :param pulumi.Input[Mapping[str, Any]] vpc_settings: The private net config of EMR instance.
+        :param pulumi.Input[int] auto_renew: 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+        :param pulumi.Input[str] display_strategy: Display strategy of EMR instance.
+        :param pulumi.Input[str] extend_fs_field: Access the external file system.
+        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+               uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+               bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+               instance can be accessed through the corresponding private key.
+        :param pulumi.Input[str] need_master_wan: Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
+               Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
+               cluster Master node internet is enabled.
+        :param pulumi.Input[Mapping[str, Any]] placement: The location of the instance.
+        :param pulumi.Input['ClusterPlacementInfoArgs'] placement_info: The location of the instance.
+        :param pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]] pre_executed_file_settings: Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+        :param pulumi.Input['ClusterResourceSpecArgs'] resource_spec: Resource specification of EMR instance.
+        :param pulumi.Input[str] sg_id: The ID of the security group to which the instance belongs, in the form of sg-xxxxxxxx.
+        :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
+        :param pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]] terminate_node_infos: Terminate nodes. Note: it only works when the number of nodes decreases.
         :param pulumi.Input[int] time_span: The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
                at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
                length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
         :param pulumi.Input[str] time_unit: The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
                When PayMode is 1, TimeUnit can only take the value m(month).
-        :param pulumi.Input[Mapping[str, Any]] vpc_settings: The private net config of EMR instance.
-        :param pulumi.Input[str] extend_fs_field: Access the external file system.
-        :param pulumi.Input[str] need_master_wan: Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
-               Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
-               cluster Master node internet is enabled.
-        :param pulumi.Input['ClusterResourceSpecArgs'] resource_spec: Resource specification of EMR instance.
-        :param pulumi.Input[str] sg_id: The ID of the security group to which the instance belongs, in the form of sg-xxxxxxxx.
-        :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         """
-        pulumi.set(__self__, "display_strategy", display_strategy)
         pulumi.set(__self__, "instance_name", instance_name)
-        pulumi.set(__self__, "login_settings", login_settings)
         pulumi.set(__self__, "pay_mode", pay_mode)
-        pulumi.set(__self__, "placement", placement)
         pulumi.set(__self__, "product_id", product_id)
         pulumi.set(__self__, "softwares", softwares)
         pulumi.set(__self__, "support_ha", support_ha)
-        pulumi.set(__self__, "time_span", time_span)
-        pulumi.set(__self__, "time_unit", time_unit)
         pulumi.set(__self__, "vpc_settings", vpc_settings)
+        if auto_renew is not None:
+            pulumi.set(__self__, "auto_renew", auto_renew)
+        if display_strategy is not None:
+            warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+            pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
+        if display_strategy is not None:
+            pulumi.set(__self__, "display_strategy", display_strategy)
         if extend_fs_field is not None:
             pulumi.set(__self__, "extend_fs_field", extend_fs_field)
+        if login_settings is not None:
+            pulumi.set(__self__, "login_settings", login_settings)
         if need_master_wan is not None:
             pulumi.set(__self__, "need_master_wan", need_master_wan)
+        if placement is not None:
+            warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+            pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
+        if placement is not None:
+            pulumi.set(__self__, "placement", placement)
+        if placement_info is not None:
+            pulumi.set(__self__, "placement_info", placement_info)
+        if pre_executed_file_settings is not None:
+            pulumi.set(__self__, "pre_executed_file_settings", pre_executed_file_settings)
         if resource_spec is not None:
             pulumi.set(__self__, "resource_spec", resource_spec)
         if sg_id is not None:
             pulumi.set(__self__, "sg_id", sg_id)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
-
-    @property
-    @pulumi.getter(name="displayStrategy")
-    def display_strategy(self) -> pulumi.Input[str]:
-        """
-        Display strategy of EMR instance.
-        """
-        return pulumi.get(self, "display_strategy")
-
-    @display_strategy.setter
-    def display_strategy(self, value: pulumi.Input[str]):
-        pulumi.set(self, "display_strategy", value)
+        if terminate_node_infos is not None:
+            pulumi.set(__self__, "terminate_node_infos", terminate_node_infos)
+        if time_span is not None:
+            pulumi.set(__self__, "time_span", time_span)
+        if time_unit is not None:
+            pulumi.set(__self__, "time_unit", time_unit)
 
     @property
     @pulumi.getter(name="instanceName")
@@ -108,18 +127,6 @@ class ClusterArgs:
         pulumi.set(self, "instance_name", value)
 
     @property
-    @pulumi.getter(name="loginSettings")
-    def login_settings(self) -> pulumi.Input[Mapping[str, Any]]:
-        """
-        Instance login settings.
-        """
-        return pulumi.get(self, "login_settings")
-
-    @login_settings.setter
-    def login_settings(self, value: pulumi.Input[Mapping[str, Any]]):
-        pulumi.set(self, "login_settings", value)
-
-    @property
     @pulumi.getter(name="payMode")
     def pay_mode(self) -> pulumi.Input[int]:
         """
@@ -132,25 +139,14 @@ class ClusterArgs:
         pulumi.set(self, "pay_mode", value)
 
     @property
-    @pulumi.getter
-    def placement(self) -> pulumi.Input[Mapping[str, Any]]:
-        """
-        The location of the instance.
-        """
-        return pulumi.get(self, "placement")
-
-    @placement.setter
-    def placement(self, value: pulumi.Input[Mapping[str, Any]]):
-        pulumi.set(self, "placement", value)
-
-    @property
     @pulumi.getter(name="productId")
     def product_id(self) -> pulumi.Input[int]:
         """
         Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-        20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-        represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-        represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+        20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+        represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+        represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+        represents STARROCKS-V2.0.0.
         """
         return pulumi.get(self, "product_id")
 
@@ -183,33 +179,6 @@ class ClusterArgs:
         pulumi.set(self, "support_ha", value)
 
     @property
-    @pulumi.getter(name="timeSpan")
-    def time_span(self) -> pulumi.Input[int]:
-        """
-        The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
-        at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
-        length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
-        """
-        return pulumi.get(self, "time_span")
-
-    @time_span.setter
-    def time_span(self, value: pulumi.Input[int]):
-        pulumi.set(self, "time_span", value)
-
-    @property
-    @pulumi.getter(name="timeUnit")
-    def time_unit(self) -> pulumi.Input[str]:
-        """
-        The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
-        When PayMode is 1, TimeUnit can only take the value m(month).
-        """
-        return pulumi.get(self, "time_unit")
-
-    @time_unit.setter
-    def time_unit(self, value: pulumi.Input[str]):
-        pulumi.set(self, "time_unit", value)
-
-    @property
     @pulumi.getter(name="vpcSettings")
     def vpc_settings(self) -> pulumi.Input[Mapping[str, Any]]:
         """
@@ -220,6 +189,33 @@ class ClusterArgs:
     @vpc_settings.setter
     def vpc_settings(self, value: pulumi.Input[Mapping[str, Any]]):
         pulumi.set(self, "vpc_settings", value)
+
+    @property
+    @pulumi.getter(name="autoRenew")
+    def auto_renew(self) -> Optional[pulumi.Input[int]]:
+        """
+        0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+        """
+        return pulumi.get(self, "auto_renew")
+
+    @auto_renew.setter
+    def auto_renew(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "auto_renew", value)
+
+    @property
+    @pulumi.getter(name="displayStrategy")
+    def display_strategy(self) -> Optional[pulumi.Input[str]]:
+        """
+        Display strategy of EMR instance.
+        """
+        warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+        pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
+
+        return pulumi.get(self, "display_strategy")
+
+    @display_strategy.setter
+    def display_strategy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "display_strategy", value)
 
     @property
     @pulumi.getter(name="extendFsField")
@@ -234,6 +230,21 @@ class ClusterArgs:
         pulumi.set(self, "extend_fs_field", value)
 
     @property
+    @pulumi.getter(name="loginSettings")
+    def login_settings(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        """
+        Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+        uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+        bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+        instance can be accessed through the corresponding private key.
+        """
+        return pulumi.get(self, "login_settings")
+
+    @login_settings.setter
+    def login_settings(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "login_settings", value)
+
+    @property
     @pulumi.getter(name="needMasterWan")
     def need_master_wan(self) -> Optional[pulumi.Input[str]]:
         """
@@ -246,6 +257,45 @@ class ClusterArgs:
     @need_master_wan.setter
     def need_master_wan(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "need_master_wan", value)
+
+    @property
+    @pulumi.getter
+    def placement(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        """
+        The location of the instance.
+        """
+        warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+        pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
+
+        return pulumi.get(self, "placement")
+
+    @placement.setter
+    def placement(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "placement", value)
+
+    @property
+    @pulumi.getter(name="placementInfo")
+    def placement_info(self) -> Optional[pulumi.Input['ClusterPlacementInfoArgs']]:
+        """
+        The location of the instance.
+        """
+        return pulumi.get(self, "placement_info")
+
+    @placement_info.setter
+    def placement_info(self, value: Optional[pulumi.Input['ClusterPlacementInfoArgs']]):
+        pulumi.set(self, "placement_info", value)
+
+    @property
+    @pulumi.getter(name="preExecutedFileSettings")
+    def pre_executed_file_settings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]]:
+        """
+        Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+        """
+        return pulumi.get(self, "pre_executed_file_settings")
+
+    @pre_executed_file_settings.setter
+    def pre_executed_file_settings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]]):
+        pulumi.set(self, "pre_executed_file_settings", value)
 
     @property
     @pulumi.getter(name="resourceSpec")
@@ -283,10 +333,50 @@ class ClusterArgs:
     def tags(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
         pulumi.set(self, "tags", value)
 
+    @property
+    @pulumi.getter(name="terminateNodeInfos")
+    def terminate_node_infos(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]]:
+        """
+        Terminate nodes. Note: it only works when the number of nodes decreases.
+        """
+        return pulumi.get(self, "terminate_node_infos")
+
+    @terminate_node_infos.setter
+    def terminate_node_infos(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]]):
+        pulumi.set(self, "terminate_node_infos", value)
+
+    @property
+    @pulumi.getter(name="timeSpan")
+    def time_span(self) -> Optional[pulumi.Input[int]]:
+        """
+        The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
+        at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
+        length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
+        """
+        return pulumi.get(self, "time_span")
+
+    @time_span.setter
+    def time_span(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "time_span", value)
+
+    @property
+    @pulumi.getter(name="timeUnit")
+    def time_unit(self) -> Optional[pulumi.Input[str]]:
+        """
+        The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
+        When PayMode is 1, TimeUnit can only take the value m(month).
+        """
+        return pulumi.get(self, "time_unit")
+
+    @time_unit.setter
+    def time_unit(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "time_unit", value)
+
 
 @pulumi.input_type
 class _ClusterState:
     def __init__(__self__, *,
+                 auto_renew: Optional[pulumi.Input[int]] = None,
                  display_strategy: Optional[pulumi.Input[str]] = None,
                  extend_fs_field: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
@@ -295,37 +385,48 @@ class _ClusterState:
                  need_master_wan: Optional[pulumi.Input[str]] = None,
                  pay_mode: Optional[pulumi.Input[int]] = None,
                  placement: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 placement_info: Optional[pulumi.Input['ClusterPlacementInfoArgs']] = None,
+                 pre_executed_file_settings: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]] = None,
                  product_id: Optional[pulumi.Input[int]] = None,
                  resource_spec: Optional[pulumi.Input['ClusterResourceSpecArgs']] = None,
                  sg_id: Optional[pulumi.Input[str]] = None,
                  softwares: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  support_ha: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 terminate_node_infos: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]] = None,
                  time_span: Optional[pulumi.Input[int]] = None,
                  time_unit: Optional[pulumi.Input[str]] = None,
                  vpc_settings: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         Input properties used for looking up and filtering Cluster resources.
+        :param pulumi.Input[int] auto_renew: 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
         :param pulumi.Input[str] display_strategy: Display strategy of EMR instance.
         :param pulumi.Input[str] extend_fs_field: Access the external file system.
         :param pulumi.Input[str] instance_id: Created EMR instance id.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
-        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings.
+        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+               uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+               bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+               instance can be accessed through the corresponding private key.
         :param pulumi.Input[str] need_master_wan: Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
                Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
                cluster Master node internet is enabled.
         :param pulumi.Input[int] pay_mode: The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
         :param pulumi.Input[Mapping[str, Any]] placement: The location of the instance.
+        :param pulumi.Input['ClusterPlacementInfoArgs'] placement_info: The location of the instance.
+        :param pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]] pre_executed_file_settings: Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
         :param pulumi.Input[int] product_id: Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-               20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-               represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-               represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+               20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+               represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+               represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+               represents STARROCKS-V2.0.0.
         :param pulumi.Input['ClusterResourceSpecArgs'] resource_spec: Resource specification of EMR instance.
         :param pulumi.Input[str] sg_id: The ID of the security group to which the instance belongs, in the form of sg-xxxxxxxx.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] softwares: The softwares of a EMR instance.
         :param pulumi.Input[int] support_ha: The flag whether the instance support high availability.(0=>not support, 1=>support).
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
+        :param pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]] terminate_node_infos: Terminate nodes. Note: it only works when the number of nodes decreases.
         :param pulumi.Input[int] time_span: The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
                at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
                length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
@@ -333,6 +434,11 @@ class _ClusterState:
                When PayMode is 1, TimeUnit can only take the value m(month).
         :param pulumi.Input[Mapping[str, Any]] vpc_settings: The private net config of EMR instance.
         """
+        if auto_renew is not None:
+            pulumi.set(__self__, "auto_renew", auto_renew)
+        if display_strategy is not None:
+            warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+            pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
         if display_strategy is not None:
             pulumi.set(__self__, "display_strategy", display_strategy)
         if extend_fs_field is not None:
@@ -348,7 +454,14 @@ class _ClusterState:
         if pay_mode is not None:
             pulumi.set(__self__, "pay_mode", pay_mode)
         if placement is not None:
+            warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+            pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
+        if placement is not None:
             pulumi.set(__self__, "placement", placement)
+        if placement_info is not None:
+            pulumi.set(__self__, "placement_info", placement_info)
+        if pre_executed_file_settings is not None:
+            pulumi.set(__self__, "pre_executed_file_settings", pre_executed_file_settings)
         if product_id is not None:
             pulumi.set(__self__, "product_id", product_id)
         if resource_spec is not None:
@@ -361,6 +474,8 @@ class _ClusterState:
             pulumi.set(__self__, "support_ha", support_ha)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
+        if terminate_node_infos is not None:
+            pulumi.set(__self__, "terminate_node_infos", terminate_node_infos)
         if time_span is not None:
             pulumi.set(__self__, "time_span", time_span)
         if time_unit is not None:
@@ -369,11 +484,26 @@ class _ClusterState:
             pulumi.set(__self__, "vpc_settings", vpc_settings)
 
     @property
+    @pulumi.getter(name="autoRenew")
+    def auto_renew(self) -> Optional[pulumi.Input[int]]:
+        """
+        0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+        """
+        return pulumi.get(self, "auto_renew")
+
+    @auto_renew.setter
+    def auto_renew(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "auto_renew", value)
+
+    @property
     @pulumi.getter(name="displayStrategy")
     def display_strategy(self) -> Optional[pulumi.Input[str]]:
         """
         Display strategy of EMR instance.
         """
+        warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+        pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
+
         return pulumi.get(self, "display_strategy")
 
     @display_strategy.setter
@@ -421,7 +551,10 @@ class _ClusterState:
     @pulumi.getter(name="loginSettings")
     def login_settings(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
         """
-        Instance login settings.
+        Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+        uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+        bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+        instance can be accessed through the corresponding private key.
         """
         return pulumi.get(self, "login_settings")
 
@@ -461,6 +594,9 @@ class _ClusterState:
         """
         The location of the instance.
         """
+        warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+        pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
+
         return pulumi.get(self, "placement")
 
     @placement.setter
@@ -468,13 +604,38 @@ class _ClusterState:
         pulumi.set(self, "placement", value)
 
     @property
+    @pulumi.getter(name="placementInfo")
+    def placement_info(self) -> Optional[pulumi.Input['ClusterPlacementInfoArgs']]:
+        """
+        The location of the instance.
+        """
+        return pulumi.get(self, "placement_info")
+
+    @placement_info.setter
+    def placement_info(self, value: Optional[pulumi.Input['ClusterPlacementInfoArgs']]):
+        pulumi.set(self, "placement_info", value)
+
+    @property
+    @pulumi.getter(name="preExecutedFileSettings")
+    def pre_executed_file_settings(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]]:
+        """
+        Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+        """
+        return pulumi.get(self, "pre_executed_file_settings")
+
+    @pre_executed_file_settings.setter
+    def pre_executed_file_settings(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterPreExecutedFileSettingArgs']]]]):
+        pulumi.set(self, "pre_executed_file_settings", value)
+
+    @property
     @pulumi.getter(name="productId")
     def product_id(self) -> Optional[pulumi.Input[int]]:
         """
         Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-        20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-        represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-        represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+        20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+        represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+        represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+        represents STARROCKS-V2.0.0.
         """
         return pulumi.get(self, "product_id")
 
@@ -543,6 +704,18 @@ class _ClusterState:
         pulumi.set(self, "tags", value)
 
     @property
+    @pulumi.getter(name="terminateNodeInfos")
+    def terminate_node_infos(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]]:
+        """
+        Terminate nodes. Note: it only works when the number of nodes decreases.
+        """
+        return pulumi.get(self, "terminate_node_infos")
+
+    @terminate_node_infos.setter
+    def terminate_node_infos(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterTerminateNodeInfoArgs']]]]):
+        pulumi.set(self, "terminate_node_infos", value)
+
+    @property
     @pulumi.getter(name="timeSpan")
     def time_span(self) -> Optional[pulumi.Input[int]]:
         """
@@ -587,6 +760,7 @@ class Cluster(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 auto_renew: Optional[pulumi.Input[int]] = None,
                  display_strategy: Optional[pulumi.Input[str]] = None,
                  extend_fs_field: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
@@ -594,12 +768,15 @@ class Cluster(pulumi.CustomResource):
                  need_master_wan: Optional[pulumi.Input[str]] = None,
                  pay_mode: Optional[pulumi.Input[int]] = None,
                  placement: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 placement_info: Optional[pulumi.Input[pulumi.InputType['ClusterPlacementInfoArgs']]] = None,
+                 pre_executed_file_settings: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterPreExecutedFileSettingArgs']]]]] = None,
                  product_id: Optional[pulumi.Input[int]] = None,
                  resource_spec: Optional[pulumi.Input[pulumi.InputType['ClusterResourceSpecArgs']]] = None,
                  sg_id: Optional[pulumi.Input[str]] = None,
                  softwares: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  support_ha: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 terminate_node_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterTerminateNodeInfoArgs']]]]] = None,
                  time_span: Optional[pulumi.Input[int]] = None,
                  time_unit: Optional[pulumi.Input[str]] = None,
                  vpc_settings: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -608,25 +785,33 @@ class Cluster(pulumi.CustomResource):
         Create a Cluster resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] auto_renew: 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
         :param pulumi.Input[str] display_strategy: Display strategy of EMR instance.
         :param pulumi.Input[str] extend_fs_field: Access the external file system.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
-        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings.
+        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+               uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+               bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+               instance can be accessed through the corresponding private key.
         :param pulumi.Input[str] need_master_wan: Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
                Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
                cluster Master node internet is enabled.
         :param pulumi.Input[int] pay_mode: The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
         :param pulumi.Input[Mapping[str, Any]] placement: The location of the instance.
+        :param pulumi.Input[pulumi.InputType['ClusterPlacementInfoArgs']] placement_info: The location of the instance.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterPreExecutedFileSettingArgs']]]] pre_executed_file_settings: Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
         :param pulumi.Input[int] product_id: Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-               20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-               represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-               represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+               20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+               represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+               represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+               represents STARROCKS-V2.0.0.
         :param pulumi.Input[pulumi.InputType['ClusterResourceSpecArgs']] resource_spec: Resource specification of EMR instance.
         :param pulumi.Input[str] sg_id: The ID of the security group to which the instance belongs, in the form of sg-xxxxxxxx.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] softwares: The softwares of a EMR instance.
         :param pulumi.Input[int] support_ha: The flag whether the instance support high availability.(0=>not support, 1=>support).
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterTerminateNodeInfoArgs']]]] terminate_node_infos: Terminate nodes. Note: it only works when the number of nodes decreases.
         :param pulumi.Input[int] time_span: The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
                at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
                length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
@@ -657,6 +842,7 @@ class Cluster(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 auto_renew: Optional[pulumi.Input[int]] = None,
                  display_strategy: Optional[pulumi.Input[str]] = None,
                  extend_fs_field: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
@@ -664,12 +850,15 @@ class Cluster(pulumi.CustomResource):
                  need_master_wan: Optional[pulumi.Input[str]] = None,
                  pay_mode: Optional[pulumi.Input[int]] = None,
                  placement: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 placement_info: Optional[pulumi.Input[pulumi.InputType['ClusterPlacementInfoArgs']]] = None,
+                 pre_executed_file_settings: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterPreExecutedFileSettingArgs']]]]] = None,
                  product_id: Optional[pulumi.Input[int]] = None,
                  resource_spec: Optional[pulumi.Input[pulumi.InputType['ClusterResourceSpecArgs']]] = None,
                  sg_id: Optional[pulumi.Input[str]] = None,
                  softwares: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  support_ha: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 terminate_node_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterTerminateNodeInfoArgs']]]]] = None,
                  time_span: Optional[pulumi.Input[int]] = None,
                  time_unit: Optional[pulumi.Input[str]] = None,
                  vpc_settings: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -682,23 +871,26 @@ class Cluster(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ClusterArgs.__new__(ClusterArgs)
 
-            if display_strategy is None and not opts.urn:
-                raise TypeError("Missing required property 'display_strategy'")
+            __props__.__dict__["auto_renew"] = auto_renew
+            if display_strategy is not None and not opts.urn:
+                warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+                pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
             __props__.__dict__["display_strategy"] = display_strategy
             __props__.__dict__["extend_fs_field"] = extend_fs_field
             if instance_name is None and not opts.urn:
                 raise TypeError("Missing required property 'instance_name'")
             __props__.__dict__["instance_name"] = instance_name
-            if login_settings is None and not opts.urn:
-                raise TypeError("Missing required property 'login_settings'")
-            __props__.__dict__["login_settings"] = login_settings
+            __props__.__dict__["login_settings"] = None if login_settings is None else pulumi.Output.secret(login_settings)
             __props__.__dict__["need_master_wan"] = need_master_wan
             if pay_mode is None and not opts.urn:
                 raise TypeError("Missing required property 'pay_mode'")
             __props__.__dict__["pay_mode"] = pay_mode
-            if placement is None and not opts.urn:
-                raise TypeError("Missing required property 'placement'")
+            if placement is not None and not opts.urn:
+                warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+                pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
             __props__.__dict__["placement"] = placement
+            __props__.__dict__["placement_info"] = placement_info
+            __props__.__dict__["pre_executed_file_settings"] = pre_executed_file_settings
             if product_id is None and not opts.urn:
                 raise TypeError("Missing required property 'product_id'")
             __props__.__dict__["product_id"] = product_id
@@ -711,16 +903,15 @@ class Cluster(pulumi.CustomResource):
                 raise TypeError("Missing required property 'support_ha'")
             __props__.__dict__["support_ha"] = support_ha
             __props__.__dict__["tags"] = tags
-            if time_span is None and not opts.urn:
-                raise TypeError("Missing required property 'time_span'")
+            __props__.__dict__["terminate_node_infos"] = terminate_node_infos
             __props__.__dict__["time_span"] = time_span
-            if time_unit is None and not opts.urn:
-                raise TypeError("Missing required property 'time_unit'")
             __props__.__dict__["time_unit"] = time_unit
             if vpc_settings is None and not opts.urn:
                 raise TypeError("Missing required property 'vpc_settings'")
             __props__.__dict__["vpc_settings"] = vpc_settings
             __props__.__dict__["instance_id"] = None
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["loginSettings"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(Cluster, __self__).__init__(
             'tencentcloud:Emr/cluster:Cluster',
             resource_name,
@@ -731,6 +922,7 @@ class Cluster(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            auto_renew: Optional[pulumi.Input[int]] = None,
             display_strategy: Optional[pulumi.Input[str]] = None,
             extend_fs_field: Optional[pulumi.Input[str]] = None,
             instance_id: Optional[pulumi.Input[str]] = None,
@@ -739,12 +931,15 @@ class Cluster(pulumi.CustomResource):
             need_master_wan: Optional[pulumi.Input[str]] = None,
             pay_mode: Optional[pulumi.Input[int]] = None,
             placement: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+            placement_info: Optional[pulumi.Input[pulumi.InputType['ClusterPlacementInfoArgs']]] = None,
+            pre_executed_file_settings: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterPreExecutedFileSettingArgs']]]]] = None,
             product_id: Optional[pulumi.Input[int]] = None,
             resource_spec: Optional[pulumi.Input[pulumi.InputType['ClusterResourceSpecArgs']]] = None,
             sg_id: Optional[pulumi.Input[str]] = None,
             softwares: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             support_ha: Optional[pulumi.Input[int]] = None,
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+            terminate_node_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterTerminateNodeInfoArgs']]]]] = None,
             time_span: Optional[pulumi.Input[int]] = None,
             time_unit: Optional[pulumi.Input[str]] = None,
             vpc_settings: Optional[pulumi.Input[Mapping[str, Any]]] = None) -> 'Cluster':
@@ -755,26 +950,34 @@ class Cluster(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] auto_renew: 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
         :param pulumi.Input[str] display_strategy: Display strategy of EMR instance.
         :param pulumi.Input[str] extend_fs_field: Access the external file system.
         :param pulumi.Input[str] instance_id: Created EMR instance id.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
-        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings.
+        :param pulumi.Input[Mapping[str, Any]] login_settings: Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+               uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+               bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+               instance can be accessed through the corresponding private key.
         :param pulumi.Input[str] need_master_wan: Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
                Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
                cluster Master node internet is enabled.
         :param pulumi.Input[int] pay_mode: The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
         :param pulumi.Input[Mapping[str, Any]] placement: The location of the instance.
+        :param pulumi.Input[pulumi.InputType['ClusterPlacementInfoArgs']] placement_info: The location of the instance.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterPreExecutedFileSettingArgs']]]] pre_executed_file_settings: Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
         :param pulumi.Input[int] product_id: Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-               20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-               represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-               represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+               20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+               represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+               represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+               represents STARROCKS-V2.0.0.
         :param pulumi.Input[pulumi.InputType['ClusterResourceSpecArgs']] resource_spec: Resource specification of EMR instance.
         :param pulumi.Input[str] sg_id: The ID of the security group to which the instance belongs, in the form of sg-xxxxxxxx.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] softwares: The softwares of a EMR instance.
         :param pulumi.Input[int] support_ha: The flag whether the instance support high availability.(0=>not support, 1=>support).
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['ClusterTerminateNodeInfoArgs']]]] terminate_node_infos: Terminate nodes. Note: it only works when the number of nodes decreases.
         :param pulumi.Input[int] time_span: The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
                at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
                length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
@@ -786,6 +989,7 @@ class Cluster(pulumi.CustomResource):
 
         __props__ = _ClusterState.__new__(_ClusterState)
 
+        __props__.__dict__["auto_renew"] = auto_renew
         __props__.__dict__["display_strategy"] = display_strategy
         __props__.__dict__["extend_fs_field"] = extend_fs_field
         __props__.__dict__["instance_id"] = instance_id
@@ -794,23 +998,37 @@ class Cluster(pulumi.CustomResource):
         __props__.__dict__["need_master_wan"] = need_master_wan
         __props__.__dict__["pay_mode"] = pay_mode
         __props__.__dict__["placement"] = placement
+        __props__.__dict__["placement_info"] = placement_info
+        __props__.__dict__["pre_executed_file_settings"] = pre_executed_file_settings
         __props__.__dict__["product_id"] = product_id
         __props__.__dict__["resource_spec"] = resource_spec
         __props__.__dict__["sg_id"] = sg_id
         __props__.__dict__["softwares"] = softwares
         __props__.__dict__["support_ha"] = support_ha
         __props__.__dict__["tags"] = tags
+        __props__.__dict__["terminate_node_infos"] = terminate_node_infos
         __props__.__dict__["time_span"] = time_span
         __props__.__dict__["time_unit"] = time_unit
         __props__.__dict__["vpc_settings"] = vpc_settings
         return Cluster(resource_name, opts=opts, __props__=__props__)
 
     @property
+    @pulumi.getter(name="autoRenew")
+    def auto_renew(self) -> pulumi.Output[int]:
+        """
+        0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+        """
+        return pulumi.get(self, "auto_renew")
+
+    @property
     @pulumi.getter(name="displayStrategy")
-    def display_strategy(self) -> pulumi.Output[str]:
+    def display_strategy(self) -> pulumi.Output[Optional[str]]:
         """
         Display strategy of EMR instance.
         """
+        warnings.warn("""It will be deprecated in later versions.""", DeprecationWarning)
+        pulumi.log.warn("""display_strategy is deprecated: It will be deprecated in later versions.""")
+
         return pulumi.get(self, "display_strategy")
 
     @property
@@ -840,9 +1058,12 @@ class Cluster(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="loginSettings")
-    def login_settings(self) -> pulumi.Output[Mapping[str, Any]]:
+    def login_settings(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
         """
-        Instance login settings.
+        Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+        uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+        bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+        instance can be accessed through the corresponding private key.
         """
         return pulumi.get(self, "login_settings")
 
@@ -870,16 +1091,36 @@ class Cluster(pulumi.CustomResource):
         """
         The location of the instance.
         """
+        warnings.warn("""It will be deprecated in later versions. Use `placement_info` instead.""", DeprecationWarning)
+        pulumi.log.warn("""placement is deprecated: It will be deprecated in later versions. Use `placement_info` instead.""")
+
         return pulumi.get(self, "placement")
+
+    @property
+    @pulumi.getter(name="placementInfo")
+    def placement_info(self) -> pulumi.Output['outputs.ClusterPlacementInfo']:
+        """
+        The location of the instance.
+        """
+        return pulumi.get(self, "placement_info")
+
+    @property
+    @pulumi.getter(name="preExecutedFileSettings")
+    def pre_executed_file_settings(self) -> pulumi.Output[Optional[Sequence['outputs.ClusterPreExecutedFileSetting']]]:
+        """
+        Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+        """
+        return pulumi.get(self, "pre_executed_file_settings")
 
     @property
     @pulumi.getter(name="productId")
     def product_id(self) -> pulumi.Output[int]:
         """
         Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-        20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-        represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-        represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+        20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+        represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+        represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+        represents STARROCKS-V2.0.0.
         """
         return pulumi.get(self, "product_id")
 
@@ -924,8 +1165,16 @@ class Cluster(pulumi.CustomResource):
         return pulumi.get(self, "tags")
 
     @property
+    @pulumi.getter(name="terminateNodeInfos")
+    def terminate_node_infos(self) -> pulumi.Output[Optional[Sequence['outputs.ClusterTerminateNodeInfo']]]:
+        """
+        Terminate nodes. Note: it only works when the number of nodes decreases.
+        """
+        return pulumi.get(self, "terminate_node_infos")
+
+    @property
     @pulumi.getter(name="timeSpan")
-    def time_span(self) -> pulumi.Output[int]:
+    def time_span(self) -> pulumi.Output[Optional[int]]:
         """
         The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
         at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
@@ -935,7 +1184,7 @@ class Cluster(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="timeUnit")
-    def time_unit(self) -> pulumi.Output[str]:
+    def time_unit(self) -> pulumi.Output[Optional[str]]:
         """
         The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
         When PayMode is 1, TimeUnit can only take the value m(month).

@@ -35,6 +35,10 @@ export class NodePool extends pulumi.CustomResource {
     }
 
     /**
+     * Node Annotation List.
+     */
+    public readonly annotations!: pulumi.Output<outputs.Kubernetes.NodePoolAnnotation[]>;
+    /**
      * Auto scaling config parameters.
      */
     public readonly autoScalingConfig!: pulumi.Output<outputs.Kubernetes.NodePoolAutoScalingConfig>;
@@ -42,6 +46,13 @@ export class NodePool extends pulumi.CustomResource {
      * The auto scaling group ID.
      */
     public /*out*/ readonly autoScalingGroupId!: pulumi.Output<string>;
+    /**
+     * Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+     * updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+     * support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+     * effect immediately and there is a certain delay.
+     */
+    public readonly autoUpdateInstanceTags!: pulumi.Output<boolean>;
     /**
      * The total of autoscaling added node.
      */
@@ -125,6 +136,11 @@ export class NodePool extends pulumi.CustomResource {
      */
     public readonly retryPolicy!: pulumi.Output<string | undefined>;
     /**
+     * Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+     * Only can be set if `wait_node_ready` is `true`.
+     */
+    public readonly scaleTolerance!: pulumi.Output<number | undefined>;
+    /**
      * Name of relative scaling group.
      */
     public readonly scalingGroupName!: pulumi.Output<string>;
@@ -151,7 +167,7 @@ export class NodePool extends pulumi.CustomResource {
     /**
      * Node pool tag specifications, will passthroughs to the scaling instances.
      */
-    public readonly tags!: pulumi.Output<{[key: string]: any} | undefined>;
+    public readonly tags!: pulumi.Output<{[key: string]: any}>;
     /**
      * Taints of kubernetes node pool created nodes.
      */
@@ -168,6 +184,10 @@ export class NodePool extends pulumi.CustomResource {
      * ID of VPC network.
      */
     public readonly vpcId!: pulumi.Output<string>;
+    /**
+     * Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+     */
+    public readonly waitNodeReady!: pulumi.Output<boolean | undefined>;
     /**
      * List of auto scaling group available zones, for Basic network it is required.
      */
@@ -186,8 +206,10 @@ export class NodePool extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as NodePoolState | undefined;
+            resourceInputs["annotations"] = state ? state.annotations : undefined;
             resourceInputs["autoScalingConfig"] = state ? state.autoScalingConfig : undefined;
             resourceInputs["autoScalingGroupId"] = state ? state.autoScalingGroupId : undefined;
+            resourceInputs["autoUpdateInstanceTags"] = state ? state.autoUpdateInstanceTags : undefined;
             resourceInputs["autoscalingAddedTotal"] = state ? state.autoscalingAddedTotal : undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
             resourceInputs["defaultCooldown"] = state ? state.defaultCooldown : undefined;
@@ -207,6 +229,7 @@ export class NodePool extends pulumi.CustomResource {
             resourceInputs["nodeOs"] = state ? state.nodeOs : undefined;
             resourceInputs["nodeOsType"] = state ? state.nodeOsType : undefined;
             resourceInputs["retryPolicy"] = state ? state.retryPolicy : undefined;
+            resourceInputs["scaleTolerance"] = state ? state.scaleTolerance : undefined;
             resourceInputs["scalingGroupName"] = state ? state.scalingGroupName : undefined;
             resourceInputs["scalingGroupProjectId"] = state ? state.scalingGroupProjectId : undefined;
             resourceInputs["scalingMode"] = state ? state.scalingMode : undefined;
@@ -217,6 +240,7 @@ export class NodePool extends pulumi.CustomResource {
             resourceInputs["terminationPolicies"] = state ? state.terminationPolicies : undefined;
             resourceInputs["unschedulable"] = state ? state.unschedulable : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
+            resourceInputs["waitNodeReady"] = state ? state.waitNodeReady : undefined;
             resourceInputs["zones"] = state ? state.zones : undefined;
         } else {
             const args = argsOrState as NodePoolArgs | undefined;
@@ -235,7 +259,9 @@ export class NodePool extends pulumi.CustomResource {
             if ((!args || args.vpcId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'vpcId'");
             }
+            resourceInputs["annotations"] = args ? args.annotations : undefined;
             resourceInputs["autoScalingConfig"] = args ? args.autoScalingConfig : undefined;
+            resourceInputs["autoUpdateInstanceTags"] = args ? args.autoUpdateInstanceTags : undefined;
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
             resourceInputs["defaultCooldown"] = args ? args.defaultCooldown : undefined;
             resourceInputs["deleteKeepInstance"] = args ? args.deleteKeepInstance : undefined;
@@ -251,6 +277,7 @@ export class NodePool extends pulumi.CustomResource {
             resourceInputs["nodeOs"] = args ? args.nodeOs : undefined;
             resourceInputs["nodeOsType"] = args ? args.nodeOsType : undefined;
             resourceInputs["retryPolicy"] = args ? args.retryPolicy : undefined;
+            resourceInputs["scaleTolerance"] = args ? args.scaleTolerance : undefined;
             resourceInputs["scalingGroupName"] = args ? args.scalingGroupName : undefined;
             resourceInputs["scalingGroupProjectId"] = args ? args.scalingGroupProjectId : undefined;
             resourceInputs["scalingMode"] = args ? args.scalingMode : undefined;
@@ -260,6 +287,7 @@ export class NodePool extends pulumi.CustomResource {
             resourceInputs["terminationPolicies"] = args ? args.terminationPolicies : undefined;
             resourceInputs["unschedulable"] = args ? args.unschedulable : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["waitNodeReady"] = args ? args.waitNodeReady : undefined;
             resourceInputs["zones"] = args ? args.zones : undefined;
             resourceInputs["autoScalingGroupId"] = undefined /*out*/;
             resourceInputs["autoscalingAddedTotal"] = undefined /*out*/;
@@ -278,6 +306,10 @@ export class NodePool extends pulumi.CustomResource {
  */
 export interface NodePoolState {
     /**
+     * Node Annotation List.
+     */
+    annotations?: pulumi.Input<pulumi.Input<inputs.Kubernetes.NodePoolAnnotation>[]>;
+    /**
      * Auto scaling config parameters.
      */
     autoScalingConfig?: pulumi.Input<inputs.Kubernetes.NodePoolAutoScalingConfig>;
@@ -285,6 +317,13 @@ export interface NodePoolState {
      * The auto scaling group ID.
      */
     autoScalingGroupId?: pulumi.Input<string>;
+    /**
+     * Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+     * updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+     * support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+     * effect immediately and there is a certain delay.
+     */
+    autoUpdateInstanceTags?: pulumi.Input<boolean>;
     /**
      * The total of autoscaling added node.
      */
@@ -368,6 +407,11 @@ export interface NodePoolState {
      */
     retryPolicy?: pulumi.Input<string>;
     /**
+     * Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+     * Only can be set if `wait_node_ready` is `true`.
+     */
+    scaleTolerance?: pulumi.Input<number>;
+    /**
      * Name of relative scaling group.
      */
     scalingGroupName?: pulumi.Input<string>;
@@ -412,6 +456,10 @@ export interface NodePoolState {
      */
     vpcId?: pulumi.Input<string>;
     /**
+     * Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+     */
+    waitNodeReady?: pulumi.Input<boolean>;
+    /**
      * List of auto scaling group available zones, for Basic network it is required.
      */
     zones?: pulumi.Input<pulumi.Input<string>[]>;
@@ -422,9 +470,20 @@ export interface NodePoolState {
  */
 export interface NodePoolArgs {
     /**
+     * Node Annotation List.
+     */
+    annotations?: pulumi.Input<pulumi.Input<inputs.Kubernetes.NodePoolAnnotation>[]>;
+    /**
      * Auto scaling config parameters.
      */
     autoScalingConfig: pulumi.Input<inputs.Kubernetes.NodePoolAutoScalingConfig>;
+    /**
+     * Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+     * updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+     * support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+     * effect immediately and there is a certain delay.
+     */
+    autoUpdateInstanceTags?: pulumi.Input<boolean>;
     /**
      * ID of the cluster.
      */
@@ -492,6 +551,11 @@ export interface NodePoolArgs {
      */
     retryPolicy?: pulumi.Input<string>;
     /**
+     * Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+     * Only can be set if `wait_node_ready` is `true`.
+     */
+    scaleTolerance?: pulumi.Input<number>;
+    /**
      * Name of relative scaling group.
      */
     scalingGroupName?: pulumi.Input<string>;
@@ -531,6 +595,10 @@ export interface NodePoolArgs {
      * ID of VPC network.
      */
     vpcId: pulumi.Input<string>;
+    /**
+     * Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+     */
+    waitNodeReady?: pulumi.Input<boolean>;
     /**
      * List of auto scaling group available zones, for Basic network it is required.
      */

@@ -17,24 +17,26 @@ type Resource struct {
 
 	// Automatic renewal. 1 is auto renew flag, 0 is not.
 	AutoRenewFlag pulumi.IntOutput `pulumi:"autoRenewFlag"`
+	// Subnet segments that require service activation.
+	CidrBlock pulumi.StringOutput `pulumi:"cidrBlock"`
 	// Deploy region.
 	DeployRegion pulumi.StringOutput `pulumi:"deployRegion"`
 	// Deploy zone.
-	DeployZone pulumi.StringPtrOutput `pulumi:"deployZone"`
-	// Number of bandwidth expansion packets (4M).
+	DeployZone pulumi.StringOutput `pulumi:"deployZone"`
+	// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 	PackageBandwidth pulumi.IntOutput `pulumi:"packageBandwidth"`
-	// Number of authorized point extension packages (50 points).
-	PackageNode pulumi.IntOutput `pulumi:"packageNode"`
 	// Resource type.Value:standard/pro.
 	ResourceEdition pulumi.StringOutput `pulumi:"resourceEdition"`
 	// Number of resource nodes.
 	ResourceNode pulumi.IntOutput `pulumi:"resourceNode"`
 	// Deploy resource subnetId.
 	SubnetId pulumi.StringOutput `pulumi:"subnetId"`
-	// Billing time.
-	TimeSpan pulumi.IntOutput `pulumi:"timeSpan"`
-	// Billing cycle, only support m: month.
-	TimeUnit pulumi.StringOutput `pulumi:"timeUnit"`
+	// Billing time. This field is mandatory, with a minimum value of 1.
+	TimeSpan pulumi.IntPtrOutput `pulumi:"timeSpan"`
+	// Billing cycle, only support m: month. This field is mandatory, fill in m.
+	TimeUnit pulumi.StringPtrOutput `pulumi:"timeUnit"`
+	// The network segment corresponding to the VPC that requires service activation.
+	VpcCidrBlock pulumi.StringOutput `pulumi:"vpcCidrBlock"`
 	// Deploy resource vpcId.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
 }
@@ -49,8 +51,14 @@ func NewResource(ctx *pulumi.Context,
 	if args.AutoRenewFlag == nil {
 		return nil, errors.New("invalid value for required argument 'AutoRenewFlag'")
 	}
+	if args.CidrBlock == nil {
+		return nil, errors.New("invalid value for required argument 'CidrBlock'")
+	}
 	if args.DeployRegion == nil {
 		return nil, errors.New("invalid value for required argument 'DeployRegion'")
+	}
+	if args.DeployZone == nil {
+		return nil, errors.New("invalid value for required argument 'DeployZone'")
 	}
 	if args.ResourceEdition == nil {
 		return nil, errors.New("invalid value for required argument 'ResourceEdition'")
@@ -61,11 +69,8 @@ func NewResource(ctx *pulumi.Context,
 	if args.SubnetId == nil {
 		return nil, errors.New("invalid value for required argument 'SubnetId'")
 	}
-	if args.TimeSpan == nil {
-		return nil, errors.New("invalid value for required argument 'TimeSpan'")
-	}
-	if args.TimeUnit == nil {
-		return nil, errors.New("invalid value for required argument 'TimeUnit'")
+	if args.VpcCidrBlock == nil {
+		return nil, errors.New("invalid value for required argument 'VpcCidrBlock'")
 	}
 	if args.VpcId == nil {
 		return nil, errors.New("invalid value for required argument 'VpcId'")
@@ -95,24 +100,26 @@ func GetResource(ctx *pulumi.Context,
 type resourceState struct {
 	// Automatic renewal. 1 is auto renew flag, 0 is not.
 	AutoRenewFlag *int `pulumi:"autoRenewFlag"`
+	// Subnet segments that require service activation.
+	CidrBlock *string `pulumi:"cidrBlock"`
 	// Deploy region.
 	DeployRegion *string `pulumi:"deployRegion"`
 	// Deploy zone.
 	DeployZone *string `pulumi:"deployZone"`
-	// Number of bandwidth expansion packets (4M).
+	// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 	PackageBandwidth *int `pulumi:"packageBandwidth"`
-	// Number of authorized point extension packages (50 points).
-	PackageNode *int `pulumi:"packageNode"`
 	// Resource type.Value:standard/pro.
 	ResourceEdition *string `pulumi:"resourceEdition"`
 	// Number of resource nodes.
 	ResourceNode *int `pulumi:"resourceNode"`
 	// Deploy resource subnetId.
 	SubnetId *string `pulumi:"subnetId"`
-	// Billing time.
+	// Billing time. This field is mandatory, with a minimum value of 1.
 	TimeSpan *int `pulumi:"timeSpan"`
-	// Billing cycle, only support m: month.
+	// Billing cycle, only support m: month. This field is mandatory, fill in m.
 	TimeUnit *string `pulumi:"timeUnit"`
+	// The network segment corresponding to the VPC that requires service activation.
+	VpcCidrBlock *string `pulumi:"vpcCidrBlock"`
 	// Deploy resource vpcId.
 	VpcId *string `pulumi:"vpcId"`
 }
@@ -120,24 +127,26 @@ type resourceState struct {
 type ResourceState struct {
 	// Automatic renewal. 1 is auto renew flag, 0 is not.
 	AutoRenewFlag pulumi.IntPtrInput
+	// Subnet segments that require service activation.
+	CidrBlock pulumi.StringPtrInput
 	// Deploy region.
 	DeployRegion pulumi.StringPtrInput
 	// Deploy zone.
 	DeployZone pulumi.StringPtrInput
-	// Number of bandwidth expansion packets (4M).
+	// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 	PackageBandwidth pulumi.IntPtrInput
-	// Number of authorized point extension packages (50 points).
-	PackageNode pulumi.IntPtrInput
 	// Resource type.Value:standard/pro.
 	ResourceEdition pulumi.StringPtrInput
 	// Number of resource nodes.
 	ResourceNode pulumi.IntPtrInput
 	// Deploy resource subnetId.
 	SubnetId pulumi.StringPtrInput
-	// Billing time.
+	// Billing time. This field is mandatory, with a minimum value of 1.
 	TimeSpan pulumi.IntPtrInput
-	// Billing cycle, only support m: month.
+	// Billing cycle, only support m: month. This field is mandatory, fill in m.
 	TimeUnit pulumi.StringPtrInput
+	// The network segment corresponding to the VPC that requires service activation.
+	VpcCidrBlock pulumi.StringPtrInput
 	// Deploy resource vpcId.
 	VpcId pulumi.StringPtrInput
 }
@@ -149,24 +158,26 @@ func (ResourceState) ElementType() reflect.Type {
 type resourceArgs struct {
 	// Automatic renewal. 1 is auto renew flag, 0 is not.
 	AutoRenewFlag int `pulumi:"autoRenewFlag"`
+	// Subnet segments that require service activation.
+	CidrBlock string `pulumi:"cidrBlock"`
 	// Deploy region.
 	DeployRegion string `pulumi:"deployRegion"`
 	// Deploy zone.
-	DeployZone *string `pulumi:"deployZone"`
-	// Number of bandwidth expansion packets (4M).
+	DeployZone string `pulumi:"deployZone"`
+	// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 	PackageBandwidth *int `pulumi:"packageBandwidth"`
-	// Number of authorized point extension packages (50 points).
-	PackageNode *int `pulumi:"packageNode"`
 	// Resource type.Value:standard/pro.
 	ResourceEdition string `pulumi:"resourceEdition"`
 	// Number of resource nodes.
 	ResourceNode int `pulumi:"resourceNode"`
 	// Deploy resource subnetId.
 	SubnetId string `pulumi:"subnetId"`
-	// Billing time.
-	TimeSpan int `pulumi:"timeSpan"`
-	// Billing cycle, only support m: month.
-	TimeUnit string `pulumi:"timeUnit"`
+	// Billing time. This field is mandatory, with a minimum value of 1.
+	TimeSpan *int `pulumi:"timeSpan"`
+	// Billing cycle, only support m: month. This field is mandatory, fill in m.
+	TimeUnit *string `pulumi:"timeUnit"`
+	// The network segment corresponding to the VPC that requires service activation.
+	VpcCidrBlock string `pulumi:"vpcCidrBlock"`
 	// Deploy resource vpcId.
 	VpcId string `pulumi:"vpcId"`
 }
@@ -175,24 +186,26 @@ type resourceArgs struct {
 type ResourceArgs struct {
 	// Automatic renewal. 1 is auto renew flag, 0 is not.
 	AutoRenewFlag pulumi.IntInput
+	// Subnet segments that require service activation.
+	CidrBlock pulumi.StringInput
 	// Deploy region.
 	DeployRegion pulumi.StringInput
 	// Deploy zone.
-	DeployZone pulumi.StringPtrInput
-	// Number of bandwidth expansion packets (4M).
+	DeployZone pulumi.StringInput
+	// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 	PackageBandwidth pulumi.IntPtrInput
-	// Number of authorized point extension packages (50 points).
-	PackageNode pulumi.IntPtrInput
 	// Resource type.Value:standard/pro.
 	ResourceEdition pulumi.StringInput
 	// Number of resource nodes.
 	ResourceNode pulumi.IntInput
 	// Deploy resource subnetId.
 	SubnetId pulumi.StringInput
-	// Billing time.
-	TimeSpan pulumi.IntInput
-	// Billing cycle, only support m: month.
-	TimeUnit pulumi.StringInput
+	// Billing time. This field is mandatory, with a minimum value of 1.
+	TimeSpan pulumi.IntPtrInput
+	// Billing cycle, only support m: month. This field is mandatory, fill in m.
+	TimeUnit pulumi.StringPtrInput
+	// The network segment corresponding to the VPC that requires service activation.
+	VpcCidrBlock pulumi.StringInput
 	// Deploy resource vpcId.
 	VpcId pulumi.StringInput
 }
@@ -289,24 +302,24 @@ func (o ResourceOutput) AutoRenewFlag() pulumi.IntOutput {
 	return o.ApplyT(func(v *Resource) pulumi.IntOutput { return v.AutoRenewFlag }).(pulumi.IntOutput)
 }
 
+// Subnet segments that require service activation.
+func (o ResourceOutput) CidrBlock() pulumi.StringOutput {
+	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.CidrBlock }).(pulumi.StringOutput)
+}
+
 // Deploy region.
 func (o ResourceOutput) DeployRegion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.DeployRegion }).(pulumi.StringOutput)
 }
 
 // Deploy zone.
-func (o ResourceOutput) DeployZone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Resource) pulumi.StringPtrOutput { return v.DeployZone }).(pulumi.StringPtrOutput)
+func (o ResourceOutput) DeployZone() pulumi.StringOutput {
+	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.DeployZone }).(pulumi.StringOutput)
 }
 
-// Number of bandwidth expansion packets (4M).
+// Number of bandwidth expansion packets (4M), The set value is an integer multiple of 4.
 func (o ResourceOutput) PackageBandwidth() pulumi.IntOutput {
 	return o.ApplyT(func(v *Resource) pulumi.IntOutput { return v.PackageBandwidth }).(pulumi.IntOutput)
-}
-
-// Number of authorized point extension packages (50 points).
-func (o ResourceOutput) PackageNode() pulumi.IntOutput {
-	return o.ApplyT(func(v *Resource) pulumi.IntOutput { return v.PackageNode }).(pulumi.IntOutput)
 }
 
 // Resource type.Value:standard/pro.
@@ -324,14 +337,19 @@ func (o ResourceOutput) SubnetId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.SubnetId }).(pulumi.StringOutput)
 }
 
-// Billing time.
-func (o ResourceOutput) TimeSpan() pulumi.IntOutput {
-	return o.ApplyT(func(v *Resource) pulumi.IntOutput { return v.TimeSpan }).(pulumi.IntOutput)
+// Billing time. This field is mandatory, with a minimum value of 1.
+func (o ResourceOutput) TimeSpan() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Resource) pulumi.IntPtrOutput { return v.TimeSpan }).(pulumi.IntPtrOutput)
 }
 
-// Billing cycle, only support m: month.
-func (o ResourceOutput) TimeUnit() pulumi.StringOutput {
-	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.TimeUnit }).(pulumi.StringOutput)
+// Billing cycle, only support m: month. This field is mandatory, fill in m.
+func (o ResourceOutput) TimeUnit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Resource) pulumi.StringPtrOutput { return v.TimeUnit }).(pulumi.StringPtrOutput)
+}
+
+// The network segment corresponding to the VPC that requires service activation.
+func (o ResourceOutput) VpcCidrBlock() pulumi.StringOutput {
+	return o.ApplyT(func(v *Resource) pulumi.StringOutput { return v.VpcCidrBlock }).(pulumi.StringOutput)
 }
 
 // Deploy resource vpcId.

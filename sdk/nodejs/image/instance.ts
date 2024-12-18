@@ -47,6 +47,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly imageDescription!: pulumi.Output<string | undefined>;
     /**
+     * Set image family. Example value: `business-daily-update`.
+     */
+    public readonly imageFamily!: pulumi.Output<string | undefined>;
+    /**
      * Image name.
      */
     public readonly imageName!: pulumi.Output<string>;
@@ -85,6 +89,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["dataDiskIds"] = state ? state.dataDiskIds : undefined;
             resourceInputs["forcePoweroff"] = state ? state.forcePoweroff : undefined;
             resourceInputs["imageDescription"] = state ? state.imageDescription : undefined;
+            resourceInputs["imageFamily"] = state ? state.imageFamily : undefined;
             resourceInputs["imageName"] = state ? state.imageName : undefined;
             resourceInputs["instanceId"] = state ? state.instanceId : undefined;
             resourceInputs["snapshotIds"] = state ? state.snapshotIds : undefined;
@@ -98,6 +103,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["dataDiskIds"] = args ? args.dataDiskIds : undefined;
             resourceInputs["forcePoweroff"] = args ? args.forcePoweroff : undefined;
             resourceInputs["imageDescription"] = args ? args.imageDescription : undefined;
+            resourceInputs["imageFamily"] = args ? args.imageFamily : undefined;
             resourceInputs["imageName"] = args ? args.imageName : undefined;
             resourceInputs["instanceId"] = args ? args.instanceId : undefined;
             resourceInputs["snapshotIds"] = args ? args.snapshotIds : undefined;
@@ -127,6 +133,10 @@ export interface InstanceState {
      * Image Description.
      */
     imageDescription?: pulumi.Input<string>;
+    /**
+     * Set image family. Example value: `business-daily-update`.
+     */
+    imageFamily?: pulumi.Input<string>;
     /**
      * Image name.
      */
@@ -169,6 +179,10 @@ export interface InstanceArgs {
      * Image Description.
      */
     imageDescription?: pulumi.Input<string>;
+    /**
+     * Set image family. Example value: `business-daily-update`.
+     */
+    imageFamily?: pulumi.Input<string>;
     /**
      * Image name.
      */

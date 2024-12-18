@@ -22,6 +22,7 @@ class InstanceDataDiskArgs:
                  data_disk_id: Optional[pulumi.Input[str]] = None,
                  data_disk_snapshot_id: Optional[pulumi.Input[str]] = None,
                  delete_with_instance: Optional[pulumi.Input[bool]] = None,
+                 delete_with_instance_prepaid: Optional[pulumi.Input[bool]] = None,
                  encrypt: Optional[pulumi.Input[bool]] = None,
                  throughput_performance: Optional[pulumi.Input[int]] = None):
         pulumi.set(__self__, "data_disk_size", data_disk_size)
@@ -32,6 +33,8 @@ class InstanceDataDiskArgs:
             pulumi.set(__self__, "data_disk_snapshot_id", data_disk_snapshot_id)
         if delete_with_instance is not None:
             pulumi.set(__self__, "delete_with_instance", delete_with_instance)
+        if delete_with_instance_prepaid is not None:
+            pulumi.set(__self__, "delete_with_instance_prepaid", delete_with_instance_prepaid)
         if encrypt is not None:
             pulumi.set(__self__, "encrypt", encrypt)
         if throughput_performance is not None:
@@ -81,6 +84,15 @@ class InstanceDataDiskArgs:
     @delete_with_instance.setter
     def delete_with_instance(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "delete_with_instance", value)
+
+    @property
+    @pulumi.getter(name="deleteWithInstancePrepaid")
+    def delete_with_instance_prepaid(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "delete_with_instance_prepaid")
+
+    @delete_with_instance_prepaid.setter
+    def delete_with_instance_prepaid(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "delete_with_instance_prepaid", value)
 
     @property
     @pulumi.getter

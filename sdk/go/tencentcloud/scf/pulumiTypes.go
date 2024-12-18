@@ -13,6 +13,511 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type CustomDomainCertConfig struct {
+	CertificateId *string `pulumi:"certificateId"`
+}
+
+// CustomDomainCertConfigInput is an input type that accepts CustomDomainCertConfigArgs and CustomDomainCertConfigOutput values.
+// You can construct a concrete instance of `CustomDomainCertConfigInput` via:
+//
+//	CustomDomainCertConfigArgs{...}
+type CustomDomainCertConfigInput interface {
+	pulumi.Input
+
+	ToCustomDomainCertConfigOutput() CustomDomainCertConfigOutput
+	ToCustomDomainCertConfigOutputWithContext(context.Context) CustomDomainCertConfigOutput
+}
+
+type CustomDomainCertConfigArgs struct {
+	CertificateId pulumi.StringPtrInput `pulumi:"certificateId"`
+}
+
+func (CustomDomainCertConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainCertConfig)(nil)).Elem()
+}
+
+func (i CustomDomainCertConfigArgs) ToCustomDomainCertConfigOutput() CustomDomainCertConfigOutput {
+	return i.ToCustomDomainCertConfigOutputWithContext(context.Background())
+}
+
+func (i CustomDomainCertConfigArgs) ToCustomDomainCertConfigOutputWithContext(ctx context.Context) CustomDomainCertConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainCertConfigOutput)
+}
+
+func (i CustomDomainCertConfigArgs) ToCustomDomainCertConfigPtrOutput() CustomDomainCertConfigPtrOutput {
+	return i.ToCustomDomainCertConfigPtrOutputWithContext(context.Background())
+}
+
+func (i CustomDomainCertConfigArgs) ToCustomDomainCertConfigPtrOutputWithContext(ctx context.Context) CustomDomainCertConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainCertConfigOutput).ToCustomDomainCertConfigPtrOutputWithContext(ctx)
+}
+
+// CustomDomainCertConfigPtrInput is an input type that accepts CustomDomainCertConfigArgs, CustomDomainCertConfigPtr and CustomDomainCertConfigPtrOutput values.
+// You can construct a concrete instance of `CustomDomainCertConfigPtrInput` via:
+//
+//	        CustomDomainCertConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomDomainCertConfigPtrInput interface {
+	pulumi.Input
+
+	ToCustomDomainCertConfigPtrOutput() CustomDomainCertConfigPtrOutput
+	ToCustomDomainCertConfigPtrOutputWithContext(context.Context) CustomDomainCertConfigPtrOutput
+}
+
+type customDomainCertConfigPtrType CustomDomainCertConfigArgs
+
+func CustomDomainCertConfigPtr(v *CustomDomainCertConfigArgs) CustomDomainCertConfigPtrInput {
+	return (*customDomainCertConfigPtrType)(v)
+}
+
+func (*customDomainCertConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomDomainCertConfig)(nil)).Elem()
+}
+
+func (i *customDomainCertConfigPtrType) ToCustomDomainCertConfigPtrOutput() CustomDomainCertConfigPtrOutput {
+	return i.ToCustomDomainCertConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *customDomainCertConfigPtrType) ToCustomDomainCertConfigPtrOutputWithContext(ctx context.Context) CustomDomainCertConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainCertConfigPtrOutput)
+}
+
+type CustomDomainCertConfigOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainCertConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainCertConfig)(nil)).Elem()
+}
+
+func (o CustomDomainCertConfigOutput) ToCustomDomainCertConfigOutput() CustomDomainCertConfigOutput {
+	return o
+}
+
+func (o CustomDomainCertConfigOutput) ToCustomDomainCertConfigOutputWithContext(ctx context.Context) CustomDomainCertConfigOutput {
+	return o
+}
+
+func (o CustomDomainCertConfigOutput) ToCustomDomainCertConfigPtrOutput() CustomDomainCertConfigPtrOutput {
+	return o.ToCustomDomainCertConfigPtrOutputWithContext(context.Background())
+}
+
+func (o CustomDomainCertConfigOutput) ToCustomDomainCertConfigPtrOutputWithContext(ctx context.Context) CustomDomainCertConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomDomainCertConfig) *CustomDomainCertConfig {
+		return &v
+	}).(CustomDomainCertConfigPtrOutput)
+}
+
+func (o CustomDomainCertConfigOutput) CertificateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomDomainCertConfig) *string { return v.CertificateId }).(pulumi.StringPtrOutput)
+}
+
+type CustomDomainCertConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainCertConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomDomainCertConfig)(nil)).Elem()
+}
+
+func (o CustomDomainCertConfigPtrOutput) ToCustomDomainCertConfigPtrOutput() CustomDomainCertConfigPtrOutput {
+	return o
+}
+
+func (o CustomDomainCertConfigPtrOutput) ToCustomDomainCertConfigPtrOutputWithContext(ctx context.Context) CustomDomainCertConfigPtrOutput {
+	return o
+}
+
+func (o CustomDomainCertConfigPtrOutput) Elem() CustomDomainCertConfigOutput {
+	return o.ApplyT(func(v *CustomDomainCertConfig) CustomDomainCertConfig {
+		if v != nil {
+			return *v
+		}
+		var ret CustomDomainCertConfig
+		return ret
+	}).(CustomDomainCertConfigOutput)
+}
+
+func (o CustomDomainCertConfigPtrOutput) CertificateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomDomainCertConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CertificateId
+	}).(pulumi.StringPtrOutput)
+}
+
+type CustomDomainEndpointsConfig struct {
+	FunctionName string                                   `pulumi:"functionName"`
+	Namespace    string                                   `pulumi:"namespace"`
+	PathMatch    string                                   `pulumi:"pathMatch"`
+	PathRewrites []CustomDomainEndpointsConfigPathRewrite `pulumi:"pathRewrites"`
+	Qualifier    string                                   `pulumi:"qualifier"`
+}
+
+// CustomDomainEndpointsConfigInput is an input type that accepts CustomDomainEndpointsConfigArgs and CustomDomainEndpointsConfigOutput values.
+// You can construct a concrete instance of `CustomDomainEndpointsConfigInput` via:
+//
+//	CustomDomainEndpointsConfigArgs{...}
+type CustomDomainEndpointsConfigInput interface {
+	pulumi.Input
+
+	ToCustomDomainEndpointsConfigOutput() CustomDomainEndpointsConfigOutput
+	ToCustomDomainEndpointsConfigOutputWithContext(context.Context) CustomDomainEndpointsConfigOutput
+}
+
+type CustomDomainEndpointsConfigArgs struct {
+	FunctionName pulumi.StringInput                               `pulumi:"functionName"`
+	Namespace    pulumi.StringInput                               `pulumi:"namespace"`
+	PathMatch    pulumi.StringInput                               `pulumi:"pathMatch"`
+	PathRewrites CustomDomainEndpointsConfigPathRewriteArrayInput `pulumi:"pathRewrites"`
+	Qualifier    pulumi.StringInput                               `pulumi:"qualifier"`
+}
+
+func (CustomDomainEndpointsConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainEndpointsConfig)(nil)).Elem()
+}
+
+func (i CustomDomainEndpointsConfigArgs) ToCustomDomainEndpointsConfigOutput() CustomDomainEndpointsConfigOutput {
+	return i.ToCustomDomainEndpointsConfigOutputWithContext(context.Background())
+}
+
+func (i CustomDomainEndpointsConfigArgs) ToCustomDomainEndpointsConfigOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainEndpointsConfigOutput)
+}
+
+// CustomDomainEndpointsConfigArrayInput is an input type that accepts CustomDomainEndpointsConfigArray and CustomDomainEndpointsConfigArrayOutput values.
+// You can construct a concrete instance of `CustomDomainEndpointsConfigArrayInput` via:
+//
+//	CustomDomainEndpointsConfigArray{ CustomDomainEndpointsConfigArgs{...} }
+type CustomDomainEndpointsConfigArrayInput interface {
+	pulumi.Input
+
+	ToCustomDomainEndpointsConfigArrayOutput() CustomDomainEndpointsConfigArrayOutput
+	ToCustomDomainEndpointsConfigArrayOutputWithContext(context.Context) CustomDomainEndpointsConfigArrayOutput
+}
+
+type CustomDomainEndpointsConfigArray []CustomDomainEndpointsConfigInput
+
+func (CustomDomainEndpointsConfigArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomDomainEndpointsConfig)(nil)).Elem()
+}
+
+func (i CustomDomainEndpointsConfigArray) ToCustomDomainEndpointsConfigArrayOutput() CustomDomainEndpointsConfigArrayOutput {
+	return i.ToCustomDomainEndpointsConfigArrayOutputWithContext(context.Background())
+}
+
+func (i CustomDomainEndpointsConfigArray) ToCustomDomainEndpointsConfigArrayOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainEndpointsConfigArrayOutput)
+}
+
+type CustomDomainEndpointsConfigOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainEndpointsConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainEndpointsConfig)(nil)).Elem()
+}
+
+func (o CustomDomainEndpointsConfigOutput) ToCustomDomainEndpointsConfigOutput() CustomDomainEndpointsConfigOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigOutput) ToCustomDomainEndpointsConfigOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigOutput) FunctionName() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfig) string { return v.FunctionName }).(pulumi.StringOutput)
+}
+
+func (o CustomDomainEndpointsConfigOutput) Namespace() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfig) string { return v.Namespace }).(pulumi.StringOutput)
+}
+
+func (o CustomDomainEndpointsConfigOutput) PathMatch() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfig) string { return v.PathMatch }).(pulumi.StringOutput)
+}
+
+func (o CustomDomainEndpointsConfigOutput) PathRewrites() CustomDomainEndpointsConfigPathRewriteArrayOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfig) []CustomDomainEndpointsConfigPathRewrite { return v.PathRewrites }).(CustomDomainEndpointsConfigPathRewriteArrayOutput)
+}
+
+func (o CustomDomainEndpointsConfigOutput) Qualifier() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfig) string { return v.Qualifier }).(pulumi.StringOutput)
+}
+
+type CustomDomainEndpointsConfigArrayOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainEndpointsConfigArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomDomainEndpointsConfig)(nil)).Elem()
+}
+
+func (o CustomDomainEndpointsConfigArrayOutput) ToCustomDomainEndpointsConfigArrayOutput() CustomDomainEndpointsConfigArrayOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigArrayOutput) ToCustomDomainEndpointsConfigArrayOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigArrayOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigArrayOutput) Index(i pulumi.IntInput) CustomDomainEndpointsConfigOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CustomDomainEndpointsConfig {
+		return vs[0].([]CustomDomainEndpointsConfig)[vs[1].(int)]
+	}).(CustomDomainEndpointsConfigOutput)
+}
+
+type CustomDomainEndpointsConfigPathRewrite struct {
+	Path    string `pulumi:"path"`
+	Rewrite string `pulumi:"rewrite"`
+	Type    string `pulumi:"type"`
+}
+
+// CustomDomainEndpointsConfigPathRewriteInput is an input type that accepts CustomDomainEndpointsConfigPathRewriteArgs and CustomDomainEndpointsConfigPathRewriteOutput values.
+// You can construct a concrete instance of `CustomDomainEndpointsConfigPathRewriteInput` via:
+//
+//	CustomDomainEndpointsConfigPathRewriteArgs{...}
+type CustomDomainEndpointsConfigPathRewriteInput interface {
+	pulumi.Input
+
+	ToCustomDomainEndpointsConfigPathRewriteOutput() CustomDomainEndpointsConfigPathRewriteOutput
+	ToCustomDomainEndpointsConfigPathRewriteOutputWithContext(context.Context) CustomDomainEndpointsConfigPathRewriteOutput
+}
+
+type CustomDomainEndpointsConfigPathRewriteArgs struct {
+	Path    pulumi.StringInput `pulumi:"path"`
+	Rewrite pulumi.StringInput `pulumi:"rewrite"`
+	Type    pulumi.StringInput `pulumi:"type"`
+}
+
+func (CustomDomainEndpointsConfigPathRewriteArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainEndpointsConfigPathRewrite)(nil)).Elem()
+}
+
+func (i CustomDomainEndpointsConfigPathRewriteArgs) ToCustomDomainEndpointsConfigPathRewriteOutput() CustomDomainEndpointsConfigPathRewriteOutput {
+	return i.ToCustomDomainEndpointsConfigPathRewriteOutputWithContext(context.Background())
+}
+
+func (i CustomDomainEndpointsConfigPathRewriteArgs) ToCustomDomainEndpointsConfigPathRewriteOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigPathRewriteOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainEndpointsConfigPathRewriteOutput)
+}
+
+// CustomDomainEndpointsConfigPathRewriteArrayInput is an input type that accepts CustomDomainEndpointsConfigPathRewriteArray and CustomDomainEndpointsConfigPathRewriteArrayOutput values.
+// You can construct a concrete instance of `CustomDomainEndpointsConfigPathRewriteArrayInput` via:
+//
+//	CustomDomainEndpointsConfigPathRewriteArray{ CustomDomainEndpointsConfigPathRewriteArgs{...} }
+type CustomDomainEndpointsConfigPathRewriteArrayInput interface {
+	pulumi.Input
+
+	ToCustomDomainEndpointsConfigPathRewriteArrayOutput() CustomDomainEndpointsConfigPathRewriteArrayOutput
+	ToCustomDomainEndpointsConfigPathRewriteArrayOutputWithContext(context.Context) CustomDomainEndpointsConfigPathRewriteArrayOutput
+}
+
+type CustomDomainEndpointsConfigPathRewriteArray []CustomDomainEndpointsConfigPathRewriteInput
+
+func (CustomDomainEndpointsConfigPathRewriteArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomDomainEndpointsConfigPathRewrite)(nil)).Elem()
+}
+
+func (i CustomDomainEndpointsConfigPathRewriteArray) ToCustomDomainEndpointsConfigPathRewriteArrayOutput() CustomDomainEndpointsConfigPathRewriteArrayOutput {
+	return i.ToCustomDomainEndpointsConfigPathRewriteArrayOutputWithContext(context.Background())
+}
+
+func (i CustomDomainEndpointsConfigPathRewriteArray) ToCustomDomainEndpointsConfigPathRewriteArrayOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigPathRewriteArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainEndpointsConfigPathRewriteArrayOutput)
+}
+
+type CustomDomainEndpointsConfigPathRewriteOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainEndpointsConfigPathRewriteOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainEndpointsConfigPathRewrite)(nil)).Elem()
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteOutput) ToCustomDomainEndpointsConfigPathRewriteOutput() CustomDomainEndpointsConfigPathRewriteOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteOutput) ToCustomDomainEndpointsConfigPathRewriteOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigPathRewriteOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteOutput) Path() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfigPathRewrite) string { return v.Path }).(pulumi.StringOutput)
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteOutput) Rewrite() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfigPathRewrite) string { return v.Rewrite }).(pulumi.StringOutput)
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v CustomDomainEndpointsConfigPathRewrite) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type CustomDomainEndpointsConfigPathRewriteArrayOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainEndpointsConfigPathRewriteArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CustomDomainEndpointsConfigPathRewrite)(nil)).Elem()
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteArrayOutput) ToCustomDomainEndpointsConfigPathRewriteArrayOutput() CustomDomainEndpointsConfigPathRewriteArrayOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteArrayOutput) ToCustomDomainEndpointsConfigPathRewriteArrayOutputWithContext(ctx context.Context) CustomDomainEndpointsConfigPathRewriteArrayOutput {
+	return o
+}
+
+func (o CustomDomainEndpointsConfigPathRewriteArrayOutput) Index(i pulumi.IntInput) CustomDomainEndpointsConfigPathRewriteOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CustomDomainEndpointsConfigPathRewrite {
+		return vs[0].([]CustomDomainEndpointsConfigPathRewrite)[vs[1].(int)]
+	}).(CustomDomainEndpointsConfigPathRewriteOutput)
+}
+
+type CustomDomainWafConfig struct {
+	WafInstanceId *string `pulumi:"wafInstanceId"`
+	WafOpen       *string `pulumi:"wafOpen"`
+}
+
+// CustomDomainWafConfigInput is an input type that accepts CustomDomainWafConfigArgs and CustomDomainWafConfigOutput values.
+// You can construct a concrete instance of `CustomDomainWafConfigInput` via:
+//
+//	CustomDomainWafConfigArgs{...}
+type CustomDomainWafConfigInput interface {
+	pulumi.Input
+
+	ToCustomDomainWafConfigOutput() CustomDomainWafConfigOutput
+	ToCustomDomainWafConfigOutputWithContext(context.Context) CustomDomainWafConfigOutput
+}
+
+type CustomDomainWafConfigArgs struct {
+	WafInstanceId pulumi.StringPtrInput `pulumi:"wafInstanceId"`
+	WafOpen       pulumi.StringPtrInput `pulumi:"wafOpen"`
+}
+
+func (CustomDomainWafConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainWafConfig)(nil)).Elem()
+}
+
+func (i CustomDomainWafConfigArgs) ToCustomDomainWafConfigOutput() CustomDomainWafConfigOutput {
+	return i.ToCustomDomainWafConfigOutputWithContext(context.Background())
+}
+
+func (i CustomDomainWafConfigArgs) ToCustomDomainWafConfigOutputWithContext(ctx context.Context) CustomDomainWafConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainWafConfigOutput)
+}
+
+func (i CustomDomainWafConfigArgs) ToCustomDomainWafConfigPtrOutput() CustomDomainWafConfigPtrOutput {
+	return i.ToCustomDomainWafConfigPtrOutputWithContext(context.Background())
+}
+
+func (i CustomDomainWafConfigArgs) ToCustomDomainWafConfigPtrOutputWithContext(ctx context.Context) CustomDomainWafConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainWafConfigOutput).ToCustomDomainWafConfigPtrOutputWithContext(ctx)
+}
+
+// CustomDomainWafConfigPtrInput is an input type that accepts CustomDomainWafConfigArgs, CustomDomainWafConfigPtr and CustomDomainWafConfigPtrOutput values.
+// You can construct a concrete instance of `CustomDomainWafConfigPtrInput` via:
+//
+//	        CustomDomainWafConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type CustomDomainWafConfigPtrInput interface {
+	pulumi.Input
+
+	ToCustomDomainWafConfigPtrOutput() CustomDomainWafConfigPtrOutput
+	ToCustomDomainWafConfigPtrOutputWithContext(context.Context) CustomDomainWafConfigPtrOutput
+}
+
+type customDomainWafConfigPtrType CustomDomainWafConfigArgs
+
+func CustomDomainWafConfigPtr(v *CustomDomainWafConfigArgs) CustomDomainWafConfigPtrInput {
+	return (*customDomainWafConfigPtrType)(v)
+}
+
+func (*customDomainWafConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomDomainWafConfig)(nil)).Elem()
+}
+
+func (i *customDomainWafConfigPtrType) ToCustomDomainWafConfigPtrOutput() CustomDomainWafConfigPtrOutput {
+	return i.ToCustomDomainWafConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *customDomainWafConfigPtrType) ToCustomDomainWafConfigPtrOutputWithContext(ctx context.Context) CustomDomainWafConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CustomDomainWafConfigPtrOutput)
+}
+
+type CustomDomainWafConfigOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainWafConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CustomDomainWafConfig)(nil)).Elem()
+}
+
+func (o CustomDomainWafConfigOutput) ToCustomDomainWafConfigOutput() CustomDomainWafConfigOutput {
+	return o
+}
+
+func (o CustomDomainWafConfigOutput) ToCustomDomainWafConfigOutputWithContext(ctx context.Context) CustomDomainWafConfigOutput {
+	return o
+}
+
+func (o CustomDomainWafConfigOutput) ToCustomDomainWafConfigPtrOutput() CustomDomainWafConfigPtrOutput {
+	return o.ToCustomDomainWafConfigPtrOutputWithContext(context.Background())
+}
+
+func (o CustomDomainWafConfigOutput) ToCustomDomainWafConfigPtrOutputWithContext(ctx context.Context) CustomDomainWafConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomDomainWafConfig) *CustomDomainWafConfig {
+		return &v
+	}).(CustomDomainWafConfigPtrOutput)
+}
+
+func (o CustomDomainWafConfigOutput) WafInstanceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomDomainWafConfig) *string { return v.WafInstanceId }).(pulumi.StringPtrOutput)
+}
+
+func (o CustomDomainWafConfigOutput) WafOpen() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CustomDomainWafConfig) *string { return v.WafOpen }).(pulumi.StringPtrOutput)
+}
+
+type CustomDomainWafConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (CustomDomainWafConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CustomDomainWafConfig)(nil)).Elem()
+}
+
+func (o CustomDomainWafConfigPtrOutput) ToCustomDomainWafConfigPtrOutput() CustomDomainWafConfigPtrOutput {
+	return o
+}
+
+func (o CustomDomainWafConfigPtrOutput) ToCustomDomainWafConfigPtrOutputWithContext(ctx context.Context) CustomDomainWafConfigPtrOutput {
+	return o
+}
+
+func (o CustomDomainWafConfigPtrOutput) Elem() CustomDomainWafConfigOutput {
+	return o.ApplyT(func(v *CustomDomainWafConfig) CustomDomainWafConfig {
+		if v != nil {
+			return *v
+		}
+		var ret CustomDomainWafConfig
+		return ret
+	}).(CustomDomainWafConfigOutput)
+}
+
+func (o CustomDomainWafConfigPtrOutput) WafInstanceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomDomainWafConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WafInstanceId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CustomDomainWafConfigPtrOutput) WafOpen() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CustomDomainWafConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.WafOpen
+	}).(pulumi.StringPtrOutput)
+}
+
 type FunctionAliasRoutingConfig struct {
 	AdditionalVersionMatches []FunctionAliasRoutingConfigAdditionalVersionMatch  `pulumi:"additionalVersionMatches"`
 	AdditionalVersionWeights []FunctionAliasRoutingConfigAdditionalVersionWeight `pulumi:"additionalVersionWeights"`
@@ -4730,6 +5235,14 @@ func (o GetTriggersTriggerArrayOutput) Index(i pulumi.IntInput) GetTriggersTrigg
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainCertConfigInput)(nil)).Elem(), CustomDomainCertConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainCertConfigPtrInput)(nil)).Elem(), CustomDomainCertConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainEndpointsConfigInput)(nil)).Elem(), CustomDomainEndpointsConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainEndpointsConfigArrayInput)(nil)).Elem(), CustomDomainEndpointsConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainEndpointsConfigPathRewriteInput)(nil)).Elem(), CustomDomainEndpointsConfigPathRewriteArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainEndpointsConfigPathRewriteArrayInput)(nil)).Elem(), CustomDomainEndpointsConfigPathRewriteArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainWafConfigInput)(nil)).Elem(), CustomDomainWafConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CustomDomainWafConfigPtrInput)(nil)).Elem(), CustomDomainWafConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FunctionAliasRoutingConfigInput)(nil)).Elem(), FunctionAliasRoutingConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FunctionAliasRoutingConfigPtrInput)(nil)).Elem(), FunctionAliasRoutingConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FunctionAliasRoutingConfigAdditionalVersionMatchInput)(nil)).Elem(), FunctionAliasRoutingConfigAdditionalVersionMatchArgs{})
@@ -4802,6 +5315,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTriggersFilterArrayInput)(nil)).Elem(), GetTriggersFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTriggersTriggerInput)(nil)).Elem(), GetTriggersTriggerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTriggersTriggerArrayInput)(nil)).Elem(), GetTriggersTriggerArray{})
+	pulumi.RegisterOutputType(CustomDomainCertConfigOutput{})
+	pulumi.RegisterOutputType(CustomDomainCertConfigPtrOutput{})
+	pulumi.RegisterOutputType(CustomDomainEndpointsConfigOutput{})
+	pulumi.RegisterOutputType(CustomDomainEndpointsConfigArrayOutput{})
+	pulumi.RegisterOutputType(CustomDomainEndpointsConfigPathRewriteOutput{})
+	pulumi.RegisterOutputType(CustomDomainEndpointsConfigPathRewriteArrayOutput{})
+	pulumi.RegisterOutputType(CustomDomainWafConfigOutput{})
+	pulumi.RegisterOutputType(CustomDomainWafConfigPtrOutput{})
 	pulumi.RegisterOutputType(FunctionAliasRoutingConfigOutput{})
 	pulumi.RegisterOutputType(FunctionAliasRoutingConfigPtrOutput{})
 	pulumi.RegisterOutputType(FunctionAliasRoutingConfigAdditionalVersionMatchOutput{})

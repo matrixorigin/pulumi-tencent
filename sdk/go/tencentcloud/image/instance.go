@@ -23,6 +23,8 @@ type Instance struct {
 	ForcePoweroff pulumi.BoolPtrOutput `pulumi:"forcePoweroff"`
 	// Image Description.
 	ImageDescription pulumi.StringPtrOutput `pulumi:"imageDescription"`
+	// Set image family. Example value: `business-daily-update`.
+	ImageFamily pulumi.StringPtrOutput `pulumi:"imageFamily"`
 	// Image name.
 	ImageName pulumi.StringOutput `pulumi:"imageName"`
 	// Cloud server instance ID.
@@ -78,6 +80,8 @@ type instanceState struct {
 	ForcePoweroff *bool `pulumi:"forcePoweroff"`
 	// Image Description.
 	ImageDescription *string `pulumi:"imageDescription"`
+	// Set image family. Example value: `business-daily-update`.
+	ImageFamily *string `pulumi:"imageFamily"`
 	// Image name.
 	ImageName *string `pulumi:"imageName"`
 	// Cloud server instance ID.
@@ -101,6 +105,8 @@ type InstanceState struct {
 	ForcePoweroff pulumi.BoolPtrInput
 	// Image Description.
 	ImageDescription pulumi.StringPtrInput
+	// Set image family. Example value: `business-daily-update`.
+	ImageFamily pulumi.StringPtrInput
 	// Image name.
 	ImageName pulumi.StringPtrInput
 	// Cloud server instance ID.
@@ -128,6 +134,8 @@ type instanceArgs struct {
 	ForcePoweroff *bool `pulumi:"forcePoweroff"`
 	// Image Description.
 	ImageDescription *string `pulumi:"imageDescription"`
+	// Set image family. Example value: `business-daily-update`.
+	ImageFamily *string `pulumi:"imageFamily"`
 	// Image name.
 	ImageName string `pulumi:"imageName"`
 	// Cloud server instance ID.
@@ -152,6 +160,8 @@ type InstanceArgs struct {
 	ForcePoweroff pulumi.BoolPtrInput
 	// Image Description.
 	ImageDescription pulumi.StringPtrInput
+	// Set image family. Example value: `business-daily-update`.
+	ImageFamily pulumi.StringPtrInput
 	// Image name.
 	ImageName pulumi.StringInput
 	// Cloud server instance ID.
@@ -268,6 +278,11 @@ func (o InstanceOutput) ForcePoweroff() pulumi.BoolPtrOutput {
 // Image Description.
 func (o InstanceOutput) ImageDescription() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.ImageDescription }).(pulumi.StringPtrOutput)
+}
+
+// Set image family. Example value: `business-daily-update`.
+func (o InstanceOutput) ImageFamily() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.ImageFamily }).(pulumi.StringPtrOutput)
 }
 
 // Image name.

@@ -24,9 +24,11 @@ class InstanceArgs:
                  basic_security_type: Optional[pulumi.Input[int]] = None,
                  charge_period: Optional[pulumi.Input[int]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
+                 cos_backup: Optional[pulumi.Input['InstanceCosBackupArgs']] = None,
                  deploy_mode: Optional[pulumi.Input[int]] = None,
                  es_acl: Optional[pulumi.Input['InstanceEsAclArgs']] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
+                 kibana_public_access: Optional[pulumi.Input[str]] = None,
                  license_type: Optional[pulumi.Input[str]] = None,
                  multi_zone_infos: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceMultiZoneInfoArgs']]]] = None,
                  renew_flag: Optional[pulumi.Input[str]] = None,
@@ -46,11 +48,13 @@ class InstanceArgs:
                disabled, `2` is enabled, and default value is `1`. Notice: this parameter is only take effect on `basic` license.
         :param pulumi.Input[int] charge_period: The tenancy of the prepaid instance, and uint is month. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[str] charge_type: The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
+        :param pulumi.Input['InstanceCosBackupArgs'] cos_backup: COS automatic backup information.
         :param pulumi.Input[int] deploy_mode: Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
                Default value is `0`.
         :param pulumi.Input['InstanceEsAclArgs'] es_acl: Kibana Access Control Configuration.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
+        :param pulumi.Input[str] kibana_public_access: Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
         :param pulumi.Input[str] license_type: License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceMultiZoneInfoArgs']]] multi_zone_infos: Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
         :param pulumi.Input[str] renew_flag: When enabled, the instance will be renew automatically when it reach the end of the prepaid tenancy. Valid values are
@@ -72,12 +76,16 @@ class InstanceArgs:
             pulumi.set(__self__, "charge_period", charge_period)
         if charge_type is not None:
             pulumi.set(__self__, "charge_type", charge_type)
+        if cos_backup is not None:
+            pulumi.set(__self__, "cos_backup", cos_backup)
         if deploy_mode is not None:
             pulumi.set(__self__, "deploy_mode", deploy_mode)
         if es_acl is not None:
             pulumi.set(__self__, "es_acl", es_acl)
         if instance_name is not None:
             pulumi.set(__self__, "instance_name", instance_name)
+        if kibana_public_access is not None:
+            pulumi.set(__self__, "kibana_public_access", kibana_public_access)
         if license_type is not None:
             pulumi.set(__self__, "license_type", license_type)
         if multi_zone_infos is not None:
@@ -191,6 +199,18 @@ class InstanceArgs:
         pulumi.set(self, "charge_type", value)
 
     @property
+    @pulumi.getter(name="cosBackup")
+    def cos_backup(self) -> Optional[pulumi.Input['InstanceCosBackupArgs']]:
+        """
+        COS automatic backup information.
+        """
+        return pulumi.get(self, "cos_backup")
+
+    @cos_backup.setter
+    def cos_backup(self, value: Optional[pulumi.Input['InstanceCosBackupArgs']]):
+        pulumi.set(self, "cos_backup", value)
+
+    @property
     @pulumi.getter(name="deployMode")
     def deploy_mode(self) -> Optional[pulumi.Input[int]]:
         """
@@ -227,6 +247,18 @@ class InstanceArgs:
     @instance_name.setter
     def instance_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "instance_name", value)
+
+    @property
+    @pulumi.getter(name="kibanaPublicAccess")
+    def kibana_public_access(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+        """
+        return pulumi.get(self, "kibana_public_access")
+
+    @kibana_public_access.setter
+    def kibana_public_access(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kibana_public_access", value)
 
     @property
     @pulumi.getter(name="licenseType")
@@ -310,6 +342,7 @@ class _InstanceState:
                  basic_security_type: Optional[pulumi.Input[int]] = None,
                  charge_period: Optional[pulumi.Input[int]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
+                 cos_backup: Optional[pulumi.Input['InstanceCosBackupArgs']] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  deploy_mode: Optional[pulumi.Input[int]] = None,
                  elasticsearch_domain: Optional[pulumi.Input[str]] = None,
@@ -317,6 +350,7 @@ class _InstanceState:
                  elasticsearch_vip: Optional[pulumi.Input[str]] = None,
                  es_acl: Optional[pulumi.Input['InstanceEsAclArgs']] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
+                 kibana_public_access: Optional[pulumi.Input[str]] = None,
                  kibana_url: Optional[pulumi.Input[str]] = None,
                  license_type: Optional[pulumi.Input[str]] = None,
                  multi_zone_infos: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceMultiZoneInfoArgs']]]] = None,
@@ -335,6 +369,7 @@ class _InstanceState:
                disabled, `2` is enabled, and default value is `1`. Notice: this parameter is only take effect on `basic` license.
         :param pulumi.Input[int] charge_period: The tenancy of the prepaid instance, and uint is month. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[str] charge_type: The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
+        :param pulumi.Input['InstanceCosBackupArgs'] cos_backup: COS automatic backup information.
         :param pulumi.Input[str] create_time: Instance creation time.
         :param pulumi.Input[int] deploy_mode: Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
                Default value is `0`.
@@ -344,6 +379,7 @@ class _InstanceState:
         :param pulumi.Input['InstanceEsAclArgs'] es_acl: Kibana Access Control Configuration.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
+        :param pulumi.Input[str] kibana_public_access: Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
         :param pulumi.Input[str] kibana_url: Kibana access URL.
         :param pulumi.Input[str] license_type: License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceMultiZoneInfoArgs']]] multi_zone_infos: Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
@@ -368,6 +404,8 @@ class _InstanceState:
             pulumi.set(__self__, "charge_period", charge_period)
         if charge_type is not None:
             pulumi.set(__self__, "charge_type", charge_type)
+        if cos_backup is not None:
+            pulumi.set(__self__, "cos_backup", cos_backup)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
         if deploy_mode is not None:
@@ -382,6 +420,8 @@ class _InstanceState:
             pulumi.set(__self__, "es_acl", es_acl)
         if instance_name is not None:
             pulumi.set(__self__, "instance_name", instance_name)
+        if kibana_public_access is not None:
+            pulumi.set(__self__, "kibana_public_access", kibana_public_access)
         if kibana_url is not None:
             pulumi.set(__self__, "kibana_url", kibana_url)
         if license_type is not None:
@@ -453,6 +493,18 @@ class _InstanceState:
     @charge_type.setter
     def charge_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "charge_type", value)
+
+    @property
+    @pulumi.getter(name="cosBackup")
+    def cos_backup(self) -> Optional[pulumi.Input['InstanceCosBackupArgs']]:
+        """
+        COS automatic backup information.
+        """
+        return pulumi.get(self, "cos_backup")
+
+    @cos_backup.setter
+    def cos_backup(self, value: Optional[pulumi.Input['InstanceCosBackupArgs']]):
+        pulumi.set(self, "cos_backup", value)
 
     @property
     @pulumi.getter(name="createTime")
@@ -539,6 +591,18 @@ class _InstanceState:
     @instance_name.setter
     def instance_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "instance_name", value)
+
+    @property
+    @pulumi.getter(name="kibanaPublicAccess")
+    def kibana_public_access(self) -> Optional[pulumi.Input[str]]:
+        """
+        Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+        """
+        return pulumi.get(self, "kibana_public_access")
+
+    @kibana_public_access.setter
+    def kibana_public_access(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kibana_public_access", value)
 
     @property
     @pulumi.getter(name="kibanaUrl")
@@ -686,9 +750,11 @@ class Instance(pulumi.CustomResource):
                  basic_security_type: Optional[pulumi.Input[int]] = None,
                  charge_period: Optional[pulumi.Input[int]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
+                 cos_backup: Optional[pulumi.Input[pulumi.InputType['InstanceCosBackupArgs']]] = None,
                  deploy_mode: Optional[pulumi.Input[int]] = None,
                  es_acl: Optional[pulumi.Input[pulumi.InputType['InstanceEsAclArgs']]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
+                 kibana_public_access: Optional[pulumi.Input[str]] = None,
                  license_type: Optional[pulumi.Input[str]] = None,
                  multi_zone_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceMultiZoneInfoArgs']]]]] = None,
                  node_info_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceNodeInfoListArgs']]]]] = None,
@@ -709,11 +775,13 @@ class Instance(pulumi.CustomResource):
                disabled, `2` is enabled, and default value is `1`. Notice: this parameter is only take effect on `basic` license.
         :param pulumi.Input[int] charge_period: The tenancy of the prepaid instance, and uint is month. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[str] charge_type: The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
+        :param pulumi.Input[pulumi.InputType['InstanceCosBackupArgs']] cos_backup: COS automatic backup information.
         :param pulumi.Input[int] deploy_mode: Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
                Default value is `0`.
         :param pulumi.Input[pulumi.InputType['InstanceEsAclArgs']] es_acl: Kibana Access Control Configuration.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
+        :param pulumi.Input[str] kibana_public_access: Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
         :param pulumi.Input[str] license_type: License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceMultiZoneInfoArgs']]]] multi_zone_infos: Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceNodeInfoListArgs']]]] node_info_lists: Node information list, which is used to describe the specification information of various types of nodes in the cluster,
@@ -756,9 +824,11 @@ class Instance(pulumi.CustomResource):
                  basic_security_type: Optional[pulumi.Input[int]] = None,
                  charge_period: Optional[pulumi.Input[int]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
+                 cos_backup: Optional[pulumi.Input[pulumi.InputType['InstanceCosBackupArgs']]] = None,
                  deploy_mode: Optional[pulumi.Input[int]] = None,
                  es_acl: Optional[pulumi.Input[pulumi.InputType['InstanceEsAclArgs']]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
+                 kibana_public_access: Optional[pulumi.Input[str]] = None,
                  license_type: Optional[pulumi.Input[str]] = None,
                  multi_zone_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceMultiZoneInfoArgs']]]]] = None,
                  node_info_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceNodeInfoListArgs']]]]] = None,
@@ -782,9 +852,11 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["basic_security_type"] = basic_security_type
             __props__.__dict__["charge_period"] = charge_period
             __props__.__dict__["charge_type"] = charge_type
+            __props__.__dict__["cos_backup"] = cos_backup
             __props__.__dict__["deploy_mode"] = deploy_mode
             __props__.__dict__["es_acl"] = es_acl
             __props__.__dict__["instance_name"] = instance_name
+            __props__.__dict__["kibana_public_access"] = kibana_public_access
             __props__.__dict__["license_type"] = license_type
             __props__.__dict__["multi_zone_infos"] = multi_zone_infos
             if node_info_lists is None and not opts.urn:
@@ -824,6 +896,7 @@ class Instance(pulumi.CustomResource):
             basic_security_type: Optional[pulumi.Input[int]] = None,
             charge_period: Optional[pulumi.Input[int]] = None,
             charge_type: Optional[pulumi.Input[str]] = None,
+            cos_backup: Optional[pulumi.Input[pulumi.InputType['InstanceCosBackupArgs']]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             deploy_mode: Optional[pulumi.Input[int]] = None,
             elasticsearch_domain: Optional[pulumi.Input[str]] = None,
@@ -831,6 +904,7 @@ class Instance(pulumi.CustomResource):
             elasticsearch_vip: Optional[pulumi.Input[str]] = None,
             es_acl: Optional[pulumi.Input[pulumi.InputType['InstanceEsAclArgs']]] = None,
             instance_name: Optional[pulumi.Input[str]] = None,
+            kibana_public_access: Optional[pulumi.Input[str]] = None,
             kibana_url: Optional[pulumi.Input[str]] = None,
             license_type: Optional[pulumi.Input[str]] = None,
             multi_zone_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceMultiZoneInfoArgs']]]]] = None,
@@ -854,6 +928,7 @@ class Instance(pulumi.CustomResource):
                disabled, `2` is enabled, and default value is `1`. Notice: this parameter is only take effect on `basic` license.
         :param pulumi.Input[int] charge_period: The tenancy of the prepaid instance, and uint is month. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[str] charge_type: The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
+        :param pulumi.Input[pulumi.InputType['InstanceCosBackupArgs']] cos_backup: COS automatic backup information.
         :param pulumi.Input[str] create_time: Instance creation time.
         :param pulumi.Input[int] deploy_mode: Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
                Default value is `0`.
@@ -863,6 +938,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[pulumi.InputType['InstanceEsAclArgs']] es_acl: Kibana Access Control Configuration.
         :param pulumi.Input[str] instance_name: Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
                underscores(_).
+        :param pulumi.Input[str] kibana_public_access: Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
         :param pulumi.Input[str] kibana_url: Kibana access URL.
         :param pulumi.Input[str] license_type: License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceMultiZoneInfoArgs']]]] multi_zone_infos: Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
@@ -887,6 +963,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["basic_security_type"] = basic_security_type
         __props__.__dict__["charge_period"] = charge_period
         __props__.__dict__["charge_type"] = charge_type
+        __props__.__dict__["cos_backup"] = cos_backup
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["deploy_mode"] = deploy_mode
         __props__.__dict__["elasticsearch_domain"] = elasticsearch_domain
@@ -894,6 +971,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["elasticsearch_vip"] = elasticsearch_vip
         __props__.__dict__["es_acl"] = es_acl
         __props__.__dict__["instance_name"] = instance_name
+        __props__.__dict__["kibana_public_access"] = kibana_public_access
         __props__.__dict__["kibana_url"] = kibana_url
         __props__.__dict__["license_type"] = license_type
         __props__.__dict__["multi_zone_infos"] = multi_zone_infos
@@ -939,6 +1017,14 @@ class Instance(pulumi.CustomResource):
         The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
         """
         return pulumi.get(self, "charge_type")
+
+    @property
+    @pulumi.getter(name="cosBackup")
+    def cos_backup(self) -> pulumi.Output[Optional['outputs.InstanceCosBackup']]:
+        """
+        COS automatic backup information.
+        """
+        return pulumi.get(self, "cos_backup")
 
     @property
     @pulumi.getter(name="createTime")
@@ -997,6 +1083,14 @@ class Instance(pulumi.CustomResource):
         underscores(_).
         """
         return pulumi.get(self, "instance_name")
+
+    @property
+    @pulumi.getter(name="kibanaPublicAccess")
+    def kibana_public_access(self) -> pulumi.Output[str]:
+        """
+        Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+        """
+        return pulumi.get(self, "kibana_public_access")
 
     @property
     @pulumi.getter(name="kibanaUrl")
@@ -1084,7 +1178,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="webNodeTypeInfos")
-    def web_node_type_infos(self) -> pulumi.Output[Optional[Sequence['outputs.InstanceWebNodeTypeInfo']]]:
+    def web_node_type_infos(self) -> pulumi.Output[Sequence['outputs.InstanceWebNodeTypeInfo']]:
         """
         Visual node configuration.
         """

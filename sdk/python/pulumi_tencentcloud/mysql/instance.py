@@ -22,6 +22,7 @@ class InstanceArgs:
                  charge_type: Optional[pulumi.Input[str]] = None,
                  cpu: Optional[pulumi.Input[int]] = None,
                  device_type: Optional[pulumi.Input[str]] = None,
+                 engine_type: Optional[pulumi.Input[str]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  fast_upgrade: Optional[pulumi.Input[int]] = None,
                  first_slave_zone: Optional[pulumi.Input[str]] = None,
@@ -43,7 +44,8 @@ class InstanceArgs:
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  upgrade_subversion: Optional[pulumi.Input[int]] = None,
-                 vpc_id: Optional[pulumi.Input[str]] = None):
+                 vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a Instance resource.
         :param pulumi.Input[str] instance_name: The name of a mysql instance.
@@ -54,6 +56,7 @@ class InstanceArgs:
         :param pulumi.Input[str] charge_type: Pay type of instance. Valid values:`PREPAID`, `POSTPAID`. Default is `POSTPAID`.
         :param pulumi.Input[int] cpu: CPU cores.
         :param pulumi.Input[str] device_type: Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
+        :param pulumi.Input[str] engine_type: Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
         :param pulumi.Input[str] engine_version: The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
                Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
         :param pulumi.Input[int] fast_upgrade: Specify whether to enable fast upgrade when upgrade instance spec, available value: `1` - enabled, `0` - disabled.
@@ -81,6 +84,8 @@ class InstanceArgs:
         :param pulumi.Input[int] upgrade_subversion: Whether it is a kernel subversion upgrade, supported values: 1 - upgrade the kernel subversion; 0 - upgrade the database
                engine version. Only need to fill in when upgrading kernel subversion and engine version.
         :param pulumi.Input[str] vpc_id: ID of VPC, which can be modified once every 24 hours and can't be removed.
+        :param pulumi.Input[int] wait_switch: Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+               switch in time window.
         """
         pulumi.set(__self__, "instance_name", instance_name)
         pulumi.set(__self__, "mem_size", mem_size)
@@ -95,6 +100,8 @@ class InstanceArgs:
             pulumi.set(__self__, "cpu", cpu)
         if device_type is not None:
             pulumi.set(__self__, "device_type", device_type)
+        if engine_type is not None:
+            pulumi.set(__self__, "engine_type", engine_type)
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if fast_upgrade is not None:
@@ -145,6 +152,8 @@ class InstanceArgs:
             pulumi.set(__self__, "upgrade_subversion", upgrade_subversion)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+        if wait_switch is not None:
+            pulumi.set(__self__, "wait_switch", wait_switch)
 
     @property
     @pulumi.getter(name="instanceName")
@@ -241,6 +250,18 @@ class InstanceArgs:
     @device_type.setter
     def device_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "device_type", value)
+
+    @property
+    @pulumi.getter(name="engineType")
+    def engine_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+        """
+        return pulumi.get(self, "engine_type")
+
+    @engine_type.setter
+    def engine_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "engine_type", value)
 
     @property
     @pulumi.getter(name="engineVersion")
@@ -517,6 +538,19 @@ class InstanceArgs:
     def vpc_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "vpc_id", value)
 
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> Optional[pulumi.Input[int]]:
+        """
+        Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+        switch in time window.
+        """
+        return pulumi.get(self, "wait_switch")
+
+    @wait_switch.setter
+    def wait_switch(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "wait_switch", value)
+
 
 @pulumi.input_type
 class _InstanceState:
@@ -526,6 +560,7 @@ class _InstanceState:
                  charge_type: Optional[pulumi.Input[str]] = None,
                  cpu: Optional[pulumi.Input[int]] = None,
                  device_type: Optional[pulumi.Input[str]] = None,
+                 engine_type: Optional[pulumi.Input[str]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  fast_upgrade: Optional[pulumi.Input[int]] = None,
                  first_slave_zone: Optional[pulumi.Input[str]] = None,
@@ -557,7 +592,8 @@ class _InstanceState:
                  task_status: Optional[pulumi.Input[int]] = None,
                  upgrade_subversion: Optional[pulumi.Input[int]] = None,
                  volume_size: Optional[pulumi.Input[int]] = None,
-                 vpc_id: Optional[pulumi.Input[str]] = None):
+                 vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. NOTES: Only supported prepaid instance.
@@ -565,6 +601,7 @@ class _InstanceState:
         :param pulumi.Input[str] charge_type: Pay type of instance. Valid values:`PREPAID`, `POSTPAID`. Default is `POSTPAID`.
         :param pulumi.Input[int] cpu: CPU cores.
         :param pulumi.Input[str] device_type: Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
+        :param pulumi.Input[str] engine_type: Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
         :param pulumi.Input[str] engine_version: The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
                Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
         :param pulumi.Input[int] fast_upgrade: Specify whether to enable fast upgrade when upgrade instance spec, available value: `1` - enabled, `0` - disabled.
@@ -602,6 +639,8 @@ class _InstanceState:
                engine version. Only need to fill in when upgrading kernel subversion and engine version.
         :param pulumi.Input[int] volume_size: Disk size (in GB).
         :param pulumi.Input[str] vpc_id: ID of VPC, which can be modified once every 24 hours and can't be removed.
+        :param pulumi.Input[int] wait_switch: Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+               switch in time window.
         """
         if auto_renew_flag is not None:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
@@ -613,6 +652,8 @@ class _InstanceState:
             pulumi.set(__self__, "cpu", cpu)
         if device_type is not None:
             pulumi.set(__self__, "device_type", device_type)
+        if engine_type is not None:
+            pulumi.set(__self__, "engine_type", engine_type)
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if fast_upgrade is not None:
@@ -683,6 +724,8 @@ class _InstanceState:
             pulumi.set(__self__, "volume_size", volume_size)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+        if wait_switch is not None:
+            pulumi.set(__self__, "wait_switch", wait_switch)
 
     @property
     @pulumi.getter(name="autoRenewFlag")
@@ -743,6 +786,18 @@ class _InstanceState:
     @device_type.setter
     def device_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "device_type", value)
+
+    @property
+    @pulumi.getter(name="engineType")
+    def engine_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+        """
+        return pulumi.get(self, "engine_type")
+
+    @engine_type.setter
+    def engine_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "engine_type", value)
 
     @property
     @pulumi.getter(name="engineVersion")
@@ -1139,6 +1194,19 @@ class _InstanceState:
     def vpc_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "vpc_id", value)
 
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> Optional[pulumi.Input[int]]:
+        """
+        Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+        switch in time window.
+        """
+        return pulumi.get(self, "wait_switch")
+
+    @wait_switch.setter
+    def wait_switch(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "wait_switch", value)
+
 
 class Instance(pulumi.CustomResource):
     @overload
@@ -1150,6 +1218,7 @@ class Instance(pulumi.CustomResource):
                  charge_type: Optional[pulumi.Input[str]] = None,
                  cpu: Optional[pulumi.Input[int]] = None,
                  device_type: Optional[pulumi.Input[str]] = None,
+                 engine_type: Optional[pulumi.Input[str]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  fast_upgrade: Optional[pulumi.Input[int]] = None,
                  first_slave_zone: Optional[pulumi.Input[str]] = None,
@@ -1175,6 +1244,7 @@ class Instance(pulumi.CustomResource):
                  upgrade_subversion: Optional[pulumi.Input[int]] = None,
                  volume_size: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
         Create a Instance resource with the given unique name, props, and options.
@@ -1185,6 +1255,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] charge_type: Pay type of instance. Valid values:`PREPAID`, `POSTPAID`. Default is `POSTPAID`.
         :param pulumi.Input[int] cpu: CPU cores.
         :param pulumi.Input[str] device_type: Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
+        :param pulumi.Input[str] engine_type: Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
         :param pulumi.Input[str] engine_version: The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
                Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
         :param pulumi.Input[int] fast_upgrade: Specify whether to enable fast upgrade when upgrade instance spec, available value: `1` - enabled, `0` - disabled.
@@ -1215,6 +1286,8 @@ class Instance(pulumi.CustomResource):
                engine version. Only need to fill in when upgrading kernel subversion and engine version.
         :param pulumi.Input[int] volume_size: Disk size (in GB).
         :param pulumi.Input[str] vpc_id: ID of VPC, which can be modified once every 24 hours and can't be removed.
+        :param pulumi.Input[int] wait_switch: Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+               switch in time window.
         """
         ...
     @overload
@@ -1244,6 +1317,7 @@ class Instance(pulumi.CustomResource):
                  charge_type: Optional[pulumi.Input[str]] = None,
                  cpu: Optional[pulumi.Input[int]] = None,
                  device_type: Optional[pulumi.Input[str]] = None,
+                 engine_type: Optional[pulumi.Input[str]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  fast_upgrade: Optional[pulumi.Input[int]] = None,
                  first_slave_zone: Optional[pulumi.Input[str]] = None,
@@ -1269,6 +1343,7 @@ class Instance(pulumi.CustomResource):
                  upgrade_subversion: Optional[pulumi.Input[int]] = None,
                  volume_size: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1283,6 +1358,7 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["charge_type"] = charge_type
             __props__.__dict__["cpu"] = cpu
             __props__.__dict__["device_type"] = device_type
+            __props__.__dict__["engine_type"] = engine_type
             __props__.__dict__["engine_version"] = engine_version
             __props__.__dict__["fast_upgrade"] = fast_upgrade
             __props__.__dict__["first_slave_zone"] = first_slave_zone
@@ -1320,6 +1396,7 @@ class Instance(pulumi.CustomResource):
                 raise TypeError("Missing required property 'volume_size'")
             __props__.__dict__["volume_size"] = volume_size
             __props__.__dict__["vpc_id"] = vpc_id
+            __props__.__dict__["wait_switch"] = wait_switch
             __props__.__dict__["gtid"] = None
             __props__.__dict__["internet_host"] = None
             __props__.__dict__["internet_port"] = None
@@ -1344,6 +1421,7 @@ class Instance(pulumi.CustomResource):
             charge_type: Optional[pulumi.Input[str]] = None,
             cpu: Optional[pulumi.Input[int]] = None,
             device_type: Optional[pulumi.Input[str]] = None,
+            engine_type: Optional[pulumi.Input[str]] = None,
             engine_version: Optional[pulumi.Input[str]] = None,
             fast_upgrade: Optional[pulumi.Input[int]] = None,
             first_slave_zone: Optional[pulumi.Input[str]] = None,
@@ -1375,7 +1453,8 @@ class Instance(pulumi.CustomResource):
             task_status: Optional[pulumi.Input[int]] = None,
             upgrade_subversion: Optional[pulumi.Input[int]] = None,
             volume_size: Optional[pulumi.Input[int]] = None,
-            vpc_id: Optional[pulumi.Input[str]] = None) -> 'Instance':
+            vpc_id: Optional[pulumi.Input[str]] = None,
+            wait_switch: Optional[pulumi.Input[int]] = None) -> 'Instance':
         """
         Get an existing Instance resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1388,6 +1467,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] charge_type: Pay type of instance. Valid values:`PREPAID`, `POSTPAID`. Default is `POSTPAID`.
         :param pulumi.Input[int] cpu: CPU cores.
         :param pulumi.Input[str] device_type: Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
+        :param pulumi.Input[str] engine_type: Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
         :param pulumi.Input[str] engine_version: The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
                Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
         :param pulumi.Input[int] fast_upgrade: Specify whether to enable fast upgrade when upgrade instance spec, available value: `1` - enabled, `0` - disabled.
@@ -1425,6 +1505,8 @@ class Instance(pulumi.CustomResource):
                engine version. Only need to fill in when upgrading kernel subversion and engine version.
         :param pulumi.Input[int] volume_size: Disk size (in GB).
         :param pulumi.Input[str] vpc_id: ID of VPC, which can be modified once every 24 hours and can't be removed.
+        :param pulumi.Input[int] wait_switch: Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+               switch in time window.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1435,6 +1517,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["charge_type"] = charge_type
         __props__.__dict__["cpu"] = cpu
         __props__.__dict__["device_type"] = device_type
+        __props__.__dict__["engine_type"] = engine_type
         __props__.__dict__["engine_version"] = engine_version
         __props__.__dict__["fast_upgrade"] = fast_upgrade
         __props__.__dict__["first_slave_zone"] = first_slave_zone
@@ -1467,6 +1550,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["upgrade_subversion"] = upgrade_subversion
         __props__.__dict__["volume_size"] = volume_size
         __props__.__dict__["vpc_id"] = vpc_id
+        __props__.__dict__["wait_switch"] = wait_switch
         return Instance(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -1508,6 +1592,14 @@ class Instance(pulumi.CustomResource):
         Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
         """
         return pulumi.get(self, "device_type")
+
+    @property
+    @pulumi.getter(name="engineType")
+    def engine_type(self) -> pulumi.Output[str]:
+        """
+        Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+        """
+        return pulumi.get(self, "engine_type")
 
     @property
     @pulumi.getter(name="engineVersion")
@@ -1775,4 +1867,13 @@ class Instance(pulumi.CustomResource):
         ID of VPC, which can be modified once every 24 hours and can't be removed.
         """
         return pulumi.get(self, "vpc_id")
+
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> pulumi.Output[Optional[int]]:
+        """
+        Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+        switch in time window.
+        """
+        return pulumi.get(self, "wait_switch")
 

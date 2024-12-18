@@ -11,6 +11,7 @@ from .. import _utilities
 
 __all__ = [
     'DiagnoseDiagnoseJobMetaArgs',
+    'InstanceCosBackupArgs',
     'InstanceEsAclArgs',
     'InstanceMultiZoneInfoArgs',
     'InstanceNodeInfoListArgs',
@@ -58,6 +59,33 @@ class DiagnoseDiagnoseJobMetaArgs:
     @job_zh_name.setter
     def job_zh_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "job_zh_name", value)
+
+
+@pulumi.input_type
+class InstanceCosBackupArgs:
+    def __init__(__self__, *,
+                 backup_time: pulumi.Input[str],
+                 is_auto_backup: pulumi.Input[bool]):
+        pulumi.set(__self__, "backup_time", backup_time)
+        pulumi.set(__self__, "is_auto_backup", is_auto_backup)
+
+    @property
+    @pulumi.getter(name="backupTime")
+    def backup_time(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "backup_time")
+
+    @backup_time.setter
+    def backup_time(self, value: pulumi.Input[str]):
+        pulumi.set(self, "backup_time", value)
+
+    @property
+    @pulumi.getter(name="isAutoBackup")
+    def is_auto_backup(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "is_auto_backup")
+
+    @is_auto_backup.setter
+    def is_auto_backup(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "is_auto_backup", value)
 
 
 @pulumi.input_type

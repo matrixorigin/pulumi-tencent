@@ -103,9 +103,6 @@ class InstanceArgs:
         if period is not None:
             pulumi.set(__self__, "period", period)
         if public_network is not None:
-            warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-            pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
-        if public_network is not None:
             pulumi.set(__self__, "public_network", public_network)
         if rebalance_time is not None:
             pulumi.set(__self__, "rebalance_time", rebalance_time)
@@ -319,9 +316,6 @@ class InstanceArgs:
         """
         Bandwidth of the public network.
         """
-        warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-        pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
-
         return pulumi.get(self, "public_network")
 
     @public_network.setter
@@ -535,9 +529,6 @@ class _InstanceState:
         if period is not None:
             pulumi.set(__self__, "period", period)
         if public_network is not None:
-            warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-            pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
-        if public_network is not None:
             pulumi.set(__self__, "public_network", public_network)
         if rebalance_time is not None:
             pulumi.set(__self__, "rebalance_time", rebalance_time)
@@ -745,9 +736,6 @@ class _InstanceState:
         """
         Bandwidth of the public network.
         """
-        warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-        pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
-
         return pulumi.get(self, "public_network")
 
     @public_network.setter
@@ -1042,9 +1030,6 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["multi_zone_flag"] = multi_zone_flag
             __props__.__dict__["partition"] = partition
             __props__.__dict__["period"] = period
-            if public_network is not None and not opts.urn:
-                warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-                pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
             __props__.__dict__["public_network"] = public_network
             __props__.__dict__["rebalance_time"] = rebalance_time
             __props__.__dict__["renew_flag"] = renew_flag
@@ -1295,9 +1280,6 @@ class Instance(pulumi.CustomResource):
         """
         Bandwidth of the public network.
         """
-        warnings.warn("""It has been deprecated from version 1.81.6. If set public network value, it will cause error.""", DeprecationWarning)
-        pulumi.log.warn("""public_network is deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.""")
-
         return pulumi.get(self, "public_network")
 
     @property

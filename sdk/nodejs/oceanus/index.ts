@@ -20,10 +20,20 @@ export const getClusters: typeof import("./getClusters").getClusters = null as a
 export const getClustersOutput: typeof import("./getClusters").getClustersOutput = null as any;
 utilities.lazyLoad(exports, ["getClusters","getClustersOutput"], () => require("./getClusters"));
 
+export { GetJobEventsArgs, GetJobEventsResult, GetJobEventsOutputArgs } from "./getJobEvents";
+export const getJobEvents: typeof import("./getJobEvents").getJobEvents = null as any;
+export const getJobEventsOutput: typeof import("./getJobEvents").getJobEventsOutput = null as any;
+utilities.lazyLoad(exports, ["getJobEvents","getJobEventsOutput"], () => require("./getJobEvents"));
+
 export { GetJobSubmissionLogArgs, GetJobSubmissionLogResult, GetJobSubmissionLogOutputArgs } from "./getJobSubmissionLog";
 export const getJobSubmissionLog: typeof import("./getJobSubmissionLog").getJobSubmissionLog = null as any;
 export const getJobSubmissionLogOutput: typeof import("./getJobSubmissionLog").getJobSubmissionLogOutput = null as any;
 utilities.lazyLoad(exports, ["getJobSubmissionLog","getJobSubmissionLogOutput"], () => require("./getJobSubmissionLog"));
+
+export { GetMetaTableArgs, GetMetaTableResult, GetMetaTableOutputArgs } from "./getMetaTable";
+export const getMetaTable: typeof import("./getMetaTable").getMetaTable = null as any;
+export const getMetaTableOutput: typeof import("./getMetaTable").getMetaTableOutput = null as any;
+utilities.lazyLoad(exports, ["getMetaTable","getMetaTableOutput"], () => require("./getMetaTable"));
 
 export { GetResourceRelatedJobArgs, GetResourceRelatedJobResult, GetResourceRelatedJobOutputArgs } from "./getResourceRelatedJob";
 export const getResourceRelatedJob: typeof import("./getResourceRelatedJob").getResourceRelatedJob = null as any;

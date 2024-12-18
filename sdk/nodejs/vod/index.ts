@@ -10,6 +10,11 @@ export type AdaptiveDynamicStreamingTemplate = import("./adaptiveDynamicStreamin
 export const AdaptiveDynamicStreamingTemplate: typeof import("./adaptiveDynamicStreamingTemplate").AdaptiveDynamicStreamingTemplate = null as any;
 utilities.lazyLoad(exports, ["AdaptiveDynamicStreamingTemplate"], () => require("./adaptiveDynamicStreamingTemplate"));
 
+export { EventConfigArgs, EventConfigState } from "./eventConfig";
+export type EventConfig = import("./eventConfig").EventConfig;
+export const EventConfig: typeof import("./eventConfig").EventConfig = null as any;
+utilities.lazyLoad(exports, ["EventConfig"], () => require("./eventConfig"));
+
 export { GetAdaptiveDynamicStreamingTemplatesArgs, GetAdaptiveDynamicStreamingTemplatesResult, GetAdaptiveDynamicStreamingTemplatesOutputArgs } from "./getAdaptiveDynamicStreamingTemplates";
 export const getAdaptiveDynamicStreamingTemplates: typeof import("./getAdaptiveDynamicStreamingTemplates").getAdaptiveDynamicStreamingTemplates = null as any;
 export const getAdaptiveDynamicStreamingTemplatesOutput: typeof import("./getAdaptiveDynamicStreamingTemplates").getAdaptiveDynamicStreamingTemplatesOutput = null as any;
@@ -45,6 +50,11 @@ export type ProcedureTemplate = import("./procedureTemplate").ProcedureTemplate;
 export const ProcedureTemplate: typeof import("./procedureTemplate").ProcedureTemplate = null as any;
 utilities.lazyLoad(exports, ["ProcedureTemplate"], () => require("./procedureTemplate"));
 
+export { SampleSnapshotTemplateArgs, SampleSnapshotTemplateState } from "./sampleSnapshotTemplate";
+export type SampleSnapshotTemplate = import("./sampleSnapshotTemplate").SampleSnapshotTemplate;
+export const SampleSnapshotTemplate: typeof import("./sampleSnapshotTemplate").SampleSnapshotTemplate = null as any;
+utilities.lazyLoad(exports, ["SampleSnapshotTemplate"], () => require("./sampleSnapshotTemplate"));
+
 export { SnapshotByTimeOffsetTemplateArgs, SnapshotByTimeOffsetTemplateState } from "./snapshotByTimeOffsetTemplate";
 export type SnapshotByTimeOffsetTemplate = import("./snapshotByTimeOffsetTemplate").SnapshotByTimeOffsetTemplate;
 export const SnapshotByTimeOffsetTemplate: typeof import("./snapshotByTimeOffsetTemplate").SnapshotByTimeOffsetTemplate = null as any;
@@ -60,6 +70,16 @@ export type SuperPlayerConfig = import("./superPlayerConfig").SuperPlayerConfig;
 export const SuperPlayerConfig: typeof import("./superPlayerConfig").SuperPlayerConfig = null as any;
 utilities.lazyLoad(exports, ["SuperPlayerConfig"], () => require("./superPlayerConfig"));
 
+export { TranscodeTemplateArgs, TranscodeTemplateState } from "./transcodeTemplate";
+export type TranscodeTemplate = import("./transcodeTemplate").TranscodeTemplate;
+export const TranscodeTemplate: typeof import("./transcodeTemplate").TranscodeTemplate = null as any;
+utilities.lazyLoad(exports, ["TranscodeTemplate"], () => require("./transcodeTemplate"));
+
+export { WatermarkTemplateArgs, WatermarkTemplateState } from "./watermarkTemplate";
+export type WatermarkTemplate = import("./watermarkTemplate").WatermarkTemplate;
+export const WatermarkTemplate: typeof import("./watermarkTemplate").WatermarkTemplate = null as any;
+utilities.lazyLoad(exports, ["WatermarkTemplate"], () => require("./watermarkTemplate"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -67,24 +87,36 @@ const _module = {
         switch (type) {
             case "tencentcloud:Vod/adaptiveDynamicStreamingTemplate:AdaptiveDynamicStreamingTemplate":
                 return new AdaptiveDynamicStreamingTemplate(name, <any>undefined, { urn })
+            case "tencentcloud:Vod/eventConfig:EventConfig":
+                return new EventConfig(name, <any>undefined, { urn })
             case "tencentcloud:Vod/imageSpriteTemplate:ImageSpriteTemplate":
                 return new ImageSpriteTemplate(name, <any>undefined, { urn })
             case "tencentcloud:Vod/procedureTemplate:ProcedureTemplate":
                 return new ProcedureTemplate(name, <any>undefined, { urn })
+            case "tencentcloud:Vod/sampleSnapshotTemplate:SampleSnapshotTemplate":
+                return new SampleSnapshotTemplate(name, <any>undefined, { urn })
             case "tencentcloud:Vod/snapshotByTimeOffsetTemplate:SnapshotByTimeOffsetTemplate":
                 return new SnapshotByTimeOffsetTemplate(name, <any>undefined, { urn })
             case "tencentcloud:Vod/subApplication:SubApplication":
                 return new SubApplication(name, <any>undefined, { urn })
             case "tencentcloud:Vod/superPlayerConfig:SuperPlayerConfig":
                 return new SuperPlayerConfig(name, <any>undefined, { urn })
+            case "tencentcloud:Vod/transcodeTemplate:TranscodeTemplate":
+                return new TranscodeTemplate(name, <any>undefined, { urn })
+            case "tencentcloud:Vod/watermarkTemplate:WatermarkTemplate":
+                return new WatermarkTemplate(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
     },
 };
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/adaptiveDynamicStreamingTemplate", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Vod/eventConfig", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/imageSpriteTemplate", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/procedureTemplate", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Vod/sampleSnapshotTemplate", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/snapshotByTimeOffsetTemplate", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/subApplication", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Vod/superPlayerConfig", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Vod/transcodeTemplate", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Vod/watermarkTemplate", _module)

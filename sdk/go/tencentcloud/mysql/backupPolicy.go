@@ -15,7 +15,8 @@ import (
 type BackupPolicy struct {
 	pulumi.CustomResourceState
 
-	// Backup method. Supported values include: `physical` - physical backup.
+	// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+	// support `physical`, Single node only support `snapshot`.
 	BackupModel pulumi.StringPtrOutput `pulumi:"backupModel"`
 	// Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
 	// following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
@@ -70,7 +71,8 @@ func GetBackupPolicy(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering BackupPolicy resources.
 type backupPolicyState struct {
-	// Backup method. Supported values include: `physical` - physical backup.
+	// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+	// support `physical`, Single node only support `snapshot`.
 	BackupModel *string `pulumi:"backupModel"`
 	// Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
 	// following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
@@ -93,7 +95,8 @@ type backupPolicyState struct {
 }
 
 type BackupPolicyState struct {
-	// Backup method. Supported values include: `physical` - physical backup.
+	// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+	// support `physical`, Single node only support `snapshot`.
 	BackupModel pulumi.StringPtrInput
 	// Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
 	// following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
@@ -120,7 +123,8 @@ func (BackupPolicyState) ElementType() reflect.Type {
 }
 
 type backupPolicyArgs struct {
-	// Backup method. Supported values include: `physical` - physical backup.
+	// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+	// support `physical`, Single node only support `snapshot`.
 	BackupModel *string `pulumi:"backupModel"`
 	// Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
 	// following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
@@ -144,7 +148,8 @@ type backupPolicyArgs struct {
 
 // The set of arguments for constructing a BackupPolicy resource.
 type BackupPolicyArgs struct {
-	// Backup method. Supported values include: `physical` - physical backup.
+	// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+	// support `physical`, Single node only support `snapshot`.
 	BackupModel pulumi.StringPtrInput
 	// Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
 	// following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
@@ -253,7 +258,8 @@ func (o BackupPolicyOutput) ToBackupPolicyOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Backup method. Supported values include: `physical` - physical backup.
+// Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+// support `physical`, Single node only support `snapshot`.
 func (o BackupPolicyOutput) BackupModel() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *BackupPolicy) pulumi.StringPtrOutput { return v.BackupModel }).(pulumi.StringPtrOutput)
 }

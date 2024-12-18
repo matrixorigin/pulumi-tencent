@@ -41,16 +41,16 @@ export class User extends pulumi.CustomResource {
      */
     public readonly departmentId!: pulumi.Output<string | undefined>;
     /**
-     * Email.
+     * Email. Please provide at least one of `phone` or `email`.
      */
     public readonly email!: pulumi.Output<string | undefined>;
     /**
      * The set of user group IDs to which it belongs.
      */
-    public readonly groupIdSets!: pulumi.Output<number[] | undefined>;
+    public readonly groupIdSets!: pulumi.Output<number[]>;
     /**
-     * Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-     * format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+     * Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+     * provide at least one of `phone` or `email`.
      */
     public readonly phone!: pulumi.Output<string | undefined>;
     /**
@@ -66,7 +66,7 @@ export class User extends pulumi.CustomResource {
      * User effective time, such as: 2021-09-22T00:00:00+00:00If the effective and expiry time are not filled in, the user will
      * be valid for a long time.
      */
-    public readonly validateFrom!: pulumi.Output<string | undefined>;
+    public readonly validateFrom!: pulumi.Output<string>;
     /**
      * Access time period limit, a string composed of 0 and 1, length 168 (7 * 24), representing the time period the user is
      * allowed to access in a week. The Nth character in the string represents the Nth hour of the week, 0 - means access is
@@ -77,7 +77,7 @@ export class User extends pulumi.CustomResource {
      * User expiration time, such as: 2021-09-23T00:00:00+00:00If the effective and expiry time are not filled in, the user
      * will be valid for a long time.
      */
-    public readonly validateTo!: pulumi.Output<string | undefined>;
+    public readonly validateTo!: pulumi.Output<string>;
 
     /**
      * Create a User resource with the given unique name, arguments, and options.
@@ -139,7 +139,7 @@ export interface UserState {
      */
     departmentId?: pulumi.Input<string>;
     /**
-     * Email.
+     * Email. Please provide at least one of `phone` or `email`.
      */
     email?: pulumi.Input<string>;
     /**
@@ -147,8 +147,8 @@ export interface UserState {
      */
     groupIdSets?: pulumi.Input<pulumi.Input<number>[]>;
     /**
-     * Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-     * format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+     * Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+     * provide at least one of `phone` or `email`.
      */
     phone?: pulumi.Input<string>;
     /**
@@ -191,7 +191,7 @@ export interface UserArgs {
      */
     departmentId?: pulumi.Input<string>;
     /**
-     * Email.
+     * Email. Please provide at least one of `phone` or `email`.
      */
     email?: pulumi.Input<string>;
     /**
@@ -199,8 +199,8 @@ export interface UserArgs {
      */
     groupIdSets?: pulumi.Input<pulumi.Input<number>[]>;
     /**
-     * Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-     * format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+     * Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+     * provide at least one of `phone` or `email`.
      */
     phone?: pulumi.Input<string>;
     /**

@@ -25,6 +25,7 @@ class DatasourceCloudArgs:
                  service_type: pulumi.Input['DatasourceCloudServiceTypeArgs'],
                  source_name: pulumi.Input[str],
                  vpc_id: pulumi.Input[str],
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  data_origin: Optional[pulumi.Input[str]] = None,
                  data_origin_datasource_id: Optional[pulumi.Input[str]] = None,
                  data_origin_project_id: Optional[pulumi.Input[str]] = None,
@@ -44,6 +45,7 @@ class DatasourceCloudArgs:
         :param pulumi.Input['DatasourceCloudServiceTypeArgs'] service_type: Service type, Own or Cloud.
         :param pulumi.Input[str] source_name: Datasource name in BI.
         :param pulumi.Input[str] vpc_id: Vpc identification.
+        :param pulumi.Input[str] cluster_id: Cluster id.
         :param pulumi.Input[str] data_origin: Third-party datasource identification, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_datasource_id: Third-party datasource project id, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_project_id: Third-party datasource project id, this parameter can be ignored.
@@ -62,6 +64,8 @@ class DatasourceCloudArgs:
         pulumi.set(__self__, "service_type", service_type)
         pulumi.set(__self__, "source_name", source_name)
         pulumi.set(__self__, "vpc_id", vpc_id)
+        if cluster_id is not None:
+            pulumi.set(__self__, "cluster_id", cluster_id)
         if data_origin is not None:
             pulumi.set(__self__, "data_origin", data_origin)
         if data_origin_datasource_id is not None:
@@ -188,6 +192,18 @@ class DatasourceCloudArgs:
         pulumi.set(self, "vpc_id", value)
 
     @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Cluster id.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @cluster_id.setter
+    def cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_id", value)
+
+    @property
     @pulumi.getter(name="dataOrigin")
     def data_origin(self) -> Optional[pulumi.Input[str]]:
         """
@@ -288,6 +304,7 @@ class DatasourceCloudArgs:
 class _DatasourceCloudState:
     def __init__(__self__, *,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  data_origin: Optional[pulumi.Input[str]] = None,
                  data_origin_datasource_id: Optional[pulumi.Input[str]] = None,
                  data_origin_project_id: Optional[pulumi.Input[str]] = None,
@@ -307,6 +324,7 @@ class _DatasourceCloudState:
         """
         Input properties used for looking up and filtering DatasourceCloud resources.
         :param pulumi.Input[str] charset: Charset.
+        :param pulumi.Input[str] cluster_id: Cluster id.
         :param pulumi.Input[str] data_origin: Third-party datasource identification, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_datasource_id: Third-party datasource project id, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_project_id: Third-party datasource project id, this parameter can be ignored.
@@ -326,6 +344,8 @@ class _DatasourceCloudState:
         """
         if charset is not None:
             pulumi.set(__self__, "charset", charset)
+        if cluster_id is not None:
+            pulumi.set(__self__, "cluster_id", cluster_id)
         if data_origin is not None:
             pulumi.set(__self__, "data_origin", data_origin)
         if data_origin_datasource_id is not None:
@@ -370,6 +390,18 @@ class _DatasourceCloudState:
     @charset.setter
     def charset(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "charset", value)
+
+    @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Cluster id.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @cluster_id.setter
+    def cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_id", value)
 
     @property
     @pulumi.getter(name="dataOrigin")
@@ -570,6 +602,7 @@ class DatasourceCloud(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  data_origin: Optional[pulumi.Input[str]] = None,
                  data_origin_datasource_id: Optional[pulumi.Input[str]] = None,
                  data_origin_project_id: Optional[pulumi.Input[str]] = None,
@@ -592,6 +625,7 @@ class DatasourceCloud(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] charset: Charset.
+        :param pulumi.Input[str] cluster_id: Cluster id.
         :param pulumi.Input[str] data_origin: Third-party datasource identification, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_datasource_id: Third-party datasource project id, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_project_id: Third-party datasource project id, this parameter can be ignored.
@@ -633,6 +667,7 @@ class DatasourceCloud(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  data_origin: Optional[pulumi.Input[str]] = None,
                  data_origin_datasource_id: Optional[pulumi.Input[str]] = None,
                  data_origin_project_id: Optional[pulumi.Input[str]] = None,
@@ -661,6 +696,7 @@ class DatasourceCloud(pulumi.CustomResource):
             if charset is None and not opts.urn:
                 raise TypeError("Missing required property 'charset'")
             __props__.__dict__["charset"] = charset
+            __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["data_origin"] = data_origin
             __props__.__dict__["data_origin_datasource_id"] = data_origin_datasource_id
             __props__.__dict__["data_origin_project_id"] = data_origin_project_id
@@ -706,6 +742,7 @@ class DatasourceCloud(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             charset: Optional[pulumi.Input[str]] = None,
+            cluster_id: Optional[pulumi.Input[str]] = None,
             data_origin: Optional[pulumi.Input[str]] = None,
             data_origin_datasource_id: Optional[pulumi.Input[str]] = None,
             data_origin_project_id: Optional[pulumi.Input[str]] = None,
@@ -730,6 +767,7 @@ class DatasourceCloud(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] charset: Charset.
+        :param pulumi.Input[str] cluster_id: Cluster id.
         :param pulumi.Input[str] data_origin: Third-party datasource identification, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_datasource_id: Third-party datasource project id, this parameter can be ignored.
         :param pulumi.Input[str] data_origin_project_id: Third-party datasource project id, this parameter can be ignored.
@@ -752,6 +790,7 @@ class DatasourceCloud(pulumi.CustomResource):
         __props__ = _DatasourceCloudState.__new__(_DatasourceCloudState)
 
         __props__.__dict__["charset"] = charset
+        __props__.__dict__["cluster_id"] = cluster_id
         __props__.__dict__["data_origin"] = data_origin
         __props__.__dict__["data_origin_datasource_id"] = data_origin_datasource_id
         __props__.__dict__["data_origin_project_id"] = data_origin_project_id
@@ -777,6 +816,14 @@ class DatasourceCloud(pulumi.CustomResource):
         Charset.
         """
         return pulumi.get(self, "charset")
+
+    @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        Cluster id.
+        """
+        return pulumi.get(self, "cluster_id")
 
     @property
     @pulumi.getter(name="dataOrigin")

@@ -85,7 +85,7 @@ type SaasDomain struct {
 	UpstreamType pulumi.IntPtrOutput `pulumi:"upstreamType"`
 	// Weight of each upstream.
 	Weights pulumi.IntArrayOutput `pulumi:"weights"`
-	// 0:disable xff reset; 1:ensable xff reset.
+	// 0:disable xff reset; 1:enable xff reset.
 	XffReset pulumi.IntPtrOutput `pulumi:"xffReset"`
 }
 
@@ -198,7 +198,7 @@ type saasDomainState struct {
 	UpstreamType *int `pulumi:"upstreamType"`
 	// Weight of each upstream.
 	Weights []int `pulumi:"weights"`
-	// 0:disable xff reset; 1:ensable xff reset.
+	// 0:disable xff reset; 1:enable xff reset.
 	XffReset *int `pulumi:"xffReset"`
 }
 
@@ -273,7 +273,7 @@ type SaasDomainState struct {
 	UpstreamType pulumi.IntPtrInput
 	// Weight of each upstream.
 	Weights pulumi.IntArrayInput
-	// 0:disable xff reset; 1:ensable xff reset.
+	// 0:disable xff reset; 1:enable xff reset.
 	XffReset pulumi.IntPtrInput
 }
 
@@ -350,7 +350,7 @@ type saasDomainArgs struct {
 	UpstreamType *int `pulumi:"upstreamType"`
 	// Weight of each upstream.
 	Weights []int `pulumi:"weights"`
-	// 0:disable xff reset; 1:ensable xff reset.
+	// 0:disable xff reset; 1:enable xff reset.
 	XffReset *int `pulumi:"xffReset"`
 }
 
@@ -424,7 +424,7 @@ type SaasDomainArgs struct {
 	UpstreamType pulumi.IntPtrInput
 	// Weight of each upstream.
 	Weights pulumi.IntArrayInput
-	// 0:disable xff reset; 1:ensable xff reset.
+	// 0:disable xff reset; 1:enable xff reset.
 	XffReset pulumi.IntPtrInput
 }
 
@@ -684,7 +684,7 @@ func (o SaasDomainOutput) Weights() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *SaasDomain) pulumi.IntArrayOutput { return v.Weights }).(pulumi.IntArrayOutput)
 }
 
-// 0:disable xff reset; 1:ensable xff reset.
+// 0:disable xff reset; 1:enable xff reset.
 func (o SaasDomainOutput) XffReset() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *SaasDomain) pulumi.IntPtrOutput { return v.XffReset }).(pulumi.IntPtrOutput)
 }

@@ -17,7 +17,7 @@ type TmpInstance struct {
 
 	// Prometheus HTTP API root address.
 	ApiRootPath pulumi.StringOutput `pulumi:"apiRootPath"`
-	// Data retention time.
+	// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 	DataRetentionTime pulumi.IntOutput `pulumi:"dataRetentionTime"`
 	// Instance name.
 	InstanceName pulumi.StringOutput `pulumi:"instanceName"`
@@ -84,7 +84,7 @@ func GetTmpInstance(ctx *pulumi.Context,
 type tmpInstanceState struct {
 	// Prometheus HTTP API root address.
 	ApiRootPath *string `pulumi:"apiRootPath"`
-	// Data retention time.
+	// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 	DataRetentionTime *int `pulumi:"dataRetentionTime"`
 	// Instance name.
 	InstanceName *string `pulumi:"instanceName"`
@@ -107,7 +107,7 @@ type tmpInstanceState struct {
 type TmpInstanceState struct {
 	// Prometheus HTTP API root address.
 	ApiRootPath pulumi.StringPtrInput
-	// Data retention time.
+	// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 	DataRetentionTime pulumi.IntPtrInput
 	// Instance name.
 	InstanceName pulumi.StringPtrInput
@@ -132,7 +132,7 @@ func (TmpInstanceState) ElementType() reflect.Type {
 }
 
 type tmpInstanceArgs struct {
-	// Data retention time.
+	// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 	DataRetentionTime int `pulumi:"dataRetentionTime"`
 	// Instance name.
 	InstanceName string `pulumi:"instanceName"`
@@ -148,7 +148,7 @@ type tmpInstanceArgs struct {
 
 // The set of arguments for constructing a TmpInstance resource.
 type TmpInstanceArgs struct {
-	// Data retention time.
+	// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 	DataRetentionTime pulumi.IntInput
 	// Instance name.
 	InstanceName pulumi.StringInput
@@ -254,7 +254,7 @@ func (o TmpInstanceOutput) ApiRootPath() pulumi.StringOutput {
 	return o.ApplyT(func(v *TmpInstance) pulumi.StringOutput { return v.ApiRootPath }).(pulumi.StringOutput)
 }
 
-// Data retention time.
+// Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
 func (o TmpInstanceOutput) DataRetentionTime() pulumi.IntOutput {
 	return o.ApplyT(func(v *TmpInstance) pulumi.IntOutput { return v.DataRetentionTime }).(pulumi.IntOutput)
 }

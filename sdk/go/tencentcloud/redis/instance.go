@@ -25,14 +25,17 @@ type Instance struct {
 	ChargeType pulumi.StringPtrOutput `pulumi:"chargeType"`
 	// The time when the instance was created.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
+	// Dedicated Cluster ID.
+	DedicatedClusterId pulumi.StringOutput `pulumi:"dedicatedClusterId"`
 	// Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-	// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+	// instead of staying recycle bin.
 	ForceDelete pulumi.BoolPtrOutput `pulumi:"forceDelete"`
 	// IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
 	Ip pulumi.StringOutput `pulumi:"ip"`
 	// The memory volume of an available instance(in MB), please refer to
 	// `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-	// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+	// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+	// master-slave instance.
 	MemSize pulumi.IntOutput `pulumi:"memSize"`
 	// Instance name.
 	Name pulumi.StringOutput `pulumi:"name"`
@@ -56,10 +59,15 @@ type Instance struct {
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
 	// Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
 	PrepaidPeriod pulumi.IntPtrOutput `pulumi:"prepaidPeriod"`
+	// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+	// cluster version. Default is `local`.
+	ProductVersion pulumi.StringOutput `pulumi:"productVersion"`
 	// Specifies which project the instance should belong to.
 	ProjectId pulumi.IntPtrOutput `pulumi:"projectId"`
 	// Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 	Recycle pulumi.IntPtrOutput `pulumi:"recycle"`
+	// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+	RedisClusterId pulumi.StringOutput `pulumi:"redisClusterId"`
 	// The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
 	// `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
 	// architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -98,6 +106,8 @@ type Instance struct {
 	// ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
 	// `changeBaseToVpc`, this parameter needs to be configured.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
+	// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+	WaitSwitch pulumi.IntPtrOutput `pulumi:"waitSwitch"`
 }
 
 // NewInstance registers a new resource with the given unique name, arguments, and options.
@@ -153,14 +163,17 @@ type instanceState struct {
 	ChargeType *string `pulumi:"chargeType"`
 	// The time when the instance was created.
 	CreateTime *string `pulumi:"createTime"`
+	// Dedicated Cluster ID.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-	// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+	// instead of staying recycle bin.
 	ForceDelete *bool `pulumi:"forceDelete"`
 	// IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
 	Ip *string `pulumi:"ip"`
 	// The memory volume of an available instance(in MB), please refer to
 	// `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-	// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+	// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+	// master-slave instance.
 	MemSize *int `pulumi:"memSize"`
 	// Instance name.
 	Name *string `pulumi:"name"`
@@ -184,10 +197,15 @@ type instanceState struct {
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
 	// Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
 	PrepaidPeriod *int `pulumi:"prepaidPeriod"`
+	// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+	// cluster version. Default is `local`.
+	ProductVersion *string `pulumi:"productVersion"`
 	// Specifies which project the instance should belong to.
 	ProjectId *int `pulumi:"projectId"`
 	// Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 	Recycle *int `pulumi:"recycle"`
+	// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+	RedisClusterId *string `pulumi:"redisClusterId"`
 	// The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
 	// `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
 	// architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -226,6 +244,8 @@ type instanceState struct {
 	// ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
 	// `changeBaseToVpc`, this parameter needs to be configured.
 	VpcId *string `pulumi:"vpcId"`
+	// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+	WaitSwitch *int `pulumi:"waitSwitch"`
 }
 
 type InstanceState struct {
@@ -239,14 +259,17 @@ type InstanceState struct {
 	ChargeType pulumi.StringPtrInput
 	// The time when the instance was created.
 	CreateTime pulumi.StringPtrInput
+	// Dedicated Cluster ID.
+	DedicatedClusterId pulumi.StringPtrInput
 	// Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-	// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+	// instead of staying recycle bin.
 	ForceDelete pulumi.BoolPtrInput
 	// IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
 	Ip pulumi.StringPtrInput
 	// The memory volume of an available instance(in MB), please refer to
 	// `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-	// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+	// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+	// master-slave instance.
 	MemSize pulumi.IntPtrInput
 	// Instance name.
 	Name pulumi.StringPtrInput
@@ -270,10 +293,15 @@ type InstanceState struct {
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
 	// Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
 	PrepaidPeriod pulumi.IntPtrInput
+	// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+	// cluster version. Default is `local`.
+	ProductVersion pulumi.StringPtrInput
 	// Specifies which project the instance should belong to.
 	ProjectId pulumi.IntPtrInput
 	// Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 	Recycle pulumi.IntPtrInput
+	// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+	RedisClusterId pulumi.StringPtrInput
 	// The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
 	// `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
 	// architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -312,6 +340,8 @@ type InstanceState struct {
 	// ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
 	// `changeBaseToVpc`, this parameter needs to be configured.
 	VpcId pulumi.StringPtrInput
+	// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+	WaitSwitch pulumi.IntPtrInput
 }
 
 func (InstanceState) ElementType() reflect.Type {
@@ -328,13 +358,14 @@ type instanceArgs struct {
 	// new with new charge type.
 	ChargeType *string `pulumi:"chargeType"`
 	// Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-	// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+	// instead of staying recycle bin.
 	ForceDelete *bool `pulumi:"forceDelete"`
 	// IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
 	Ip *string `pulumi:"ip"`
 	// The memory volume of an available instance(in MB), please refer to
 	// `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-	// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+	// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+	// master-slave instance.
 	MemSize int `pulumi:"memSize"`
 	// Instance name.
 	Name *string `pulumi:"name"`
@@ -356,10 +387,15 @@ type instanceArgs struct {
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
 	// Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
 	PrepaidPeriod *int `pulumi:"prepaidPeriod"`
+	// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+	// cluster version. Default is `local`.
+	ProductVersion *string `pulumi:"productVersion"`
 	// Specifies which project the instance should belong to.
 	ProjectId *int `pulumi:"projectId"`
 	// Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 	Recycle *int `pulumi:"recycle"`
+	// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+	RedisClusterId *string `pulumi:"redisClusterId"`
 	// The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
 	// `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
 	// architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -396,6 +432,8 @@ type instanceArgs struct {
 	// ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
 	// `changeBaseToVpc`, this parameter needs to be configured.
 	VpcId *string `pulumi:"vpcId"`
+	// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+	WaitSwitch *int `pulumi:"waitSwitch"`
 }
 
 // The set of arguments for constructing a Instance resource.
@@ -409,13 +447,14 @@ type InstanceArgs struct {
 	// new with new charge type.
 	ChargeType pulumi.StringPtrInput
 	// Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-	// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+	// instead of staying recycle bin.
 	ForceDelete pulumi.BoolPtrInput
 	// IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
 	Ip pulumi.StringPtrInput
 	// The memory volume of an available instance(in MB), please refer to
 	// `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-	// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+	// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+	// master-slave instance.
 	MemSize pulumi.IntInput
 	// Instance name.
 	Name pulumi.StringPtrInput
@@ -437,10 +476,15 @@ type InstanceArgs struct {
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
 	// Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
 	PrepaidPeriod pulumi.IntPtrInput
+	// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+	// cluster version. Default is `local`.
+	ProductVersion pulumi.StringPtrInput
 	// Specifies which project the instance should belong to.
 	ProjectId pulumi.IntPtrInput
 	// Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 	Recycle pulumi.IntPtrInput
+	// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+	RedisClusterId pulumi.StringPtrInput
 	// The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
 	// `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
 	// architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -477,6 +521,8 @@ type InstanceArgs struct {
 	// ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
 	// `changeBaseToVpc`, this parameter needs to be configured.
 	VpcId pulumi.StringPtrInput
+	// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+	WaitSwitch pulumi.IntPtrInput
 }
 
 func (InstanceArgs) ElementType() reflect.Type {
@@ -588,8 +634,13 @@ func (o InstanceOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
 }
 
+// Dedicated Cluster ID.
+func (o InstanceOutput) DedicatedClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.DedicatedClusterId }).(pulumi.StringOutput)
+}
+
 // Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-// instead of staying recycle bin. Note: only works for `PREPAID` instance.
+// instead of staying recycle bin.
 func (o InstanceOutput) ForceDelete() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.ForceDelete }).(pulumi.BoolPtrOutput)
 }
@@ -601,7 +652,8 @@ func (o InstanceOutput) Ip() pulumi.StringOutput {
 
 // The memory volume of an available instance(in MB), please refer to
 // `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-// of the instance; when Redis is cluster type, it represents memory size of per sharding.
+// of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+// master-slave instance.
 func (o InstanceOutput) MemSize() pulumi.IntOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.MemSize }).(pulumi.IntOutput)
 }
@@ -652,6 +704,12 @@ func (o InstanceOutput) PrepaidPeriod() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.PrepaidPeriod }).(pulumi.IntPtrOutput)
 }
 
+// Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+// cluster version. Default is `local`.
+func (o InstanceOutput) ProductVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.ProductVersion }).(pulumi.StringOutput)
+}
+
 // Specifies which project the instance should belong to.
 func (o InstanceOutput) ProjectId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.ProjectId }).(pulumi.IntPtrOutput)
@@ -660,6 +718,11 @@ func (o InstanceOutput) ProjectId() pulumi.IntPtrOutput {
 // Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
 func (o InstanceOutput) Recycle() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.Recycle }).(pulumi.IntPtrOutput)
+}
+
+// Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+func (o InstanceOutput) RedisClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.RedisClusterId }).(pulumi.StringOutput)
 }
 
 // The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
@@ -731,6 +794,11 @@ func (o InstanceOutput) TypeId() pulumi.IntPtrOutput {
 // `changeBaseToVpc`, this parameter needs to be configured.
 func (o InstanceOutput) VpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.VpcId }).(pulumi.StringOutput)
+}
+
+// Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+func (o InstanceOutput) WaitSwitch() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.WaitSwitch }).(pulumi.IntPtrOutput)
 }
 
 type InstanceArrayOutput struct{ *pulumi.OutputState }

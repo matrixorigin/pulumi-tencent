@@ -35,11 +35,11 @@ export class AlarmNotice extends pulumi.CustomResource {
     }
 
     /**
-     * alarm notice name.
+     * Alarm notice name.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * notice receivers.
+     * Notice receivers.
      */
     public readonly noticeReceivers!: pulumi.Output<outputs.Cls.AlarmNoticeNoticeReceiver[] | undefined>;
     /**
@@ -47,11 +47,11 @@ export class AlarmNotice extends pulumi.CustomResource {
      */
     public readonly tags!: pulumi.Output<{[key: string]: any} | undefined>;
     /**
-     * notice type.
+     * Notice type. Value: Trigger, Recovery, All.
      */
     public readonly type!: pulumi.Output<string>;
     /**
-     * callback info.
+     * Callback info.
      */
     public readonly webCallbacks!: pulumi.Output<outputs.Cls.AlarmNoticeWebCallback[] | undefined>;
 
@@ -94,11 +94,11 @@ export class AlarmNotice extends pulumi.CustomResource {
  */
 export interface AlarmNoticeState {
     /**
-     * alarm notice name.
+     * Alarm notice name.
      */
     name?: pulumi.Input<string>;
     /**
-     * notice receivers.
+     * Notice receivers.
      */
     noticeReceivers?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmNoticeNoticeReceiver>[]>;
     /**
@@ -106,11 +106,11 @@ export interface AlarmNoticeState {
      */
     tags?: pulumi.Input<{[key: string]: any}>;
     /**
-     * notice type.
+     * Notice type. Value: Trigger, Recovery, All.
      */
     type?: pulumi.Input<string>;
     /**
-     * callback info.
+     * Callback info.
      */
     webCallbacks?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmNoticeWebCallback>[]>;
 }
@@ -120,11 +120,11 @@ export interface AlarmNoticeState {
  */
 export interface AlarmNoticeArgs {
     /**
-     * alarm notice name.
+     * Alarm notice name.
      */
     name?: pulumi.Input<string>;
     /**
-     * notice receivers.
+     * Notice receivers.
      */
     noticeReceivers?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmNoticeNoticeReceiver>[]>;
     /**
@@ -132,11 +132,11 @@ export interface AlarmNoticeArgs {
      */
     tags?: pulumi.Input<{[key: string]: any}>;
     /**
-     * notice type.
+     * Notice type. Value: Trigger, Recovery, All.
      */
     type: pulumi.Input<string>;
     /**
-     * callback info.
+     * Callback info.
      */
     webCallbacks?: pulumi.Input<pulumi.Input<inputs.Cls.AlarmNoticeWebCallback>[]>;
 }

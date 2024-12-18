@@ -851,6 +851,390 @@ func (o GetBackupDownloadInfoLimitVpcArrayOutput) Index(i pulumi.IntInput) GetBa
 	}).(GetBackupDownloadInfoLimitVpcOutput)
 }
 
+type GetClustersResource struct {
+	AppId              int                                 `pulumi:"appId"`
+	AutoRenewFlag      int                                 `pulumi:"autoRenewFlag"`
+	BaseBundles        []GetClustersResourceBaseBundle     `pulumi:"baseBundles"`
+	ClusterName        string                              `pulumi:"clusterName"`
+	DedicatedClusterId string                              `pulumi:"dedicatedClusterId"`
+	EndTime            string                              `pulumi:"endTime"`
+	PayMode            int                                 `pulumi:"payMode"`
+	ProjectId          int                                 `pulumi:"projectId"`
+	RedisClusterId     string                              `pulumi:"redisClusterId"`
+	RegionId           int                                 `pulumi:"regionId"`
+	ResourceBundles    []GetClustersResourceResourceBundle `pulumi:"resourceBundles"`
+	StartTime          string                              `pulumi:"startTime"`
+	Status             int                                 `pulumi:"status"`
+	ZoneId             int                                 `pulumi:"zoneId"`
+}
+
+// GetClustersResourceInput is an input type that accepts GetClustersResourceArgs and GetClustersResourceOutput values.
+// You can construct a concrete instance of `GetClustersResourceInput` via:
+//
+//	GetClustersResourceArgs{...}
+type GetClustersResourceInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceOutput() GetClustersResourceOutput
+	ToGetClustersResourceOutputWithContext(context.Context) GetClustersResourceOutput
+}
+
+type GetClustersResourceArgs struct {
+	AppId              pulumi.IntInput                             `pulumi:"appId"`
+	AutoRenewFlag      pulumi.IntInput                             `pulumi:"autoRenewFlag"`
+	BaseBundles        GetClustersResourceBaseBundleArrayInput     `pulumi:"baseBundles"`
+	ClusterName        pulumi.StringInput                          `pulumi:"clusterName"`
+	DedicatedClusterId pulumi.StringInput                          `pulumi:"dedicatedClusterId"`
+	EndTime            pulumi.StringInput                          `pulumi:"endTime"`
+	PayMode            pulumi.IntInput                             `pulumi:"payMode"`
+	ProjectId          pulumi.IntInput                             `pulumi:"projectId"`
+	RedisClusterId     pulumi.StringInput                          `pulumi:"redisClusterId"`
+	RegionId           pulumi.IntInput                             `pulumi:"regionId"`
+	ResourceBundles    GetClustersResourceResourceBundleArrayInput `pulumi:"resourceBundles"`
+	StartTime          pulumi.StringInput                          `pulumi:"startTime"`
+	Status             pulumi.IntInput                             `pulumi:"status"`
+	ZoneId             pulumi.IntInput                             `pulumi:"zoneId"`
+}
+
+func (GetClustersResourceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResource)(nil)).Elem()
+}
+
+func (i GetClustersResourceArgs) ToGetClustersResourceOutput() GetClustersResourceOutput {
+	return i.ToGetClustersResourceOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceArgs) ToGetClustersResourceOutputWithContext(ctx context.Context) GetClustersResourceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceOutput)
+}
+
+// GetClustersResourceArrayInput is an input type that accepts GetClustersResourceArray and GetClustersResourceArrayOutput values.
+// You can construct a concrete instance of `GetClustersResourceArrayInput` via:
+//
+//	GetClustersResourceArray{ GetClustersResourceArgs{...} }
+type GetClustersResourceArrayInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceArrayOutput() GetClustersResourceArrayOutput
+	ToGetClustersResourceArrayOutputWithContext(context.Context) GetClustersResourceArrayOutput
+}
+
+type GetClustersResourceArray []GetClustersResourceInput
+
+func (GetClustersResourceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResource)(nil)).Elem()
+}
+
+func (i GetClustersResourceArray) ToGetClustersResourceArrayOutput() GetClustersResourceArrayOutput {
+	return i.ToGetClustersResourceArrayOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceArray) ToGetClustersResourceArrayOutputWithContext(ctx context.Context) GetClustersResourceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceArrayOutput)
+}
+
+type GetClustersResourceOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResource)(nil)).Elem()
+}
+
+func (o GetClustersResourceOutput) ToGetClustersResourceOutput() GetClustersResourceOutput {
+	return o
+}
+
+func (o GetClustersResourceOutput) ToGetClustersResourceOutputWithContext(ctx context.Context) GetClustersResourceOutput {
+	return o
+}
+
+func (o GetClustersResourceOutput) AppId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.AppId }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) AutoRenewFlag() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.AutoRenewFlag }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) BaseBundles() GetClustersResourceBaseBundleArrayOutput {
+	return o.ApplyT(func(v GetClustersResource) []GetClustersResourceBaseBundle { return v.BaseBundles }).(GetClustersResourceBaseBundleArrayOutput)
+}
+
+func (o GetClustersResourceOutput) ClusterName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResource) string { return v.ClusterName }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResourceOutput) DedicatedClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResource) string { return v.DedicatedClusterId }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResourceOutput) EndTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResource) string { return v.EndTime }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResourceOutput) PayMode() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.PayMode }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) ProjectId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.ProjectId }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) RedisClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResource) string { return v.RedisClusterId }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResourceOutput) RegionId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.RegionId }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) ResourceBundles() GetClustersResourceResourceBundleArrayOutput {
+	return o.ApplyT(func(v GetClustersResource) []GetClustersResourceResourceBundle { return v.ResourceBundles }).(GetClustersResourceResourceBundleArrayOutput)
+}
+
+func (o GetClustersResourceOutput) StartTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResource) string { return v.StartTime }).(pulumi.StringOutput)
+}
+
+func (o GetClustersResourceOutput) Status() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.Status }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceOutput) ZoneId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResource) int { return v.ZoneId }).(pulumi.IntOutput)
+}
+
+type GetClustersResourceArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResource)(nil)).Elem()
+}
+
+func (o GetClustersResourceArrayOutput) ToGetClustersResourceArrayOutput() GetClustersResourceArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceArrayOutput) ToGetClustersResourceArrayOutputWithContext(ctx context.Context) GetClustersResourceArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceArrayOutput) Index(i pulumi.IntInput) GetClustersResourceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersResource {
+		return vs[0].([]GetClustersResource)[vs[1].(int)]
+	}).(GetClustersResourceOutput)
+}
+
+type GetClustersResourceBaseBundle struct {
+	AvailableMemory    int    `pulumi:"availableMemory"`
+	Count              int    `pulumi:"count"`
+	ResourceBundleName string `pulumi:"resourceBundleName"`
+}
+
+// GetClustersResourceBaseBundleInput is an input type that accepts GetClustersResourceBaseBundleArgs and GetClustersResourceBaseBundleOutput values.
+// You can construct a concrete instance of `GetClustersResourceBaseBundleInput` via:
+//
+//	GetClustersResourceBaseBundleArgs{...}
+type GetClustersResourceBaseBundleInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceBaseBundleOutput() GetClustersResourceBaseBundleOutput
+	ToGetClustersResourceBaseBundleOutputWithContext(context.Context) GetClustersResourceBaseBundleOutput
+}
+
+type GetClustersResourceBaseBundleArgs struct {
+	AvailableMemory    pulumi.IntInput    `pulumi:"availableMemory"`
+	Count              pulumi.IntInput    `pulumi:"count"`
+	ResourceBundleName pulumi.StringInput `pulumi:"resourceBundleName"`
+}
+
+func (GetClustersResourceBaseBundleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResourceBaseBundle)(nil)).Elem()
+}
+
+func (i GetClustersResourceBaseBundleArgs) ToGetClustersResourceBaseBundleOutput() GetClustersResourceBaseBundleOutput {
+	return i.ToGetClustersResourceBaseBundleOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceBaseBundleArgs) ToGetClustersResourceBaseBundleOutputWithContext(ctx context.Context) GetClustersResourceBaseBundleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceBaseBundleOutput)
+}
+
+// GetClustersResourceBaseBundleArrayInput is an input type that accepts GetClustersResourceBaseBundleArray and GetClustersResourceBaseBundleArrayOutput values.
+// You can construct a concrete instance of `GetClustersResourceBaseBundleArrayInput` via:
+//
+//	GetClustersResourceBaseBundleArray{ GetClustersResourceBaseBundleArgs{...} }
+type GetClustersResourceBaseBundleArrayInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceBaseBundleArrayOutput() GetClustersResourceBaseBundleArrayOutput
+	ToGetClustersResourceBaseBundleArrayOutputWithContext(context.Context) GetClustersResourceBaseBundleArrayOutput
+}
+
+type GetClustersResourceBaseBundleArray []GetClustersResourceBaseBundleInput
+
+func (GetClustersResourceBaseBundleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResourceBaseBundle)(nil)).Elem()
+}
+
+func (i GetClustersResourceBaseBundleArray) ToGetClustersResourceBaseBundleArrayOutput() GetClustersResourceBaseBundleArrayOutput {
+	return i.ToGetClustersResourceBaseBundleArrayOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceBaseBundleArray) ToGetClustersResourceBaseBundleArrayOutputWithContext(ctx context.Context) GetClustersResourceBaseBundleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceBaseBundleArrayOutput)
+}
+
+type GetClustersResourceBaseBundleOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceBaseBundleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResourceBaseBundle)(nil)).Elem()
+}
+
+func (o GetClustersResourceBaseBundleOutput) ToGetClustersResourceBaseBundleOutput() GetClustersResourceBaseBundleOutput {
+	return o
+}
+
+func (o GetClustersResourceBaseBundleOutput) ToGetClustersResourceBaseBundleOutputWithContext(ctx context.Context) GetClustersResourceBaseBundleOutput {
+	return o
+}
+
+func (o GetClustersResourceBaseBundleOutput) AvailableMemory() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResourceBaseBundle) int { return v.AvailableMemory }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceBaseBundleOutput) Count() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResourceBaseBundle) int { return v.Count }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceBaseBundleOutput) ResourceBundleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResourceBaseBundle) string { return v.ResourceBundleName }).(pulumi.StringOutput)
+}
+
+type GetClustersResourceBaseBundleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceBaseBundleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResourceBaseBundle)(nil)).Elem()
+}
+
+func (o GetClustersResourceBaseBundleArrayOutput) ToGetClustersResourceBaseBundleArrayOutput() GetClustersResourceBaseBundleArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceBaseBundleArrayOutput) ToGetClustersResourceBaseBundleArrayOutputWithContext(ctx context.Context) GetClustersResourceBaseBundleArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceBaseBundleArrayOutput) Index(i pulumi.IntInput) GetClustersResourceBaseBundleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersResourceBaseBundle {
+		return vs[0].([]GetClustersResourceBaseBundle)[vs[1].(int)]
+	}).(GetClustersResourceBaseBundleOutput)
+}
+
+type GetClustersResourceResourceBundle struct {
+	AvailableMemory    int    `pulumi:"availableMemory"`
+	Count              int    `pulumi:"count"`
+	ResourceBundleName string `pulumi:"resourceBundleName"`
+}
+
+// GetClustersResourceResourceBundleInput is an input type that accepts GetClustersResourceResourceBundleArgs and GetClustersResourceResourceBundleOutput values.
+// You can construct a concrete instance of `GetClustersResourceResourceBundleInput` via:
+//
+//	GetClustersResourceResourceBundleArgs{...}
+type GetClustersResourceResourceBundleInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceResourceBundleOutput() GetClustersResourceResourceBundleOutput
+	ToGetClustersResourceResourceBundleOutputWithContext(context.Context) GetClustersResourceResourceBundleOutput
+}
+
+type GetClustersResourceResourceBundleArgs struct {
+	AvailableMemory    pulumi.IntInput    `pulumi:"availableMemory"`
+	Count              pulumi.IntInput    `pulumi:"count"`
+	ResourceBundleName pulumi.StringInput `pulumi:"resourceBundleName"`
+}
+
+func (GetClustersResourceResourceBundleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResourceResourceBundle)(nil)).Elem()
+}
+
+func (i GetClustersResourceResourceBundleArgs) ToGetClustersResourceResourceBundleOutput() GetClustersResourceResourceBundleOutput {
+	return i.ToGetClustersResourceResourceBundleOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceResourceBundleArgs) ToGetClustersResourceResourceBundleOutputWithContext(ctx context.Context) GetClustersResourceResourceBundleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceResourceBundleOutput)
+}
+
+// GetClustersResourceResourceBundleArrayInput is an input type that accepts GetClustersResourceResourceBundleArray and GetClustersResourceResourceBundleArrayOutput values.
+// You can construct a concrete instance of `GetClustersResourceResourceBundleArrayInput` via:
+//
+//	GetClustersResourceResourceBundleArray{ GetClustersResourceResourceBundleArgs{...} }
+type GetClustersResourceResourceBundleArrayInput interface {
+	pulumi.Input
+
+	ToGetClustersResourceResourceBundleArrayOutput() GetClustersResourceResourceBundleArrayOutput
+	ToGetClustersResourceResourceBundleArrayOutputWithContext(context.Context) GetClustersResourceResourceBundleArrayOutput
+}
+
+type GetClustersResourceResourceBundleArray []GetClustersResourceResourceBundleInput
+
+func (GetClustersResourceResourceBundleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResourceResourceBundle)(nil)).Elem()
+}
+
+func (i GetClustersResourceResourceBundleArray) ToGetClustersResourceResourceBundleArrayOutput() GetClustersResourceResourceBundleArrayOutput {
+	return i.ToGetClustersResourceResourceBundleArrayOutputWithContext(context.Background())
+}
+
+func (i GetClustersResourceResourceBundleArray) ToGetClustersResourceResourceBundleArrayOutputWithContext(ctx context.Context) GetClustersResourceResourceBundleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClustersResourceResourceBundleArrayOutput)
+}
+
+type GetClustersResourceResourceBundleOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceResourceBundleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClustersResourceResourceBundle)(nil)).Elem()
+}
+
+func (o GetClustersResourceResourceBundleOutput) ToGetClustersResourceResourceBundleOutput() GetClustersResourceResourceBundleOutput {
+	return o
+}
+
+func (o GetClustersResourceResourceBundleOutput) ToGetClustersResourceResourceBundleOutputWithContext(ctx context.Context) GetClustersResourceResourceBundleOutput {
+	return o
+}
+
+func (o GetClustersResourceResourceBundleOutput) AvailableMemory() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResourceResourceBundle) int { return v.AvailableMemory }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceResourceBundleOutput) Count() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClustersResourceResourceBundle) int { return v.Count }).(pulumi.IntOutput)
+}
+
+func (o GetClustersResourceResourceBundleOutput) ResourceBundleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersResourceResourceBundle) string { return v.ResourceBundleName }).(pulumi.StringOutput)
+}
+
+type GetClustersResourceResourceBundleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClustersResourceResourceBundleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClustersResourceResourceBundle)(nil)).Elem()
+}
+
+func (o GetClustersResourceResourceBundleArrayOutput) ToGetClustersResourceResourceBundleArrayOutput() GetClustersResourceResourceBundleArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceResourceBundleArrayOutput) ToGetClustersResourceResourceBundleArrayOutputWithContext(ctx context.Context) GetClustersResourceResourceBundleArrayOutput {
+	return o
+}
+
+func (o GetClustersResourceResourceBundleArrayOutput) Index(i pulumi.IntInput) GetClustersResourceResourceBundleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClustersResourceResourceBundle {
+		return vs[0].([]GetClustersResourceResourceBundle)[vs[1].(int)]
+	}).(GetClustersResourceResourceBundleOutput)
+}
+
 type GetInstanceNodeInfoProxy struct {
 	NodeId string `pulumi:"nodeId"`
 	ZoneId int    `pulumi:"zoneId"`
@@ -2165,6 +2549,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBackupDownloadInfoBackupInfoArrayInput)(nil)).Elem(), GetBackupDownloadInfoBackupInfoArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBackupDownloadInfoLimitVpcInput)(nil)).Elem(), GetBackupDownloadInfoLimitVpcArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetBackupDownloadInfoLimitVpcArrayInput)(nil)).Elem(), GetBackupDownloadInfoLimitVpcArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceInput)(nil)).Elem(), GetClustersResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceArrayInput)(nil)).Elem(), GetClustersResourceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceBaseBundleInput)(nil)).Elem(), GetClustersResourceBaseBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceBaseBundleArrayInput)(nil)).Elem(), GetClustersResourceBaseBundleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceResourceBundleInput)(nil)).Elem(), GetClustersResourceResourceBundleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClustersResourceResourceBundleArrayInput)(nil)).Elem(), GetClustersResourceResourceBundleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceNodeInfoProxyInput)(nil)).Elem(), GetInstanceNodeInfoProxyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceNodeInfoProxyArrayInput)(nil)).Elem(), GetInstanceNodeInfoProxyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceNodeInfoRediInput)(nil)).Elem(), GetInstanceNodeInfoRediArgs{})
@@ -2199,6 +2589,12 @@ func init() {
 	pulumi.RegisterOutputType(GetBackupDownloadInfoBackupInfoArrayOutput{})
 	pulumi.RegisterOutputType(GetBackupDownloadInfoLimitVpcOutput{})
 	pulumi.RegisterOutputType(GetBackupDownloadInfoLimitVpcArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceBaseBundleOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceBaseBundleArrayOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceResourceBundleOutput{})
+	pulumi.RegisterOutputType(GetClustersResourceResourceBundleArrayOutput{})
 	pulumi.RegisterOutputType(GetInstanceNodeInfoProxyOutput{})
 	pulumi.RegisterOutputType(GetInstanceNodeInfoProxyArrayOutput{})
 	pulumi.RegisterOutputType(GetInstanceNodeInfoRediOutput{})

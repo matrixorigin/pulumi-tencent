@@ -22,7 +22,7 @@ class TmpInstanceArgs:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         The set of arguments for constructing a TmpInstance resource.
-        :param pulumi.Input[int] data_retention_time: Data retention time.
+        :param pulumi.Input[int] data_retention_time: Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         :param pulumi.Input[str] instance_name: Instance name.
         :param pulumi.Input[str] subnet_id: Subnet Id.
         :param pulumi.Input[str] vpc_id: Vpc Id.
@@ -41,7 +41,7 @@ class TmpInstanceArgs:
     @pulumi.getter(name="dataRetentionTime")
     def data_retention_time(self) -> pulumi.Input[int]:
         """
-        Data retention time.
+        Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         """
         return pulumi.get(self, "data_retention_time")
 
@@ -126,7 +126,7 @@ class _TmpInstanceState:
         """
         Input properties used for looking up and filtering TmpInstance resources.
         :param pulumi.Input[str] api_root_path: Prometheus HTTP API root address.
-        :param pulumi.Input[int] data_retention_time: Data retention time.
+        :param pulumi.Input[int] data_retention_time: Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         :param pulumi.Input[str] instance_name: Instance name.
         :param pulumi.Input[str] ipv4_address: Instance IPv4 address.
         :param pulumi.Input[str] proxy_address: Proxy address.
@@ -173,7 +173,7 @@ class _TmpInstanceState:
     @pulumi.getter(name="dataRetentionTime")
     def data_retention_time(self) -> Optional[pulumi.Input[int]]:
         """
-        Data retention time.
+        Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         """
         return pulumi.get(self, "data_retention_time")
 
@@ -294,7 +294,7 @@ class TmpInstance(pulumi.CustomResource):
         Create a TmpInstance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[int] data_retention_time: Data retention time.
+        :param pulumi.Input[int] data_retention_time: Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         :param pulumi.Input[str] instance_name: Instance name.
         :param pulumi.Input[str] subnet_id: Subnet Id.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
@@ -387,7 +387,7 @@ class TmpInstance(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_root_path: Prometheus HTTP API root address.
-        :param pulumi.Input[int] data_retention_time: Data retention time.
+        :param pulumi.Input[int] data_retention_time: Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         :param pulumi.Input[str] instance_name: Instance name.
         :param pulumi.Input[str] ipv4_address: Instance IPv4 address.
         :param pulumi.Input[str] proxy_address: Proxy address.
@@ -425,7 +425,7 @@ class TmpInstance(pulumi.CustomResource):
     @pulumi.getter(name="dataRetentionTime")
     def data_retention_time(self) -> pulumi.Output[int]:
         """
-        Data retention time.
+        Data retention time(in days). Value range: 15, 30, 45, 90, 180, 360, 720.
         """
         return pulumi.get(self, "data_retention_time")
 

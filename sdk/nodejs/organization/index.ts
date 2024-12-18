@@ -10,6 +10,11 @@ export const getMembers: typeof import("./getMembers").getMembers = null as any;
 export const getMembersOutput: typeof import("./getMembers").getMembersOutput = null as any;
 utilities.lazyLoad(exports, ["getMembers","getMembersOutput"], () => require("./getMembers"));
 
+export { GetNodesArgs, GetNodesResult, GetNodesOutputArgs } from "./getNodes";
+export const getNodes: typeof import("./getNodes").getNodes = null as any;
+export const getNodesOutput: typeof import("./getNodes").getNodesOutput = null as any;
+utilities.lazyLoad(exports, ["getNodes","getNodesOutput"], () => require("./getNodes"));
+
 export { GetOrgAuthNodeArgs, GetOrgAuthNodeResult, GetOrgAuthNodeOutputArgs } from "./getOrgAuthNode";
 export const getOrgAuthNode: typeof import("./getOrgAuthNode").getOrgAuthNode = null as any;
 export const getOrgAuthNodeOutput: typeof import("./getOrgAuthNode").getOrgAuthNodeOutput = null as any;
@@ -30,6 +35,16 @@ export const getOrgFinancialByProduct: typeof import("./getOrgFinancialByProduct
 export const getOrgFinancialByProductOutput: typeof import("./getOrgFinancialByProduct").getOrgFinancialByProductOutput = null as any;
 utilities.lazyLoad(exports, ["getOrgFinancialByProduct","getOrgFinancialByProductOutput"], () => require("./getOrgFinancialByProduct"));
 
+export { GetOrgShareAreaArgs, GetOrgShareAreaResult, GetOrgShareAreaOutputArgs } from "./getOrgShareArea";
+export const getOrgShareArea: typeof import("./getOrgShareArea").getOrgShareArea = null as any;
+export const getOrgShareAreaOutput: typeof import("./getOrgShareArea").getOrgShareAreaOutput = null as any;
+utilities.lazyLoad(exports, ["getOrgShareArea","getOrgShareAreaOutput"], () => require("./getOrgShareArea"));
+
+export { GetServicesArgs, GetServicesResult, GetServicesOutputArgs } from "./getServices";
+export const getServices: typeof import("./getServices").getServices = null as any;
+export const getServicesOutput: typeof import("./getServices").getServicesOutput = null as any;
+utilities.lazyLoad(exports, ["getServices","getServicesOutput"], () => require("./getServices"));
+
 export { InstanceArgs, InstanceState } from "./instance";
 export type Instance = import("./instance").Instance;
 export const Instance: typeof import("./instance").Instance = null as any;
@@ -39,6 +54,21 @@ export { OrgIdentityArgs, OrgIdentityState } from "./orgIdentity";
 export type OrgIdentity = import("./orgIdentity").OrgIdentity;
 export const OrgIdentity: typeof import("./orgIdentity").OrgIdentity = null as any;
 utilities.lazyLoad(exports, ["OrgIdentity"], () => require("./orgIdentity"));
+
+export { OrgManagePolicyArgs, OrgManagePolicyState } from "./orgManagePolicy";
+export type OrgManagePolicy = import("./orgManagePolicy").OrgManagePolicy;
+export const OrgManagePolicy: typeof import("./orgManagePolicy").OrgManagePolicy = null as any;
+utilities.lazyLoad(exports, ["OrgManagePolicy"], () => require("./orgManagePolicy"));
+
+export { OrgManagePolicyConfigArgs, OrgManagePolicyConfigState } from "./orgManagePolicyConfig";
+export type OrgManagePolicyConfig = import("./orgManagePolicyConfig").OrgManagePolicyConfig;
+export const OrgManagePolicyConfig: typeof import("./orgManagePolicyConfig").OrgManagePolicyConfig = null as any;
+utilities.lazyLoad(exports, ["OrgManagePolicyConfig"], () => require("./orgManagePolicyConfig"));
+
+export { OrgManagePolicyTargetArgs, OrgManagePolicyTargetState } from "./orgManagePolicyTarget";
+export type OrgManagePolicyTarget = import("./orgManagePolicyTarget").OrgManagePolicyTarget;
+export const OrgManagePolicyTarget: typeof import("./orgManagePolicyTarget").OrgManagePolicyTarget = null as any;
+utilities.lazyLoad(exports, ["OrgManagePolicyTarget"], () => require("./orgManagePolicyTarget"));
 
 export { OrgMemberArgs, OrgMemberState } from "./orgMember";
 export type OrgMember = import("./orgMember").OrgMember;
@@ -65,6 +95,16 @@ export type OrgNode = import("./orgNode").OrgNode;
 export const OrgNode: typeof import("./orgNode").OrgNode = null as any;
 utilities.lazyLoad(exports, ["OrgNode"], () => require("./orgNode"));
 
+export { OrgShareUnitArgs, OrgShareUnitState } from "./orgShareUnit";
+export type OrgShareUnit = import("./orgShareUnit").OrgShareUnit;
+export const OrgShareUnit: typeof import("./orgShareUnit").OrgShareUnit = null as any;
+utilities.lazyLoad(exports, ["OrgShareUnit"], () => require("./orgShareUnit"));
+
+export { OrgShareUnitMemberArgs, OrgShareUnitMemberState } from "./orgShareUnitMember";
+export type OrgShareUnitMember = import("./orgShareUnitMember").OrgShareUnitMember;
+export const OrgShareUnitMember: typeof import("./orgShareUnitMember").OrgShareUnitMember = null as any;
+utilities.lazyLoad(exports, ["OrgShareUnitMember"], () => require("./orgShareUnitMember"));
+
 export { PolicySubAccountAttachmentArgs, PolicySubAccountAttachmentState } from "./policySubAccountAttachment";
 export type PolicySubAccountAttachment = import("./policySubAccountAttachment").PolicySubAccountAttachment;
 export const PolicySubAccountAttachment: typeof import("./policySubAccountAttachment").PolicySubAccountAttachment = null as any;
@@ -75,6 +115,11 @@ export type QuitOrganizationOperation = import("./quitOrganizationOperation").Qu
 export const QuitOrganizationOperation: typeof import("./quitOrganizationOperation").QuitOrganizationOperation = null as any;
 utilities.lazyLoad(exports, ["QuitOrganizationOperation"], () => require("./quitOrganizationOperation"));
 
+export { ServiceAssignArgs, ServiceAssignState } from "./serviceAssign";
+export type ServiceAssign = import("./serviceAssign").ServiceAssign;
+export const ServiceAssign: typeof import("./serviceAssign").ServiceAssign = null as any;
+utilities.lazyLoad(exports, ["ServiceAssign"], () => require("./serviceAssign"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -84,6 +129,12 @@ const _module = {
                 return new Instance(name, <any>undefined, { urn })
             case "tencentcloud:Organization/orgIdentity:OrgIdentity":
                 return new OrgIdentity(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/orgManagePolicy:OrgManagePolicy":
+                return new OrgManagePolicy(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/orgManagePolicyConfig:OrgManagePolicyConfig":
+                return new OrgManagePolicyConfig(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/orgManagePolicyTarget:OrgManagePolicyTarget":
+                return new OrgManagePolicyTarget(name, <any>undefined, { urn })
             case "tencentcloud:Organization/orgMember:OrgMember":
                 return new OrgMember(name, <any>undefined, { urn })
             case "tencentcloud:Organization/orgMemberAuthIdentityAttachment:OrgMemberAuthIdentityAttachment":
@@ -94,10 +145,16 @@ const _module = {
                 return new OrgMemberPolicyAttachment(name, <any>undefined, { urn })
             case "tencentcloud:Organization/orgNode:OrgNode":
                 return new OrgNode(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/orgShareUnit:OrgShareUnit":
+                return new OrgShareUnit(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/orgShareUnitMember:OrgShareUnitMember":
+                return new OrgShareUnitMember(name, <any>undefined, { urn })
             case "tencentcloud:Organization/policySubAccountAttachment:PolicySubAccountAttachment":
                 return new PolicySubAccountAttachment(name, <any>undefined, { urn })
             case "tencentcloud:Organization/quitOrganizationOperation:QuitOrganizationOperation":
                 return new QuitOrganizationOperation(name, <any>undefined, { urn })
+            case "tencentcloud:Organization/serviceAssign:ServiceAssign":
+                return new ServiceAssign(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -105,10 +162,16 @@ const _module = {
 };
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/instance", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgIdentity", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgManagePolicy", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgManagePolicyConfig", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgManagePolicyTarget", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgMember", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgMemberAuthIdentityAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgMemberEmail", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgMemberPolicyAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgNode", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgShareUnit", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/orgShareUnitMember", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/policySubAccountAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Organization/quitOrganizationOperation", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Organization/serviceAssign", _module)

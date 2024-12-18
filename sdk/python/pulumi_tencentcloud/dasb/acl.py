@@ -1363,7 +1363,7 @@ class Acl(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="validateFrom")
-    def validate_from(self) -> pulumi.Output[Optional[str]]:
+    def validate_from(self) -> pulumi.Output[str]:
         """
         Access permission effective time, such as: 2021-09-22T00:00:00+08:00If the effective and expiry time are not filled in,
         the access rights will be valid for a long time.
@@ -1372,7 +1372,7 @@ class Acl(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="validateTo")
-    def validate_to(self) -> pulumi.Output[Optional[str]]:
+    def validate_to(self) -> pulumi.Output[str]:
         """
         Access permission expiration time, such as: 2021-09-23T00:00:00+08:00If the effective and expiry time are not filled in,
         the access rights will be valid for a long time.

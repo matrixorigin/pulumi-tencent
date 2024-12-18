@@ -11,6 +11,7 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'LifecycleHookLifecycleCommand',
     'LoadBalancerForwardLoadBalancer',
     'LoadBalancerForwardLoadBalancerTargetAttribute',
     'ScalingConfigDataDisk',
@@ -18,6 +19,8 @@ __all__ = [
     'ScalingConfigInstanceNameSettings',
     'ScalingGroupForwardBalancerId',
     'ScalingGroupForwardBalancerIdTargetAttribute',
+    'StartInstanceRefreshRefreshSettings',
+    'StartInstanceRefreshRefreshSettingsRollingUpdateSettings',
     'GetAdvicesAutoScalingAdviceSetResult',
     'GetAdvicesAutoScalingAdviceSetAdviceResult',
     'GetInstancesFilterResult',
@@ -34,6 +37,43 @@ __all__ = [
     'GetScalingGroupsScalingGroupListForwardBalancerIdTargetAttributeResult',
     'GetScalingPoliciesScalingPolicyListResult',
 ]
+
+@pulumi.output_type
+class LifecycleHookLifecycleCommand(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "commandId":
+            suggest = "command_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in LifecycleHookLifecycleCommand. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        LifecycleHookLifecycleCommand.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        LifecycleHookLifecycleCommand.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 command_id: str,
+                 parameters: Optional[str] = None):
+        pulumi.set(__self__, "command_id", command_id)
+        if parameters is not None:
+            pulumi.set(__self__, "parameters", parameters)
+
+    @property
+    @pulumi.getter(name="commandId")
+    def command_id(self) -> str:
+        return pulumi.get(self, "command_id")
+
+    @property
+    @pulumi.getter
+    def parameters(self) -> Optional[str]:
+        return pulumi.get(self, "parameters")
+
 
 @pulumi.output_type
 class LoadBalancerForwardLoadBalancer(dict):
@@ -331,6 +371,94 @@ class ScalingGroupForwardBalancerIdTargetAttribute(dict):
     @pulumi.getter
     def weight(self) -> int:
         return pulumi.get(self, "weight")
+
+
+@pulumi.output_type
+class StartInstanceRefreshRefreshSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "rollingUpdateSettings":
+            suggest = "rolling_update_settings"
+        elif key == "checkInstanceTargetHealth":
+            suggest = "check_instance_target_health"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StartInstanceRefreshRefreshSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StartInstanceRefreshRefreshSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StartInstanceRefreshRefreshSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rolling_update_settings: 'outputs.StartInstanceRefreshRefreshSettingsRollingUpdateSettings',
+                 check_instance_target_health: Optional[bool] = None):
+        pulumi.set(__self__, "rolling_update_settings", rolling_update_settings)
+        if check_instance_target_health is not None:
+            pulumi.set(__self__, "check_instance_target_health", check_instance_target_health)
+
+    @property
+    @pulumi.getter(name="rollingUpdateSettings")
+    def rolling_update_settings(self) -> 'outputs.StartInstanceRefreshRefreshSettingsRollingUpdateSettings':
+        return pulumi.get(self, "rolling_update_settings")
+
+    @property
+    @pulumi.getter(name="checkInstanceTargetHealth")
+    def check_instance_target_health(self) -> Optional[bool]:
+        return pulumi.get(self, "check_instance_target_health")
+
+
+@pulumi.output_type
+class StartInstanceRefreshRefreshSettingsRollingUpdateSettings(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "batchNumber":
+            suggest = "batch_number"
+        elif key == "batchPause":
+            suggest = "batch_pause"
+        elif key == "maxSurge":
+            suggest = "max_surge"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in StartInstanceRefreshRefreshSettingsRollingUpdateSettings. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        StartInstanceRefreshRefreshSettingsRollingUpdateSettings.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        StartInstanceRefreshRefreshSettingsRollingUpdateSettings.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 batch_number: int,
+                 batch_pause: Optional[str] = None,
+                 max_surge: Optional[int] = None):
+        pulumi.set(__self__, "batch_number", batch_number)
+        if batch_pause is not None:
+            pulumi.set(__self__, "batch_pause", batch_pause)
+        if max_surge is not None:
+            pulumi.set(__self__, "max_surge", max_surge)
+
+    @property
+    @pulumi.getter(name="batchNumber")
+    def batch_number(self) -> int:
+        return pulumi.get(self, "batch_number")
+
+    @property
+    @pulumi.getter(name="batchPause")
+    def batch_pause(self) -> Optional[str]:
+        return pulumi.get(self, "batch_pause")
+
+    @property
+    @pulumi.getter(name="maxSurge")
+    def max_surge(self) -> Optional[int]:
+        return pulumi.get(self, "max_surge")
 
 
 @pulumi.output_type
@@ -806,7 +934,8 @@ class GetScalingConfigsConfigurationListResult(dict):
                  status: str,
                  system_disk_size: int,
                  system_disk_type: str,
-                 user_data: str):
+                 user_data: str,
+                 version_number: int):
         pulumi.set(__self__, "configuration_id", configuration_id)
         pulumi.set(__self__, "configuration_name", configuration_name)
         pulumi.set(__self__, "create_time", create_time)
@@ -827,6 +956,7 @@ class GetScalingConfigsConfigurationListResult(dict):
         pulumi.set(__self__, "system_disk_size", system_disk_size)
         pulumi.set(__self__, "system_disk_type", system_disk_type)
         pulumi.set(__self__, "user_data", user_data)
+        pulumi.set(__self__, "version_number", version_number)
 
     @property
     @pulumi.getter(name="configurationId")
@@ -927,6 +1057,11 @@ class GetScalingConfigsConfigurationListResult(dict):
     @pulumi.getter(name="userData")
     def user_data(self) -> str:
         return pulumi.get(self, "user_data")
+
+    @property
+    @pulumi.getter(name="versionNumber")
+    def version_number(self) -> int:
+        return pulumi.get(self, "version_number")
 
 
 @pulumi.output_type

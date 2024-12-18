@@ -72,10 +72,15 @@ export class SnapshotByTimeOffsetTemplate extends pulumi.CustomResource {
      */
     public readonly resolutionAdaptive!: pulumi.Output<boolean | undefined>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     public readonly subAppId!: pulumi.Output<number | undefined>;
+    /**
+     * Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+     */
+    public /*out*/ readonly type!: pulumi.Output<string>;
     /**
      * Last modified time of template in ISO date format.
      */
@@ -109,6 +114,7 @@ export class SnapshotByTimeOffsetTemplate extends pulumi.CustomResource {
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["resolutionAdaptive"] = state ? state.resolutionAdaptive : undefined;
             resourceInputs["subAppId"] = state ? state.subAppId : undefined;
+            resourceInputs["type"] = state ? state.type : undefined;
             resourceInputs["updateTime"] = state ? state.updateTime : undefined;
             resourceInputs["width"] = state ? state.width : undefined;
         } else {
@@ -122,6 +128,7 @@ export class SnapshotByTimeOffsetTemplate extends pulumi.CustomResource {
             resourceInputs["subAppId"] = args ? args.subAppId : undefined;
             resourceInputs["width"] = args ? args.width : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
+            resourceInputs["type"] = undefined /*out*/;
             resourceInputs["updateTime"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -173,10 +180,15 @@ export interface SnapshotByTimeOffsetTemplateState {
      */
     resolutionAdaptive?: pulumi.Input<boolean>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     subAppId?: pulumi.Input<number>;
+    /**
+     * Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+     */
+    type?: pulumi.Input<string>;
     /**
      * Last modified time of template in ISO date format.
      */
@@ -230,8 +242,9 @@ export interface SnapshotByTimeOffsetTemplateArgs {
      */
     resolutionAdaptive?: pulumi.Input<boolean>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     subAppId?: pulumi.Input<number>;
     /**

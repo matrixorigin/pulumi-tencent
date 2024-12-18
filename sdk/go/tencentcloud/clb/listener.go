@@ -30,9 +30,11 @@ type Listener struct {
 	// be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port
 	// range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort pulumi.IntOutput `pulumi:"endPort"`
+	// Enable H2C switch for intranet HTTP listener.
+	H2cSwitch pulumi.BoolOutput `pulumi:"h2cSwitch"`
 	// Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 	// required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
-	HealthCheckContextType pulumi.StringPtrOutput `pulumi:"healthCheckContextType"`
+	HealthCheckContextType pulumi.StringOutput `pulumi:"healthCheckContextType"`
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check for 3
 	// consecutive times, the backend CVM is identified as healthy. The value range is 2-10. NOTES: TCP/UDP/TCP_SSL listener
 	// allows direct configuration, HTTP/HTTPS listener needs to be configured in tencentcloud_clb_listener_rule.
@@ -72,7 +74,7 @@ type Listener struct {
 	// Response timeout of health check. Valid value ranges: [2~60] sec. Default is 2 sec. Response timeout needs to be less
 	// than check interval. NOTES: Only supports listeners of `TCP`,`UDP`,`TCP_SSL` protocol.
 	HealthCheckTimeOut pulumi.IntOutput `pulumi:"healthCheckTimeOut"`
-	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 	HealthCheckType pulumi.StringOutput `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, the CVM is identified as unhealthy. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows
@@ -167,6 +169,8 @@ type listenerState struct {
 	// be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port
 	// range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort *int `pulumi:"endPort"`
+	// Enable H2C switch for intranet HTTP listener.
+	H2cSwitch *bool `pulumi:"h2cSwitch"`
 	// Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 	// required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
 	HealthCheckContextType *string `pulumi:"healthCheckContextType"`
@@ -209,7 +213,7 @@ type listenerState struct {
 	// Response timeout of health check. Valid value ranges: [2~60] sec. Default is 2 sec. Response timeout needs to be less
 	// than check interval. NOTES: Only supports listeners of `TCP`,`UDP`,`TCP_SSL` protocol.
 	HealthCheckTimeOut *int `pulumi:"healthCheckTimeOut"`
-	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 	HealthCheckType *string `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, the CVM is identified as unhealthy. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows
@@ -266,6 +270,8 @@ type ListenerState struct {
 	// be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port
 	// range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort pulumi.IntPtrInput
+	// Enable H2C switch for intranet HTTP listener.
+	H2cSwitch pulumi.BoolPtrInput
 	// Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 	// required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
 	HealthCheckContextType pulumi.StringPtrInput
@@ -308,7 +314,7 @@ type ListenerState struct {
 	// Response timeout of health check. Valid value ranges: [2~60] sec. Default is 2 sec. Response timeout needs to be less
 	// than check interval. NOTES: Only supports listeners of `TCP`,`UDP`,`TCP_SSL` protocol.
 	HealthCheckTimeOut pulumi.IntPtrInput
-	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 	HealthCheckType pulumi.StringPtrInput
 	// Unhealthy threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, the CVM is identified as unhealthy. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows
@@ -369,6 +375,8 @@ type listenerArgs struct {
 	// be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port
 	// range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort *int `pulumi:"endPort"`
+	// Enable H2C switch for intranet HTTP listener.
+	H2cSwitch *bool `pulumi:"h2cSwitch"`
 	// Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 	// required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
 	HealthCheckContextType *string `pulumi:"healthCheckContextType"`
@@ -411,7 +419,7 @@ type listenerArgs struct {
 	// Response timeout of health check. Valid value ranges: [2~60] sec. Default is 2 sec. Response timeout needs to be less
 	// than check interval. NOTES: Only supports listeners of `TCP`,`UDP`,`TCP_SSL` protocol.
 	HealthCheckTimeOut *int `pulumi:"healthCheckTimeOut"`
-	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 	HealthCheckType *string `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, the CVM is identified as unhealthy. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows
@@ -467,6 +475,8 @@ type ListenerArgs struct {
 	// be passed in when inputting the `Ports` parameter, which is used to specify the start port. If you want to try the port
 	// range feature, please [submit a ticket](https://console.cloud.tencent.com/workorder/category).
 	EndPort pulumi.IntPtrInput
+	// Enable H2C switch for intranet HTTP listener.
+	H2cSwitch pulumi.BoolPtrInput
 	// Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 	// required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
 	HealthCheckContextType pulumi.StringPtrInput
@@ -509,7 +519,7 @@ type ListenerArgs struct {
 	// Response timeout of health check. Valid value ranges: [2~60] sec. Default is 2 sec. Response timeout needs to be less
 	// than check interval. NOTES: Only supports listeners of `TCP`,`UDP`,`TCP_SSL` protocol.
 	HealthCheckTimeOut pulumi.IntPtrInput
-	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+	// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 	HealthCheckType pulumi.StringPtrInput
 	// Unhealthy threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, the CVM is identified as unhealthy. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows
@@ -665,10 +675,15 @@ func (o ListenerOutput) EndPort() pulumi.IntOutput {
 	return o.ApplyT(func(v *Listener) pulumi.IntOutput { return v.EndPort }).(pulumi.IntOutput)
 }
 
+// Enable H2C switch for intranet HTTP listener.
+func (o ListenerOutput) H2cSwitch() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Listener) pulumi.BoolOutput { return v.H2cSwitch }).(pulumi.BoolOutput)
+}
+
 // Health check protocol. When the value of `health_check_type` of the health check protocol is `CUSTOM`, this field is
 // required, which represents the input format of the health check. Valid values: `HEX`, `TEXT`.
-func (o ListenerOutput) HealthCheckContextType() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Listener) pulumi.StringPtrOutput { return v.HealthCheckContextType }).(pulumi.StringPtrOutput)
+func (o ListenerOutput) HealthCheckContextType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Listener) pulumi.StringOutput { return v.HealthCheckContextType }).(pulumi.StringOutput)
 }
 
 // Health threshold of health check, and the default is `3`. If a success result is returned for the health check for 3
@@ -746,7 +761,7 @@ func (o ListenerOutput) HealthCheckTimeOut() pulumi.IntOutput {
 	return o.ApplyT(func(v *Listener) pulumi.IntOutput { return v.HealthCheckTimeOut }).(pulumi.IntOutput)
 }
 
-// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`.
+// Protocol used for health check. Valid values: `CUSTOM`, `TCP`, `HTTP`,`HTTPS`, `PING`, `GRPC`.
 func (o ListenerOutput) HealthCheckType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Listener) pulumi.StringOutput { return v.HealthCheckType }).(pulumi.StringOutput)
 }

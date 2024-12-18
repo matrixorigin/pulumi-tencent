@@ -29,6 +29,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CngwGateway{}
 	case "tencentcloud:Tse/cngwGroup:CngwGroup":
 		r = &CngwGroup{}
+	case "tencentcloud:Tse/cngwNetwork:CngwNetwork":
+		r = &CngwNetwork{}
+	case "tencentcloud:Tse/cngwNetworkAccessControl:CngwNetworkAccessControl":
+		r = &CngwNetworkAccessControl{}
 	case "tencentcloud:Tse/cngwRoute:CngwRoute":
 		r = &CngwRoute{}
 	case "tencentcloud:Tse/cngwRouteRateLimit:CngwRouteRateLimit":
@@ -37,6 +41,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &CngwService{}
 	case "tencentcloud:Tse/cngwServiceRateLimit:CngwServiceRateLimit":
 		r = &CngwServiceRateLimit{}
+	case "tencentcloud:Tse/cngwStrategy:CngwStrategy":
+		r = &CngwStrategy{}
+	case "tencentcloud:Tse/cngwStrategyBindGroup:CngwStrategyBindGroup":
+		r = &CngwStrategyBindGroup{}
 	case "tencentcloud:Tse/instance:Instance":
 		r = &Instance{}
 	case "tencentcloud:Tse/wafDomains:WafDomains":
@@ -78,6 +86,16 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
+		"Tse/cngwNetwork",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Tse/cngwNetworkAccessControl",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
 		"Tse/cngwRoute",
 		&module{version},
 	)
@@ -94,6 +112,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
 		"Tse/cngwServiceRateLimit",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Tse/cngwStrategy",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Tse/cngwStrategyBindGroup",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

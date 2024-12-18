@@ -10,6 +10,7 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = [
+    'ActionTimerActionTimerArgs',
     'ChcConfigBmcVirtualPrivateCloudArgs',
     'ChcConfigDeployVirtualPrivateCloudArgs',
     'ImportImageTagSpecificationArgs',
@@ -57,6 +58,35 @@ __all__ = [
     'GetChcHostsFilterArgs',
     'GetInstancesModificationFilterArgs',
 ]
+
+@pulumi.input_type
+class ActionTimerActionTimerArgs:
+    def __init__(__self__, *,
+                 action_time: Optional[pulumi.Input[str]] = None,
+                 timer_action: Optional[pulumi.Input[str]] = None):
+        if action_time is not None:
+            pulumi.set(__self__, "action_time", action_time)
+        if timer_action is not None:
+            pulumi.set(__self__, "timer_action", timer_action)
+
+    @property
+    @pulumi.getter(name="actionTime")
+    def action_time(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "action_time")
+
+    @action_time.setter
+    def action_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "action_time", value)
+
+    @property
+    @pulumi.getter(name="timerAction")
+    def timer_action(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "timer_action")
+
+    @timer_action.setter
+    def timer_action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "timer_action", value)
+
 
 @pulumi.input_type
 class ChcConfigBmcVirtualPrivateCloudArgs:
@@ -751,6 +781,9 @@ class LaunchTemplatePlacementArgs:
         if host_ids is not None:
             pulumi.set(__self__, "host_ids", host_ids)
         if host_ips is not None:
+            warnings.warn("""It has been deprecated from version 1.81.108.""", DeprecationWarning)
+            pulumi.log.warn("""host_ips is deprecated: It has been deprecated from version 1.81.108.""")
+        if host_ips is not None:
             pulumi.set(__self__, "host_ips", host_ips)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
@@ -776,6 +809,9 @@ class LaunchTemplatePlacementArgs:
     @property
     @pulumi.getter(name="hostIps")
     def host_ips(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        warnings.warn("""It has been deprecated from version 1.81.108.""", DeprecationWarning)
+        pulumi.log.warn("""host_ips is deprecated: It has been deprecated from version 1.81.108.""")
+
         return pulumi.get(self, "host_ips")
 
     @host_ips.setter

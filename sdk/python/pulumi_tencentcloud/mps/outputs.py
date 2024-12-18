@@ -19324,6 +19324,7 @@ class GetSchedulesScheduleInfoSetResult(dict):
                  create_time: str,
                  output_dir: str,
                  output_storages: Sequence['outputs.GetSchedulesScheduleInfoSetOutputStorageResult'],
+                 resource_id: str,
                  schedule_id: int,
                  schedule_name: str,
                  status: str,
@@ -19334,6 +19335,7 @@ class GetSchedulesScheduleInfoSetResult(dict):
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "output_dir", output_dir)
         pulumi.set(__self__, "output_storages", output_storages)
+        pulumi.set(__self__, "resource_id", resource_id)
         pulumi.set(__self__, "schedule_id", schedule_id)
         pulumi.set(__self__, "schedule_name", schedule_name)
         pulumi.set(__self__, "status", status)
@@ -19360,6 +19362,11 @@ class GetSchedulesScheduleInfoSetResult(dict):
     @pulumi.getter(name="outputStorages")
     def output_storages(self) -> Sequence['outputs.GetSchedulesScheduleInfoSetOutputStorageResult']:
         return pulumi.get(self, "output_storages")
+
+    @property
+    @pulumi.getter(name="resourceId")
+    def resource_id(self) -> str:
+        return pulumi.get(self, "resource_id")
 
     @property
     @pulumi.getter(name="scheduleId")

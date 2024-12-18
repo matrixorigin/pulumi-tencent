@@ -41,8 +41,9 @@ class SnapshotByTimeOffsetTemplateArgs:
         :param pulumi.Input[bool] resolution_adaptive: Resolution adaption. Valid values: `true`,`false`. `true`: enabled. In this case, `width` represents the long side of a
                video, while `height` the short side; `false`: disabled. In this case, `width` represents the width of a video, while
                `height` the height. Default value: `true`.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
                `0`, width will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be proportionally
@@ -152,8 +153,9 @@ class SnapshotByTimeOffsetTemplateArgs:
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
@@ -188,6 +190,7 @@ class _SnapshotByTimeOffsetTemplateState:
                  name: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  update_time: Optional[pulumi.Input[str]] = None,
                  width: Optional[pulumi.Input[int]] = None):
         """
@@ -210,8 +213,10 @@ class _SnapshotByTimeOffsetTemplateState:
         :param pulumi.Input[bool] resolution_adaptive: Resolution adaption. Valid values: `true`,`false`. `true`: enabled. In this case, `width` represents the long side of a
                video, while `height` the short side; `false`: disabled. In this case, `width` represents the width of a video, while
                `height` the height. Default value: `true`.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
@@ -234,6 +239,8 @@ class _SnapshotByTimeOffsetTemplateState:
             pulumi.set(__self__, "resolution_adaptive", resolution_adaptive)
         if sub_app_id is not None:
             pulumi.set(__self__, "sub_app_id", sub_app_id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if update_time is not None:
             pulumi.set(__self__, "update_time", update_time)
         if width is not None:
@@ -338,14 +345,27 @@ class _SnapshotByTimeOffsetTemplateState:
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
     @sub_app_id.setter
     def sub_app_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "sub_app_id", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
 
     @property
     @pulumi.getter(name="updateTime")
@@ -410,8 +430,9 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
         :param pulumi.Input[bool] resolution_adaptive: Resolution adaption. Valid values: `true`,`false`. `true`: enabled. In this case, `width` represents the long side of a
                video, while `height` the short side; `false`: disabled. In this case, `width` represents the width of a video, while
                `height` the height. Default value: `true`.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
                `0`, width will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be proportionally
@@ -466,6 +487,7 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
             __props__.__dict__["sub_app_id"] = sub_app_id
             __props__.__dict__["width"] = width
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["type"] = None
             __props__.__dict__["update_time"] = None
         super(SnapshotByTimeOffsetTemplate, __self__).__init__(
             'tencentcloud:Vod/snapshotByTimeOffsetTemplate:SnapshotByTimeOffsetTemplate',
@@ -485,6 +507,7 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
             name: Optional[pulumi.Input[str]] = None,
             resolution_adaptive: Optional[pulumi.Input[bool]] = None,
             sub_app_id: Optional[pulumi.Input[int]] = None,
+            type: Optional[pulumi.Input[str]] = None,
             update_time: Optional[pulumi.Input[str]] = None,
             width: Optional[pulumi.Input[int]] = None) -> 'SnapshotByTimeOffsetTemplate':
         """
@@ -512,8 +535,10 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
         :param pulumi.Input[bool] resolution_adaptive: Resolution adaption. Valid values: `true`,`false`. `true`: enabled. In this case, `width` represents the long side of a
                video, while `height` the short side; `false`: disabled. In this case, `width` represents the width of a video, while
                `height` the height. Default value: `true`.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
@@ -532,6 +557,7 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
         __props__.__dict__["name"] = name
         __props__.__dict__["resolution_adaptive"] = resolution_adaptive
         __props__.__dict__["sub_app_id"] = sub_app_id
+        __props__.__dict__["type"] = type
         __props__.__dict__["update_time"] = update_time
         __props__.__dict__["width"] = width
         return SnapshotByTimeOffsetTemplate(resource_name, opts=opts, __props__=__props__)
@@ -607,10 +633,19 @@ class SnapshotByTimeOffsetTemplate(pulumi.CustomResource):
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> pulumi.Output[Optional[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Output[str]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
 
     @property
     @pulumi.getter(name="updateTime")

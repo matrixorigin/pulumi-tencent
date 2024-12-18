@@ -19,6 +19,8 @@ type Instance struct {
 	AvailabilityZone pulumi.StringOutput `pulumi:"availabilityZone"`
 	// The number of available IPs.
 	AvailableIpCount pulumi.IntOutput `pulumi:"availableIpCount"`
+	// ID of CDC instance.
+	CdcId pulumi.StringPtrOutput `pulumi:"cdcId"`
 	// A network address block of the subnet.
 	CidrBlock pulumi.StringOutput `pulumi:"cidrBlock"`
 	// Creation time of subnet resource.
@@ -80,6 +82,8 @@ type instanceState struct {
 	AvailabilityZone *string `pulumi:"availabilityZone"`
 	// The number of available IPs.
 	AvailableIpCount *int `pulumi:"availableIpCount"`
+	// ID of CDC instance.
+	CdcId *string `pulumi:"cdcId"`
 	// A network address block of the subnet.
 	CidrBlock *string `pulumi:"cidrBlock"`
 	// Creation time of subnet resource.
@@ -103,6 +107,8 @@ type InstanceState struct {
 	AvailabilityZone pulumi.StringPtrInput
 	// The number of available IPs.
 	AvailableIpCount pulumi.IntPtrInput
+	// ID of CDC instance.
+	CdcId pulumi.StringPtrInput
 	// A network address block of the subnet.
 	CidrBlock pulumi.StringPtrInput
 	// Creation time of subnet resource.
@@ -128,6 +134,8 @@ func (InstanceState) ElementType() reflect.Type {
 type instanceArgs struct {
 	// The availability zone within which the subnet should be created.
 	AvailabilityZone string `pulumi:"availabilityZone"`
+	// ID of CDC instance.
+	CdcId *string `pulumi:"cdcId"`
 	// A network address block of the subnet.
 	CidrBlock string `pulumi:"cidrBlock"`
 	// Indicates whether multicast is enabled. The default value is 'true'.
@@ -146,6 +154,8 @@ type instanceArgs struct {
 type InstanceArgs struct {
 	// The availability zone within which the subnet should be created.
 	AvailabilityZone pulumi.StringInput
+	// ID of CDC instance.
+	CdcId pulumi.StringPtrInput
 	// A network address block of the subnet.
 	CidrBlock pulumi.StringInput
 	// Indicates whether multicast is enabled. The default value is 'true'.
@@ -255,6 +265,11 @@ func (o InstanceOutput) AvailabilityZone() pulumi.StringOutput {
 // The number of available IPs.
 func (o InstanceOutput) AvailableIpCount() pulumi.IntOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.AvailableIpCount }).(pulumi.IntOutput)
+}
+
+// ID of CDC instance.
+func (o InstanceOutput) CdcId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.CdcId }).(pulumi.StringPtrOutput)
 }
 
 // A network address block of the subnet.

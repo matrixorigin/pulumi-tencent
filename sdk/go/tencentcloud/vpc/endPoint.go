@@ -15,6 +15,8 @@ import (
 type EndPoint struct {
 	pulumi.CustomResourceState
 
+	// CDC instance ID.
+	CdcId pulumi.StringOutput `pulumi:"cdcId"`
 	// Create Time.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Name of endpoint.
@@ -25,6 +27,8 @@ type EndPoint struct {
 	EndPointServiceId pulumi.StringOutput `pulumi:"endPointServiceId"`
 	// VIP of endpoint ip.
 	EndPointVip pulumi.StringPtrOutput `pulumi:"endPointVip"`
+	// Ordered security groups associated with the endpoint.
+	SecurityGroupsIds pulumi.StringArrayOutput `pulumi:"securityGroupsIds"`
 	// state of end point.
 	State pulumi.StringOutput `pulumi:"state"`
 	// ID of subnet instance.
@@ -75,6 +79,8 @@ func GetEndPoint(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering EndPoint resources.
 type endPointState struct {
+	// CDC instance ID.
+	CdcId *string `pulumi:"cdcId"`
 	// Create Time.
 	CreateTime *string `pulumi:"createTime"`
 	// Name of endpoint.
@@ -85,6 +91,8 @@ type endPointState struct {
 	EndPointServiceId *string `pulumi:"endPointServiceId"`
 	// VIP of endpoint ip.
 	EndPointVip *string `pulumi:"endPointVip"`
+	// Ordered security groups associated with the endpoint.
+	SecurityGroupsIds []string `pulumi:"securityGroupsIds"`
 	// state of end point.
 	State *string `pulumi:"state"`
 	// ID of subnet instance.
@@ -94,6 +102,8 @@ type endPointState struct {
 }
 
 type EndPointState struct {
+	// CDC instance ID.
+	CdcId pulumi.StringPtrInput
 	// Create Time.
 	CreateTime pulumi.StringPtrInput
 	// Name of endpoint.
@@ -104,6 +114,8 @@ type EndPointState struct {
 	EndPointServiceId pulumi.StringPtrInput
 	// VIP of endpoint ip.
 	EndPointVip pulumi.StringPtrInput
+	// Ordered security groups associated with the endpoint.
+	SecurityGroupsIds pulumi.StringArrayInput
 	// state of end point.
 	State pulumi.StringPtrInput
 	// ID of subnet instance.
@@ -123,6 +135,8 @@ type endPointArgs struct {
 	EndPointServiceId string `pulumi:"endPointServiceId"`
 	// VIP of endpoint ip.
 	EndPointVip *string `pulumi:"endPointVip"`
+	// Ordered security groups associated with the endpoint.
+	SecurityGroupsIds []string `pulumi:"securityGroupsIds"`
 	// ID of subnet instance.
 	SubnetId string `pulumi:"subnetId"`
 	// ID of vpc instance.
@@ -137,6 +151,8 @@ type EndPointArgs struct {
 	EndPointServiceId pulumi.StringInput
 	// VIP of endpoint ip.
 	EndPointVip pulumi.StringPtrInput
+	// Ordered security groups associated with the endpoint.
+	SecurityGroupsIds pulumi.StringArrayInput
 	// ID of subnet instance.
 	SubnetId pulumi.StringInput
 	// ID of vpc instance.
@@ -230,6 +246,11 @@ func (o EndPointOutput) ToEndPointOutputWithContext(ctx context.Context) EndPoin
 	return o
 }
 
+// CDC instance ID.
+func (o EndPointOutput) CdcId() pulumi.StringOutput {
+	return o.ApplyT(func(v *EndPoint) pulumi.StringOutput { return v.CdcId }).(pulumi.StringOutput)
+}
+
 // Create Time.
 func (o EndPointOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *EndPoint) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -253,6 +274,11 @@ func (o EndPointOutput) EndPointServiceId() pulumi.StringOutput {
 // VIP of endpoint ip.
 func (o EndPointOutput) EndPointVip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EndPoint) pulumi.StringPtrOutput { return v.EndPointVip }).(pulumi.StringPtrOutput)
+}
+
+// Ordered security groups associated with the endpoint.
+func (o EndPointOutput) SecurityGroupsIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *EndPoint) pulumi.StringArrayOutput { return v.SecurityGroupsIds }).(pulumi.StringArrayOutput)
 }
 
 // state of end point.

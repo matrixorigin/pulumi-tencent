@@ -67,10 +67,10 @@ type Acl struct {
 	UserIdSets pulumi.IntArrayOutput `pulumi:"userIdSets"`
 	// Access permission effective time, such as: 2021-09-22T00:00:00+08:00If the effective and expiry time are not filled in,
 	// the access rights will be valid for a long time.
-	ValidateFrom pulumi.StringPtrOutput `pulumi:"validateFrom"`
+	ValidateFrom pulumi.StringOutput `pulumi:"validateFrom"`
 	// Access permission expiration time, such as: 2021-09-23T00:00:00+08:00If the effective and expiry time are not filled in,
 	// the access rights will be valid for a long time.
-	ValidateTo pulumi.StringPtrOutput `pulumi:"validateTo"`
+	ValidateTo pulumi.StringOutput `pulumi:"validateTo"`
 }
 
 // NewAcl registers a new resource with the given unique name, arguments, and options.
@@ -563,14 +563,14 @@ func (o AclOutput) UserIdSets() pulumi.IntArrayOutput {
 
 // Access permission effective time, such as: 2021-09-22T00:00:00+08:00If the effective and expiry time are not filled in,
 // the access rights will be valid for a long time.
-func (o AclOutput) ValidateFrom() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Acl) pulumi.StringPtrOutput { return v.ValidateFrom }).(pulumi.StringPtrOutput)
+func (o AclOutput) ValidateFrom() pulumi.StringOutput {
+	return o.ApplyT(func(v *Acl) pulumi.StringOutput { return v.ValidateFrom }).(pulumi.StringOutput)
 }
 
 // Access permission expiration time, such as: 2021-09-23T00:00:00+08:00If the effective and expiry time are not filled in,
 // the access rights will be valid for a long time.
-func (o AclOutput) ValidateTo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Acl) pulumi.StringPtrOutput { return v.ValidateTo }).(pulumi.StringPtrOutput)
+func (o AclOutput) ValidateTo() pulumi.StringOutput {
+	return o.ApplyT(func(v *Acl) pulumi.StringOutput { return v.ValidateTo }).(pulumi.StringOutput)
 }
 
 type AclArrayOutput struct{ *pulumi.OutputState }

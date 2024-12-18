@@ -22,6 +22,8 @@ type Schedule struct {
 	OutputDir pulumi.StringPtrOutput `pulumi:"outputDir"`
 	// The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 	OutputStorage ScheduleOutputStoragePtrOutput `pulumi:"outputStorage"`
+	// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+	ResourceId pulumi.StringPtrOutput `pulumi:"resourceId"`
 	// The scheme name (max 128 characters). This name should be unique across your account.
 	ScheduleName pulumi.StringOutput `pulumi:"scheduleName"`
 	// The notification configuration. If you do not specify this parameter, notifications will not be sent.
@@ -76,6 +78,8 @@ type scheduleState struct {
 	OutputDir *string `pulumi:"outputDir"`
 	// The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 	OutputStorage *ScheduleOutputStorage `pulumi:"outputStorage"`
+	// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+	ResourceId *string `pulumi:"resourceId"`
 	// The scheme name (max 128 characters). This name should be unique across your account.
 	ScheduleName *string `pulumi:"scheduleName"`
 	// The notification configuration. If you do not specify this parameter, notifications will not be sent.
@@ -92,6 +96,8 @@ type ScheduleState struct {
 	OutputDir pulumi.StringPtrInput
 	// The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 	OutputStorage ScheduleOutputStoragePtrInput
+	// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+	ResourceId pulumi.StringPtrInput
 	// The scheme name (max 128 characters). This name should be unique across your account.
 	ScheduleName pulumi.StringPtrInput
 	// The notification configuration. If you do not specify this parameter, notifications will not be sent.
@@ -112,6 +118,8 @@ type scheduleArgs struct {
 	OutputDir *string `pulumi:"outputDir"`
 	// The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 	OutputStorage *ScheduleOutputStorage `pulumi:"outputStorage"`
+	// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+	ResourceId *string `pulumi:"resourceId"`
 	// The scheme name (max 128 characters). This name should be unique across your account.
 	ScheduleName string `pulumi:"scheduleName"`
 	// The notification configuration. If you do not specify this parameter, notifications will not be sent.
@@ -129,6 +137,8 @@ type ScheduleArgs struct {
 	OutputDir pulumi.StringPtrInput
 	// The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 	OutputStorage ScheduleOutputStoragePtrInput
+	// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+	ResourceId pulumi.StringPtrInput
 	// The scheme name (max 128 characters). This name should be unique across your account.
 	ScheduleName pulumi.StringInput
 	// The notification configuration. If you do not specify this parameter, notifications will not be sent.
@@ -238,6 +248,11 @@ func (o ScheduleOutput) OutputDir() pulumi.StringPtrOutput {
 // The bucket to save the output file. If you do not specify this parameter, the bucket in `Trigger` will be used.
 func (o ScheduleOutput) OutputStorage() ScheduleOutputStoragePtrOutput {
 	return o.ApplyT(func(v *Schedule) ScheduleOutputStoragePtrOutput { return v.OutputStorage }).(ScheduleOutputStoragePtrOutput)
+}
+
+// Resource ID, you need to ensure that the corresponding resource is open. The default is the account main resource ID.
+func (o ScheduleOutput) ResourceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Schedule) pulumi.StringPtrOutput { return v.ResourceId }).(pulumi.StringPtrOutput)
 }
 
 // The scheme name (max 128 characters). This name should be unique across your account.

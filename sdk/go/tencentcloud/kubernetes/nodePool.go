@@ -15,10 +15,17 @@ import (
 type NodePool struct {
 	pulumi.CustomResourceState
 
+	// Node Annotation List.
+	Annotations NodePoolAnnotationArrayOutput `pulumi:"annotations"`
 	// Auto scaling config parameters.
 	AutoScalingConfig NodePoolAutoScalingConfigOutput `pulumi:"autoScalingConfig"`
 	// The auto scaling group ID.
 	AutoScalingGroupId pulumi.StringOutput `pulumi:"autoScalingGroupId"`
+	// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+	// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+	// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+	// effect immediately and there is a certain delay.
+	AutoUpdateInstanceTags pulumi.BoolOutput `pulumi:"autoUpdateInstanceTags"`
 	// The total of autoscaling added node.
 	AutoscalingAddedTotal pulumi.IntOutput `pulumi:"autoscalingAddedTotal"`
 	// ID of the cluster.
@@ -63,6 +70,9 @@ type NodePool struct {
 	NodeOsType pulumi.StringPtrOutput `pulumi:"nodeOsType"`
 	// Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
 	RetryPolicy pulumi.StringPtrOutput `pulumi:"retryPolicy"`
+	// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+	// Only can be set if `wait_node_ready` is `true`.
+	ScaleTolerance pulumi.IntPtrOutput `pulumi:"scaleTolerance"`
 	// Name of relative scaling group.
 	ScalingGroupName pulumi.StringOutput `pulumi:"scalingGroupName"`
 	// Project ID the scaling group belongs to.
@@ -87,6 +97,8 @@ type NodePool struct {
 	Unschedulable pulumi.IntPtrOutput `pulumi:"unschedulable"`
 	// ID of VPC network.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
+	// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+	WaitNodeReady pulumi.BoolPtrOutput `pulumi:"waitNodeReady"`
 	// List of auto scaling group available zones, for Basic network it is required.
 	Zones pulumi.StringArrayOutput `pulumi:"zones"`
 }
@@ -136,10 +148,17 @@ func GetNodePool(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering NodePool resources.
 type nodePoolState struct {
+	// Node Annotation List.
+	Annotations []NodePoolAnnotation `pulumi:"annotations"`
 	// Auto scaling config parameters.
 	AutoScalingConfig *NodePoolAutoScalingConfig `pulumi:"autoScalingConfig"`
 	// The auto scaling group ID.
 	AutoScalingGroupId *string `pulumi:"autoScalingGroupId"`
+	// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+	// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+	// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+	// effect immediately and there is a certain delay.
+	AutoUpdateInstanceTags *bool `pulumi:"autoUpdateInstanceTags"`
 	// The total of autoscaling added node.
 	AutoscalingAddedTotal *int `pulumi:"autoscalingAddedTotal"`
 	// ID of the cluster.
@@ -184,6 +203,9 @@ type nodePoolState struct {
 	NodeOsType *string `pulumi:"nodeOsType"`
 	// Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
 	RetryPolicy *string `pulumi:"retryPolicy"`
+	// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+	// Only can be set if `wait_node_ready` is `true`.
+	ScaleTolerance *int `pulumi:"scaleTolerance"`
 	// Name of relative scaling group.
 	ScalingGroupName *string `pulumi:"scalingGroupName"`
 	// Project ID the scaling group belongs to.
@@ -208,15 +230,24 @@ type nodePoolState struct {
 	Unschedulable *int `pulumi:"unschedulable"`
 	// ID of VPC network.
 	VpcId *string `pulumi:"vpcId"`
+	// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+	WaitNodeReady *bool `pulumi:"waitNodeReady"`
 	// List of auto scaling group available zones, for Basic network it is required.
 	Zones []string `pulumi:"zones"`
 }
 
 type NodePoolState struct {
+	// Node Annotation List.
+	Annotations NodePoolAnnotationArrayInput
 	// Auto scaling config parameters.
 	AutoScalingConfig NodePoolAutoScalingConfigPtrInput
 	// The auto scaling group ID.
 	AutoScalingGroupId pulumi.StringPtrInput
+	// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+	// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+	// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+	// effect immediately and there is a certain delay.
+	AutoUpdateInstanceTags pulumi.BoolPtrInput
 	// The total of autoscaling added node.
 	AutoscalingAddedTotal pulumi.IntPtrInput
 	// ID of the cluster.
@@ -261,6 +292,9 @@ type NodePoolState struct {
 	NodeOsType pulumi.StringPtrInput
 	// Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
 	RetryPolicy pulumi.StringPtrInput
+	// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+	// Only can be set if `wait_node_ready` is `true`.
+	ScaleTolerance pulumi.IntPtrInput
 	// Name of relative scaling group.
 	ScalingGroupName pulumi.StringPtrInput
 	// Project ID the scaling group belongs to.
@@ -285,6 +319,8 @@ type NodePoolState struct {
 	Unschedulable pulumi.IntPtrInput
 	// ID of VPC network.
 	VpcId pulumi.StringPtrInput
+	// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+	WaitNodeReady pulumi.BoolPtrInput
 	// List of auto scaling group available zones, for Basic network it is required.
 	Zones pulumi.StringArrayInput
 }
@@ -294,8 +330,15 @@ func (NodePoolState) ElementType() reflect.Type {
 }
 
 type nodePoolArgs struct {
+	// Node Annotation List.
+	Annotations []NodePoolAnnotation `pulumi:"annotations"`
 	// Auto scaling config parameters.
 	AutoScalingConfig NodePoolAutoScalingConfig `pulumi:"autoScalingConfig"`
+	// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+	// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+	// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+	// effect immediately and there is a certain delay.
+	AutoUpdateInstanceTags *bool `pulumi:"autoUpdateInstanceTags"`
 	// ID of the cluster.
 	ClusterId string `pulumi:"clusterId"`
 	// Seconds of scaling group cool down. Default value is `300`.
@@ -332,6 +375,9 @@ type nodePoolArgs struct {
 	NodeOsType *string `pulumi:"nodeOsType"`
 	// Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
 	RetryPolicy *string `pulumi:"retryPolicy"`
+	// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+	// Only can be set if `wait_node_ready` is `true`.
+	ScaleTolerance *int `pulumi:"scaleTolerance"`
 	// Name of relative scaling group.
 	ScalingGroupName *string `pulumi:"scalingGroupName"`
 	// Project ID the scaling group belongs to.
@@ -354,14 +400,23 @@ type nodePoolArgs struct {
 	Unschedulable *int `pulumi:"unschedulable"`
 	// ID of VPC network.
 	VpcId string `pulumi:"vpcId"`
+	// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+	WaitNodeReady *bool `pulumi:"waitNodeReady"`
 	// List of auto scaling group available zones, for Basic network it is required.
 	Zones []string `pulumi:"zones"`
 }
 
 // The set of arguments for constructing a NodePool resource.
 type NodePoolArgs struct {
+	// Node Annotation List.
+	Annotations NodePoolAnnotationArrayInput
 	// Auto scaling config parameters.
 	AutoScalingConfig NodePoolAutoScalingConfigInput
+	// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+	// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+	// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+	// effect immediately and there is a certain delay.
+	AutoUpdateInstanceTags pulumi.BoolPtrInput
 	// ID of the cluster.
 	ClusterId pulumi.StringInput
 	// Seconds of scaling group cool down. Default value is `300`.
@@ -398,6 +453,9 @@ type NodePoolArgs struct {
 	NodeOsType pulumi.StringPtrInput
 	// Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
 	RetryPolicy pulumi.StringPtrInput
+	// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+	// Only can be set if `wait_node_ready` is `true`.
+	ScaleTolerance pulumi.IntPtrInput
 	// Name of relative scaling group.
 	ScalingGroupName pulumi.StringPtrInput
 	// Project ID the scaling group belongs to.
@@ -420,6 +478,8 @@ type NodePoolArgs struct {
 	Unschedulable pulumi.IntPtrInput
 	// ID of VPC network.
 	VpcId pulumi.StringInput
+	// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+	WaitNodeReady pulumi.BoolPtrInput
 	// List of auto scaling group available zones, for Basic network it is required.
 	Zones pulumi.StringArrayInput
 }
@@ -511,6 +571,11 @@ func (o NodePoolOutput) ToNodePoolOutputWithContext(ctx context.Context) NodePoo
 	return o
 }
 
+// Node Annotation List.
+func (o NodePoolOutput) Annotations() NodePoolAnnotationArrayOutput {
+	return o.ApplyT(func(v *NodePool) NodePoolAnnotationArrayOutput { return v.Annotations }).(NodePoolAnnotationArrayOutput)
+}
+
 // Auto scaling config parameters.
 func (o NodePoolOutput) AutoScalingConfig() NodePoolAutoScalingConfigOutput {
 	return o.ApplyT(func(v *NodePool) NodePoolAutoScalingConfigOutput { return v.AutoScalingConfig }).(NodePoolAutoScalingConfigOutput)
@@ -519,6 +584,14 @@ func (o NodePoolOutput) AutoScalingConfig() NodePoolAutoScalingConfigOutput {
 // The auto scaling group ID.
 func (o NodePoolOutput) AutoScalingGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v *NodePool) pulumi.StringOutput { return v.AutoScalingGroupId }).(pulumi.StringOutput)
+}
+
+// Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+// updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+// support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+// effect immediately and there is a certain delay.
+func (o NodePoolOutput) AutoUpdateInstanceTags() pulumi.BoolOutput {
+	return o.ApplyT(func(v *NodePool) pulumi.BoolOutput { return v.AutoUpdateInstanceTags }).(pulumi.BoolOutput)
 }
 
 // The total of autoscaling added node.
@@ -622,6 +695,12 @@ func (o NodePoolOutput) RetryPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *NodePool) pulumi.StringPtrOutput { return v.RetryPolicy }).(pulumi.StringPtrOutput)
 }
 
+// Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+// Only can be set if `wait_node_ready` is `true`.
+func (o NodePoolOutput) ScaleTolerance() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NodePool) pulumi.IntPtrOutput { return v.ScaleTolerance }).(pulumi.IntPtrOutput)
+}
+
 // Name of relative scaling group.
 func (o NodePoolOutput) ScalingGroupName() pulumi.StringOutput {
 	return o.ApplyT(func(v *NodePool) pulumi.StringOutput { return v.ScalingGroupName }).(pulumi.StringOutput)
@@ -674,6 +753,11 @@ func (o NodePoolOutput) Unschedulable() pulumi.IntPtrOutput {
 // ID of VPC network.
 func (o NodePoolOutput) VpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v *NodePool) pulumi.StringOutput { return v.VpcId }).(pulumi.StringOutput)
+}
+
+// Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+func (o NodePoolOutput) WaitNodeReady() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NodePool) pulumi.BoolPtrOutput { return v.WaitNodeReady }).(pulumi.BoolPtrOutput)
 }
 
 // List of auto scaling group available zones, for Basic network it is required.

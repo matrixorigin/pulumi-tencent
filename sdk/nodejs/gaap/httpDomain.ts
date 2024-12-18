@@ -67,6 +67,14 @@ export class HttpDomain extends pulumi.CustomResource {
      */
     public readonly gaapAuthId!: pulumi.Output<string>;
     /**
+     * Group Id.
+     */
+    public readonly groupId!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to use as the default domain name, the default is false.
+     */
+    public readonly isDefaultServer!: pulumi.Output<boolean | undefined>;
+    /**
      * ID of the layer7 listener.
      */
     public readonly listenerId!: pulumi.Output<string>;
@@ -110,6 +118,8 @@ export class HttpDomain extends pulumi.CustomResource {
             resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["gaapAuth"] = state ? state.gaapAuth : undefined;
             resourceInputs["gaapAuthId"] = state ? state.gaapAuthId : undefined;
+            resourceInputs["groupId"] = state ? state.groupId : undefined;
+            resourceInputs["isDefaultServer"] = state ? state.isDefaultServer : undefined;
             resourceInputs["listenerId"] = state ? state.listenerId : undefined;
             resourceInputs["realserverAuth"] = state ? state.realserverAuth : undefined;
             resourceInputs["realserverCertificateDomain"] = state ? state.realserverCertificateDomain : undefined;
@@ -131,6 +141,8 @@ export class HttpDomain extends pulumi.CustomResource {
             resourceInputs["domain"] = args ? args.domain : undefined;
             resourceInputs["gaapAuth"] = args ? args.gaapAuth : undefined;
             resourceInputs["gaapAuthId"] = args ? args.gaapAuthId : undefined;
+            resourceInputs["groupId"] = args ? args.groupId : undefined;
+            resourceInputs["isDefaultServer"] = args ? args.isDefaultServer : undefined;
             resourceInputs["listenerId"] = args ? args.listenerId : undefined;
             resourceInputs["realserverAuth"] = args ? args.realserverAuth : undefined;
             resourceInputs["realserverCertificateDomain"] = args ? args.realserverCertificateDomain : undefined;
@@ -180,6 +192,14 @@ export interface HttpDomainState {
      * ID of the SSL certificate.
      */
     gaapAuthId?: pulumi.Input<string>;
+    /**
+     * Group Id.
+     */
+    groupId?: pulumi.Input<string>;
+    /**
+     * Whether to use as the default domain name, the default is false.
+     */
+    isDefaultServer?: pulumi.Input<boolean>;
     /**
      * ID of the layer7 listener.
      */
@@ -242,6 +262,14 @@ export interface HttpDomainArgs {
      * ID of the SSL certificate.
      */
     gaapAuthId?: pulumi.Input<string>;
+    /**
+     * Group Id.
+     */
+    groupId?: pulumi.Input<string>;
+    /**
+     * Whether to use as the default domain name, the default is false.
+     */
+    isDefaultServer?: pulumi.Input<boolean>;
     /**
      * ID of the layer7 listener.
      */

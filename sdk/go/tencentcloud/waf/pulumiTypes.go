@@ -621,6 +621,381 @@ func (o IpAccessControlItemArrayOutput) Index(i pulumi.IntInput) IpAccessControl
 	}).(IpAccessControlItemOutput)
 }
 
+type IpAccessControlV2JobDateTime struct {
+	Crons     []IpAccessControlV2JobDateTimeCron  `pulumi:"crons"`
+	TimeTZone *string                             `pulumi:"timeTZone"`
+	Timeds    []IpAccessControlV2JobDateTimeTimed `pulumi:"timeds"`
+}
+
+// IpAccessControlV2JobDateTimeInput is an input type that accepts IpAccessControlV2JobDateTimeArgs and IpAccessControlV2JobDateTimeOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimeInput` via:
+//
+//	IpAccessControlV2JobDateTimeArgs{...}
+type IpAccessControlV2JobDateTimeInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimeOutput() IpAccessControlV2JobDateTimeOutput
+	ToIpAccessControlV2JobDateTimeOutputWithContext(context.Context) IpAccessControlV2JobDateTimeOutput
+}
+
+type IpAccessControlV2JobDateTimeArgs struct {
+	Crons     IpAccessControlV2JobDateTimeCronArrayInput  `pulumi:"crons"`
+	TimeTZone pulumi.StringPtrInput                       `pulumi:"timeTZone"`
+	Timeds    IpAccessControlV2JobDateTimeTimedArrayInput `pulumi:"timeds"`
+}
+
+func (IpAccessControlV2JobDateTimeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTime)(nil)).Elem()
+}
+
+func (i IpAccessControlV2JobDateTimeArgs) ToIpAccessControlV2JobDateTimeOutput() IpAccessControlV2JobDateTimeOutput {
+	return i.ToIpAccessControlV2JobDateTimeOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeArgs) ToIpAccessControlV2JobDateTimeOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeOutput)
+}
+
+func (i IpAccessControlV2JobDateTimeArgs) ToIpAccessControlV2JobDateTimePtrOutput() IpAccessControlV2JobDateTimePtrOutput {
+	return i.ToIpAccessControlV2JobDateTimePtrOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeArgs) ToIpAccessControlV2JobDateTimePtrOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeOutput).ToIpAccessControlV2JobDateTimePtrOutputWithContext(ctx)
+}
+
+// IpAccessControlV2JobDateTimePtrInput is an input type that accepts IpAccessControlV2JobDateTimeArgs, IpAccessControlV2JobDateTimePtr and IpAccessControlV2JobDateTimePtrOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimePtrInput` via:
+//
+//	        IpAccessControlV2JobDateTimeArgs{...}
+//
+//	or:
+//
+//	        nil
+type IpAccessControlV2JobDateTimePtrInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimePtrOutput() IpAccessControlV2JobDateTimePtrOutput
+	ToIpAccessControlV2JobDateTimePtrOutputWithContext(context.Context) IpAccessControlV2JobDateTimePtrOutput
+}
+
+type ipAccessControlV2JobDateTimePtrType IpAccessControlV2JobDateTimeArgs
+
+func IpAccessControlV2JobDateTimePtr(v *IpAccessControlV2JobDateTimeArgs) IpAccessControlV2JobDateTimePtrInput {
+	return (*ipAccessControlV2JobDateTimePtrType)(v)
+}
+
+func (*ipAccessControlV2JobDateTimePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IpAccessControlV2JobDateTime)(nil)).Elem()
+}
+
+func (i *ipAccessControlV2JobDateTimePtrType) ToIpAccessControlV2JobDateTimePtrOutput() IpAccessControlV2JobDateTimePtrOutput {
+	return i.ToIpAccessControlV2JobDateTimePtrOutputWithContext(context.Background())
+}
+
+func (i *ipAccessControlV2JobDateTimePtrType) ToIpAccessControlV2JobDateTimePtrOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimePtrOutput)
+}
+
+type IpAccessControlV2JobDateTimeOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTime)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) ToIpAccessControlV2JobDateTimeOutput() IpAccessControlV2JobDateTimeOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) ToIpAccessControlV2JobDateTimeOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) ToIpAccessControlV2JobDateTimePtrOutput() IpAccessControlV2JobDateTimePtrOutput {
+	return o.ToIpAccessControlV2JobDateTimePtrOutputWithContext(context.Background())
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) ToIpAccessControlV2JobDateTimePtrOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IpAccessControlV2JobDateTime) *IpAccessControlV2JobDateTime {
+		return &v
+	}).(IpAccessControlV2JobDateTimePtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) Crons() IpAccessControlV2JobDateTimeCronArrayOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTime) []IpAccessControlV2JobDateTimeCron { return v.Crons }).(IpAccessControlV2JobDateTimeCronArrayOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) TimeTZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTime) *string { return v.TimeTZone }).(pulumi.StringPtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeOutput) Timeds() IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTime) []IpAccessControlV2JobDateTimeTimed { return v.Timeds }).(IpAccessControlV2JobDateTimeTimedArrayOutput)
+}
+
+type IpAccessControlV2JobDateTimePtrOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IpAccessControlV2JobDateTime)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) ToIpAccessControlV2JobDateTimePtrOutput() IpAccessControlV2JobDateTimePtrOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) ToIpAccessControlV2JobDateTimePtrOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimePtrOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) Elem() IpAccessControlV2JobDateTimeOutput {
+	return o.ApplyT(func(v *IpAccessControlV2JobDateTime) IpAccessControlV2JobDateTime {
+		if v != nil {
+			return *v
+		}
+		var ret IpAccessControlV2JobDateTime
+		return ret
+	}).(IpAccessControlV2JobDateTimeOutput)
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) Crons() IpAccessControlV2JobDateTimeCronArrayOutput {
+	return o.ApplyT(func(v *IpAccessControlV2JobDateTime) []IpAccessControlV2JobDateTimeCron {
+		if v == nil {
+			return nil
+		}
+		return v.Crons
+	}).(IpAccessControlV2JobDateTimeCronArrayOutput)
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) TimeTZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *IpAccessControlV2JobDateTime) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TimeTZone
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimePtrOutput) Timeds() IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return o.ApplyT(func(v *IpAccessControlV2JobDateTime) []IpAccessControlV2JobDateTimeTimed {
+		if v == nil {
+			return nil
+		}
+		return v.Timeds
+	}).(IpAccessControlV2JobDateTimeTimedArrayOutput)
+}
+
+type IpAccessControlV2JobDateTimeCron struct {
+	Days      []int   `pulumi:"days"`
+	EndTime   *string `pulumi:"endTime"`
+	StartTime *string `pulumi:"startTime"`
+	WDays     []int   `pulumi:"wDays"`
+}
+
+// IpAccessControlV2JobDateTimeCronInput is an input type that accepts IpAccessControlV2JobDateTimeCronArgs and IpAccessControlV2JobDateTimeCronOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimeCronInput` via:
+//
+//	IpAccessControlV2JobDateTimeCronArgs{...}
+type IpAccessControlV2JobDateTimeCronInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimeCronOutput() IpAccessControlV2JobDateTimeCronOutput
+	ToIpAccessControlV2JobDateTimeCronOutputWithContext(context.Context) IpAccessControlV2JobDateTimeCronOutput
+}
+
+type IpAccessControlV2JobDateTimeCronArgs struct {
+	Days      pulumi.IntArrayInput  `pulumi:"days"`
+	EndTime   pulumi.StringPtrInput `pulumi:"endTime"`
+	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
+	WDays     pulumi.IntArrayInput  `pulumi:"wDays"`
+}
+
+func (IpAccessControlV2JobDateTimeCronArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTimeCron)(nil)).Elem()
+}
+
+func (i IpAccessControlV2JobDateTimeCronArgs) ToIpAccessControlV2JobDateTimeCronOutput() IpAccessControlV2JobDateTimeCronOutput {
+	return i.ToIpAccessControlV2JobDateTimeCronOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeCronArgs) ToIpAccessControlV2JobDateTimeCronOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeCronOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeCronOutput)
+}
+
+// IpAccessControlV2JobDateTimeCronArrayInput is an input type that accepts IpAccessControlV2JobDateTimeCronArray and IpAccessControlV2JobDateTimeCronArrayOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimeCronArrayInput` via:
+//
+//	IpAccessControlV2JobDateTimeCronArray{ IpAccessControlV2JobDateTimeCronArgs{...} }
+type IpAccessControlV2JobDateTimeCronArrayInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimeCronArrayOutput() IpAccessControlV2JobDateTimeCronArrayOutput
+	ToIpAccessControlV2JobDateTimeCronArrayOutputWithContext(context.Context) IpAccessControlV2JobDateTimeCronArrayOutput
+}
+
+type IpAccessControlV2JobDateTimeCronArray []IpAccessControlV2JobDateTimeCronInput
+
+func (IpAccessControlV2JobDateTimeCronArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpAccessControlV2JobDateTimeCron)(nil)).Elem()
+}
+
+func (i IpAccessControlV2JobDateTimeCronArray) ToIpAccessControlV2JobDateTimeCronArrayOutput() IpAccessControlV2JobDateTimeCronArrayOutput {
+	return i.ToIpAccessControlV2JobDateTimeCronArrayOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeCronArray) ToIpAccessControlV2JobDateTimeCronArrayOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeCronArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeCronArrayOutput)
+}
+
+type IpAccessControlV2JobDateTimeCronOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimeCronOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTimeCron)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) ToIpAccessControlV2JobDateTimeCronOutput() IpAccessControlV2JobDateTimeCronOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) ToIpAccessControlV2JobDateTimeCronOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeCronOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) Days() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeCron) []int { return v.Days }).(pulumi.IntArrayOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) EndTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeCron) *string { return v.EndTime }).(pulumi.StringPtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) StartTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeCron) *string { return v.StartTime }).(pulumi.StringPtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeCronOutput) WDays() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeCron) []int { return v.WDays }).(pulumi.IntArrayOutput)
+}
+
+type IpAccessControlV2JobDateTimeCronArrayOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimeCronArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpAccessControlV2JobDateTimeCron)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimeCronArrayOutput) ToIpAccessControlV2JobDateTimeCronArrayOutput() IpAccessControlV2JobDateTimeCronArrayOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeCronArrayOutput) ToIpAccessControlV2JobDateTimeCronArrayOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeCronArrayOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeCronArrayOutput) Index(i pulumi.IntInput) IpAccessControlV2JobDateTimeCronOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpAccessControlV2JobDateTimeCron {
+		return vs[0].([]IpAccessControlV2JobDateTimeCron)[vs[1].(int)]
+	}).(IpAccessControlV2JobDateTimeCronOutput)
+}
+
+type IpAccessControlV2JobDateTimeTimed struct {
+	EndDateTime   *int `pulumi:"endDateTime"`
+	StartDateTime *int `pulumi:"startDateTime"`
+}
+
+// IpAccessControlV2JobDateTimeTimedInput is an input type that accepts IpAccessControlV2JobDateTimeTimedArgs and IpAccessControlV2JobDateTimeTimedOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimeTimedInput` via:
+//
+//	IpAccessControlV2JobDateTimeTimedArgs{...}
+type IpAccessControlV2JobDateTimeTimedInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimeTimedOutput() IpAccessControlV2JobDateTimeTimedOutput
+	ToIpAccessControlV2JobDateTimeTimedOutputWithContext(context.Context) IpAccessControlV2JobDateTimeTimedOutput
+}
+
+type IpAccessControlV2JobDateTimeTimedArgs struct {
+	EndDateTime   pulumi.IntPtrInput `pulumi:"endDateTime"`
+	StartDateTime pulumi.IntPtrInput `pulumi:"startDateTime"`
+}
+
+func (IpAccessControlV2JobDateTimeTimedArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTimeTimed)(nil)).Elem()
+}
+
+func (i IpAccessControlV2JobDateTimeTimedArgs) ToIpAccessControlV2JobDateTimeTimedOutput() IpAccessControlV2JobDateTimeTimedOutput {
+	return i.ToIpAccessControlV2JobDateTimeTimedOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeTimedArgs) ToIpAccessControlV2JobDateTimeTimedOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeTimedOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeTimedOutput)
+}
+
+// IpAccessControlV2JobDateTimeTimedArrayInput is an input type that accepts IpAccessControlV2JobDateTimeTimedArray and IpAccessControlV2JobDateTimeTimedArrayOutput values.
+// You can construct a concrete instance of `IpAccessControlV2JobDateTimeTimedArrayInput` via:
+//
+//	IpAccessControlV2JobDateTimeTimedArray{ IpAccessControlV2JobDateTimeTimedArgs{...} }
+type IpAccessControlV2JobDateTimeTimedArrayInput interface {
+	pulumi.Input
+
+	ToIpAccessControlV2JobDateTimeTimedArrayOutput() IpAccessControlV2JobDateTimeTimedArrayOutput
+	ToIpAccessControlV2JobDateTimeTimedArrayOutputWithContext(context.Context) IpAccessControlV2JobDateTimeTimedArrayOutput
+}
+
+type IpAccessControlV2JobDateTimeTimedArray []IpAccessControlV2JobDateTimeTimedInput
+
+func (IpAccessControlV2JobDateTimeTimedArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpAccessControlV2JobDateTimeTimed)(nil)).Elem()
+}
+
+func (i IpAccessControlV2JobDateTimeTimedArray) ToIpAccessControlV2JobDateTimeTimedArrayOutput() IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return i.ToIpAccessControlV2JobDateTimeTimedArrayOutputWithContext(context.Background())
+}
+
+func (i IpAccessControlV2JobDateTimeTimedArray) ToIpAccessControlV2JobDateTimeTimedArrayOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IpAccessControlV2JobDateTimeTimedArrayOutput)
+}
+
+type IpAccessControlV2JobDateTimeTimedOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimeTimedOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IpAccessControlV2JobDateTimeTimed)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimeTimedOutput) ToIpAccessControlV2JobDateTimeTimedOutput() IpAccessControlV2JobDateTimeTimedOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeTimedOutput) ToIpAccessControlV2JobDateTimeTimedOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeTimedOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeTimedOutput) EndDateTime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeTimed) *int { return v.EndDateTime }).(pulumi.IntPtrOutput)
+}
+
+func (o IpAccessControlV2JobDateTimeTimedOutput) StartDateTime() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IpAccessControlV2JobDateTimeTimed) *int { return v.StartDateTime }).(pulumi.IntPtrOutput)
+}
+
+type IpAccessControlV2JobDateTimeTimedArrayOutput struct{ *pulumi.OutputState }
+
+func (IpAccessControlV2JobDateTimeTimedArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IpAccessControlV2JobDateTimeTimed)(nil)).Elem()
+}
+
+func (o IpAccessControlV2JobDateTimeTimedArrayOutput) ToIpAccessControlV2JobDateTimeTimedArrayOutput() IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeTimedArrayOutput) ToIpAccessControlV2JobDateTimeTimedArrayOutputWithContext(ctx context.Context) IpAccessControlV2JobDateTimeTimedArrayOutput {
+	return o
+}
+
+func (o IpAccessControlV2JobDateTimeTimedArrayOutput) Index(i pulumi.IntInput) IpAccessControlV2JobDateTimeTimedOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpAccessControlV2JobDateTimeTimed {
+		return vs[0].([]IpAccessControlV2JobDateTimeTimed)[vs[1].(int)]
+	}).(IpAccessControlV2JobDateTimeTimedOutput)
+}
+
 type SaasDomainPort struct {
 	NginxServerId    *string `pulumi:"nginxServerId"`
 	Port             string  `pulumi:"port"`
@@ -2371,384 +2746,6 @@ func (o GetUserDomainsUsersInfoArrayOutput) Index(i pulumi.IntInput) GetUserDoma
 	}).(GetUserDomainsUsersInfoOutput)
 }
 
-type GetWafInfosHostList struct {
-	Domain        string                            `pulumi:"domain"`
-	DomainId      string                            `pulumi:"domainId"`
-	FlowMode      int                               `pulumi:"flowMode"`
-	LoadBalancers []GetWafInfosHostListLoadBalancer `pulumi:"loadBalancers"`
-	Status        int                               `pulumi:"status"`
-}
-
-// GetWafInfosHostListInput is an input type that accepts GetWafInfosHostListArgs and GetWafInfosHostListOutput values.
-// You can construct a concrete instance of `GetWafInfosHostListInput` via:
-//
-//	GetWafInfosHostListArgs{...}
-type GetWafInfosHostListInput interface {
-	pulumi.Input
-
-	ToGetWafInfosHostListOutput() GetWafInfosHostListOutput
-	ToGetWafInfosHostListOutputWithContext(context.Context) GetWafInfosHostListOutput
-}
-
-type GetWafInfosHostListArgs struct {
-	Domain        pulumi.StringInput                        `pulumi:"domain"`
-	DomainId      pulumi.StringInput                        `pulumi:"domainId"`
-	FlowMode      pulumi.IntInput                           `pulumi:"flowMode"`
-	LoadBalancers GetWafInfosHostListLoadBalancerArrayInput `pulumi:"loadBalancers"`
-	Status        pulumi.IntInput                           `pulumi:"status"`
-}
-
-func (GetWafInfosHostListArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosHostList)(nil)).Elem()
-}
-
-func (i GetWafInfosHostListArgs) ToGetWafInfosHostListOutput() GetWafInfosHostListOutput {
-	return i.ToGetWafInfosHostListOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosHostListArgs) ToGetWafInfosHostListOutputWithContext(ctx context.Context) GetWafInfosHostListOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosHostListOutput)
-}
-
-// GetWafInfosHostListArrayInput is an input type that accepts GetWafInfosHostListArray and GetWafInfosHostListArrayOutput values.
-// You can construct a concrete instance of `GetWafInfosHostListArrayInput` via:
-//
-//	GetWafInfosHostListArray{ GetWafInfosHostListArgs{...} }
-type GetWafInfosHostListArrayInput interface {
-	pulumi.Input
-
-	ToGetWafInfosHostListArrayOutput() GetWafInfosHostListArrayOutput
-	ToGetWafInfosHostListArrayOutputWithContext(context.Context) GetWafInfosHostListArrayOutput
-}
-
-type GetWafInfosHostListArray []GetWafInfosHostListInput
-
-func (GetWafInfosHostListArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosHostList)(nil)).Elem()
-}
-
-func (i GetWafInfosHostListArray) ToGetWafInfosHostListArrayOutput() GetWafInfosHostListArrayOutput {
-	return i.ToGetWafInfosHostListArrayOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosHostListArray) ToGetWafInfosHostListArrayOutputWithContext(ctx context.Context) GetWafInfosHostListArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosHostListArrayOutput)
-}
-
-type GetWafInfosHostListOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosHostListOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosHostList)(nil)).Elem()
-}
-
-func (o GetWafInfosHostListOutput) ToGetWafInfosHostListOutput() GetWafInfosHostListOutput {
-	return o
-}
-
-func (o GetWafInfosHostListOutput) ToGetWafInfosHostListOutputWithContext(ctx context.Context) GetWafInfosHostListOutput {
-	return o
-}
-
-func (o GetWafInfosHostListOutput) Domain() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostList) string { return v.Domain }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListOutput) DomainId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostList) string { return v.DomainId }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListOutput) FlowMode() pulumi.IntOutput {
-	return o.ApplyT(func(v GetWafInfosHostList) int { return v.FlowMode }).(pulumi.IntOutput)
-}
-
-func (o GetWafInfosHostListOutput) LoadBalancers() GetWafInfosHostListLoadBalancerArrayOutput {
-	return o.ApplyT(func(v GetWafInfosHostList) []GetWafInfosHostListLoadBalancer { return v.LoadBalancers }).(GetWafInfosHostListLoadBalancerArrayOutput)
-}
-
-func (o GetWafInfosHostListOutput) Status() pulumi.IntOutput {
-	return o.ApplyT(func(v GetWafInfosHostList) int { return v.Status }).(pulumi.IntOutput)
-}
-
-type GetWafInfosHostListArrayOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosHostListArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosHostList)(nil)).Elem()
-}
-
-func (o GetWafInfosHostListArrayOutput) ToGetWafInfosHostListArrayOutput() GetWafInfosHostListArrayOutput {
-	return o
-}
-
-func (o GetWafInfosHostListArrayOutput) ToGetWafInfosHostListArrayOutputWithContext(ctx context.Context) GetWafInfosHostListArrayOutput {
-	return o
-}
-
-func (o GetWafInfosHostListArrayOutput) Index(i pulumi.IntInput) GetWafInfosHostListOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetWafInfosHostList {
-		return vs[0].([]GetWafInfosHostList)[vs[1].(int)]
-	}).(GetWafInfosHostListOutput)
-}
-
-type GetWafInfosHostListLoadBalancer struct {
-	ListenerId       string `pulumi:"listenerId"`
-	ListenerName     string `pulumi:"listenerName"`
-	LoadBalancerId   string `pulumi:"loadBalancerId"`
-	LoadBalancerName string `pulumi:"loadBalancerName"`
-	LoadBalancerType string `pulumi:"loadBalancerType"`
-	NumericalVpcId   int    `pulumi:"numericalVpcId"`
-	Protocol         string `pulumi:"protocol"`
-	Region           string `pulumi:"region"`
-	Vip              string `pulumi:"vip"`
-	Vport            int    `pulumi:"vport"`
-	Zone             string `pulumi:"zone"`
-}
-
-// GetWafInfosHostListLoadBalancerInput is an input type that accepts GetWafInfosHostListLoadBalancerArgs and GetWafInfosHostListLoadBalancerOutput values.
-// You can construct a concrete instance of `GetWafInfosHostListLoadBalancerInput` via:
-//
-//	GetWafInfosHostListLoadBalancerArgs{...}
-type GetWafInfosHostListLoadBalancerInput interface {
-	pulumi.Input
-
-	ToGetWafInfosHostListLoadBalancerOutput() GetWafInfosHostListLoadBalancerOutput
-	ToGetWafInfosHostListLoadBalancerOutputWithContext(context.Context) GetWafInfosHostListLoadBalancerOutput
-}
-
-type GetWafInfosHostListLoadBalancerArgs struct {
-	ListenerId       pulumi.StringInput `pulumi:"listenerId"`
-	ListenerName     pulumi.StringInput `pulumi:"listenerName"`
-	LoadBalancerId   pulumi.StringInput `pulumi:"loadBalancerId"`
-	LoadBalancerName pulumi.StringInput `pulumi:"loadBalancerName"`
-	LoadBalancerType pulumi.StringInput `pulumi:"loadBalancerType"`
-	NumericalVpcId   pulumi.IntInput    `pulumi:"numericalVpcId"`
-	Protocol         pulumi.StringInput `pulumi:"protocol"`
-	Region           pulumi.StringInput `pulumi:"region"`
-	Vip              pulumi.StringInput `pulumi:"vip"`
-	Vport            pulumi.IntInput    `pulumi:"vport"`
-	Zone             pulumi.StringInput `pulumi:"zone"`
-}
-
-func (GetWafInfosHostListLoadBalancerArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosHostListLoadBalancer)(nil)).Elem()
-}
-
-func (i GetWafInfosHostListLoadBalancerArgs) ToGetWafInfosHostListLoadBalancerOutput() GetWafInfosHostListLoadBalancerOutput {
-	return i.ToGetWafInfosHostListLoadBalancerOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosHostListLoadBalancerArgs) ToGetWafInfosHostListLoadBalancerOutputWithContext(ctx context.Context) GetWafInfosHostListLoadBalancerOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosHostListLoadBalancerOutput)
-}
-
-// GetWafInfosHostListLoadBalancerArrayInput is an input type that accepts GetWafInfosHostListLoadBalancerArray and GetWafInfosHostListLoadBalancerArrayOutput values.
-// You can construct a concrete instance of `GetWafInfosHostListLoadBalancerArrayInput` via:
-//
-//	GetWafInfosHostListLoadBalancerArray{ GetWafInfosHostListLoadBalancerArgs{...} }
-type GetWafInfosHostListLoadBalancerArrayInput interface {
-	pulumi.Input
-
-	ToGetWafInfosHostListLoadBalancerArrayOutput() GetWafInfosHostListLoadBalancerArrayOutput
-	ToGetWafInfosHostListLoadBalancerArrayOutputWithContext(context.Context) GetWafInfosHostListLoadBalancerArrayOutput
-}
-
-type GetWafInfosHostListLoadBalancerArray []GetWafInfosHostListLoadBalancerInput
-
-func (GetWafInfosHostListLoadBalancerArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosHostListLoadBalancer)(nil)).Elem()
-}
-
-func (i GetWafInfosHostListLoadBalancerArray) ToGetWafInfosHostListLoadBalancerArrayOutput() GetWafInfosHostListLoadBalancerArrayOutput {
-	return i.ToGetWafInfosHostListLoadBalancerArrayOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosHostListLoadBalancerArray) ToGetWafInfosHostListLoadBalancerArrayOutputWithContext(ctx context.Context) GetWafInfosHostListLoadBalancerArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosHostListLoadBalancerArrayOutput)
-}
-
-type GetWafInfosHostListLoadBalancerOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosHostListLoadBalancerOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosHostListLoadBalancer)(nil)).Elem()
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) ToGetWafInfosHostListLoadBalancerOutput() GetWafInfosHostListLoadBalancerOutput {
-	return o
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) ToGetWafInfosHostListLoadBalancerOutputWithContext(ctx context.Context) GetWafInfosHostListLoadBalancerOutput {
-	return o
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) ListenerId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.ListenerId }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) ListenerName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.ListenerName }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) LoadBalancerId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.LoadBalancerId }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) LoadBalancerName() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.LoadBalancerName }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) LoadBalancerType() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.LoadBalancerType }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) NumericalVpcId() pulumi.IntOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) int { return v.NumericalVpcId }).(pulumi.IntOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) Protocol() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.Protocol }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) Region() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.Region }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) Vip() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.Vip }).(pulumi.StringOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) Vport() pulumi.IntOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) int { return v.Vport }).(pulumi.IntOutput)
-}
-
-func (o GetWafInfosHostListLoadBalancerOutput) Zone() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosHostListLoadBalancer) string { return v.Zone }).(pulumi.StringOutput)
-}
-
-type GetWafInfosHostListLoadBalancerArrayOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosHostListLoadBalancerArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosHostListLoadBalancer)(nil)).Elem()
-}
-
-func (o GetWafInfosHostListLoadBalancerArrayOutput) ToGetWafInfosHostListLoadBalancerArrayOutput() GetWafInfosHostListLoadBalancerArrayOutput {
-	return o
-}
-
-func (o GetWafInfosHostListLoadBalancerArrayOutput) ToGetWafInfosHostListLoadBalancerArrayOutputWithContext(ctx context.Context) GetWafInfosHostListLoadBalancerArrayOutput {
-	return o
-}
-
-func (o GetWafInfosHostListLoadBalancerArrayOutput) Index(i pulumi.IntInput) GetWafInfosHostListLoadBalancerOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetWafInfosHostListLoadBalancer {
-		return vs[0].([]GetWafInfosHostListLoadBalancer)[vs[1].(int)]
-	}).(GetWafInfosHostListLoadBalancerOutput)
-}
-
-type GetWafInfosParam struct {
-	DomainId       *string `pulumi:"domainId"`
-	ListenerId     *string `pulumi:"listenerId"`
-	LoadBalancerId string  `pulumi:"loadBalancerId"`
-}
-
-// GetWafInfosParamInput is an input type that accepts GetWafInfosParamArgs and GetWafInfosParamOutput values.
-// You can construct a concrete instance of `GetWafInfosParamInput` via:
-//
-//	GetWafInfosParamArgs{...}
-type GetWafInfosParamInput interface {
-	pulumi.Input
-
-	ToGetWafInfosParamOutput() GetWafInfosParamOutput
-	ToGetWafInfosParamOutputWithContext(context.Context) GetWafInfosParamOutput
-}
-
-type GetWafInfosParamArgs struct {
-	DomainId       pulumi.StringPtrInput `pulumi:"domainId"`
-	ListenerId     pulumi.StringPtrInput `pulumi:"listenerId"`
-	LoadBalancerId pulumi.StringInput    `pulumi:"loadBalancerId"`
-}
-
-func (GetWafInfosParamArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosParam)(nil)).Elem()
-}
-
-func (i GetWafInfosParamArgs) ToGetWafInfosParamOutput() GetWafInfosParamOutput {
-	return i.ToGetWafInfosParamOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosParamArgs) ToGetWafInfosParamOutputWithContext(ctx context.Context) GetWafInfosParamOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosParamOutput)
-}
-
-// GetWafInfosParamArrayInput is an input type that accepts GetWafInfosParamArray and GetWafInfosParamArrayOutput values.
-// You can construct a concrete instance of `GetWafInfosParamArrayInput` via:
-//
-//	GetWafInfosParamArray{ GetWafInfosParamArgs{...} }
-type GetWafInfosParamArrayInput interface {
-	pulumi.Input
-
-	ToGetWafInfosParamArrayOutput() GetWafInfosParamArrayOutput
-	ToGetWafInfosParamArrayOutputWithContext(context.Context) GetWafInfosParamArrayOutput
-}
-
-type GetWafInfosParamArray []GetWafInfosParamInput
-
-func (GetWafInfosParamArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosParam)(nil)).Elem()
-}
-
-func (i GetWafInfosParamArray) ToGetWafInfosParamArrayOutput() GetWafInfosParamArrayOutput {
-	return i.ToGetWafInfosParamArrayOutputWithContext(context.Background())
-}
-
-func (i GetWafInfosParamArray) ToGetWafInfosParamArrayOutputWithContext(ctx context.Context) GetWafInfosParamArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(GetWafInfosParamArrayOutput)
-}
-
-type GetWafInfosParamOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosParamOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*GetWafInfosParam)(nil)).Elem()
-}
-
-func (o GetWafInfosParamOutput) ToGetWafInfosParamOutput() GetWafInfosParamOutput {
-	return o
-}
-
-func (o GetWafInfosParamOutput) ToGetWafInfosParamOutputWithContext(ctx context.Context) GetWafInfosParamOutput {
-	return o
-}
-
-func (o GetWafInfosParamOutput) DomainId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetWafInfosParam) *string { return v.DomainId }).(pulumi.StringPtrOutput)
-}
-
-func (o GetWafInfosParamOutput) ListenerId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v GetWafInfosParam) *string { return v.ListenerId }).(pulumi.StringPtrOutput)
-}
-
-func (o GetWafInfosParamOutput) LoadBalancerId() pulumi.StringOutput {
-	return o.ApplyT(func(v GetWafInfosParam) string { return v.LoadBalancerId }).(pulumi.StringOutput)
-}
-
-type GetWafInfosParamArrayOutput struct{ *pulumi.OutputState }
-
-func (GetWafInfosParamArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]GetWafInfosParam)(nil)).Elem()
-}
-
-func (o GetWafInfosParamArrayOutput) ToGetWafInfosParamArrayOutput() GetWafInfosParamArrayOutput {
-	return o
-}
-
-func (o GetWafInfosParamArrayOutput) ToGetWafInfosParamArrayOutputWithContext(ctx context.Context) GetWafInfosParamArrayOutput {
-	return o
-}
-
-func (o GetWafInfosParamArrayOutput) Index(i pulumi.IntInput) GetWafInfosParamOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetWafInfosParam {
-		return vs[0].([]GetWafInfosParam)[vs[1].(int)]
-	}).(GetWafInfosParamOutput)
-}
-
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AntiInfoLeakStrategyInput)(nil)).Elem(), AntiInfoLeakStrategyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AntiInfoLeakStrategyArrayInput)(nil)).Elem(), AntiInfoLeakStrategyArray{})
@@ -2760,6 +2757,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CustomWhiteRuleStrategyArrayInput)(nil)).Elem(), CustomWhiteRuleStrategyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlItemInput)(nil)).Elem(), IpAccessControlItemArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlItemArrayInput)(nil)).Elem(), IpAccessControlItemArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimeInput)(nil)).Elem(), IpAccessControlV2JobDateTimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimePtrInput)(nil)).Elem(), IpAccessControlV2JobDateTimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimeCronInput)(nil)).Elem(), IpAccessControlV2JobDateTimeCronArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimeCronArrayInput)(nil)).Elem(), IpAccessControlV2JobDateTimeCronArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimeTimedInput)(nil)).Elem(), IpAccessControlV2JobDateTimeTimedArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IpAccessControlV2JobDateTimeTimedArrayInput)(nil)).Elem(), IpAccessControlV2JobDateTimeTimedArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SaasDomainPortInput)(nil)).Elem(), SaasDomainPortArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SaasDomainPortArrayInput)(nil)).Elem(), SaasDomainPortArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAttackLogHistogramDataInput)(nil)).Elem(), GetAttackLogHistogramDataArgs{})
@@ -2786,12 +2789,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUserClbRegionsRichDataArrayInput)(nil)).Elem(), GetUserClbRegionsRichDataArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUserDomainsUsersInfoInput)(nil)).Elem(), GetUserDomainsUsersInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUserDomainsUsersInfoArrayInput)(nil)).Elem(), GetUserDomainsUsersInfoArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosHostListInput)(nil)).Elem(), GetWafInfosHostListArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosHostListArrayInput)(nil)).Elem(), GetWafInfosHostListArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosHostListLoadBalancerInput)(nil)).Elem(), GetWafInfosHostListLoadBalancerArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosHostListLoadBalancerArrayInput)(nil)).Elem(), GetWafInfosHostListLoadBalancerArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosParamInput)(nil)).Elem(), GetWafInfosParamArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*GetWafInfosParamArrayInput)(nil)).Elem(), GetWafInfosParamArray{})
 	pulumi.RegisterOutputType(AntiInfoLeakStrategyOutput{})
 	pulumi.RegisterOutputType(AntiInfoLeakStrategyArrayOutput{})
 	pulumi.RegisterOutputType(ClbDomainLoadBalancerSetOutput{})
@@ -2802,6 +2799,12 @@ func init() {
 	pulumi.RegisterOutputType(CustomWhiteRuleStrategyArrayOutput{})
 	pulumi.RegisterOutputType(IpAccessControlItemOutput{})
 	pulumi.RegisterOutputType(IpAccessControlItemArrayOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimeOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimePtrOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimeCronOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimeCronArrayOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimeTimedOutput{})
+	pulumi.RegisterOutputType(IpAccessControlV2JobDateTimeTimedArrayOutput{})
 	pulumi.RegisterOutputType(SaasDomainPortOutput{})
 	pulumi.RegisterOutputType(SaasDomainPortArrayOutput{})
 	pulumi.RegisterOutputType(GetAttackLogHistogramDataOutput{})
@@ -2828,10 +2831,4 @@ func init() {
 	pulumi.RegisterOutputType(GetUserClbRegionsRichDataArrayOutput{})
 	pulumi.RegisterOutputType(GetUserDomainsUsersInfoOutput{})
 	pulumi.RegisterOutputType(GetUserDomainsUsersInfoArrayOutput{})
-	pulumi.RegisterOutputType(GetWafInfosHostListOutput{})
-	pulumi.RegisterOutputType(GetWafInfosHostListArrayOutput{})
-	pulumi.RegisterOutputType(GetWafInfosHostListLoadBalancerOutput{})
-	pulumi.RegisterOutputType(GetWafInfosHostListLoadBalancerArrayOutput{})
-	pulumi.RegisterOutputType(GetWafInfosParamOutput{})
-	pulumi.RegisterOutputType(GetWafInfosParamArrayOutput{})
 }

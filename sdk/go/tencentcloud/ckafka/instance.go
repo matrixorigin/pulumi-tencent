@@ -48,8 +48,6 @@ type Instance struct {
 	// Prepaid purchase time, such as 1, is one month.
 	Period pulumi.IntPtrOutput `pulumi:"period"`
 	// Bandwidth of the public network.
-	//
-	// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 	PublicNetwork pulumi.IntOutput `pulumi:"publicNetwork"`
 	// Modification of the rebalancing time after upgrade.
 	RebalanceTime pulumi.IntPtrOutput `pulumi:"rebalanceTime"`
@@ -149,8 +147,6 @@ type instanceState struct {
 	// Prepaid purchase time, such as 1, is one month.
 	Period *int `pulumi:"period"`
 	// Bandwidth of the public network.
-	//
-	// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 	PublicNetwork *int `pulumi:"publicNetwork"`
 	// Modification of the rebalancing time after upgrade.
 	RebalanceTime *int `pulumi:"rebalanceTime"`
@@ -215,8 +211,6 @@ type InstanceState struct {
 	// Prepaid purchase time, such as 1, is one month.
 	Period pulumi.IntPtrInput
 	// Bandwidth of the public network.
-	//
-	// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 	PublicNetwork pulumi.IntPtrInput
 	// Modification of the rebalancing time after upgrade.
 	RebalanceTime pulumi.IntPtrInput
@@ -285,8 +279,6 @@ type instanceArgs struct {
 	// Prepaid purchase time, such as 1, is one month.
 	Period *int `pulumi:"period"`
 	// Bandwidth of the public network.
-	//
-	// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 	PublicNetwork *int `pulumi:"publicNetwork"`
 	// Modification of the rebalancing time after upgrade.
 	RebalanceTime *int `pulumi:"rebalanceTime"`
@@ -348,8 +340,6 @@ type InstanceArgs struct {
 	// Prepaid purchase time, such as 1, is one month.
 	Period pulumi.IntPtrInput
 	// Bandwidth of the public network.
-	//
-	// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 	PublicNetwork pulumi.IntPtrInput
 	// Modification of the rebalancing time after upgrade.
 	RebalanceTime pulumi.IntPtrInput
@@ -538,8 +528,6 @@ func (o InstanceOutput) Period() pulumi.IntPtrOutput {
 }
 
 // Bandwidth of the public network.
-//
-// Deprecated: It has been deprecated from version 1.81.6. If set public network value, it will cause error.
 func (o InstanceOutput) PublicNetwork() pulumi.IntOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.PublicNetwork }).(pulumi.IntOutput)
 }

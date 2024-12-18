@@ -16,6 +16,9 @@ __all__ = [
     'CustomRuleStrategy',
     'CustomWhiteRuleStrategy',
     'IpAccessControlItem',
+    'IpAccessControlV2JobDateTime',
+    'IpAccessControlV2JobDateTimeCron',
+    'IpAccessControlV2JobDateTimeTimed',
     'SaasDomainPort',
     'GetAttackLogHistogramDataResult',
     'GetAttackLogListDataResult',
@@ -29,9 +32,6 @@ __all__ = [
     'GetTlsVersionsTlResult',
     'GetUserClbRegionsRichDataResult',
     'GetUserDomainsUsersInfoResult',
-    'GetWafInfosHostListResult',
-    'GetWafInfosHostListLoadBalancerResult',
-    'GetWafInfosParamResult',
 ]
 
 @pulumi.output_type
@@ -338,6 +338,150 @@ class IpAccessControlItem(dict):
     @pulumi.getter(name="validStatus")
     def valid_status(self) -> Optional[int]:
         return pulumi.get(self, "valid_status")
+
+
+@pulumi.output_type
+class IpAccessControlV2JobDateTime(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "timeTZone":
+            suggest = "time_t_zone"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IpAccessControlV2JobDateTime. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IpAccessControlV2JobDateTime.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IpAccessControlV2JobDateTime.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 crons: Optional[Sequence['outputs.IpAccessControlV2JobDateTimeCron']] = None,
+                 time_t_zone: Optional[str] = None,
+                 timeds: Optional[Sequence['outputs.IpAccessControlV2JobDateTimeTimed']] = None):
+        if crons is not None:
+            pulumi.set(__self__, "crons", crons)
+        if time_t_zone is not None:
+            pulumi.set(__self__, "time_t_zone", time_t_zone)
+        if timeds is not None:
+            pulumi.set(__self__, "timeds", timeds)
+
+    @property
+    @pulumi.getter
+    def crons(self) -> Optional[Sequence['outputs.IpAccessControlV2JobDateTimeCron']]:
+        return pulumi.get(self, "crons")
+
+    @property
+    @pulumi.getter(name="timeTZone")
+    def time_t_zone(self) -> Optional[str]:
+        return pulumi.get(self, "time_t_zone")
+
+    @property
+    @pulumi.getter
+    def timeds(self) -> Optional[Sequence['outputs.IpAccessControlV2JobDateTimeTimed']]:
+        return pulumi.get(self, "timeds")
+
+
+@pulumi.output_type
+class IpAccessControlV2JobDateTimeCron(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "endTime":
+            suggest = "end_time"
+        elif key == "startTime":
+            suggest = "start_time"
+        elif key == "wDays":
+            suggest = "w_days"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IpAccessControlV2JobDateTimeCron. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IpAccessControlV2JobDateTimeCron.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IpAccessControlV2JobDateTimeCron.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 days: Optional[Sequence[int]] = None,
+                 end_time: Optional[str] = None,
+                 start_time: Optional[str] = None,
+                 w_days: Optional[Sequence[int]] = None):
+        if days is not None:
+            pulumi.set(__self__, "days", days)
+        if end_time is not None:
+            pulumi.set(__self__, "end_time", end_time)
+        if start_time is not None:
+            pulumi.set(__self__, "start_time", start_time)
+        if w_days is not None:
+            pulumi.set(__self__, "w_days", w_days)
+
+    @property
+    @pulumi.getter
+    def days(self) -> Optional[Sequence[int]]:
+        return pulumi.get(self, "days")
+
+    @property
+    @pulumi.getter(name="endTime")
+    def end_time(self) -> Optional[str]:
+        return pulumi.get(self, "end_time")
+
+    @property
+    @pulumi.getter(name="startTime")
+    def start_time(self) -> Optional[str]:
+        return pulumi.get(self, "start_time")
+
+    @property
+    @pulumi.getter(name="wDays")
+    def w_days(self) -> Optional[Sequence[int]]:
+        return pulumi.get(self, "w_days")
+
+
+@pulumi.output_type
+class IpAccessControlV2JobDateTimeTimed(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "endDateTime":
+            suggest = "end_date_time"
+        elif key == "startDateTime":
+            suggest = "start_date_time"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in IpAccessControlV2JobDateTimeTimed. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        IpAccessControlV2JobDateTimeTimed.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        IpAccessControlV2JobDateTimeTimed.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 end_date_time: Optional[int] = None,
+                 start_date_time: Optional[int] = None):
+        if end_date_time is not None:
+            pulumi.set(__self__, "end_date_time", end_date_time)
+        if start_date_time is not None:
+            pulumi.set(__self__, "start_date_time", start_date_time)
+
+    @property
+    @pulumi.getter(name="endDateTime")
+    def end_date_time(self) -> Optional[int]:
+        return pulumi.get(self, "end_date_time")
+
+    @property
+    @pulumi.getter(name="startDateTime")
+    def start_date_time(self) -> Optional[int]:
+        return pulumi.get(self, "start_date_time")
 
 
 @pulumi.output_type
@@ -1132,155 +1276,5 @@ class GetUserDomainsUsersInfoResult(dict):
     @pulumi.getter(name="writeConfig")
     def write_config(self) -> str:
         return pulumi.get(self, "write_config")
-
-
-@pulumi.output_type
-class GetWafInfosHostListResult(dict):
-    def __init__(__self__, *,
-                 domain: str,
-                 domain_id: str,
-                 flow_mode: int,
-                 load_balancers: Sequence['outputs.GetWafInfosHostListLoadBalancerResult'],
-                 status: int):
-        pulumi.set(__self__, "domain", domain)
-        pulumi.set(__self__, "domain_id", domain_id)
-        pulumi.set(__self__, "flow_mode", flow_mode)
-        pulumi.set(__self__, "load_balancers", load_balancers)
-        pulumi.set(__self__, "status", status)
-
-    @property
-    @pulumi.getter
-    def domain(self) -> str:
-        return pulumi.get(self, "domain")
-
-    @property
-    @pulumi.getter(name="domainId")
-    def domain_id(self) -> str:
-        return pulumi.get(self, "domain_id")
-
-    @property
-    @pulumi.getter(name="flowMode")
-    def flow_mode(self) -> int:
-        return pulumi.get(self, "flow_mode")
-
-    @property
-    @pulumi.getter(name="loadBalancers")
-    def load_balancers(self) -> Sequence['outputs.GetWafInfosHostListLoadBalancerResult']:
-        return pulumi.get(self, "load_balancers")
-
-    @property
-    @pulumi.getter
-    def status(self) -> int:
-        return pulumi.get(self, "status")
-
-
-@pulumi.output_type
-class GetWafInfosHostListLoadBalancerResult(dict):
-    def __init__(__self__, *,
-                 listener_id: str,
-                 listener_name: str,
-                 load_balancer_id: str,
-                 load_balancer_name: str,
-                 load_balancer_type: str,
-                 numerical_vpc_id: int,
-                 protocol: str,
-                 region: str,
-                 vip: str,
-                 vport: int,
-                 zone: str):
-        pulumi.set(__self__, "listener_id", listener_id)
-        pulumi.set(__self__, "listener_name", listener_name)
-        pulumi.set(__self__, "load_balancer_id", load_balancer_id)
-        pulumi.set(__self__, "load_balancer_name", load_balancer_name)
-        pulumi.set(__self__, "load_balancer_type", load_balancer_type)
-        pulumi.set(__self__, "numerical_vpc_id", numerical_vpc_id)
-        pulumi.set(__self__, "protocol", protocol)
-        pulumi.set(__self__, "region", region)
-        pulumi.set(__self__, "vip", vip)
-        pulumi.set(__self__, "vport", vport)
-        pulumi.set(__self__, "zone", zone)
-
-    @property
-    @pulumi.getter(name="listenerId")
-    def listener_id(self) -> str:
-        return pulumi.get(self, "listener_id")
-
-    @property
-    @pulumi.getter(name="listenerName")
-    def listener_name(self) -> str:
-        return pulumi.get(self, "listener_name")
-
-    @property
-    @pulumi.getter(name="loadBalancerId")
-    def load_balancer_id(self) -> str:
-        return pulumi.get(self, "load_balancer_id")
-
-    @property
-    @pulumi.getter(name="loadBalancerName")
-    def load_balancer_name(self) -> str:
-        return pulumi.get(self, "load_balancer_name")
-
-    @property
-    @pulumi.getter(name="loadBalancerType")
-    def load_balancer_type(self) -> str:
-        return pulumi.get(self, "load_balancer_type")
-
-    @property
-    @pulumi.getter(name="numericalVpcId")
-    def numerical_vpc_id(self) -> int:
-        return pulumi.get(self, "numerical_vpc_id")
-
-    @property
-    @pulumi.getter
-    def protocol(self) -> str:
-        return pulumi.get(self, "protocol")
-
-    @property
-    @pulumi.getter
-    def region(self) -> str:
-        return pulumi.get(self, "region")
-
-    @property
-    @pulumi.getter
-    def vip(self) -> str:
-        return pulumi.get(self, "vip")
-
-    @property
-    @pulumi.getter
-    def vport(self) -> int:
-        return pulumi.get(self, "vport")
-
-    @property
-    @pulumi.getter
-    def zone(self) -> str:
-        return pulumi.get(self, "zone")
-
-
-@pulumi.output_type
-class GetWafInfosParamResult(dict):
-    def __init__(__self__, *,
-                 load_balancer_id: str,
-                 domain_id: Optional[str] = None,
-                 listener_id: Optional[str] = None):
-        pulumi.set(__self__, "load_balancer_id", load_balancer_id)
-        if domain_id is not None:
-            pulumi.set(__self__, "domain_id", domain_id)
-        if listener_id is not None:
-            pulumi.set(__self__, "listener_id", listener_id)
-
-    @property
-    @pulumi.getter(name="loadBalancerId")
-    def load_balancer_id(self) -> str:
-        return pulumi.get(self, "load_balancer_id")
-
-    @property
-    @pulumi.getter(name="domainId")
-    def domain_id(self) -> Optional[str]:
-        return pulumi.get(self, "domain_id")
-
-    @property
-    @pulumi.getter(name="listenerId")
-    def listener_id(self) -> Optional[str]:
-        return pulumi.get(self, "listener_id")
 
 

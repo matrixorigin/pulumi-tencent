@@ -13,6 +13,154 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type ActionTimerActionTimer struct {
+	ActionTime  *string `pulumi:"actionTime"`
+	TimerAction *string `pulumi:"timerAction"`
+}
+
+// ActionTimerActionTimerInput is an input type that accepts ActionTimerActionTimerArgs and ActionTimerActionTimerOutput values.
+// You can construct a concrete instance of `ActionTimerActionTimerInput` via:
+//
+//	ActionTimerActionTimerArgs{...}
+type ActionTimerActionTimerInput interface {
+	pulumi.Input
+
+	ToActionTimerActionTimerOutput() ActionTimerActionTimerOutput
+	ToActionTimerActionTimerOutputWithContext(context.Context) ActionTimerActionTimerOutput
+}
+
+type ActionTimerActionTimerArgs struct {
+	ActionTime  pulumi.StringPtrInput `pulumi:"actionTime"`
+	TimerAction pulumi.StringPtrInput `pulumi:"timerAction"`
+}
+
+func (ActionTimerActionTimerArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ActionTimerActionTimer)(nil)).Elem()
+}
+
+func (i ActionTimerActionTimerArgs) ToActionTimerActionTimerOutput() ActionTimerActionTimerOutput {
+	return i.ToActionTimerActionTimerOutputWithContext(context.Background())
+}
+
+func (i ActionTimerActionTimerArgs) ToActionTimerActionTimerOutputWithContext(ctx context.Context) ActionTimerActionTimerOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ActionTimerActionTimerOutput)
+}
+
+func (i ActionTimerActionTimerArgs) ToActionTimerActionTimerPtrOutput() ActionTimerActionTimerPtrOutput {
+	return i.ToActionTimerActionTimerPtrOutputWithContext(context.Background())
+}
+
+func (i ActionTimerActionTimerArgs) ToActionTimerActionTimerPtrOutputWithContext(ctx context.Context) ActionTimerActionTimerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ActionTimerActionTimerOutput).ToActionTimerActionTimerPtrOutputWithContext(ctx)
+}
+
+// ActionTimerActionTimerPtrInput is an input type that accepts ActionTimerActionTimerArgs, ActionTimerActionTimerPtr and ActionTimerActionTimerPtrOutput values.
+// You can construct a concrete instance of `ActionTimerActionTimerPtrInput` via:
+//
+//	        ActionTimerActionTimerArgs{...}
+//
+//	or:
+//
+//	        nil
+type ActionTimerActionTimerPtrInput interface {
+	pulumi.Input
+
+	ToActionTimerActionTimerPtrOutput() ActionTimerActionTimerPtrOutput
+	ToActionTimerActionTimerPtrOutputWithContext(context.Context) ActionTimerActionTimerPtrOutput
+}
+
+type actionTimerActionTimerPtrType ActionTimerActionTimerArgs
+
+func ActionTimerActionTimerPtr(v *ActionTimerActionTimerArgs) ActionTimerActionTimerPtrInput {
+	return (*actionTimerActionTimerPtrType)(v)
+}
+
+func (*actionTimerActionTimerPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ActionTimerActionTimer)(nil)).Elem()
+}
+
+func (i *actionTimerActionTimerPtrType) ToActionTimerActionTimerPtrOutput() ActionTimerActionTimerPtrOutput {
+	return i.ToActionTimerActionTimerPtrOutputWithContext(context.Background())
+}
+
+func (i *actionTimerActionTimerPtrType) ToActionTimerActionTimerPtrOutputWithContext(ctx context.Context) ActionTimerActionTimerPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ActionTimerActionTimerPtrOutput)
+}
+
+type ActionTimerActionTimerOutput struct{ *pulumi.OutputState }
+
+func (ActionTimerActionTimerOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ActionTimerActionTimer)(nil)).Elem()
+}
+
+func (o ActionTimerActionTimerOutput) ToActionTimerActionTimerOutput() ActionTimerActionTimerOutput {
+	return o
+}
+
+func (o ActionTimerActionTimerOutput) ToActionTimerActionTimerOutputWithContext(ctx context.Context) ActionTimerActionTimerOutput {
+	return o
+}
+
+func (o ActionTimerActionTimerOutput) ToActionTimerActionTimerPtrOutput() ActionTimerActionTimerPtrOutput {
+	return o.ToActionTimerActionTimerPtrOutputWithContext(context.Background())
+}
+
+func (o ActionTimerActionTimerOutput) ToActionTimerActionTimerPtrOutputWithContext(ctx context.Context) ActionTimerActionTimerPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ActionTimerActionTimer) *ActionTimerActionTimer {
+		return &v
+	}).(ActionTimerActionTimerPtrOutput)
+}
+
+func (o ActionTimerActionTimerOutput) ActionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ActionTimerActionTimer) *string { return v.ActionTime }).(pulumi.StringPtrOutput)
+}
+
+func (o ActionTimerActionTimerOutput) TimerAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ActionTimerActionTimer) *string { return v.TimerAction }).(pulumi.StringPtrOutput)
+}
+
+type ActionTimerActionTimerPtrOutput struct{ *pulumi.OutputState }
+
+func (ActionTimerActionTimerPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ActionTimerActionTimer)(nil)).Elem()
+}
+
+func (o ActionTimerActionTimerPtrOutput) ToActionTimerActionTimerPtrOutput() ActionTimerActionTimerPtrOutput {
+	return o
+}
+
+func (o ActionTimerActionTimerPtrOutput) ToActionTimerActionTimerPtrOutputWithContext(ctx context.Context) ActionTimerActionTimerPtrOutput {
+	return o
+}
+
+func (o ActionTimerActionTimerPtrOutput) Elem() ActionTimerActionTimerOutput {
+	return o.ApplyT(func(v *ActionTimerActionTimer) ActionTimerActionTimer {
+		if v != nil {
+			return *v
+		}
+		var ret ActionTimerActionTimer
+		return ret
+	}).(ActionTimerActionTimerOutput)
+}
+
+func (o ActionTimerActionTimerPtrOutput) ActionTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ActionTimerActionTimer) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ActionTime
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ActionTimerActionTimerPtrOutput) TimerAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ActionTimerActionTimer) *string {
+		if v == nil {
+			return nil
+		}
+		return v.TimerAction
+	}).(pulumi.StringPtrOutput)
+}
+
 type ChcConfigBmcVirtualPrivateCloud struct {
 	AsVpcGateway       *bool    `pulumi:"asVpcGateway"`
 	Ipv6AddressCount   *int     `pulumi:"ipv6AddressCount"`
@@ -2588,7 +2736,8 @@ func (o LaunchTemplateLoginSettingsPtrOutput) Password() pulumi.StringPtrOutput 
 }
 
 type LaunchTemplatePlacement struct {
-	HostIds   []string `pulumi:"hostIds"`
+	HostIds []string `pulumi:"hostIds"`
+	// Deprecated: It has been deprecated from version 1.81.108.
 	HostIps   []string `pulumi:"hostIps"`
 	ProjectId *int     `pulumi:"projectId"`
 	Zone      string   `pulumi:"zone"`
@@ -2606,7 +2755,8 @@ type LaunchTemplatePlacementInput interface {
 }
 
 type LaunchTemplatePlacementArgs struct {
-	HostIds   pulumi.StringArrayInput `pulumi:"hostIds"`
+	HostIds pulumi.StringArrayInput `pulumi:"hostIds"`
+	// Deprecated: It has been deprecated from version 1.81.108.
 	HostIps   pulumi.StringArrayInput `pulumi:"hostIps"`
 	ProjectId pulumi.IntPtrInput      `pulumi:"projectId"`
 	Zone      pulumi.StringInput      `pulumi:"zone"`
@@ -2693,6 +2843,7 @@ func (o LaunchTemplatePlacementOutput) HostIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LaunchTemplatePlacement) []string { return v.HostIds }).(pulumi.StringArrayOutput)
 }
 
+// Deprecated: It has been deprecated from version 1.81.108.
 func (o LaunchTemplatePlacementOutput) HostIps() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LaunchTemplatePlacement) []string { return v.HostIps }).(pulumi.StringArrayOutput)
 }
@@ -2738,6 +2889,7 @@ func (o LaunchTemplatePlacementPtrOutput) HostIds() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+// Deprecated: It has been deprecated from version 1.81.108.
 func (o LaunchTemplatePlacementPtrOutput) HostIps() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *LaunchTemplatePlacement) []string {
 		if v == nil {
@@ -7254,8 +7406,9 @@ func (o GetChcHostsChcHostSetDeployVirtualPrivateCloudArrayOutput) Index(i pulum
 }
 
 type GetChcHostsChcHostSetPlacement struct {
-	HostId    string   `pulumi:"hostId"`
-	HostIds   []string `pulumi:"hostIds"`
+	HostId  string   `pulumi:"hostId"`
+	HostIds []string `pulumi:"hostIds"`
+	// Deprecated: It has been deprecated from version 1.81.108.
 	HostIps   []string `pulumi:"hostIps"`
 	ProjectId int      `pulumi:"projectId"`
 	Zone      string   `pulumi:"zone"`
@@ -7273,8 +7426,9 @@ type GetChcHostsChcHostSetPlacementInput interface {
 }
 
 type GetChcHostsChcHostSetPlacementArgs struct {
-	HostId    pulumi.StringInput      `pulumi:"hostId"`
-	HostIds   pulumi.StringArrayInput `pulumi:"hostIds"`
+	HostId  pulumi.StringInput      `pulumi:"hostId"`
+	HostIds pulumi.StringArrayInput `pulumi:"hostIds"`
+	// Deprecated: It has been deprecated from version 1.81.108.
 	HostIps   pulumi.StringArrayInput `pulumi:"hostIps"`
 	ProjectId pulumi.IntInput         `pulumi:"projectId"`
 	Zone      pulumi.StringInput      `pulumi:"zone"`
@@ -7339,6 +7493,7 @@ func (o GetChcHostsChcHostSetPlacementOutput) HostIds() pulumi.StringArrayOutput
 	return o.ApplyT(func(v GetChcHostsChcHostSetPlacement) []string { return v.HostIds }).(pulumi.StringArrayOutput)
 }
 
+// Deprecated: It has been deprecated from version 1.81.108.
 func (o GetChcHostsChcHostSetPlacementOutput) HostIps() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetChcHostsChcHostSetPlacement) []string { return v.HostIps }).(pulumi.StringArrayOutput)
 }
@@ -8120,6 +8275,8 @@ func (o GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigAr
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ActionTimerActionTimerInput)(nil)).Elem(), ActionTimerActionTimerArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ActionTimerActionTimerPtrInput)(nil)).Elem(), ActionTimerActionTimerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ChcConfigBmcVirtualPrivateCloudInput)(nil)).Elem(), ChcConfigBmcVirtualPrivateCloudArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ChcConfigBmcVirtualPrivateCloudPtrInput)(nil)).Elem(), ChcConfigBmcVirtualPrivateCloudArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ChcConfigDeployVirtualPrivateCloudInput)(nil)).Elem(), ChcConfigDeployVirtualPrivateCloudArgs{})
@@ -8232,6 +8389,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstancesModificationInstanceTypeConfigStatusListArrayInput)(nil)).Elem(), GetInstancesModificationInstanceTypeConfigStatusListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigInput)(nil)).Elem(), GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigArrayInput)(nil)).Elem(), GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigArray{})
+	pulumi.RegisterOutputType(ActionTimerActionTimerOutput{})
+	pulumi.RegisterOutputType(ActionTimerActionTimerPtrOutput{})
 	pulumi.RegisterOutputType(ChcConfigBmcVirtualPrivateCloudOutput{})
 	pulumi.RegisterOutputType(ChcConfigBmcVirtualPrivateCloudPtrOutput{})
 	pulumi.RegisterOutputType(ChcConfigDeployVirtualPrivateCloudOutput{})

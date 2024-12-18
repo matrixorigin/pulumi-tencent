@@ -18,6 +18,7 @@ class InstanceArgs:
                  data_disk_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  force_poweroff: Optional[pulumi.Input[bool]] = None,
                  image_description: Optional[pulumi.Input[str]] = None,
+                 image_family: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
                  snapshot_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  sysprep: Optional[pulumi.Input[bool]] = None,
@@ -30,6 +31,7 @@ class InstanceArgs:
         :param pulumi.Input[bool] force_poweroff: Set whether to force shutdown during mirroring. The default value is `false`, when set to true, it means that the mirror
                will be made after shutdown.
         :param pulumi.Input[str] image_description: Image Description.
+        :param pulumi.Input[str] image_family: Set image family. Example value: `business-daily-update`.
         :param pulumi.Input[str] instance_id: Cloud server instance ID.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] snapshot_ids: Cloud disk snapshot ID list; creating a mirror based on a snapshot must include a system disk snapshot. It cannot be
                passed in simultaneously with InstanceId.
@@ -44,6 +46,8 @@ class InstanceArgs:
             pulumi.set(__self__, "force_poweroff", force_poweroff)
         if image_description is not None:
             pulumi.set(__self__, "image_description", image_description)
+        if image_family is not None:
+            pulumi.set(__self__, "image_family", image_family)
         if instance_id is not None:
             pulumi.set(__self__, "instance_id", instance_id)
         if snapshot_ids is not None:
@@ -104,6 +108,18 @@ class InstanceArgs:
         pulumi.set(self, "image_description", value)
 
     @property
+    @pulumi.getter(name="imageFamily")
+    def image_family(self) -> Optional[pulumi.Input[str]]:
+        """
+        Set image family. Example value: `business-daily-update`.
+        """
+        return pulumi.get(self, "image_family")
+
+    @image_family.setter
+    def image_family(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "image_family", value)
+
+    @property
     @pulumi.getter(name="instanceId")
     def instance_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -160,6 +176,7 @@ class _InstanceState:
                  data_disk_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  force_poweroff: Optional[pulumi.Input[bool]] = None,
                  image_description: Optional[pulumi.Input[str]] = None,
+                 image_family: Optional[pulumi.Input[str]] = None,
                  image_name: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
                  snapshot_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -172,6 +189,7 @@ class _InstanceState:
         :param pulumi.Input[bool] force_poweroff: Set whether to force shutdown during mirroring. The default value is `false`, when set to true, it means that the mirror
                will be made after shutdown.
         :param pulumi.Input[str] image_description: Image Description.
+        :param pulumi.Input[str] image_family: Set image family. Example value: `business-daily-update`.
         :param pulumi.Input[str] image_name: Image name.
         :param pulumi.Input[str] instance_id: Cloud server instance ID.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] snapshot_ids: Cloud disk snapshot ID list; creating a mirror based on a snapshot must include a system disk snapshot. It cannot be
@@ -186,6 +204,8 @@ class _InstanceState:
             pulumi.set(__self__, "force_poweroff", force_poweroff)
         if image_description is not None:
             pulumi.set(__self__, "image_description", image_description)
+        if image_family is not None:
+            pulumi.set(__self__, "image_family", image_family)
         if image_name is not None:
             pulumi.set(__self__, "image_name", image_name)
         if instance_id is not None:
@@ -234,6 +254,18 @@ class _InstanceState:
     @image_description.setter
     def image_description(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "image_description", value)
+
+    @property
+    @pulumi.getter(name="imageFamily")
+    def image_family(self) -> Optional[pulumi.Input[str]]:
+        """
+        Set image family. Example value: `business-daily-update`.
+        """
+        return pulumi.get(self, "image_family")
+
+    @image_family.setter
+    def image_family(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "image_family", value)
 
     @property
     @pulumi.getter(name="imageName")
@@ -306,6 +338,7 @@ class Instance(pulumi.CustomResource):
                  data_disk_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  force_poweroff: Optional[pulumi.Input[bool]] = None,
                  image_description: Optional[pulumi.Input[str]] = None,
+                 image_family: Optional[pulumi.Input[str]] = None,
                  image_name: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
                  snapshot_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -321,6 +354,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[bool] force_poweroff: Set whether to force shutdown during mirroring. The default value is `false`, when set to true, it means that the mirror
                will be made after shutdown.
         :param pulumi.Input[str] image_description: Image Description.
+        :param pulumi.Input[str] image_family: Set image family. Example value: `business-daily-update`.
         :param pulumi.Input[str] image_name: Image name.
         :param pulumi.Input[str] instance_id: Cloud server instance ID.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] snapshot_ids: Cloud disk snapshot ID list; creating a mirror based on a snapshot must include a system disk snapshot. It cannot be
@@ -355,6 +389,7 @@ class Instance(pulumi.CustomResource):
                  data_disk_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  force_poweroff: Optional[pulumi.Input[bool]] = None,
                  image_description: Optional[pulumi.Input[str]] = None,
+                 image_family: Optional[pulumi.Input[str]] = None,
                  image_name: Optional[pulumi.Input[str]] = None,
                  instance_id: Optional[pulumi.Input[str]] = None,
                  snapshot_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -372,6 +407,7 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["data_disk_ids"] = data_disk_ids
             __props__.__dict__["force_poweroff"] = force_poweroff
             __props__.__dict__["image_description"] = image_description
+            __props__.__dict__["image_family"] = image_family
             if image_name is None and not opts.urn:
                 raise TypeError("Missing required property 'image_name'")
             __props__.__dict__["image_name"] = image_name
@@ -392,6 +428,7 @@ class Instance(pulumi.CustomResource):
             data_disk_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             force_poweroff: Optional[pulumi.Input[bool]] = None,
             image_description: Optional[pulumi.Input[str]] = None,
+            image_family: Optional[pulumi.Input[str]] = None,
             image_name: Optional[pulumi.Input[str]] = None,
             instance_id: Optional[pulumi.Input[str]] = None,
             snapshot_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -409,6 +446,7 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[bool] force_poweroff: Set whether to force shutdown during mirroring. The default value is `false`, when set to true, it means that the mirror
                will be made after shutdown.
         :param pulumi.Input[str] image_description: Image Description.
+        :param pulumi.Input[str] image_family: Set image family. Example value: `business-daily-update`.
         :param pulumi.Input[str] image_name: Image name.
         :param pulumi.Input[str] instance_id: Cloud server instance ID.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] snapshot_ids: Cloud disk snapshot ID list; creating a mirror based on a snapshot must include a system disk snapshot. It cannot be
@@ -424,6 +462,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["data_disk_ids"] = data_disk_ids
         __props__.__dict__["force_poweroff"] = force_poweroff
         __props__.__dict__["image_description"] = image_description
+        __props__.__dict__["image_family"] = image_family
         __props__.__dict__["image_name"] = image_name
         __props__.__dict__["instance_id"] = instance_id
         __props__.__dict__["snapshot_ids"] = snapshot_ids
@@ -456,6 +495,14 @@ class Instance(pulumi.CustomResource):
         Image Description.
         """
         return pulumi.get(self, "image_description")
+
+    @property
+    @pulumi.getter(name="imageFamily")
+    def image_family(self) -> pulumi.Output[Optional[str]]:
+        """
+        Set image family. Example value: `business-daily-update`.
+        """
+        return pulumi.get(self, "image_family")
 
     @property
     @pulumi.getter(name="imageName")

@@ -87,7 +87,7 @@ class SaasDomainArgs:
         :param pulumi.Input[str] upstream_scheme: Upstream scheme for https, http or https.
         :param pulumi.Input[int] upstream_type: Upstream type, 0 represents IP, 1 represents domain name.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] weights: Weight of each upstream.
-        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:ensable xff reset.
+        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:enable xff reset.
         """
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "instance_id", instance_id)
@@ -545,7 +545,7 @@ class SaasDomainArgs:
     @pulumi.getter(name="xffReset")
     def xff_reset(self) -> Optional[pulumi.Input[int]]:
         """
-        0:disable xff reset; 1:ensable xff reset.
+        0:disable xff reset; 1:enable xff reset.
         """
         return pulumi.get(self, "xff_reset")
 
@@ -630,7 +630,7 @@ class _SaasDomainState:
         :param pulumi.Input[str] upstream_scheme: Upstream scheme for https, http or https.
         :param pulumi.Input[int] upstream_type: Upstream type, 0 represents IP, 1 represents domain name.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] weights: Weight of each upstream.
-        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:ensable xff reset.
+        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:enable xff reset.
         """
         if active_check is not None:
             pulumi.set(__self__, "active_check", active_check)
@@ -1105,7 +1105,7 @@ class _SaasDomainState:
     @pulumi.getter(name="xffReset")
     def xff_reset(self) -> Optional[pulumi.Input[int]]:
         """
-        0:disable xff reset; 1:ensable xff reset.
+        0:disable xff reset; 1:enable xff reset.
         """
         return pulumi.get(self, "xff_reset")
 
@@ -1193,7 +1193,7 @@ class SaasDomain(pulumi.CustomResource):
         :param pulumi.Input[str] upstream_scheme: Upstream scheme for https, http or https.
         :param pulumi.Input[int] upstream_type: Upstream type, 0 represents IP, 1 represents domain name.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] weights: Weight of each upstream.
-        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:ensable xff reset.
+        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:enable xff reset.
         """
         ...
     @overload
@@ -1388,7 +1388,7 @@ class SaasDomain(pulumi.CustomResource):
         :param pulumi.Input[str] upstream_scheme: Upstream scheme for https, http or https.
         :param pulumi.Input[int] upstream_type: Upstream type, 0 represents IP, 1 represents domain name.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] weights: Weight of each upstream.
-        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:ensable xff reset.
+        :param pulumi.Input[int] xff_reset: 0:disable xff reset; 1:enable xff reset.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1702,7 +1702,7 @@ class SaasDomain(pulumi.CustomResource):
     @pulumi.getter(name="xffReset")
     def xff_reset(self) -> pulumi.Output[Optional[int]]:
         """
-        0:disable xff reset; 1:ensable xff reset.
+        0:disable xff reset; 1:enable xff reset.
         """
         return pulumi.get(self, "xff_reset")
 

@@ -15,15 +15,15 @@ import (
 type AlarmNotice struct {
 	pulumi.CustomResourceState
 
-	// alarm notice name.
+	// Alarm notice name.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// notice receivers.
+	// Notice receivers.
 	NoticeReceivers AlarmNoticeNoticeReceiverArrayOutput `pulumi:"noticeReceivers"`
 	// Tag description list.
 	Tags pulumi.MapOutput `pulumi:"tags"`
-	// notice type.
+	// Notice type. Value: Trigger, Recovery, All.
 	Type pulumi.StringOutput `pulumi:"type"`
-	// callback info.
+	// Callback info.
 	WebCallbacks AlarmNoticeWebCallbackArrayOutput `pulumi:"webCallbacks"`
 }
 
@@ -60,28 +60,28 @@ func GetAlarmNotice(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering AlarmNotice resources.
 type alarmNoticeState struct {
-	// alarm notice name.
+	// Alarm notice name.
 	Name *string `pulumi:"name"`
-	// notice receivers.
+	// Notice receivers.
 	NoticeReceivers []AlarmNoticeNoticeReceiver `pulumi:"noticeReceivers"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
-	// notice type.
+	// Notice type. Value: Trigger, Recovery, All.
 	Type *string `pulumi:"type"`
-	// callback info.
+	// Callback info.
 	WebCallbacks []AlarmNoticeWebCallback `pulumi:"webCallbacks"`
 }
 
 type AlarmNoticeState struct {
-	// alarm notice name.
+	// Alarm notice name.
 	Name pulumi.StringPtrInput
-	// notice receivers.
+	// Notice receivers.
 	NoticeReceivers AlarmNoticeNoticeReceiverArrayInput
 	// Tag description list.
 	Tags pulumi.MapInput
-	// notice type.
+	// Notice type. Value: Trigger, Recovery, All.
 	Type pulumi.StringPtrInput
-	// callback info.
+	// Callback info.
 	WebCallbacks AlarmNoticeWebCallbackArrayInput
 }
 
@@ -90,29 +90,29 @@ func (AlarmNoticeState) ElementType() reflect.Type {
 }
 
 type alarmNoticeArgs struct {
-	// alarm notice name.
+	// Alarm notice name.
 	Name *string `pulumi:"name"`
-	// notice receivers.
+	// Notice receivers.
 	NoticeReceivers []AlarmNoticeNoticeReceiver `pulumi:"noticeReceivers"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
-	// notice type.
+	// Notice type. Value: Trigger, Recovery, All.
 	Type string `pulumi:"type"`
-	// callback info.
+	// Callback info.
 	WebCallbacks []AlarmNoticeWebCallback `pulumi:"webCallbacks"`
 }
 
 // The set of arguments for constructing a AlarmNotice resource.
 type AlarmNoticeArgs struct {
-	// alarm notice name.
+	// Alarm notice name.
 	Name pulumi.StringPtrInput
-	// notice receivers.
+	// Notice receivers.
 	NoticeReceivers AlarmNoticeNoticeReceiverArrayInput
 	// Tag description list.
 	Tags pulumi.MapInput
-	// notice type.
+	// Notice type. Value: Trigger, Recovery, All.
 	Type pulumi.StringInput
-	// callback info.
+	// Callback info.
 	WebCallbacks AlarmNoticeWebCallbackArrayInput
 }
 
@@ -203,12 +203,12 @@ func (o AlarmNoticeOutput) ToAlarmNoticeOutputWithContext(ctx context.Context) A
 	return o
 }
 
-// alarm notice name.
+// Alarm notice name.
 func (o AlarmNoticeOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *AlarmNotice) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// notice receivers.
+// Notice receivers.
 func (o AlarmNoticeOutput) NoticeReceivers() AlarmNoticeNoticeReceiverArrayOutput {
 	return o.ApplyT(func(v *AlarmNotice) AlarmNoticeNoticeReceiverArrayOutput { return v.NoticeReceivers }).(AlarmNoticeNoticeReceiverArrayOutput)
 }
@@ -218,12 +218,12 @@ func (o AlarmNoticeOutput) Tags() pulumi.MapOutput {
 	return o.ApplyT(func(v *AlarmNotice) pulumi.MapOutput { return v.Tags }).(pulumi.MapOutput)
 }
 
-// notice type.
+// Notice type. Value: Trigger, Recovery, All.
 func (o AlarmNoticeOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v *AlarmNotice) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
-// callback info.
+// Callback info.
 func (o AlarmNoticeOutput) WebCallbacks() AlarmNoticeWebCallbackArrayOutput {
 	return o.ApplyT(func(v *AlarmNotice) AlarmNoticeWebCallbackArrayOutput { return v.WebCallbacks }).(AlarmNoticeWebCallbackArrayOutput)
 }

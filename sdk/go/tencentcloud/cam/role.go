@@ -28,8 +28,10 @@ type Role struct {
 	Document pulumi.StringOutput `pulumi:"document"`
 	// Name of CAM role.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// RoleArn Information for Roles.
+	RoleArn pulumi.StringOutput `pulumi:"roleArn"`
 	// The maximum validity period of the temporary key for creating a role.
-	SessionDuration pulumi.IntPtrOutput `pulumi:"sessionDuration"`
+	SessionDuration pulumi.IntOutput `pulumi:"sessionDuration"`
 	// A list of tags used to associate different resources.
 	Tags pulumi.MapOutput `pulumi:"tags"`
 	// The last update time of the CAM role.
@@ -82,6 +84,8 @@ type roleState struct {
 	Document *string `pulumi:"document"`
 	// Name of CAM role.
 	Name *string `pulumi:"name"`
+	// RoleArn Information for Roles.
+	RoleArn *string `pulumi:"roleArn"`
 	// The maximum validity period of the temporary key for creating a role.
 	SessionDuration *int `pulumi:"sessionDuration"`
 	// A list of tags used to associate different resources.
@@ -104,6 +108,8 @@ type RoleState struct {
 	Document pulumi.StringPtrInput
 	// Name of CAM role.
 	Name pulumi.StringPtrInput
+	// RoleArn Information for Roles.
+	RoleArn pulumi.StringPtrInput
 	// The maximum validity period of the temporary key for creating a role.
 	SessionDuration pulumi.IntPtrInput
 	// A list of tags used to associate different resources.
@@ -268,9 +274,14 @@ func (o RoleOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Role) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// RoleArn Information for Roles.
+func (o RoleOutput) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v *Role) pulumi.StringOutput { return v.RoleArn }).(pulumi.StringOutput)
+}
+
 // The maximum validity period of the temporary key for creating a role.
-func (o RoleOutput) SessionDuration() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v *Role) pulumi.IntPtrOutput { return v.SessionDuration }).(pulumi.IntPtrOutput)
+func (o RoleOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v *Role) pulumi.IntOutput { return v.SessionDuration }).(pulumi.IntOutput)
 }
 
 // A list of tags used to associate different resources.

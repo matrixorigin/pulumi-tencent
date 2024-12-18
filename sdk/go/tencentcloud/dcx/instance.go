@@ -34,6 +34,8 @@ type Instance struct {
 	DcgId pulumi.StringOutput `pulumi:"dcgId"`
 	// Name of the dedicated tunnel.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Network region.
+	NetworkRegion pulumi.StringPtrOutput `pulumi:"networkRegion"`
 	// Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.
 	NetworkType pulumi.StringPtrOutput `pulumi:"networkType"`
 	// Static route, the network address of the user IDC. It can be modified after setting but cannot be deleted. AN unable
@@ -108,6 +110,8 @@ type instanceState struct {
 	DcgId *string `pulumi:"dcgId"`
 	// Name of the dedicated tunnel.
 	Name *string `pulumi:"name"`
+	// Network region.
+	NetworkRegion *string `pulumi:"networkRegion"`
 	// Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.
 	NetworkType *string `pulumi:"networkType"`
 	// Static route, the network address of the user IDC. It can be modified after setting but cannot be deleted. AN unable
@@ -147,6 +151,8 @@ type InstanceState struct {
 	DcgId pulumi.StringPtrInput
 	// Name of the dedicated tunnel.
 	Name pulumi.StringPtrInput
+	// Network region.
+	NetworkRegion pulumi.StringPtrInput
 	// Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.
 	NetworkType pulumi.StringPtrInput
 	// Static route, the network address of the user IDC. It can be modified after setting but cannot be deleted. AN unable
@@ -188,6 +194,8 @@ type instanceArgs struct {
 	DcgId string `pulumi:"dcgId"`
 	// Name of the dedicated tunnel.
 	Name *string `pulumi:"name"`
+	// Network region.
+	NetworkRegion *string `pulumi:"networkRegion"`
 	// Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.
 	NetworkType *string `pulumi:"networkType"`
 	// Static route, the network address of the user IDC. It can be modified after setting but cannot be deleted. AN unable
@@ -223,6 +231,8 @@ type InstanceArgs struct {
 	DcgId pulumi.StringInput
 	// Name of the dedicated tunnel.
 	Name pulumi.StringPtrInput
+	// Network region.
+	NetworkRegion pulumi.StringPtrInput
 	// Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.
 	NetworkType pulumi.StringPtrInput
 	// Static route, the network address of the user IDC. It can be modified after setting but cannot be deleted. AN unable
@@ -370,6 +380,11 @@ func (o InstanceOutput) DcgId() pulumi.StringOutput {
 // Name of the dedicated tunnel.
 func (o InstanceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// Network region.
+func (o InstanceOutput) NetworkRegion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.NetworkRegion }).(pulumi.StringPtrOutput)
 }
 
 // Type of the network. Valid value: `VPC`, `BMVPC` and `CCN`. The default value is `VPC`.

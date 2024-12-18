@@ -19,9 +19,12 @@ type ClusterAttachmentWorkerConfig struct {
 	DockerGraphPath *string                                 `pulumi:"dockerGraphPath"`
 	ExtraArgs       []string                                `pulumi:"extraArgs"`
 	GpuArgs         *ClusterAttachmentWorkerConfigGpuArgs   `pulumi:"gpuArgs"`
-	IsSchedule      *bool                                   `pulumi:"isSchedule"`
-	MountTarget     *string                                 `pulumi:"mountTarget"`
-	UserData        *string                                 `pulumi:"userData"`
+	// Deprecated: This argument was deprecated, use `unschedulable` instead.
+	IsSchedule         *bool                                `pulumi:"isSchedule"`
+	MountTarget        *string                              `pulumi:"mountTarget"`
+	PreStartUserScript *string                              `pulumi:"preStartUserScript"`
+	Taints             []ClusterAttachmentWorkerConfigTaint `pulumi:"taints"`
+	UserData           *string                              `pulumi:"userData"`
 }
 
 // ClusterAttachmentWorkerConfigInput is an input type that accepts ClusterAttachmentWorkerConfigArgs and ClusterAttachmentWorkerConfigOutput values.
@@ -41,9 +44,12 @@ type ClusterAttachmentWorkerConfigArgs struct {
 	DockerGraphPath pulumi.StringPtrInput                           `pulumi:"dockerGraphPath"`
 	ExtraArgs       pulumi.StringArrayInput                         `pulumi:"extraArgs"`
 	GpuArgs         ClusterAttachmentWorkerConfigGpuArgsPtrInput    `pulumi:"gpuArgs"`
-	IsSchedule      pulumi.BoolPtrInput                             `pulumi:"isSchedule"`
-	MountTarget     pulumi.StringPtrInput                           `pulumi:"mountTarget"`
-	UserData        pulumi.StringPtrInput                           `pulumi:"userData"`
+	// Deprecated: This argument was deprecated, use `unschedulable` instead.
+	IsSchedule         pulumi.BoolPtrInput                          `pulumi:"isSchedule"`
+	MountTarget        pulumi.StringPtrInput                        `pulumi:"mountTarget"`
+	PreStartUserScript pulumi.StringPtrInput                        `pulumi:"preStartUserScript"`
+	Taints             ClusterAttachmentWorkerConfigTaintArrayInput `pulumi:"taints"`
+	UserData           pulumi.StringPtrInput                        `pulumi:"userData"`
 }
 
 func (ClusterAttachmentWorkerConfigArgs) ElementType() reflect.Type {
@@ -143,12 +149,21 @@ func (o ClusterAttachmentWorkerConfigOutput) GpuArgs() ClusterAttachmentWorkerCo
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfig) *ClusterAttachmentWorkerConfigGpuArgs { return v.GpuArgs }).(ClusterAttachmentWorkerConfigGpuArgsPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `unschedulable` instead.
 func (o ClusterAttachmentWorkerConfigOutput) IsSchedule() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfig) *bool { return v.IsSchedule }).(pulumi.BoolPtrOutput)
 }
 
 func (o ClusterAttachmentWorkerConfigOutput) MountTarget() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfig) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfig) *string { return v.PreStartUserScript }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigOutput) Taints() ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfig) []ClusterAttachmentWorkerConfigTaint { return v.Taints }).(ClusterAttachmentWorkerConfigTaintArrayOutput)
 }
 
 func (o ClusterAttachmentWorkerConfigOutput) UserData() pulumi.StringPtrOutput {
@@ -224,6 +239,7 @@ func (o ClusterAttachmentWorkerConfigPtrOutput) GpuArgs() ClusterAttachmentWorke
 	}).(ClusterAttachmentWorkerConfigGpuArgsPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `unschedulable` instead.
 func (o ClusterAttachmentWorkerConfigPtrOutput) IsSchedule() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfig) *bool {
 		if v == nil {
@@ -240,6 +256,24 @@ func (o ClusterAttachmentWorkerConfigPtrOutput) MountTarget() pulumi.StringPtrOu
 		}
 		return v.MountTarget
 	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigPtrOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterAttachmentWorkerConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreStartUserScript
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigPtrOutput) Taints() ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return o.ApplyT(func(v *ClusterAttachmentWorkerConfig) []ClusterAttachmentWorkerConfigTaint {
+		if v == nil {
+			return nil
+		}
+		return v.Taints
+	}).(ClusterAttachmentWorkerConfigTaintArrayOutput)
 }
 
 func (o ClusterAttachmentWorkerConfigPtrOutput) UserData() pulumi.StringPtrOutput {
@@ -569,14 +603,21 @@ func (o ClusterAttachmentWorkerConfigGpuArgsPtrOutput) MigEnable() pulumi.BoolPt
 }
 
 type ClusterAttachmentWorkerConfigOverrides struct {
-	DataDisks       []ClusterAttachmentWorkerConfigOverridesDataDisk `pulumi:"dataDisks"`
-	DesiredPodNum   *int                                             `pulumi:"desiredPodNum"`
-	DockerGraphPath *string                                          `pulumi:"dockerGraphPath"`
-	ExtraArgs       []string                                         `pulumi:"extraArgs"`
-	GpuArgs         *ClusterAttachmentWorkerConfigOverridesGpuArgs   `pulumi:"gpuArgs"`
-	IsSchedule      *bool                                            `pulumi:"isSchedule"`
-	MountTarget     *string                                          `pulumi:"mountTarget"`
-	UserData        *string                                          `pulumi:"userData"`
+	DataDisks     []ClusterAttachmentWorkerConfigOverridesDataDisk `pulumi:"dataDisks"`
+	DesiredPodNum *int                                             `pulumi:"desiredPodNum"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	DockerGraphPath *string `pulumi:"dockerGraphPath"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	ExtraArgs []string                                       `pulumi:"extraArgs"`
+	GpuArgs   *ClusterAttachmentWorkerConfigOverridesGpuArgs `pulumi:"gpuArgs"`
+	// Deprecated: This argument was deprecated, use `unschedulable` instead.
+	IsSchedule *bool `pulumi:"isSchedule"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	MountTarget *string `pulumi:"mountTarget"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	PreStartUserScript *string `pulumi:"preStartUserScript"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	UserData *string `pulumi:"userData"`
 }
 
 // ClusterAttachmentWorkerConfigOverridesInput is an input type that accepts ClusterAttachmentWorkerConfigOverridesArgs and ClusterAttachmentWorkerConfigOverridesOutput values.
@@ -591,14 +632,21 @@ type ClusterAttachmentWorkerConfigOverridesInput interface {
 }
 
 type ClusterAttachmentWorkerConfigOverridesArgs struct {
-	DataDisks       ClusterAttachmentWorkerConfigOverridesDataDiskArrayInput `pulumi:"dataDisks"`
-	DesiredPodNum   pulumi.IntPtrInput                                       `pulumi:"desiredPodNum"`
-	DockerGraphPath pulumi.StringPtrInput                                    `pulumi:"dockerGraphPath"`
-	ExtraArgs       pulumi.StringArrayInput                                  `pulumi:"extraArgs"`
-	GpuArgs         ClusterAttachmentWorkerConfigOverridesGpuArgsPtrInput    `pulumi:"gpuArgs"`
-	IsSchedule      pulumi.BoolPtrInput                                      `pulumi:"isSchedule"`
-	MountTarget     pulumi.StringPtrInput                                    `pulumi:"mountTarget"`
-	UserData        pulumi.StringPtrInput                                    `pulumi:"userData"`
+	DataDisks     ClusterAttachmentWorkerConfigOverridesDataDiskArrayInput `pulumi:"dataDisks"`
+	DesiredPodNum pulumi.IntPtrInput                                       `pulumi:"desiredPodNum"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	DockerGraphPath pulumi.StringPtrInput `pulumi:"dockerGraphPath"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	ExtraArgs pulumi.StringArrayInput                               `pulumi:"extraArgs"`
+	GpuArgs   ClusterAttachmentWorkerConfigOverridesGpuArgsPtrInput `pulumi:"gpuArgs"`
+	// Deprecated: This argument was deprecated, use `unschedulable` instead.
+	IsSchedule pulumi.BoolPtrInput `pulumi:"isSchedule"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	MountTarget pulumi.StringPtrInput `pulumi:"mountTarget"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	PreStartUserScript pulumi.StringPtrInput `pulumi:"preStartUserScript"`
+	// Deprecated: This argument was no longer supported by TencentCloud TKE.
+	UserData pulumi.StringPtrInput `pulumi:"userData"`
 }
 
 func (ClusterAttachmentWorkerConfigOverridesArgs) ElementType() reflect.Type {
@@ -688,10 +736,12 @@ func (o ClusterAttachmentWorkerConfigOverridesOutput) DesiredPodNum() pulumi.Int
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *int { return v.DesiredPodNum }).(pulumi.IntPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesOutput) DockerGraphPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *string { return v.DockerGraphPath }).(pulumi.StringPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesOutput) ExtraArgs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) []string { return v.ExtraArgs }).(pulumi.StringArrayOutput)
 }
@@ -702,14 +752,22 @@ func (o ClusterAttachmentWorkerConfigOverridesOutput) GpuArgs() ClusterAttachmen
 	}).(ClusterAttachmentWorkerConfigOverridesGpuArgsPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `unschedulable` instead.
 func (o ClusterAttachmentWorkerConfigOverridesOutput) IsSchedule() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *bool { return v.IsSchedule }).(pulumi.BoolPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesOutput) MountTarget() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
+func (o ClusterAttachmentWorkerConfigOverridesOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *string { return v.PreStartUserScript }).(pulumi.StringPtrOutput)
+}
+
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesOutput) UserData() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterAttachmentWorkerConfigOverrides) *string { return v.UserData }).(pulumi.StringPtrOutput)
 }
@@ -756,6 +814,7 @@ func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) DesiredPodNum() pulumi.
 	}).(pulumi.IntPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) DockerGraphPath() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) *string {
 		if v == nil {
@@ -765,6 +824,7 @@ func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) DockerGraphPath() pulum
 	}).(pulumi.StringPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) ExtraArgs() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) []string {
 		if v == nil {
@@ -783,6 +843,7 @@ func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) GpuArgs() ClusterAttach
 	}).(ClusterAttachmentWorkerConfigOverridesGpuArgsPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `unschedulable` instead.
 func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) IsSchedule() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) *bool {
 		if v == nil {
@@ -792,6 +853,7 @@ func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) IsSchedule() pulumi.Boo
 	}).(pulumi.BoolPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) MountTarget() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) *string {
 		if v == nil {
@@ -801,6 +863,17 @@ func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) MountTarget() pulumi.St
 	}).(pulumi.StringPtrOutput)
 }
 
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
+func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreStartUserScript
+	}).(pulumi.StringPtrOutput)
+}
+
+// Deprecated: This argument was no longer supported by TencentCloud TKE.
 func (o ClusterAttachmentWorkerConfigOverridesPtrOutput) UserData() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachmentWorkerConfigOverrides) *string {
 		if v == nil {
@@ -1125,6 +1198,112 @@ func (o ClusterAttachmentWorkerConfigOverridesGpuArgsPtrOutput) MigEnable() pulu
 		}
 		return v.MigEnable
 	}).(pulumi.BoolPtrOutput)
+}
+
+type ClusterAttachmentWorkerConfigTaint struct {
+	Effect *string `pulumi:"effect"`
+	Key    *string `pulumi:"key"`
+	Value  *string `pulumi:"value"`
+}
+
+// ClusterAttachmentWorkerConfigTaintInput is an input type that accepts ClusterAttachmentWorkerConfigTaintArgs and ClusterAttachmentWorkerConfigTaintOutput values.
+// You can construct a concrete instance of `ClusterAttachmentWorkerConfigTaintInput` via:
+//
+//	ClusterAttachmentWorkerConfigTaintArgs{...}
+type ClusterAttachmentWorkerConfigTaintInput interface {
+	pulumi.Input
+
+	ToClusterAttachmentWorkerConfigTaintOutput() ClusterAttachmentWorkerConfigTaintOutput
+	ToClusterAttachmentWorkerConfigTaintOutputWithContext(context.Context) ClusterAttachmentWorkerConfigTaintOutput
+}
+
+type ClusterAttachmentWorkerConfigTaintArgs struct {
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	Key    pulumi.StringPtrInput `pulumi:"key"`
+	Value  pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ClusterAttachmentWorkerConfigTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterAttachmentWorkerConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterAttachmentWorkerConfigTaintArgs) ToClusterAttachmentWorkerConfigTaintOutput() ClusterAttachmentWorkerConfigTaintOutput {
+	return i.ToClusterAttachmentWorkerConfigTaintOutputWithContext(context.Background())
+}
+
+func (i ClusterAttachmentWorkerConfigTaintArgs) ToClusterAttachmentWorkerConfigTaintOutputWithContext(ctx context.Context) ClusterAttachmentWorkerConfigTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterAttachmentWorkerConfigTaintOutput)
+}
+
+// ClusterAttachmentWorkerConfigTaintArrayInput is an input type that accepts ClusterAttachmentWorkerConfigTaintArray and ClusterAttachmentWorkerConfigTaintArrayOutput values.
+// You can construct a concrete instance of `ClusterAttachmentWorkerConfigTaintArrayInput` via:
+//
+//	ClusterAttachmentWorkerConfigTaintArray{ ClusterAttachmentWorkerConfigTaintArgs{...} }
+type ClusterAttachmentWorkerConfigTaintArrayInput interface {
+	pulumi.Input
+
+	ToClusterAttachmentWorkerConfigTaintArrayOutput() ClusterAttachmentWorkerConfigTaintArrayOutput
+	ToClusterAttachmentWorkerConfigTaintArrayOutputWithContext(context.Context) ClusterAttachmentWorkerConfigTaintArrayOutput
+}
+
+type ClusterAttachmentWorkerConfigTaintArray []ClusterAttachmentWorkerConfigTaintInput
+
+func (ClusterAttachmentWorkerConfigTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterAttachmentWorkerConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterAttachmentWorkerConfigTaintArray) ToClusterAttachmentWorkerConfigTaintArrayOutput() ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return i.ToClusterAttachmentWorkerConfigTaintArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterAttachmentWorkerConfigTaintArray) ToClusterAttachmentWorkerConfigTaintArrayOutputWithContext(ctx context.Context) ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterAttachmentWorkerConfigTaintArrayOutput)
+}
+
+type ClusterAttachmentWorkerConfigTaintOutput struct{ *pulumi.OutputState }
+
+func (ClusterAttachmentWorkerConfigTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterAttachmentWorkerConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterAttachmentWorkerConfigTaintOutput) ToClusterAttachmentWorkerConfigTaintOutput() ClusterAttachmentWorkerConfigTaintOutput {
+	return o
+}
+
+func (o ClusterAttachmentWorkerConfigTaintOutput) ToClusterAttachmentWorkerConfigTaintOutputWithContext(ctx context.Context) ClusterAttachmentWorkerConfigTaintOutput {
+	return o
+}
+
+func (o ClusterAttachmentWorkerConfigTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfigTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigTaintOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfigTaint) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterAttachmentWorkerConfigTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterAttachmentWorkerConfigTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ClusterAttachmentWorkerConfigTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterAttachmentWorkerConfigTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterAttachmentWorkerConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterAttachmentWorkerConfigTaintArrayOutput) ToClusterAttachmentWorkerConfigTaintArrayOutput() ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterAttachmentWorkerConfigTaintArrayOutput) ToClusterAttachmentWorkerConfigTaintArrayOutputWithContext(ctx context.Context) ClusterAttachmentWorkerConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterAttachmentWorkerConfigTaintArrayOutput) Index(i pulumi.IntInput) ClusterAttachmentWorkerConfigTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterAttachmentWorkerConfigTaint {
+		return vs[0].([]ClusterAttachmentWorkerConfigTaint)[vs[1].(int)]
+	}).(ClusterAttachmentWorkerConfigTaintOutput)
 }
 
 type ClusterAuthOptions struct {
@@ -1931,7 +2110,13 @@ func (o ClusterExistInstanceArrayOutput) Index(i pulumi.IntInput) ClusterExistIn
 }
 
 type ClusterExistInstanceInstancesPara struct {
-	InstanceIds []string `pulumi:"instanceIds"`
+	EnhancedMonitorService  *bool                                          `pulumi:"enhancedMonitorService"`
+	EnhancedSecurityService *bool                                          `pulumi:"enhancedSecurityService"`
+	InstanceIds             []string                                       `pulumi:"instanceIds"`
+	KeyIds                  []string                                       `pulumi:"keyIds"`
+	MasterConfig            *ClusterExistInstanceInstancesParaMasterConfig `pulumi:"masterConfig"`
+	Password                *string                                        `pulumi:"password"`
+	SecurityGroupIds        []string                                       `pulumi:"securityGroupIds"`
 }
 
 // ClusterExistInstanceInstancesParaInput is an input type that accepts ClusterExistInstanceInstancesParaArgs and ClusterExistInstanceInstancesParaOutput values.
@@ -1946,7 +2131,13 @@ type ClusterExistInstanceInstancesParaInput interface {
 }
 
 type ClusterExistInstanceInstancesParaArgs struct {
-	InstanceIds pulumi.StringArrayInput `pulumi:"instanceIds"`
+	EnhancedMonitorService  pulumi.BoolPtrInput                                   `pulumi:"enhancedMonitorService"`
+	EnhancedSecurityService pulumi.BoolPtrInput                                   `pulumi:"enhancedSecurityService"`
+	InstanceIds             pulumi.StringArrayInput                               `pulumi:"instanceIds"`
+	KeyIds                  pulumi.StringArrayInput                               `pulumi:"keyIds"`
+	MasterConfig            ClusterExistInstanceInstancesParaMasterConfigPtrInput `pulumi:"masterConfig"`
+	Password                pulumi.StringPtrInput                                 `pulumi:"password"`
+	SecurityGroupIds        pulumi.StringArrayInput                               `pulumi:"securityGroupIds"`
 }
 
 func (ClusterExistInstanceInstancesParaArgs) ElementType() reflect.Type {
@@ -2026,8 +2217,34 @@ func (o ClusterExistInstanceInstancesParaOutput) ToClusterExistInstanceInstances
 	}).(ClusterExistInstanceInstancesParaPtrOutput)
 }
 
+func (o ClusterExistInstanceInstancesParaOutput) EnhancedMonitorService() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) *bool { return v.EnhancedMonitorService }).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaOutput) EnhancedSecurityService() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) *bool { return v.EnhancedSecurityService }).(pulumi.BoolPtrOutput)
+}
+
 func (o ClusterExistInstanceInstancesParaOutput) InstanceIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) []string { return v.InstanceIds }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaOutput) KeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) []string { return v.KeyIds }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaOutput) MasterConfig() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) *ClusterExistInstanceInstancesParaMasterConfig {
+		return v.MasterConfig
+	}).(ClusterExistInstanceInstancesParaMasterConfigPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) *string { return v.Password }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaOutput) SecurityGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesPara) []string { return v.SecurityGroupIds }).(pulumi.StringArrayOutput)
 }
 
 type ClusterExistInstanceInstancesParaPtrOutput struct{ *pulumi.OutputState }
@@ -2054,6 +2271,24 @@ func (o ClusterExistInstanceInstancesParaPtrOutput) Elem() ClusterExistInstanceI
 	}).(ClusterExistInstanceInstancesParaOutput)
 }
 
+func (o ClusterExistInstanceInstancesParaPtrOutput) EnhancedMonitorService() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnhancedMonitorService
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaPtrOutput) EnhancedSecurityService() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnhancedSecurityService
+	}).(pulumi.BoolPtrOutput)
+}
+
 func (o ClusterExistInstanceInstancesParaPtrOutput) InstanceIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) []string {
 		if v == nil {
@@ -2061,6 +2296,1062 @@ func (o ClusterExistInstanceInstancesParaPtrOutput) InstanceIds() pulumi.StringA
 		}
 		return v.InstanceIds
 	}).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaPtrOutput) KeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KeyIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaPtrOutput) MasterConfig() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) *ClusterExistInstanceInstancesParaMasterConfig {
+		if v == nil {
+			return nil
+		}
+		return v.MasterConfig
+	}).(ClusterExistInstanceInstancesParaMasterConfigPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaPtrOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Password
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaPtrOutput) SecurityGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesPara) []string {
+		if v == nil {
+			return nil
+		}
+		return v.SecurityGroupIds
+	}).(pulumi.StringArrayOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfig struct {
+	DataDisk         *ClusterExistInstanceInstancesParaMasterConfigDataDisk  `pulumi:"dataDisk"`
+	DesiredPodNumber *int                                                    `pulumi:"desiredPodNumber"`
+	DockerGraphPath  *string                                                 `pulumi:"dockerGraphPath"`
+	ExtraArgs        *ClusterExistInstanceInstancesParaMasterConfigExtraArgs `pulumi:"extraArgs"`
+	GpuArgs          *ClusterExistInstanceInstancesParaMasterConfigGpuArgs   `pulumi:"gpuArgs"`
+	Labels           []ClusterExistInstanceInstancesParaMasterConfigLabel    `pulumi:"labels"`
+	MountTarget      *string                                                 `pulumi:"mountTarget"`
+	Taints           []ClusterExistInstanceInstancesParaMasterConfigTaint    `pulumi:"taints"`
+	Unschedulable    *int                                                    `pulumi:"unschedulable"`
+	UserScript       *string                                                 `pulumi:"userScript"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigArgs and ClusterExistInstanceInstancesParaMasterConfigOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigOutput() ClusterExistInstanceInstancesParaMasterConfigOutput
+	ToClusterExistInstanceInstancesParaMasterConfigOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigArgs struct {
+	DataDisk         ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput  `pulumi:"dataDisk"`
+	DesiredPodNumber pulumi.IntPtrInput                                             `pulumi:"desiredPodNumber"`
+	DockerGraphPath  pulumi.StringPtrInput                                          `pulumi:"dockerGraphPath"`
+	ExtraArgs        ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput `pulumi:"extraArgs"`
+	GpuArgs          ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput   `pulumi:"gpuArgs"`
+	Labels           ClusterExistInstanceInstancesParaMasterConfigLabelArrayInput   `pulumi:"labels"`
+	MountTarget      pulumi.StringPtrInput                                          `pulumi:"mountTarget"`
+	Taints           ClusterExistInstanceInstancesParaMasterConfigTaintArrayInput   `pulumi:"taints"`
+	Unschedulable    pulumi.IntPtrInput                                             `pulumi:"unschedulable"`
+	UserScript       pulumi.StringPtrInput                                          `pulumi:"userScript"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfig)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigArgs) ToClusterExistInstanceInstancesParaMasterConfigOutput() ClusterExistInstanceInstancesParaMasterConfigOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigArgs) ToClusterExistInstanceInstancesParaMasterConfigOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigOutput)
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigArgs) ToClusterExistInstanceInstancesParaMasterConfigPtrOutput() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigArgs) ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigOutput).ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(ctx)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigPtrInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigArgs, ClusterExistInstanceInstancesParaMasterConfigPtr and ClusterExistInstanceInstancesParaMasterConfigPtrOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigPtrInput` via:
+//
+//	        ClusterExistInstanceInstancesParaMasterConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterExistInstanceInstancesParaMasterConfigPtrInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigPtrOutput() ClusterExistInstanceInstancesParaMasterConfigPtrOutput
+	ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigPtrOutput
+}
+
+type clusterExistInstanceInstancesParaMasterConfigPtrType ClusterExistInstanceInstancesParaMasterConfigArgs
+
+func ClusterExistInstanceInstancesParaMasterConfigPtr(v *ClusterExistInstanceInstancesParaMasterConfigArgs) ClusterExistInstanceInstancesParaMasterConfigPtrInput {
+	return (*clusterExistInstanceInstancesParaMasterConfigPtrType)(v)
+}
+
+func (*clusterExistInstanceInstancesParaMasterConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfig)(nil)).Elem()
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigPtrType) ToClusterExistInstanceInstancesParaMasterConfigPtrOutput() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigPtrType) ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfig)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) ToClusterExistInstanceInstancesParaMasterConfigOutput() ClusterExistInstanceInstancesParaMasterConfigOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) ToClusterExistInstanceInstancesParaMasterConfigOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) ToClusterExistInstanceInstancesParaMasterConfigPtrOutput() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o.ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfig {
+		return &v
+	}).(ClusterExistInstanceInstancesParaMasterConfigPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) DataDisk() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+		return v.DataDisk
+	}).(ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) DesiredPodNumber() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *int { return v.DesiredPodNumber }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) DockerGraphPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *string { return v.DockerGraphPath }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) ExtraArgs() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+		return v.ExtraArgs
+	}).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) GpuArgs() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+		return v.GpuArgs
+	}).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) Labels() ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) []ClusterExistInstanceInstancesParaMasterConfigLabel {
+		return v.Labels
+	}).(ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) Taints() ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) []ClusterExistInstanceInstancesParaMasterConfigTaint {
+		return v.Taints
+	}).(ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) Unschedulable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *int { return v.Unschedulable }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigOutput) UserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfig) *string { return v.UserScript }).(pulumi.StringPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfig)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigPtrOutput() ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) Elem() ClusterExistInstanceInstancesParaMasterConfigOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) ClusterExistInstanceInstancesParaMasterConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterExistInstanceInstancesParaMasterConfig
+		return ret
+	}).(ClusterExistInstanceInstancesParaMasterConfigOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) DataDisk() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+		if v == nil {
+			return nil
+		}
+		return v.DataDisk
+	}).(ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) DesiredPodNumber() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DesiredPodNumber
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) DockerGraphPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DockerGraphPath
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) ExtraArgs() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) GpuArgs() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+		if v == nil {
+			return nil
+		}
+		return v.GpuArgs
+	}).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) Labels() ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) []ClusterExistInstanceInstancesParaMasterConfigLabel {
+		if v == nil {
+			return nil
+		}
+		return v.Labels
+	}).(ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MountTarget
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) Taints() ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) []ClusterExistInstanceInstancesParaMasterConfigTaint {
+		if v == nil {
+			return nil
+		}
+		return v.Taints
+	}).(ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) Unschedulable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Unschedulable
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigPtrOutput) UserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UserScript
+	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigDataDisk struct {
+	AutoFormatAndMount *bool   `pulumi:"autoFormatAndMount"`
+	DiskPartition      *string `pulumi:"diskPartition"`
+	DiskSize           *int    `pulumi:"diskSize"`
+	DiskType           *string `pulumi:"diskType"`
+	FileSystem         *string `pulumi:"fileSystem"`
+	MountTarget        *string `pulumi:"mountTarget"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigDataDiskInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs and ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigDataDiskInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigDataDiskInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput
+	ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs struct {
+	AutoFormatAndMount pulumi.BoolPtrInput   `pulumi:"autoFormatAndMount"`
+	DiskPartition      pulumi.StringPtrInput `pulumi:"diskPartition"`
+	DiskSize           pulumi.IntPtrInput    `pulumi:"diskSize"`
+	DiskType           pulumi.StringPtrInput `pulumi:"diskType"`
+	FileSystem         pulumi.StringPtrInput `pulumi:"fileSystem"`
+	MountTarget        pulumi.StringPtrInput `pulumi:"mountTarget"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput)
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput).ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(ctx)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs, ClusterExistInstanceInstancesParaMasterConfigDataDiskPtr and ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput` via:
+//
+//	        ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput
+	ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput
+}
+
+type clusterExistInstanceInstancesParaMasterConfigDataDiskPtrType ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs
+
+func ClusterExistInstanceInstancesParaMasterConfigDataDiskPtr(v *ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput {
+	return (*clusterExistInstanceInstancesParaMasterConfigDataDiskPtrType)(v)
+}
+
+func (*clusterExistInstanceInstancesParaMasterConfigDataDiskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigDataDiskPtrType) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigDataDiskPtrType) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o.ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+		return &v
+	}).(ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *bool { return v.AutoFormatAndMount }).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string { return v.DiskPartition }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) DiskSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *int { return v.DiskSize }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) DiskType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string { return v.DiskType }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) FileSystem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string { return v.FileSystem }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput() ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) Elem() ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterExistInstanceInstancesParaMasterConfigDataDisk
+		return ret
+	}).(ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoFormatAndMount
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DiskPartition
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) DiskSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DiskSize
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) DiskType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DiskType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) FileSystem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FileSystem
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MountTarget
+	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgs struct {
+	Kubelets []string `pulumi:"kubelets"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigExtraArgsInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs and ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigExtraArgsInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgsInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput
+	ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs struct {
+	Kubelets pulumi.StringArrayInput `pulumi:"kubelets"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput)
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput).ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(ctx)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs, ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtr and ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput` via:
+//
+//	        ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput
+	ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput
+}
+
+type clusterExistInstanceInstancesParaMasterConfigExtraArgsPtrType ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs
+
+func ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtr(v *ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput {
+	return (*clusterExistInstanceInstancesParaMasterConfigExtraArgsPtrType)(v)
+}
+
+func (*clusterExistInstanceInstancesParaMasterConfigExtraArgsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigExtraArgsPtrType) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigExtraArgsPtrType) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o.ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterExistInstanceInstancesParaMasterConfigExtraArgs) *ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+		return &v
+	}).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput) Kubelets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigExtraArgs) []string { return v.Kubelets }).(pulumi.StringArrayOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput) Elem() ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigExtraArgs) ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterExistInstanceInstancesParaMasterConfigExtraArgs
+		return ret
+	}).(ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput) Kubelets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Kubelets
+	}).(pulumi.StringArrayOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgs struct {
+	Cuda         map[string]interface{} `pulumi:"cuda"`
+	Cudnn        map[string]interface{} `pulumi:"cudnn"`
+	CustomDriver map[string]interface{} `pulumi:"customDriver"`
+	Driver       map[string]interface{} `pulumi:"driver"`
+	MigEnable    *bool                  `pulumi:"migEnable"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigGpuArgsInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs and ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigGpuArgsInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgsInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput
+	ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs struct {
+	Cuda         pulumi.MapInput     `pulumi:"cuda"`
+	Cudnn        pulumi.MapInput     `pulumi:"cudnn"`
+	CustomDriver pulumi.MapInput     `pulumi:"customDriver"`
+	Driver       pulumi.MapInput     `pulumi:"driver"`
+	MigEnable    pulumi.BoolPtrInput `pulumi:"migEnable"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput)
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput).ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(ctx)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs, ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtr and ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput` via:
+//
+//	        ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput
+	ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput
+}
+
+type clusterExistInstanceInstancesParaMasterConfigGpuArgsPtrType ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs
+
+func ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtr(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput {
+	return (*clusterExistInstanceInstancesParaMasterConfigGpuArgsPtrType)(v)
+}
+
+func (*clusterExistInstanceInstancesParaMasterConfigGpuArgsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigGpuArgsPtrType) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterExistInstanceInstancesParaMasterConfigGpuArgsPtrType) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o.ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) *ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+		return &v
+	}).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) Cuda() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} { return v.Cuda }).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) Cudnn() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} { return v.Cudnn }).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) CustomDriver() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} {
+		return v.CustomDriver
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) Driver() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} { return v.Driver }).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput) MigEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigGpuArgs) *bool { return v.MigEnable }).(pulumi.BoolPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterExistInstanceInstancesParaMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput() ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) ToClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) Elem() ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterExistInstanceInstancesParaMasterConfigGpuArgs
+		return ret
+	}).(ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) Cuda() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Cuda
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) Cudnn() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Cudnn
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) CustomDriver() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.CustomDriver
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) Driver() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput) MigEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterExistInstanceInstancesParaMasterConfigGpuArgs) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.MigEnable
+	}).(pulumi.BoolPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigLabel struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigLabelInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigLabelArgs and ClusterExistInstanceInstancesParaMasterConfigLabelOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigLabelInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigLabelArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigLabelInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigLabelOutput() ClusterExistInstanceInstancesParaMasterConfigLabelOutput
+	ToClusterExistInstanceInstancesParaMasterConfigLabelOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigLabelArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigLabelArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigLabel)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigLabelArgs) ToClusterExistInstanceInstancesParaMasterConfigLabelOutput() ClusterExistInstanceInstancesParaMasterConfigLabelOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigLabelOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigLabelArgs) ToClusterExistInstanceInstancesParaMasterConfigLabelOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigLabelOutput)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigLabelArrayInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigLabelArray and ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigLabelArrayInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigLabelArray{ ClusterExistInstanceInstancesParaMasterConfigLabelArgs{...} }
+type ClusterExistInstanceInstancesParaMasterConfigLabelArrayInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput() ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput
+	ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigLabelArray []ClusterExistInstanceInstancesParaMasterConfigLabelInput
+
+func (ClusterExistInstanceInstancesParaMasterConfigLabelArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterExistInstanceInstancesParaMasterConfigLabel)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigLabelArray) ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput() ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigLabelArray) ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigLabelOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigLabelOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigLabel)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelOutput) ToClusterExistInstanceInstancesParaMasterConfigLabelOutput() ClusterExistInstanceInstancesParaMasterConfigLabelOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelOutput) ToClusterExistInstanceInstancesParaMasterConfigLabelOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigLabel) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigLabel) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterExistInstanceInstancesParaMasterConfigLabel)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput) ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput() ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput) ToClusterExistInstanceInstancesParaMasterConfigLabelArrayOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput) Index(i pulumi.IntInput) ClusterExistInstanceInstancesParaMasterConfigLabelOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterExistInstanceInstancesParaMasterConfigLabel {
+		return vs[0].([]ClusterExistInstanceInstancesParaMasterConfigLabel)[vs[1].(int)]
+	}).(ClusterExistInstanceInstancesParaMasterConfigLabelOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigTaint struct {
+	Effect *string `pulumi:"effect"`
+	Key    *string `pulumi:"key"`
+	Value  *string `pulumi:"value"`
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigTaintInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigTaintArgs and ClusterExistInstanceInstancesParaMasterConfigTaintOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigTaintInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigTaintArgs{...}
+type ClusterExistInstanceInstancesParaMasterConfigTaintInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigTaintOutput() ClusterExistInstanceInstancesParaMasterConfigTaintOutput
+	ToClusterExistInstanceInstancesParaMasterConfigTaintOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigTaintArgs struct {
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	Key    pulumi.StringPtrInput `pulumi:"key"`
+	Value  pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ClusterExistInstanceInstancesParaMasterConfigTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigTaintArgs) ToClusterExistInstanceInstancesParaMasterConfigTaintOutput() ClusterExistInstanceInstancesParaMasterConfigTaintOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigTaintOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigTaintArgs) ToClusterExistInstanceInstancesParaMasterConfigTaintOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigTaintOutput)
+}
+
+// ClusterExistInstanceInstancesParaMasterConfigTaintArrayInput is an input type that accepts ClusterExistInstanceInstancesParaMasterConfigTaintArray and ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput values.
+// You can construct a concrete instance of `ClusterExistInstanceInstancesParaMasterConfigTaintArrayInput` via:
+//
+//	ClusterExistInstanceInstancesParaMasterConfigTaintArray{ ClusterExistInstanceInstancesParaMasterConfigTaintArgs{...} }
+type ClusterExistInstanceInstancesParaMasterConfigTaintArrayInput interface {
+	pulumi.Input
+
+	ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput() ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput
+	ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutputWithContext(context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigTaintArray []ClusterExistInstanceInstancesParaMasterConfigTaintInput
+
+func (ClusterExistInstanceInstancesParaMasterConfigTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterExistInstanceInstancesParaMasterConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigTaintArray) ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput() ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return i.ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterExistInstanceInstancesParaMasterConfigTaintArray) ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigTaintOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintOutput) ToClusterExistInstanceInstancesParaMasterConfigTaintOutput() ClusterExistInstanceInstancesParaMasterConfigTaintOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintOutput) ToClusterExistInstanceInstancesParaMasterConfigTaintOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigTaint) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterExistInstanceInstancesParaMasterConfigTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterExistInstanceInstancesParaMasterConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput) ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput() ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput) ToClusterExistInstanceInstancesParaMasterConfigTaintArrayOutputWithContext(ctx context.Context) ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput) Index(i pulumi.IntInput) ClusterExistInstanceInstancesParaMasterConfigTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterExistInstanceInstancesParaMasterConfigTaint {
+		return vs[0].([]ClusterExistInstanceInstancesParaMasterConfigTaint)[vs[1].(int)]
+	}).(ClusterExistInstanceInstancesParaMasterConfigTaintOutput)
 }
 
 type ClusterExtensionAddon struct {
@@ -2309,6 +3600,1202 @@ func (o ClusterLogAgentPtrOutput) KubeletRootDir() pulumi.StringPtrOutput {
 		}
 		return v.KubeletRootDir
 	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentExtraArgs struct {
+	Etcds                  []string `pulumi:"etcds"`
+	KubeApiServers         []string `pulumi:"kubeApiServers"`
+	KubeControllerManagers []string `pulumi:"kubeControllerManagers"`
+	KubeSchedulers         []string `pulumi:"kubeSchedulers"`
+}
+
+// ClusterMasterAttachmentExtraArgsInput is an input type that accepts ClusterMasterAttachmentExtraArgsArgs and ClusterMasterAttachmentExtraArgsOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentExtraArgsInput` via:
+//
+//	ClusterMasterAttachmentExtraArgsArgs{...}
+type ClusterMasterAttachmentExtraArgsInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentExtraArgsOutput() ClusterMasterAttachmentExtraArgsOutput
+	ToClusterMasterAttachmentExtraArgsOutputWithContext(context.Context) ClusterMasterAttachmentExtraArgsOutput
+}
+
+type ClusterMasterAttachmentExtraArgsArgs struct {
+	Etcds                  pulumi.StringArrayInput `pulumi:"etcds"`
+	KubeApiServers         pulumi.StringArrayInput `pulumi:"kubeApiServers"`
+	KubeControllerManagers pulumi.StringArrayInput `pulumi:"kubeControllerManagers"`
+	KubeSchedulers         pulumi.StringArrayInput `pulumi:"kubeSchedulers"`
+}
+
+func (ClusterMasterAttachmentExtraArgsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentExtraArgs)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentExtraArgsArgs) ToClusterMasterAttachmentExtraArgsOutput() ClusterMasterAttachmentExtraArgsOutput {
+	return i.ToClusterMasterAttachmentExtraArgsOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentExtraArgsArgs) ToClusterMasterAttachmentExtraArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentExtraArgsOutput)
+}
+
+func (i ClusterMasterAttachmentExtraArgsArgs) ToClusterMasterAttachmentExtraArgsPtrOutput() ClusterMasterAttachmentExtraArgsPtrOutput {
+	return i.ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentExtraArgsArgs) ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentExtraArgsOutput).ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(ctx)
+}
+
+// ClusterMasterAttachmentExtraArgsPtrInput is an input type that accepts ClusterMasterAttachmentExtraArgsArgs, ClusterMasterAttachmentExtraArgsPtr and ClusterMasterAttachmentExtraArgsPtrOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentExtraArgsPtrInput` via:
+//
+//	        ClusterMasterAttachmentExtraArgsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterMasterAttachmentExtraArgsPtrInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentExtraArgsPtrOutput() ClusterMasterAttachmentExtraArgsPtrOutput
+	ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(context.Context) ClusterMasterAttachmentExtraArgsPtrOutput
+}
+
+type clusterMasterAttachmentExtraArgsPtrType ClusterMasterAttachmentExtraArgsArgs
+
+func ClusterMasterAttachmentExtraArgsPtr(v *ClusterMasterAttachmentExtraArgsArgs) ClusterMasterAttachmentExtraArgsPtrInput {
+	return (*clusterMasterAttachmentExtraArgsPtrType)(v)
+}
+
+func (*clusterMasterAttachmentExtraArgsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentExtraArgs)(nil)).Elem()
+}
+
+func (i *clusterMasterAttachmentExtraArgsPtrType) ToClusterMasterAttachmentExtraArgsPtrOutput() ClusterMasterAttachmentExtraArgsPtrOutput {
+	return i.ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterMasterAttachmentExtraArgsPtrType) ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentExtraArgsPtrOutput)
+}
+
+type ClusterMasterAttachmentExtraArgsOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentExtraArgsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) ToClusterMasterAttachmentExtraArgsOutput() ClusterMasterAttachmentExtraArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) ToClusterMasterAttachmentExtraArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) ToClusterMasterAttachmentExtraArgsPtrOutput() ClusterMasterAttachmentExtraArgsPtrOutput {
+	return o.ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterMasterAttachmentExtraArgs) *ClusterMasterAttachmentExtraArgs {
+		return &v
+	}).(ClusterMasterAttachmentExtraArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) Etcds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentExtraArgs) []string { return v.Etcds }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) KubeApiServers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentExtraArgs) []string { return v.KubeApiServers }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) KubeControllerManagers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentExtraArgs) []string { return v.KubeControllerManagers }).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsOutput) KubeSchedulers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentExtraArgs) []string { return v.KubeSchedulers }).(pulumi.StringArrayOutput)
+}
+
+type ClusterMasterAttachmentExtraArgsPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentExtraArgsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) ToClusterMasterAttachmentExtraArgsPtrOutput() ClusterMasterAttachmentExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) ToClusterMasterAttachmentExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) Elem() ClusterMasterAttachmentExtraArgsOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentExtraArgs) ClusterMasterAttachmentExtraArgs {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterMasterAttachmentExtraArgs
+		return ret
+	}).(ClusterMasterAttachmentExtraArgsOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) Etcds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Etcds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) KubeApiServers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeApiServers
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) KubeControllerManagers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeControllerManagers
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o ClusterMasterAttachmentExtraArgsPtrOutput) KubeSchedulers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeSchedulers
+	}).(pulumi.StringArrayOutput)
+}
+
+type ClusterMasterAttachmentMasterConfig struct {
+	DataDisk         *ClusterMasterAttachmentMasterConfigDataDisk  `pulumi:"dataDisk"`
+	DesiredPodNumber *int                                          `pulumi:"desiredPodNumber"`
+	DockerGraphPath  *string                                       `pulumi:"dockerGraphPath"`
+	ExtraArgs        *ClusterMasterAttachmentMasterConfigExtraArgs `pulumi:"extraArgs"`
+	GpuArgs          *ClusterMasterAttachmentMasterConfigGpuArgs   `pulumi:"gpuArgs"`
+	Labels           []ClusterMasterAttachmentMasterConfigLabel    `pulumi:"labels"`
+	MountTarget      *string                                       `pulumi:"mountTarget"`
+	Taints           []ClusterMasterAttachmentMasterConfigTaint    `pulumi:"taints"`
+	Unschedulable    *int                                          `pulumi:"unschedulable"`
+	UserScript       *string                                       `pulumi:"userScript"`
+}
+
+// ClusterMasterAttachmentMasterConfigInput is an input type that accepts ClusterMasterAttachmentMasterConfigArgs and ClusterMasterAttachmentMasterConfigOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigArgs{...}
+type ClusterMasterAttachmentMasterConfigInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigOutput() ClusterMasterAttachmentMasterConfigOutput
+	ToClusterMasterAttachmentMasterConfigOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigOutput
+}
+
+type ClusterMasterAttachmentMasterConfigArgs struct {
+	DataDisk         ClusterMasterAttachmentMasterConfigDataDiskPtrInput  `pulumi:"dataDisk"`
+	DesiredPodNumber pulumi.IntPtrInput                                   `pulumi:"desiredPodNumber"`
+	DockerGraphPath  pulumi.StringPtrInput                                `pulumi:"dockerGraphPath"`
+	ExtraArgs        ClusterMasterAttachmentMasterConfigExtraArgsPtrInput `pulumi:"extraArgs"`
+	GpuArgs          ClusterMasterAttachmentMasterConfigGpuArgsPtrInput   `pulumi:"gpuArgs"`
+	Labels           ClusterMasterAttachmentMasterConfigLabelArrayInput   `pulumi:"labels"`
+	MountTarget      pulumi.StringPtrInput                                `pulumi:"mountTarget"`
+	Taints           ClusterMasterAttachmentMasterConfigTaintArrayInput   `pulumi:"taints"`
+	Unschedulable    pulumi.IntPtrInput                                   `pulumi:"unschedulable"`
+	UserScript       pulumi.StringPtrInput                                `pulumi:"userScript"`
+}
+
+func (ClusterMasterAttachmentMasterConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfig)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigArgs) ToClusterMasterAttachmentMasterConfigOutput() ClusterMasterAttachmentMasterConfigOutput {
+	return i.ToClusterMasterAttachmentMasterConfigOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigArgs) ToClusterMasterAttachmentMasterConfigOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigOutput)
+}
+
+func (i ClusterMasterAttachmentMasterConfigArgs) ToClusterMasterAttachmentMasterConfigPtrOutput() ClusterMasterAttachmentMasterConfigPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigArgs) ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigOutput).ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(ctx)
+}
+
+// ClusterMasterAttachmentMasterConfigPtrInput is an input type that accepts ClusterMasterAttachmentMasterConfigArgs, ClusterMasterAttachmentMasterConfigPtr and ClusterMasterAttachmentMasterConfigPtrOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigPtrInput` via:
+//
+//	        ClusterMasterAttachmentMasterConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterMasterAttachmentMasterConfigPtrInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigPtrOutput() ClusterMasterAttachmentMasterConfigPtrOutput
+	ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigPtrOutput
+}
+
+type clusterMasterAttachmentMasterConfigPtrType ClusterMasterAttachmentMasterConfigArgs
+
+func ClusterMasterAttachmentMasterConfigPtr(v *ClusterMasterAttachmentMasterConfigArgs) ClusterMasterAttachmentMasterConfigPtrInput {
+	return (*clusterMasterAttachmentMasterConfigPtrType)(v)
+}
+
+func (*clusterMasterAttachmentMasterConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfig)(nil)).Elem()
+}
+
+func (i *clusterMasterAttachmentMasterConfigPtrType) ToClusterMasterAttachmentMasterConfigPtrOutput() ClusterMasterAttachmentMasterConfigPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterMasterAttachmentMasterConfigPtrType) ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfig)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) ToClusterMasterAttachmentMasterConfigOutput() ClusterMasterAttachmentMasterConfigOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) ToClusterMasterAttachmentMasterConfigOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) ToClusterMasterAttachmentMasterConfigPtrOutput() ClusterMasterAttachmentMasterConfigPtrOutput {
+	return o.ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfig {
+		return &v
+	}).(ClusterMasterAttachmentMasterConfigPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) DataDisk() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigDataDisk {
+		return v.DataDisk
+	}).(ClusterMasterAttachmentMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) DesiredPodNumber() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *int { return v.DesiredPodNumber }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) DockerGraphPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *string { return v.DockerGraphPath }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) ExtraArgs() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigExtraArgs {
+		return v.ExtraArgs
+	}).(ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) GpuArgs() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigGpuArgs {
+		return v.GpuArgs
+	}).(ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) Labels() ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) []ClusterMasterAttachmentMasterConfigLabel {
+		return v.Labels
+	}).(ClusterMasterAttachmentMasterConfigLabelArrayOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) Taints() ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) []ClusterMasterAttachmentMasterConfigTaint {
+		return v.Taints
+	}).(ClusterMasterAttachmentMasterConfigTaintArrayOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) Unschedulable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *int { return v.Unschedulable }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigOutput) UserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfig) *string { return v.UserScript }).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfig)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) ToClusterMasterAttachmentMasterConfigPtrOutput() ClusterMasterAttachmentMasterConfigPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) ToClusterMasterAttachmentMasterConfigPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) Elem() ClusterMasterAttachmentMasterConfigOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) ClusterMasterAttachmentMasterConfig {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterMasterAttachmentMasterConfig
+		return ret
+	}).(ClusterMasterAttachmentMasterConfigOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) DataDisk() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigDataDisk {
+		if v == nil {
+			return nil
+		}
+		return v.DataDisk
+	}).(ClusterMasterAttachmentMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) DesiredPodNumber() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DesiredPodNumber
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) DockerGraphPath() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DockerGraphPath
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) ExtraArgs() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigExtraArgs {
+		if v == nil {
+			return nil
+		}
+		return v.ExtraArgs
+	}).(ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) GpuArgs() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *ClusterMasterAttachmentMasterConfigGpuArgs {
+		if v == nil {
+			return nil
+		}
+		return v.GpuArgs
+	}).(ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) Labels() ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) []ClusterMasterAttachmentMasterConfigLabel {
+		if v == nil {
+			return nil
+		}
+		return v.Labels
+	}).(ClusterMasterAttachmentMasterConfigLabelArrayOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MountTarget
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) Taints() ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) []ClusterMasterAttachmentMasterConfigTaint {
+		if v == nil {
+			return nil
+		}
+		return v.Taints
+	}).(ClusterMasterAttachmentMasterConfigTaintArrayOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) Unschedulable() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Unschedulable
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigPtrOutput) UserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UserScript
+	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigDataDisk struct {
+	AutoFormatAndMount *bool   `pulumi:"autoFormatAndMount"`
+	DiskPartition      *string `pulumi:"diskPartition"`
+	DiskSize           *int    `pulumi:"diskSize"`
+	DiskType           *string `pulumi:"diskType"`
+	FileSystem         *string `pulumi:"fileSystem"`
+	MountTarget        *string `pulumi:"mountTarget"`
+}
+
+// ClusterMasterAttachmentMasterConfigDataDiskInput is an input type that accepts ClusterMasterAttachmentMasterConfigDataDiskArgs and ClusterMasterAttachmentMasterConfigDataDiskOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigDataDiskInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigDataDiskArgs{...}
+type ClusterMasterAttachmentMasterConfigDataDiskInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigDataDiskOutput() ClusterMasterAttachmentMasterConfigDataDiskOutput
+	ToClusterMasterAttachmentMasterConfigDataDiskOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigDataDiskOutput
+}
+
+type ClusterMasterAttachmentMasterConfigDataDiskArgs struct {
+	AutoFormatAndMount pulumi.BoolPtrInput   `pulumi:"autoFormatAndMount"`
+	DiskPartition      pulumi.StringPtrInput `pulumi:"diskPartition"`
+	DiskSize           pulumi.IntPtrInput    `pulumi:"diskSize"`
+	DiskType           pulumi.StringPtrInput `pulumi:"diskType"`
+	FileSystem         pulumi.StringPtrInput `pulumi:"fileSystem"`
+	MountTarget        pulumi.StringPtrInput `pulumi:"mountTarget"`
+}
+
+func (ClusterMasterAttachmentMasterConfigDataDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigDataDiskArgs) ToClusterMasterAttachmentMasterConfigDataDiskOutput() ClusterMasterAttachmentMasterConfigDataDiskOutput {
+	return i.ToClusterMasterAttachmentMasterConfigDataDiskOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigDataDiskArgs) ToClusterMasterAttachmentMasterConfigDataDiskOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigDataDiskOutput)
+}
+
+func (i ClusterMasterAttachmentMasterConfigDataDiskArgs) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutput() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigDataDiskArgs) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigDataDiskOutput).ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(ctx)
+}
+
+// ClusterMasterAttachmentMasterConfigDataDiskPtrInput is an input type that accepts ClusterMasterAttachmentMasterConfigDataDiskArgs, ClusterMasterAttachmentMasterConfigDataDiskPtr and ClusterMasterAttachmentMasterConfigDataDiskPtrOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigDataDiskPtrInput` via:
+//
+//	        ClusterMasterAttachmentMasterConfigDataDiskArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterMasterAttachmentMasterConfigDataDiskPtrInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigDataDiskPtrOutput() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput
+	ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigDataDiskPtrOutput
+}
+
+type clusterMasterAttachmentMasterConfigDataDiskPtrType ClusterMasterAttachmentMasterConfigDataDiskArgs
+
+func ClusterMasterAttachmentMasterConfigDataDiskPtr(v *ClusterMasterAttachmentMasterConfigDataDiskArgs) ClusterMasterAttachmentMasterConfigDataDiskPtrInput {
+	return (*clusterMasterAttachmentMasterConfigDataDiskPtrType)(v)
+}
+
+func (*clusterMasterAttachmentMasterConfigDataDiskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (i *clusterMasterAttachmentMasterConfigDataDiskPtrType) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutput() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterMasterAttachmentMasterConfigDataDiskPtrType) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigDataDiskPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigDataDiskOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigDataDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) ToClusterMasterAttachmentMasterConfigDataDiskOutput() ClusterMasterAttachmentMasterConfigDataDiskOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) ToClusterMasterAttachmentMasterConfigDataDiskOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutput() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o.ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterMasterAttachmentMasterConfigDataDisk) *ClusterMasterAttachmentMasterConfigDataDisk {
+		return &v
+	}).(ClusterMasterAttachmentMasterConfigDataDiskPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *bool { return v.AutoFormatAndMount }).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *string { return v.DiskPartition }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) DiskSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *int { return v.DiskSize }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) DiskType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *string { return v.DiskType }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) FileSystem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *string { return v.FileSystem }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigDataDisk) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigDataDiskPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigDataDisk)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutput() ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) ToClusterMasterAttachmentMasterConfigDataDiskPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigDataDiskPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) Elem() ClusterMasterAttachmentMasterConfigDataDiskOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) ClusterMasterAttachmentMasterConfigDataDisk {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterMasterAttachmentMasterConfigDataDisk
+		return ret
+	}).(ClusterMasterAttachmentMasterConfigDataDiskOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoFormatAndMount
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DiskPartition
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) DiskSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *int {
+		if v == nil {
+			return nil
+		}
+		return v.DiskSize
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) DiskType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.DiskType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) FileSystem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FileSystem
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigDataDiskPtrOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigDataDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MountTarget
+	}).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigExtraArgs struct {
+	Kubelets []string `pulumi:"kubelets"`
+}
+
+// ClusterMasterAttachmentMasterConfigExtraArgsInput is an input type that accepts ClusterMasterAttachmentMasterConfigExtraArgsArgs and ClusterMasterAttachmentMasterConfigExtraArgsOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigExtraArgsInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigExtraArgsArgs{...}
+type ClusterMasterAttachmentMasterConfigExtraArgsInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigExtraArgsOutput() ClusterMasterAttachmentMasterConfigExtraArgsOutput
+	ToClusterMasterAttachmentMasterConfigExtraArgsOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigExtraArgsOutput
+}
+
+type ClusterMasterAttachmentMasterConfigExtraArgsArgs struct {
+	Kubelets pulumi.StringArrayInput `pulumi:"kubelets"`
+}
+
+func (ClusterMasterAttachmentMasterConfigExtraArgsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigExtraArgsArgs) ToClusterMasterAttachmentMasterConfigExtraArgsOutput() ClusterMasterAttachmentMasterConfigExtraArgsOutput {
+	return i.ToClusterMasterAttachmentMasterConfigExtraArgsOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigExtraArgsArgs) ToClusterMasterAttachmentMasterConfigExtraArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigExtraArgsOutput)
+}
+
+func (i ClusterMasterAttachmentMasterConfigExtraArgsArgs) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutput() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigExtraArgsArgs) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigExtraArgsOutput).ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(ctx)
+}
+
+// ClusterMasterAttachmentMasterConfigExtraArgsPtrInput is an input type that accepts ClusterMasterAttachmentMasterConfigExtraArgsArgs, ClusterMasterAttachmentMasterConfigExtraArgsPtr and ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigExtraArgsPtrInput` via:
+//
+//	        ClusterMasterAttachmentMasterConfigExtraArgsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterMasterAttachmentMasterConfigExtraArgsPtrInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutput() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput
+	ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput
+}
+
+type clusterMasterAttachmentMasterConfigExtraArgsPtrType ClusterMasterAttachmentMasterConfigExtraArgsArgs
+
+func ClusterMasterAttachmentMasterConfigExtraArgsPtr(v *ClusterMasterAttachmentMasterConfigExtraArgsArgs) ClusterMasterAttachmentMasterConfigExtraArgsPtrInput {
+	return (*clusterMasterAttachmentMasterConfigExtraArgsPtrType)(v)
+}
+
+func (*clusterMasterAttachmentMasterConfigExtraArgsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (i *clusterMasterAttachmentMasterConfigExtraArgsPtrType) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutput() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterMasterAttachmentMasterConfigExtraArgsPtrType) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigExtraArgsOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigExtraArgsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsOutput) ToClusterMasterAttachmentMasterConfigExtraArgsOutput() ClusterMasterAttachmentMasterConfigExtraArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsOutput) ToClusterMasterAttachmentMasterConfigExtraArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsOutput) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutput() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o.ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsOutput) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterMasterAttachmentMasterConfigExtraArgs) *ClusterMasterAttachmentMasterConfigExtraArgs {
+		return &v
+	}).(ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsOutput) Kubelets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigExtraArgs) []string { return v.Kubelets }).(pulumi.StringArrayOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigExtraArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutput() ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput) ToClusterMasterAttachmentMasterConfigExtraArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput) Elem() ClusterMasterAttachmentMasterConfigExtraArgsOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigExtraArgs) ClusterMasterAttachmentMasterConfigExtraArgs {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterMasterAttachmentMasterConfigExtraArgs
+		return ret
+	}).(ClusterMasterAttachmentMasterConfigExtraArgsOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput) Kubelets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigExtraArgs) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Kubelets
+	}).(pulumi.StringArrayOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigGpuArgs struct {
+	Cuda         map[string]interface{} `pulumi:"cuda"`
+	Cudnn        map[string]interface{} `pulumi:"cudnn"`
+	CustomDriver map[string]interface{} `pulumi:"customDriver"`
+	Driver       map[string]interface{} `pulumi:"driver"`
+	MigEnable    *bool                  `pulumi:"migEnable"`
+}
+
+// ClusterMasterAttachmentMasterConfigGpuArgsInput is an input type that accepts ClusterMasterAttachmentMasterConfigGpuArgsArgs and ClusterMasterAttachmentMasterConfigGpuArgsOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigGpuArgsInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigGpuArgsArgs{...}
+type ClusterMasterAttachmentMasterConfigGpuArgsInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigGpuArgsOutput() ClusterMasterAttachmentMasterConfigGpuArgsOutput
+	ToClusterMasterAttachmentMasterConfigGpuArgsOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigGpuArgsOutput
+}
+
+type ClusterMasterAttachmentMasterConfigGpuArgsArgs struct {
+	Cuda         pulumi.MapInput     `pulumi:"cuda"`
+	Cudnn        pulumi.MapInput     `pulumi:"cudnn"`
+	CustomDriver pulumi.MapInput     `pulumi:"customDriver"`
+	Driver       pulumi.MapInput     `pulumi:"driver"`
+	MigEnable    pulumi.BoolPtrInput `pulumi:"migEnable"`
+}
+
+func (ClusterMasterAttachmentMasterConfigGpuArgsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigGpuArgsArgs) ToClusterMasterAttachmentMasterConfigGpuArgsOutput() ClusterMasterAttachmentMasterConfigGpuArgsOutput {
+	return i.ToClusterMasterAttachmentMasterConfigGpuArgsOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigGpuArgsArgs) ToClusterMasterAttachmentMasterConfigGpuArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigGpuArgsOutput)
+}
+
+func (i ClusterMasterAttachmentMasterConfigGpuArgsArgs) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutput() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigGpuArgsArgs) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigGpuArgsOutput).ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(ctx)
+}
+
+// ClusterMasterAttachmentMasterConfigGpuArgsPtrInput is an input type that accepts ClusterMasterAttachmentMasterConfigGpuArgsArgs, ClusterMasterAttachmentMasterConfigGpuArgsPtr and ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigGpuArgsPtrInput` via:
+//
+//	        ClusterMasterAttachmentMasterConfigGpuArgsArgs{...}
+//
+//	or:
+//
+//	        nil
+type ClusterMasterAttachmentMasterConfigGpuArgsPtrInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutput() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput
+	ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput
+}
+
+type clusterMasterAttachmentMasterConfigGpuArgsPtrType ClusterMasterAttachmentMasterConfigGpuArgsArgs
+
+func ClusterMasterAttachmentMasterConfigGpuArgsPtr(v *ClusterMasterAttachmentMasterConfigGpuArgsArgs) ClusterMasterAttachmentMasterConfigGpuArgsPtrInput {
+	return (*clusterMasterAttachmentMasterConfigGpuArgsPtrType)(v)
+}
+
+func (*clusterMasterAttachmentMasterConfigGpuArgsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (i *clusterMasterAttachmentMasterConfigGpuArgsPtrType) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutput() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return i.ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (i *clusterMasterAttachmentMasterConfigGpuArgsPtrType) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigGpuArgsOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigGpuArgsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) ToClusterMasterAttachmentMasterConfigGpuArgsOutput() ClusterMasterAttachmentMasterConfigGpuArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) ToClusterMasterAttachmentMasterConfigGpuArgsOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutput() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o.ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(context.Background())
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterMasterAttachmentMasterConfigGpuArgs) *ClusterMasterAttachmentMasterConfigGpuArgs {
+		return &v
+	}).(ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) Cuda() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} { return v.Cuda }).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) Cudnn() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} { return v.Cudnn }).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) CustomDriver() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} { return v.CustomDriver }).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) Driver() pulumi.MapOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} { return v.Driver }).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsOutput) MigEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigGpuArgs) *bool { return v.MigEnable }).(pulumi.BoolPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ClusterMasterAttachmentMasterConfigGpuArgs)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutput() ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) ToClusterMasterAttachmentMasterConfigGpuArgsPtrOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) Elem() ClusterMasterAttachmentMasterConfigGpuArgsOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) ClusterMasterAttachmentMasterConfigGpuArgs {
+		if v != nil {
+			return *v
+		}
+		var ret ClusterMasterAttachmentMasterConfigGpuArgs
+		return ret
+	}).(ClusterMasterAttachmentMasterConfigGpuArgsOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) Cuda() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Cuda
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) Cudnn() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Cudnn
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) CustomDriver() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.CustomDriver
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) Driver() pulumi.MapOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) map[string]interface{} {
+		if v == nil {
+			return nil
+		}
+		return v.Driver
+	}).(pulumi.MapOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput) MigEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ClusterMasterAttachmentMasterConfigGpuArgs) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.MigEnable
+	}).(pulumi.BoolPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigLabel struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// ClusterMasterAttachmentMasterConfigLabelInput is an input type that accepts ClusterMasterAttachmentMasterConfigLabelArgs and ClusterMasterAttachmentMasterConfigLabelOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigLabelInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigLabelArgs{...}
+type ClusterMasterAttachmentMasterConfigLabelInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigLabelOutput() ClusterMasterAttachmentMasterConfigLabelOutput
+	ToClusterMasterAttachmentMasterConfigLabelOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigLabelOutput
+}
+
+type ClusterMasterAttachmentMasterConfigLabelArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ClusterMasterAttachmentMasterConfigLabelArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigLabel)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigLabelArgs) ToClusterMasterAttachmentMasterConfigLabelOutput() ClusterMasterAttachmentMasterConfigLabelOutput {
+	return i.ToClusterMasterAttachmentMasterConfigLabelOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigLabelArgs) ToClusterMasterAttachmentMasterConfigLabelOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigLabelOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigLabelOutput)
+}
+
+// ClusterMasterAttachmentMasterConfigLabelArrayInput is an input type that accepts ClusterMasterAttachmentMasterConfigLabelArray and ClusterMasterAttachmentMasterConfigLabelArrayOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigLabelArrayInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigLabelArray{ ClusterMasterAttachmentMasterConfigLabelArgs{...} }
+type ClusterMasterAttachmentMasterConfigLabelArrayInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigLabelArrayOutput() ClusterMasterAttachmentMasterConfigLabelArrayOutput
+	ToClusterMasterAttachmentMasterConfigLabelArrayOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigLabelArrayOutput
+}
+
+type ClusterMasterAttachmentMasterConfigLabelArray []ClusterMasterAttachmentMasterConfigLabelInput
+
+func (ClusterMasterAttachmentMasterConfigLabelArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterMasterAttachmentMasterConfigLabel)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigLabelArray) ToClusterMasterAttachmentMasterConfigLabelArrayOutput() ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return i.ToClusterMasterAttachmentMasterConfigLabelArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigLabelArray) ToClusterMasterAttachmentMasterConfigLabelArrayOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigLabelArrayOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigLabelOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigLabelOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigLabel)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelOutput) ToClusterMasterAttachmentMasterConfigLabelOutput() ClusterMasterAttachmentMasterConfigLabelOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelOutput) ToClusterMasterAttachmentMasterConfigLabelOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigLabelOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigLabel) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigLabel) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigLabelArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigLabelArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterMasterAttachmentMasterConfigLabel)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelArrayOutput) ToClusterMasterAttachmentMasterConfigLabelArrayOutput() ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelArrayOutput) ToClusterMasterAttachmentMasterConfigLabelArrayOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigLabelArrayOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigLabelArrayOutput) Index(i pulumi.IntInput) ClusterMasterAttachmentMasterConfigLabelOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterMasterAttachmentMasterConfigLabel {
+		return vs[0].([]ClusterMasterAttachmentMasterConfigLabel)[vs[1].(int)]
+	}).(ClusterMasterAttachmentMasterConfigLabelOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigTaint struct {
+	Effect *string `pulumi:"effect"`
+	Key    *string `pulumi:"key"`
+	Value  *string `pulumi:"value"`
+}
+
+// ClusterMasterAttachmentMasterConfigTaintInput is an input type that accepts ClusterMasterAttachmentMasterConfigTaintArgs and ClusterMasterAttachmentMasterConfigTaintOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigTaintInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigTaintArgs{...}
+type ClusterMasterAttachmentMasterConfigTaintInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigTaintOutput() ClusterMasterAttachmentMasterConfigTaintOutput
+	ToClusterMasterAttachmentMasterConfigTaintOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigTaintOutput
+}
+
+type ClusterMasterAttachmentMasterConfigTaintArgs struct {
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	Key    pulumi.StringPtrInput `pulumi:"key"`
+	Value  pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ClusterMasterAttachmentMasterConfigTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigTaintArgs) ToClusterMasterAttachmentMasterConfigTaintOutput() ClusterMasterAttachmentMasterConfigTaintOutput {
+	return i.ToClusterMasterAttachmentMasterConfigTaintOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigTaintArgs) ToClusterMasterAttachmentMasterConfigTaintOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigTaintOutput)
+}
+
+// ClusterMasterAttachmentMasterConfigTaintArrayInput is an input type that accepts ClusterMasterAttachmentMasterConfigTaintArray and ClusterMasterAttachmentMasterConfigTaintArrayOutput values.
+// You can construct a concrete instance of `ClusterMasterAttachmentMasterConfigTaintArrayInput` via:
+//
+//	ClusterMasterAttachmentMasterConfigTaintArray{ ClusterMasterAttachmentMasterConfigTaintArgs{...} }
+type ClusterMasterAttachmentMasterConfigTaintArrayInput interface {
+	pulumi.Input
+
+	ToClusterMasterAttachmentMasterConfigTaintArrayOutput() ClusterMasterAttachmentMasterConfigTaintArrayOutput
+	ToClusterMasterAttachmentMasterConfigTaintArrayOutputWithContext(context.Context) ClusterMasterAttachmentMasterConfigTaintArrayOutput
+}
+
+type ClusterMasterAttachmentMasterConfigTaintArray []ClusterMasterAttachmentMasterConfigTaintInput
+
+func (ClusterMasterAttachmentMasterConfigTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterMasterAttachmentMasterConfigTaint)(nil)).Elem()
+}
+
+func (i ClusterMasterAttachmentMasterConfigTaintArray) ToClusterMasterAttachmentMasterConfigTaintArrayOutput() ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return i.ToClusterMasterAttachmentMasterConfigTaintArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterMasterAttachmentMasterConfigTaintArray) ToClusterMasterAttachmentMasterConfigTaintArrayOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterMasterAttachmentMasterConfigTaintArrayOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigTaintOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterMasterAttachmentMasterConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintOutput) ToClusterMasterAttachmentMasterConfigTaintOutput() ClusterMasterAttachmentMasterConfigTaintOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintOutput) ToClusterMasterAttachmentMasterConfigTaintOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigTaintOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigTaint) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterMasterAttachmentMasterConfigTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ClusterMasterAttachmentMasterConfigTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterMasterAttachmentMasterConfigTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterMasterAttachmentMasterConfigTaint)(nil)).Elem()
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintArrayOutput) ToClusterMasterAttachmentMasterConfigTaintArrayOutput() ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintArrayOutput) ToClusterMasterAttachmentMasterConfigTaintArrayOutputWithContext(ctx context.Context) ClusterMasterAttachmentMasterConfigTaintArrayOutput {
+	return o
+}
+
+func (o ClusterMasterAttachmentMasterConfigTaintArrayOutput) Index(i pulumi.IntInput) ClusterMasterAttachmentMasterConfigTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterMasterAttachmentMasterConfigTaint {
+		return vs[0].([]ClusterMasterAttachmentMasterConfigTaint)[vs[1].(int)]
+	}).(ClusterMasterAttachmentMasterConfigTaintOutput)
 }
 
 type ClusterMasterConfig struct {
@@ -2843,6 +5330,112 @@ func (o ClusterNodePoolGlobalConfigArrayOutput) Index(i pulumi.IntInput) Cluster
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterNodePoolGlobalConfig {
 		return vs[0].([]ClusterNodePoolGlobalConfig)[vs[1].(int)]
 	}).(ClusterNodePoolGlobalConfigOutput)
+}
+
+type ClusterResourceDeleteOption struct {
+	DeleteMode             string `pulumi:"deleteMode"`
+	ResourceType           string `pulumi:"resourceType"`
+	SkipDeletionProtection *bool  `pulumi:"skipDeletionProtection"`
+}
+
+// ClusterResourceDeleteOptionInput is an input type that accepts ClusterResourceDeleteOptionArgs and ClusterResourceDeleteOptionOutput values.
+// You can construct a concrete instance of `ClusterResourceDeleteOptionInput` via:
+//
+//	ClusterResourceDeleteOptionArgs{...}
+type ClusterResourceDeleteOptionInput interface {
+	pulumi.Input
+
+	ToClusterResourceDeleteOptionOutput() ClusterResourceDeleteOptionOutput
+	ToClusterResourceDeleteOptionOutputWithContext(context.Context) ClusterResourceDeleteOptionOutput
+}
+
+type ClusterResourceDeleteOptionArgs struct {
+	DeleteMode             pulumi.StringInput  `pulumi:"deleteMode"`
+	ResourceType           pulumi.StringInput  `pulumi:"resourceType"`
+	SkipDeletionProtection pulumi.BoolPtrInput `pulumi:"skipDeletionProtection"`
+}
+
+func (ClusterResourceDeleteOptionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterResourceDeleteOption)(nil)).Elem()
+}
+
+func (i ClusterResourceDeleteOptionArgs) ToClusterResourceDeleteOptionOutput() ClusterResourceDeleteOptionOutput {
+	return i.ToClusterResourceDeleteOptionOutputWithContext(context.Background())
+}
+
+func (i ClusterResourceDeleteOptionArgs) ToClusterResourceDeleteOptionOutputWithContext(ctx context.Context) ClusterResourceDeleteOptionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterResourceDeleteOptionOutput)
+}
+
+// ClusterResourceDeleteOptionArrayInput is an input type that accepts ClusterResourceDeleteOptionArray and ClusterResourceDeleteOptionArrayOutput values.
+// You can construct a concrete instance of `ClusterResourceDeleteOptionArrayInput` via:
+//
+//	ClusterResourceDeleteOptionArray{ ClusterResourceDeleteOptionArgs{...} }
+type ClusterResourceDeleteOptionArrayInput interface {
+	pulumi.Input
+
+	ToClusterResourceDeleteOptionArrayOutput() ClusterResourceDeleteOptionArrayOutput
+	ToClusterResourceDeleteOptionArrayOutputWithContext(context.Context) ClusterResourceDeleteOptionArrayOutput
+}
+
+type ClusterResourceDeleteOptionArray []ClusterResourceDeleteOptionInput
+
+func (ClusterResourceDeleteOptionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterResourceDeleteOption)(nil)).Elem()
+}
+
+func (i ClusterResourceDeleteOptionArray) ToClusterResourceDeleteOptionArrayOutput() ClusterResourceDeleteOptionArrayOutput {
+	return i.ToClusterResourceDeleteOptionArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterResourceDeleteOptionArray) ToClusterResourceDeleteOptionArrayOutputWithContext(ctx context.Context) ClusterResourceDeleteOptionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterResourceDeleteOptionArrayOutput)
+}
+
+type ClusterResourceDeleteOptionOutput struct{ *pulumi.OutputState }
+
+func (ClusterResourceDeleteOptionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterResourceDeleteOption)(nil)).Elem()
+}
+
+func (o ClusterResourceDeleteOptionOutput) ToClusterResourceDeleteOptionOutput() ClusterResourceDeleteOptionOutput {
+	return o
+}
+
+func (o ClusterResourceDeleteOptionOutput) ToClusterResourceDeleteOptionOutputWithContext(ctx context.Context) ClusterResourceDeleteOptionOutput {
+	return o
+}
+
+func (o ClusterResourceDeleteOptionOutput) DeleteMode() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterResourceDeleteOption) string { return v.DeleteMode }).(pulumi.StringOutput)
+}
+
+func (o ClusterResourceDeleteOptionOutput) ResourceType() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterResourceDeleteOption) string { return v.ResourceType }).(pulumi.StringOutput)
+}
+
+func (o ClusterResourceDeleteOptionOutput) SkipDeletionProtection() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ClusterResourceDeleteOption) *bool { return v.SkipDeletionProtection }).(pulumi.BoolPtrOutput)
+}
+
+type ClusterResourceDeleteOptionArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterResourceDeleteOptionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterResourceDeleteOption)(nil)).Elem()
+}
+
+func (o ClusterResourceDeleteOptionArrayOutput) ToClusterResourceDeleteOptionArrayOutput() ClusterResourceDeleteOptionArrayOutput {
+	return o
+}
+
+func (o ClusterResourceDeleteOptionArrayOutput) ToClusterResourceDeleteOptionArrayOutputWithContext(ctx context.Context) ClusterResourceDeleteOptionArrayOutput {
+	return o
+}
+
+func (o ClusterResourceDeleteOptionArrayOutput) Index(i pulumi.IntInput) ClusterResourceDeleteOptionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterResourceDeleteOption {
+		return vs[0].([]ClusterResourceDeleteOption)[vs[1].(int)]
+	}).(ClusterResourceDeleteOptionOutput)
 }
 
 type ClusterWorkerConfig struct {
@@ -3503,6 +6096,2219 @@ func (o EncryptionProtectionKmsConfigurationPtrOutput) KmsRegion() pulumi.String
 	}).(pulumi.StringPtrOutput)
 }
 
+type HealthCheckPolicyRule struct {
+	AutoRepairEnabled bool   `pulumi:"autoRepairEnabled"`
+	Enabled           bool   `pulumi:"enabled"`
+	Name              string `pulumi:"name"`
+}
+
+// HealthCheckPolicyRuleInput is an input type that accepts HealthCheckPolicyRuleArgs and HealthCheckPolicyRuleOutput values.
+// You can construct a concrete instance of `HealthCheckPolicyRuleInput` via:
+//
+//	HealthCheckPolicyRuleArgs{...}
+type HealthCheckPolicyRuleInput interface {
+	pulumi.Input
+
+	ToHealthCheckPolicyRuleOutput() HealthCheckPolicyRuleOutput
+	ToHealthCheckPolicyRuleOutputWithContext(context.Context) HealthCheckPolicyRuleOutput
+}
+
+type HealthCheckPolicyRuleArgs struct {
+	AutoRepairEnabled pulumi.BoolInput   `pulumi:"autoRepairEnabled"`
+	Enabled           pulumi.BoolInput   `pulumi:"enabled"`
+	Name              pulumi.StringInput `pulumi:"name"`
+}
+
+func (HealthCheckPolicyRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*HealthCheckPolicyRule)(nil)).Elem()
+}
+
+func (i HealthCheckPolicyRuleArgs) ToHealthCheckPolicyRuleOutput() HealthCheckPolicyRuleOutput {
+	return i.ToHealthCheckPolicyRuleOutputWithContext(context.Background())
+}
+
+func (i HealthCheckPolicyRuleArgs) ToHealthCheckPolicyRuleOutputWithContext(ctx context.Context) HealthCheckPolicyRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HealthCheckPolicyRuleOutput)
+}
+
+// HealthCheckPolicyRuleArrayInput is an input type that accepts HealthCheckPolicyRuleArray and HealthCheckPolicyRuleArrayOutput values.
+// You can construct a concrete instance of `HealthCheckPolicyRuleArrayInput` via:
+//
+//	HealthCheckPolicyRuleArray{ HealthCheckPolicyRuleArgs{...} }
+type HealthCheckPolicyRuleArrayInput interface {
+	pulumi.Input
+
+	ToHealthCheckPolicyRuleArrayOutput() HealthCheckPolicyRuleArrayOutput
+	ToHealthCheckPolicyRuleArrayOutputWithContext(context.Context) HealthCheckPolicyRuleArrayOutput
+}
+
+type HealthCheckPolicyRuleArray []HealthCheckPolicyRuleInput
+
+func (HealthCheckPolicyRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HealthCheckPolicyRule)(nil)).Elem()
+}
+
+func (i HealthCheckPolicyRuleArray) ToHealthCheckPolicyRuleArrayOutput() HealthCheckPolicyRuleArrayOutput {
+	return i.ToHealthCheckPolicyRuleArrayOutputWithContext(context.Background())
+}
+
+func (i HealthCheckPolicyRuleArray) ToHealthCheckPolicyRuleArrayOutputWithContext(ctx context.Context) HealthCheckPolicyRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(HealthCheckPolicyRuleArrayOutput)
+}
+
+type HealthCheckPolicyRuleOutput struct{ *pulumi.OutputState }
+
+func (HealthCheckPolicyRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*HealthCheckPolicyRule)(nil)).Elem()
+}
+
+func (o HealthCheckPolicyRuleOutput) ToHealthCheckPolicyRuleOutput() HealthCheckPolicyRuleOutput {
+	return o
+}
+
+func (o HealthCheckPolicyRuleOutput) ToHealthCheckPolicyRuleOutputWithContext(ctx context.Context) HealthCheckPolicyRuleOutput {
+	return o
+}
+
+func (o HealthCheckPolicyRuleOutput) AutoRepairEnabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v HealthCheckPolicyRule) bool { return v.AutoRepairEnabled }).(pulumi.BoolOutput)
+}
+
+func (o HealthCheckPolicyRuleOutput) Enabled() pulumi.BoolOutput {
+	return o.ApplyT(func(v HealthCheckPolicyRule) bool { return v.Enabled }).(pulumi.BoolOutput)
+}
+
+func (o HealthCheckPolicyRuleOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v HealthCheckPolicyRule) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type HealthCheckPolicyRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (HealthCheckPolicyRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]HealthCheckPolicyRule)(nil)).Elem()
+}
+
+func (o HealthCheckPolicyRuleArrayOutput) ToHealthCheckPolicyRuleArrayOutput() HealthCheckPolicyRuleArrayOutput {
+	return o
+}
+
+func (o HealthCheckPolicyRuleArrayOutput) ToHealthCheckPolicyRuleArrayOutputWithContext(ctx context.Context) HealthCheckPolicyRuleArrayOutput {
+	return o
+}
+
+func (o HealthCheckPolicyRuleArrayOutput) Index(i pulumi.IntInput) HealthCheckPolicyRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) HealthCheckPolicyRule {
+		return vs[0].([]HealthCheckPolicyRule)[vs[1].(int)]
+	}).(HealthCheckPolicyRuleOutput)
+}
+
+type NativeNodePoolAnnotation struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// NativeNodePoolAnnotationInput is an input type that accepts NativeNodePoolAnnotationArgs and NativeNodePoolAnnotationOutput values.
+// You can construct a concrete instance of `NativeNodePoolAnnotationInput` via:
+//
+//	NativeNodePoolAnnotationArgs{...}
+type NativeNodePoolAnnotationInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolAnnotationOutput() NativeNodePoolAnnotationOutput
+	ToNativeNodePoolAnnotationOutputWithContext(context.Context) NativeNodePoolAnnotationOutput
+}
+
+type NativeNodePoolAnnotationArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (NativeNodePoolAnnotationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolAnnotation)(nil)).Elem()
+}
+
+func (i NativeNodePoolAnnotationArgs) ToNativeNodePoolAnnotationOutput() NativeNodePoolAnnotationOutput {
+	return i.ToNativeNodePoolAnnotationOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolAnnotationArgs) ToNativeNodePoolAnnotationOutputWithContext(ctx context.Context) NativeNodePoolAnnotationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolAnnotationOutput)
+}
+
+// NativeNodePoolAnnotationArrayInput is an input type that accepts NativeNodePoolAnnotationArray and NativeNodePoolAnnotationArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolAnnotationArrayInput` via:
+//
+//	NativeNodePoolAnnotationArray{ NativeNodePoolAnnotationArgs{...} }
+type NativeNodePoolAnnotationArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolAnnotationArrayOutput() NativeNodePoolAnnotationArrayOutput
+	ToNativeNodePoolAnnotationArrayOutputWithContext(context.Context) NativeNodePoolAnnotationArrayOutput
+}
+
+type NativeNodePoolAnnotationArray []NativeNodePoolAnnotationInput
+
+func (NativeNodePoolAnnotationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolAnnotation)(nil)).Elem()
+}
+
+func (i NativeNodePoolAnnotationArray) ToNativeNodePoolAnnotationArrayOutput() NativeNodePoolAnnotationArrayOutput {
+	return i.ToNativeNodePoolAnnotationArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolAnnotationArray) ToNativeNodePoolAnnotationArrayOutputWithContext(ctx context.Context) NativeNodePoolAnnotationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolAnnotationArrayOutput)
+}
+
+type NativeNodePoolAnnotationOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolAnnotationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolAnnotation)(nil)).Elem()
+}
+
+func (o NativeNodePoolAnnotationOutput) ToNativeNodePoolAnnotationOutput() NativeNodePoolAnnotationOutput {
+	return o
+}
+
+func (o NativeNodePoolAnnotationOutput) ToNativeNodePoolAnnotationOutputWithContext(ctx context.Context) NativeNodePoolAnnotationOutput {
+	return o
+}
+
+func (o NativeNodePoolAnnotationOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolAnnotation) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o NativeNodePoolAnnotationOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolAnnotation) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type NativeNodePoolAnnotationArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolAnnotationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolAnnotation)(nil)).Elem()
+}
+
+func (o NativeNodePoolAnnotationArrayOutput) ToNativeNodePoolAnnotationArrayOutput() NativeNodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolAnnotationArrayOutput) ToNativeNodePoolAnnotationArrayOutputWithContext(ctx context.Context) NativeNodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolAnnotationArrayOutput) Index(i pulumi.IntInput) NativeNodePoolAnnotationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolAnnotation {
+		return vs[0].([]NativeNodePoolAnnotation)[vs[1].(int)]
+	}).(NativeNodePoolAnnotationOutput)
+}
+
+type NativeNodePoolLabel struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// NativeNodePoolLabelInput is an input type that accepts NativeNodePoolLabelArgs and NativeNodePoolLabelOutput values.
+// You can construct a concrete instance of `NativeNodePoolLabelInput` via:
+//
+//	NativeNodePoolLabelArgs{...}
+type NativeNodePoolLabelInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolLabelOutput() NativeNodePoolLabelOutput
+	ToNativeNodePoolLabelOutputWithContext(context.Context) NativeNodePoolLabelOutput
+}
+
+type NativeNodePoolLabelArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (NativeNodePoolLabelArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolLabel)(nil)).Elem()
+}
+
+func (i NativeNodePoolLabelArgs) ToNativeNodePoolLabelOutput() NativeNodePoolLabelOutput {
+	return i.ToNativeNodePoolLabelOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolLabelArgs) ToNativeNodePoolLabelOutputWithContext(ctx context.Context) NativeNodePoolLabelOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolLabelOutput)
+}
+
+// NativeNodePoolLabelArrayInput is an input type that accepts NativeNodePoolLabelArray and NativeNodePoolLabelArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolLabelArrayInput` via:
+//
+//	NativeNodePoolLabelArray{ NativeNodePoolLabelArgs{...} }
+type NativeNodePoolLabelArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolLabelArrayOutput() NativeNodePoolLabelArrayOutput
+	ToNativeNodePoolLabelArrayOutputWithContext(context.Context) NativeNodePoolLabelArrayOutput
+}
+
+type NativeNodePoolLabelArray []NativeNodePoolLabelInput
+
+func (NativeNodePoolLabelArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolLabel)(nil)).Elem()
+}
+
+func (i NativeNodePoolLabelArray) ToNativeNodePoolLabelArrayOutput() NativeNodePoolLabelArrayOutput {
+	return i.ToNativeNodePoolLabelArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolLabelArray) ToNativeNodePoolLabelArrayOutputWithContext(ctx context.Context) NativeNodePoolLabelArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolLabelArrayOutput)
+}
+
+type NativeNodePoolLabelOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolLabelOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolLabel)(nil)).Elem()
+}
+
+func (o NativeNodePoolLabelOutput) ToNativeNodePoolLabelOutput() NativeNodePoolLabelOutput {
+	return o
+}
+
+func (o NativeNodePoolLabelOutput) ToNativeNodePoolLabelOutputWithContext(ctx context.Context) NativeNodePoolLabelOutput {
+	return o
+}
+
+func (o NativeNodePoolLabelOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolLabel) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o NativeNodePoolLabelOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolLabel) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type NativeNodePoolLabelArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolLabelArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolLabel)(nil)).Elem()
+}
+
+func (o NativeNodePoolLabelArrayOutput) ToNativeNodePoolLabelArrayOutput() NativeNodePoolLabelArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolLabelArrayOutput) ToNativeNodePoolLabelArrayOutputWithContext(ctx context.Context) NativeNodePoolLabelArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolLabelArrayOutput) Index(i pulumi.IntInput) NativeNodePoolLabelOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolLabel {
+		return vs[0].([]NativeNodePoolLabel)[vs[1].(int)]
+	}).(NativeNodePoolLabelOutput)
+}
+
+type NativeNodePoolNative struct {
+	AutoRepair            *bool                                      `pulumi:"autoRepair"`
+	DataDisks             []NativeNodePoolNativeDataDisk             `pulumi:"dataDisks"`
+	EnableAutoscaling     *bool                                      `pulumi:"enableAutoscaling"`
+	HealthCheckPolicyName *string                                    `pulumi:"healthCheckPolicyName"`
+	HostNamePattern       *string                                    `pulumi:"hostNamePattern"`
+	InstanceChargePrepaid *NativeNodePoolNativeInstanceChargePrepaid `pulumi:"instanceChargePrepaid"`
+	InstanceChargeType    string                                     `pulumi:"instanceChargeType"`
+	InstanceTypes         []string                                   `pulumi:"instanceTypes"`
+	InternetAccessible    *NativeNodePoolNativeInternetAccessible    `pulumi:"internetAccessible"`
+	KeyIds                []string                                   `pulumi:"keyIds"`
+	KubeletArgs           []string                                   `pulumi:"kubeletArgs"`
+	Lifecycle             *NativeNodePoolNativeLifecycle             `pulumi:"lifecycle"`
+	MachineType           *string                                    `pulumi:"machineType"`
+	Management            *NativeNodePoolNativeManagement            `pulumi:"management"`
+	Replicas              *int                                       `pulumi:"replicas"`
+	RuntimeRootDir        *string                                    `pulumi:"runtimeRootDir"`
+	Scaling               *NativeNodePoolNativeScaling               `pulumi:"scaling"`
+	SecurityGroupIds      []string                                   `pulumi:"securityGroupIds"`
+	SubnetIds             []string                                   `pulumi:"subnetIds"`
+	SystemDisk            NativeNodePoolNativeSystemDisk             `pulumi:"systemDisk"`
+}
+
+// NativeNodePoolNativeInput is an input type that accepts NativeNodePoolNativeArgs and NativeNodePoolNativeOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeInput` via:
+//
+//	NativeNodePoolNativeArgs{...}
+type NativeNodePoolNativeInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeOutput() NativeNodePoolNativeOutput
+	ToNativeNodePoolNativeOutputWithContext(context.Context) NativeNodePoolNativeOutput
+}
+
+type NativeNodePoolNativeArgs struct {
+	AutoRepair            pulumi.BoolPtrInput                               `pulumi:"autoRepair"`
+	DataDisks             NativeNodePoolNativeDataDiskArrayInput            `pulumi:"dataDisks"`
+	EnableAutoscaling     pulumi.BoolPtrInput                               `pulumi:"enableAutoscaling"`
+	HealthCheckPolicyName pulumi.StringPtrInput                             `pulumi:"healthCheckPolicyName"`
+	HostNamePattern       pulumi.StringPtrInput                             `pulumi:"hostNamePattern"`
+	InstanceChargePrepaid NativeNodePoolNativeInstanceChargePrepaidPtrInput `pulumi:"instanceChargePrepaid"`
+	InstanceChargeType    pulumi.StringInput                                `pulumi:"instanceChargeType"`
+	InstanceTypes         pulumi.StringArrayInput                           `pulumi:"instanceTypes"`
+	InternetAccessible    NativeNodePoolNativeInternetAccessiblePtrInput    `pulumi:"internetAccessible"`
+	KeyIds                pulumi.StringArrayInput                           `pulumi:"keyIds"`
+	KubeletArgs           pulumi.StringArrayInput                           `pulumi:"kubeletArgs"`
+	Lifecycle             NativeNodePoolNativeLifecyclePtrInput             `pulumi:"lifecycle"`
+	MachineType           pulumi.StringPtrInput                             `pulumi:"machineType"`
+	Management            NativeNodePoolNativeManagementPtrInput            `pulumi:"management"`
+	Replicas              pulumi.IntPtrInput                                `pulumi:"replicas"`
+	RuntimeRootDir        pulumi.StringPtrInput                             `pulumi:"runtimeRootDir"`
+	Scaling               NativeNodePoolNativeScalingPtrInput               `pulumi:"scaling"`
+	SecurityGroupIds      pulumi.StringArrayInput                           `pulumi:"securityGroupIds"`
+	SubnetIds             pulumi.StringArrayInput                           `pulumi:"subnetIds"`
+	SystemDisk            NativeNodePoolNativeSystemDiskInput               `pulumi:"systemDisk"`
+}
+
+func (NativeNodePoolNativeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNative)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeArgs) ToNativeNodePoolNativeOutput() NativeNodePoolNativeOutput {
+	return i.ToNativeNodePoolNativeOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeArgs) ToNativeNodePoolNativeOutputWithContext(ctx context.Context) NativeNodePoolNativeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeOutput)
+}
+
+func (i NativeNodePoolNativeArgs) ToNativeNodePoolNativePtrOutput() NativeNodePoolNativePtrOutput {
+	return i.ToNativeNodePoolNativePtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeArgs) ToNativeNodePoolNativePtrOutputWithContext(ctx context.Context) NativeNodePoolNativePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeOutput).ToNativeNodePoolNativePtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativePtrInput is an input type that accepts NativeNodePoolNativeArgs, NativeNodePoolNativePtr and NativeNodePoolNativePtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativePtrInput` via:
+//
+//	        NativeNodePoolNativeArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativePtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativePtrOutput() NativeNodePoolNativePtrOutput
+	ToNativeNodePoolNativePtrOutputWithContext(context.Context) NativeNodePoolNativePtrOutput
+}
+
+type nativeNodePoolNativePtrType NativeNodePoolNativeArgs
+
+func NativeNodePoolNativePtr(v *NativeNodePoolNativeArgs) NativeNodePoolNativePtrInput {
+	return (*nativeNodePoolNativePtrType)(v)
+}
+
+func (*nativeNodePoolNativePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNative)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativePtrType) ToNativeNodePoolNativePtrOutput() NativeNodePoolNativePtrOutput {
+	return i.ToNativeNodePoolNativePtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativePtrType) ToNativeNodePoolNativePtrOutputWithContext(ctx context.Context) NativeNodePoolNativePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativePtrOutput)
+}
+
+type NativeNodePoolNativeOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNative)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeOutput) ToNativeNodePoolNativeOutput() NativeNodePoolNativeOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeOutput) ToNativeNodePoolNativeOutputWithContext(ctx context.Context) NativeNodePoolNativeOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeOutput) ToNativeNodePoolNativePtrOutput() NativeNodePoolNativePtrOutput {
+	return o.ToNativeNodePoolNativePtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeOutput) ToNativeNodePoolNativePtrOutputWithContext(ctx context.Context) NativeNodePoolNativePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNative) *NativeNodePoolNative {
+		return &v
+	}).(NativeNodePoolNativePtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) AutoRepair() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *bool { return v.AutoRepair }).(pulumi.BoolPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) DataDisks() NativeNodePoolNativeDataDiskArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []NativeNodePoolNativeDataDisk { return v.DataDisks }).(NativeNodePoolNativeDataDiskArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) EnableAutoscaling() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *bool { return v.EnableAutoscaling }).(pulumi.BoolPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) HealthCheckPolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *string { return v.HealthCheckPolicyName }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) HostNamePattern() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *string { return v.HostNamePattern }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) InstanceChargePrepaid() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *NativeNodePoolNativeInstanceChargePrepaid {
+		return v.InstanceChargePrepaid
+	}).(NativeNodePoolNativeInstanceChargePrepaidPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) InstanceChargeType() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) string { return v.InstanceChargeType }).(pulumi.StringOutput)
+}
+
+func (o NativeNodePoolNativeOutput) InstanceTypes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []string { return v.InstanceTypes }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) InternetAccessible() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *NativeNodePoolNativeInternetAccessible { return v.InternetAccessible }).(NativeNodePoolNativeInternetAccessiblePtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) KeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []string { return v.KeyIds }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) KubeletArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []string { return v.KubeletArgs }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) Lifecycle() NativeNodePoolNativeLifecyclePtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *NativeNodePoolNativeLifecycle { return v.Lifecycle }).(NativeNodePoolNativeLifecyclePtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) MachineType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *string { return v.MachineType }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) Management() NativeNodePoolNativeManagementPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *NativeNodePoolNativeManagement { return v.Management }).(NativeNodePoolNativeManagementPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) Replicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *int { return v.Replicas }).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) RuntimeRootDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *string { return v.RuntimeRootDir }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) Scaling() NativeNodePoolNativeScalingPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) *NativeNodePoolNativeScaling { return v.Scaling }).(NativeNodePoolNativeScalingPtrOutput)
+}
+
+func (o NativeNodePoolNativeOutput) SecurityGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []string { return v.SecurityGroupIds }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) SubnetIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) []string { return v.SubnetIds }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeOutput) SystemDisk() NativeNodePoolNativeSystemDiskOutput {
+	return o.ApplyT(func(v NativeNodePoolNative) NativeNodePoolNativeSystemDisk { return v.SystemDisk }).(NativeNodePoolNativeSystemDiskOutput)
+}
+
+type NativeNodePoolNativePtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNative)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativePtrOutput) ToNativeNodePoolNativePtrOutput() NativeNodePoolNativePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativePtrOutput) ToNativeNodePoolNativePtrOutputWithContext(ctx context.Context) NativeNodePoolNativePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativePtrOutput) Elem() NativeNodePoolNativeOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) NativeNodePoolNative {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNative
+		return ret
+	}).(NativeNodePoolNativeOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) AutoRepair() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.AutoRepair
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) DataDisks() NativeNodePoolNativeDataDiskArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []NativeNodePoolNativeDataDisk {
+		if v == nil {
+			return nil
+		}
+		return v.DataDisks
+	}).(NativeNodePoolNativeDataDiskArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) EnableAutoscaling() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.EnableAutoscaling
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) HealthCheckPolicyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HealthCheckPolicyName
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) HostNamePattern() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *string {
+		if v == nil {
+			return nil
+		}
+		return v.HostNamePattern
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) InstanceChargePrepaid() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeInstanceChargePrepaid {
+		if v == nil {
+			return nil
+		}
+		return v.InstanceChargePrepaid
+	}).(NativeNodePoolNativeInstanceChargePrepaidPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) InstanceChargeType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.InstanceChargeType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) InstanceTypes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []string {
+		if v == nil {
+			return nil
+		}
+		return v.InstanceTypes
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) InternetAccessible() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeInternetAccessible {
+		if v == nil {
+			return nil
+		}
+		return v.InternetAccessible
+	}).(NativeNodePoolNativeInternetAccessiblePtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) KeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KeyIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) KubeletArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KubeletArgs
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) Lifecycle() NativeNodePoolNativeLifecyclePtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeLifecycle {
+		if v == nil {
+			return nil
+		}
+		return v.Lifecycle
+	}).(NativeNodePoolNativeLifecyclePtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) MachineType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *string {
+		if v == nil {
+			return nil
+		}
+		return v.MachineType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) Management() NativeNodePoolNativeManagementPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeManagement {
+		if v == nil {
+			return nil
+		}
+		return v.Management
+	}).(NativeNodePoolNativeManagementPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) Replicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Replicas
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) RuntimeRootDir() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RuntimeRootDir
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) Scaling() NativeNodePoolNativeScalingPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeScaling {
+		if v == nil {
+			return nil
+		}
+		return v.Scaling
+	}).(NativeNodePoolNativeScalingPtrOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) SecurityGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []string {
+		if v == nil {
+			return nil
+		}
+		return v.SecurityGroupIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) SubnetIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) []string {
+		if v == nil {
+			return nil
+		}
+		return v.SubnetIds
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativePtrOutput) SystemDisk() NativeNodePoolNativeSystemDiskPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNative) *NativeNodePoolNativeSystemDisk {
+		if v == nil {
+			return nil
+		}
+		return &v.SystemDisk
+	}).(NativeNodePoolNativeSystemDiskPtrOutput)
+}
+
+type NativeNodePoolNativeDataDisk struct {
+	AutoFormatAndMount    bool    `pulumi:"autoFormatAndMount"`
+	DiskPartition         *string `pulumi:"diskPartition"`
+	DiskSize              int     `pulumi:"diskSize"`
+	DiskType              string  `pulumi:"diskType"`
+	Encrypt               *string `pulumi:"encrypt"`
+	FileSystem            *string `pulumi:"fileSystem"`
+	KmsKeyId              *string `pulumi:"kmsKeyId"`
+	MountTarget           *string `pulumi:"mountTarget"`
+	SnapshotId            *string `pulumi:"snapshotId"`
+	ThroughputPerformance *int    `pulumi:"throughputPerformance"`
+}
+
+// NativeNodePoolNativeDataDiskInput is an input type that accepts NativeNodePoolNativeDataDiskArgs and NativeNodePoolNativeDataDiskOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeDataDiskInput` via:
+//
+//	NativeNodePoolNativeDataDiskArgs{...}
+type NativeNodePoolNativeDataDiskInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeDataDiskOutput() NativeNodePoolNativeDataDiskOutput
+	ToNativeNodePoolNativeDataDiskOutputWithContext(context.Context) NativeNodePoolNativeDataDiskOutput
+}
+
+type NativeNodePoolNativeDataDiskArgs struct {
+	AutoFormatAndMount    pulumi.BoolInput      `pulumi:"autoFormatAndMount"`
+	DiskPartition         pulumi.StringPtrInput `pulumi:"diskPartition"`
+	DiskSize              pulumi.IntInput       `pulumi:"diskSize"`
+	DiskType              pulumi.StringInput    `pulumi:"diskType"`
+	Encrypt               pulumi.StringPtrInput `pulumi:"encrypt"`
+	FileSystem            pulumi.StringPtrInput `pulumi:"fileSystem"`
+	KmsKeyId              pulumi.StringPtrInput `pulumi:"kmsKeyId"`
+	MountTarget           pulumi.StringPtrInput `pulumi:"mountTarget"`
+	SnapshotId            pulumi.StringPtrInput `pulumi:"snapshotId"`
+	ThroughputPerformance pulumi.IntPtrInput    `pulumi:"throughputPerformance"`
+}
+
+func (NativeNodePoolNativeDataDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeDataDiskArgs) ToNativeNodePoolNativeDataDiskOutput() NativeNodePoolNativeDataDiskOutput {
+	return i.ToNativeNodePoolNativeDataDiskOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeDataDiskArgs) ToNativeNodePoolNativeDataDiskOutputWithContext(ctx context.Context) NativeNodePoolNativeDataDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeDataDiskOutput)
+}
+
+// NativeNodePoolNativeDataDiskArrayInput is an input type that accepts NativeNodePoolNativeDataDiskArray and NativeNodePoolNativeDataDiskArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeDataDiskArrayInput` via:
+//
+//	NativeNodePoolNativeDataDiskArray{ NativeNodePoolNativeDataDiskArgs{...} }
+type NativeNodePoolNativeDataDiskArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeDataDiskArrayOutput() NativeNodePoolNativeDataDiskArrayOutput
+	ToNativeNodePoolNativeDataDiskArrayOutputWithContext(context.Context) NativeNodePoolNativeDataDiskArrayOutput
+}
+
+type NativeNodePoolNativeDataDiskArray []NativeNodePoolNativeDataDiskInput
+
+func (NativeNodePoolNativeDataDiskArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeDataDiskArray) ToNativeNodePoolNativeDataDiskArrayOutput() NativeNodePoolNativeDataDiskArrayOutput {
+	return i.ToNativeNodePoolNativeDataDiskArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeDataDiskArray) ToNativeNodePoolNativeDataDiskArrayOutputWithContext(ctx context.Context) NativeNodePoolNativeDataDiskArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeDataDiskArrayOutput)
+}
+
+type NativeNodePoolNativeDataDiskOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeDataDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) ToNativeNodePoolNativeDataDiskOutput() NativeNodePoolNativeDataDiskOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) ToNativeNodePoolNativeDataDiskOutputWithContext(ctx context.Context) NativeNodePoolNativeDataDiskOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) AutoFormatAndMount() pulumi.BoolOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) bool { return v.AutoFormatAndMount }).(pulumi.BoolOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.DiskPartition }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) DiskSize() pulumi.IntOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) int { return v.DiskSize }).(pulumi.IntOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) DiskType() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) string { return v.DiskType }).(pulumi.StringOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) Encrypt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.Encrypt }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) FileSystem() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.FileSystem }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) KmsKeyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.KmsKeyId }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) MountTarget() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) SnapshotId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *string { return v.SnapshotId }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeDataDiskOutput) ThroughputPerformance() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeDataDisk) *int { return v.ThroughputPerformance }).(pulumi.IntPtrOutput)
+}
+
+type NativeNodePoolNativeDataDiskArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeDataDiskArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeDataDiskArrayOutput) ToNativeNodePoolNativeDataDiskArrayOutput() NativeNodePoolNativeDataDiskArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeDataDiskArrayOutput) ToNativeNodePoolNativeDataDiskArrayOutputWithContext(ctx context.Context) NativeNodePoolNativeDataDiskArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeDataDiskArrayOutput) Index(i pulumi.IntInput) NativeNodePoolNativeDataDiskOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolNativeDataDisk {
+		return vs[0].([]NativeNodePoolNativeDataDisk)[vs[1].(int)]
+	}).(NativeNodePoolNativeDataDiskOutput)
+}
+
+type NativeNodePoolNativeInstanceChargePrepaid struct {
+	Period    int     `pulumi:"period"`
+	RenewFlag *string `pulumi:"renewFlag"`
+}
+
+// NativeNodePoolNativeInstanceChargePrepaidInput is an input type that accepts NativeNodePoolNativeInstanceChargePrepaidArgs and NativeNodePoolNativeInstanceChargePrepaidOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeInstanceChargePrepaidInput` via:
+//
+//	NativeNodePoolNativeInstanceChargePrepaidArgs{...}
+type NativeNodePoolNativeInstanceChargePrepaidInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeInstanceChargePrepaidOutput() NativeNodePoolNativeInstanceChargePrepaidOutput
+	ToNativeNodePoolNativeInstanceChargePrepaidOutputWithContext(context.Context) NativeNodePoolNativeInstanceChargePrepaidOutput
+}
+
+type NativeNodePoolNativeInstanceChargePrepaidArgs struct {
+	Period    pulumi.IntInput       `pulumi:"period"`
+	RenewFlag pulumi.StringPtrInput `pulumi:"renewFlag"`
+}
+
+func (NativeNodePoolNativeInstanceChargePrepaidArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeInstanceChargePrepaidArgs) ToNativeNodePoolNativeInstanceChargePrepaidOutput() NativeNodePoolNativeInstanceChargePrepaidOutput {
+	return i.ToNativeNodePoolNativeInstanceChargePrepaidOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeInstanceChargePrepaidArgs) ToNativeNodePoolNativeInstanceChargePrepaidOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInstanceChargePrepaidOutput)
+}
+
+func (i NativeNodePoolNativeInstanceChargePrepaidArgs) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutput() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return i.ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeInstanceChargePrepaidArgs) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInstanceChargePrepaidOutput).ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeInstanceChargePrepaidPtrInput is an input type that accepts NativeNodePoolNativeInstanceChargePrepaidArgs, NativeNodePoolNativeInstanceChargePrepaidPtr and NativeNodePoolNativeInstanceChargePrepaidPtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeInstanceChargePrepaidPtrInput` via:
+//
+//	        NativeNodePoolNativeInstanceChargePrepaidArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeInstanceChargePrepaidPtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeInstanceChargePrepaidPtrOutput() NativeNodePoolNativeInstanceChargePrepaidPtrOutput
+	ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(context.Context) NativeNodePoolNativeInstanceChargePrepaidPtrOutput
+}
+
+type nativeNodePoolNativeInstanceChargePrepaidPtrType NativeNodePoolNativeInstanceChargePrepaidArgs
+
+func NativeNodePoolNativeInstanceChargePrepaidPtr(v *NativeNodePoolNativeInstanceChargePrepaidArgs) NativeNodePoolNativeInstanceChargePrepaidPtrInput {
+	return (*nativeNodePoolNativeInstanceChargePrepaidPtrType)(v)
+}
+
+func (*nativeNodePoolNativeInstanceChargePrepaidPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeInstanceChargePrepaidPtrType) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutput() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return i.ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeInstanceChargePrepaidPtrType) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInstanceChargePrepaidPtrOutput)
+}
+
+type NativeNodePoolNativeInstanceChargePrepaidOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeInstanceChargePrepaidOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) ToNativeNodePoolNativeInstanceChargePrepaidOutput() NativeNodePoolNativeInstanceChargePrepaidOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) ToNativeNodePoolNativeInstanceChargePrepaidOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutput() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o.ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeInstanceChargePrepaid) *NativeNodePoolNativeInstanceChargePrepaid {
+		return &v
+	}).(NativeNodePoolNativeInstanceChargePrepaidPtrOutput)
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) Period() pulumi.IntOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeInstanceChargePrepaid) int { return v.Period }).(pulumi.IntOutput)
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidOutput) RenewFlag() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeInstanceChargePrepaid) *string { return v.RenewFlag }).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolNativeInstanceChargePrepaidPtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeInstanceChargePrepaidPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidPtrOutput) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutput() NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidPtrOutput) ToNativeNodePoolNativeInstanceChargePrepaidPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInstanceChargePrepaidPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidPtrOutput) Elem() NativeNodePoolNativeInstanceChargePrepaidOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInstanceChargePrepaid) NativeNodePoolNativeInstanceChargePrepaid {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeInstanceChargePrepaid
+		return ret
+	}).(NativeNodePoolNativeInstanceChargePrepaidOutput)
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidPtrOutput) Period() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInstanceChargePrepaid) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Period
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativeInstanceChargePrepaidPtrOutput) RenewFlag() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInstanceChargePrepaid) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RenewFlag
+	}).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolNativeInternetAccessible struct {
+	BandwidthPackageId *string `pulumi:"bandwidthPackageId"`
+	ChargeType         string  `pulumi:"chargeType"`
+	MaxBandwidthOut    int     `pulumi:"maxBandwidthOut"`
+}
+
+// NativeNodePoolNativeInternetAccessibleInput is an input type that accepts NativeNodePoolNativeInternetAccessibleArgs and NativeNodePoolNativeInternetAccessibleOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeInternetAccessibleInput` via:
+//
+//	NativeNodePoolNativeInternetAccessibleArgs{...}
+type NativeNodePoolNativeInternetAccessibleInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeInternetAccessibleOutput() NativeNodePoolNativeInternetAccessibleOutput
+	ToNativeNodePoolNativeInternetAccessibleOutputWithContext(context.Context) NativeNodePoolNativeInternetAccessibleOutput
+}
+
+type NativeNodePoolNativeInternetAccessibleArgs struct {
+	BandwidthPackageId pulumi.StringPtrInput `pulumi:"bandwidthPackageId"`
+	ChargeType         pulumi.StringInput    `pulumi:"chargeType"`
+	MaxBandwidthOut    pulumi.IntInput       `pulumi:"maxBandwidthOut"`
+}
+
+func (NativeNodePoolNativeInternetAccessibleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeInternetAccessibleArgs) ToNativeNodePoolNativeInternetAccessibleOutput() NativeNodePoolNativeInternetAccessibleOutput {
+	return i.ToNativeNodePoolNativeInternetAccessibleOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeInternetAccessibleArgs) ToNativeNodePoolNativeInternetAccessibleOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessibleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInternetAccessibleOutput)
+}
+
+func (i NativeNodePoolNativeInternetAccessibleArgs) ToNativeNodePoolNativeInternetAccessiblePtrOutput() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return i.ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeInternetAccessibleArgs) ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInternetAccessibleOutput).ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeInternetAccessiblePtrInput is an input type that accepts NativeNodePoolNativeInternetAccessibleArgs, NativeNodePoolNativeInternetAccessiblePtr and NativeNodePoolNativeInternetAccessiblePtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeInternetAccessiblePtrInput` via:
+//
+//	        NativeNodePoolNativeInternetAccessibleArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeInternetAccessiblePtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeInternetAccessiblePtrOutput() NativeNodePoolNativeInternetAccessiblePtrOutput
+	ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(context.Context) NativeNodePoolNativeInternetAccessiblePtrOutput
+}
+
+type nativeNodePoolNativeInternetAccessiblePtrType NativeNodePoolNativeInternetAccessibleArgs
+
+func NativeNodePoolNativeInternetAccessiblePtr(v *NativeNodePoolNativeInternetAccessibleArgs) NativeNodePoolNativeInternetAccessiblePtrInput {
+	return (*nativeNodePoolNativeInternetAccessiblePtrType)(v)
+}
+
+func (*nativeNodePoolNativeInternetAccessiblePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeInternetAccessiblePtrType) ToNativeNodePoolNativeInternetAccessiblePtrOutput() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return i.ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeInternetAccessiblePtrType) ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeInternetAccessiblePtrOutput)
+}
+
+type NativeNodePoolNativeInternetAccessibleOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeInternetAccessibleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) ToNativeNodePoolNativeInternetAccessibleOutput() NativeNodePoolNativeInternetAccessibleOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) ToNativeNodePoolNativeInternetAccessibleOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessibleOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) ToNativeNodePoolNativeInternetAccessiblePtrOutput() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o.ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeInternetAccessible) *NativeNodePoolNativeInternetAccessible {
+		return &v
+	}).(NativeNodePoolNativeInternetAccessiblePtrOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) BandwidthPackageId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeInternetAccessible) *string { return v.BandwidthPackageId }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) ChargeType() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeInternetAccessible) string { return v.ChargeType }).(pulumi.StringOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessibleOutput) MaxBandwidthOut() pulumi.IntOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeInternetAccessible) int { return v.MaxBandwidthOut }).(pulumi.IntOutput)
+}
+
+type NativeNodePoolNativeInternetAccessiblePtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeInternetAccessiblePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) ToNativeNodePoolNativeInternetAccessiblePtrOutput() NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) ToNativeNodePoolNativeInternetAccessiblePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeInternetAccessiblePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) Elem() NativeNodePoolNativeInternetAccessibleOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInternetAccessible) NativeNodePoolNativeInternetAccessible {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeInternetAccessible
+		return ret
+	}).(NativeNodePoolNativeInternetAccessibleOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) BandwidthPackageId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInternetAccessible) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BandwidthPackageId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) ChargeType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInternetAccessible) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ChargeType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeInternetAccessiblePtrOutput) MaxBandwidthOut() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeInternetAccessible) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.MaxBandwidthOut
+	}).(pulumi.IntPtrOutput)
+}
+
+type NativeNodePoolNativeLifecycle struct {
+	PostInit *string `pulumi:"postInit"`
+	PreInit  *string `pulumi:"preInit"`
+}
+
+// NativeNodePoolNativeLifecycleInput is an input type that accepts NativeNodePoolNativeLifecycleArgs and NativeNodePoolNativeLifecycleOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeLifecycleInput` via:
+//
+//	NativeNodePoolNativeLifecycleArgs{...}
+type NativeNodePoolNativeLifecycleInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeLifecycleOutput() NativeNodePoolNativeLifecycleOutput
+	ToNativeNodePoolNativeLifecycleOutputWithContext(context.Context) NativeNodePoolNativeLifecycleOutput
+}
+
+type NativeNodePoolNativeLifecycleArgs struct {
+	PostInit pulumi.StringPtrInput `pulumi:"postInit"`
+	PreInit  pulumi.StringPtrInput `pulumi:"preInit"`
+}
+
+func (NativeNodePoolNativeLifecycleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeLifecycleArgs) ToNativeNodePoolNativeLifecycleOutput() NativeNodePoolNativeLifecycleOutput {
+	return i.ToNativeNodePoolNativeLifecycleOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeLifecycleArgs) ToNativeNodePoolNativeLifecycleOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecycleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeLifecycleOutput)
+}
+
+func (i NativeNodePoolNativeLifecycleArgs) ToNativeNodePoolNativeLifecyclePtrOutput() NativeNodePoolNativeLifecyclePtrOutput {
+	return i.ToNativeNodePoolNativeLifecyclePtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeLifecycleArgs) ToNativeNodePoolNativeLifecyclePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecyclePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeLifecycleOutput).ToNativeNodePoolNativeLifecyclePtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeLifecyclePtrInput is an input type that accepts NativeNodePoolNativeLifecycleArgs, NativeNodePoolNativeLifecyclePtr and NativeNodePoolNativeLifecyclePtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeLifecyclePtrInput` via:
+//
+//	        NativeNodePoolNativeLifecycleArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeLifecyclePtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeLifecyclePtrOutput() NativeNodePoolNativeLifecyclePtrOutput
+	ToNativeNodePoolNativeLifecyclePtrOutputWithContext(context.Context) NativeNodePoolNativeLifecyclePtrOutput
+}
+
+type nativeNodePoolNativeLifecyclePtrType NativeNodePoolNativeLifecycleArgs
+
+func NativeNodePoolNativeLifecyclePtr(v *NativeNodePoolNativeLifecycleArgs) NativeNodePoolNativeLifecyclePtrInput {
+	return (*nativeNodePoolNativeLifecyclePtrType)(v)
+}
+
+func (*nativeNodePoolNativeLifecyclePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeLifecyclePtrType) ToNativeNodePoolNativeLifecyclePtrOutput() NativeNodePoolNativeLifecyclePtrOutput {
+	return i.ToNativeNodePoolNativeLifecyclePtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeLifecyclePtrType) ToNativeNodePoolNativeLifecyclePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecyclePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeLifecyclePtrOutput)
+}
+
+type NativeNodePoolNativeLifecycleOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeLifecycleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) ToNativeNodePoolNativeLifecycleOutput() NativeNodePoolNativeLifecycleOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) ToNativeNodePoolNativeLifecycleOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecycleOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) ToNativeNodePoolNativeLifecyclePtrOutput() NativeNodePoolNativeLifecyclePtrOutput {
+	return o.ToNativeNodePoolNativeLifecyclePtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) ToNativeNodePoolNativeLifecyclePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecyclePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeLifecycle) *NativeNodePoolNativeLifecycle {
+		return &v
+	}).(NativeNodePoolNativeLifecyclePtrOutput)
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) PostInit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeLifecycle) *string { return v.PostInit }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeLifecycleOutput) PreInit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeLifecycle) *string { return v.PreInit }).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolNativeLifecyclePtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeLifecyclePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeLifecyclePtrOutput) ToNativeNodePoolNativeLifecyclePtrOutput() NativeNodePoolNativeLifecyclePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeLifecyclePtrOutput) ToNativeNodePoolNativeLifecyclePtrOutputWithContext(ctx context.Context) NativeNodePoolNativeLifecyclePtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeLifecyclePtrOutput) Elem() NativeNodePoolNativeLifecycleOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeLifecycle) NativeNodePoolNativeLifecycle {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeLifecycle
+		return ret
+	}).(NativeNodePoolNativeLifecycleOutput)
+}
+
+func (o NativeNodePoolNativeLifecyclePtrOutput) PostInit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeLifecycle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PostInit
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeLifecyclePtrOutput) PreInit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeLifecycle) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreInit
+	}).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolNativeManagement struct {
+	Hosts       []string `pulumi:"hosts"`
+	KernelArgs  []string `pulumi:"kernelArgs"`
+	Nameservers []string `pulumi:"nameservers"`
+}
+
+// NativeNodePoolNativeManagementInput is an input type that accepts NativeNodePoolNativeManagementArgs and NativeNodePoolNativeManagementOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeManagementInput` via:
+//
+//	NativeNodePoolNativeManagementArgs{...}
+type NativeNodePoolNativeManagementInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeManagementOutput() NativeNodePoolNativeManagementOutput
+	ToNativeNodePoolNativeManagementOutputWithContext(context.Context) NativeNodePoolNativeManagementOutput
+}
+
+type NativeNodePoolNativeManagementArgs struct {
+	Hosts       pulumi.StringArrayInput `pulumi:"hosts"`
+	KernelArgs  pulumi.StringArrayInput `pulumi:"kernelArgs"`
+	Nameservers pulumi.StringArrayInput `pulumi:"nameservers"`
+}
+
+func (NativeNodePoolNativeManagementArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeManagementArgs) ToNativeNodePoolNativeManagementOutput() NativeNodePoolNativeManagementOutput {
+	return i.ToNativeNodePoolNativeManagementOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeManagementArgs) ToNativeNodePoolNativeManagementOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeManagementOutput)
+}
+
+func (i NativeNodePoolNativeManagementArgs) ToNativeNodePoolNativeManagementPtrOutput() NativeNodePoolNativeManagementPtrOutput {
+	return i.ToNativeNodePoolNativeManagementPtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeManagementArgs) ToNativeNodePoolNativeManagementPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeManagementOutput).ToNativeNodePoolNativeManagementPtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeManagementPtrInput is an input type that accepts NativeNodePoolNativeManagementArgs, NativeNodePoolNativeManagementPtr and NativeNodePoolNativeManagementPtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeManagementPtrInput` via:
+//
+//	        NativeNodePoolNativeManagementArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeManagementPtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeManagementPtrOutput() NativeNodePoolNativeManagementPtrOutput
+	ToNativeNodePoolNativeManagementPtrOutputWithContext(context.Context) NativeNodePoolNativeManagementPtrOutput
+}
+
+type nativeNodePoolNativeManagementPtrType NativeNodePoolNativeManagementArgs
+
+func NativeNodePoolNativeManagementPtr(v *NativeNodePoolNativeManagementArgs) NativeNodePoolNativeManagementPtrInput {
+	return (*nativeNodePoolNativeManagementPtrType)(v)
+}
+
+func (*nativeNodePoolNativeManagementPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeManagementPtrType) ToNativeNodePoolNativeManagementPtrOutput() NativeNodePoolNativeManagementPtrOutput {
+	return i.ToNativeNodePoolNativeManagementPtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeManagementPtrType) ToNativeNodePoolNativeManagementPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeManagementPtrOutput)
+}
+
+type NativeNodePoolNativeManagementOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeManagementOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeManagementOutput) ToNativeNodePoolNativeManagementOutput() NativeNodePoolNativeManagementOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeManagementOutput) ToNativeNodePoolNativeManagementOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeManagementOutput) ToNativeNodePoolNativeManagementPtrOutput() NativeNodePoolNativeManagementPtrOutput {
+	return o.ToNativeNodePoolNativeManagementPtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeManagementOutput) ToNativeNodePoolNativeManagementPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeManagement) *NativeNodePoolNativeManagement {
+		return &v
+	}).(NativeNodePoolNativeManagementPtrOutput)
+}
+
+func (o NativeNodePoolNativeManagementOutput) Hosts() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeManagement) []string { return v.Hosts }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeManagementOutput) KernelArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeManagement) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeManagementOutput) Nameservers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeManagement) []string { return v.Nameservers }).(pulumi.StringArrayOutput)
+}
+
+type NativeNodePoolNativeManagementPtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeManagementPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) ToNativeNodePoolNativeManagementPtrOutput() NativeNodePoolNativeManagementPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) ToNativeNodePoolNativeManagementPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeManagementPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) Elem() NativeNodePoolNativeManagementOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeManagement) NativeNodePoolNativeManagement {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeManagement
+		return ret
+	}).(NativeNodePoolNativeManagementOutput)
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) Hosts() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeManagement) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Hosts
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) KernelArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeManagement) []string {
+		if v == nil {
+			return nil
+		}
+		return v.KernelArgs
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NativeNodePoolNativeManagementPtrOutput) Nameservers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeManagement) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Nameservers
+	}).(pulumi.StringArrayOutput)
+}
+
+type NativeNodePoolNativeScaling struct {
+	CreatePolicy *string `pulumi:"createPolicy"`
+	MaxReplicas  *int    `pulumi:"maxReplicas"`
+	MinReplicas  *int    `pulumi:"minReplicas"`
+}
+
+// NativeNodePoolNativeScalingInput is an input type that accepts NativeNodePoolNativeScalingArgs and NativeNodePoolNativeScalingOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeScalingInput` via:
+//
+//	NativeNodePoolNativeScalingArgs{...}
+type NativeNodePoolNativeScalingInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeScalingOutput() NativeNodePoolNativeScalingOutput
+	ToNativeNodePoolNativeScalingOutputWithContext(context.Context) NativeNodePoolNativeScalingOutput
+}
+
+type NativeNodePoolNativeScalingArgs struct {
+	CreatePolicy pulumi.StringPtrInput `pulumi:"createPolicy"`
+	MaxReplicas  pulumi.IntPtrInput    `pulumi:"maxReplicas"`
+	MinReplicas  pulumi.IntPtrInput    `pulumi:"minReplicas"`
+}
+
+func (NativeNodePoolNativeScalingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeScalingArgs) ToNativeNodePoolNativeScalingOutput() NativeNodePoolNativeScalingOutput {
+	return i.ToNativeNodePoolNativeScalingOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeScalingArgs) ToNativeNodePoolNativeScalingOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeScalingOutput)
+}
+
+func (i NativeNodePoolNativeScalingArgs) ToNativeNodePoolNativeScalingPtrOutput() NativeNodePoolNativeScalingPtrOutput {
+	return i.ToNativeNodePoolNativeScalingPtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeScalingArgs) ToNativeNodePoolNativeScalingPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeScalingOutput).ToNativeNodePoolNativeScalingPtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeScalingPtrInput is an input type that accepts NativeNodePoolNativeScalingArgs, NativeNodePoolNativeScalingPtr and NativeNodePoolNativeScalingPtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeScalingPtrInput` via:
+//
+//	        NativeNodePoolNativeScalingArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeScalingPtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeScalingPtrOutput() NativeNodePoolNativeScalingPtrOutput
+	ToNativeNodePoolNativeScalingPtrOutputWithContext(context.Context) NativeNodePoolNativeScalingPtrOutput
+}
+
+type nativeNodePoolNativeScalingPtrType NativeNodePoolNativeScalingArgs
+
+func NativeNodePoolNativeScalingPtr(v *NativeNodePoolNativeScalingArgs) NativeNodePoolNativeScalingPtrInput {
+	return (*nativeNodePoolNativeScalingPtrType)(v)
+}
+
+func (*nativeNodePoolNativeScalingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeScalingPtrType) ToNativeNodePoolNativeScalingPtrOutput() NativeNodePoolNativeScalingPtrOutput {
+	return i.ToNativeNodePoolNativeScalingPtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeScalingPtrType) ToNativeNodePoolNativeScalingPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeScalingPtrOutput)
+}
+
+type NativeNodePoolNativeScalingOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeScalingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeScalingOutput) ToNativeNodePoolNativeScalingOutput() NativeNodePoolNativeScalingOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeScalingOutput) ToNativeNodePoolNativeScalingOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeScalingOutput) ToNativeNodePoolNativeScalingPtrOutput() NativeNodePoolNativeScalingPtrOutput {
+	return o.ToNativeNodePoolNativeScalingPtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeScalingOutput) ToNativeNodePoolNativeScalingPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeScaling) *NativeNodePoolNativeScaling {
+		return &v
+	}).(NativeNodePoolNativeScalingPtrOutput)
+}
+
+func (o NativeNodePoolNativeScalingOutput) CreatePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeScaling) *string { return v.CreatePolicy }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeScalingOutput) MaxReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeScaling) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativeScalingOutput) MinReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeScaling) *int { return v.MinReplicas }).(pulumi.IntPtrOutput)
+}
+
+type NativeNodePoolNativeScalingPtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeScalingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) ToNativeNodePoolNativeScalingPtrOutput() NativeNodePoolNativeScalingPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) ToNativeNodePoolNativeScalingPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeScalingPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) Elem() NativeNodePoolNativeScalingOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeScaling) NativeNodePoolNativeScaling {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeScaling
+		return ret
+	}).(NativeNodePoolNativeScalingOutput)
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) CreatePolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeScaling) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CreatePolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeScaling) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativeScalingPtrOutput) MinReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeScaling) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MinReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
+type NativeNodePoolNativeSystemDisk struct {
+	DiskSize int    `pulumi:"diskSize"`
+	DiskType string `pulumi:"diskType"`
+}
+
+// NativeNodePoolNativeSystemDiskInput is an input type that accepts NativeNodePoolNativeSystemDiskArgs and NativeNodePoolNativeSystemDiskOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeSystemDiskInput` via:
+//
+//	NativeNodePoolNativeSystemDiskArgs{...}
+type NativeNodePoolNativeSystemDiskInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeSystemDiskOutput() NativeNodePoolNativeSystemDiskOutput
+	ToNativeNodePoolNativeSystemDiskOutputWithContext(context.Context) NativeNodePoolNativeSystemDiskOutput
+}
+
+type NativeNodePoolNativeSystemDiskArgs struct {
+	DiskSize pulumi.IntInput    `pulumi:"diskSize"`
+	DiskType pulumi.StringInput `pulumi:"diskType"`
+}
+
+func (NativeNodePoolNativeSystemDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (i NativeNodePoolNativeSystemDiskArgs) ToNativeNodePoolNativeSystemDiskOutput() NativeNodePoolNativeSystemDiskOutput {
+	return i.ToNativeNodePoolNativeSystemDiskOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeSystemDiskArgs) ToNativeNodePoolNativeSystemDiskOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeSystemDiskOutput)
+}
+
+func (i NativeNodePoolNativeSystemDiskArgs) ToNativeNodePoolNativeSystemDiskPtrOutput() NativeNodePoolNativeSystemDiskPtrOutput {
+	return i.ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolNativeSystemDiskArgs) ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeSystemDiskOutput).ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(ctx)
+}
+
+// NativeNodePoolNativeSystemDiskPtrInput is an input type that accepts NativeNodePoolNativeSystemDiskArgs, NativeNodePoolNativeSystemDiskPtr and NativeNodePoolNativeSystemDiskPtrOutput values.
+// You can construct a concrete instance of `NativeNodePoolNativeSystemDiskPtrInput` via:
+//
+//	        NativeNodePoolNativeSystemDiskArgs{...}
+//
+//	or:
+//
+//	        nil
+type NativeNodePoolNativeSystemDiskPtrInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolNativeSystemDiskPtrOutput() NativeNodePoolNativeSystemDiskPtrOutput
+	ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(context.Context) NativeNodePoolNativeSystemDiskPtrOutput
+}
+
+type nativeNodePoolNativeSystemDiskPtrType NativeNodePoolNativeSystemDiskArgs
+
+func NativeNodePoolNativeSystemDiskPtr(v *NativeNodePoolNativeSystemDiskArgs) NativeNodePoolNativeSystemDiskPtrInput {
+	return (*nativeNodePoolNativeSystemDiskPtrType)(v)
+}
+
+func (*nativeNodePoolNativeSystemDiskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (i *nativeNodePoolNativeSystemDiskPtrType) ToNativeNodePoolNativeSystemDiskPtrOutput() NativeNodePoolNativeSystemDiskPtrOutput {
+	return i.ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(context.Background())
+}
+
+func (i *nativeNodePoolNativeSystemDiskPtrType) ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolNativeSystemDiskPtrOutput)
+}
+
+type NativeNodePoolNativeSystemDiskOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeSystemDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) ToNativeNodePoolNativeSystemDiskOutput() NativeNodePoolNativeSystemDiskOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) ToNativeNodePoolNativeSystemDiskOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) ToNativeNodePoolNativeSystemDiskPtrOutput() NativeNodePoolNativeSystemDiskPtrOutput {
+	return o.ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(context.Background())
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NativeNodePoolNativeSystemDisk) *NativeNodePoolNativeSystemDisk {
+		return &v
+	}).(NativeNodePoolNativeSystemDiskPtrOutput)
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) DiskSize() pulumi.IntOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeSystemDisk) int { return v.DiskSize }).(pulumi.IntOutput)
+}
+
+func (o NativeNodePoolNativeSystemDiskOutput) DiskType() pulumi.StringOutput {
+	return o.ApplyT(func(v NativeNodePoolNativeSystemDisk) string { return v.DiskType }).(pulumi.StringOutput)
+}
+
+type NativeNodePoolNativeSystemDiskPtrOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolNativeSystemDiskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NativeNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (o NativeNodePoolNativeSystemDiskPtrOutput) ToNativeNodePoolNativeSystemDiskPtrOutput() NativeNodePoolNativeSystemDiskPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeSystemDiskPtrOutput) ToNativeNodePoolNativeSystemDiskPtrOutputWithContext(ctx context.Context) NativeNodePoolNativeSystemDiskPtrOutput {
+	return o
+}
+
+func (o NativeNodePoolNativeSystemDiskPtrOutput) Elem() NativeNodePoolNativeSystemDiskOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeSystemDisk) NativeNodePoolNativeSystemDisk {
+		if v != nil {
+			return *v
+		}
+		var ret NativeNodePoolNativeSystemDisk
+		return ret
+	}).(NativeNodePoolNativeSystemDiskOutput)
+}
+
+func (o NativeNodePoolNativeSystemDiskPtrOutput) DiskSize() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeSystemDisk) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.DiskSize
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o NativeNodePoolNativeSystemDiskPtrOutput) DiskType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NativeNodePoolNativeSystemDisk) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.DiskType
+	}).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolTag struct {
+	ResourceType *string                `pulumi:"resourceType"`
+	Tags         []NativeNodePoolTagTag `pulumi:"tags"`
+}
+
+// NativeNodePoolTagInput is an input type that accepts NativeNodePoolTagArgs and NativeNodePoolTagOutput values.
+// You can construct a concrete instance of `NativeNodePoolTagInput` via:
+//
+//	NativeNodePoolTagArgs{...}
+type NativeNodePoolTagInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTagOutput() NativeNodePoolTagOutput
+	ToNativeNodePoolTagOutputWithContext(context.Context) NativeNodePoolTagOutput
+}
+
+type NativeNodePoolTagArgs struct {
+	ResourceType pulumi.StringPtrInput          `pulumi:"resourceType"`
+	Tags         NativeNodePoolTagTagArrayInput `pulumi:"tags"`
+}
+
+func (NativeNodePoolTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTag)(nil)).Elem()
+}
+
+func (i NativeNodePoolTagArgs) ToNativeNodePoolTagOutput() NativeNodePoolTagOutput {
+	return i.ToNativeNodePoolTagOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTagArgs) ToNativeNodePoolTagOutputWithContext(ctx context.Context) NativeNodePoolTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTagOutput)
+}
+
+// NativeNodePoolTagArrayInput is an input type that accepts NativeNodePoolTagArray and NativeNodePoolTagArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolTagArrayInput` via:
+//
+//	NativeNodePoolTagArray{ NativeNodePoolTagArgs{...} }
+type NativeNodePoolTagArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTagArrayOutput() NativeNodePoolTagArrayOutput
+	ToNativeNodePoolTagArrayOutputWithContext(context.Context) NativeNodePoolTagArrayOutput
+}
+
+type NativeNodePoolTagArray []NativeNodePoolTagInput
+
+func (NativeNodePoolTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTag)(nil)).Elem()
+}
+
+func (i NativeNodePoolTagArray) ToNativeNodePoolTagArrayOutput() NativeNodePoolTagArrayOutput {
+	return i.ToNativeNodePoolTagArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTagArray) ToNativeNodePoolTagArrayOutputWithContext(ctx context.Context) NativeNodePoolTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTagArrayOutput)
+}
+
+type NativeNodePoolTagOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTag)(nil)).Elem()
+}
+
+func (o NativeNodePoolTagOutput) ToNativeNodePoolTagOutput() NativeNodePoolTagOutput {
+	return o
+}
+
+func (o NativeNodePoolTagOutput) ToNativeNodePoolTagOutputWithContext(ctx context.Context) NativeNodePoolTagOutput {
+	return o
+}
+
+func (o NativeNodePoolTagOutput) ResourceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTag) *string { return v.ResourceType }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolTagOutput) Tags() NativeNodePoolTagTagArrayOutput {
+	return o.ApplyT(func(v NativeNodePoolTag) []NativeNodePoolTagTag { return v.Tags }).(NativeNodePoolTagTagArrayOutput)
+}
+
+type NativeNodePoolTagArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTag)(nil)).Elem()
+}
+
+func (o NativeNodePoolTagArrayOutput) ToNativeNodePoolTagArrayOutput() NativeNodePoolTagArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTagArrayOutput) ToNativeNodePoolTagArrayOutputWithContext(ctx context.Context) NativeNodePoolTagArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTagArrayOutput) Index(i pulumi.IntInput) NativeNodePoolTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolTag {
+		return vs[0].([]NativeNodePoolTag)[vs[1].(int)]
+	}).(NativeNodePoolTagOutput)
+}
+
+type NativeNodePoolTagTag struct {
+	Key   *string `pulumi:"key"`
+	Value *string `pulumi:"value"`
+}
+
+// NativeNodePoolTagTagInput is an input type that accepts NativeNodePoolTagTagArgs and NativeNodePoolTagTagOutput values.
+// You can construct a concrete instance of `NativeNodePoolTagTagInput` via:
+//
+//	NativeNodePoolTagTagArgs{...}
+type NativeNodePoolTagTagInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTagTagOutput() NativeNodePoolTagTagOutput
+	ToNativeNodePoolTagTagOutputWithContext(context.Context) NativeNodePoolTagTagOutput
+}
+
+type NativeNodePoolTagTagArgs struct {
+	Key   pulumi.StringPtrInput `pulumi:"key"`
+	Value pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (NativeNodePoolTagTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTagTag)(nil)).Elem()
+}
+
+func (i NativeNodePoolTagTagArgs) ToNativeNodePoolTagTagOutput() NativeNodePoolTagTagOutput {
+	return i.ToNativeNodePoolTagTagOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTagTagArgs) ToNativeNodePoolTagTagOutputWithContext(ctx context.Context) NativeNodePoolTagTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTagTagOutput)
+}
+
+// NativeNodePoolTagTagArrayInput is an input type that accepts NativeNodePoolTagTagArray and NativeNodePoolTagTagArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolTagTagArrayInput` via:
+//
+//	NativeNodePoolTagTagArray{ NativeNodePoolTagTagArgs{...} }
+type NativeNodePoolTagTagArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTagTagArrayOutput() NativeNodePoolTagTagArrayOutput
+	ToNativeNodePoolTagTagArrayOutputWithContext(context.Context) NativeNodePoolTagTagArrayOutput
+}
+
+type NativeNodePoolTagTagArray []NativeNodePoolTagTagInput
+
+func (NativeNodePoolTagTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTagTag)(nil)).Elem()
+}
+
+func (i NativeNodePoolTagTagArray) ToNativeNodePoolTagTagArrayOutput() NativeNodePoolTagTagArrayOutput {
+	return i.ToNativeNodePoolTagTagArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTagTagArray) ToNativeNodePoolTagTagArrayOutputWithContext(ctx context.Context) NativeNodePoolTagTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTagTagArrayOutput)
+}
+
+type NativeNodePoolTagTagOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTagTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTagTag)(nil)).Elem()
+}
+
+func (o NativeNodePoolTagTagOutput) ToNativeNodePoolTagTagOutput() NativeNodePoolTagTagOutput {
+	return o
+}
+
+func (o NativeNodePoolTagTagOutput) ToNativeNodePoolTagTagOutputWithContext(ctx context.Context) NativeNodePoolTagTagOutput {
+	return o
+}
+
+func (o NativeNodePoolTagTagOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTagTag) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolTagTagOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTagTag) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolTagTagArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTagTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTagTag)(nil)).Elem()
+}
+
+func (o NativeNodePoolTagTagArrayOutput) ToNativeNodePoolTagTagArrayOutput() NativeNodePoolTagTagArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTagTagArrayOutput) ToNativeNodePoolTagTagArrayOutputWithContext(ctx context.Context) NativeNodePoolTagTagArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTagTagArrayOutput) Index(i pulumi.IntInput) NativeNodePoolTagTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolTagTag {
+		return vs[0].([]NativeNodePoolTagTag)[vs[1].(int)]
+	}).(NativeNodePoolTagTagOutput)
+}
+
+type NativeNodePoolTaint struct {
+	Effect *string `pulumi:"effect"`
+	Key    *string `pulumi:"key"`
+	Value  *string `pulumi:"value"`
+}
+
+// NativeNodePoolTaintInput is an input type that accepts NativeNodePoolTaintArgs and NativeNodePoolTaintOutput values.
+// You can construct a concrete instance of `NativeNodePoolTaintInput` via:
+//
+//	NativeNodePoolTaintArgs{...}
+type NativeNodePoolTaintInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTaintOutput() NativeNodePoolTaintOutput
+	ToNativeNodePoolTaintOutputWithContext(context.Context) NativeNodePoolTaintOutput
+}
+
+type NativeNodePoolTaintArgs struct {
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	Key    pulumi.StringPtrInput `pulumi:"key"`
+	Value  pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (NativeNodePoolTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTaint)(nil)).Elem()
+}
+
+func (i NativeNodePoolTaintArgs) ToNativeNodePoolTaintOutput() NativeNodePoolTaintOutput {
+	return i.ToNativeNodePoolTaintOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTaintArgs) ToNativeNodePoolTaintOutputWithContext(ctx context.Context) NativeNodePoolTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTaintOutput)
+}
+
+// NativeNodePoolTaintArrayInput is an input type that accepts NativeNodePoolTaintArray and NativeNodePoolTaintArrayOutput values.
+// You can construct a concrete instance of `NativeNodePoolTaintArrayInput` via:
+//
+//	NativeNodePoolTaintArray{ NativeNodePoolTaintArgs{...} }
+type NativeNodePoolTaintArrayInput interface {
+	pulumi.Input
+
+	ToNativeNodePoolTaintArrayOutput() NativeNodePoolTaintArrayOutput
+	ToNativeNodePoolTaintArrayOutputWithContext(context.Context) NativeNodePoolTaintArrayOutput
+}
+
+type NativeNodePoolTaintArray []NativeNodePoolTaintInput
+
+func (NativeNodePoolTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTaint)(nil)).Elem()
+}
+
+func (i NativeNodePoolTaintArray) ToNativeNodePoolTaintArrayOutput() NativeNodePoolTaintArrayOutput {
+	return i.ToNativeNodePoolTaintArrayOutputWithContext(context.Background())
+}
+
+func (i NativeNodePoolTaintArray) ToNativeNodePoolTaintArrayOutputWithContext(ctx context.Context) NativeNodePoolTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NativeNodePoolTaintArrayOutput)
+}
+
+type NativeNodePoolTaintOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NativeNodePoolTaint)(nil)).Elem()
+}
+
+func (o NativeNodePoolTaintOutput) ToNativeNodePoolTaintOutput() NativeNodePoolTaintOutput {
+	return o
+}
+
+func (o NativeNodePoolTaintOutput) ToNativeNodePoolTaintOutputWithContext(ctx context.Context) NativeNodePoolTaintOutput {
+	return o
+}
+
+func (o NativeNodePoolTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolTaintOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTaint) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o NativeNodePoolTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NativeNodePoolTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type NativeNodePoolTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (NativeNodePoolTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NativeNodePoolTaint)(nil)).Elem()
+}
+
+func (o NativeNodePoolTaintArrayOutput) ToNativeNodePoolTaintArrayOutput() NativeNodePoolTaintArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTaintArrayOutput) ToNativeNodePoolTaintArrayOutputWithContext(ctx context.Context) NativeNodePoolTaintArrayOutput {
+	return o
+}
+
+func (o NativeNodePoolTaintArrayOutput) Index(i pulumi.IntInput) NativeNodePoolTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NativeNodePoolTaint {
+		return vs[0].([]NativeNodePoolTaint)[vs[1].(int)]
+	}).(NativeNodePoolTaintOutput)
+}
+
+type NodePoolAnnotation struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// NodePoolAnnotationInput is an input type that accepts NodePoolAnnotationArgs and NodePoolAnnotationOutput values.
+// You can construct a concrete instance of `NodePoolAnnotationInput` via:
+//
+//	NodePoolAnnotationArgs{...}
+type NodePoolAnnotationInput interface {
+	pulumi.Input
+
+	ToNodePoolAnnotationOutput() NodePoolAnnotationOutput
+	ToNodePoolAnnotationOutputWithContext(context.Context) NodePoolAnnotationOutput
+}
+
+type NodePoolAnnotationArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (NodePoolAnnotationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePoolAnnotation)(nil)).Elem()
+}
+
+func (i NodePoolAnnotationArgs) ToNodePoolAnnotationOutput() NodePoolAnnotationOutput {
+	return i.ToNodePoolAnnotationOutputWithContext(context.Background())
+}
+
+func (i NodePoolAnnotationArgs) ToNodePoolAnnotationOutputWithContext(ctx context.Context) NodePoolAnnotationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePoolAnnotationOutput)
+}
+
+// NodePoolAnnotationArrayInput is an input type that accepts NodePoolAnnotationArray and NodePoolAnnotationArrayOutput values.
+// You can construct a concrete instance of `NodePoolAnnotationArrayInput` via:
+//
+//	NodePoolAnnotationArray{ NodePoolAnnotationArgs{...} }
+type NodePoolAnnotationArrayInput interface {
+	pulumi.Input
+
+	ToNodePoolAnnotationArrayOutput() NodePoolAnnotationArrayOutput
+	ToNodePoolAnnotationArrayOutputWithContext(context.Context) NodePoolAnnotationArrayOutput
+}
+
+type NodePoolAnnotationArray []NodePoolAnnotationInput
+
+func (NodePoolAnnotationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodePoolAnnotation)(nil)).Elem()
+}
+
+func (i NodePoolAnnotationArray) ToNodePoolAnnotationArrayOutput() NodePoolAnnotationArrayOutput {
+	return i.ToNodePoolAnnotationArrayOutputWithContext(context.Background())
+}
+
+func (i NodePoolAnnotationArray) ToNodePoolAnnotationArrayOutputWithContext(ctx context.Context) NodePoolAnnotationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NodePoolAnnotationArrayOutput)
+}
+
+type NodePoolAnnotationOutput struct{ *pulumi.OutputState }
+
+func (NodePoolAnnotationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NodePoolAnnotation)(nil)).Elem()
+}
+
+func (o NodePoolAnnotationOutput) ToNodePoolAnnotationOutput() NodePoolAnnotationOutput {
+	return o
+}
+
+func (o NodePoolAnnotationOutput) ToNodePoolAnnotationOutputWithContext(ctx context.Context) NodePoolAnnotationOutput {
+	return o
+}
+
+func (o NodePoolAnnotationOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v NodePoolAnnotation) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o NodePoolAnnotationOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v NodePoolAnnotation) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type NodePoolAnnotationArrayOutput struct{ *pulumi.OutputState }
+
+func (NodePoolAnnotationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]NodePoolAnnotation)(nil)).Elem()
+}
+
+func (o NodePoolAnnotationArrayOutput) ToNodePoolAnnotationArrayOutput() NodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o NodePoolAnnotationArrayOutput) ToNodePoolAnnotationArrayOutputWithContext(ctx context.Context) NodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o NodePoolAnnotationArrayOutput) Index(i pulumi.IntInput) NodePoolAnnotationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) NodePoolAnnotation {
+		return vs[0].([]NodePoolAnnotation)[vs[1].(int)]
+	}).(NodePoolAnnotationOutput)
+}
+
 type NodePoolAutoScalingConfig struct {
 	BackupInstanceTypes                []string                            `pulumi:"backupInstanceTypes"`
 	BandwidthPackageId                 *string                             `pulumi:"bandwidthPackageId"`
@@ -3516,6 +8322,7 @@ type NodePoolAutoScalingConfig struct {
 	InstanceChargeTypePrepaidPeriod    *int                                `pulumi:"instanceChargeTypePrepaidPeriod"`
 	InstanceChargeTypePrepaidRenewFlag *string                             `pulumi:"instanceChargeTypePrepaidRenewFlag"`
 	InstanceName                       *string                             `pulumi:"instanceName"`
+	InstanceNameStyle                  *string                             `pulumi:"instanceNameStyle"`
 	InstanceType                       string                              `pulumi:"instanceType"`
 	InternetChargeType                 *string                             `pulumi:"internetChargeType"`
 	InternetMaxBandwidthOut            *int                                `pulumi:"internetMaxBandwidthOut"`
@@ -3555,6 +8362,7 @@ type NodePoolAutoScalingConfigArgs struct {
 	InstanceChargeTypePrepaidPeriod    pulumi.IntPtrInput                          `pulumi:"instanceChargeTypePrepaidPeriod"`
 	InstanceChargeTypePrepaidRenewFlag pulumi.StringPtrInput                       `pulumi:"instanceChargeTypePrepaidRenewFlag"`
 	InstanceName                       pulumi.StringPtrInput                       `pulumi:"instanceName"`
+	InstanceNameStyle                  pulumi.StringPtrInput                       `pulumi:"instanceNameStyle"`
 	InstanceType                       pulumi.StringInput                          `pulumi:"instanceType"`
 	InternetChargeType                 pulumi.StringPtrInput                       `pulumi:"internetChargeType"`
 	InternetMaxBandwidthOut            pulumi.IntPtrInput                          `pulumi:"internetMaxBandwidthOut"`
@@ -3693,6 +8501,10 @@ func (o NodePoolAutoScalingConfigOutput) InstanceChargeTypePrepaidRenewFlag() pu
 
 func (o NodePoolAutoScalingConfigOutput) InstanceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodePoolAutoScalingConfig) *string { return v.InstanceName }).(pulumi.StringPtrOutput)
+}
+
+func (o NodePoolAutoScalingConfigOutput) InstanceNameStyle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodePoolAutoScalingConfig) *string { return v.InstanceNameStyle }).(pulumi.StringPtrOutput)
 }
 
 func (o NodePoolAutoScalingConfigOutput) InstanceType() pulumi.StringOutput {
@@ -3873,6 +8685,15 @@ func (o NodePoolAutoScalingConfigPtrOutput) InstanceName() pulumi.StringPtrOutpu
 			return nil
 		}
 		return v.InstanceName
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NodePoolAutoScalingConfigPtrOutput) InstanceNameStyle() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodePoolAutoScalingConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.InstanceNameStyle
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -4110,14 +8931,15 @@ func (o NodePoolAutoScalingConfigDataDiskArrayOutput) Index(i pulumi.IntInput) N
 }
 
 type NodePoolNodeConfig struct {
-	DataDisks       []NodePoolNodeConfigDataDisk `pulumi:"dataDisks"`
-	DesiredPodNum   *int                         `pulumi:"desiredPodNum"`
-	DockerGraphPath *string                      `pulumi:"dockerGraphPath"`
-	ExtraArgs       []string                     `pulumi:"extraArgs"`
-	GpuArgs         *NodePoolNodeConfigGpuArgs   `pulumi:"gpuArgs"`
-	IsSchedule      *bool                        `pulumi:"isSchedule"`
-	MountTarget     *string                      `pulumi:"mountTarget"`
-	UserData        *string                      `pulumi:"userData"`
+	DataDisks          []NodePoolNodeConfigDataDisk `pulumi:"dataDisks"`
+	DesiredPodNum      *int                         `pulumi:"desiredPodNum"`
+	DockerGraphPath    *string                      `pulumi:"dockerGraphPath"`
+	ExtraArgs          []string                     `pulumi:"extraArgs"`
+	GpuArgs            *NodePoolNodeConfigGpuArgs   `pulumi:"gpuArgs"`
+	IsSchedule         *bool                        `pulumi:"isSchedule"`
+	MountTarget        *string                      `pulumi:"mountTarget"`
+	PreStartUserScript *string                      `pulumi:"preStartUserScript"`
+	UserData           *string                      `pulumi:"userData"`
 }
 
 // NodePoolNodeConfigInput is an input type that accepts NodePoolNodeConfigArgs and NodePoolNodeConfigOutput values.
@@ -4132,14 +8954,15 @@ type NodePoolNodeConfigInput interface {
 }
 
 type NodePoolNodeConfigArgs struct {
-	DataDisks       NodePoolNodeConfigDataDiskArrayInput `pulumi:"dataDisks"`
-	DesiredPodNum   pulumi.IntPtrInput                   `pulumi:"desiredPodNum"`
-	DockerGraphPath pulumi.StringPtrInput                `pulumi:"dockerGraphPath"`
-	ExtraArgs       pulumi.StringArrayInput              `pulumi:"extraArgs"`
-	GpuArgs         NodePoolNodeConfigGpuArgsPtrInput    `pulumi:"gpuArgs"`
-	IsSchedule      pulumi.BoolPtrInput                  `pulumi:"isSchedule"`
-	MountTarget     pulumi.StringPtrInput                `pulumi:"mountTarget"`
-	UserData        pulumi.StringPtrInput                `pulumi:"userData"`
+	DataDisks          NodePoolNodeConfigDataDiskArrayInput `pulumi:"dataDisks"`
+	DesiredPodNum      pulumi.IntPtrInput                   `pulumi:"desiredPodNum"`
+	DockerGraphPath    pulumi.StringPtrInput                `pulumi:"dockerGraphPath"`
+	ExtraArgs          pulumi.StringArrayInput              `pulumi:"extraArgs"`
+	GpuArgs            NodePoolNodeConfigGpuArgsPtrInput    `pulumi:"gpuArgs"`
+	IsSchedule         pulumi.BoolPtrInput                  `pulumi:"isSchedule"`
+	MountTarget        pulumi.StringPtrInput                `pulumi:"mountTarget"`
+	PreStartUserScript pulumi.StringPtrInput                `pulumi:"preStartUserScript"`
+	UserData           pulumi.StringPtrInput                `pulumi:"userData"`
 }
 
 func (NodePoolNodeConfigArgs) ElementType() reflect.Type {
@@ -4247,6 +9070,10 @@ func (o NodePoolNodeConfigOutput) MountTarget() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodePoolNodeConfig) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
 }
 
+func (o NodePoolNodeConfigOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NodePoolNodeConfig) *string { return v.PreStartUserScript }).(pulumi.StringPtrOutput)
+}
+
 func (o NodePoolNodeConfigOutput) UserData() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NodePoolNodeConfig) *string { return v.UserData }).(pulumi.StringPtrOutput)
 }
@@ -4335,6 +9162,15 @@ func (o NodePoolNodeConfigPtrOutput) MountTarget() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.MountTarget
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NodePoolNodeConfigPtrOutput) PreStartUserScript() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NodePoolNodeConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreStartUserScript
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -4772,6 +9608,7 @@ func (o NodePoolTaintArrayOutput) Index(i pulumi.IntInput) NodePoolTaintOutput {
 
 type ScaleWorkerDataDisk struct {
 	AutoFormatAndMount *bool   `pulumi:"autoFormatAndMount"`
+	DiskPartition      *string `pulumi:"diskPartition"`
 	DiskSize           *int    `pulumi:"diskSize"`
 	DiskType           *string `pulumi:"diskType"`
 	FileSystem         *string `pulumi:"fileSystem"`
@@ -4791,6 +9628,7 @@ type ScaleWorkerDataDiskInput interface {
 
 type ScaleWorkerDataDiskArgs struct {
 	AutoFormatAndMount pulumi.BoolPtrInput   `pulumi:"autoFormatAndMount"`
+	DiskPartition      pulumi.StringPtrInput `pulumi:"diskPartition"`
 	DiskSize           pulumi.IntPtrInput    `pulumi:"diskSize"`
 	DiskType           pulumi.StringPtrInput `pulumi:"diskType"`
 	FileSystem         pulumi.StringPtrInput `pulumi:"fileSystem"`
@@ -4850,6 +9688,10 @@ func (o ScaleWorkerDataDiskOutput) ToScaleWorkerDataDiskOutputWithContext(ctx co
 
 func (o ScaleWorkerDataDiskOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerDataDisk) *bool { return v.AutoFormatAndMount }).(pulumi.BoolPtrOutput)
+}
+
+func (o ScaleWorkerDataDiskOutput) DiskPartition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ScaleWorkerDataDisk) *string { return v.DiskPartition }).(pulumi.StringPtrOutput)
 }
 
 func (o ScaleWorkerDataDiskOutput) DiskSize() pulumi.IntPtrOutput {
@@ -5081,6 +9923,112 @@ func (o ScaleWorkerGpuArgsPtrOutput) MigEnable() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
+type ScaleWorkerTaint struct {
+	Effect *string `pulumi:"effect"`
+	Key    *string `pulumi:"key"`
+	Value  *string `pulumi:"value"`
+}
+
+// ScaleWorkerTaintInput is an input type that accepts ScaleWorkerTaintArgs and ScaleWorkerTaintOutput values.
+// You can construct a concrete instance of `ScaleWorkerTaintInput` via:
+//
+//	ScaleWorkerTaintArgs{...}
+type ScaleWorkerTaintInput interface {
+	pulumi.Input
+
+	ToScaleWorkerTaintOutput() ScaleWorkerTaintOutput
+	ToScaleWorkerTaintOutputWithContext(context.Context) ScaleWorkerTaintOutput
+}
+
+type ScaleWorkerTaintArgs struct {
+	Effect pulumi.StringPtrInput `pulumi:"effect"`
+	Key    pulumi.StringPtrInput `pulumi:"key"`
+	Value  pulumi.StringPtrInput `pulumi:"value"`
+}
+
+func (ScaleWorkerTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ScaleWorkerTaint)(nil)).Elem()
+}
+
+func (i ScaleWorkerTaintArgs) ToScaleWorkerTaintOutput() ScaleWorkerTaintOutput {
+	return i.ToScaleWorkerTaintOutputWithContext(context.Background())
+}
+
+func (i ScaleWorkerTaintArgs) ToScaleWorkerTaintOutputWithContext(ctx context.Context) ScaleWorkerTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ScaleWorkerTaintOutput)
+}
+
+// ScaleWorkerTaintArrayInput is an input type that accepts ScaleWorkerTaintArray and ScaleWorkerTaintArrayOutput values.
+// You can construct a concrete instance of `ScaleWorkerTaintArrayInput` via:
+//
+//	ScaleWorkerTaintArray{ ScaleWorkerTaintArgs{...} }
+type ScaleWorkerTaintArrayInput interface {
+	pulumi.Input
+
+	ToScaleWorkerTaintArrayOutput() ScaleWorkerTaintArrayOutput
+	ToScaleWorkerTaintArrayOutputWithContext(context.Context) ScaleWorkerTaintArrayOutput
+}
+
+type ScaleWorkerTaintArray []ScaleWorkerTaintInput
+
+func (ScaleWorkerTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ScaleWorkerTaint)(nil)).Elem()
+}
+
+func (i ScaleWorkerTaintArray) ToScaleWorkerTaintArrayOutput() ScaleWorkerTaintArrayOutput {
+	return i.ToScaleWorkerTaintArrayOutputWithContext(context.Background())
+}
+
+func (i ScaleWorkerTaintArray) ToScaleWorkerTaintArrayOutputWithContext(ctx context.Context) ScaleWorkerTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ScaleWorkerTaintArrayOutput)
+}
+
+type ScaleWorkerTaintOutput struct{ *pulumi.OutputState }
+
+func (ScaleWorkerTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ScaleWorkerTaint)(nil)).Elem()
+}
+
+func (o ScaleWorkerTaintOutput) ToScaleWorkerTaintOutput() ScaleWorkerTaintOutput {
+	return o
+}
+
+func (o ScaleWorkerTaintOutput) ToScaleWorkerTaintOutputWithContext(ctx context.Context) ScaleWorkerTaintOutput {
+	return o
+}
+
+func (o ScaleWorkerTaintOutput) Effect() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ScaleWorkerTaint) *string { return v.Effect }).(pulumi.StringPtrOutput)
+}
+
+func (o ScaleWorkerTaintOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ScaleWorkerTaint) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+func (o ScaleWorkerTaintOutput) Value() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ScaleWorkerTaint) *string { return v.Value }).(pulumi.StringPtrOutput)
+}
+
+type ScaleWorkerTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (ScaleWorkerTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ScaleWorkerTaint)(nil)).Elem()
+}
+
+func (o ScaleWorkerTaintArrayOutput) ToScaleWorkerTaintArrayOutput() ScaleWorkerTaintArrayOutput {
+	return o
+}
+
+func (o ScaleWorkerTaintArrayOutput) ToScaleWorkerTaintArrayOutputWithContext(ctx context.Context) ScaleWorkerTaintArrayOutput {
+	return o
+}
+
+func (o ScaleWorkerTaintArrayOutput) Index(i pulumi.IntInput) ScaleWorkerTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ScaleWorkerTaint {
+		return vs[0].([]ScaleWorkerTaint)[vs[1].(int)]
+	}).(ScaleWorkerTaintOutput)
+}
+
 type ScaleWorkerWorkerConfig struct {
 	AvailabilityZone                   *string                           `pulumi:"availabilityZone"`
 	BandwidthPackageId                 *string                           `pulumi:"bandwidthPackageId"`
@@ -5108,6 +10056,7 @@ type ScaleWorkerWorkerConfig struct {
 	SubnetId                           string                            `pulumi:"subnetId"`
 	SystemDiskSize                     *int                              `pulumi:"systemDiskSize"`
 	SystemDiskType                     *string                           `pulumi:"systemDiskType"`
+	Tags                               []ScaleWorkerWorkerConfigTag      `pulumi:"tags"`
 	UserData                           *string                           `pulumi:"userData"`
 }
 
@@ -5149,6 +10098,7 @@ type ScaleWorkerWorkerConfigArgs struct {
 	SubnetId                           pulumi.StringInput                        `pulumi:"subnetId"`
 	SystemDiskSize                     pulumi.IntPtrInput                        `pulumi:"systemDiskSize"`
 	SystemDiskType                     pulumi.StringPtrInput                     `pulumi:"systemDiskType"`
+	Tags                               ScaleWorkerWorkerConfigTagArrayInput      `pulumi:"tags"`
 	UserData                           pulumi.StringPtrInput                     `pulumi:"userData"`
 }
 
@@ -5331,6 +10281,10 @@ func (o ScaleWorkerWorkerConfigOutput) SystemDiskSize() pulumi.IntPtrOutput {
 
 func (o ScaleWorkerWorkerConfigOutput) SystemDiskType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfig) *string { return v.SystemDiskType }).(pulumi.StringPtrOutput)
+}
+
+func (o ScaleWorkerWorkerConfigOutput) Tags() ScaleWorkerWorkerConfigTagArrayOutput {
+	return o.ApplyT(func(v ScaleWorkerWorkerConfig) []ScaleWorkerWorkerConfigTag { return v.Tags }).(ScaleWorkerWorkerConfigTagArrayOutput)
 }
 
 func (o ScaleWorkerWorkerConfigOutput) UserData() pulumi.StringPtrOutput {
@@ -5595,6 +10549,15 @@ func (o ScaleWorkerWorkerConfigPtrOutput) SystemDiskType() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
+func (o ScaleWorkerWorkerConfigPtrOutput) Tags() ScaleWorkerWorkerConfigTagArrayOutput {
+	return o.ApplyT(func(v *ScaleWorkerWorkerConfig) []ScaleWorkerWorkerConfigTag {
+		if v == nil {
+			return nil
+		}
+		return v.Tags
+	}).(ScaleWorkerWorkerConfigTagArrayOutput)
+}
+
 func (o ScaleWorkerWorkerConfigPtrOutput) UserData() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleWorkerWorkerConfig) *string {
 		if v == nil {
@@ -5605,15 +10568,19 @@ func (o ScaleWorkerWorkerConfigPtrOutput) UserData() pulumi.StringPtrOutput {
 }
 
 type ScaleWorkerWorkerConfigDataDisk struct {
-	AutoFormatAndMount *bool   `pulumi:"autoFormatAndMount"`
-	DiskPartition      *string `pulumi:"diskPartition"`
-	DiskSize           *int    `pulumi:"diskSize"`
-	DiskType           *string `pulumi:"diskType"`
-	Encrypt            *bool   `pulumi:"encrypt"`
-	FileSystem         *string `pulumi:"fileSystem"`
-	KmsKeyId           *string `pulumi:"kmsKeyId"`
-	MountTarget        *string `pulumi:"mountTarget"`
-	SnapshotId         *string `pulumi:"snapshotId"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	AutoFormatAndMount *bool `pulumi:"autoFormatAndMount"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	DiskPartition *string `pulumi:"diskPartition"`
+	DiskSize      *int    `pulumi:"diskSize"`
+	DiskType      *string `pulumi:"diskType"`
+	Encrypt       *bool   `pulumi:"encrypt"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	FileSystem *string `pulumi:"fileSystem"`
+	KmsKeyId   *string `pulumi:"kmsKeyId"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	MountTarget *string `pulumi:"mountTarget"`
+	SnapshotId  *string `pulumi:"snapshotId"`
 }
 
 // ScaleWorkerWorkerConfigDataDiskInput is an input type that accepts ScaleWorkerWorkerConfigDataDiskArgs and ScaleWorkerWorkerConfigDataDiskOutput values.
@@ -5628,15 +10595,19 @@ type ScaleWorkerWorkerConfigDataDiskInput interface {
 }
 
 type ScaleWorkerWorkerConfigDataDiskArgs struct {
-	AutoFormatAndMount pulumi.BoolPtrInput   `pulumi:"autoFormatAndMount"`
-	DiskPartition      pulumi.StringPtrInput `pulumi:"diskPartition"`
-	DiskSize           pulumi.IntPtrInput    `pulumi:"diskSize"`
-	DiskType           pulumi.StringPtrInput `pulumi:"diskType"`
-	Encrypt            pulumi.BoolPtrInput   `pulumi:"encrypt"`
-	FileSystem         pulumi.StringPtrInput `pulumi:"fileSystem"`
-	KmsKeyId           pulumi.StringPtrInput `pulumi:"kmsKeyId"`
-	MountTarget        pulumi.StringPtrInput `pulumi:"mountTarget"`
-	SnapshotId         pulumi.StringPtrInput `pulumi:"snapshotId"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	AutoFormatAndMount pulumi.BoolPtrInput `pulumi:"autoFormatAndMount"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	DiskPartition pulumi.StringPtrInput `pulumi:"diskPartition"`
+	DiskSize      pulumi.IntPtrInput    `pulumi:"diskSize"`
+	DiskType      pulumi.StringPtrInput `pulumi:"diskType"`
+	Encrypt       pulumi.BoolPtrInput   `pulumi:"encrypt"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	FileSystem pulumi.StringPtrInput `pulumi:"fileSystem"`
+	KmsKeyId   pulumi.StringPtrInput `pulumi:"kmsKeyId"`
+	// Deprecated: This argument was deprecated, use `data_disk` instead.
+	MountTarget pulumi.StringPtrInput `pulumi:"mountTarget"`
+	SnapshotId  pulumi.StringPtrInput `pulumi:"snapshotId"`
 }
 
 func (ScaleWorkerWorkerConfigDataDiskArgs) ElementType() reflect.Type {
@@ -5690,10 +10661,12 @@ func (o ScaleWorkerWorkerConfigDataDiskOutput) ToScaleWorkerWorkerConfigDataDisk
 	return o
 }
 
+// Deprecated: This argument was deprecated, use `data_disk` instead.
 func (o ScaleWorkerWorkerConfigDataDiskOutput) AutoFormatAndMount() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *bool { return v.AutoFormatAndMount }).(pulumi.BoolPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `data_disk` instead.
 func (o ScaleWorkerWorkerConfigDataDiskOutput) DiskPartition() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *string { return v.DiskPartition }).(pulumi.StringPtrOutput)
 }
@@ -5710,6 +10683,7 @@ func (o ScaleWorkerWorkerConfigDataDiskOutput) Encrypt() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *bool { return v.Encrypt }).(pulumi.BoolPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `data_disk` instead.
 func (o ScaleWorkerWorkerConfigDataDiskOutput) FileSystem() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *string { return v.FileSystem }).(pulumi.StringPtrOutput)
 }
@@ -5718,6 +10692,7 @@ func (o ScaleWorkerWorkerConfigDataDiskOutput) KmsKeyId() pulumi.StringPtrOutput
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *string { return v.KmsKeyId }).(pulumi.StringPtrOutput)
 }
 
+// Deprecated: This argument was deprecated, use `data_disk` instead.
 func (o ScaleWorkerWorkerConfigDataDiskOutput) MountTarget() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleWorkerWorkerConfigDataDisk) *string { return v.MountTarget }).(pulumi.StringPtrOutput)
 }
@@ -5744,6 +10719,106 @@ func (o ScaleWorkerWorkerConfigDataDiskArrayOutput) Index(i pulumi.IntInput) Sca
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ScaleWorkerWorkerConfigDataDisk {
 		return vs[0].([]ScaleWorkerWorkerConfigDataDisk)[vs[1].(int)]
 	}).(ScaleWorkerWorkerConfigDataDiskOutput)
+}
+
+type ScaleWorkerWorkerConfigTag struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// ScaleWorkerWorkerConfigTagInput is an input type that accepts ScaleWorkerWorkerConfigTagArgs and ScaleWorkerWorkerConfigTagOutput values.
+// You can construct a concrete instance of `ScaleWorkerWorkerConfigTagInput` via:
+//
+//	ScaleWorkerWorkerConfigTagArgs{...}
+type ScaleWorkerWorkerConfigTagInput interface {
+	pulumi.Input
+
+	ToScaleWorkerWorkerConfigTagOutput() ScaleWorkerWorkerConfigTagOutput
+	ToScaleWorkerWorkerConfigTagOutputWithContext(context.Context) ScaleWorkerWorkerConfigTagOutput
+}
+
+type ScaleWorkerWorkerConfigTagArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (ScaleWorkerWorkerConfigTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ScaleWorkerWorkerConfigTag)(nil)).Elem()
+}
+
+func (i ScaleWorkerWorkerConfigTagArgs) ToScaleWorkerWorkerConfigTagOutput() ScaleWorkerWorkerConfigTagOutput {
+	return i.ToScaleWorkerWorkerConfigTagOutputWithContext(context.Background())
+}
+
+func (i ScaleWorkerWorkerConfigTagArgs) ToScaleWorkerWorkerConfigTagOutputWithContext(ctx context.Context) ScaleWorkerWorkerConfigTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ScaleWorkerWorkerConfigTagOutput)
+}
+
+// ScaleWorkerWorkerConfigTagArrayInput is an input type that accepts ScaleWorkerWorkerConfigTagArray and ScaleWorkerWorkerConfigTagArrayOutput values.
+// You can construct a concrete instance of `ScaleWorkerWorkerConfigTagArrayInput` via:
+//
+//	ScaleWorkerWorkerConfigTagArray{ ScaleWorkerWorkerConfigTagArgs{...} }
+type ScaleWorkerWorkerConfigTagArrayInput interface {
+	pulumi.Input
+
+	ToScaleWorkerWorkerConfigTagArrayOutput() ScaleWorkerWorkerConfigTagArrayOutput
+	ToScaleWorkerWorkerConfigTagArrayOutputWithContext(context.Context) ScaleWorkerWorkerConfigTagArrayOutput
+}
+
+type ScaleWorkerWorkerConfigTagArray []ScaleWorkerWorkerConfigTagInput
+
+func (ScaleWorkerWorkerConfigTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ScaleWorkerWorkerConfigTag)(nil)).Elem()
+}
+
+func (i ScaleWorkerWorkerConfigTagArray) ToScaleWorkerWorkerConfigTagArrayOutput() ScaleWorkerWorkerConfigTagArrayOutput {
+	return i.ToScaleWorkerWorkerConfigTagArrayOutputWithContext(context.Background())
+}
+
+func (i ScaleWorkerWorkerConfigTagArray) ToScaleWorkerWorkerConfigTagArrayOutputWithContext(ctx context.Context) ScaleWorkerWorkerConfigTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ScaleWorkerWorkerConfigTagArrayOutput)
+}
+
+type ScaleWorkerWorkerConfigTagOutput struct{ *pulumi.OutputState }
+
+func (ScaleWorkerWorkerConfigTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ScaleWorkerWorkerConfigTag)(nil)).Elem()
+}
+
+func (o ScaleWorkerWorkerConfigTagOutput) ToScaleWorkerWorkerConfigTagOutput() ScaleWorkerWorkerConfigTagOutput {
+	return o
+}
+
+func (o ScaleWorkerWorkerConfigTagOutput) ToScaleWorkerWorkerConfigTagOutputWithContext(ctx context.Context) ScaleWorkerWorkerConfigTagOutput {
+	return o
+}
+
+func (o ScaleWorkerWorkerConfigTagOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v ScaleWorkerWorkerConfigTag) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o ScaleWorkerWorkerConfigTagOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v ScaleWorkerWorkerConfigTag) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type ScaleWorkerWorkerConfigTagArrayOutput struct{ *pulumi.OutputState }
+
+func (ScaleWorkerWorkerConfigTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ScaleWorkerWorkerConfigTag)(nil)).Elem()
+}
+
+func (o ScaleWorkerWorkerConfigTagArrayOutput) ToScaleWorkerWorkerConfigTagArrayOutput() ScaleWorkerWorkerConfigTagArrayOutput {
+	return o
+}
+
+func (o ScaleWorkerWorkerConfigTagArrayOutput) ToScaleWorkerWorkerConfigTagArrayOutputWithContext(ctx context.Context) ScaleWorkerWorkerConfigTagArrayOutput {
+	return o
+}
+
+func (o ScaleWorkerWorkerConfigTagArrayOutput) Index(i pulumi.IntInput) ScaleWorkerWorkerConfigTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ScaleWorkerWorkerConfigTag {
+		return vs[0].([]ScaleWorkerWorkerConfigTag)[vs[1].(int)]
+	}).(ScaleWorkerWorkerConfigTagOutput)
 }
 
 type ScaleWorkerWorkerInstancesList struct {
@@ -6495,6 +11570,8 @@ func (o GetClusterAuthenticationOptionsServiceAccountArrayOutput) Index(i pulumi
 }
 
 type GetClusterCommonNamesList struct {
+	CommonName string `pulumi:"commonName"`
+	// Deprecated: It has been deprecated from version 1.81.140. Please use `common_name`.
 	CommonNames   string `pulumi:"commonNames"`
 	SubaccountUin string `pulumi:"subaccountUin"`
 }
@@ -6511,6 +11588,8 @@ type GetClusterCommonNamesListInput interface {
 }
 
 type GetClusterCommonNamesListArgs struct {
+	CommonName pulumi.StringInput `pulumi:"commonName"`
+	// Deprecated: It has been deprecated from version 1.81.140. Please use `common_name`.
 	CommonNames   pulumi.StringInput `pulumi:"commonNames"`
 	SubaccountUin pulumi.StringInput `pulumi:"subaccountUin"`
 }
@@ -6566,6 +11645,11 @@ func (o GetClusterCommonNamesListOutput) ToGetClusterCommonNamesListOutputWithCo
 	return o
 }
 
+func (o GetClusterCommonNamesListOutput) CommonName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterCommonNamesList) string { return v.CommonName }).(pulumi.StringOutput)
+}
+
+// Deprecated: It has been deprecated from version 1.81.140. Please use `common_name`.
 func (o GetClusterCommonNamesListOutput) CommonNames() pulumi.StringOutput {
 	return o.ApplyT(func(v GetClusterCommonNamesList) string { return v.CommonNames }).(pulumi.StringOutput)
 }
@@ -8102,6 +13186,1762 @@ func (o GetClusterLevelsListArrayOutput) Index(i pulumi.IntInput) GetClusterLeve
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterLevelsList {
 		return vs[0].([]GetClusterLevelsList)[vs[1].(int)]
 	}).(GetClusterLevelsListOutput)
+}
+
+type GetClusterNativeNodePoolsFilter struct {
+	Name   string   `pulumi:"name"`
+	Values []string `pulumi:"values"`
+}
+
+// GetClusterNativeNodePoolsFilterInput is an input type that accepts GetClusterNativeNodePoolsFilterArgs and GetClusterNativeNodePoolsFilterOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsFilterInput` via:
+//
+//	GetClusterNativeNodePoolsFilterArgs{...}
+type GetClusterNativeNodePoolsFilterInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsFilterOutput() GetClusterNativeNodePoolsFilterOutput
+	ToGetClusterNativeNodePoolsFilterOutputWithContext(context.Context) GetClusterNativeNodePoolsFilterOutput
+}
+
+type GetClusterNativeNodePoolsFilterArgs struct {
+	Name   pulumi.StringInput      `pulumi:"name"`
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetClusterNativeNodePoolsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsFilter)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsFilterArgs) ToGetClusterNativeNodePoolsFilterOutput() GetClusterNativeNodePoolsFilterOutput {
+	return i.ToGetClusterNativeNodePoolsFilterOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsFilterArgs) ToGetClusterNativeNodePoolsFilterOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsFilterOutput)
+}
+
+// GetClusterNativeNodePoolsFilterArrayInput is an input type that accepts GetClusterNativeNodePoolsFilterArray and GetClusterNativeNodePoolsFilterArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsFilterArrayInput` via:
+//
+//	GetClusterNativeNodePoolsFilterArray{ GetClusterNativeNodePoolsFilterArgs{...} }
+type GetClusterNativeNodePoolsFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsFilterArrayOutput() GetClusterNativeNodePoolsFilterArrayOutput
+	ToGetClusterNativeNodePoolsFilterArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsFilterArrayOutput
+}
+
+type GetClusterNativeNodePoolsFilterArray []GetClusterNativeNodePoolsFilterInput
+
+func (GetClusterNativeNodePoolsFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsFilter)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsFilterArray) ToGetClusterNativeNodePoolsFilterArrayOutput() GetClusterNativeNodePoolsFilterArrayOutput {
+	return i.ToGetClusterNativeNodePoolsFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsFilterArray) ToGetClusterNativeNodePoolsFilterArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsFilterArrayOutput)
+}
+
+type GetClusterNativeNodePoolsFilterOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsFilter)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsFilterOutput) ToGetClusterNativeNodePoolsFilterOutput() GetClusterNativeNodePoolsFilterOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsFilterOutput) ToGetClusterNativeNodePoolsFilterOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsFilterOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsFilterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsFilter) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsFilterOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsFilter) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetClusterNativeNodePoolsFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsFilter)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsFilterArrayOutput) ToGetClusterNativeNodePoolsFilterArrayOutput() GetClusterNativeNodePoolsFilterArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsFilterArrayOutput) ToGetClusterNativeNodePoolsFilterArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsFilterArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsFilterArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsFilter {
+		return vs[0].([]GetClusterNativeNodePoolsFilter)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsFilterOutput)
+}
+
+type GetClusterNativeNodePoolsNodePool struct {
+	Annotations        []GetClusterNativeNodePoolsNodePoolAnnotation `pulumi:"annotations"`
+	ClusterId          string                                        `pulumi:"clusterId"`
+	CreatedAt          string                                        `pulumi:"createdAt"`
+	DeletionProtection bool                                          `pulumi:"deletionProtection"`
+	Labels             []GetClusterNativeNodePoolsNodePoolLabel      `pulumi:"labels"`
+	LifeState          string                                        `pulumi:"lifeState"`
+	Name               string                                        `pulumi:"name"`
+	Natives            []GetClusterNativeNodePoolsNodePoolNative     `pulumi:"natives"`
+	NodePoolId         string                                        `pulumi:"nodePoolId"`
+	Tags               []GetClusterNativeNodePoolsNodePoolTag        `pulumi:"tags"`
+	Taints             []GetClusterNativeNodePoolsNodePoolTaint      `pulumi:"taints"`
+	Type               string                                        `pulumi:"type"`
+	Unschedulable      bool                                          `pulumi:"unschedulable"`
+}
+
+// GetClusterNativeNodePoolsNodePoolInput is an input type that accepts GetClusterNativeNodePoolsNodePoolArgs and GetClusterNativeNodePoolsNodePoolOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolArgs{...}
+type GetClusterNativeNodePoolsNodePoolInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolOutput() GetClusterNativeNodePoolsNodePoolOutput
+	ToGetClusterNativeNodePoolsNodePoolOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolArgs struct {
+	Annotations        GetClusterNativeNodePoolsNodePoolAnnotationArrayInput `pulumi:"annotations"`
+	ClusterId          pulumi.StringInput                                    `pulumi:"clusterId"`
+	CreatedAt          pulumi.StringInput                                    `pulumi:"createdAt"`
+	DeletionProtection pulumi.BoolInput                                      `pulumi:"deletionProtection"`
+	Labels             GetClusterNativeNodePoolsNodePoolLabelArrayInput      `pulumi:"labels"`
+	LifeState          pulumi.StringInput                                    `pulumi:"lifeState"`
+	Name               pulumi.StringInput                                    `pulumi:"name"`
+	Natives            GetClusterNativeNodePoolsNodePoolNativeArrayInput     `pulumi:"natives"`
+	NodePoolId         pulumi.StringInput                                    `pulumi:"nodePoolId"`
+	Tags               GetClusterNativeNodePoolsNodePoolTagArrayInput        `pulumi:"tags"`
+	Taints             GetClusterNativeNodePoolsNodePoolTaintArrayInput      `pulumi:"taints"`
+	Type               pulumi.StringInput                                    `pulumi:"type"`
+	Unschedulable      pulumi.BoolInput                                      `pulumi:"unschedulable"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePool)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolArgs) ToGetClusterNativeNodePoolsNodePoolOutput() GetClusterNativeNodePoolsNodePoolOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolArgs) ToGetClusterNativeNodePoolsNodePoolOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolArray and GetClusterNativeNodePoolsNodePoolArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolArray{ GetClusterNativeNodePoolsNodePoolArgs{...} }
+type GetClusterNativeNodePoolsNodePoolArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolArrayOutput() GetClusterNativeNodePoolsNodePoolArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolArray []GetClusterNativeNodePoolsNodePoolInput
+
+func (GetClusterNativeNodePoolsNodePoolArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePool)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolArray) ToGetClusterNativeNodePoolsNodePoolArrayOutput() GetClusterNativeNodePoolsNodePoolArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolArray) ToGetClusterNativeNodePoolsNodePoolArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePool)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) ToGetClusterNativeNodePoolsNodePoolOutput() GetClusterNativeNodePoolsNodePoolOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) ToGetClusterNativeNodePoolsNodePoolOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Annotations() GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) []GetClusterNativeNodePoolsNodePoolAnnotation {
+		return v.Annotations
+	}).(GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) ClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.ClusterId }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) CreatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) DeletionProtection() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) bool { return v.DeletionProtection }).(pulumi.BoolOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Labels() GetClusterNativeNodePoolsNodePoolLabelArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) []GetClusterNativeNodePoolsNodePoolLabel { return v.Labels }).(GetClusterNativeNodePoolsNodePoolLabelArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) LifeState() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.LifeState }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Natives() GetClusterNativeNodePoolsNodePoolNativeArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) []GetClusterNativeNodePoolsNodePoolNative { return v.Natives }).(GetClusterNativeNodePoolsNodePoolNativeArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) NodePoolId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.NodePoolId }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Tags() GetClusterNativeNodePoolsNodePoolTagArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) []GetClusterNativeNodePoolsNodePoolTag { return v.Tags }).(GetClusterNativeNodePoolsNodePoolTagArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Taints() GetClusterNativeNodePoolsNodePoolTaintArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) []GetClusterNativeNodePoolsNodePoolTaint { return v.Taints }).(GetClusterNativeNodePoolsNodePoolTaintArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolOutput) Unschedulable() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePool) bool { return v.Unschedulable }).(pulumi.BoolOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePool)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolArrayOutput) ToGetClusterNativeNodePoolsNodePoolArrayOutput() GetClusterNativeNodePoolsNodePoolArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolArrayOutput) ToGetClusterNativeNodePoolsNodePoolArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePool {
+		return vs[0].([]GetClusterNativeNodePoolsNodePool)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolAnnotation struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// GetClusterNativeNodePoolsNodePoolAnnotationInput is an input type that accepts GetClusterNativeNodePoolsNodePoolAnnotationArgs and GetClusterNativeNodePoolsNodePoolAnnotationOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolAnnotationInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolAnnotationArgs{...}
+type GetClusterNativeNodePoolsNodePoolAnnotationInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolAnnotationOutput() GetClusterNativeNodePoolsNodePoolAnnotationOutput
+	ToGetClusterNativeNodePoolsNodePoolAnnotationOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolAnnotationOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolAnnotationArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolAnnotationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolAnnotation)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolAnnotationArgs) ToGetClusterNativeNodePoolsNodePoolAnnotationOutput() GetClusterNativeNodePoolsNodePoolAnnotationOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolAnnotationOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolAnnotationArgs) ToGetClusterNativeNodePoolsNodePoolAnnotationOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolAnnotationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolAnnotationOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolAnnotationArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolAnnotationArray and GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolAnnotationArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolAnnotationArray{ GetClusterNativeNodePoolsNodePoolAnnotationArgs{...} }
+type GetClusterNativeNodePoolsNodePoolAnnotationArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutput() GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolAnnotationArray []GetClusterNativeNodePoolsNodePoolAnnotationInput
+
+func (GetClusterNativeNodePoolsNodePoolAnnotationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolAnnotation)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolAnnotationArray) ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutput() GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolAnnotationArray) ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolAnnotationOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolAnnotationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolAnnotation)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationOutput) ToGetClusterNativeNodePoolsNodePoolAnnotationOutput() GetClusterNativeNodePoolsNodePoolAnnotationOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationOutput) ToGetClusterNativeNodePoolsNodePoolAnnotationOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolAnnotationOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolAnnotation) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolAnnotation) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolAnnotation)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput) ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutput() GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput) ToGetClusterNativeNodePoolsNodePoolAnnotationArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolAnnotationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolAnnotation {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolAnnotation)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolAnnotationOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolLabel struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// GetClusterNativeNodePoolsNodePoolLabelInput is an input type that accepts GetClusterNativeNodePoolsNodePoolLabelArgs and GetClusterNativeNodePoolsNodePoolLabelOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolLabelInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolLabelArgs{...}
+type GetClusterNativeNodePoolsNodePoolLabelInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolLabelOutput() GetClusterNativeNodePoolsNodePoolLabelOutput
+	ToGetClusterNativeNodePoolsNodePoolLabelOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolLabelOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolLabelArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolLabelArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolLabel)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolLabelArgs) ToGetClusterNativeNodePoolsNodePoolLabelOutput() GetClusterNativeNodePoolsNodePoolLabelOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolLabelOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolLabelArgs) ToGetClusterNativeNodePoolsNodePoolLabelOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolLabelOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolLabelOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolLabelArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolLabelArray and GetClusterNativeNodePoolsNodePoolLabelArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolLabelArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolLabelArray{ GetClusterNativeNodePoolsNodePoolLabelArgs{...} }
+type GetClusterNativeNodePoolsNodePoolLabelArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolLabelArrayOutput() GetClusterNativeNodePoolsNodePoolLabelArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolLabelArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolLabelArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolLabelArray []GetClusterNativeNodePoolsNodePoolLabelInput
+
+func (GetClusterNativeNodePoolsNodePoolLabelArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolLabel)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolLabelArray) ToGetClusterNativeNodePoolsNodePoolLabelArrayOutput() GetClusterNativeNodePoolsNodePoolLabelArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolLabelArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolLabelArray) ToGetClusterNativeNodePoolsNodePoolLabelArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolLabelArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolLabelArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolLabelOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolLabelOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolLabel)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelOutput) ToGetClusterNativeNodePoolsNodePoolLabelOutput() GetClusterNativeNodePoolsNodePoolLabelOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelOutput) ToGetClusterNativeNodePoolsNodePoolLabelOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolLabelOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolLabel) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolLabel) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolLabelArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolLabelArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolLabel)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelArrayOutput) ToGetClusterNativeNodePoolsNodePoolLabelArrayOutput() GetClusterNativeNodePoolsNodePoolLabelArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelArrayOutput) ToGetClusterNativeNodePoolsNodePoolLabelArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolLabelArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolLabelArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolLabelOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolLabel {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolLabel)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolLabelOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNative struct {
+	AutoRepair             bool                                                           `pulumi:"autoRepair"`
+	DataDisks              []GetClusterNativeNodePoolsNodePoolNativeDataDisk              `pulumi:"dataDisks"`
+	EnableAutoscaling      bool                                                           `pulumi:"enableAutoscaling"`
+	HealthCheckPolicyName  string                                                         `pulumi:"healthCheckPolicyName"`
+	HostNamePattern        string                                                         `pulumi:"hostNamePattern"`
+	InstanceChargePrepaids []GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid `pulumi:"instanceChargePrepaids"`
+	InstanceChargeType     string                                                         `pulumi:"instanceChargeType"`
+	InstanceTypes          []string                                                       `pulumi:"instanceTypes"`
+	InternetAccessibles    []GetClusterNativeNodePoolsNodePoolNativeInternetAccessible    `pulumi:"internetAccessibles"`
+	KeyIds                 []string                                                       `pulumi:"keyIds"`
+	KubeletArgs            []string                                                       `pulumi:"kubeletArgs"`
+	Lifecycles             []GetClusterNativeNodePoolsNodePoolNativeLifecycle             `pulumi:"lifecycles"`
+	Managements            []GetClusterNativeNodePoolsNodePoolNativeManagement            `pulumi:"managements"`
+	Replicas               int                                                            `pulumi:"replicas"`
+	RuntimeRootDir         string                                                         `pulumi:"runtimeRootDir"`
+	Scalings               []GetClusterNativeNodePoolsNodePoolNativeScaling               `pulumi:"scalings"`
+	SecurityGroupIds       []string                                                       `pulumi:"securityGroupIds"`
+	SubnetIds              []string                                                       `pulumi:"subnetIds"`
+	SystemDisks            []GetClusterNativeNodePoolsNodePoolNativeSystemDisk            `pulumi:"systemDisks"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeArgs and GetClusterNativeNodePoolsNodePoolNativeOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeOutput() GetClusterNativeNodePoolsNodePoolNativeOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeArgs struct {
+	AutoRepair             pulumi.BoolInput                                                       `pulumi:"autoRepair"`
+	DataDisks              GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayInput              `pulumi:"dataDisks"`
+	EnableAutoscaling      pulumi.BoolInput                                                       `pulumi:"enableAutoscaling"`
+	HealthCheckPolicyName  pulumi.StringInput                                                     `pulumi:"healthCheckPolicyName"`
+	HostNamePattern        pulumi.StringInput                                                     `pulumi:"hostNamePattern"`
+	InstanceChargePrepaids GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayInput `pulumi:"instanceChargePrepaids"`
+	InstanceChargeType     pulumi.StringInput                                                     `pulumi:"instanceChargeType"`
+	InstanceTypes          pulumi.StringArrayInput                                                `pulumi:"instanceTypes"`
+	InternetAccessibles    GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayInput    `pulumi:"internetAccessibles"`
+	KeyIds                 pulumi.StringArrayInput                                                `pulumi:"keyIds"`
+	KubeletArgs            pulumi.StringArrayInput                                                `pulumi:"kubeletArgs"`
+	Lifecycles             GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayInput             `pulumi:"lifecycles"`
+	Managements            GetClusterNativeNodePoolsNodePoolNativeManagementArrayInput            `pulumi:"managements"`
+	Replicas               pulumi.IntInput                                                        `pulumi:"replicas"`
+	RuntimeRootDir         pulumi.StringInput                                                     `pulumi:"runtimeRootDir"`
+	Scalings               GetClusterNativeNodePoolsNodePoolNativeScalingArrayInput               `pulumi:"scalings"`
+	SecurityGroupIds       pulumi.StringArrayInput                                                `pulumi:"securityGroupIds"`
+	SubnetIds              pulumi.StringArrayInput                                                `pulumi:"subnetIds"`
+	SystemDisks            GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayInput            `pulumi:"systemDisks"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNative)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeArgs) ToGetClusterNativeNodePoolsNodePoolNativeOutput() GetClusterNativeNodePoolsNodePoolNativeOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeArgs) ToGetClusterNativeNodePoolsNodePoolNativeOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeArray and GetClusterNativeNodePoolsNodePoolNativeArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeArray{ GetClusterNativeNodePoolsNodePoolNativeArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeArrayOutput() GetClusterNativeNodePoolsNodePoolNativeArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeArray []GetClusterNativeNodePoolsNodePoolNativeInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNative)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeArray) ToGetClusterNativeNodePoolsNodePoolNativeArrayOutput() GetClusterNativeNodePoolsNodePoolNativeArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeArray) ToGetClusterNativeNodePoolsNodePoolNativeArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNative)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) ToGetClusterNativeNodePoolsNodePoolNativeOutput() GetClusterNativeNodePoolsNodePoolNativeOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) ToGetClusterNativeNodePoolsNodePoolNativeOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) AutoRepair() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) bool { return v.AutoRepair }).(pulumi.BoolOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) DataDisks() GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeDataDisk {
+		return v.DataDisks
+	}).(GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) EnableAutoscaling() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) bool { return v.EnableAutoscaling }).(pulumi.BoolOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) HealthCheckPolicyName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) string { return v.HealthCheckPolicyName }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) HostNamePattern() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) string { return v.HostNamePattern }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) InstanceChargePrepaids() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid {
+		return v.InstanceChargePrepaids
+	}).(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) InstanceChargeType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) string { return v.InstanceChargeType }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) InstanceTypes() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []string { return v.InstanceTypes }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) InternetAccessibles() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeInternetAccessible {
+		return v.InternetAccessibles
+	}).(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) KeyIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []string { return v.KeyIds }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) KubeletArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []string { return v.KubeletArgs }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) Lifecycles() GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeLifecycle {
+		return v.Lifecycles
+	}).(GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) Managements() GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeManagement {
+		return v.Managements
+	}).(GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) Replicas() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) int { return v.Replicas }).(pulumi.IntOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) RuntimeRootDir() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) string { return v.RuntimeRootDir }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) Scalings() GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeScaling {
+		return v.Scalings
+	}).(GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) SecurityGroupIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []string { return v.SecurityGroupIds }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) SubnetIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []string { return v.SubnetIds }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeOutput) SystemDisks() GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNative) []GetClusterNativeNodePoolsNodePoolNativeSystemDisk {
+		return v.SystemDisks
+	}).(GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNative)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeArrayOutput() GetClusterNativeNodePoolsNodePoolNativeArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNative {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNative)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeDataDisk struct {
+	AutoFormatAndMount    bool   `pulumi:"autoFormatAndMount"`
+	DiskPartition         string `pulumi:"diskPartition"`
+	DiskSize              int    `pulumi:"diskSize"`
+	DiskType              string `pulumi:"diskType"`
+	Encrypt               string `pulumi:"encrypt"`
+	FileSystem            string `pulumi:"fileSystem"`
+	KmsKeyId              string `pulumi:"kmsKeyId"`
+	MountTarget           string `pulumi:"mountTarget"`
+	SnapshotId            string `pulumi:"snapshotId"`
+	ThroughputPerformance int    `pulumi:"throughputPerformance"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeDataDiskInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs and GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeDataDiskInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs struct {
+	AutoFormatAndMount    pulumi.BoolInput   `pulumi:"autoFormatAndMount"`
+	DiskPartition         pulumi.StringInput `pulumi:"diskPartition"`
+	DiskSize              pulumi.IntInput    `pulumi:"diskSize"`
+	DiskType              pulumi.StringInput `pulumi:"diskType"`
+	Encrypt               pulumi.StringInput `pulumi:"encrypt"`
+	FileSystem            pulumi.StringInput `pulumi:"fileSystem"`
+	KmsKeyId              pulumi.StringInput `pulumi:"kmsKeyId"`
+	MountTarget           pulumi.StringInput `pulumi:"mountTarget"`
+	SnapshotId            pulumi.StringInput `pulumi:"snapshotId"`
+	ThroughputPerformance pulumi.IntInput    `pulumi:"throughputPerformance"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeDataDiskArray and GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeDataDiskArray{ GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskArray []GetClusterNativeNodePoolsNodePoolNativeDataDiskInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeDataDiskArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeDataDiskArray) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeDataDiskArray) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) AutoFormatAndMount() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) bool { return v.AutoFormatAndMount }).(pulumi.BoolOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) DiskPartition() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.DiskPartition }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) DiskSize() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) int { return v.DiskSize }).(pulumi.IntOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) DiskType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.DiskType }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) Encrypt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.Encrypt }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) FileSystem() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.FileSystem }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) KmsKeyId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.KmsKeyId }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) MountTarget() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.MountTarget }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) SnapshotId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) string { return v.SnapshotId }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput) ThroughputPerformance() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeDataDisk) int { return v.ThroughputPerformance }).(pulumi.IntOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeDataDisk)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeDataDisk {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeDataDisk)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid struct {
+	Period    int    `pulumi:"period"`
+	RenewFlag string `pulumi:"renewFlag"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs and GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs struct {
+	Period    pulumi.IntInput    `pulumi:"period"`
+	RenewFlag pulumi.StringInput `pulumi:"renewFlag"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray and GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray{ GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray []GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput) Period() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid) int { return v.Period }).(pulumi.IntOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput) RenewFlag() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid) string { return v.RenewFlag }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaid)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessible struct {
+	BandwidthPackageId string `pulumi:"bandwidthPackageId"`
+	ChargeType         string `pulumi:"chargeType"`
+	MaxBandwidthOut    int    `pulumi:"maxBandwidthOut"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs and GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs struct {
+	BandwidthPackageId pulumi.StringInput `pulumi:"bandwidthPackageId"`
+	ChargeType         pulumi.StringInput `pulumi:"chargeType"`
+	MaxBandwidthOut    pulumi.IntInput    `pulumi:"maxBandwidthOut"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray and GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray{ GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray []GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) BandwidthPackageId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeInternetAccessible) string { return v.BandwidthPackageId }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) ChargeType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeInternetAccessible) string { return v.ChargeType }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput) MaxBandwidthOut() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeInternetAccessible) int { return v.MaxBandwidthOut }).(pulumi.IntOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeInternetAccessible)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeInternetAccessible {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeInternetAccessible)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeLifecycle struct {
+	PostInit string `pulumi:"postInit"`
+	PreInit  string `pulumi:"preInit"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeLifecycleInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs and GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeLifecycleInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs struct {
+	PostInit pulumi.StringInput `pulumi:"postInit"`
+	PreInit  pulumi.StringInput `pulumi:"preInit"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeLifecycleArray and GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeLifecycleArray{ GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleArray []GetClusterNativeNodePoolsNodePoolNativeLifecycleInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeLifecycleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeLifecycleArray) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeLifecycleArray) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput) PostInit() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeLifecycle) string { return v.PostInit }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput) PreInit() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeLifecycle) string { return v.PreInit }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeLifecycle)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput() GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeLifecycle {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeLifecycle)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeManagement struct {
+	Hosts       []string `pulumi:"hosts"`
+	KernelArgs  []string `pulumi:"kernelArgs"`
+	Nameservers []string `pulumi:"nameservers"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeManagementInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeManagementArgs and GetClusterNativeNodePoolsNodePoolNativeManagementOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeManagementInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeManagementArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeManagementInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeManagementOutput() GetClusterNativeNodePoolsNodePoolNativeManagementOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeManagementOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeManagementArgs struct {
+	Hosts       pulumi.StringArrayInput `pulumi:"hosts"`
+	KernelArgs  pulumi.StringArrayInput `pulumi:"kernelArgs"`
+	Nameservers pulumi.StringArrayInput `pulumi:"nameservers"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeManagementArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeManagementArgs) ToGetClusterNativeNodePoolsNodePoolNativeManagementOutput() GetClusterNativeNodePoolsNodePoolNativeManagementOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeManagementOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeManagementArgs) ToGetClusterNativeNodePoolsNodePoolNativeManagementOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeManagementOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeManagementArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeManagementArray and GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeManagementArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeManagementArray{ GetClusterNativeNodePoolsNodePoolNativeManagementArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeManagementArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput() GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeManagementArray []GetClusterNativeNodePoolsNodePoolNativeManagementInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeManagementArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeManagementArray) ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput() GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeManagementArray) ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeManagementOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeManagementOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementOutput) ToGetClusterNativeNodePoolsNodePoolNativeManagementOutput() GetClusterNativeNodePoolsNodePoolNativeManagementOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementOutput) ToGetClusterNativeNodePoolsNodePoolNativeManagementOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementOutput) Hosts() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeManagement) []string { return v.Hosts }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementOutput) KernelArgs() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeManagement) []string { return v.KernelArgs }).(pulumi.StringArrayOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementOutput) Nameservers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeManagement) []string { return v.Nameservers }).(pulumi.StringArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeManagement)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput() GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeManagementArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeManagementOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeManagement {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeManagement)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeManagementOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeScaling struct {
+	CreatePolicy string `pulumi:"createPolicy"`
+	MaxReplicas  int    `pulumi:"maxReplicas"`
+	MinReplicas  int    `pulumi:"minReplicas"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeScalingInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeScalingArgs and GetClusterNativeNodePoolsNodePoolNativeScalingOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeScalingInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeScalingArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeScalingInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeScalingOutput() GetClusterNativeNodePoolsNodePoolNativeScalingOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeScalingOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeScalingArgs struct {
+	CreatePolicy pulumi.StringInput `pulumi:"createPolicy"`
+	MaxReplicas  pulumi.IntInput    `pulumi:"maxReplicas"`
+	MinReplicas  pulumi.IntInput    `pulumi:"minReplicas"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeScalingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeScalingArgs) ToGetClusterNativeNodePoolsNodePoolNativeScalingOutput() GetClusterNativeNodePoolsNodePoolNativeScalingOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeScalingOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeScalingArgs) ToGetClusterNativeNodePoolsNodePoolNativeScalingOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeScalingOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeScalingArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeScalingArray and GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeScalingArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeScalingArray{ GetClusterNativeNodePoolsNodePoolNativeScalingArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeScalingArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput() GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeScalingArray []GetClusterNativeNodePoolsNodePoolNativeScalingInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeScalingArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeScalingArray) ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput() GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeScalingArray) ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeScalingOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeScalingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingOutput) ToGetClusterNativeNodePoolsNodePoolNativeScalingOutput() GetClusterNativeNodePoolsNodePoolNativeScalingOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingOutput) ToGetClusterNativeNodePoolsNodePoolNativeScalingOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingOutput) CreatePolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeScaling) string { return v.CreatePolicy }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingOutput) MaxReplicas() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeScaling) int { return v.MaxReplicas }).(pulumi.IntOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingOutput) MinReplicas() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeScaling) int { return v.MinReplicas }).(pulumi.IntOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeScaling)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput() GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeScalingArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeScalingOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeScaling {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeScaling)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeScalingOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeSystemDisk struct {
+	DiskSize int    `pulumi:"diskSize"`
+	DiskType string `pulumi:"diskType"`
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeSystemDiskInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs and GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeSystemDiskInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs{...}
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs struct {
+	DiskSize pulumi.IntInput    `pulumi:"diskSize"`
+	DiskType pulumi.StringInput `pulumi:"diskType"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray and GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray{ GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs{...} }
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray []GetClusterNativeNodePoolsNodePoolNativeSystemDiskInput
+
+func (GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput) DiskSize() pulumi.IntOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeSystemDisk) int { return v.DiskSize }).(pulumi.IntOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput) DiskType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolNativeSystemDisk) string { return v.DiskType }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolNativeSystemDisk)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput() GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput) ToGetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolNativeSystemDisk {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolNativeSystemDisk)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTag struct {
+	ResourceType string                                    `pulumi:"resourceType"`
+	Tags         []GetClusterNativeNodePoolsNodePoolTagTag `pulumi:"tags"`
+}
+
+// GetClusterNativeNodePoolsNodePoolTagInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTagArgs and GetClusterNativeNodePoolsNodePoolTagOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTagInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTagArgs{...}
+type GetClusterNativeNodePoolsNodePoolTagInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTagOutput() GetClusterNativeNodePoolsNodePoolTagOutput
+	ToGetClusterNativeNodePoolsNodePoolTagOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTagOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTagArgs struct {
+	ResourceType pulumi.StringInput                                `pulumi:"resourceType"`
+	Tags         GetClusterNativeNodePoolsNodePoolTagTagArrayInput `pulumi:"tags"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTag)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagArgs) ToGetClusterNativeNodePoolsNodePoolTagOutput() GetClusterNativeNodePoolsNodePoolTagOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTagOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagArgs) ToGetClusterNativeNodePoolsNodePoolTagOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTagOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolTagArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTagArray and GetClusterNativeNodePoolsNodePoolTagArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTagArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTagArray{ GetClusterNativeNodePoolsNodePoolTagArgs{...} }
+type GetClusterNativeNodePoolsNodePoolTagArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolTagArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTagArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTagArray []GetClusterNativeNodePoolsNodePoolTagInput
+
+func (GetClusterNativeNodePoolsNodePoolTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTag)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagArray) ToGetClusterNativeNodePoolsNodePoolTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagArray) ToGetClusterNativeNodePoolsNodePoolTagArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTagArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTagOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTag)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagOutput) ToGetClusterNativeNodePoolsNodePoolTagOutput() GetClusterNativeNodePoolsNodePoolTagOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagOutput) ToGetClusterNativeNodePoolsNodePoolTagOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagOutput) ResourceType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTag) string { return v.ResourceType }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagOutput) Tags() GetClusterNativeNodePoolsNodePoolTagTagArrayOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTag) []GetClusterNativeNodePoolsNodePoolTagTag { return v.Tags }).(GetClusterNativeNodePoolsNodePoolTagTagArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTag)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagArrayOutput) ToGetClusterNativeNodePoolsNodePoolTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagArrayOutput) ToGetClusterNativeNodePoolsNodePoolTagArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolTag {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolTag)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolTagOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTagTag struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// GetClusterNativeNodePoolsNodePoolTagTagInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTagTagArgs and GetClusterNativeNodePoolsNodePoolTagTagOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTagTagInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTagTagArgs{...}
+type GetClusterNativeNodePoolsNodePoolTagTagInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTagTagOutput() GetClusterNativeNodePoolsNodePoolTagTagOutput
+	ToGetClusterNativeNodePoolsNodePoolTagTagOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTagTagOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTagTagArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolTagTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagTag)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagTagArgs) ToGetClusterNativeNodePoolsNodePoolTagTagOutput() GetClusterNativeNodePoolsNodePoolTagTagOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTagTagOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagTagArgs) ToGetClusterNativeNodePoolsNodePoolTagTagOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTagTagOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolTagTagArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTagTagArray and GetClusterNativeNodePoolsNodePoolTagTagArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTagTagArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTagTagArray{ GetClusterNativeNodePoolsNodePoolTagTagArgs{...} }
+type GetClusterNativeNodePoolsNodePoolTagTagArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagTagArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTagTagArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTagTagArray []GetClusterNativeNodePoolsNodePoolTagTagInput
+
+func (GetClusterNativeNodePoolsNodePoolTagTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTagTag)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagTagArray) ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagTagArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTagTagArray) ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTagTagArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTagTagOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTagTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagTag)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagOutput) ToGetClusterNativeNodePoolsNodePoolTagTagOutput() GetClusterNativeNodePoolsNodePoolTagTagOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagOutput) ToGetClusterNativeNodePoolsNodePoolTagTagOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagTagOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTagTag) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTagTag) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTagTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTagTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTagTag)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagArrayOutput) ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutput() GetClusterNativeNodePoolsNodePoolTagTagArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagArrayOutput) ToGetClusterNativeNodePoolsNodePoolTagTagArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTagTagArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTagTagArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolTagTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolTagTag {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolTagTag)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolTagTagOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTaint struct {
+	Effect string `pulumi:"effect"`
+	Key    string `pulumi:"key"`
+	Value  string `pulumi:"value"`
+}
+
+// GetClusterNativeNodePoolsNodePoolTaintInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTaintArgs and GetClusterNativeNodePoolsNodePoolTaintOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTaintInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTaintArgs{...}
+type GetClusterNativeNodePoolsNodePoolTaintInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTaintOutput() GetClusterNativeNodePoolsNodePoolTaintOutput
+	ToGetClusterNativeNodePoolsNodePoolTaintOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTaintOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTaintArgs struct {
+	Effect pulumi.StringInput `pulumi:"effect"`
+	Key    pulumi.StringInput `pulumi:"key"`
+	Value  pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetClusterNativeNodePoolsNodePoolTaintArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTaint)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTaintArgs) ToGetClusterNativeNodePoolsNodePoolTaintOutput() GetClusterNativeNodePoolsNodePoolTaintOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTaintOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTaintArgs) ToGetClusterNativeNodePoolsNodePoolTaintOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTaintOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTaintOutput)
+}
+
+// GetClusterNativeNodePoolsNodePoolTaintArrayInput is an input type that accepts GetClusterNativeNodePoolsNodePoolTaintArray and GetClusterNativeNodePoolsNodePoolTaintArrayOutput values.
+// You can construct a concrete instance of `GetClusterNativeNodePoolsNodePoolTaintArrayInput` via:
+//
+//	GetClusterNativeNodePoolsNodePoolTaintArray{ GetClusterNativeNodePoolsNodePoolTaintArgs{...} }
+type GetClusterNativeNodePoolsNodePoolTaintArrayInput interface {
+	pulumi.Input
+
+	ToGetClusterNativeNodePoolsNodePoolTaintArrayOutput() GetClusterNativeNodePoolsNodePoolTaintArrayOutput
+	ToGetClusterNativeNodePoolsNodePoolTaintArrayOutputWithContext(context.Context) GetClusterNativeNodePoolsNodePoolTaintArrayOutput
+}
+
+type GetClusterNativeNodePoolsNodePoolTaintArray []GetClusterNativeNodePoolsNodePoolTaintInput
+
+func (GetClusterNativeNodePoolsNodePoolTaintArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTaint)(nil)).Elem()
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTaintArray) ToGetClusterNativeNodePoolsNodePoolTaintArrayOutput() GetClusterNativeNodePoolsNodePoolTaintArrayOutput {
+	return i.ToGetClusterNativeNodePoolsNodePoolTaintArrayOutputWithContext(context.Background())
+}
+
+func (i GetClusterNativeNodePoolsNodePoolTaintArray) ToGetClusterNativeNodePoolsNodePoolTaintArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTaintArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetClusterNativeNodePoolsNodePoolTaintArrayOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTaintOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTaintOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTaint)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintOutput) ToGetClusterNativeNodePoolsNodePoolTaintOutput() GetClusterNativeNodePoolsNodePoolTaintOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintOutput) ToGetClusterNativeNodePoolsNodePoolTaintOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTaintOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintOutput) Effect() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTaint) string { return v.Effect }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTaint) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClusterNativeNodePoolsNodePoolTaint) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetClusterNativeNodePoolsNodePoolTaintArrayOutput struct{ *pulumi.OutputState }
+
+func (GetClusterNativeNodePoolsNodePoolTaintArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetClusterNativeNodePoolsNodePoolTaint)(nil)).Elem()
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintArrayOutput) ToGetClusterNativeNodePoolsNodePoolTaintArrayOutput() GetClusterNativeNodePoolsNodePoolTaintArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintArrayOutput) ToGetClusterNativeNodePoolsNodePoolTaintArrayOutputWithContext(ctx context.Context) GetClusterNativeNodePoolsNodePoolTaintArrayOutput {
+	return o
+}
+
+func (o GetClusterNativeNodePoolsNodePoolTaintArrayOutput) Index(i pulumi.IntInput) GetClusterNativeNodePoolsNodePoolTaintOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetClusterNativeNodePoolsNodePoolTaint {
+		return vs[0].([]GetClusterNativeNodePoolsNodePoolTaint)[vs[1].(int)]
+	}).(GetClusterNativeNodePoolsNodePoolTaintOutput)
 }
 
 type GetClusterNodePoolsFilter struct {
@@ -9835,6 +16675,7 @@ func (o GetClusterNodePoolsNodePoolSetTaintArrayOutput) Index(i pulumi.IntInput)
 }
 
 type GetClustersList struct {
+	CdcId                   string                           `pulumi:"cdcId"`
 	CertificationAuthority  string                           `pulumi:"certificationAuthority"`
 	ClaimExpiredSeconds     int                              `pulumi:"claimExpiredSeconds"`
 	ClusterAsEnabled        bool                             `pulumi:"clusterAsEnabled"`
@@ -9887,6 +16728,7 @@ type GetClustersListInput interface {
 }
 
 type GetClustersListArgs struct {
+	CdcId                   pulumi.StringInput                       `pulumi:"cdcId"`
 	CertificationAuthority  pulumi.StringInput                       `pulumi:"certificationAuthority"`
 	ClaimExpiredSeconds     pulumi.IntInput                          `pulumi:"claimExpiredSeconds"`
 	ClusterAsEnabled        pulumi.BoolInput                         `pulumi:"clusterAsEnabled"`
@@ -9976,6 +16818,10 @@ func (o GetClustersListOutput) ToGetClustersListOutput() GetClustersListOutput {
 
 func (o GetClustersListOutput) ToGetClustersListOutputWithContext(ctx context.Context) GetClustersListOutput {
 	return o
+}
+
+func (o GetClustersListOutput) CdcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetClustersList) string { return v.CdcId }).(pulumi.StringOutput)
 }
 
 func (o GetClustersListOutput) CertificationAuthority() pulumi.StringOutput {
@@ -10384,6 +17230,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAttachmentWorkerConfigOverridesDataDiskArrayInput)(nil)).Elem(), ClusterAttachmentWorkerConfigOverridesDataDiskArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAttachmentWorkerConfigOverridesGpuArgsInput)(nil)).Elem(), ClusterAttachmentWorkerConfigOverridesGpuArgsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAttachmentWorkerConfigOverridesGpuArgsPtrInput)(nil)).Elem(), ClusterAttachmentWorkerConfigOverridesGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAttachmentWorkerConfigTaintInput)(nil)).Elem(), ClusterAttachmentWorkerConfigTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAttachmentWorkerConfigTaintArrayInput)(nil)).Elem(), ClusterAttachmentWorkerConfigTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAuthOptionsInput)(nil)).Elem(), ClusterAuthOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterAuthOptionsPtrInput)(nil)).Elem(), ClusterAuthOptionsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterClusterAuditInput)(nil)).Elem(), ClusterClusterAuditArgs{})
@@ -10396,16 +17244,44 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceArrayInput)(nil)).Elem(), ClusterExistInstanceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaInput)(nil)).Elem(), ClusterExistInstanceInstancesParaArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaPtrInput)(nil)).Elem(), ClusterExistInstanceInstancesParaArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigPtrInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigDataDiskInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigExtraArgsInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigGpuArgsInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigLabelInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigLabelArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigLabelArrayInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigLabelArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigTaintInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExistInstanceInstancesParaMasterConfigTaintArrayInput)(nil)).Elem(), ClusterExistInstanceInstancesParaMasterConfigTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExtensionAddonInput)(nil)).Elem(), ClusterExtensionAddonArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterExtensionAddonArrayInput)(nil)).Elem(), ClusterExtensionAddonArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterLogAgentInput)(nil)).Elem(), ClusterLogAgentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterLogAgentPtrInput)(nil)).Elem(), ClusterLogAgentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentExtraArgsInput)(nil)).Elem(), ClusterMasterAttachmentExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentExtraArgsPtrInput)(nil)).Elem(), ClusterMasterAttachmentExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigPtrInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigDataDiskInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigDataDiskPtrInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigExtraArgsInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigExtraArgsPtrInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigExtraArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigGpuArgsInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigGpuArgsPtrInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigLabelInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigLabelArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigLabelArrayInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigLabelArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigTaintInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterAttachmentMasterConfigTaintArrayInput)(nil)).Elem(), ClusterMasterAttachmentMasterConfigTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterConfigInput)(nil)).Elem(), ClusterMasterConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterConfigArrayInput)(nil)).Elem(), ClusterMasterConfigArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterConfigDataDiskInput)(nil)).Elem(), ClusterMasterConfigDataDiskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterMasterConfigDataDiskArrayInput)(nil)).Elem(), ClusterMasterConfigDataDiskArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodePoolGlobalConfigInput)(nil)).Elem(), ClusterNodePoolGlobalConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterNodePoolGlobalConfigArrayInput)(nil)).Elem(), ClusterNodePoolGlobalConfigArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterResourceDeleteOptionInput)(nil)).Elem(), ClusterResourceDeleteOptionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterResourceDeleteOptionArrayInput)(nil)).Elem(), ClusterResourceDeleteOptionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerConfigInput)(nil)).Elem(), ClusterWorkerConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerConfigArrayInput)(nil)).Elem(), ClusterWorkerConfigArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerConfigDataDiskInput)(nil)).Elem(), ClusterWorkerConfigDataDiskArgs{})
@@ -10414,6 +17290,36 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterWorkerInstancesListArrayInput)(nil)).Elem(), ClusterWorkerInstancesListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EncryptionProtectionKmsConfigurationInput)(nil)).Elem(), EncryptionProtectionKmsConfigurationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*EncryptionProtectionKmsConfigurationPtrInput)(nil)).Elem(), EncryptionProtectionKmsConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HealthCheckPolicyRuleInput)(nil)).Elem(), HealthCheckPolicyRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*HealthCheckPolicyRuleArrayInput)(nil)).Elem(), HealthCheckPolicyRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolAnnotationInput)(nil)).Elem(), NativeNodePoolAnnotationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolAnnotationArrayInput)(nil)).Elem(), NativeNodePoolAnnotationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolLabelInput)(nil)).Elem(), NativeNodePoolLabelArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolLabelArrayInput)(nil)).Elem(), NativeNodePoolLabelArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeInput)(nil)).Elem(), NativeNodePoolNativeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativePtrInput)(nil)).Elem(), NativeNodePoolNativeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeDataDiskInput)(nil)).Elem(), NativeNodePoolNativeDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeDataDiskArrayInput)(nil)).Elem(), NativeNodePoolNativeDataDiskArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeInstanceChargePrepaidInput)(nil)).Elem(), NativeNodePoolNativeInstanceChargePrepaidArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeInstanceChargePrepaidPtrInput)(nil)).Elem(), NativeNodePoolNativeInstanceChargePrepaidArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeInternetAccessibleInput)(nil)).Elem(), NativeNodePoolNativeInternetAccessibleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeInternetAccessiblePtrInput)(nil)).Elem(), NativeNodePoolNativeInternetAccessibleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeLifecycleInput)(nil)).Elem(), NativeNodePoolNativeLifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeLifecyclePtrInput)(nil)).Elem(), NativeNodePoolNativeLifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeManagementInput)(nil)).Elem(), NativeNodePoolNativeManagementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeManagementPtrInput)(nil)).Elem(), NativeNodePoolNativeManagementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeScalingInput)(nil)).Elem(), NativeNodePoolNativeScalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeScalingPtrInput)(nil)).Elem(), NativeNodePoolNativeScalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeSystemDiskInput)(nil)).Elem(), NativeNodePoolNativeSystemDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolNativeSystemDiskPtrInput)(nil)).Elem(), NativeNodePoolNativeSystemDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTagInput)(nil)).Elem(), NativeNodePoolTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTagArrayInput)(nil)).Elem(), NativeNodePoolTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTagTagInput)(nil)).Elem(), NativeNodePoolTagTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTagTagArrayInput)(nil)).Elem(), NativeNodePoolTagTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTaintInput)(nil)).Elem(), NativeNodePoolTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NativeNodePoolTaintArrayInput)(nil)).Elem(), NativeNodePoolTaintArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePoolAnnotationInput)(nil)).Elem(), NodePoolAnnotationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NodePoolAnnotationArrayInput)(nil)).Elem(), NodePoolAnnotationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodePoolAutoScalingConfigInput)(nil)).Elem(), NodePoolAutoScalingConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodePoolAutoScalingConfigPtrInput)(nil)).Elem(), NodePoolAutoScalingConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NodePoolAutoScalingConfigDataDiskInput)(nil)).Elem(), NodePoolAutoScalingConfigDataDiskArgs{})
@@ -10430,10 +17336,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerDataDiskArrayInput)(nil)).Elem(), ScaleWorkerDataDiskArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerGpuArgsInput)(nil)).Elem(), ScaleWorkerGpuArgsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerGpuArgsPtrInput)(nil)).Elem(), ScaleWorkerGpuArgsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerTaintInput)(nil)).Elem(), ScaleWorkerTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerTaintArrayInput)(nil)).Elem(), ScaleWorkerTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigInput)(nil)).Elem(), ScaleWorkerWorkerConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigPtrInput)(nil)).Elem(), ScaleWorkerWorkerConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigDataDiskInput)(nil)).Elem(), ScaleWorkerWorkerConfigDataDiskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigDataDiskArrayInput)(nil)).Elem(), ScaleWorkerWorkerConfigDataDiskArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigTagInput)(nil)).Elem(), ScaleWorkerWorkerConfigTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerConfigTagArrayInput)(nil)).Elem(), ScaleWorkerWorkerConfigTagArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerInstancesListInput)(nil)).Elem(), ScaleWorkerWorkerInstancesListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScaleWorkerWorkerInstancesListArrayInput)(nil)).Elem(), ScaleWorkerWorkerInstancesListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ServerlessNodePoolServerlessNodeInput)(nil)).Elem(), ServerlessNodePoolServerlessNodeArgs{})
@@ -10476,6 +17386,36 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterInstancesInstanceSetInstanceAdvancedSettingTaintArrayInput)(nil)).Elem(), GetClusterInstancesInstanceSetInstanceAdvancedSettingTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterLevelsListInput)(nil)).Elem(), GetClusterLevelsListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterLevelsListArrayInput)(nil)).Elem(), GetClusterLevelsListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsFilterInput)(nil)).Elem(), GetClusterNativeNodePoolsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsFilterArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolAnnotationInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolAnnotationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolAnnotationArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolAnnotationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolLabelInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolLabelArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolLabelArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolLabelArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeDataDiskInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeDataDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeDataDiskArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeLifecycleInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeLifecycleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeLifecycleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeManagementInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeManagementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeManagementArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeManagementArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeScalingInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeScalingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeScalingArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeScalingArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeSystemDiskInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeSystemDiskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolNativeSystemDiskArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagTagInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTagTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTagTagArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTagTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTaintInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTaintArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNativeNodePoolsNodePoolTaintArrayInput)(nil)).Elem(), GetClusterNativeNodePoolsNodePoolTaintArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNodePoolsFilterInput)(nil)).Elem(), GetClusterNodePoolsFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNodePoolsFilterArrayInput)(nil)).Elem(), GetClusterNodePoolsFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetClusterNodePoolsNodePoolSetInput)(nil)).Elem(), GetClusterNodePoolsNodePoolSetArgs{})
@@ -10524,6 +17464,8 @@ func init() {
 	pulumi.RegisterOutputType(ClusterAttachmentWorkerConfigOverridesDataDiskArrayOutput{})
 	pulumi.RegisterOutputType(ClusterAttachmentWorkerConfigOverridesGpuArgsOutput{})
 	pulumi.RegisterOutputType(ClusterAttachmentWorkerConfigOverridesGpuArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterAttachmentWorkerConfigTaintOutput{})
+	pulumi.RegisterOutputType(ClusterAttachmentWorkerConfigTaintArrayOutput{})
 	pulumi.RegisterOutputType(ClusterAuthOptionsOutput{})
 	pulumi.RegisterOutputType(ClusterAuthOptionsPtrOutput{})
 	pulumi.RegisterOutputType(ClusterClusterAuditOutput{})
@@ -10536,16 +17478,44 @@ func init() {
 	pulumi.RegisterOutputType(ClusterExistInstanceArrayOutput{})
 	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaOutput{})
 	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaPtrOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigPtrOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigDataDiskOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigDataDiskPtrOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigExtraArgsOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigExtraArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigGpuArgsOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigGpuArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigLabelOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigLabelArrayOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigTaintOutput{})
+	pulumi.RegisterOutputType(ClusterExistInstanceInstancesParaMasterConfigTaintArrayOutput{})
 	pulumi.RegisterOutputType(ClusterExtensionAddonOutput{})
 	pulumi.RegisterOutputType(ClusterExtensionAddonArrayOutput{})
 	pulumi.RegisterOutputType(ClusterLogAgentOutput{})
 	pulumi.RegisterOutputType(ClusterLogAgentPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentExtraArgsOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentExtraArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigDataDiskOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigDataDiskPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigExtraArgsOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigExtraArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigGpuArgsOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigGpuArgsPtrOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigLabelOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigLabelArrayOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigTaintOutput{})
+	pulumi.RegisterOutputType(ClusterMasterAttachmentMasterConfigTaintArrayOutput{})
 	pulumi.RegisterOutputType(ClusterMasterConfigOutput{})
 	pulumi.RegisterOutputType(ClusterMasterConfigArrayOutput{})
 	pulumi.RegisterOutputType(ClusterMasterConfigDataDiskOutput{})
 	pulumi.RegisterOutputType(ClusterMasterConfigDataDiskArrayOutput{})
 	pulumi.RegisterOutputType(ClusterNodePoolGlobalConfigOutput{})
 	pulumi.RegisterOutputType(ClusterNodePoolGlobalConfigArrayOutput{})
+	pulumi.RegisterOutputType(ClusterResourceDeleteOptionOutput{})
+	pulumi.RegisterOutputType(ClusterResourceDeleteOptionArrayOutput{})
 	pulumi.RegisterOutputType(ClusterWorkerConfigOutput{})
 	pulumi.RegisterOutputType(ClusterWorkerConfigArrayOutput{})
 	pulumi.RegisterOutputType(ClusterWorkerConfigDataDiskOutput{})
@@ -10554,6 +17524,36 @@ func init() {
 	pulumi.RegisterOutputType(ClusterWorkerInstancesListArrayOutput{})
 	pulumi.RegisterOutputType(EncryptionProtectionKmsConfigurationOutput{})
 	pulumi.RegisterOutputType(EncryptionProtectionKmsConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(HealthCheckPolicyRuleOutput{})
+	pulumi.RegisterOutputType(HealthCheckPolicyRuleArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolAnnotationOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolAnnotationArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolLabelOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolLabelArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativePtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeDataDiskOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeDataDiskArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeInstanceChargePrepaidOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeInstanceChargePrepaidPtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeInternetAccessibleOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeInternetAccessiblePtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeLifecycleOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeLifecyclePtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeManagementOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeManagementPtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeScalingOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeScalingPtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeSystemDiskOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolNativeSystemDiskPtrOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTagOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTagArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTagTagOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTagTagArrayOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTaintOutput{})
+	pulumi.RegisterOutputType(NativeNodePoolTaintArrayOutput{})
+	pulumi.RegisterOutputType(NodePoolAnnotationOutput{})
+	pulumi.RegisterOutputType(NodePoolAnnotationArrayOutput{})
 	pulumi.RegisterOutputType(NodePoolAutoScalingConfigOutput{})
 	pulumi.RegisterOutputType(NodePoolAutoScalingConfigPtrOutput{})
 	pulumi.RegisterOutputType(NodePoolAutoScalingConfigDataDiskOutput{})
@@ -10570,10 +17570,14 @@ func init() {
 	pulumi.RegisterOutputType(ScaleWorkerDataDiskArrayOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerGpuArgsOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerGpuArgsPtrOutput{})
+	pulumi.RegisterOutputType(ScaleWorkerTaintOutput{})
+	pulumi.RegisterOutputType(ScaleWorkerTaintArrayOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigPtrOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigDataDiskOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigDataDiskArrayOutput{})
+	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigTagOutput{})
+	pulumi.RegisterOutputType(ScaleWorkerWorkerConfigTagArrayOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerInstancesListOutput{})
 	pulumi.RegisterOutputType(ScaleWorkerWorkerInstancesListArrayOutput{})
 	pulumi.RegisterOutputType(ServerlessNodePoolServerlessNodeOutput{})
@@ -10616,6 +17620,36 @@ func init() {
 	pulumi.RegisterOutputType(GetClusterInstancesInstanceSetInstanceAdvancedSettingTaintArrayOutput{})
 	pulumi.RegisterOutputType(GetClusterLevelsListOutput{})
 	pulumi.RegisterOutputType(GetClusterLevelsListArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsFilterOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolAnnotationOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolAnnotationArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolLabelOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolLabelArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeDataDiskOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeDataDiskArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeInstanceChargePrepaidArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeInternetAccessibleArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeLifecycleOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeLifecycleArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeManagementOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeManagementArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeScalingOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeScalingArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeSystemDiskOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolNativeSystemDiskArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTagOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTagArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTagTagOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTagTagArrayOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTaintOutput{})
+	pulumi.RegisterOutputType(GetClusterNativeNodePoolsNodePoolTaintArrayOutput{})
 	pulumi.RegisterOutputType(GetClusterNodePoolsFilterOutput{})
 	pulumi.RegisterOutputType(GetClusterNodePoolsFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetClusterNodePoolsNodePoolSetOutput{})

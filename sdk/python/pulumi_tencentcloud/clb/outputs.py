@@ -15,6 +15,7 @@ __all__ = [
     'FunctionTargetsAttachmentFunctionTargets',
     'FunctionTargetsAttachmentFunctionTargetsFunction',
     'InstanceSnatIp',
+    'ListenerRuleOauth',
     'ReplaceCertForLbsCertificate',
     'SnatIpIp',
     'TargetGroupAttachmentsAssociation',
@@ -247,6 +248,46 @@ class InstanceSnatIp(dict):
 
 
 @pulumi.output_type
+class ListenerRuleOauth(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "oauthEnable":
+            suggest = "oauth_enable"
+        elif key == "oauthFailureStatus":
+            suggest = "oauth_failure_status"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ListenerRuleOauth. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ListenerRuleOauth.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ListenerRuleOauth.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 oauth_enable: Optional[bool] = None,
+                 oauth_failure_status: Optional[str] = None):
+        if oauth_enable is not None:
+            pulumi.set(__self__, "oauth_enable", oauth_enable)
+        if oauth_failure_status is not None:
+            pulumi.set(__self__, "oauth_failure_status", oauth_failure_status)
+
+    @property
+    @pulumi.getter(name="oauthEnable")
+    def oauth_enable(self) -> Optional[bool]:
+        return pulumi.get(self, "oauth_enable")
+
+    @property
+    @pulumi.getter(name="oauthFailureStatus")
+    def oauth_failure_status(self) -> Optional[str]:
+        return pulumi.get(self, "oauth_failure_status")
+
+
+@pulumi.output_type
 class ReplaceCertForLbsCertificate(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -387,12 +428,14 @@ class TargetGroupAttachmentsAssociation(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "targetGroupId":
-            suggest = "target_group_id"
-        elif key == "listenerId":
+        if key == "listenerId":
             suggest = "listener_id"
+        elif key == "loadBalancerId":
+            suggest = "load_balancer_id"
         elif key == "locationId":
             suggest = "location_id"
+        elif key == "targetGroupId":
+            suggest = "target_group_id"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in TargetGroupAttachmentsAssociation. Access the value via the '{suggest}' property getter instead.")
@@ -406,19 +449,18 @@ class TargetGroupAttachmentsAssociation(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 target_group_id: str,
                  listener_id: Optional[str] = None,
-                 location_id: Optional[str] = None):
-        pulumi.set(__self__, "target_group_id", target_group_id)
+                 load_balancer_id: Optional[str] = None,
+                 location_id: Optional[str] = None,
+                 target_group_id: Optional[str] = None):
         if listener_id is not None:
             pulumi.set(__self__, "listener_id", listener_id)
+        if load_balancer_id is not None:
+            pulumi.set(__self__, "load_balancer_id", load_balancer_id)
         if location_id is not None:
             pulumi.set(__self__, "location_id", location_id)
-
-    @property
-    @pulumi.getter(name="targetGroupId")
-    def target_group_id(self) -> str:
-        return pulumi.get(self, "target_group_id")
+        if target_group_id is not None:
+            pulumi.set(__self__, "target_group_id", target_group_id)
 
     @property
     @pulumi.getter(name="listenerId")
@@ -426,9 +468,19 @@ class TargetGroupAttachmentsAssociation(dict):
         return pulumi.get(self, "listener_id")
 
     @property
+    @pulumi.getter(name="loadBalancerId")
+    def load_balancer_id(self) -> Optional[str]:
+        return pulumi.get(self, "load_balancer_id")
+
+    @property
     @pulumi.getter(name="locationId")
     def location_id(self) -> Optional[str]:
         return pulumi.get(self, "location_id")
+
+    @property
+    @pulumi.getter(name="targetGroupId")
+    def target_group_id(self) -> Optional[str]:
+        return pulumi.get(self, "target_group_id")
 
 
 @pulumi.output_type
@@ -528,12 +580,19 @@ class GetAttachmentsAttachmentListResult(dict):
 @pulumi.output_type
 class GetAttachmentsAttachmentListTargetResult(dict):
     def __init__(__self__, *,
+                 eni_ip: str,
                  instance_id: str,
                  port: int,
                  weight: int):
+        pulumi.set(__self__, "eni_ip", eni_ip)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "weight", weight)
+
+    @property
+    @pulumi.getter(name="eniIp")
+    def eni_ip(self) -> str:
+        return pulumi.get(self, "eni_ip")
 
     @property
     @pulumi.getter(name="instanceId")
@@ -2136,6 +2195,7 @@ class GetInstancesClbListResult(dict):
                  clb_id: str,
                  clb_name: str,
                  clb_vips: Sequence[str],
+                 cluster_id: str,
                  create_time: str,
                  internet_bandwidth_max_out: int,
                  internet_charge_type: str,
@@ -2159,6 +2219,7 @@ class GetInstancesClbListResult(dict):
         pulumi.set(__self__, "clb_id", clb_id)
         pulumi.set(__self__, "clb_name", clb_name)
         pulumi.set(__self__, "clb_vips", clb_vips)
+        pulumi.set(__self__, "cluster_id", cluster_id)
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "internet_bandwidth_max_out", internet_bandwidth_max_out)
         pulumi.set(__self__, "internet_charge_type", internet_charge_type)
@@ -2198,6 +2259,11 @@ class GetInstancesClbListResult(dict):
     @pulumi.getter(name="clbVips")
     def clb_vips(self) -> Sequence[str]:
         return pulumi.get(self, "clb_vips")
+
+    @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> str:
+        return pulumi.get(self, "cluster_id")
 
     @property
     @pulumi.getter(name="createTime")

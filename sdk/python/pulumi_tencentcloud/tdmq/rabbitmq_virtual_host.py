@@ -270,7 +270,7 @@ class RabbitmqVirtualHost(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="traceFlag")
-    def trace_flag(self) -> pulumi.Output[Optional[bool]]:
+    def trace_flag(self) -> pulumi.Output[bool]:
         """
         Message track switch, true is on, false is off, default is off.
         """

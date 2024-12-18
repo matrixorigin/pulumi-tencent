@@ -19,6 +19,7 @@ __all__ = [
     'CngwGatewayVpcConfigArgs',
     'CngwGroupInternetConfigArgs',
     'CngwGroupNodeConfigArgs',
+    'CngwNetworkAccessControlAccessControlArgs',
     'CngwRouteHeaderArgs',
     'CngwRouteRateLimitLimitDetailArgs',
     'CngwRouteRateLimitLimitDetailExternalRedisArgs',
@@ -32,6 +33,15 @@ __all__ = [
     'CngwServiceRateLimitLimitDetailRateLimitResponseHeaderArgs',
     'CngwServiceUpstreamInfoArgs',
     'CngwServiceUpstreamInfoTargetArgs',
+    'CngwStrategyConfigArgs',
+    'CngwStrategyConfigBehaviorArgs',
+    'CngwStrategyConfigBehaviorScaleDownArgs',
+    'CngwStrategyConfigBehaviorScaleDownPolicyArgs',
+    'CngwStrategyConfigBehaviorScaleUpArgs',
+    'CngwStrategyConfigBehaviorScaleUpPolicyArgs',
+    'CngwStrategyConfigMetricArgs',
+    'CngwStrategyCronConfigArgs',
+    'CngwStrategyCronConfigParamArgs',
     'InstanceEngineRegionInfoArgs',
     'InstanceEngineRegionInfoVpcInfoArgs',
     'GetGatewayCertificatesFilterArgs',
@@ -592,6 +602,47 @@ class CngwGroupNodeConfigArgs:
     @specification.setter
     def specification(self, value: pulumi.Input[str]):
         pulumi.set(self, "specification", value)
+
+
+@pulumi.input_type
+class CngwNetworkAccessControlAccessControlArgs:
+    def __init__(__self__, *,
+                 cidr_black_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 cidr_white_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 mode: Optional[pulumi.Input[str]] = None):
+        if cidr_black_lists is not None:
+            pulumi.set(__self__, "cidr_black_lists", cidr_black_lists)
+        if cidr_white_lists is not None:
+            pulumi.set(__self__, "cidr_white_lists", cidr_white_lists)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+
+    @property
+    @pulumi.getter(name="cidrBlackLists")
+    def cidr_black_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "cidr_black_lists")
+
+    @cidr_black_lists.setter
+    def cidr_black_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "cidr_black_lists", value)
+
+    @property
+    @pulumi.getter(name="cidrWhiteLists")
+    def cidr_white_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "cidr_white_lists")
+
+    @cidr_white_lists.setter
+    def cidr_white_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "cidr_white_lists", value)
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mode")
+
+    @mode.setter
+    def mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mode", value)
 
 
 @pulumi.input_type
@@ -1530,6 +1581,411 @@ class CngwServiceUpstreamInfoTargetArgs:
     @source.setter
     def source(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "source", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigArgs:
+    def __init__(__self__, *,
+                 behavior: Optional[pulumi.Input['CngwStrategyConfigBehaviorArgs']] = None,
+                 create_time: Optional[pulumi.Input[str]] = None,
+                 max_replicas: Optional[pulumi.Input[int]] = None,
+                 metrics: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigMetricArgs']]]] = None,
+                 modify_time: Optional[pulumi.Input[str]] = None,
+                 strategy_id: Optional[pulumi.Input[str]] = None):
+        if behavior is not None:
+            pulumi.set(__self__, "behavior", behavior)
+        if create_time is not None:
+            pulumi.set(__self__, "create_time", create_time)
+        if max_replicas is not None:
+            pulumi.set(__self__, "max_replicas", max_replicas)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
+        if modify_time is not None:
+            pulumi.set(__self__, "modify_time", modify_time)
+        if strategy_id is not None:
+            pulumi.set(__self__, "strategy_id", strategy_id)
+
+    @property
+    @pulumi.getter
+    def behavior(self) -> Optional[pulumi.Input['CngwStrategyConfigBehaviorArgs']]:
+        return pulumi.get(self, "behavior")
+
+    @behavior.setter
+    def behavior(self, value: Optional[pulumi.Input['CngwStrategyConfigBehaviorArgs']]):
+        pulumi.set(self, "behavior", value)
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "create_time")
+
+    @create_time.setter
+    def create_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "create_time", value)
+
+    @property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_replicas")
+
+    @max_replicas.setter
+    def max_replicas(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_replicas", value)
+
+    @property
+    @pulumi.getter
+    def metrics(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigMetricArgs']]]]:
+        return pulumi.get(self, "metrics")
+
+    @metrics.setter
+    def metrics(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigMetricArgs']]]]):
+        pulumi.set(self, "metrics", value)
+
+    @property
+    @pulumi.getter(name="modifyTime")
+    def modify_time(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "modify_time")
+
+    @modify_time.setter
+    def modify_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "modify_time", value)
+
+    @property
+    @pulumi.getter(name="strategyId")
+    def strategy_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "strategy_id")
+
+    @strategy_id.setter
+    def strategy_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "strategy_id", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigBehaviorArgs:
+    def __init__(__self__, *,
+                 scale_down: Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleDownArgs']] = None,
+                 scale_up: Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleUpArgs']] = None):
+        if scale_down is not None:
+            pulumi.set(__self__, "scale_down", scale_down)
+        if scale_up is not None:
+            pulumi.set(__self__, "scale_up", scale_up)
+
+    @property
+    @pulumi.getter(name="scaleDown")
+    def scale_down(self) -> Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleDownArgs']]:
+        return pulumi.get(self, "scale_down")
+
+    @scale_down.setter
+    def scale_down(self, value: Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleDownArgs']]):
+        pulumi.set(self, "scale_down", value)
+
+    @property
+    @pulumi.getter(name="scaleUp")
+    def scale_up(self) -> Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleUpArgs']]:
+        return pulumi.get(self, "scale_up")
+
+    @scale_up.setter
+    def scale_up(self, value: Optional[pulumi.Input['CngwStrategyConfigBehaviorScaleUpArgs']]):
+        pulumi.set(self, "scale_up", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigBehaviorScaleDownArgs:
+    def __init__(__self__, *,
+                 policies: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleDownPolicyArgs']]]] = None,
+                 select_policy: Optional[pulumi.Input[str]] = None,
+                 stabilization_window_seconds: Optional[pulumi.Input[int]] = None):
+        if policies is not None:
+            pulumi.set(__self__, "policies", policies)
+        if select_policy is not None:
+            pulumi.set(__self__, "select_policy", select_policy)
+        if stabilization_window_seconds is not None:
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
+
+    @property
+    @pulumi.getter
+    def policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleDownPolicyArgs']]]]:
+        return pulumi.get(self, "policies")
+
+    @policies.setter
+    def policies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleDownPolicyArgs']]]]):
+        pulumi.set(self, "policies", value)
+
+    @property
+    @pulumi.getter(name="selectPolicy")
+    def select_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "select_policy")
+
+    @select_policy.setter
+    def select_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "select_policy", value)
+
+    @property
+    @pulumi.getter(name="stabilizationWindowSeconds")
+    def stabilization_window_seconds(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "stabilization_window_seconds")
+
+    @stabilization_window_seconds.setter
+    def stabilization_window_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "stabilization_window_seconds", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigBehaviorScaleDownPolicyArgs:
+    def __init__(__self__, *,
+                 period_seconds: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[int]] = None):
+        if period_seconds is not None:
+            pulumi.set(__self__, "period_seconds", period_seconds)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter(name="periodSeconds")
+    def period_seconds(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "period_seconds")
+
+    @period_seconds.setter
+    def period_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "period_seconds", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigBehaviorScaleUpArgs:
+    def __init__(__self__, *,
+                 policies: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleUpPolicyArgs']]]] = None,
+                 select_policy: Optional[pulumi.Input[str]] = None,
+                 stabilization_window_seconds: Optional[pulumi.Input[int]] = None):
+        if policies is not None:
+            pulumi.set(__self__, "policies", policies)
+        if select_policy is not None:
+            pulumi.set(__self__, "select_policy", select_policy)
+        if stabilization_window_seconds is not None:
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
+
+    @property
+    @pulumi.getter
+    def policies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleUpPolicyArgs']]]]:
+        return pulumi.get(self, "policies")
+
+    @policies.setter
+    def policies(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyConfigBehaviorScaleUpPolicyArgs']]]]):
+        pulumi.set(self, "policies", value)
+
+    @property
+    @pulumi.getter(name="selectPolicy")
+    def select_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "select_policy")
+
+    @select_policy.setter
+    def select_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "select_policy", value)
+
+    @property
+    @pulumi.getter(name="stabilizationWindowSeconds")
+    def stabilization_window_seconds(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "stabilization_window_seconds")
+
+    @stabilization_window_seconds.setter
+    def stabilization_window_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "stabilization_window_seconds", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigBehaviorScaleUpPolicyArgs:
+    def __init__(__self__, *,
+                 period_seconds: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[int]] = None):
+        if period_seconds is not None:
+            pulumi.set(__self__, "period_seconds", period_seconds)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter(name="periodSeconds")
+    def period_seconds(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "period_seconds")
+
+    @period_seconds.setter
+    def period_seconds(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "period_seconds", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class CngwStrategyConfigMetricArgs:
+    def __init__(__self__, *,
+                 resource_name: Optional[pulumi.Input[str]] = None,
+                 target_type: Optional[pulumi.Input[str]] = None,
+                 target_value: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None):
+        if resource_name is not None:
+            pulumi.set(__self__, "resource_name", resource_name)
+        if target_type is not None:
+            pulumi.set(__self__, "target_type", target_type)
+        if target_value is not None:
+            pulumi.set(__self__, "target_value", target_value)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="resourceName")
+    def resource_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "resource_name")
+
+    @resource_name.setter
+    def resource_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "resource_name", value)
+
+    @property
+    @pulumi.getter(name="targetType")
+    def target_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "target_type")
+
+    @target_type.setter
+    def target_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target_type", value)
+
+    @property
+    @pulumi.getter(name="targetValue")
+    def target_value(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "target_value")
+
+    @target_value.setter
+    def target_value(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "target_value", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+
+@pulumi.input_type
+class CngwStrategyCronConfigArgs:
+    def __init__(__self__, *,
+                 params: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyCronConfigParamArgs']]]] = None,
+                 strategy_id: Optional[pulumi.Input[str]] = None):
+        if params is not None:
+            pulumi.set(__self__, "params", params)
+        if strategy_id is not None:
+            pulumi.set(__self__, "strategy_id", strategy_id)
+
+    @property
+    @pulumi.getter
+    def params(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyCronConfigParamArgs']]]]:
+        return pulumi.get(self, "params")
+
+    @params.setter
+    def params(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['CngwStrategyCronConfigParamArgs']]]]):
+        pulumi.set(self, "params", value)
+
+    @property
+    @pulumi.getter(name="strategyId")
+    def strategy_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "strategy_id")
+
+    @strategy_id.setter
+    def strategy_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "strategy_id", value)
+
+
+@pulumi.input_type
+class CngwStrategyCronConfigParamArgs:
+    def __init__(__self__, *,
+                 crontab: Optional[pulumi.Input[str]] = None,
+                 period: Optional[pulumi.Input[str]] = None,
+                 start_at: Optional[pulumi.Input[str]] = None,
+                 target_replicas: Optional[pulumi.Input[int]] = None):
+        if crontab is not None:
+            pulumi.set(__self__, "crontab", crontab)
+        if period is not None:
+            pulumi.set(__self__, "period", period)
+        if start_at is not None:
+            pulumi.set(__self__, "start_at", start_at)
+        if target_replicas is not None:
+            pulumi.set(__self__, "target_replicas", target_replicas)
+
+    @property
+    @pulumi.getter
+    def crontab(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "crontab")
+
+    @crontab.setter
+    def crontab(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "crontab", value)
+
+    @property
+    @pulumi.getter
+    def period(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "period")
+
+    @period.setter
+    def period(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "period", value)
+
+    @property
+    @pulumi.getter(name="startAt")
+    def start_at(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "start_at")
+
+    @start_at.setter
+    def start_at(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "start_at", value)
+
+    @property
+    @pulumi.getter(name="targetReplicas")
+    def target_replicas(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "target_replicas")
+
+    @target_replicas.setter
+    def target_replicas(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "target_replicas", value)
 
 
 @pulumi.input_type

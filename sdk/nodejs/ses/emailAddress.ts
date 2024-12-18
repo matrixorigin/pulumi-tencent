@@ -33,13 +33,17 @@ export class EmailAddress extends pulumi.CustomResource {
     }
 
     /**
-     * Your sender address. (You can create up to 10 sender addresses for each domain.).
+     * Your sender address(You can create up to 10 sender addresses for each domain).
      */
     public readonly emailAddress!: pulumi.Output<string>;
     /**
      * Sender name.
      */
     public readonly emailSenderName!: pulumi.Output<string | undefined>;
+    /**
+     * Password for SMTP, Length limit 64.
+     */
+    public readonly smtpPassword!: pulumi.Output<string | undefined>;
 
     /**
      * Create a EmailAddress resource with the given unique name, arguments, and options.
@@ -56,6 +60,7 @@ export class EmailAddress extends pulumi.CustomResource {
             const state = argsOrState as EmailAddressState | undefined;
             resourceInputs["emailAddress"] = state ? state.emailAddress : undefined;
             resourceInputs["emailSenderName"] = state ? state.emailSenderName : undefined;
+            resourceInputs["smtpPassword"] = state ? state.smtpPassword : undefined;
         } else {
             const args = argsOrState as EmailAddressArgs | undefined;
             if ((!args || args.emailAddress === undefined) && !opts.urn) {
@@ -63,8 +68,11 @@ export class EmailAddress extends pulumi.CustomResource {
             }
             resourceInputs["emailAddress"] = args ? args.emailAddress : undefined;
             resourceInputs["emailSenderName"] = args ? args.emailSenderName : undefined;
+            resourceInputs["smtpPassword"] = args?.smtpPassword ? pulumi.secret(args.smtpPassword) : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["smtpPassword"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(EmailAddress.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -74,13 +82,17 @@ export class EmailAddress extends pulumi.CustomResource {
  */
 export interface EmailAddressState {
     /**
-     * Your sender address. (You can create up to 10 sender addresses for each domain.).
+     * Your sender address(You can create up to 10 sender addresses for each domain).
      */
     emailAddress?: pulumi.Input<string>;
     /**
      * Sender name.
      */
     emailSenderName?: pulumi.Input<string>;
+    /**
+     * Password for SMTP, Length limit 64.
+     */
+    smtpPassword?: pulumi.Input<string>;
 }
 
 /**
@@ -88,11 +100,15 @@ export interface EmailAddressState {
  */
 export interface EmailAddressArgs {
     /**
-     * Your sender address. (You can create up to 10 sender addresses for each domain.).
+     * Your sender address(You can create up to 10 sender addresses for each domain).
      */
     emailAddress: pulumi.Input<string>;
     /**
      * Sender name.
      */
     emailSenderName?: pulumi.Input<string>;
+    /**
+     * Password for SMTP, Length limit 64.
+     */
+    smtpPassword?: pulumi.Input<string>;
 }

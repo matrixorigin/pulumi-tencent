@@ -19,13 +19,13 @@ type Acl struct {
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Egresses pulumi.StringArrayOutput `pulumi:"egresses"`
 	// Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Ingresses pulumi.StringArrayOutput `pulumi:"ingresses"`
 	// Name of the network ACL.
 	Name pulumi.StringOutput `pulumi:"name"`
@@ -72,13 +72,13 @@ type aclState struct {
 	CreateTime *string `pulumi:"createTime"`
 	// Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Egresses []string `pulumi:"egresses"`
 	// Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Ingresses []string `pulumi:"ingresses"`
 	// Name of the network ACL.
 	Name *string `pulumi:"name"`
@@ -93,13 +93,13 @@ type AclState struct {
 	CreateTime pulumi.StringPtrInput
 	// Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Egresses pulumi.StringArrayInput
 	// Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Ingresses pulumi.StringArrayInput
 	// Name of the network ACL.
 	Name pulumi.StringPtrInput
@@ -116,13 +116,13 @@ func (AclState) ElementType() reflect.Type {
 type aclArgs struct {
 	// Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Egresses []string `pulumi:"egresses"`
 	// Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Ingresses []string `pulumi:"ingresses"`
 	// Name of the network ACL.
 	Name *string `pulumi:"name"`
@@ -136,13 +136,13 @@ type aclArgs struct {
 type AclArgs struct {
 	// Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Egresses pulumi.StringArrayInput
 	// Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 	// 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-	// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-	// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+	// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+	// or `ALL`, the 'port' must be `ALL`.
 	Ingresses pulumi.StringArrayInput
 	// Name of the network ACL.
 	Name pulumi.StringPtrInput
@@ -246,16 +246,16 @@ func (o AclOutput) CreateTime() pulumi.StringOutput {
 
 // Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 // 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+// or `ALL`, the 'port' must be `ALL`.
 func (o AclOutput) Egresses() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Acl) pulumi.StringArrayOutput { return v.Egresses }).(pulumi.StringArrayOutput)
 }
 
 // Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
 // 'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-// `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-// is `ICMP` or `ALL`, the 'port' must be `ALL`.
+// `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+// or `ALL`, the 'port' must be `ALL`.
 func (o AclOutput) Ingresses() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Acl) pulumi.StringArrayOutput { return v.Ingresses }).(pulumi.StringArrayOutput)
 }

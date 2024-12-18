@@ -11,14 +11,25 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'AccountPrivilegesOperationModifyPrivilegeSet',
+    'AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege',
+    'AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject',
+    'CloneDbInstanceDbNodeSet',
+    'CloneDbInstanceTagList',
     'InstanceBackupPlan',
     'InstanceDbNodeSet',
     'ParameterTemplateModifyParamEntrySet',
+    'ReadonlyGroupNetInfoList',
+    'GetAccountPrivilegesDatabaseObjectSetResult',
+    'GetAccountPrivilegesPrivilegeSetResult',
+    'GetAccountPrivilegesPrivilegeSetObjectResult',
     'GetBackupDownloadUrlsBackupDownloadRestrictionResult',
     'GetBaseBackupsBaseBackupSetResult',
     'GetBaseBackupsFilterResult',
     'GetDbInstanceClassesClassInfoSetResult',
     'GetDbInstanceVersionsVersionSetResult',
+    'GetDedicatedClustersDedicatedClusterSetResult',
+    'GetDedicatedClustersFilterResult',
     'GetDefaultParametersParamInfoSetResult',
     'GetDefaultParametersParamInfoSetSpecRelationSetResult',
     'GetDefaultParametersParamInfoSetVersionRelationSetResult',
@@ -41,6 +52,244 @@ __all__ = [
     'GetXlogsListResult',
     'GetZonesZoneSetResult',
 ]
+
+@pulumi.output_type
+class AccountPrivilegesOperationModifyPrivilegeSet(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "databasePrivilege":
+            suggest = "database_privilege"
+        elif key == "isCascade":
+            suggest = "is_cascade"
+        elif key == "modifyType":
+            suggest = "modify_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AccountPrivilegesOperationModifyPrivilegeSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSet.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 database_privilege: Optional['outputs.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege'] = None,
+                 is_cascade: Optional[bool] = None,
+                 modify_type: Optional[str] = None):
+        if database_privilege is not None:
+            pulumi.set(__self__, "database_privilege", database_privilege)
+        if is_cascade is not None:
+            pulumi.set(__self__, "is_cascade", is_cascade)
+        if modify_type is not None:
+            pulumi.set(__self__, "modify_type", modify_type)
+
+    @property
+    @pulumi.getter(name="databasePrivilege")
+    def database_privilege(self) -> Optional['outputs.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege']:
+        return pulumi.get(self, "database_privilege")
+
+    @property
+    @pulumi.getter(name="isCascade")
+    def is_cascade(self) -> Optional[bool]:
+        return pulumi.get(self, "is_cascade")
+
+    @property
+    @pulumi.getter(name="modifyType")
+    def modify_type(self) -> Optional[str]:
+        return pulumi.get(self, "modify_type")
+
+
+@pulumi.output_type
+class AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "privilegeSets":
+            suggest = "privilege_sets"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 object: Optional['outputs.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject'] = None,
+                 privilege_sets: Optional[Sequence[str]] = None):
+        if object is not None:
+            pulumi.set(__self__, "object", object)
+        if privilege_sets is not None:
+            pulumi.set(__self__, "privilege_sets", privilege_sets)
+
+    @property
+    @pulumi.getter
+    def object(self) -> Optional['outputs.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject']:
+        return pulumi.get(self, "object")
+
+    @property
+    @pulumi.getter(name="privilegeSets")
+    def privilege_sets(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "privilege_sets")
+
+
+@pulumi.output_type
+class AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "objectName":
+            suggest = "object_name"
+        elif key == "objectType":
+            suggest = "object_type"
+        elif key == "databaseName":
+            suggest = "database_name"
+        elif key == "schemaName":
+            suggest = "schema_name"
+        elif key == "tableName":
+            suggest = "table_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 object_name: str,
+                 object_type: str,
+                 database_name: Optional[str] = None,
+                 schema_name: Optional[str] = None,
+                 table_name: Optional[str] = None):
+        pulumi.set(__self__, "object_name", object_name)
+        pulumi.set(__self__, "object_type", object_type)
+        if database_name is not None:
+            pulumi.set(__self__, "database_name", database_name)
+        if schema_name is not None:
+            pulumi.set(__self__, "schema_name", schema_name)
+        if table_name is not None:
+            pulumi.set(__self__, "table_name", table_name)
+
+    @property
+    @pulumi.getter(name="objectName")
+    def object_name(self) -> str:
+        return pulumi.get(self, "object_name")
+
+    @property
+    @pulumi.getter(name="objectType")
+    def object_type(self) -> str:
+        return pulumi.get(self, "object_type")
+
+    @property
+    @pulumi.getter(name="databaseName")
+    def database_name(self) -> Optional[str]:
+        return pulumi.get(self, "database_name")
+
+    @property
+    @pulumi.getter(name="schemaName")
+    def schema_name(self) -> Optional[str]:
+        return pulumi.get(self, "schema_name")
+
+    @property
+    @pulumi.getter(name="tableName")
+    def table_name(self) -> Optional[str]:
+        return pulumi.get(self, "table_name")
+
+
+@pulumi.output_type
+class CloneDbInstanceDbNodeSet(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dedicatedClusterId":
+            suggest = "dedicated_cluster_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CloneDbInstanceDbNodeSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CloneDbInstanceDbNodeSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CloneDbInstanceDbNodeSet.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 role: str,
+                 zone: str,
+                 dedicated_cluster_id: Optional[str] = None):
+        pulumi.set(__self__, "role", role)
+        pulumi.set(__self__, "zone", zone)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
+
+    @property
+    @pulumi.getter
+    def role(self) -> str:
+        return pulumi.get(self, "role")
+
+    @property
+    @pulumi.getter
+    def zone(self) -> str:
+        return pulumi.get(self, "zone")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[str]:
+        return pulumi.get(self, "dedicated_cluster_id")
+
+
+@pulumi.output_type
+class CloneDbInstanceTagList(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "tagKey":
+            suggest = "tag_key"
+        elif key == "tagValue":
+            suggest = "tag_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CloneDbInstanceTagList. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CloneDbInstanceTagList.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CloneDbInstanceTagList.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
 
 @pulumi.output_type
 class InstanceBackupPlan(dict):
@@ -104,10 +353,30 @@ class InstanceBackupPlan(dict):
 
 @pulumi.output_type
 class InstanceDbNodeSet(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "dedicatedClusterId":
+            suggest = "dedicated_cluster_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in InstanceDbNodeSet. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        InstanceDbNodeSet.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        InstanceDbNodeSet.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  zone: str,
+                 dedicated_cluster_id: Optional[str] = None,
                  role: Optional[str] = None):
         pulumi.set(__self__, "zone", zone)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         if role is not None:
             pulumi.set(__self__, "role", role)
 
@@ -115,6 +384,11 @@ class InstanceDbNodeSet(dict):
     @pulumi.getter
     def zone(self) -> str:
         return pulumi.get(self, "zone")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[str]:
+        return pulumi.get(self, "dedicated_cluster_id")
 
     @property
     @pulumi.getter
@@ -156,6 +430,129 @@ class ParameterTemplateModifyParamEntrySet(dict):
     @pulumi.getter
     def name(self) -> str:
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class ReadonlyGroupNetInfoList(dict):
+    def __init__(__self__, *,
+                 ip: Optional[str] = None,
+                 port: Optional[int] = None):
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+        if port is not None:
+            pulumi.set(__self__, "port", port)
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[str]:
+        return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter
+    def port(self) -> Optional[int]:
+        return pulumi.get(self, "port")
+
+
+@pulumi.output_type
+class GetAccountPrivilegesDatabaseObjectSetResult(dict):
+    def __init__(__self__, *,
+                 object_name: str,
+                 object_type: str,
+                 database_name: Optional[str] = None,
+                 schema_name: Optional[str] = None,
+                 table_name: Optional[str] = None):
+        pulumi.set(__self__, "object_name", object_name)
+        pulumi.set(__self__, "object_type", object_type)
+        if database_name is not None:
+            pulumi.set(__self__, "database_name", database_name)
+        if schema_name is not None:
+            pulumi.set(__self__, "schema_name", schema_name)
+        if table_name is not None:
+            pulumi.set(__self__, "table_name", table_name)
+
+    @property
+    @pulumi.getter(name="objectName")
+    def object_name(self) -> str:
+        return pulumi.get(self, "object_name")
+
+    @property
+    @pulumi.getter(name="objectType")
+    def object_type(self) -> str:
+        return pulumi.get(self, "object_type")
+
+    @property
+    @pulumi.getter(name="databaseName")
+    def database_name(self) -> Optional[str]:
+        return pulumi.get(self, "database_name")
+
+    @property
+    @pulumi.getter(name="schemaName")
+    def schema_name(self) -> Optional[str]:
+        return pulumi.get(self, "schema_name")
+
+    @property
+    @pulumi.getter(name="tableName")
+    def table_name(self) -> Optional[str]:
+        return pulumi.get(self, "table_name")
+
+
+@pulumi.output_type
+class GetAccountPrivilegesPrivilegeSetResult(dict):
+    def __init__(__self__, *,
+                 objects: Sequence['outputs.GetAccountPrivilegesPrivilegeSetObjectResult'],
+                 privilege_sets: Sequence[str]):
+        pulumi.set(__self__, "objects", objects)
+        pulumi.set(__self__, "privilege_sets", privilege_sets)
+
+    @property
+    @pulumi.getter
+    def objects(self) -> Sequence['outputs.GetAccountPrivilegesPrivilegeSetObjectResult']:
+        return pulumi.get(self, "objects")
+
+    @property
+    @pulumi.getter(name="privilegeSets")
+    def privilege_sets(self) -> Sequence[str]:
+        return pulumi.get(self, "privilege_sets")
+
+
+@pulumi.output_type
+class GetAccountPrivilegesPrivilegeSetObjectResult(dict):
+    def __init__(__self__, *,
+                 database_name: str,
+                 object_name: str,
+                 object_type: str,
+                 schema_name: str,
+                 table_name: str):
+        pulumi.set(__self__, "database_name", database_name)
+        pulumi.set(__self__, "object_name", object_name)
+        pulumi.set(__self__, "object_type", object_type)
+        pulumi.set(__self__, "schema_name", schema_name)
+        pulumi.set(__self__, "table_name", table_name)
+
+    @property
+    @pulumi.getter(name="databaseName")
+    def database_name(self) -> str:
+        return pulumi.get(self, "database_name")
+
+    @property
+    @pulumi.getter(name="objectName")
+    def object_name(self) -> str:
+        return pulumi.get(self, "object_name")
+
+    @property
+    @pulumi.getter(name="objectType")
+    def object_type(self) -> str:
+        return pulumi.get(self, "object_type")
+
+    @property
+    @pulumi.getter(name="schemaName")
+    def schema_name(self) -> str:
+        return pulumi.get(self, "schema_name")
+
+    @property
+    @pulumi.getter(name="tableName")
+    def table_name(self) -> str:
+        return pulumi.get(self, "table_name")
 
 
 @pulumi.output_type
@@ -398,6 +795,120 @@ class GetDbInstanceVersionsVersionSetResult(dict):
     @pulumi.getter(name="supportedFeatureNames")
     def supported_feature_names(self) -> Sequence[str]:
         return pulumi.get(self, "supported_feature_names")
+
+
+@pulumi.output_type
+class GetDedicatedClustersDedicatedClusterSetResult(dict):
+    def __init__(__self__, *,
+                 cpu_available: Optional[int] = None,
+                 cpu_total: Optional[int] = None,
+                 dedicated_cluster_id: Optional[str] = None,
+                 disk_available: Optional[int] = None,
+                 disk_total: Optional[int] = None,
+                 instance_count: Optional[int] = None,
+                 mem_available: Optional[int] = None,
+                 mem_total: Optional[int] = None,
+                 name: Optional[str] = None,
+                 standby_dedicated_cluster_sets: Optional[Sequence[str]] = None,
+                 zone: Optional[str] = None):
+        if cpu_available is not None:
+            pulumi.set(__self__, "cpu_available", cpu_available)
+        if cpu_total is not None:
+            pulumi.set(__self__, "cpu_total", cpu_total)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
+        if disk_available is not None:
+            pulumi.set(__self__, "disk_available", disk_available)
+        if disk_total is not None:
+            pulumi.set(__self__, "disk_total", disk_total)
+        if instance_count is not None:
+            pulumi.set(__self__, "instance_count", instance_count)
+        if mem_available is not None:
+            pulumi.set(__self__, "mem_available", mem_available)
+        if mem_total is not None:
+            pulumi.set(__self__, "mem_total", mem_total)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if standby_dedicated_cluster_sets is not None:
+            pulumi.set(__self__, "standby_dedicated_cluster_sets", standby_dedicated_cluster_sets)
+        if zone is not None:
+            pulumi.set(__self__, "zone", zone)
+
+    @property
+    @pulumi.getter(name="cpuAvailable")
+    def cpu_available(self) -> Optional[int]:
+        return pulumi.get(self, "cpu_available")
+
+    @property
+    @pulumi.getter(name="cpuTotal")
+    def cpu_total(self) -> Optional[int]:
+        return pulumi.get(self, "cpu_total")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[str]:
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @property
+    @pulumi.getter(name="diskAvailable")
+    def disk_available(self) -> Optional[int]:
+        return pulumi.get(self, "disk_available")
+
+    @property
+    @pulumi.getter(name="diskTotal")
+    def disk_total(self) -> Optional[int]:
+        return pulumi.get(self, "disk_total")
+
+    @property
+    @pulumi.getter(name="instanceCount")
+    def instance_count(self) -> Optional[int]:
+        return pulumi.get(self, "instance_count")
+
+    @property
+    @pulumi.getter(name="memAvailable")
+    def mem_available(self) -> Optional[int]:
+        return pulumi.get(self, "mem_available")
+
+    @property
+    @pulumi.getter(name="memTotal")
+    def mem_total(self) -> Optional[int]:
+        return pulumi.get(self, "mem_total")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="standbyDedicatedClusterSets")
+    def standby_dedicated_cluster_sets(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "standby_dedicated_cluster_sets")
+
+    @property
+    @pulumi.getter
+    def zone(self) -> Optional[str]:
+        return pulumi.get(self, "zone")
+
+
+@pulumi.output_type
+class GetDedicatedClustersFilterResult(dict):
+    def __init__(__self__, *,
+                 name: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "values")
 
 
 @pulumi.output_type

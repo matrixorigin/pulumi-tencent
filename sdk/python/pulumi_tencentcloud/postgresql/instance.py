@@ -27,10 +27,12 @@ class InstanceArgs:
                  backup_plan: Optional[pulumi.Input['InstanceBackupPlanArgs']] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  db_kernel_version: Optional[pulumi.Input[str]] = None,
                  db_major_version: Optional[pulumi.Input[str]] = None,
                  db_major_vesion: Optional[pulumi.Input[str]] = None,
                  db_node_sets: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceDbNodeSetArgs']]]] = None,
+                 delete_protection: Optional[pulumi.Input[bool]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  kms_key_id: Optional[pulumi.Input[str]] = None,
                  kms_region: Optional[pulumi.Input[str]] = None,
@@ -63,14 +65,17 @@ class InstanceArgs:
         :param pulumi.Input[str] charge_type: Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
                from `POSTPAID_BY_HOUR` to `PREPAID`.
         :param pulumi.Input[str] charset: Charset of the root account. Valid values are `UTF8`,`LATIN1`.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] db_kernel_version: PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
                supports updating the minor kernel version immediately.
-        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
-        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceDbNodeSetArgs']]] db_node_sets: Specify instance node info for disaster migration.
-        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        :param pulumi.Input[bool] delete_protection: Whether to enable instance deletion protection. Default: false.
+        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+               `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         :param pulumi.Input[str] kms_key_id: KeyId of the custom key.
         :param pulumi.Input[str] kms_region: Region of the custom key.
         :param pulumi.Input[int] max_standby_archive_delay: max_standby_archive_delay applies when WAL data is being read from WAL archive (and is therefore not current). Units are
@@ -105,6 +110,8 @@ class InstanceArgs:
             pulumi.set(__self__, "charge_type", charge_type)
         if charset is not None:
             pulumi.set(__self__, "charset", charset)
+        if cpu is not None:
+            pulumi.set(__self__, "cpu", cpu)
         if db_kernel_version is not None:
             pulumi.set(__self__, "db_kernel_version", db_kernel_version)
         if db_major_version is not None:
@@ -116,6 +123,8 @@ class InstanceArgs:
             pulumi.set(__self__, "db_major_vesion", db_major_vesion)
         if db_node_sets is not None:
             pulumi.set(__self__, "db_node_sets", db_node_sets)
+        if delete_protection is not None:
+            pulumi.set(__self__, "delete_protection", delete_protection)
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if kms_key_id is not None:
@@ -283,6 +292,18 @@ class InstanceArgs:
         pulumi.set(self, "charset", value)
 
     @property
+    @pulumi.getter
+    def cpu(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @cpu.setter
+    def cpu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "cpu", value)
+
+    @property
     @pulumi.getter(name="dbKernelVersion")
     def db_kernel_version(self) -> Optional[pulumi.Input[str]]:
         """
@@ -299,8 +320,8 @@ class InstanceArgs:
     @pulumi.getter(name="dbMajorVersion")
     def db_major_version(self) -> Optional[pulumi.Input[str]]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         return pulumi.get(self, "db_major_version")
 
@@ -312,8 +333,8 @@ class InstanceArgs:
     @pulumi.getter(name="dbMajorVesion")
     def db_major_vesion(self) -> Optional[pulumi.Input[str]]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         warnings.warn("""`db_major_vesion` will be deprecated, use `db_major_version` instead.""", DeprecationWarning)
         pulumi.log.warn("""db_major_vesion is deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.""")
@@ -337,10 +358,23 @@ class InstanceArgs:
         pulumi.set(self, "db_node_sets", value)
 
     @property
+    @pulumi.getter(name="deleteProtection")
+    def delete_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable instance deletion protection. Default: false.
+        """
+        return pulumi.get(self, "delete_protection")
+
+    @delete_protection.setter
+    def delete_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "delete_protection", value)
+
+    @property
     @pulumi.getter(name="engineVersion")
     def engine_version(self) -> Optional[pulumi.Input[str]]:
         """
-        Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+        `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         """
         return pulumi.get(self, "engine_version")
 
@@ -518,11 +552,13 @@ class _InstanceState:
                  backup_plan: Optional[pulumi.Input['InstanceBackupPlanArgs']] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  db_kernel_version: Optional[pulumi.Input[str]] = None,
                  db_major_version: Optional[pulumi.Input[str]] = None,
                  db_major_vesion: Optional[pulumi.Input[str]] = None,
                  db_node_sets: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceDbNodeSetArgs']]]] = None,
+                 delete_protection: Optional[pulumi.Input[bool]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  kms_key_id: Optional[pulumi.Input[str]] = None,
                  kms_region: Optional[pulumi.Input[str]] = None,
@@ -557,15 +593,18 @@ class _InstanceState:
         :param pulumi.Input[str] charge_type: Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
                from `POSTPAID_BY_HOUR` to `PREPAID`.
         :param pulumi.Input[str] charset: Charset of the root account. Valid values are `UTF8`,`LATIN1`.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] create_time: Create time of the postgresql instance.
         :param pulumi.Input[str] db_kernel_version: PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
                supports updating the minor kernel version immediately.
-        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
-        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceDbNodeSetArgs']]] db_node_sets: Specify instance node info for disaster migration.
-        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        :param pulumi.Input[bool] delete_protection: Whether to enable instance deletion protection. Default: false.
+        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+               `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         :param pulumi.Input[str] kms_key_id: KeyId of the custom key.
         :param pulumi.Input[str] kms_region: Region of the custom key.
         :param pulumi.Input[int] max_standby_archive_delay: max_standby_archive_delay applies when WAL data is being read from WAL archive (and is therefore not current). Units are
@@ -609,6 +648,8 @@ class _InstanceState:
             pulumi.set(__self__, "charge_type", charge_type)
         if charset is not None:
             pulumi.set(__self__, "charset", charset)
+        if cpu is not None:
+            pulumi.set(__self__, "cpu", cpu)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
         if db_kernel_version is not None:
@@ -622,6 +663,8 @@ class _InstanceState:
             pulumi.set(__self__, "db_major_vesion", db_major_vesion)
         if db_node_sets is not None:
             pulumi.set(__self__, "db_node_sets", db_node_sets)
+        if delete_protection is not None:
+            pulumi.set(__self__, "delete_protection", delete_protection)
         if engine_version is not None:
             pulumi.set(__self__, "engine_version", engine_version)
         if kms_key_id is not None:
@@ -746,6 +789,18 @@ class _InstanceState:
         pulumi.set(self, "charset", value)
 
     @property
+    @pulumi.getter
+    def cpu(self) -> Optional[pulumi.Input[int]]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @cpu.setter
+    def cpu(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "cpu", value)
+
+    @property
     @pulumi.getter(name="createTime")
     def create_time(self) -> Optional[pulumi.Input[str]]:
         """
@@ -774,8 +829,8 @@ class _InstanceState:
     @pulumi.getter(name="dbMajorVersion")
     def db_major_version(self) -> Optional[pulumi.Input[str]]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         return pulumi.get(self, "db_major_version")
 
@@ -787,8 +842,8 @@ class _InstanceState:
     @pulumi.getter(name="dbMajorVesion")
     def db_major_vesion(self) -> Optional[pulumi.Input[str]]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         warnings.warn("""`db_major_vesion` will be deprecated, use `db_major_version` instead.""", DeprecationWarning)
         pulumi.log.warn("""db_major_vesion is deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.""")
@@ -812,10 +867,23 @@ class _InstanceState:
         pulumi.set(self, "db_node_sets", value)
 
     @property
+    @pulumi.getter(name="deleteProtection")
+    def delete_protection(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable instance deletion protection. Default: false.
+        """
+        return pulumi.get(self, "delete_protection")
+
+    @delete_protection.setter
+    def delete_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "delete_protection", value)
+
+    @property
     @pulumi.getter(name="engineVersion")
     def engine_version(self) -> Optional[pulumi.Input[str]]:
         """
-        Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+        `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         """
         return pulumi.get(self, "engine_version")
 
@@ -1118,10 +1186,12 @@ class Instance(pulumi.CustomResource):
                  backup_plan: Optional[pulumi.Input[pulumi.InputType['InstanceBackupPlanArgs']]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  db_kernel_version: Optional[pulumi.Input[str]] = None,
                  db_major_version: Optional[pulumi.Input[str]] = None,
                  db_major_vesion: Optional[pulumi.Input[str]] = None,
                  db_node_sets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceDbNodeSetArgs']]]]] = None,
+                 delete_protection: Optional[pulumi.Input[bool]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  kms_key_id: Optional[pulumi.Input[str]] = None,
                  kms_region: Optional[pulumi.Input[str]] = None,
@@ -1154,14 +1224,17 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] charge_type: Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
                from `POSTPAID_BY_HOUR` to `PREPAID`.
         :param pulumi.Input[str] charset: Charset of the root account. Valid values are `UTF8`,`LATIN1`.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] db_kernel_version: PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
                supports updating the minor kernel version immediately.
-        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
-        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceDbNodeSetArgs']]]] db_node_sets: Specify instance node info for disaster migration.
-        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        :param pulumi.Input[bool] delete_protection: Whether to enable instance deletion protection. Default: false.
+        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+               `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         :param pulumi.Input[str] kms_key_id: KeyId of the custom key.
         :param pulumi.Input[str] kms_region: Region of the custom key.
         :param pulumi.Input[int] max_standby_archive_delay: max_standby_archive_delay applies when WAL data is being read from WAL archive (and is therefore not current). Units are
@@ -1217,10 +1290,12 @@ class Instance(pulumi.CustomResource):
                  backup_plan: Optional[pulumi.Input[pulumi.InputType['InstanceBackupPlanArgs']]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  charset: Optional[pulumi.Input[str]] = None,
+                 cpu: Optional[pulumi.Input[int]] = None,
                  db_kernel_version: Optional[pulumi.Input[str]] = None,
                  db_major_version: Optional[pulumi.Input[str]] = None,
                  db_major_vesion: Optional[pulumi.Input[str]] = None,
                  db_node_sets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceDbNodeSetArgs']]]]] = None,
+                 delete_protection: Optional[pulumi.Input[bool]] = None,
                  engine_version: Optional[pulumi.Input[str]] = None,
                  kms_key_id: Optional[pulumi.Input[str]] = None,
                  kms_region: Optional[pulumi.Input[str]] = None,
@@ -1257,6 +1332,7 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["backup_plan"] = backup_plan
             __props__.__dict__["charge_type"] = charge_type
             __props__.__dict__["charset"] = charset
+            __props__.__dict__["cpu"] = cpu
             __props__.__dict__["db_kernel_version"] = db_kernel_version
             __props__.__dict__["db_major_version"] = db_major_version
             if db_major_vesion is not None and not opts.urn:
@@ -1264,6 +1340,7 @@ class Instance(pulumi.CustomResource):
                 pulumi.log.warn("""db_major_vesion is deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.""")
             __props__.__dict__["db_major_vesion"] = db_major_vesion
             __props__.__dict__["db_node_sets"] = db_node_sets
+            __props__.__dict__["delete_protection"] = delete_protection
             __props__.__dict__["engine_version"] = engine_version
             __props__.__dict__["kms_key_id"] = kms_key_id
             __props__.__dict__["kms_region"] = kms_region
@@ -1317,11 +1394,13 @@ class Instance(pulumi.CustomResource):
             backup_plan: Optional[pulumi.Input[pulumi.InputType['InstanceBackupPlanArgs']]] = None,
             charge_type: Optional[pulumi.Input[str]] = None,
             charset: Optional[pulumi.Input[str]] = None,
+            cpu: Optional[pulumi.Input[int]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             db_kernel_version: Optional[pulumi.Input[str]] = None,
             db_major_version: Optional[pulumi.Input[str]] = None,
             db_major_vesion: Optional[pulumi.Input[str]] = None,
             db_node_sets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceDbNodeSetArgs']]]]] = None,
+            delete_protection: Optional[pulumi.Input[bool]] = None,
             engine_version: Optional[pulumi.Input[str]] = None,
             kms_key_id: Optional[pulumi.Input[str]] = None,
             kms_region: Optional[pulumi.Input[str]] = None,
@@ -1361,15 +1440,18 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] charge_type: Pay type of the postgresql instance. Values `POSTPAID_BY_HOUR` (Default), `PREPAID`. It only support to update the type
                from `POSTPAID_BY_HOUR` to `PREPAID`.
         :param pulumi.Input[str] charset: Charset of the root account. Valid values are `UTF8`,`LATIN1`.
+        :param pulumi.Input[int] cpu: Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
         :param pulumi.Input[str] create_time: Create time of the postgresql instance.
         :param pulumi.Input[str] db_kernel_version: PostgreSQL kernel version number. If it is specified, an instance running kernel DBKernelVersion will be created. It
                supports updating the minor kernel version immediately.
-        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
-        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-               of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_version: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
+        :param pulumi.Input[str] db_major_vesion: PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+               latest kernel of PostgreSQL DBMajorVersion will be created.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceDbNodeSetArgs']]]] db_node_sets: Specify instance node info for disaster migration.
-        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        :param pulumi.Input[bool] delete_protection: Whether to enable instance deletion protection. Default: false.
+        :param pulumi.Input[str] engine_version: Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+               `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         :param pulumi.Input[str] kms_key_id: KeyId of the custom key.
         :param pulumi.Input[str] kms_region: Region of the custom key.
         :param pulumi.Input[int] max_standby_archive_delay: max_standby_archive_delay applies when WAL data is being read from WAL archive (and is therefore not current). Units are
@@ -1411,11 +1493,13 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["backup_plan"] = backup_plan
         __props__.__dict__["charge_type"] = charge_type
         __props__.__dict__["charset"] = charset
+        __props__.__dict__["cpu"] = cpu
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["db_kernel_version"] = db_kernel_version
         __props__.__dict__["db_major_version"] = db_major_version
         __props__.__dict__["db_major_vesion"] = db_major_vesion
         __props__.__dict__["db_node_sets"] = db_node_sets
+        __props__.__dict__["delete_protection"] = delete_protection
         __props__.__dict__["engine_version"] = engine_version
         __props__.__dict__["kms_key_id"] = kms_key_id
         __props__.__dict__["kms_region"] = kms_region
@@ -1469,7 +1553,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="backupPlan")
-    def backup_plan(self) -> pulumi.Output[Optional['outputs.InstanceBackupPlan']]:
+    def backup_plan(self) -> pulumi.Output['outputs.InstanceBackupPlan']:
         """
         Specify DB backup plan.
         """
@@ -1493,6 +1577,14 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "charset")
 
     @property
+    @pulumi.getter
+    def cpu(self) -> pulumi.Output[int]:
+        """
+        Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+        """
+        return pulumi.get(self, "cpu")
+
+    @property
     @pulumi.getter(name="createTime")
     def create_time(self) -> pulumi.Output[str]:
         """
@@ -1513,8 +1605,8 @@ class Instance(pulumi.CustomResource):
     @pulumi.getter(name="dbMajorVersion")
     def db_major_version(self) -> pulumi.Output[str]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         return pulumi.get(self, "db_major_version")
 
@@ -1522,8 +1614,8 @@ class Instance(pulumi.CustomResource):
     @pulumi.getter(name="dbMajorVesion")
     def db_major_vesion(self) -> pulumi.Output[str]:
         """
-        PostgreSQL major version number. Valid values: 10, 11, 12, 13. If it is specified, an instance running the latest kernel
-        of PostgreSQL DBMajorVersion will be created.
+        PostgreSQL major version number. Valid values: 10, 11, 12, 13, 14, 15, 16. If it is specified, an instance running the
+        latest kernel of PostgreSQL DBMajorVersion will be created.
         """
         warnings.warn("""`db_major_vesion` will be deprecated, use `db_major_version` instead.""", DeprecationWarning)
         pulumi.log.warn("""db_major_vesion is deprecated: `db_major_vesion` will be deprecated, use `db_major_version` instead.""")
@@ -1539,10 +1631,19 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "db_node_sets")
 
     @property
-    @pulumi.getter(name="engineVersion")
-    def engine_version(self) -> pulumi.Output[Optional[str]]:
+    @pulumi.getter(name="deleteProtection")
+    def delete_protection(self) -> pulumi.Output[Optional[bool]]:
         """
-        Version of the postgresql database engine. Valid values: `10.4`, `11.8`, `12.4`.
+        Whether to enable instance deletion protection. Default: false.
+        """
+        return pulumi.get(self, "delete_protection")
+
+    @property
+    @pulumi.getter(name="engineVersion")
+    def engine_version(self) -> pulumi.Output[str]:
+        """
+        Version of the postgresql database engine. Valid values: `10.4`, `10.17`, `10.23`, `11.8`, `11.12`, `11.22`, `12.4`,
+        `12.7`, `12.18`, `13.3`, `14.2`, `14.11`, `15.1`, `16.0`.
         """
         return pulumi.get(self, "engine_version")
 

@@ -23,6 +23,8 @@ __all__ = [
     'GetBackupJobDetailTableContentResult',
     'GetBackupJobsBackUpJobResult',
     'GetBackupTablesAvailableTableResult',
+    'GetInstanceNodesInstanceNodesListResult',
+    'GetInstanceNodesInstanceNodesListNodeGroupResult',
     'GetSpecAttachCbsSpecResult',
     'GetSpecCommonSpecResult',
     'GetSpecCommonSpecDataDiskResult',
@@ -640,6 +642,107 @@ class GetBackupTablesAvailableTableResult(dict):
     @pulumi.getter(name="zooPath")
     def zoo_path(self) -> str:
         return pulumi.get(self, "zoo_path")
+
+
+@pulumi.output_type
+class GetInstanceNodesInstanceNodesListResult(dict):
+    def __init__(__self__, *,
+                 cluster: str,
+                 core: int,
+                 disk_size: int,
+                 disk_type: str,
+                 ip: str,
+                 is_ch_proxy: bool,
+                 memory: int,
+                 node_groups: Sequence['outputs.GetInstanceNodesInstanceNodesListNodeGroupResult'],
+                 rip: str,
+                 spec: str):
+        pulumi.set(__self__, "cluster", cluster)
+        pulumi.set(__self__, "core", core)
+        pulumi.set(__self__, "disk_size", disk_size)
+        pulumi.set(__self__, "disk_type", disk_type)
+        pulumi.set(__self__, "ip", ip)
+        pulumi.set(__self__, "is_ch_proxy", is_ch_proxy)
+        pulumi.set(__self__, "memory", memory)
+        pulumi.set(__self__, "node_groups", node_groups)
+        pulumi.set(__self__, "rip", rip)
+        pulumi.set(__self__, "spec", spec)
+
+    @property
+    @pulumi.getter
+    def cluster(self) -> str:
+        return pulumi.get(self, "cluster")
+
+    @property
+    @pulumi.getter
+    def core(self) -> int:
+        return pulumi.get(self, "core")
+
+    @property
+    @pulumi.getter(name="diskSize")
+    def disk_size(self) -> int:
+        return pulumi.get(self, "disk_size")
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> str:
+        return pulumi.get(self, "disk_type")
+
+    @property
+    @pulumi.getter
+    def ip(self) -> str:
+        return pulumi.get(self, "ip")
+
+    @property
+    @pulumi.getter(name="isChProxy")
+    def is_ch_proxy(self) -> bool:
+        return pulumi.get(self, "is_ch_proxy")
+
+    @property
+    @pulumi.getter
+    def memory(self) -> int:
+        return pulumi.get(self, "memory")
+
+    @property
+    @pulumi.getter(name="nodeGroups")
+    def node_groups(self) -> Sequence['outputs.GetInstanceNodesInstanceNodesListNodeGroupResult']:
+        return pulumi.get(self, "node_groups")
+
+    @property
+    @pulumi.getter
+    def rip(self) -> str:
+        return pulumi.get(self, "rip")
+
+    @property
+    @pulumi.getter
+    def spec(self) -> str:
+        return pulumi.get(self, "spec")
+
+
+@pulumi.output_type
+class GetInstanceNodesInstanceNodesListNodeGroupResult(dict):
+    def __init__(__self__, *,
+                 group_name: str,
+                 replica_name: str,
+                 shard_name: str):
+        pulumi.set(__self__, "group_name", group_name)
+        pulumi.set(__self__, "replica_name", replica_name)
+        pulumi.set(__self__, "shard_name", shard_name)
+
+    @property
+    @pulumi.getter(name="groupName")
+    def group_name(self) -> str:
+        return pulumi.get(self, "group_name")
+
+    @property
+    @pulumi.getter(name="replicaName")
+    def replica_name(self) -> str:
+        return pulumi.get(self, "replica_name")
+
+    @property
+    @pulumi.getter(name="shardName")
+    def shard_name(self) -> str:
+        return pulumi.get(self, "shard_name")
 
 
 @pulumi.output_type

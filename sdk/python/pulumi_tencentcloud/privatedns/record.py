@@ -23,9 +23,9 @@ class RecordArgs:
                  weight: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a Record resource.
-        :param pulumi.Input[str] record_type: Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
-        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
-        :param pulumi.Input[str] sub_domain: Subdomain, such as "www", "m", and "@".
+        :param pulumi.Input[str] record_type: Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
+        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
+        :param pulumi.Input[str] sub_domain: Subdomain, such as `www`, `m`, and `@`.
         :param pulumi.Input[str] zone_id: Private domain ID.
         :param pulumi.Input[int] mx: MX priority, which is required when the record type is MX. Valid values: 5, 10, 15, 20, 30, 40, 50.
         :param pulumi.Input[int] ttl: Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
@@ -46,7 +46,7 @@ class RecordArgs:
     @pulumi.getter(name="recordType")
     def record_type(self) -> pulumi.Input[str]:
         """
-        Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+        Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
         """
         return pulumi.get(self, "record_type")
 
@@ -58,7 +58,7 @@ class RecordArgs:
     @pulumi.getter(name="recordValue")
     def record_value(self) -> pulumi.Input[str]:
         """
-        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
         """
         return pulumi.get(self, "record_value")
 
@@ -70,7 +70,7 @@ class RecordArgs:
     @pulumi.getter(name="subDomain")
     def sub_domain(self) -> pulumi.Input[str]:
         """
-        Subdomain, such as "www", "m", and "@".
+        Subdomain, such as `www`, `m`, and `@`.
         """
         return pulumi.get(self, "sub_domain")
 
@@ -140,9 +140,9 @@ class _RecordState:
         """
         Input properties used for looking up and filtering Record resources.
         :param pulumi.Input[int] mx: MX priority, which is required when the record type is MX. Valid values: 5, 10, 15, 20, 30, 40, 50.
-        :param pulumi.Input[str] record_type: Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
-        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
-        :param pulumi.Input[str] sub_domain: Subdomain, such as "www", "m", and "@".
+        :param pulumi.Input[str] record_type: Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
+        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
+        :param pulumi.Input[str] sub_domain: Subdomain, such as `www`, `m`, and `@`.
         :param pulumi.Input[int] ttl: Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
         :param pulumi.Input[int] weight: Record weight. Value range: 1~100.
         :param pulumi.Input[str] zone_id: Private domain ID.
@@ -178,7 +178,7 @@ class _RecordState:
     @pulumi.getter(name="recordType")
     def record_type(self) -> Optional[pulumi.Input[str]]:
         """
-        Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+        Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
         """
         return pulumi.get(self, "record_type")
 
@@ -190,7 +190,7 @@ class _RecordState:
     @pulumi.getter(name="recordValue")
     def record_value(self) -> Optional[pulumi.Input[str]]:
         """
-        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
         """
         return pulumi.get(self, "record_value")
 
@@ -202,7 +202,7 @@ class _RecordState:
     @pulumi.getter(name="subDomain")
     def sub_domain(self) -> Optional[pulumi.Input[str]]:
         """
-        Subdomain, such as "www", "m", and "@".
+        Subdomain, such as `www`, `m`, and `@`.
         """
         return pulumi.get(self, "sub_domain")
 
@@ -265,9 +265,9 @@ class Record(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] mx: MX priority, which is required when the record type is MX. Valid values: 5, 10, 15, 20, 30, 40, 50.
-        :param pulumi.Input[str] record_type: Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
-        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
-        :param pulumi.Input[str] sub_domain: Subdomain, such as "www", "m", and "@".
+        :param pulumi.Input[str] record_type: Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
+        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
+        :param pulumi.Input[str] sub_domain: Subdomain, such as `www`, `m`, and `@`.
         :param pulumi.Input[int] ttl: Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
         :param pulumi.Input[int] weight: Record weight. Value range: 1~100.
         :param pulumi.Input[str] zone_id: Private domain ID.
@@ -351,9 +351,9 @@ class Record(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[int] mx: MX priority, which is required when the record type is MX. Valid values: 5, 10, 15, 20, 30, 40, 50.
-        :param pulumi.Input[str] record_type: Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
-        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
-        :param pulumi.Input[str] sub_domain: Subdomain, such as "www", "m", and "@".
+        :param pulumi.Input[str] record_type: Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
+        :param pulumi.Input[str] record_value: Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
+        :param pulumi.Input[str] sub_domain: Subdomain, such as `www`, `m`, and `@`.
         :param pulumi.Input[int] ttl: Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
         :param pulumi.Input[int] weight: Record weight. Value range: 1~100.
         :param pulumi.Input[str] zone_id: Private domain ID.
@@ -383,7 +383,7 @@ class Record(pulumi.CustomResource):
     @pulumi.getter(name="recordType")
     def record_type(self) -> pulumi.Output[str]:
         """
-        Record type. Valid values: "A", "AAAA", "CNAME", "MX", "TXT", "PTR".
+        Record type. Valid values: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, `PTR`.
         """
         return pulumi.get(self, "record_type")
 
@@ -391,7 +391,7 @@ class Record(pulumi.CustomResource):
     @pulumi.getter(name="recordValue")
     def record_value(self) -> pulumi.Output[str]:
         """
-        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com..
+        Record value, such as IP: 192.168.10.2, CNAME: cname.qcloud.com, and MX: mail.qcloud.com.
         """
         return pulumi.get(self, "record_value")
 
@@ -399,13 +399,13 @@ class Record(pulumi.CustomResource):
     @pulumi.getter(name="subDomain")
     def sub_domain(self) -> pulumi.Output[str]:
         """
-        Subdomain, such as "www", "m", and "@".
+        Subdomain, such as `www`, `m`, and `@`.
         """
         return pulumi.get(self, "sub_domain")
 
     @property
     @pulumi.getter
-    def ttl(self) -> pulumi.Output[Optional[int]]:
+    def ttl(self) -> pulumi.Output[int]:
         """
         Record cache time. The smaller the value, the faster the record will take effect. Value range: 1~86400s.
         """

@@ -15,10 +15,12 @@ import (
 type EmailAddress struct {
 	pulumi.CustomResourceState
 
-	// Your sender address. (You can create up to 10 sender addresses for each domain.).
+	// Your sender address(You can create up to 10 sender addresses for each domain).
 	EmailAddress pulumi.StringOutput `pulumi:"emailAddress"`
 	// Sender name.
 	EmailSenderName pulumi.StringPtrOutput `pulumi:"emailSenderName"`
+	// Password for SMTP, Length limit 64.
+	SmtpPassword pulumi.StringPtrOutput `pulumi:"smtpPassword"`
 }
 
 // NewEmailAddress registers a new resource with the given unique name, arguments, and options.
@@ -31,6 +33,13 @@ func NewEmailAddress(ctx *pulumi.Context,
 	if args.EmailAddress == nil {
 		return nil, errors.New("invalid value for required argument 'EmailAddress'")
 	}
+	if args.SmtpPassword != nil {
+		args.SmtpPassword = pulumi.ToSecret(args.SmtpPassword).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"smtpPassword",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource EmailAddress
 	err := ctx.RegisterResource("tencentcloud:Ses/emailAddress:EmailAddress", name, args, &resource, opts...)
@@ -54,17 +63,21 @@ func GetEmailAddress(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering EmailAddress resources.
 type emailAddressState struct {
-	// Your sender address. (You can create up to 10 sender addresses for each domain.).
+	// Your sender address(You can create up to 10 sender addresses for each domain).
 	EmailAddress *string `pulumi:"emailAddress"`
 	// Sender name.
 	EmailSenderName *string `pulumi:"emailSenderName"`
+	// Password for SMTP, Length limit 64.
+	SmtpPassword *string `pulumi:"smtpPassword"`
 }
 
 type EmailAddressState struct {
-	// Your sender address. (You can create up to 10 sender addresses for each domain.).
+	// Your sender address(You can create up to 10 sender addresses for each domain).
 	EmailAddress pulumi.StringPtrInput
 	// Sender name.
 	EmailSenderName pulumi.StringPtrInput
+	// Password for SMTP, Length limit 64.
+	SmtpPassword pulumi.StringPtrInput
 }
 
 func (EmailAddressState) ElementType() reflect.Type {
@@ -72,18 +85,22 @@ func (EmailAddressState) ElementType() reflect.Type {
 }
 
 type emailAddressArgs struct {
-	// Your sender address. (You can create up to 10 sender addresses for each domain.).
+	// Your sender address(You can create up to 10 sender addresses for each domain).
 	EmailAddress string `pulumi:"emailAddress"`
 	// Sender name.
 	EmailSenderName *string `pulumi:"emailSenderName"`
+	// Password for SMTP, Length limit 64.
+	SmtpPassword *string `pulumi:"smtpPassword"`
 }
 
 // The set of arguments for constructing a EmailAddress resource.
 type EmailAddressArgs struct {
-	// Your sender address. (You can create up to 10 sender addresses for each domain.).
+	// Your sender address(You can create up to 10 sender addresses for each domain).
 	EmailAddress pulumi.StringInput
 	// Sender name.
 	EmailSenderName pulumi.StringPtrInput
+	// Password for SMTP, Length limit 64.
+	SmtpPassword pulumi.StringPtrInput
 }
 
 func (EmailAddressArgs) ElementType() reflect.Type {
@@ -173,7 +190,7 @@ func (o EmailAddressOutput) ToEmailAddressOutputWithContext(ctx context.Context)
 	return o
 }
 
-// Your sender address. (You can create up to 10 sender addresses for each domain.).
+// Your sender address(You can create up to 10 sender addresses for each domain).
 func (o EmailAddressOutput) EmailAddress() pulumi.StringOutput {
 	return o.ApplyT(func(v *EmailAddress) pulumi.StringOutput { return v.EmailAddress }).(pulumi.StringOutput)
 }
@@ -181,6 +198,11 @@ func (o EmailAddressOutput) EmailAddress() pulumi.StringOutput {
 // Sender name.
 func (o EmailAddressOutput) EmailSenderName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmailAddress) pulumi.StringPtrOutput { return v.EmailSenderName }).(pulumi.StringPtrOutput)
+}
+
+// Password for SMTP, Length limit 64.
+func (o EmailAddressOutput) SmtpPassword() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *EmailAddress) pulumi.StringPtrOutput { return v.SmtpPassword }).(pulumi.StringPtrOutput)
 }
 
 type EmailAddressArrayOutput struct{ *pulumi.OutputState }

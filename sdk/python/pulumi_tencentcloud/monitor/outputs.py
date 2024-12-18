@@ -25,6 +25,9 @@ __all__ = [
     'BindingReceiverReceivers',
     'GrafanaSsoAccountRole',
     'PolicyBindingObjectDimension',
+    'TmpAlertGroupCustomReceiver',
+    'TmpAlertGroupCustomReceiverAllowedTimeRange',
+    'TmpAlertGroupRule',
     'TmpAlertRuleAnnotation',
     'TmpAlertRuleLabel',
     'TmpTkeAlertPolicyAlertRule',
@@ -127,6 +130,10 @@ __all__ = [
     'GetStatisticDataDataPointResult',
     'GetStatisticDataDataPointDimensionResult',
     'GetStatisticDataDataPointValueResult',
+    'GetTmpInstancesInstanceSetResult',
+    'GetTmpInstancesInstanceSetGrantResult',
+    'GetTmpInstancesInstanceSetTagSpecificationResult',
+    'GetTmpInstancesTagFilterResult',
     'GetTmpRegionsRegionSetResult',
 ]
 
@@ -940,6 +947,163 @@ class PolicyBindingObjectDimension(dict):
 
 
 @pulumi.output_type
+class TmpAlertGroupCustomReceiver(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "allowedTimeRanges":
+            suggest = "allowed_time_ranges"
+        elif key == "clusterId":
+            suggest = "cluster_id"
+        elif key == "clusterType":
+            suggest = "cluster_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TmpAlertGroupCustomReceiver. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TmpAlertGroupCustomReceiver.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TmpAlertGroupCustomReceiver.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 allowed_time_ranges: Optional[Sequence['outputs.TmpAlertGroupCustomReceiverAllowedTimeRange']] = None,
+                 cluster_id: Optional[str] = None,
+                 cluster_type: Optional[str] = None,
+                 type: Optional[str] = None,
+                 url: Optional[str] = None):
+        if allowed_time_ranges is not None:
+            pulumi.set(__self__, "allowed_time_ranges", allowed_time_ranges)
+        if cluster_id is not None:
+            pulumi.set(__self__, "cluster_id", cluster_id)
+        if cluster_type is not None:
+            pulumi.set(__self__, "cluster_type", cluster_type)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
+
+    @property
+    @pulumi.getter(name="allowedTimeRanges")
+    def allowed_time_ranges(self) -> Optional[Sequence['outputs.TmpAlertGroupCustomReceiverAllowedTimeRange']]:
+        return pulumi.get(self, "allowed_time_ranges")
+
+    @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> Optional[str]:
+        return pulumi.get(self, "cluster_id")
+
+    @property
+    @pulumi.getter(name="clusterType")
+    def cluster_type(self) -> Optional[str]:
+        return pulumi.get(self, "cluster_type")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[str]:
+        return pulumi.get(self, "url")
+
+
+@pulumi.output_type
+class TmpAlertGroupCustomReceiverAllowedTimeRange(dict):
+    def __init__(__self__, *,
+                 end: Optional[str] = None,
+                 start: Optional[str] = None):
+        if end is not None:
+            pulumi.set(__self__, "end", end)
+        if start is not None:
+            pulumi.set(__self__, "start", start)
+
+    @property
+    @pulumi.getter
+    def end(self) -> Optional[str]:
+        return pulumi.get(self, "end")
+
+    @property
+    @pulumi.getter
+    def start(self) -> Optional[str]:
+        return pulumi.get(self, "start")
+
+
+@pulumi.output_type
+class TmpAlertGroupRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ruleName":
+            suggest = "rule_name"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TmpAlertGroupRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TmpAlertGroupRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TmpAlertGroupRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 annotations: Optional[Mapping[str, Any]] = None,
+                 duration: Optional[str] = None,
+                 expr: Optional[str] = None,
+                 labels: Optional[Mapping[str, Any]] = None,
+                 rule_name: Optional[str] = None,
+                 state: Optional[int] = None):
+        if annotations is not None:
+            pulumi.set(__self__, "annotations", annotations)
+        if duration is not None:
+            pulumi.set(__self__, "duration", duration)
+        if expr is not None:
+            pulumi.set(__self__, "expr", expr)
+        if labels is not None:
+            pulumi.set(__self__, "labels", labels)
+        if rule_name is not None:
+            pulumi.set(__self__, "rule_name", rule_name)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def annotations(self) -> Optional[Mapping[str, Any]]:
+        return pulumi.get(self, "annotations")
+
+    @property
+    @pulumi.getter
+    def duration(self) -> Optional[str]:
+        return pulumi.get(self, "duration")
+
+    @property
+    @pulumi.getter
+    def expr(self) -> Optional[str]:
+        return pulumi.get(self, "expr")
+
+    @property
+    @pulumi.getter
+    def labels(self) -> Optional[Mapping[str, Any]]:
+        return pulumi.get(self, "labels")
+
+    @property
+    @pulumi.getter(name="ruleName")
+    def rule_name(self) -> Optional[str]:
+        return pulumi.get(self, "rule_name")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[int]:
+        return pulumi.get(self, "state")
+
+
+@pulumi.output_type
 class TmpAlertRuleAnnotation(dict):
     def __init__(__self__, *,
                  key: str,
@@ -1400,6 +1564,8 @@ class TmpTkeClusterAgentAgents(dict):
             suggest = "not_install_basic_scrape"
         elif key == "notScrape":
             suggest = "not_scrape"
+        elif key == "openDefaultRecord":
+            suggest = "open_default_record"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in TmpTkeClusterAgentAgents. Access the value via the '{suggest}' property getter instead.")
@@ -1422,6 +1588,7 @@ class TmpTkeClusterAgentAgents(dict):
                  in_cluster_pod_config: Optional['outputs.TmpTkeClusterAgentAgentsInClusterPodConfig'] = None,
                  not_install_basic_scrape: Optional[bool] = None,
                  not_scrape: Optional[bool] = None,
+                 open_default_record: Optional[bool] = None,
                  status: Optional[str] = None):
         pulumi.set(__self__, "cluster_id", cluster_id)
         pulumi.set(__self__, "cluster_type", cluster_type)
@@ -1437,6 +1604,8 @@ class TmpTkeClusterAgentAgents(dict):
             pulumi.set(__self__, "not_install_basic_scrape", not_install_basic_scrape)
         if not_scrape is not None:
             pulumi.set(__self__, "not_scrape", not_scrape)
+        if open_default_record is not None:
+            pulumi.set(__self__, "open_default_record", open_default_record)
         if status is not None:
             pulumi.set(__self__, "status", status)
 
@@ -1484,6 +1653,11 @@ class TmpTkeClusterAgentAgents(dict):
     @pulumi.getter(name="notScrape")
     def not_scrape(self) -> Optional[bool]:
         return pulumi.get(self, "not_scrape")
+
+    @property
+    @pulumi.getter(name="openDefaultRecord")
+    def open_default_record(self) -> Optional[bool]:
+        return pulumi.get(self, "open_default_record")
 
     @property
     @pulumi.getter
@@ -6549,6 +6723,306 @@ class GetStatisticDataDataPointValueResult(dict):
     @property
     @pulumi.getter
     def value(self) -> float:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetTmpInstancesInstanceSetResult(dict):
+    def __init__(__self__, *,
+                 alert_rule_limit: int,
+                 api_root_path: str,
+                 auth_token: str,
+                 auto_renew_flag: int,
+                 charge_status: int,
+                 created_at: str,
+                 data_retention_time: int,
+                 enable_grafana: int,
+                 expire_time: str,
+                 grafana_instance_id: str,
+                 grafana_ip_white_list: str,
+                 grafana_status: int,
+                 grafana_url: str,
+                 grants: Sequence['outputs.GetTmpInstancesInstanceSetGrantResult'],
+                 instance_charge_type: int,
+                 instance_id: str,
+                 instance_name: str,
+                 instance_status: int,
+                 ipv4_address: str,
+                 is_near_expire: int,
+                 migration_type: int,
+                 proxy_address: str,
+                 recording_rule_limit: int,
+                 region_id: int,
+                 remote_write: str,
+                 spec_name: str,
+                 subnet_id: str,
+                 tag_specifications: Sequence['outputs.GetTmpInstancesInstanceSetTagSpecificationResult'],
+                 vpc_id: str,
+                 zone: str):
+        pulumi.set(__self__, "alert_rule_limit", alert_rule_limit)
+        pulumi.set(__self__, "api_root_path", api_root_path)
+        pulumi.set(__self__, "auth_token", auth_token)
+        pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
+        pulumi.set(__self__, "charge_status", charge_status)
+        pulumi.set(__self__, "created_at", created_at)
+        pulumi.set(__self__, "data_retention_time", data_retention_time)
+        pulumi.set(__self__, "enable_grafana", enable_grafana)
+        pulumi.set(__self__, "expire_time", expire_time)
+        pulumi.set(__self__, "grafana_instance_id", grafana_instance_id)
+        pulumi.set(__self__, "grafana_ip_white_list", grafana_ip_white_list)
+        pulumi.set(__self__, "grafana_status", grafana_status)
+        pulumi.set(__self__, "grafana_url", grafana_url)
+        pulumi.set(__self__, "grants", grants)
+        pulumi.set(__self__, "instance_charge_type", instance_charge_type)
+        pulumi.set(__self__, "instance_id", instance_id)
+        pulumi.set(__self__, "instance_name", instance_name)
+        pulumi.set(__self__, "instance_status", instance_status)
+        pulumi.set(__self__, "ipv4_address", ipv4_address)
+        pulumi.set(__self__, "is_near_expire", is_near_expire)
+        pulumi.set(__self__, "migration_type", migration_type)
+        pulumi.set(__self__, "proxy_address", proxy_address)
+        pulumi.set(__self__, "recording_rule_limit", recording_rule_limit)
+        pulumi.set(__self__, "region_id", region_id)
+        pulumi.set(__self__, "remote_write", remote_write)
+        pulumi.set(__self__, "spec_name", spec_name)
+        pulumi.set(__self__, "subnet_id", subnet_id)
+        pulumi.set(__self__, "tag_specifications", tag_specifications)
+        pulumi.set(__self__, "vpc_id", vpc_id)
+        pulumi.set(__self__, "zone", zone)
+
+    @property
+    @pulumi.getter(name="alertRuleLimit")
+    def alert_rule_limit(self) -> int:
+        return pulumi.get(self, "alert_rule_limit")
+
+    @property
+    @pulumi.getter(name="apiRootPath")
+    def api_root_path(self) -> str:
+        return pulumi.get(self, "api_root_path")
+
+    @property
+    @pulumi.getter(name="authToken")
+    def auth_token(self) -> str:
+        return pulumi.get(self, "auth_token")
+
+    @property
+    @pulumi.getter(name="autoRenewFlag")
+    def auto_renew_flag(self) -> int:
+        return pulumi.get(self, "auto_renew_flag")
+
+    @property
+    @pulumi.getter(name="chargeStatus")
+    def charge_status(self) -> int:
+        return pulumi.get(self, "charge_status")
+
+    @property
+    @pulumi.getter(name="createdAt")
+    def created_at(self) -> str:
+        return pulumi.get(self, "created_at")
+
+    @property
+    @pulumi.getter(name="dataRetentionTime")
+    def data_retention_time(self) -> int:
+        return pulumi.get(self, "data_retention_time")
+
+    @property
+    @pulumi.getter(name="enableGrafana")
+    def enable_grafana(self) -> int:
+        return pulumi.get(self, "enable_grafana")
+
+    @property
+    @pulumi.getter(name="expireTime")
+    def expire_time(self) -> str:
+        return pulumi.get(self, "expire_time")
+
+    @property
+    @pulumi.getter(name="grafanaInstanceId")
+    def grafana_instance_id(self) -> str:
+        return pulumi.get(self, "grafana_instance_id")
+
+    @property
+    @pulumi.getter(name="grafanaIpWhiteList")
+    def grafana_ip_white_list(self) -> str:
+        return pulumi.get(self, "grafana_ip_white_list")
+
+    @property
+    @pulumi.getter(name="grafanaStatus")
+    def grafana_status(self) -> int:
+        return pulumi.get(self, "grafana_status")
+
+    @property
+    @pulumi.getter(name="grafanaUrl")
+    def grafana_url(self) -> str:
+        return pulumi.get(self, "grafana_url")
+
+    @property
+    @pulumi.getter
+    def grants(self) -> Sequence['outputs.GetTmpInstancesInstanceSetGrantResult']:
+        return pulumi.get(self, "grants")
+
+    @property
+    @pulumi.getter(name="instanceChargeType")
+    def instance_charge_type(self) -> int:
+        return pulumi.get(self, "instance_charge_type")
+
+    @property
+    @pulumi.getter(name="instanceId")
+    def instance_id(self) -> str:
+        return pulumi.get(self, "instance_id")
+
+    @property
+    @pulumi.getter(name="instanceName")
+    def instance_name(self) -> str:
+        return pulumi.get(self, "instance_name")
+
+    @property
+    @pulumi.getter(name="instanceStatus")
+    def instance_status(self) -> int:
+        return pulumi.get(self, "instance_status")
+
+    @property
+    @pulumi.getter(name="ipv4Address")
+    def ipv4_address(self) -> str:
+        return pulumi.get(self, "ipv4_address")
+
+    @property
+    @pulumi.getter(name="isNearExpire")
+    def is_near_expire(self) -> int:
+        return pulumi.get(self, "is_near_expire")
+
+    @property
+    @pulumi.getter(name="migrationType")
+    def migration_type(self) -> int:
+        return pulumi.get(self, "migration_type")
+
+    @property
+    @pulumi.getter(name="proxyAddress")
+    def proxy_address(self) -> str:
+        return pulumi.get(self, "proxy_address")
+
+    @property
+    @pulumi.getter(name="recordingRuleLimit")
+    def recording_rule_limit(self) -> int:
+        return pulumi.get(self, "recording_rule_limit")
+
+    @property
+    @pulumi.getter(name="regionId")
+    def region_id(self) -> int:
+        return pulumi.get(self, "region_id")
+
+    @property
+    @pulumi.getter(name="remoteWrite")
+    def remote_write(self) -> str:
+        return pulumi.get(self, "remote_write")
+
+    @property
+    @pulumi.getter(name="specName")
+    def spec_name(self) -> str:
+        return pulumi.get(self, "spec_name")
+
+    @property
+    @pulumi.getter(name="subnetId")
+    def subnet_id(self) -> str:
+        return pulumi.get(self, "subnet_id")
+
+    @property
+    @pulumi.getter(name="tagSpecifications")
+    def tag_specifications(self) -> Sequence['outputs.GetTmpInstancesInstanceSetTagSpecificationResult']:
+        return pulumi.get(self, "tag_specifications")
+
+    @property
+    @pulumi.getter(name="vpcId")
+    def vpc_id(self) -> str:
+        return pulumi.get(self, "vpc_id")
+
+    @property
+    @pulumi.getter
+    def zone(self) -> str:
+        return pulumi.get(self, "zone")
+
+
+@pulumi.output_type
+class GetTmpInstancesInstanceSetGrantResult(dict):
+    def __init__(__self__, *,
+                 has_agent_manage: int,
+                 has_api_operation: int,
+                 has_charge_operation: int,
+                 has_grafana_status_change: int,
+                 has_tke_manage: int,
+                 has_vpc_display: int):
+        pulumi.set(__self__, "has_agent_manage", has_agent_manage)
+        pulumi.set(__self__, "has_api_operation", has_api_operation)
+        pulumi.set(__self__, "has_charge_operation", has_charge_operation)
+        pulumi.set(__self__, "has_grafana_status_change", has_grafana_status_change)
+        pulumi.set(__self__, "has_tke_manage", has_tke_manage)
+        pulumi.set(__self__, "has_vpc_display", has_vpc_display)
+
+    @property
+    @pulumi.getter(name="hasAgentManage")
+    def has_agent_manage(self) -> int:
+        return pulumi.get(self, "has_agent_manage")
+
+    @property
+    @pulumi.getter(name="hasApiOperation")
+    def has_api_operation(self) -> int:
+        return pulumi.get(self, "has_api_operation")
+
+    @property
+    @pulumi.getter(name="hasChargeOperation")
+    def has_charge_operation(self) -> int:
+        return pulumi.get(self, "has_charge_operation")
+
+    @property
+    @pulumi.getter(name="hasGrafanaStatusChange")
+    def has_grafana_status_change(self) -> int:
+        return pulumi.get(self, "has_grafana_status_change")
+
+    @property
+    @pulumi.getter(name="hasTkeManage")
+    def has_tke_manage(self) -> int:
+        return pulumi.get(self, "has_tke_manage")
+
+    @property
+    @pulumi.getter(name="hasVpcDisplay")
+    def has_vpc_display(self) -> int:
+        return pulumi.get(self, "has_vpc_display")
+
+
+@pulumi.output_type
+class GetTmpInstancesInstanceSetTagSpecificationResult(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 value: str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class GetTmpInstancesTagFilterResult(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 value: str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
         return pulumi.get(self, "value")
 
 

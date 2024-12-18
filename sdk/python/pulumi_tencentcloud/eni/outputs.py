@@ -12,6 +12,8 @@ from .. import _utilities
 __all__ = [
     'InstanceIpv4',
     'InstanceIpv4Info',
+    'Ipv4AddressPrivateIpAddress',
+    'Ipv6AddressIpv6Address',
 ]
 
 @pulumi.output_type
@@ -68,5 +70,169 @@ class InstanceIpv4Info(dict):
     @pulumi.getter
     def primary(self) -> Optional[bool]:
         return pulumi.get(self, "primary")
+
+
+@pulumi.output_type
+class Ipv4AddressPrivateIpAddress(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "privateIpAddress":
+            suggest = "private_ip_address"
+        elif key == "addressId":
+            suggest = "address_id"
+        elif key == "isWanIpBlocked":
+            suggest = "is_wan_ip_blocked"
+        elif key == "publicIpAddress":
+            suggest = "public_ip_address"
+        elif key == "qosLevel":
+            suggest = "qos_level"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Ipv4AddressPrivateIpAddress. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Ipv4AddressPrivateIpAddress.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Ipv4AddressPrivateIpAddress.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 private_ip_address: str,
+                 address_id: Optional[str] = None,
+                 description: Optional[str] = None,
+                 is_wan_ip_blocked: Optional[bool] = None,
+                 primary: Optional[bool] = None,
+                 public_ip_address: Optional[str] = None,
+                 qos_level: Optional[str] = None,
+                 state: Optional[str] = None):
+        pulumi.set(__self__, "private_ip_address", private_ip_address)
+        if address_id is not None:
+            pulumi.set(__self__, "address_id", address_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if is_wan_ip_blocked is not None:
+            pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
+        if primary is not None:
+            pulumi.set(__self__, "primary", primary)
+        if public_ip_address is not None:
+            pulumi.set(__self__, "public_ip_address", public_ip_address)
+        if qos_level is not None:
+            pulumi.set(__self__, "qos_level", qos_level)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter(name="privateIpAddress")
+    def private_ip_address(self) -> str:
+        return pulumi.get(self, "private_ip_address")
+
+    @property
+    @pulumi.getter(name="addressId")
+    def address_id(self) -> Optional[str]:
+        return pulumi.get(self, "address_id")
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[str]:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter(name="isWanIpBlocked")
+    def is_wan_ip_blocked(self) -> Optional[bool]:
+        return pulumi.get(self, "is_wan_ip_blocked")
+
+    @property
+    @pulumi.getter
+    def primary(self) -> Optional[bool]:
+        return pulumi.get(self, "primary")
+
+    @property
+    @pulumi.getter(name="publicIpAddress")
+    def public_ip_address(self) -> Optional[str]:
+        return pulumi.get(self, "public_ip_address")
+
+    @property
+    @pulumi.getter(name="qosLevel")
+    def qos_level(self) -> Optional[str]:
+        return pulumi.get(self, "qos_level")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[str]:
+        return pulumi.get(self, "state")
+
+
+@pulumi.output_type
+class Ipv6AddressIpv6Address(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "addressId":
+            suggest = "address_id"
+        elif key == "isWanIpBlocked":
+            suggest = "is_wan_ip_blocked"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Ipv6AddressIpv6Address. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Ipv6AddressIpv6Address.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Ipv6AddressIpv6Address.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 address: str,
+                 address_id: Optional[str] = None,
+                 description: Optional[str] = None,
+                 is_wan_ip_blocked: Optional[bool] = None,
+                 primary: Optional[bool] = None,
+                 state: Optional[str] = None):
+        pulumi.set(__self__, "address", address)
+        if address_id is not None:
+            pulumi.set(__self__, "address_id", address_id)
+        if description is not None:
+            pulumi.set(__self__, "description", description)
+        if is_wan_ip_blocked is not None:
+            pulumi.set(__self__, "is_wan_ip_blocked", is_wan_ip_blocked)
+        if primary is not None:
+            pulumi.set(__self__, "primary", primary)
+        if state is not None:
+            pulumi.set(__self__, "state", state)
+
+    @property
+    @pulumi.getter
+    def address(self) -> str:
+        return pulumi.get(self, "address")
+
+    @property
+    @pulumi.getter(name="addressId")
+    def address_id(self) -> Optional[str]:
+        return pulumi.get(self, "address_id")
+
+    @property
+    @pulumi.getter
+    def description(self) -> Optional[str]:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter(name="isWanIpBlocked")
+    def is_wan_ip_blocked(self) -> Optional[bool]:
+        return pulumi.get(self, "is_wan_ip_blocked")
+
+    @property
+    @pulumi.getter
+    def primary(self) -> Optional[bool]:
+        return pulumi.get(self, "primary")
+
+    @property
+    @pulumi.getter
+    def state(self) -> Optional[str]:
+        return pulumi.get(self, "state")
 
 

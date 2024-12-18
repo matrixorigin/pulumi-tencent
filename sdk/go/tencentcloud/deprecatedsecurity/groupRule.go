@@ -21,8 +21,8 @@ type GroupRule struct {
 	CidrIp pulumi.StringPtrOutput `pulumi:"cidrIp"`
 	// Description of the security group rule.
 	Description pulumi.StringOutput `pulumi:"description"`
-	// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-	// `protocol_template`.
+	// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+	// conflicts with `protocol_template`.
 	IpProtocol pulumi.StringOutput `pulumi:"ipProtocol"`
 	// Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
 	Policy pulumi.StringOutput `pulumi:"policy"`
@@ -86,8 +86,8 @@ type groupRuleState struct {
 	CidrIp *string `pulumi:"cidrIp"`
 	// Description of the security group rule.
 	Description *string `pulumi:"description"`
-	// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-	// `protocol_template`.
+	// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+	// conflicts with `protocol_template`.
 	IpProtocol *string `pulumi:"ipProtocol"`
 	// Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
 	Policy *string `pulumi:"policy"`
@@ -113,8 +113,8 @@ type GroupRuleState struct {
 	CidrIp pulumi.StringPtrInput
 	// Description of the security group rule.
 	Description pulumi.StringPtrInput
-	// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-	// `protocol_template`.
+	// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+	// conflicts with `protocol_template`.
 	IpProtocol pulumi.StringPtrInput
 	// Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
 	Policy pulumi.StringPtrInput
@@ -144,8 +144,8 @@ type groupRuleArgs struct {
 	CidrIp *string `pulumi:"cidrIp"`
 	// Description of the security group rule.
 	Description *string `pulumi:"description"`
-	// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-	// `protocol_template`.
+	// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+	// conflicts with `protocol_template`.
 	IpProtocol *string `pulumi:"ipProtocol"`
 	// Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
 	Policy string `pulumi:"policy"`
@@ -172,8 +172,8 @@ type GroupRuleArgs struct {
 	CidrIp pulumi.StringPtrInput
 	// Description of the security group rule.
 	Description pulumi.StringPtrInput
-	// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-	// `protocol_template`.
+	// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+	// conflicts with `protocol_template`.
 	IpProtocol pulumi.StringPtrInput
 	// Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
 	Policy pulumi.StringInput
@@ -294,8 +294,8 @@ func (o GroupRuleOutput) Description() pulumi.StringOutput {
 	return o.ApplyT(func(v *GroupRule) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
-// Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-// `protocol_template`.
+// Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+// conflicts with `protocol_template`.
 func (o GroupRuleOutput) IpProtocol() pulumi.StringOutput {
 	return o.ApplyT(func(v *GroupRule) pulumi.StringOutput { return v.IpProtocol }).(pulumi.StringOutput)
 }

@@ -35,6 +35,10 @@ export class Instance extends pulumi.CustomResource {
     }
 
     /**
+     * Add node attribute list.
+     */
+    public readonly addNodeLists!: pulumi.Output<outputs.Mongodb.InstanceAddNodeList[] | undefined>;
+    /**
      * Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
      * `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
      * `1` for creation.
@@ -83,6 +87,16 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly machineType!: pulumi.Output<string>;
     /**
+     * Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+     * time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+     */
+    public readonly maintenanceEnd!: pulumi.Output<string>;
+    /**
+     * Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+     * 00:30.
+     */
+    public readonly maintenanceStart!: pulumi.Output<string>;
+    /**
      * Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
      */
     public readonly memory!: pulumi.Output<number>;
@@ -103,6 +117,10 @@ export class Instance extends pulumi.CustomResource {
      * ID of the project which the instance belongs.
      */
     public readonly projectId!: pulumi.Output<number | undefined>;
+    /**
+     * Add node attribute list.
+     */
+    public readonly removeNodeLists!: pulumi.Output<outputs.Mongodb.InstanceRemoveNodeList[] | undefined>;
     /**
      * ID of the security group.
      */
@@ -154,6 +172,7 @@ export class Instance extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as InstanceState | undefined;
+            resourceInputs["addNodeLists"] = state ? state.addNodeLists : undefined;
             resourceInputs["autoRenewFlag"] = state ? state.autoRenewFlag : undefined;
             resourceInputs["availabilityZoneLists"] = state ? state.availabilityZoneLists : undefined;
             resourceInputs["availableZone"] = state ? state.availableZone : undefined;
@@ -163,11 +182,14 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["hiddenZone"] = state ? state.hiddenZone : undefined;
             resourceInputs["instanceName"] = state ? state.instanceName : undefined;
             resourceInputs["machineType"] = state ? state.machineType : undefined;
+            resourceInputs["maintenanceEnd"] = state ? state.maintenanceEnd : undefined;
+            resourceInputs["maintenanceStart"] = state ? state.maintenanceStart : undefined;
             resourceInputs["memory"] = state ? state.memory : undefined;
             resourceInputs["nodeNum"] = state ? state.nodeNum : undefined;
             resourceInputs["password"] = state ? state.password : undefined;
             resourceInputs["prepaidPeriod"] = state ? state.prepaidPeriod : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["removeNodeLists"] = state ? state.removeNodeLists : undefined;
             resourceInputs["securityGroups"] = state ? state.securityGroups : undefined;
             resourceInputs["standbyInstanceLists"] = state ? state.standbyInstanceLists : undefined;
             resourceInputs["status"] = state ? state.status : undefined;
@@ -197,6 +219,7 @@ export class Instance extends pulumi.CustomResource {
             if ((!args || args.volume === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'volume'");
             }
+            resourceInputs["addNodeLists"] = args ? args.addNodeLists : undefined;
             resourceInputs["autoRenewFlag"] = args ? args.autoRenewFlag : undefined;
             resourceInputs["availabilityZoneLists"] = args ? args.availabilityZoneLists : undefined;
             resourceInputs["availableZone"] = args ? args.availableZone : undefined;
@@ -205,11 +228,14 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["hiddenZone"] = args ? args.hiddenZone : undefined;
             resourceInputs["instanceName"] = args ? args.instanceName : undefined;
             resourceInputs["machineType"] = args ? args.machineType : undefined;
+            resourceInputs["maintenanceEnd"] = args ? args.maintenanceEnd : undefined;
+            resourceInputs["maintenanceStart"] = args ? args.maintenanceStart : undefined;
             resourceInputs["memory"] = args ? args.memory : undefined;
             resourceInputs["nodeNum"] = args ? args.nodeNum : undefined;
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["prepaidPeriod"] = args ? args.prepaidPeriod : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["removeNodeLists"] = args ? args.removeNodeLists : undefined;
             resourceInputs["securityGroups"] = args ? args.securityGroups : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
@@ -232,6 +258,10 @@ export class Instance extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Instance resources.
  */
 export interface InstanceState {
+    /**
+     * Add node attribute list.
+     */
+    addNodeLists?: pulumi.Input<pulumi.Input<inputs.Mongodb.InstanceAddNodeList>[]>;
     /**
      * Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
      * `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
@@ -281,6 +311,16 @@ export interface InstanceState {
      */
     machineType?: pulumi.Input<string>;
     /**
+     * Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+     * time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+     */
+    maintenanceEnd?: pulumi.Input<string>;
+    /**
+     * Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+     * 00:30.
+     */
+    maintenanceStart?: pulumi.Input<string>;
+    /**
      * Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
      */
     memory?: pulumi.Input<number>;
@@ -301,6 +341,10 @@ export interface InstanceState {
      * ID of the project which the instance belongs.
      */
     projectId?: pulumi.Input<number>;
+    /**
+     * Add node attribute list.
+     */
+    removeNodeLists?: pulumi.Input<pulumi.Input<inputs.Mongodb.InstanceRemoveNodeList>[]>;
     /**
      * ID of the security group.
      */
@@ -344,6 +388,10 @@ export interface InstanceState {
  * The set of arguments for constructing a Instance resource.
  */
 export interface InstanceArgs {
+    /**
+     * Add node attribute list.
+     */
+    addNodeLists?: pulumi.Input<pulumi.Input<inputs.Mongodb.InstanceAddNodeList>[]>;
     /**
      * Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
      * `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
@@ -389,6 +437,16 @@ export interface InstanceArgs {
      */
     machineType: pulumi.Input<string>;
     /**
+     * Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+     * time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+     */
+    maintenanceEnd?: pulumi.Input<string>;
+    /**
+     * Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+     * 00:30.
+     */
+    maintenanceStart?: pulumi.Input<string>;
+    /**
      * Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
      */
     memory: pulumi.Input<number>;
@@ -409,6 +467,10 @@ export interface InstanceArgs {
      * ID of the project which the instance belongs.
      */
     projectId?: pulumi.Input<number>;
+    /**
+     * Add node attribute list.
+     */
+    removeNodeLists?: pulumi.Input<pulumi.Input<inputs.Mongodb.InstanceRemoveNodeList>[]>;
     /**
      * ID of the security group.
      */

@@ -25,6 +25,10 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Attachment{}
 	case "tencentcloud:Eni/instance:Instance":
 		r = &Instance{}
+	case "tencentcloud:Eni/ipv4Address:Ipv4Address":
+		r = &Ipv4Address{}
+	case "tencentcloud:Eni/ipv6Address:Ipv6Address":
+		r = &Ipv6Address{}
 	case "tencentcloud:Eni/sgAttachment:SgAttachment":
 		r = &SgAttachment{}
 	default:
@@ -48,6 +52,16 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
 		"Eni/instance",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Eni/ipv4Address",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Eni/ipv6Address",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(

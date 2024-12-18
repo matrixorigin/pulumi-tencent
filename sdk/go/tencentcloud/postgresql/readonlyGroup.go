@@ -27,6 +27,8 @@ type ReadonlyGroup struct {
 	MinDelayEliminateReserve pulumi.IntOutput `pulumi:"minDelayEliminateReserve"`
 	// RO group name.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// List of db instance net info.
+	NetInfoLists ReadonlyGroupNetInfoListArrayOutput `pulumi:"netInfoLists"`
 	// Project ID.
 	ProjectId pulumi.IntOutput `pulumi:"projectId"`
 	// Whether to remove a read-only replica from an RO group if the delay between the read-only replica and the primary
@@ -112,6 +114,8 @@ type readonlyGroupState struct {
 	MinDelayEliminateReserve *int `pulumi:"minDelayEliminateReserve"`
 	// RO group name.
 	Name *string `pulumi:"name"`
+	// List of db instance net info.
+	NetInfoLists []ReadonlyGroupNetInfoList `pulumi:"netInfoLists"`
 	// Project ID.
 	ProjectId *int `pulumi:"projectId"`
 	// Whether to remove a read-only replica from an RO group if the delay between the read-only replica and the primary
@@ -141,6 +145,8 @@ type ReadonlyGroupState struct {
 	MinDelayEliminateReserve pulumi.IntPtrInput
 	// RO group name.
 	Name pulumi.StringPtrInput
+	// List of db instance net info.
+	NetInfoLists ReadonlyGroupNetInfoListArrayInput
 	// Project ID.
 	ProjectId pulumi.IntPtrInput
 	// Whether to remove a read-only replica from an RO group if the delay between the read-only replica and the primary
@@ -331,6 +337,11 @@ func (o ReadonlyGroupOutput) MinDelayEliminateReserve() pulumi.IntOutput {
 // RO group name.
 func (o ReadonlyGroupOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *ReadonlyGroup) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+// List of db instance net info.
+func (o ReadonlyGroupOutput) NetInfoLists() ReadonlyGroupNetInfoListArrayOutput {
+	return o.ApplyT(func(v *ReadonlyGroup) ReadonlyGroupNetInfoListArrayOutput { return v.NetInfoLists }).(ReadonlyGroupNetInfoListArrayOutput)
 }
 
 // Project ID.

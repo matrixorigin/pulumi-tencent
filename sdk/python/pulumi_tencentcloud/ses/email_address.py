@@ -15,21 +15,25 @@ __all__ = ['EmailAddressArgs', 'EmailAddress']
 class EmailAddressArgs:
     def __init__(__self__, *,
                  email_address: pulumi.Input[str],
-                 email_sender_name: Optional[pulumi.Input[str]] = None):
+                 email_sender_name: Optional[pulumi.Input[str]] = None,
+                 smtp_password: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a EmailAddress resource.
-        :param pulumi.Input[str] email_address: Your sender address. (You can create up to 10 sender addresses for each domain.).
+        :param pulumi.Input[str] email_address: Your sender address(You can create up to 10 sender addresses for each domain).
         :param pulumi.Input[str] email_sender_name: Sender name.
+        :param pulumi.Input[str] smtp_password: Password for SMTP, Length limit 64.
         """
         pulumi.set(__self__, "email_address", email_address)
         if email_sender_name is not None:
             pulumi.set(__self__, "email_sender_name", email_sender_name)
+        if smtp_password is not None:
+            pulumi.set(__self__, "smtp_password", smtp_password)
 
     @property
     @pulumi.getter(name="emailAddress")
     def email_address(self) -> pulumi.Input[str]:
         """
-        Your sender address. (You can create up to 10 sender addresses for each domain.).
+        Your sender address(You can create up to 10 sender addresses for each domain).
         """
         return pulumi.get(self, "email_address")
 
@@ -49,27 +53,43 @@ class EmailAddressArgs:
     def email_sender_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "email_sender_name", value)
 
+    @property
+    @pulumi.getter(name="smtpPassword")
+    def smtp_password(self) -> Optional[pulumi.Input[str]]:
+        """
+        Password for SMTP, Length limit 64.
+        """
+        return pulumi.get(self, "smtp_password")
+
+    @smtp_password.setter
+    def smtp_password(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "smtp_password", value)
+
 
 @pulumi.input_type
 class _EmailAddressState:
     def __init__(__self__, *,
                  email_address: Optional[pulumi.Input[str]] = None,
-                 email_sender_name: Optional[pulumi.Input[str]] = None):
+                 email_sender_name: Optional[pulumi.Input[str]] = None,
+                 smtp_password: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering EmailAddress resources.
-        :param pulumi.Input[str] email_address: Your sender address. (You can create up to 10 sender addresses for each domain.).
+        :param pulumi.Input[str] email_address: Your sender address(You can create up to 10 sender addresses for each domain).
         :param pulumi.Input[str] email_sender_name: Sender name.
+        :param pulumi.Input[str] smtp_password: Password for SMTP, Length limit 64.
         """
         if email_address is not None:
             pulumi.set(__self__, "email_address", email_address)
         if email_sender_name is not None:
             pulumi.set(__self__, "email_sender_name", email_sender_name)
+        if smtp_password is not None:
+            pulumi.set(__self__, "smtp_password", smtp_password)
 
     @property
     @pulumi.getter(name="emailAddress")
     def email_address(self) -> Optional[pulumi.Input[str]]:
         """
-        Your sender address. (You can create up to 10 sender addresses for each domain.).
+        Your sender address(You can create up to 10 sender addresses for each domain).
         """
         return pulumi.get(self, "email_address")
 
@@ -89,6 +109,18 @@ class _EmailAddressState:
     def email_sender_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "email_sender_name", value)
 
+    @property
+    @pulumi.getter(name="smtpPassword")
+    def smtp_password(self) -> Optional[pulumi.Input[str]]:
+        """
+        Password for SMTP, Length limit 64.
+        """
+        return pulumi.get(self, "smtp_password")
+
+    @smtp_password.setter
+    def smtp_password(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "smtp_password", value)
+
 
 class EmailAddress(pulumi.CustomResource):
     @overload
@@ -97,13 +129,15 @@ class EmailAddress(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  email_address: Optional[pulumi.Input[str]] = None,
                  email_sender_name: Optional[pulumi.Input[str]] = None,
+                 smtp_password: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a EmailAddress resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] email_address: Your sender address. (You can create up to 10 sender addresses for each domain.).
+        :param pulumi.Input[str] email_address: Your sender address(You can create up to 10 sender addresses for each domain).
         :param pulumi.Input[str] email_sender_name: Sender name.
+        :param pulumi.Input[str] smtp_password: Password for SMTP, Length limit 64.
         """
         ...
     @overload
@@ -130,6 +164,7 @@ class EmailAddress(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  email_address: Optional[pulumi.Input[str]] = None,
                  email_sender_name: Optional[pulumi.Input[str]] = None,
+                 smtp_password: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -143,6 +178,9 @@ class EmailAddress(pulumi.CustomResource):
                 raise TypeError("Missing required property 'email_address'")
             __props__.__dict__["email_address"] = email_address
             __props__.__dict__["email_sender_name"] = email_sender_name
+            __props__.__dict__["smtp_password"] = None if smtp_password is None else pulumi.Output.secret(smtp_password)
+        secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["smtpPassword"])
+        opts = pulumi.ResourceOptions.merge(opts, secret_opts)
         super(EmailAddress, __self__).__init__(
             'tencentcloud:Ses/emailAddress:EmailAddress',
             resource_name,
@@ -154,7 +192,8 @@ class EmailAddress(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             email_address: Optional[pulumi.Input[str]] = None,
-            email_sender_name: Optional[pulumi.Input[str]] = None) -> 'EmailAddress':
+            email_sender_name: Optional[pulumi.Input[str]] = None,
+            smtp_password: Optional[pulumi.Input[str]] = None) -> 'EmailAddress':
         """
         Get an existing EmailAddress resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -162,8 +201,9 @@ class EmailAddress(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] email_address: Your sender address. (You can create up to 10 sender addresses for each domain.).
+        :param pulumi.Input[str] email_address: Your sender address(You can create up to 10 sender addresses for each domain).
         :param pulumi.Input[str] email_sender_name: Sender name.
+        :param pulumi.Input[str] smtp_password: Password for SMTP, Length limit 64.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -171,13 +211,14 @@ class EmailAddress(pulumi.CustomResource):
 
         __props__.__dict__["email_address"] = email_address
         __props__.__dict__["email_sender_name"] = email_sender_name
+        __props__.__dict__["smtp_password"] = smtp_password
         return EmailAddress(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter(name="emailAddress")
     def email_address(self) -> pulumi.Output[str]:
         """
-        Your sender address. (You can create up to 10 sender addresses for each domain.).
+        Your sender address(You can create up to 10 sender addresses for each domain).
         """
         return pulumi.get(self, "email_address")
 
@@ -188,4 +229,12 @@ class EmailAddress(pulumi.CustomResource):
         Sender name.
         """
         return pulumi.get(self, "email_sender_name")
+
+    @property
+    @pulumi.getter(name="smtpPassword")
+    def smtp_password(self) -> pulumi.Output[Optional[str]]:
+        """
+        Password for SMTP, Length limit 64.
+        """
+        return pulumi.get(self, "smtp_password")
 

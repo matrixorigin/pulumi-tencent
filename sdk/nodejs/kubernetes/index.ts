@@ -5,10 +5,20 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
 // Export members:
+export { AddonArgs, AddonState } from "./addon";
+export type Addon = import("./addon").Addon;
+export const Addon: typeof import("./addon").Addon = null as any;
+utilities.lazyLoad(exports, ["Addon"], () => require("./addon"));
+
 export { AddonAttachmentArgs, AddonAttachmentState } from "./addonAttachment";
 export type AddonAttachment = import("./addonAttachment").AddonAttachment;
 export const AddonAttachment: typeof import("./addonAttachment").AddonAttachment = null as any;
 utilities.lazyLoad(exports, ["AddonAttachment"], () => require("./addonAttachment"));
+
+export { AddonConfigArgs, AddonConfigState } from "./addonConfig";
+export type AddonConfig = import("./addonConfig").AddonConfig;
+export const AddonConfig: typeof import("./addonConfig").AddonConfig = null as any;
+utilities.lazyLoad(exports, ["AddonConfig"], () => require("./addonConfig"));
 
 export { AuthAttachmentArgs, AuthAttachmentState } from "./authAttachment";
 export type AuthAttachment = import("./authAttachment").AuthAttachment;
@@ -34,6 +44,11 @@ export { ClusterEndpointArgs, ClusterEndpointState } from "./clusterEndpoint";
 export type ClusterEndpoint = import("./clusterEndpoint").ClusterEndpoint;
 export const ClusterEndpoint: typeof import("./clusterEndpoint").ClusterEndpoint = null as any;
 utilities.lazyLoad(exports, ["ClusterEndpoint"], () => require("./clusterEndpoint"));
+
+export { ClusterMasterAttachmentArgs, ClusterMasterAttachmentState } from "./clusterMasterAttachment";
+export type ClusterMasterAttachment = import("./clusterMasterAttachment").ClusterMasterAttachment;
+export const ClusterMasterAttachment: typeof import("./clusterMasterAttachment").ClusterMasterAttachment = null as any;
+utilities.lazyLoad(exports, ["ClusterMasterAttachment"], () => require("./clusterMasterAttachment"));
 
 export { EncryptionProtectionArgs, EncryptionProtectionState } from "./encryptionProtection";
 export type EncryptionProtection = import("./encryptionProtection").EncryptionProtection;
@@ -70,6 +85,11 @@ export const getClusterLevels: typeof import("./getClusterLevels").getClusterLev
 export const getClusterLevelsOutput: typeof import("./getClusterLevels").getClusterLevelsOutput = null as any;
 utilities.lazyLoad(exports, ["getClusterLevels","getClusterLevelsOutput"], () => require("./getClusterLevels"));
 
+export { GetClusterNativeNodePoolsArgs, GetClusterNativeNodePoolsResult, GetClusterNativeNodePoolsOutputArgs } from "./getClusterNativeNodePools";
+export const getClusterNativeNodePools: typeof import("./getClusterNativeNodePools").getClusterNativeNodePools = null as any;
+export const getClusterNativeNodePoolsOutput: typeof import("./getClusterNativeNodePools").getClusterNativeNodePoolsOutput = null as any;
+utilities.lazyLoad(exports, ["getClusterNativeNodePools","getClusterNativeNodePoolsOutput"], () => require("./getClusterNativeNodePools"));
+
 export { GetClusterNodePoolsArgs, GetClusterNodePoolsResult, GetClusterNodePoolsOutputArgs } from "./getClusterNodePools";
 export const getClusterNodePools: typeof import("./getClusterNodePools").getClusterNodePools = null as any;
 export const getClusterNodePoolsOutput: typeof import("./getClusterNodePools").getClusterNodePoolsOutput = null as any;
@@ -79,6 +99,21 @@ export { GetClustersArgs, GetClustersResult, GetClustersOutputArgs } from "./get
 export const getClusters: typeof import("./getClusters").getClusters = null as any;
 export const getClustersOutput: typeof import("./getClusters").getClustersOutput = null as any;
 utilities.lazyLoad(exports, ["getClusters","getClustersOutput"], () => require("./getClusters"));
+
+export { HealthCheckPolicyArgs, HealthCheckPolicyState } from "./healthCheckPolicy";
+export type HealthCheckPolicy = import("./healthCheckPolicy").HealthCheckPolicy;
+export const HealthCheckPolicy: typeof import("./healthCheckPolicy").HealthCheckPolicy = null as any;
+utilities.lazyLoad(exports, ["HealthCheckPolicy"], () => require("./healthCheckPolicy"));
+
+export { LogConfigArgs, LogConfigState } from "./logConfig";
+export type LogConfig = import("./logConfig").LogConfig;
+export const LogConfig: typeof import("./logConfig").LogConfig = null as any;
+utilities.lazyLoad(exports, ["LogConfig"], () => require("./logConfig"));
+
+export { NativeNodePoolArgs, NativeNodePoolState } from "./nativeNodePool";
+export type NativeNodePool = import("./nativeNodePool").NativeNodePool;
+export const NativeNodePool: typeof import("./nativeNodePool").NativeNodePool = null as any;
+utilities.lazyLoad(exports, ["NativeNodePool"], () => require("./nativeNodePool"));
 
 export { NodePoolArgs, NodePoolState } from "./nodePool";
 export type NodePool = import("./nodePool").NodePool;
@@ -100,8 +135,12 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "tencentcloud:Kubernetes/addon:Addon":
+                return new Addon(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/addonAttachment:AddonAttachment":
                 return new AddonAttachment(name, <any>undefined, { urn })
+            case "tencentcloud:Kubernetes/addonConfig:AddonConfig":
+                return new AddonConfig(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/authAttachment:AuthAttachment":
                 return new AuthAttachment(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/backupStorageLocation:BackupStorageLocation":
@@ -112,8 +151,16 @@ const _module = {
                 return new ClusterAttachment(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/clusterEndpoint:ClusterEndpoint":
                 return new ClusterEndpoint(name, <any>undefined, { urn })
+            case "tencentcloud:Kubernetes/clusterMasterAttachment:ClusterMasterAttachment":
+                return new ClusterMasterAttachment(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/encryptionProtection:EncryptionProtection":
                 return new EncryptionProtection(name, <any>undefined, { urn })
+            case "tencentcloud:Kubernetes/healthCheckPolicy:HealthCheckPolicy":
+                return new HealthCheckPolicy(name, <any>undefined, { urn })
+            case "tencentcloud:Kubernetes/logConfig:LogConfig":
+                return new LogConfig(name, <any>undefined, { urn })
+            case "tencentcloud:Kubernetes/nativeNodePool:NativeNodePool":
+                return new NativeNodePool(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/nodePool:NodePool":
                 return new NodePool(name, <any>undefined, { urn })
             case "tencentcloud:Kubernetes/scaleWorker:ScaleWorker":
@@ -125,13 +172,19 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/addon", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/addonAttachment", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/addonConfig", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/authAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/backupStorageLocation", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/cluster", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/clusterAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/clusterEndpoint", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/clusterMasterAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/encryptionProtection", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/healthCheckPolicy", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/logConfig", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/nativeNodePool", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/nodePool", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/scaleWorker", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Kubernetes/serverlessNodePool", _module)

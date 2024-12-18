@@ -19,12 +19,14 @@ class AlarmArgs:
                  alarm_notice_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
                  alarm_period: pulumi.Input[int],
                  alarm_targets: pulumi.Input[Sequence[pulumi.Input['AlarmAlarmTargetArgs']]],
-                 condition: pulumi.Input[str],
                  monitor_time: pulumi.Input['AlarmMonitorTimeArgs'],
                  trigger_count: pulumi.Input[int],
+                 alarm_level: Optional[pulumi.Input[int]] = None,
                  analyses: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmAnalysisArgs']]]] = None,
                  call_back: Optional[pulumi.Input['AlarmCallBackArgs']] = None,
+                 condition: Optional[pulumi.Input[str]] = None,
                  message_template: Optional[pulumi.Input[str]] = None,
+                 multi_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
@@ -33,12 +35,14 @@ class AlarmArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] alarm_notice_ids: list of alarm notice id.
         :param pulumi.Input[int] alarm_period: alarm repeat cycle.
         :param pulumi.Input[Sequence[pulumi.Input['AlarmAlarmTargetArgs']]] alarm_targets: list of alarm target.
-        :param pulumi.Input[str] condition: triggering conditions.
         :param pulumi.Input['AlarmMonitorTimeArgs'] monitor_time: monitor task execution time.
         :param pulumi.Input[int] trigger_count: continuous cycle.
+        :param pulumi.Input[int] alarm_level: Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
         :param pulumi.Input[Sequence[pulumi.Input['AlarmAnalysisArgs']]] analyses: multidimensional analysis.
         :param pulumi.Input['AlarmCallBackArgs'] call_back: user define callback.
+        :param pulumi.Input[str] condition: Trigger condition.
         :param pulumi.Input[str] message_template: user define alarm notice.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]] multi_conditions: Multiple triggering conditions.
         :param pulumi.Input[str] name: log alarm name.
         :param pulumi.Input[bool] status: whether to enable the alarm policy.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
@@ -46,15 +50,20 @@ class AlarmArgs:
         pulumi.set(__self__, "alarm_notice_ids", alarm_notice_ids)
         pulumi.set(__self__, "alarm_period", alarm_period)
         pulumi.set(__self__, "alarm_targets", alarm_targets)
-        pulumi.set(__self__, "condition", condition)
         pulumi.set(__self__, "monitor_time", monitor_time)
         pulumi.set(__self__, "trigger_count", trigger_count)
+        if alarm_level is not None:
+            pulumi.set(__self__, "alarm_level", alarm_level)
         if analyses is not None:
             pulumi.set(__self__, "analyses", analyses)
         if call_back is not None:
             pulumi.set(__self__, "call_back", call_back)
+        if condition is not None:
+            pulumi.set(__self__, "condition", condition)
         if message_template is not None:
             pulumi.set(__self__, "message_template", message_template)
+        if multi_conditions is not None:
+            pulumi.set(__self__, "multi_conditions", multi_conditions)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if status is not None:
@@ -99,18 +108,6 @@ class AlarmArgs:
         pulumi.set(self, "alarm_targets", value)
 
     @property
-    @pulumi.getter
-    def condition(self) -> pulumi.Input[str]:
-        """
-        triggering conditions.
-        """
-        return pulumi.get(self, "condition")
-
-    @condition.setter
-    def condition(self, value: pulumi.Input[str]):
-        pulumi.set(self, "condition", value)
-
-    @property
     @pulumi.getter(name="monitorTime")
     def monitor_time(self) -> pulumi.Input['AlarmMonitorTimeArgs']:
         """
@@ -133,6 +130,18 @@ class AlarmArgs:
     @trigger_count.setter
     def trigger_count(self, value: pulumi.Input[int]):
         pulumi.set(self, "trigger_count", value)
+
+    @property
+    @pulumi.getter(name="alarmLevel")
+    def alarm_level(self) -> Optional[pulumi.Input[int]]:
+        """
+        Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+        """
+        return pulumi.get(self, "alarm_level")
+
+    @alarm_level.setter
+    def alarm_level(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "alarm_level", value)
 
     @property
     @pulumi.getter
@@ -159,6 +168,18 @@ class AlarmArgs:
         pulumi.set(self, "call_back", value)
 
     @property
+    @pulumi.getter
+    def condition(self) -> Optional[pulumi.Input[str]]:
+        """
+        Trigger condition.
+        """
+        return pulumi.get(self, "condition")
+
+    @condition.setter
+    def condition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "condition", value)
+
+    @property
     @pulumi.getter(name="messageTemplate")
     def message_template(self) -> Optional[pulumi.Input[str]]:
         """
@@ -169,6 +190,18 @@ class AlarmArgs:
     @message_template.setter
     def message_template(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "message_template", value)
+
+    @property
+    @pulumi.getter(name="multiConditions")
+    def multi_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]]:
+        """
+        Multiple triggering conditions.
+        """
+        return pulumi.get(self, "multi_conditions")
+
+    @multi_conditions.setter
+    def multi_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]]):
+        pulumi.set(self, "multi_conditions", value)
 
     @property
     @pulumi.getter
@@ -210,6 +243,7 @@ class AlarmArgs:
 @pulumi.input_type
 class _AlarmState:
     def __init__(__self__, *,
+                 alarm_level: Optional[pulumi.Input[int]] = None,
                  alarm_notice_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  alarm_period: Optional[pulumi.Input[int]] = None,
                  alarm_targets: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmAlarmTargetArgs']]]] = None,
@@ -218,25 +252,30 @@ class _AlarmState:
                  condition: Optional[pulumi.Input[str]] = None,
                  message_template: Optional[pulumi.Input[str]] = None,
                  monitor_time: Optional[pulumi.Input['AlarmMonitorTimeArgs']] = None,
+                 multi_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  trigger_count: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Alarm resources.
+        :param pulumi.Input[int] alarm_level: Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] alarm_notice_ids: list of alarm notice id.
         :param pulumi.Input[int] alarm_period: alarm repeat cycle.
         :param pulumi.Input[Sequence[pulumi.Input['AlarmAlarmTargetArgs']]] alarm_targets: list of alarm target.
         :param pulumi.Input[Sequence[pulumi.Input['AlarmAnalysisArgs']]] analyses: multidimensional analysis.
         :param pulumi.Input['AlarmCallBackArgs'] call_back: user define callback.
-        :param pulumi.Input[str] condition: triggering conditions.
+        :param pulumi.Input[str] condition: Trigger condition.
         :param pulumi.Input[str] message_template: user define alarm notice.
         :param pulumi.Input['AlarmMonitorTimeArgs'] monitor_time: monitor task execution time.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]] multi_conditions: Multiple triggering conditions.
         :param pulumi.Input[str] name: log alarm name.
         :param pulumi.Input[bool] status: whether to enable the alarm policy.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         :param pulumi.Input[int] trigger_count: continuous cycle.
         """
+        if alarm_level is not None:
+            pulumi.set(__self__, "alarm_level", alarm_level)
         if alarm_notice_ids is not None:
             pulumi.set(__self__, "alarm_notice_ids", alarm_notice_ids)
         if alarm_period is not None:
@@ -253,6 +292,8 @@ class _AlarmState:
             pulumi.set(__self__, "message_template", message_template)
         if monitor_time is not None:
             pulumi.set(__self__, "monitor_time", monitor_time)
+        if multi_conditions is not None:
+            pulumi.set(__self__, "multi_conditions", multi_conditions)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if status is not None:
@@ -261,6 +302,18 @@ class _AlarmState:
             pulumi.set(__self__, "tags", tags)
         if trigger_count is not None:
             pulumi.set(__self__, "trigger_count", trigger_count)
+
+    @property
+    @pulumi.getter(name="alarmLevel")
+    def alarm_level(self) -> Optional[pulumi.Input[int]]:
+        """
+        Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+        """
+        return pulumi.get(self, "alarm_level")
+
+    @alarm_level.setter
+    def alarm_level(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "alarm_level", value)
 
     @property
     @pulumi.getter(name="alarmNoticeIds")
@@ -326,7 +379,7 @@ class _AlarmState:
     @pulumi.getter
     def condition(self) -> Optional[pulumi.Input[str]]:
         """
-        triggering conditions.
+        Trigger condition.
         """
         return pulumi.get(self, "condition")
 
@@ -357,6 +410,18 @@ class _AlarmState:
     @monitor_time.setter
     def monitor_time(self, value: Optional[pulumi.Input['AlarmMonitorTimeArgs']]):
         pulumi.set(self, "monitor_time", value)
+
+    @property
+    @pulumi.getter(name="multiConditions")
+    def multi_conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]]:
+        """
+        Multiple triggering conditions.
+        """
+        return pulumi.get(self, "multi_conditions")
+
+    @multi_conditions.setter
+    def multi_conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmMultiConditionArgs']]]]):
+        pulumi.set(self, "multi_conditions", value)
 
     @property
     @pulumi.getter
@@ -412,6 +477,7 @@ class Alarm(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 alarm_level: Optional[pulumi.Input[int]] = None,
                  alarm_notice_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  alarm_period: Optional[pulumi.Input[int]] = None,
                  alarm_targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAlarmTargetArgs']]]]] = None,
@@ -420,6 +486,7 @@ class Alarm(pulumi.CustomResource):
                  condition: Optional[pulumi.Input[str]] = None,
                  message_template: Optional[pulumi.Input[str]] = None,
                  monitor_time: Optional[pulumi.Input[pulumi.InputType['AlarmMonitorTimeArgs']]] = None,
+                 multi_conditions: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmMultiConditionArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -429,14 +496,16 @@ class Alarm(pulumi.CustomResource):
         Create a Alarm resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] alarm_level: Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] alarm_notice_ids: list of alarm notice id.
         :param pulumi.Input[int] alarm_period: alarm repeat cycle.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAlarmTargetArgs']]]] alarm_targets: list of alarm target.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAnalysisArgs']]]] analyses: multidimensional analysis.
         :param pulumi.Input[pulumi.InputType['AlarmCallBackArgs']] call_back: user define callback.
-        :param pulumi.Input[str] condition: triggering conditions.
+        :param pulumi.Input[str] condition: Trigger condition.
         :param pulumi.Input[str] message_template: user define alarm notice.
         :param pulumi.Input[pulumi.InputType['AlarmMonitorTimeArgs']] monitor_time: monitor task execution time.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmMultiConditionArgs']]]] multi_conditions: Multiple triggering conditions.
         :param pulumi.Input[str] name: log alarm name.
         :param pulumi.Input[bool] status: whether to enable the alarm policy.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
@@ -465,6 +534,7 @@ class Alarm(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 alarm_level: Optional[pulumi.Input[int]] = None,
                  alarm_notice_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  alarm_period: Optional[pulumi.Input[int]] = None,
                  alarm_targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAlarmTargetArgs']]]]] = None,
@@ -473,6 +543,7 @@ class Alarm(pulumi.CustomResource):
                  condition: Optional[pulumi.Input[str]] = None,
                  message_template: Optional[pulumi.Input[str]] = None,
                  monitor_time: Optional[pulumi.Input[pulumi.InputType['AlarmMonitorTimeArgs']]] = None,
+                 multi_conditions: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmMultiConditionArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  status: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -486,6 +557,7 @@ class Alarm(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = AlarmArgs.__new__(AlarmArgs)
 
+            __props__.__dict__["alarm_level"] = alarm_level
             if alarm_notice_ids is None and not opts.urn:
                 raise TypeError("Missing required property 'alarm_notice_ids'")
             __props__.__dict__["alarm_notice_ids"] = alarm_notice_ids
@@ -497,13 +569,12 @@ class Alarm(pulumi.CustomResource):
             __props__.__dict__["alarm_targets"] = alarm_targets
             __props__.__dict__["analyses"] = analyses
             __props__.__dict__["call_back"] = call_back
-            if condition is None and not opts.urn:
-                raise TypeError("Missing required property 'condition'")
             __props__.__dict__["condition"] = condition
             __props__.__dict__["message_template"] = message_template
             if monitor_time is None and not opts.urn:
                 raise TypeError("Missing required property 'monitor_time'")
             __props__.__dict__["monitor_time"] = monitor_time
+            __props__.__dict__["multi_conditions"] = multi_conditions
             __props__.__dict__["name"] = name
             __props__.__dict__["status"] = status
             __props__.__dict__["tags"] = tags
@@ -520,6 +591,7 @@ class Alarm(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            alarm_level: Optional[pulumi.Input[int]] = None,
             alarm_notice_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             alarm_period: Optional[pulumi.Input[int]] = None,
             alarm_targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAlarmTargetArgs']]]]] = None,
@@ -528,6 +600,7 @@ class Alarm(pulumi.CustomResource):
             condition: Optional[pulumi.Input[str]] = None,
             message_template: Optional[pulumi.Input[str]] = None,
             monitor_time: Optional[pulumi.Input[pulumi.InputType['AlarmMonitorTimeArgs']]] = None,
+            multi_conditions: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmMultiConditionArgs']]]]] = None,
             name: Optional[pulumi.Input[str]] = None,
             status: Optional[pulumi.Input[bool]] = None,
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -539,14 +612,16 @@ class Alarm(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] alarm_level: Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] alarm_notice_ids: list of alarm notice id.
         :param pulumi.Input[int] alarm_period: alarm repeat cycle.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAlarmTargetArgs']]]] alarm_targets: list of alarm target.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmAnalysisArgs']]]] analyses: multidimensional analysis.
         :param pulumi.Input[pulumi.InputType['AlarmCallBackArgs']] call_back: user define callback.
-        :param pulumi.Input[str] condition: triggering conditions.
+        :param pulumi.Input[str] condition: Trigger condition.
         :param pulumi.Input[str] message_template: user define alarm notice.
         :param pulumi.Input[pulumi.InputType['AlarmMonitorTimeArgs']] monitor_time: monitor task execution time.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmMultiConditionArgs']]]] multi_conditions: Multiple triggering conditions.
         :param pulumi.Input[str] name: log alarm name.
         :param pulumi.Input[bool] status: whether to enable the alarm policy.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
@@ -556,6 +631,7 @@ class Alarm(pulumi.CustomResource):
 
         __props__ = _AlarmState.__new__(_AlarmState)
 
+        __props__.__dict__["alarm_level"] = alarm_level
         __props__.__dict__["alarm_notice_ids"] = alarm_notice_ids
         __props__.__dict__["alarm_period"] = alarm_period
         __props__.__dict__["alarm_targets"] = alarm_targets
@@ -564,11 +640,20 @@ class Alarm(pulumi.CustomResource):
         __props__.__dict__["condition"] = condition
         __props__.__dict__["message_template"] = message_template
         __props__.__dict__["monitor_time"] = monitor_time
+        __props__.__dict__["multi_conditions"] = multi_conditions
         __props__.__dict__["name"] = name
         __props__.__dict__["status"] = status
         __props__.__dict__["tags"] = tags
         __props__.__dict__["trigger_count"] = trigger_count
         return Alarm(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="alarmLevel")
+    def alarm_level(self) -> pulumi.Output[int]:
+        """
+        Alarm level. 0: Warning; 1: Info; 2: Critical. Default is 0.
+        """
+        return pulumi.get(self, "alarm_level")
 
     @property
     @pulumi.getter(name="alarmNoticeIds")
@@ -604,7 +689,7 @@ class Alarm(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="callBack")
-    def call_back(self) -> pulumi.Output[Optional['outputs.AlarmCallBack']]:
+    def call_back(self) -> pulumi.Output['outputs.AlarmCallBack']:
         """
         user define callback.
         """
@@ -612,9 +697,9 @@ class Alarm(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def condition(self) -> pulumi.Output[str]:
+    def condition(self) -> pulumi.Output[Optional[str]]:
         """
-        triggering conditions.
+        Trigger condition.
         """
         return pulumi.get(self, "condition")
 
@@ -635,6 +720,14 @@ class Alarm(pulumi.CustomResource):
         return pulumi.get(self, "monitor_time")
 
     @property
+    @pulumi.getter(name="multiConditions")
+    def multi_conditions(self) -> pulumi.Output[Optional[Sequence['outputs.AlarmMultiCondition']]]:
+        """
+        Multiple triggering conditions.
+        """
+        return pulumi.get(self, "multi_conditions")
+
+    @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
@@ -644,7 +737,7 @@ class Alarm(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def status(self) -> pulumi.Output[Optional[bool]]:
+    def status(self) -> pulumi.Output[bool]:
         """
         whether to enable the alarm policy.
         """

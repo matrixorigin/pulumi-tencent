@@ -21,6 +21,8 @@ class NodePoolArgs:
                  max_size: pulumi.Input[int],
                  min_size: pulumi.Input[int],
                  vpc_id: pulumi.Input[str],
+                 annotations: Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]] = None,
+                 auto_update_instance_tags: Optional[pulumi.Input[bool]] = None,
                  default_cooldown: Optional[pulumi.Input[int]] = None,
                  delete_keep_instance: Optional[pulumi.Input[bool]] = None,
                  deletion_protection: Optional[pulumi.Input[bool]] = None,
@@ -33,6 +35,7 @@ class NodePoolArgs:
                  node_os: Optional[pulumi.Input[str]] = None,
                  node_os_type: Optional[pulumi.Input[str]] = None,
                  retry_policy: Optional[pulumi.Input[str]] = None,
+                 scale_tolerance: Optional[pulumi.Input[int]] = None,
                  scaling_group_name: Optional[pulumi.Input[str]] = None,
                  scaling_group_project_id: Optional[pulumi.Input[int]] = None,
                  scaling_mode: Optional[pulumi.Input[str]] = None,
@@ -41,6 +44,7 @@ class NodePoolArgs:
                  taints: Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolTaintArgs']]]] = None,
                  termination_policies: Optional[pulumi.Input[str]] = None,
                  unschedulable: Optional[pulumi.Input[int]] = None,
+                 wait_node_ready: Optional[pulumi.Input[bool]] = None,
                  zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a NodePool resource.
@@ -49,6 +53,11 @@ class NodePoolArgs:
         :param pulumi.Input[int] max_size: Maximum number of node.
         :param pulumi.Input[int] min_size: Minimum number of node.
         :param pulumi.Input[str] vpc_id: ID of VPC network.
+        :param pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]] annotations: Node Annotation List.
+        :param pulumi.Input[bool] auto_update_instance_tags: Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+               updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+               support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+               effect immediately and there is a certain delay.
         :param pulumi.Input[int] default_cooldown: Seconds of scaling group cool down. Default value is `300`.
         :param pulumi.Input[bool] delete_keep_instance: Indicate to keep the CVM instance when delete the node pool. Default is `true`.
         :param pulumi.Input[bool] deletion_protection: Indicates whether the node pool deletion protection is enabled.
@@ -67,6 +76,8 @@ class NodePoolArgs:
         :param pulumi.Input[str] node_os_type: The image version of the node. Valida values are `DOCKER_CUSTOMIZE` and `GENERAL`. Default is `GENERAL`. This parameter
                will only affect new nodes, not including the existing nodes.
         :param pulumi.Input[str] retry_policy: Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
+        :param pulumi.Input[int] scale_tolerance: Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+               Only can be set if `wait_node_ready` is `true`.
         :param pulumi.Input[str] scaling_group_name: Name of relative scaling group.
         :param pulumi.Input[int] scaling_group_project_id: Project ID the scaling group belongs to.
         :param pulumi.Input[str] scaling_mode: Auto scaling mode. Valid values are `CLASSIC_SCALING`(scaling by create/destroy instances),
@@ -79,6 +90,7 @@ class NodePoolArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NodePoolTaintArgs']]] taints: Taints of kubernetes node pool created nodes.
         :param pulumi.Input[str] termination_policies: Policy of scaling group termination. Available values: `["OLDEST_INSTANCE"]`, `["NEWEST_INSTANCE"]`.
         :param pulumi.Input[int] unschedulable: Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+        :param pulumi.Input[bool] wait_node_ready: Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zones: List of auto scaling group available zones, for Basic network it is required.
         """
         pulumi.set(__self__, "auto_scaling_config", auto_scaling_config)
@@ -86,6 +98,10 @@ class NodePoolArgs:
         pulumi.set(__self__, "max_size", max_size)
         pulumi.set(__self__, "min_size", min_size)
         pulumi.set(__self__, "vpc_id", vpc_id)
+        if annotations is not None:
+            pulumi.set(__self__, "annotations", annotations)
+        if auto_update_instance_tags is not None:
+            pulumi.set(__self__, "auto_update_instance_tags", auto_update_instance_tags)
         if default_cooldown is not None:
             pulumi.set(__self__, "default_cooldown", default_cooldown)
         if delete_keep_instance is not None:
@@ -110,6 +126,8 @@ class NodePoolArgs:
             pulumi.set(__self__, "node_os_type", node_os_type)
         if retry_policy is not None:
             pulumi.set(__self__, "retry_policy", retry_policy)
+        if scale_tolerance is not None:
+            pulumi.set(__self__, "scale_tolerance", scale_tolerance)
         if scaling_group_name is not None:
             pulumi.set(__self__, "scaling_group_name", scaling_group_name)
         if scaling_group_project_id is not None:
@@ -126,6 +144,8 @@ class NodePoolArgs:
             pulumi.set(__self__, "termination_policies", termination_policies)
         if unschedulable is not None:
             pulumi.set(__self__, "unschedulable", unschedulable)
+        if wait_node_ready is not None:
+            pulumi.set(__self__, "wait_node_ready", wait_node_ready)
         if zones is not None:
             pulumi.set(__self__, "zones", zones)
 
@@ -188,6 +208,33 @@ class NodePoolArgs:
     @vpc_id.setter
     def vpc_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "vpc_id", value)
+
+    @property
+    @pulumi.getter
+    def annotations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]]:
+        """
+        Node Annotation List.
+        """
+        return pulumi.get(self, "annotations")
+
+    @annotations.setter
+    def annotations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]]):
+        pulumi.set(self, "annotations", value)
+
+    @property
+    @pulumi.getter(name="autoUpdateInstanceTags")
+    def auto_update_instance_tags(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+        updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+        support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+        effect immediately and there is a certain delay.
+        """
+        return pulumi.get(self, "auto_update_instance_tags")
+
+    @auto_update_instance_tags.setter
+    def auto_update_instance_tags(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_update_instance_tags", value)
 
     @property
     @pulumi.getter(name="defaultCooldown")
@@ -340,6 +387,19 @@ class NodePoolArgs:
         pulumi.set(self, "retry_policy", value)
 
     @property
+    @pulumi.getter(name="scaleTolerance")
+    def scale_tolerance(self) -> Optional[pulumi.Input[int]]:
+        """
+        Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+        Only can be set if `wait_node_ready` is `true`.
+        """
+        return pulumi.get(self, "scale_tolerance")
+
+    @scale_tolerance.setter
+    def scale_tolerance(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "scale_tolerance", value)
+
+    @property
     @pulumi.getter(name="scalingGroupName")
     def scaling_group_name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -440,6 +500,18 @@ class NodePoolArgs:
         pulumi.set(self, "unschedulable", value)
 
     @property
+    @pulumi.getter(name="waitNodeReady")
+    def wait_node_ready(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+        """
+        return pulumi.get(self, "wait_node_ready")
+
+    @wait_node_ready.setter
+    def wait_node_ready(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wait_node_ready", value)
+
+    @property
     @pulumi.getter
     def zones(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
@@ -455,8 +527,10 @@ class NodePoolArgs:
 @pulumi.input_type
 class _NodePoolState:
     def __init__(__self__, *,
+                 annotations: Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]] = None,
                  auto_scaling_config: Optional[pulumi.Input['NodePoolAutoScalingConfigArgs']] = None,
                  auto_scaling_group_id: Optional[pulumi.Input[str]] = None,
+                 auto_update_instance_tags: Optional[pulumi.Input[bool]] = None,
                  autoscaling_added_total: Optional[pulumi.Input[int]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  default_cooldown: Optional[pulumi.Input[int]] = None,
@@ -476,6 +550,7 @@ class _NodePoolState:
                  node_os: Optional[pulumi.Input[str]] = None,
                  node_os_type: Optional[pulumi.Input[str]] = None,
                  retry_policy: Optional[pulumi.Input[str]] = None,
+                 scale_tolerance: Optional[pulumi.Input[int]] = None,
                  scaling_group_name: Optional[pulumi.Input[str]] = None,
                  scaling_group_project_id: Optional[pulumi.Input[int]] = None,
                  scaling_mode: Optional[pulumi.Input[str]] = None,
@@ -486,11 +561,17 @@ class _NodePoolState:
                  termination_policies: Optional[pulumi.Input[str]] = None,
                  unschedulable: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_node_ready: Optional[pulumi.Input[bool]] = None,
                  zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Input properties used for looking up and filtering NodePool resources.
+        :param pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]] annotations: Node Annotation List.
         :param pulumi.Input['NodePoolAutoScalingConfigArgs'] auto_scaling_config: Auto scaling config parameters.
         :param pulumi.Input[str] auto_scaling_group_id: The auto scaling group ID.
+        :param pulumi.Input[bool] auto_update_instance_tags: Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+               updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+               support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+               effect immediately and there is a certain delay.
         :param pulumi.Input[int] autoscaling_added_total: The total of autoscaling added node.
         :param pulumi.Input[str] cluster_id: ID of the cluster.
         :param pulumi.Input[int] default_cooldown: Seconds of scaling group cool down. Default value is `300`.
@@ -516,6 +597,8 @@ class _NodePoolState:
         :param pulumi.Input[str] node_os_type: The image version of the node. Valida values are `DOCKER_CUSTOMIZE` and `GENERAL`. Default is `GENERAL`. This parameter
                will only affect new nodes, not including the existing nodes.
         :param pulumi.Input[str] retry_policy: Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
+        :param pulumi.Input[int] scale_tolerance: Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+               Only can be set if `wait_node_ready` is `true`.
         :param pulumi.Input[str] scaling_group_name: Name of relative scaling group.
         :param pulumi.Input[int] scaling_group_project_id: Project ID the scaling group belongs to.
         :param pulumi.Input[str] scaling_mode: Auto scaling mode. Valid values are `CLASSIC_SCALING`(scaling by create/destroy instances),
@@ -530,12 +613,17 @@ class _NodePoolState:
         :param pulumi.Input[str] termination_policies: Policy of scaling group termination. Available values: `["OLDEST_INSTANCE"]`, `["NEWEST_INSTANCE"]`.
         :param pulumi.Input[int] unschedulable: Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
         :param pulumi.Input[str] vpc_id: ID of VPC network.
+        :param pulumi.Input[bool] wait_node_ready: Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zones: List of auto scaling group available zones, for Basic network it is required.
         """
+        if annotations is not None:
+            pulumi.set(__self__, "annotations", annotations)
         if auto_scaling_config is not None:
             pulumi.set(__self__, "auto_scaling_config", auto_scaling_config)
         if auto_scaling_group_id is not None:
             pulumi.set(__self__, "auto_scaling_group_id", auto_scaling_group_id)
+        if auto_update_instance_tags is not None:
+            pulumi.set(__self__, "auto_update_instance_tags", auto_update_instance_tags)
         if autoscaling_added_total is not None:
             pulumi.set(__self__, "autoscaling_added_total", autoscaling_added_total)
         if cluster_id is not None:
@@ -574,6 +662,8 @@ class _NodePoolState:
             pulumi.set(__self__, "node_os_type", node_os_type)
         if retry_policy is not None:
             pulumi.set(__self__, "retry_policy", retry_policy)
+        if scale_tolerance is not None:
+            pulumi.set(__self__, "scale_tolerance", scale_tolerance)
         if scaling_group_name is not None:
             pulumi.set(__self__, "scaling_group_name", scaling_group_name)
         if scaling_group_project_id is not None:
@@ -594,8 +684,22 @@ class _NodePoolState:
             pulumi.set(__self__, "unschedulable", unschedulable)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+        if wait_node_ready is not None:
+            pulumi.set(__self__, "wait_node_ready", wait_node_ready)
         if zones is not None:
             pulumi.set(__self__, "zones", zones)
+
+    @property
+    @pulumi.getter
+    def annotations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]]:
+        """
+        Node Annotation List.
+        """
+        return pulumi.get(self, "annotations")
+
+    @annotations.setter
+    def annotations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NodePoolAnnotationArgs']]]]):
+        pulumi.set(self, "annotations", value)
 
     @property
     @pulumi.getter(name="autoScalingConfig")
@@ -620,6 +724,21 @@ class _NodePoolState:
     @auto_scaling_group_id.setter
     def auto_scaling_group_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "auto_scaling_group_id", value)
+
+    @property
+    @pulumi.getter(name="autoUpdateInstanceTags")
+    def auto_update_instance_tags(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+        updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+        support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+        effect immediately and there is a certain delay.
+        """
+        return pulumi.get(self, "auto_update_instance_tags")
+
+    @auto_update_instance_tags.setter
+    def auto_update_instance_tags(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_update_instance_tags", value)
 
     @property
     @pulumi.getter(name="autoscalingAddedTotal")
@@ -856,6 +975,19 @@ class _NodePoolState:
         pulumi.set(self, "retry_policy", value)
 
     @property
+    @pulumi.getter(name="scaleTolerance")
+    def scale_tolerance(self) -> Optional[pulumi.Input[int]]:
+        """
+        Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+        Only can be set if `wait_node_ready` is `true`.
+        """
+        return pulumi.get(self, "scale_tolerance")
+
+    @scale_tolerance.setter
+    def scale_tolerance(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "scale_tolerance", value)
+
+    @property
     @pulumi.getter(name="scalingGroupName")
     def scaling_group_name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -980,6 +1112,18 @@ class _NodePoolState:
         pulumi.set(self, "vpc_id", value)
 
     @property
+    @pulumi.getter(name="waitNodeReady")
+    def wait_node_ready(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+        """
+        return pulumi.get(self, "wait_node_ready")
+
+    @wait_node_ready.setter
+    def wait_node_ready(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "wait_node_ready", value)
+
+    @property
     @pulumi.getter
     def zones(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
@@ -997,7 +1141,9 @@ class NodePool(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 annotations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['NodePoolAnnotationArgs']]]]] = None,
                  auto_scaling_config: Optional[pulumi.Input[pulumi.InputType['NodePoolAutoScalingConfigArgs']]] = None,
+                 auto_update_instance_tags: Optional[pulumi.Input[bool]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  default_cooldown: Optional[pulumi.Input[int]] = None,
                  delete_keep_instance: Optional[pulumi.Input[bool]] = None,
@@ -1013,6 +1159,7 @@ class NodePool(pulumi.CustomResource):
                  node_os: Optional[pulumi.Input[str]] = None,
                  node_os_type: Optional[pulumi.Input[str]] = None,
                  retry_policy: Optional[pulumi.Input[str]] = None,
+                 scale_tolerance: Optional[pulumi.Input[int]] = None,
                  scaling_group_name: Optional[pulumi.Input[str]] = None,
                  scaling_group_project_id: Optional[pulumi.Input[int]] = None,
                  scaling_mode: Optional[pulumi.Input[str]] = None,
@@ -1022,13 +1169,19 @@ class NodePool(pulumi.CustomResource):
                  termination_policies: Optional[pulumi.Input[str]] = None,
                  unschedulable: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_node_ready: Optional[pulumi.Input[bool]] = None,
                  zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
         Create a NodePool resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['NodePoolAnnotationArgs']]]] annotations: Node Annotation List.
         :param pulumi.Input[pulumi.InputType['NodePoolAutoScalingConfigArgs']] auto_scaling_config: Auto scaling config parameters.
+        :param pulumi.Input[bool] auto_update_instance_tags: Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+               updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+               support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+               effect immediately and there is a certain delay.
         :param pulumi.Input[str] cluster_id: ID of the cluster.
         :param pulumi.Input[int] default_cooldown: Seconds of scaling group cool down. Default value is `300`.
         :param pulumi.Input[bool] delete_keep_instance: Indicate to keep the CVM instance when delete the node pool. Default is `true`.
@@ -1050,6 +1203,8 @@ class NodePool(pulumi.CustomResource):
         :param pulumi.Input[str] node_os_type: The image version of the node. Valida values are `DOCKER_CUSTOMIZE` and `GENERAL`. Default is `GENERAL`. This parameter
                will only affect new nodes, not including the existing nodes.
         :param pulumi.Input[str] retry_policy: Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
+        :param pulumi.Input[int] scale_tolerance: Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+               Only can be set if `wait_node_ready` is `true`.
         :param pulumi.Input[str] scaling_group_name: Name of relative scaling group.
         :param pulumi.Input[int] scaling_group_project_id: Project ID the scaling group belongs to.
         :param pulumi.Input[str] scaling_mode: Auto scaling mode. Valid values are `CLASSIC_SCALING`(scaling by create/destroy instances),
@@ -1063,6 +1218,7 @@ class NodePool(pulumi.CustomResource):
         :param pulumi.Input[str] termination_policies: Policy of scaling group termination. Available values: `["OLDEST_INSTANCE"]`, `["NEWEST_INSTANCE"]`.
         :param pulumi.Input[int] unschedulable: Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
         :param pulumi.Input[str] vpc_id: ID of VPC network.
+        :param pulumi.Input[bool] wait_node_ready: Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zones: List of auto scaling group available zones, for Basic network it is required.
         """
         ...
@@ -1088,7 +1244,9 @@ class NodePool(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 annotations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['NodePoolAnnotationArgs']]]]] = None,
                  auto_scaling_config: Optional[pulumi.Input[pulumi.InputType['NodePoolAutoScalingConfigArgs']]] = None,
+                 auto_update_instance_tags: Optional[pulumi.Input[bool]] = None,
                  cluster_id: Optional[pulumi.Input[str]] = None,
                  default_cooldown: Optional[pulumi.Input[int]] = None,
                  delete_keep_instance: Optional[pulumi.Input[bool]] = None,
@@ -1104,6 +1262,7 @@ class NodePool(pulumi.CustomResource):
                  node_os: Optional[pulumi.Input[str]] = None,
                  node_os_type: Optional[pulumi.Input[str]] = None,
                  retry_policy: Optional[pulumi.Input[str]] = None,
+                 scale_tolerance: Optional[pulumi.Input[int]] = None,
                  scaling_group_name: Optional[pulumi.Input[str]] = None,
                  scaling_group_project_id: Optional[pulumi.Input[int]] = None,
                  scaling_mode: Optional[pulumi.Input[str]] = None,
@@ -1113,6 +1272,7 @@ class NodePool(pulumi.CustomResource):
                  termination_policies: Optional[pulumi.Input[str]] = None,
                  unschedulable: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_node_ready: Optional[pulumi.Input[bool]] = None,
                  zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -1123,9 +1283,11 @@ class NodePool(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = NodePoolArgs.__new__(NodePoolArgs)
 
+            __props__.__dict__["annotations"] = annotations
             if auto_scaling_config is None and not opts.urn:
                 raise TypeError("Missing required property 'auto_scaling_config'")
             __props__.__dict__["auto_scaling_config"] = auto_scaling_config
+            __props__.__dict__["auto_update_instance_tags"] = auto_update_instance_tags
             if cluster_id is None and not opts.urn:
                 raise TypeError("Missing required property 'cluster_id'")
             __props__.__dict__["cluster_id"] = cluster_id
@@ -1147,6 +1309,7 @@ class NodePool(pulumi.CustomResource):
             __props__.__dict__["node_os"] = node_os
             __props__.__dict__["node_os_type"] = node_os_type
             __props__.__dict__["retry_policy"] = retry_policy
+            __props__.__dict__["scale_tolerance"] = scale_tolerance
             __props__.__dict__["scaling_group_name"] = scaling_group_name
             __props__.__dict__["scaling_group_project_id"] = scaling_group_project_id
             __props__.__dict__["scaling_mode"] = scaling_mode
@@ -1158,6 +1321,7 @@ class NodePool(pulumi.CustomResource):
             if vpc_id is None and not opts.urn:
                 raise TypeError("Missing required property 'vpc_id'")
             __props__.__dict__["vpc_id"] = vpc_id
+            __props__.__dict__["wait_node_ready"] = wait_node_ready
             __props__.__dict__["zones"] = zones
             __props__.__dict__["auto_scaling_group_id"] = None
             __props__.__dict__["autoscaling_added_total"] = None
@@ -1175,8 +1339,10 @@ class NodePool(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            annotations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['NodePoolAnnotationArgs']]]]] = None,
             auto_scaling_config: Optional[pulumi.Input[pulumi.InputType['NodePoolAutoScalingConfigArgs']]] = None,
             auto_scaling_group_id: Optional[pulumi.Input[str]] = None,
+            auto_update_instance_tags: Optional[pulumi.Input[bool]] = None,
             autoscaling_added_total: Optional[pulumi.Input[int]] = None,
             cluster_id: Optional[pulumi.Input[str]] = None,
             default_cooldown: Optional[pulumi.Input[int]] = None,
@@ -1196,6 +1362,7 @@ class NodePool(pulumi.CustomResource):
             node_os: Optional[pulumi.Input[str]] = None,
             node_os_type: Optional[pulumi.Input[str]] = None,
             retry_policy: Optional[pulumi.Input[str]] = None,
+            scale_tolerance: Optional[pulumi.Input[int]] = None,
             scaling_group_name: Optional[pulumi.Input[str]] = None,
             scaling_group_project_id: Optional[pulumi.Input[int]] = None,
             scaling_mode: Optional[pulumi.Input[str]] = None,
@@ -1206,6 +1373,7 @@ class NodePool(pulumi.CustomResource):
             termination_policies: Optional[pulumi.Input[str]] = None,
             unschedulable: Optional[pulumi.Input[int]] = None,
             vpc_id: Optional[pulumi.Input[str]] = None,
+            wait_node_ready: Optional[pulumi.Input[bool]] = None,
             zones: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None) -> 'NodePool':
         """
         Get an existing NodePool resource's state with the given name, id, and optional extra
@@ -1214,8 +1382,13 @@ class NodePool(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['NodePoolAnnotationArgs']]]] annotations: Node Annotation List.
         :param pulumi.Input[pulumi.InputType['NodePoolAutoScalingConfigArgs']] auto_scaling_config: Auto scaling config parameters.
         :param pulumi.Input[str] auto_scaling_group_id: The auto scaling group ID.
+        :param pulumi.Input[bool] auto_update_instance_tags: Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+               updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+               support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+               effect immediately and there is a certain delay.
         :param pulumi.Input[int] autoscaling_added_total: The total of autoscaling added node.
         :param pulumi.Input[str] cluster_id: ID of the cluster.
         :param pulumi.Input[int] default_cooldown: Seconds of scaling group cool down. Default value is `300`.
@@ -1241,6 +1414,8 @@ class NodePool(pulumi.CustomResource):
         :param pulumi.Input[str] node_os_type: The image version of the node. Valida values are `DOCKER_CUSTOMIZE` and `GENERAL`. Default is `GENERAL`. This parameter
                will only affect new nodes, not including the existing nodes.
         :param pulumi.Input[str] retry_policy: Available values for retry policies include `IMMEDIATE_RETRY` and `INCREMENTAL_INTERVALS`.
+        :param pulumi.Input[int] scale_tolerance: Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+               Only can be set if `wait_node_ready` is `true`.
         :param pulumi.Input[str] scaling_group_name: Name of relative scaling group.
         :param pulumi.Input[int] scaling_group_project_id: Project ID the scaling group belongs to.
         :param pulumi.Input[str] scaling_mode: Auto scaling mode. Valid values are `CLASSIC_SCALING`(scaling by create/destroy instances),
@@ -1255,14 +1430,17 @@ class NodePool(pulumi.CustomResource):
         :param pulumi.Input[str] termination_policies: Policy of scaling group termination. Available values: `["OLDEST_INSTANCE"]`, `["NEWEST_INSTANCE"]`.
         :param pulumi.Input[int] unschedulable: Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
         :param pulumi.Input[str] vpc_id: ID of VPC network.
+        :param pulumi.Input[bool] wait_node_ready: Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zones: List of auto scaling group available zones, for Basic network it is required.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _NodePoolState.__new__(_NodePoolState)
 
+        __props__.__dict__["annotations"] = annotations
         __props__.__dict__["auto_scaling_config"] = auto_scaling_config
         __props__.__dict__["auto_scaling_group_id"] = auto_scaling_group_id
+        __props__.__dict__["auto_update_instance_tags"] = auto_update_instance_tags
         __props__.__dict__["autoscaling_added_total"] = autoscaling_added_total
         __props__.__dict__["cluster_id"] = cluster_id
         __props__.__dict__["default_cooldown"] = default_cooldown
@@ -1282,6 +1460,7 @@ class NodePool(pulumi.CustomResource):
         __props__.__dict__["node_os"] = node_os
         __props__.__dict__["node_os_type"] = node_os_type
         __props__.__dict__["retry_policy"] = retry_policy
+        __props__.__dict__["scale_tolerance"] = scale_tolerance
         __props__.__dict__["scaling_group_name"] = scaling_group_name
         __props__.__dict__["scaling_group_project_id"] = scaling_group_project_id
         __props__.__dict__["scaling_mode"] = scaling_mode
@@ -1292,8 +1471,17 @@ class NodePool(pulumi.CustomResource):
         __props__.__dict__["termination_policies"] = termination_policies
         __props__.__dict__["unschedulable"] = unschedulable
         __props__.__dict__["vpc_id"] = vpc_id
+        __props__.__dict__["wait_node_ready"] = wait_node_ready
         __props__.__dict__["zones"] = zones
         return NodePool(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter
+    def annotations(self) -> pulumi.Output[Sequence['outputs.NodePoolAnnotation']]:
+        """
+        Node Annotation List.
+        """
+        return pulumi.get(self, "annotations")
 
     @property
     @pulumi.getter(name="autoScalingConfig")
@@ -1310,6 +1498,17 @@ class NodePool(pulumi.CustomResource):
         The auto scaling group ID.
         """
         return pulumi.get(self, "auto_scaling_group_id")
+
+    @property
+    @pulumi.getter(name="autoUpdateInstanceTags")
+    def auto_update_instance_tags(self) -> pulumi.Output[bool]:
+        """
+        Automatically update instance tags. The default value is false. After configuration, if the scaling group tags are
+        updated, the tags of the running instances in the scaling group will be updated synchronously (synchronous updates only
+        support adding and modifying tags, and do not support deleting tags for the time being). Synchronous updates do not take
+        effect immediately and there is a certain delay.
+        """
+        return pulumi.get(self, "auto_update_instance_tags")
 
     @property
     @pulumi.getter(name="autoscalingAddedTotal")
@@ -1470,6 +1669,15 @@ class NodePool(pulumi.CustomResource):
         return pulumi.get(self, "retry_policy")
 
     @property
+    @pulumi.getter(name="scaleTolerance")
+    def scale_tolerance(self) -> pulumi.Output[Optional[int]]:
+        """
+        Control how many expectations(`desired_capacity`) can be tolerated successfully. Unit is percentage, Default is `100`.
+        Only can be set if `wait_node_ready` is `true`.
+        """
+        return pulumi.get(self, "scale_tolerance")
+
+    @property
     @pulumi.getter(name="scalingGroupName")
     def scaling_group_name(self) -> pulumi.Output[str]:
         """
@@ -1515,7 +1723,7 @@ class NodePool(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Mapping[str, Any]]]:
+    def tags(self) -> pulumi.Output[Mapping[str, Any]]:
         """
         Node pool tag specifications, will passthroughs to the scaling instances.
         """
@@ -1552,6 +1760,14 @@ class NodePool(pulumi.CustomResource):
         ID of VPC network.
         """
         return pulumi.get(self, "vpc_id")
+
+    @property
+    @pulumi.getter(name="waitNodeReady")
+    def wait_node_ready(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether to wait for all desired nodes to be ready. Default is false. Only can be set if `enable_auto_scale` is `false`.
+        """
+        return pulumi.get(self, "wait_node_ready")
 
     @property
     @pulumi.getter

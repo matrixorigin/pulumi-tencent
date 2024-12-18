@@ -23,20 +23,22 @@ func GetInstance(ctx *pulumi.Context, args *GetInstanceArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getInstance.
 type GetInstanceArgs struct {
-	AvailabilityZone *string                `pulumi:"availabilityZone"`
-	InstanceId       *string                `pulumi:"instanceId"`
-	InstanceName     *string                `pulumi:"instanceName"`
-	InstanceSetIds   []string               `pulumi:"instanceSetIds"`
-	ProjectId        *int                   `pulumi:"projectId"`
-	ResultOutputFile *string                `pulumi:"resultOutputFile"`
-	SubnetId         *string                `pulumi:"subnetId"`
-	Tags             map[string]interface{} `pulumi:"tags"`
-	VpcId            *string                `pulumi:"vpcId"`
+	AvailabilityZone   *string                `pulumi:"availabilityZone"`
+	DedicatedClusterId *string                `pulumi:"dedicatedClusterId"`
+	InstanceId         *string                `pulumi:"instanceId"`
+	InstanceName       *string                `pulumi:"instanceName"`
+	InstanceSetIds     []string               `pulumi:"instanceSetIds"`
+	ProjectId          *int                   `pulumi:"projectId"`
+	ResultOutputFile   *string                `pulumi:"resultOutputFile"`
+	SubnetId           *string                `pulumi:"subnetId"`
+	Tags               map[string]interface{} `pulumi:"tags"`
+	VpcId              *string                `pulumi:"vpcId"`
 }
 
 // A collection of values returned by getInstance.
 type GetInstanceResult struct {
-	AvailabilityZone *string `pulumi:"availabilityZone"`
+	AvailabilityZone   *string `pulumi:"availabilityZone"`
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// The provider-assigned unique ID for this managed resource.
 	Id               string                    `pulumi:"id"`
 	InstanceId       *string                   `pulumi:"instanceId"`
@@ -65,15 +67,16 @@ func GetInstanceOutput(ctx *pulumi.Context, args GetInstanceOutputArgs, opts ...
 
 // A collection of arguments for invoking getInstance.
 type GetInstanceOutputArgs struct {
-	AvailabilityZone pulumi.StringPtrInput   `pulumi:"availabilityZone"`
-	InstanceId       pulumi.StringPtrInput   `pulumi:"instanceId"`
-	InstanceName     pulumi.StringPtrInput   `pulumi:"instanceName"`
-	InstanceSetIds   pulumi.StringArrayInput `pulumi:"instanceSetIds"`
-	ProjectId        pulumi.IntPtrInput      `pulumi:"projectId"`
-	ResultOutputFile pulumi.StringPtrInput   `pulumi:"resultOutputFile"`
-	SubnetId         pulumi.StringPtrInput   `pulumi:"subnetId"`
-	Tags             pulumi.MapInput         `pulumi:"tags"`
-	VpcId            pulumi.StringPtrInput   `pulumi:"vpcId"`
+	AvailabilityZone   pulumi.StringPtrInput   `pulumi:"availabilityZone"`
+	DedicatedClusterId pulumi.StringPtrInput   `pulumi:"dedicatedClusterId"`
+	InstanceId         pulumi.StringPtrInput   `pulumi:"instanceId"`
+	InstanceName       pulumi.StringPtrInput   `pulumi:"instanceName"`
+	InstanceSetIds     pulumi.StringArrayInput `pulumi:"instanceSetIds"`
+	ProjectId          pulumi.IntPtrInput      `pulumi:"projectId"`
+	ResultOutputFile   pulumi.StringPtrInput   `pulumi:"resultOutputFile"`
+	SubnetId           pulumi.StringPtrInput   `pulumi:"subnetId"`
+	Tags               pulumi.MapInput         `pulumi:"tags"`
+	VpcId              pulumi.StringPtrInput   `pulumi:"vpcId"`
 }
 
 func (GetInstanceOutputArgs) ElementType() reflect.Type {
@@ -97,6 +100,10 @@ func (o GetInstanceResultOutput) ToGetInstanceResultOutputWithContext(ctx contex
 
 func (o GetInstanceResultOutput) AvailabilityZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetInstanceResult) *string { return v.AvailabilityZone }).(pulumi.StringPtrOutput)
+}
+
+func (o GetInstanceResultOutput) DedicatedClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetInstanceResult) *string { return v.DedicatedClusterId }).(pulumi.StringPtrOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.

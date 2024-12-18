@@ -20,13 +20,16 @@ import * as as from "./as";
 import * as audit from "./audit";
 import * as audits from "./audits";
 import * as availability from "./availability";
+import * as batch from "./batch";
 import * as bi from "./bi";
 import * as cam from "./cam";
 import * as cat from "./cat";
 import * as cbs from "./cbs";
 import * as ccn from "./ccn";
+import * as cdc from "./cdc";
 import * as cdh from "./cdh";
 import * as cdn from "./cdn";
+import * as cdwdoris from "./cdwdoris";
 import * as cdwpg from "./cdwpg";
 import * as cfs from "./cfs";
 import * as cfw from "./cfw";
@@ -34,11 +37,13 @@ import * as chdfs from "./chdfs";
 import * as ci from "./ci";
 import * as ciam from "./ciam";
 import * as ckafka from "./ckafka";
+import * as classic from "./classic";
 import * as clb from "./clb";
 import * as clickhouse from "./clickhouse";
 import * as cls from "./cls";
 import * as config from "./config";
 import * as cos from "./cos";
+import * as csip from "./csip";
 import * as css from "./css";
 import * as cvm from "./cvm";
 import * as cwp from "./cwp";
@@ -50,7 +55,6 @@ import * as dc from "./dc";
 import * as dcdb from "./dcdb";
 import * as dcx from "./dcx";
 import * as deprecatedalb from "./deprecatedalb";
-import * as deprecatedaudit from "./deprecatedaudit";
 import * as deprecatedavailability from "./deprecatedavailability";
 import * as deprecatedcontainer from "./deprecatedcontainer";
 import * as deprecatedeip from "./deprecatedeip";
@@ -73,21 +77,26 @@ import * as dts from "./dts";
 import * as eb from "./eb";
 import * as eip from "./eip";
 import * as eips from "./eips";
+import * as elastic from "./elastic";
 import * as elasticsearch from "./elasticsearch";
 import * as emr from "./emr";
 import * as eni from "./eni";
 import * as enis from "./enis";
+import * as events from "./events";
 import * as gaap from "./gaap";
 import * as ha from "./ha";
+import * as identity from "./identity";
 import * as image from "./image";
 import * as images from "./images";
 import * as instance from "./instance";
 import * as instances from "./instances";
+import * as invite from "./invite";
 import * as ipv6 from "./ipv6";
 import * as key from "./key";
 import * as kms from "./kms";
 import * as kubernetes from "./kubernetes";
 import * as lighthouse from "./lighthouse";
+import * as lite from "./lite";
 import * as mariadb from "./mariadb";
 import * as mdl from "./mdl";
 import * as mongodb from "./mongodb";
@@ -96,6 +105,7 @@ import * as mps from "./mps";
 import * as mysql from "./mysql";
 import * as nat from "./nat";
 import * as oceanus from "./oceanus";
+import * as open from "./open";
 import * as organization from "./organization";
 import * as placement from "./placement";
 import * as postgresql from "./postgresql";
@@ -105,28 +115,34 @@ import * as projects from "./projects";
 import * as protocol from "./protocol";
 import * as pts from "./pts";
 import * as redis from "./redis";
+import * as reserve from "./reserve";
 import * as reserved from "./reserved";
 import * as route from "./route";
 import * as rum from "./rum";
 import * as scf from "./scf";
 import * as security from "./security";
 import * as ses from "./ses";
+import * as sg from "./sg";
 import * as sms from "./sms";
 import * as sqlserver from "./sqlserver";
 import * as ssl from "./ssl";
 import * as ssm from "./ssm";
 import * as sts from "./sts";
+import * as subdomain from "./subdomain";
 import * as subnet from "./subnet";
+import * as subscribe from "./subscribe";
 import * as tag from "./tag";
 import * as tat from "./tat";
 import * as tcaplus from "./tcaplus";
 import * as tcm from "./tcm";
 import * as tcmq from "./tcmq";
 import * as tcr from "./tcr";
+import * as tcss from "./tcss";
 import * as tdcpg from "./tdcpg";
 import * as tdmq from "./tdmq";
 import * as tem from "./tem";
 import * as teo from "./teo";
+import * as thpc from "./thpc";
 import * as trocket from "./trocket";
 import * as tse from "./tse";
 import * as tsf from "./tsf";
@@ -147,13 +163,16 @@ export {
     audit,
     audits,
     availability,
+    batch,
     bi,
     cam,
     cat,
     cbs,
     ccn,
+    cdc,
     cdh,
     cdn,
+    cdwdoris,
     cdwpg,
     cfs,
     cfw,
@@ -161,11 +180,13 @@ export {
     ci,
     ciam,
     ckafka,
+    classic,
     clb,
     clickhouse,
     cls,
     config,
     cos,
+    csip,
     css,
     cvm,
     cwp,
@@ -177,7 +198,6 @@ export {
     dcdb,
     dcx,
     deprecatedalb,
-    deprecatedaudit,
     deprecatedavailability,
     deprecatedcontainer,
     deprecatedeip,
@@ -200,21 +220,26 @@ export {
     eb,
     eip,
     eips,
+    elastic,
     elasticsearch,
     emr,
     eni,
     enis,
+    events,
     gaap,
     ha,
+    identity,
     image,
     images,
     instance,
     instances,
+    invite,
     ipv6,
     key,
     kms,
     kubernetes,
     lighthouse,
+    lite,
     mariadb,
     mdl,
     mongodb,
@@ -223,6 +248,7 @@ export {
     mysql,
     nat,
     oceanus,
+    open,
     organization,
     placement,
     postgresql,
@@ -232,28 +258,34 @@ export {
     protocol,
     pts,
     redis,
+    reserve,
     reserved,
     route,
     rum,
     scf,
     security,
     ses,
+    sg,
     sms,
     sqlserver,
     ssl,
     ssm,
     sts,
+    subdomain,
     subnet,
+    subscribe,
     tag,
     tat,
     tcaplus,
     tcm,
     tcmq,
     tcr,
+    tcss,
     tdcpg,
     tdmq,
     tem,
     teo,
+    thpc,
     trocket,
     tse,
     tsf,

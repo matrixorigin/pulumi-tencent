@@ -25,6 +25,16 @@ export type CngwGroup = import("./cngwGroup").CngwGroup;
 export const CngwGroup: typeof import("./cngwGroup").CngwGroup = null as any;
 utilities.lazyLoad(exports, ["CngwGroup"], () => require("./cngwGroup"));
 
+export { CngwNetworkArgs, CngwNetworkState } from "./cngwNetwork";
+export type CngwNetwork = import("./cngwNetwork").CngwNetwork;
+export const CngwNetwork: typeof import("./cngwNetwork").CngwNetwork = null as any;
+utilities.lazyLoad(exports, ["CngwNetwork"], () => require("./cngwNetwork"));
+
+export { CngwNetworkAccessControlArgs, CngwNetworkAccessControlState } from "./cngwNetworkAccessControl";
+export type CngwNetworkAccessControl = import("./cngwNetworkAccessControl").CngwNetworkAccessControl;
+export const CngwNetworkAccessControl: typeof import("./cngwNetworkAccessControl").CngwNetworkAccessControl = null as any;
+utilities.lazyLoad(exports, ["CngwNetworkAccessControl"], () => require("./cngwNetworkAccessControl"));
+
 export { CngwRouteArgs, CngwRouteState } from "./cngwRoute";
 export type CngwRoute = import("./cngwRoute").CngwRoute;
 export const CngwRoute: typeof import("./cngwRoute").CngwRoute = null as any;
@@ -44,6 +54,16 @@ export { CngwServiceRateLimitArgs, CngwServiceRateLimitState } from "./cngwServi
 export type CngwServiceRateLimit = import("./cngwServiceRateLimit").CngwServiceRateLimit;
 export const CngwServiceRateLimit: typeof import("./cngwServiceRateLimit").CngwServiceRateLimit = null as any;
 utilities.lazyLoad(exports, ["CngwServiceRateLimit"], () => require("./cngwServiceRateLimit"));
+
+export { CngwStrategyArgs, CngwStrategyState } from "./cngwStrategy";
+export type CngwStrategy = import("./cngwStrategy").CngwStrategy;
+export const CngwStrategy: typeof import("./cngwStrategy").CngwStrategy = null as any;
+utilities.lazyLoad(exports, ["CngwStrategy"], () => require("./cngwStrategy"));
+
+export { CngwStrategyBindGroupArgs, CngwStrategyBindGroupState } from "./cngwStrategyBindGroup";
+export type CngwStrategyBindGroup = import("./cngwStrategyBindGroup").CngwStrategyBindGroup;
+export const CngwStrategyBindGroup: typeof import("./cngwStrategyBindGroup").CngwStrategyBindGroup = null as any;
+utilities.lazyLoad(exports, ["CngwStrategyBindGroup"], () => require("./cngwStrategyBindGroup"));
 
 export { GetAccessAddressArgs, GetAccessAddressResult, GetAccessAddressOutputArgs } from "./getAccessAddress";
 export const getAccessAddress: typeof import("./getAccessAddress").getAccessAddress = null as any;
@@ -133,6 +153,10 @@ const _module = {
                 return new CngwGateway(name, <any>undefined, { urn })
             case "tencentcloud:Tse/cngwGroup:CngwGroup":
                 return new CngwGroup(name, <any>undefined, { urn })
+            case "tencentcloud:Tse/cngwNetwork:CngwNetwork":
+                return new CngwNetwork(name, <any>undefined, { urn })
+            case "tencentcloud:Tse/cngwNetworkAccessControl:CngwNetworkAccessControl":
+                return new CngwNetworkAccessControl(name, <any>undefined, { urn })
             case "tencentcloud:Tse/cngwRoute:CngwRoute":
                 return new CngwRoute(name, <any>undefined, { urn })
             case "tencentcloud:Tse/cngwRouteRateLimit:CngwRouteRateLimit":
@@ -141,6 +165,10 @@ const _module = {
                 return new CngwService(name, <any>undefined, { urn })
             case "tencentcloud:Tse/cngwServiceRateLimit:CngwServiceRateLimit":
                 return new CngwServiceRateLimit(name, <any>undefined, { urn })
+            case "tencentcloud:Tse/cngwStrategy:CngwStrategy":
+                return new CngwStrategy(name, <any>undefined, { urn })
+            case "tencentcloud:Tse/cngwStrategyBindGroup:CngwStrategyBindGroup":
+                return new CngwStrategyBindGroup(name, <any>undefined, { urn })
             case "tencentcloud:Tse/instance:Instance":
                 return new Instance(name, <any>undefined, { urn })
             case "tencentcloud:Tse/wafDomains:WafDomains":
@@ -156,10 +184,14 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwCanaryRule", _mod
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwCertificate", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwGateway", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwGroup", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwNetwork", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwNetworkAccessControl", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwRoute", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwRouteRateLimit", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwService", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwServiceRateLimit", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwStrategy", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tse/cngwStrategyBindGroup", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/instance", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/wafDomains", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tse/wafProtection", _module)

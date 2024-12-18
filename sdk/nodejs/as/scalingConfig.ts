@@ -51,9 +51,17 @@ export class ScalingConfig extends pulumi.CustomResource {
      */
     public readonly dataDisks!: pulumi.Output<outputs.As.ScalingConfigDataDisk[] | undefined>;
     /**
+     * Dedicated Cluster ID.
+     */
+    public readonly dedicatedClusterId!: pulumi.Output<string | undefined>;
+    /**
      * Policy of cloud disk type. Valid values: `ORIGINAL` and `AUTOMATIC`. Default is `ORIGINAL`.
      */
     public readonly diskTypePolicy!: pulumi.Output<string | undefined>;
+    /**
+     * To specify whether to enable cloud automation tools service.
+     */
+    public readonly enhancedAutomationToolsService!: pulumi.Output<boolean | undefined>;
     /**
      * To specify whether to enable cloud monitor service. Default is `TRUE`.
      */
@@ -67,12 +75,16 @@ export class ScalingConfig extends pulumi.CustomResource {
      */
     public readonly hostNameSettings!: pulumi.Output<outputs.As.ScalingConfigHostNameSettings | undefined>;
     /**
+     * Image Family Name. Either Image ID or Image Family Name must be provided, but not both.
+     */
+    public readonly imageFamily!: pulumi.Output<string | undefined>;
+    /**
      * An available image ID for a cvm instance.
      */
-    public readonly imageId!: pulumi.Output<string>;
+    public readonly imageId!: pulumi.Output<string | undefined>;
     /**
-     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`. The default is `POSTPAID_BY_HOUR`.
-     * NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
+     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDCPAID`. The default is
+     * `POSTPAID_BY_HOUR`. NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
      */
     public readonly instanceChargeType!: pulumi.Output<string | undefined>;
     /**
@@ -176,10 +188,13 @@ export class ScalingConfig extends pulumi.CustomResource {
             resourceInputs["configurationName"] = state ? state.configurationName : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["dataDisks"] = state ? state.dataDisks : undefined;
+            resourceInputs["dedicatedClusterId"] = state ? state.dedicatedClusterId : undefined;
             resourceInputs["diskTypePolicy"] = state ? state.diskTypePolicy : undefined;
+            resourceInputs["enhancedAutomationToolsService"] = state ? state.enhancedAutomationToolsService : undefined;
             resourceInputs["enhancedMonitorService"] = state ? state.enhancedMonitorService : undefined;
             resourceInputs["enhancedSecurityService"] = state ? state.enhancedSecurityService : undefined;
             resourceInputs["hostNameSettings"] = state ? state.hostNameSettings : undefined;
+            resourceInputs["imageFamily"] = state ? state.imageFamily : undefined;
             resourceInputs["imageId"] = state ? state.imageId : undefined;
             resourceInputs["instanceChargeType"] = state ? state.instanceChargeType : undefined;
             resourceInputs["instanceChargeTypePrepaidPeriod"] = state ? state.instanceChargeTypePrepaidPeriod : undefined;
@@ -206,19 +221,19 @@ export class ScalingConfig extends pulumi.CustomResource {
             if ((!args || args.configurationName === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'configurationName'");
             }
-            if ((!args || args.imageId === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'imageId'");
-            }
             if ((!args || args.instanceTypes === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'instanceTypes'");
             }
             resourceInputs["camRoleName"] = args ? args.camRoleName : undefined;
             resourceInputs["configurationName"] = args ? args.configurationName : undefined;
             resourceInputs["dataDisks"] = args ? args.dataDisks : undefined;
+            resourceInputs["dedicatedClusterId"] = args ? args.dedicatedClusterId : undefined;
             resourceInputs["diskTypePolicy"] = args ? args.diskTypePolicy : undefined;
+            resourceInputs["enhancedAutomationToolsService"] = args ? args.enhancedAutomationToolsService : undefined;
             resourceInputs["enhancedMonitorService"] = args ? args.enhancedMonitorService : undefined;
             resourceInputs["enhancedSecurityService"] = args ? args.enhancedSecurityService : undefined;
             resourceInputs["hostNameSettings"] = args ? args.hostNameSettings : undefined;
+            resourceInputs["imageFamily"] = args ? args.imageFamily : undefined;
             resourceInputs["imageId"] = args ? args.imageId : undefined;
             resourceInputs["instanceChargeType"] = args ? args.instanceChargeType : undefined;
             resourceInputs["instanceChargeTypePrepaidPeriod"] = args ? args.instanceChargeTypePrepaidPeriod : undefined;
@@ -270,9 +285,17 @@ export interface ScalingConfigState {
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.As.ScalingConfigDataDisk>[]>;
     /**
+     * Dedicated Cluster ID.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
+    /**
      * Policy of cloud disk type. Valid values: `ORIGINAL` and `AUTOMATIC`. Default is `ORIGINAL`.
      */
     diskTypePolicy?: pulumi.Input<string>;
+    /**
+     * To specify whether to enable cloud automation tools service.
+     */
+    enhancedAutomationToolsService?: pulumi.Input<boolean>;
     /**
      * To specify whether to enable cloud monitor service. Default is `TRUE`.
      */
@@ -286,12 +309,16 @@ export interface ScalingConfigState {
      */
     hostNameSettings?: pulumi.Input<inputs.As.ScalingConfigHostNameSettings>;
     /**
+     * Image Family Name. Either Image ID or Image Family Name must be provided, but not both.
+     */
+    imageFamily?: pulumi.Input<string>;
+    /**
      * An available image ID for a cvm instance.
      */
     imageId?: pulumi.Input<string>;
     /**
-     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`. The default is `POSTPAID_BY_HOUR`.
-     * NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
+     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDCPAID`. The default is
+     * `POSTPAID_BY_HOUR`. NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
      */
     instanceChargeType?: pulumi.Input<string>;
     /**
@@ -396,9 +423,17 @@ export interface ScalingConfigArgs {
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.As.ScalingConfigDataDisk>[]>;
     /**
+     * Dedicated Cluster ID.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
+    /**
      * Policy of cloud disk type. Valid values: `ORIGINAL` and `AUTOMATIC`. Default is `ORIGINAL`.
      */
     diskTypePolicy?: pulumi.Input<string>;
+    /**
+     * To specify whether to enable cloud automation tools service.
+     */
+    enhancedAutomationToolsService?: pulumi.Input<boolean>;
     /**
      * To specify whether to enable cloud monitor service. Default is `TRUE`.
      */
@@ -412,12 +447,16 @@ export interface ScalingConfigArgs {
      */
     hostNameSettings?: pulumi.Input<inputs.As.ScalingConfigHostNameSettings>;
     /**
+     * Image Family Name. Either Image ID or Image Family Name must be provided, but not both.
+     */
+    imageFamily?: pulumi.Input<string>;
+    /**
      * An available image ID for a cvm instance.
      */
-    imageId: pulumi.Input<string>;
+    imageId?: pulumi.Input<string>;
     /**
-     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`. The default is `POSTPAID_BY_HOUR`.
-     * NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
+     * Charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDCPAID`. The default is
+     * `POSTPAID_BY_HOUR`. NOTE: `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the same time.
      */
     instanceChargeType?: pulumi.Input<string>;
     /**

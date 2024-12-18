@@ -24,5 +24,10 @@ changelog:
 release:
   disable: false
   prerelease: auto
+checksum:
+  name_template: '{{ .Binary }}-{{ .Tag }}-checksums.txt'
+  algorithm: sha256
+  print: false
+  file: true
 snapshot:
   name_template: '{{ .Tag }}-SNAPSHOT'

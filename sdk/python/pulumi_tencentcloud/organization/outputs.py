@@ -14,14 +14,20 @@ __all__ = [
     'InstanceOrgPermission',
     'OrgIdentityIdentityPolicy',
     'OrgMemberOrgPermission',
+    'OrgShareUnitMemberMember',
     'GetMembersItemResult',
     'GetMembersItemOrgIdentityResult',
     'GetMembersItemOrgPermissionResult',
+    'GetNodesItemResult',
+    'GetNodesItemTagResult',
+    'GetNodesTagResult',
     'GetOrgAuthNodeItemResult',
     'GetOrgAuthNodeItemManagerResult',
     'GetOrgFinancialByMemberItemResult',
     'GetOrgFinancialByMonthItemResult',
     'GetOrgFinancialByProductItemResult',
+    'GetOrgShareAreaItemResult',
+    'GetServicesItemResult',
 ]
 
 @pulumi.output_type
@@ -124,6 +130,35 @@ class OrgMemberOrgPermission(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class OrgShareUnitMemberMember(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "shareMemberUin":
+            suggest = "share_member_uin"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OrgShareUnitMemberMember. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OrgShareUnitMemberMember.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OrgShareUnitMemberMember.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 share_member_uin: int):
+        pulumi.set(__self__, "share_member_uin", share_member_uin)
+
+    @property
+    @pulumi.getter(name="shareMemberUin")
+    def share_member_uin(self) -> int:
+        return pulumi.get(self, "share_member_uin")
 
 
 @pulumi.output_type
@@ -289,6 +324,98 @@ class GetMembersItemOrgPermissionResult(dict):
 
 
 @pulumi.output_type
+class GetNodesItemResult(dict):
+    def __init__(__self__, *,
+                 create_time: str,
+                 name: str,
+                 node_id: int,
+                 parent_node_id: int,
+                 remark: str,
+                 tags: Sequence['outputs.GetNodesItemTagResult'],
+                 update_time: str):
+        pulumi.set(__self__, "create_time", create_time)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "node_id", node_id)
+        pulumi.set(__self__, "parent_node_id", parent_node_id)
+        pulumi.set(__self__, "remark", remark)
+        pulumi.set(__self__, "tags", tags)
+        pulumi.set(__self__, "update_time", update_time)
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> str:
+        return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="nodeId")
+    def node_id(self) -> int:
+        return pulumi.get(self, "node_id")
+
+    @property
+    @pulumi.getter(name="parentNodeId")
+    def parent_node_id(self) -> int:
+        return pulumi.get(self, "parent_node_id")
+
+    @property
+    @pulumi.getter
+    def remark(self) -> str:
+        return pulumi.get(self, "remark")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetNodesItemTagResult']:
+        return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="updateTime")
+    def update_time(self) -> str:
+        return pulumi.get(self, "update_time")
+
+
+@pulumi.output_type
+class GetNodesItemTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
+
+@pulumi.output_type
+class GetNodesTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
+
+
+@pulumi.output_type
 class GetOrgAuthNodeItemResult(dict):
     def __init__(__self__, *,
                  auth_name: str,
@@ -430,5 +557,127 @@ class GetOrgFinancialByProductItemResult(dict):
     @pulumi.getter(name="totalCost")
     def total_cost(self) -> float:
         return pulumi.get(self, "total_cost")
+
+
+@pulumi.output_type
+class GetOrgShareAreaItemResult(dict):
+    def __init__(__self__, *,
+                 area: str,
+                 area_id: int,
+                 name: str):
+        pulumi.set(__self__, "area", area)
+        pulumi.set(__self__, "area_id", area_id)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def area(self) -> str:
+        return pulumi.get(self, "area")
+
+    @property
+    @pulumi.getter(name="areaId")
+    def area_id(self) -> int:
+        return pulumi.get(self, "area_id")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class GetServicesItemResult(dict):
+    def __init__(__self__, *,
+                 can_assign_count: int,
+                 console_url: str,
+                 description: str,
+                 document: str,
+                 grant_status: str,
+                 is_assign: int,
+                 is_set_management_scope: int,
+                 is_usage_status: int,
+                 member_num: str,
+                 product: str,
+                 product_name: str,
+                 service_grant: int,
+                 service_id: int):
+        pulumi.set(__self__, "can_assign_count", can_assign_count)
+        pulumi.set(__self__, "console_url", console_url)
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "document", document)
+        pulumi.set(__self__, "grant_status", grant_status)
+        pulumi.set(__self__, "is_assign", is_assign)
+        pulumi.set(__self__, "is_set_management_scope", is_set_management_scope)
+        pulumi.set(__self__, "is_usage_status", is_usage_status)
+        pulumi.set(__self__, "member_num", member_num)
+        pulumi.set(__self__, "product", product)
+        pulumi.set(__self__, "product_name", product_name)
+        pulumi.set(__self__, "service_grant", service_grant)
+        pulumi.set(__self__, "service_id", service_id)
+
+    @property
+    @pulumi.getter(name="canAssignCount")
+    def can_assign_count(self) -> int:
+        return pulumi.get(self, "can_assign_count")
+
+    @property
+    @pulumi.getter(name="consoleUrl")
+    def console_url(self) -> str:
+        return pulumi.get(self, "console_url")
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def document(self) -> str:
+        return pulumi.get(self, "document")
+
+    @property
+    @pulumi.getter(name="grantStatus")
+    def grant_status(self) -> str:
+        return pulumi.get(self, "grant_status")
+
+    @property
+    @pulumi.getter(name="isAssign")
+    def is_assign(self) -> int:
+        return pulumi.get(self, "is_assign")
+
+    @property
+    @pulumi.getter(name="isSetManagementScope")
+    def is_set_management_scope(self) -> int:
+        return pulumi.get(self, "is_set_management_scope")
+
+    @property
+    @pulumi.getter(name="isUsageStatus")
+    def is_usage_status(self) -> int:
+        return pulumi.get(self, "is_usage_status")
+
+    @property
+    @pulumi.getter(name="memberNum")
+    def member_num(self) -> str:
+        return pulumi.get(self, "member_num")
+
+    @property
+    @pulumi.getter
+    def product(self) -> str:
+        return pulumi.get(self, "product")
+
+    @property
+    @pulumi.getter(name="productName")
+    def product_name(self) -> str:
+        return pulumi.get(self, "product_name")
+
+    @property
+    @pulumi.getter(name="serviceGrant")
+    def service_grant(self) -> int:
+        return pulumi.get(self, "service_grant")
+
+    @property
+    @pulumi.getter(name="serviceId")
+    def service_id(self) -> int:
+        return pulumi.get(self, "service_id")
 
 

@@ -32,6 +32,8 @@ type Layer7Listener struct {
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
 	ForwardProtocol pulumi.StringPtrOutput `pulumi:"forwardProtocol"`
+	// Group ID.
+	GroupId pulumi.StringPtrOutput `pulumi:"groupId"`
 	// Name of the layer7 listener, the maximum length is 30.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Port of the layer7 listener.
@@ -39,9 +41,13 @@ type Layer7Listener struct {
 	// Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
 	Protocol pulumi.StringOutput `pulumi:"protocol"`
 	// ID of the GAAP proxy.
-	ProxyId pulumi.StringOutput `pulumi:"proxyId"`
+	ProxyId pulumi.StringPtrOutput `pulumi:"proxyId"`
 	// Status of the layer7 listener.
 	Status pulumi.IntOutput `pulumi:"status"`
+	// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+	TlsCiphers pulumi.StringOutput `pulumi:"tlsCiphers"`
+	// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	TlsSupportVersions pulumi.StringArrayOutput `pulumi:"tlsSupportVersions"`
 }
 
 // NewLayer7Listener registers a new resource with the given unique name, arguments, and options.
@@ -56,9 +62,6 @@ func NewLayer7Listener(ctx *pulumi.Context,
 	}
 	if args.Protocol == nil {
 		return nil, errors.New("invalid value for required argument 'Protocol'")
-	}
-	if args.ProxyId == nil {
-		return nil, errors.New("invalid value for required argument 'ProxyId'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Layer7Listener
@@ -100,6 +103,8 @@ type layer7ListenerState struct {
 	CreateTime *string `pulumi:"createTime"`
 	// Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
 	ForwardProtocol *string `pulumi:"forwardProtocol"`
+	// Group ID.
+	GroupId *string `pulumi:"groupId"`
 	// Name of the layer7 listener, the maximum length is 30.
 	Name *string `pulumi:"name"`
 	// Port of the layer7 listener.
@@ -110,6 +115,10 @@ type layer7ListenerState struct {
 	ProxyId *string `pulumi:"proxyId"`
 	// Status of the layer7 listener.
 	Status *int `pulumi:"status"`
+	// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+	TlsCiphers *string `pulumi:"tlsCiphers"`
+	// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	TlsSupportVersions []string `pulumi:"tlsSupportVersions"`
 }
 
 type Layer7ListenerState struct {
@@ -130,6 +139,8 @@ type Layer7ListenerState struct {
 	CreateTime pulumi.StringPtrInput
 	// Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
 	ForwardProtocol pulumi.StringPtrInput
+	// Group ID.
+	GroupId pulumi.StringPtrInput
 	// Name of the layer7 listener, the maximum length is 30.
 	Name pulumi.StringPtrInput
 	// Port of the layer7 listener.
@@ -140,6 +151,10 @@ type Layer7ListenerState struct {
 	ProxyId pulumi.StringPtrInput
 	// Status of the layer7 listener.
 	Status pulumi.IntPtrInput
+	// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+	TlsCiphers pulumi.StringPtrInput
+	// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	TlsSupportVersions pulumi.StringArrayInput
 }
 
 func (Layer7ListenerState) ElementType() reflect.Type {
@@ -162,6 +177,8 @@ type layer7ListenerArgs struct {
 	ClientCertificateIds []string `pulumi:"clientCertificateIds"`
 	// Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
 	ForwardProtocol *string `pulumi:"forwardProtocol"`
+	// Group ID.
+	GroupId *string `pulumi:"groupId"`
 	// Name of the layer7 listener, the maximum length is 30.
 	Name *string `pulumi:"name"`
 	// Port of the layer7 listener.
@@ -169,7 +186,11 @@ type layer7ListenerArgs struct {
 	// Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
 	Protocol string `pulumi:"protocol"`
 	// ID of the GAAP proxy.
-	ProxyId string `pulumi:"proxyId"`
+	ProxyId *string `pulumi:"proxyId"`
+	// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+	TlsCiphers *string `pulumi:"tlsCiphers"`
+	// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	TlsSupportVersions []string `pulumi:"tlsSupportVersions"`
 }
 
 // The set of arguments for constructing a Layer7Listener resource.
@@ -189,6 +210,8 @@ type Layer7ListenerArgs struct {
 	ClientCertificateIds pulumi.StringArrayInput
 	// Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
 	ForwardProtocol pulumi.StringPtrInput
+	// Group ID.
+	GroupId pulumi.StringPtrInput
 	// Name of the layer7 listener, the maximum length is 30.
 	Name pulumi.StringPtrInput
 	// Port of the layer7 listener.
@@ -196,7 +219,11 @@ type Layer7ListenerArgs struct {
 	// Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
 	Protocol pulumi.StringInput
 	// ID of the GAAP proxy.
-	ProxyId pulumi.StringInput
+	ProxyId pulumi.StringPtrInput
+	// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+	TlsCiphers pulumi.StringPtrInput
+	// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+	TlsSupportVersions pulumi.StringArrayInput
 }
 
 func (Layer7ListenerArgs) ElementType() reflect.Type {
@@ -321,6 +348,11 @@ func (o Layer7ListenerOutput) ForwardProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Layer7Listener) pulumi.StringPtrOutput { return v.ForwardProtocol }).(pulumi.StringPtrOutput)
 }
 
+// Group ID.
+func (o Layer7ListenerOutput) GroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Layer7Listener) pulumi.StringPtrOutput { return v.GroupId }).(pulumi.StringPtrOutput)
+}
+
 // Name of the layer7 listener, the maximum length is 30.
 func (o Layer7ListenerOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Layer7Listener) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
@@ -337,13 +369,23 @@ func (o Layer7ListenerOutput) Protocol() pulumi.StringOutput {
 }
 
 // ID of the GAAP proxy.
-func (o Layer7ListenerOutput) ProxyId() pulumi.StringOutput {
-	return o.ApplyT(func(v *Layer7Listener) pulumi.StringOutput { return v.ProxyId }).(pulumi.StringOutput)
+func (o Layer7ListenerOutput) ProxyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Layer7Listener) pulumi.StringPtrOutput { return v.ProxyId }).(pulumi.StringPtrOutput)
 }
 
 // Status of the layer7 listener.
 func (o Layer7ListenerOutput) Status() pulumi.IntOutput {
 	return o.ApplyT(func(v *Layer7Listener) pulumi.IntOutput { return v.Status }).(pulumi.IntOutput)
+}
+
+// Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+func (o Layer7ListenerOutput) TlsCiphers() pulumi.StringOutput {
+	return o.ApplyT(func(v *Layer7Listener) pulumi.StringOutput { return v.TlsCiphers }).(pulumi.StringOutput)
+}
+
+// TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+func (o Layer7ListenerOutput) TlsSupportVersions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Layer7Listener) pulumi.StringArrayOutput { return v.TlsSupportVersions }).(pulumi.StringArrayOutput)
 }
 
 type Layer7ListenerArrayOutput struct{ *pulumi.OutputState }

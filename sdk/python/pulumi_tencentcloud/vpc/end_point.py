@@ -18,7 +18,8 @@ class EndPointArgs:
                  end_point_service_id: pulumi.Input[str],
                  subnet_id: pulumi.Input[str],
                  vpc_id: pulumi.Input[str],
-                 end_point_vip: Optional[pulumi.Input[str]] = None):
+                 end_point_vip: Optional[pulumi.Input[str]] = None,
+                 security_groups_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a EndPoint resource.
         :param pulumi.Input[str] end_point_name: Name of endpoint.
@@ -26,6 +27,7 @@ class EndPointArgs:
         :param pulumi.Input[str] subnet_id: ID of subnet instance.
         :param pulumi.Input[str] vpc_id: ID of vpc instance.
         :param pulumi.Input[str] end_point_vip: VIP of endpoint ip.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups_ids: Ordered security groups associated with the endpoint.
         """
         pulumi.set(__self__, "end_point_name", end_point_name)
         pulumi.set(__self__, "end_point_service_id", end_point_service_id)
@@ -33,6 +35,8 @@ class EndPointArgs:
         pulumi.set(__self__, "vpc_id", vpc_id)
         if end_point_vip is not None:
             pulumi.set(__self__, "end_point_vip", end_point_vip)
+        if security_groups_ids is not None:
+            pulumi.set(__self__, "security_groups_ids", security_groups_ids)
 
     @property
     @pulumi.getter(name="endPointName")
@@ -94,29 +98,47 @@ class EndPointArgs:
     def end_point_vip(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "end_point_vip", value)
 
+    @property
+    @pulumi.getter(name="securityGroupsIds")
+    def security_groups_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Ordered security groups associated with the endpoint.
+        """
+        return pulumi.get(self, "security_groups_ids")
+
+    @security_groups_ids.setter
+    def security_groups_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "security_groups_ids", value)
+
 
 @pulumi.input_type
 class _EndPointState:
     def __init__(__self__, *,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  end_point_name: Optional[pulumi.Input[str]] = None,
                  end_point_owner: Optional[pulumi.Input[str]] = None,
                  end_point_service_id: Optional[pulumi.Input[str]] = None,
                  end_point_vip: Optional[pulumi.Input[str]] = None,
+                 security_groups_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  state: Optional[pulumi.Input[str]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering EndPoint resources.
+        :param pulumi.Input[str] cdc_id: CDC instance ID.
         :param pulumi.Input[str] create_time: Create Time.
         :param pulumi.Input[str] end_point_name: Name of endpoint.
         :param pulumi.Input[str] end_point_owner: APPID.
         :param pulumi.Input[str] end_point_service_id: ID of endpoint service.
         :param pulumi.Input[str] end_point_vip: VIP of endpoint ip.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups_ids: Ordered security groups associated with the endpoint.
         :param pulumi.Input[str] state: state of end point.
         :param pulumi.Input[str] subnet_id: ID of subnet instance.
         :param pulumi.Input[str] vpc_id: ID of vpc instance.
         """
+        if cdc_id is not None:
+            pulumi.set(__self__, "cdc_id", cdc_id)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
         if end_point_name is not None:
@@ -127,12 +149,26 @@ class _EndPointState:
             pulumi.set(__self__, "end_point_service_id", end_point_service_id)
         if end_point_vip is not None:
             pulumi.set(__self__, "end_point_vip", end_point_vip)
+        if security_groups_ids is not None:
+            pulumi.set(__self__, "security_groups_ids", security_groups_ids)
         if state is not None:
             pulumi.set(__self__, "state", state)
         if subnet_id is not None:
             pulumi.set(__self__, "subnet_id", subnet_id)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        CDC instance ID.
+        """
+        return pulumi.get(self, "cdc_id")
+
+    @cdc_id.setter
+    def cdc_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cdc_id", value)
 
     @property
     @pulumi.getter(name="createTime")
@@ -195,6 +231,18 @@ class _EndPointState:
         pulumi.set(self, "end_point_vip", value)
 
     @property
+    @pulumi.getter(name="securityGroupsIds")
+    def security_groups_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        Ordered security groups associated with the endpoint.
+        """
+        return pulumi.get(self, "security_groups_ids")
+
+    @security_groups_ids.setter
+    def security_groups_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "security_groups_ids", value)
+
+    @property
     @pulumi.getter
     def state(self) -> Optional[pulumi.Input[str]]:
         """
@@ -239,6 +287,7 @@ class EndPoint(pulumi.CustomResource):
                  end_point_name: Optional[pulumi.Input[str]] = None,
                  end_point_service_id: Optional[pulumi.Input[str]] = None,
                  end_point_vip: Optional[pulumi.Input[str]] = None,
+                 security_groups_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -249,6 +298,7 @@ class EndPoint(pulumi.CustomResource):
         :param pulumi.Input[str] end_point_name: Name of endpoint.
         :param pulumi.Input[str] end_point_service_id: ID of endpoint service.
         :param pulumi.Input[str] end_point_vip: VIP of endpoint ip.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups_ids: Ordered security groups associated with the endpoint.
         :param pulumi.Input[str] subnet_id: ID of subnet instance.
         :param pulumi.Input[str] vpc_id: ID of vpc instance.
         """
@@ -278,6 +328,7 @@ class EndPoint(pulumi.CustomResource):
                  end_point_name: Optional[pulumi.Input[str]] = None,
                  end_point_service_id: Optional[pulumi.Input[str]] = None,
                  end_point_vip: Optional[pulumi.Input[str]] = None,
+                 security_groups_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -296,12 +347,14 @@ class EndPoint(pulumi.CustomResource):
                 raise TypeError("Missing required property 'end_point_service_id'")
             __props__.__dict__["end_point_service_id"] = end_point_service_id
             __props__.__dict__["end_point_vip"] = end_point_vip
+            __props__.__dict__["security_groups_ids"] = security_groups_ids
             if subnet_id is None and not opts.urn:
                 raise TypeError("Missing required property 'subnet_id'")
             __props__.__dict__["subnet_id"] = subnet_id
             if vpc_id is None and not opts.urn:
                 raise TypeError("Missing required property 'vpc_id'")
             __props__.__dict__["vpc_id"] = vpc_id
+            __props__.__dict__["cdc_id"] = None
             __props__.__dict__["create_time"] = None
             __props__.__dict__["end_point_owner"] = None
             __props__.__dict__["state"] = None
@@ -315,11 +368,13 @@ class EndPoint(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            cdc_id: Optional[pulumi.Input[str]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             end_point_name: Optional[pulumi.Input[str]] = None,
             end_point_owner: Optional[pulumi.Input[str]] = None,
             end_point_service_id: Optional[pulumi.Input[str]] = None,
             end_point_vip: Optional[pulumi.Input[str]] = None,
+            security_groups_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             state: Optional[pulumi.Input[str]] = None,
             subnet_id: Optional[pulumi.Input[str]] = None,
             vpc_id: Optional[pulumi.Input[str]] = None) -> 'EndPoint':
@@ -330,11 +385,13 @@ class EndPoint(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] cdc_id: CDC instance ID.
         :param pulumi.Input[str] create_time: Create Time.
         :param pulumi.Input[str] end_point_name: Name of endpoint.
         :param pulumi.Input[str] end_point_owner: APPID.
         :param pulumi.Input[str] end_point_service_id: ID of endpoint service.
         :param pulumi.Input[str] end_point_vip: VIP of endpoint ip.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups_ids: Ordered security groups associated with the endpoint.
         :param pulumi.Input[str] state: state of end point.
         :param pulumi.Input[str] subnet_id: ID of subnet instance.
         :param pulumi.Input[str] vpc_id: ID of vpc instance.
@@ -343,15 +400,25 @@ class EndPoint(pulumi.CustomResource):
 
         __props__ = _EndPointState.__new__(_EndPointState)
 
+        __props__.__dict__["cdc_id"] = cdc_id
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["end_point_name"] = end_point_name
         __props__.__dict__["end_point_owner"] = end_point_owner
         __props__.__dict__["end_point_service_id"] = end_point_service_id
         __props__.__dict__["end_point_vip"] = end_point_vip
+        __props__.__dict__["security_groups_ids"] = security_groups_ids
         __props__.__dict__["state"] = state
         __props__.__dict__["subnet_id"] = subnet_id
         __props__.__dict__["vpc_id"] = vpc_id
         return EndPoint(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> pulumi.Output[str]:
+        """
+        CDC instance ID.
+        """
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="createTime")
@@ -392,6 +459,14 @@ class EndPoint(pulumi.CustomResource):
         VIP of endpoint ip.
         """
         return pulumi.get(self, "end_point_vip")
+
+    @property
+    @pulumi.getter(name="securityGroupsIds")
+    def security_groups_ids(self) -> pulumi.Output[Sequence[str]]:
+        """
+        Ordered security groups associated with the endpoint.
+        """
+        return pulumi.get(self, "security_groups_ids")
 
     @property
     @pulumi.getter

@@ -26,6 +26,8 @@ type EmbedTokenApply struct {
 	ProjectId pulumi.IntPtrOutput `pulumi:"projectId"`
 	// Page means embedding the page, and panel means embedding the entire board.
 	Scope pulumi.StringPtrOutput `pulumi:"scope"`
+	// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+	TicketNum pulumi.IntPtrOutput `pulumi:"ticketNum"`
 	// Upadte time.
 	UdpateAt pulumi.StringOutput `pulumi:"udpateAt"`
 	// User enterprise ID (for multi-user only).
@@ -76,6 +78,8 @@ type embedTokenApplyState struct {
 	ProjectId *int `pulumi:"projectId"`
 	// Page means embedding the page, and panel means embedding the entire board.
 	Scope *string `pulumi:"scope"`
+	// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+	TicketNum *int `pulumi:"ticketNum"`
 	// Upadte time.
 	UdpateAt *string `pulumi:"udpateAt"`
 	// User enterprise ID (for multi-user only).
@@ -97,6 +101,8 @@ type EmbedTokenApplyState struct {
 	ProjectId pulumi.IntPtrInput
 	// Page means embedding the page, and panel means embedding the entire board.
 	Scope pulumi.StringPtrInput
+	// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+	TicketNum pulumi.IntPtrInput
 	// Upadte time.
 	UdpateAt pulumi.StringPtrInput
 	// User enterprise ID (for multi-user only).
@@ -118,6 +124,8 @@ type embedTokenApplyArgs struct {
 	ProjectId *int `pulumi:"projectId"`
 	// Page means embedding the page, and panel means embedding the entire board.
 	Scope *string `pulumi:"scope"`
+	// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+	TicketNum *int `pulumi:"ticketNum"`
 	// User enterprise ID (for multi-user only).
 	UserCorpId *string `pulumi:"userCorpId"`
 	// UserId (for multi-user only).
@@ -134,6 +142,8 @@ type EmbedTokenApplyArgs struct {
 	ProjectId pulumi.IntPtrInput
 	// Page means embedding the page, and panel means embedding the entire board.
 	Scope pulumi.StringPtrInput
+	// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+	TicketNum pulumi.IntPtrInput
 	// User enterprise ID (for multi-user only).
 	UserCorpId pulumi.StringPtrInput
 	// UserId (for multi-user only).
@@ -255,6 +265,11 @@ func (o EmbedTokenApplyOutput) ProjectId() pulumi.IntPtrOutput {
 // Page means embedding the page, and panel means embedding the entire board.
 func (o EmbedTokenApplyOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmbedTokenApply) pulumi.StringPtrOutput { return v.Scope }).(pulumi.StringPtrOutput)
+}
+
+// Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+func (o EmbedTokenApplyOutput) TicketNum() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *EmbedTokenApply) pulumi.IntPtrOutput { return v.TicketNum }).(pulumi.IntPtrOutput)
 }
 
 // Upadte time.

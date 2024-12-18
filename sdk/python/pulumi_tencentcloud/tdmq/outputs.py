@@ -14,6 +14,7 @@ __all__ = [
     'NamespaceRetentionPolicy',
     'ProfessionalClusterVpc',
     'RocketmqClusterVpc',
+    'RocketmqVipInstanceIpRule',
     'RocketmqVipInstanceVpcInfo',
     'GetProInstanceDetailClusterInfoResult',
     'GetProInstanceDetailClusterInfoNodeDistributionResult',
@@ -21,6 +22,7 @@ __all__ = [
     'GetProInstanceDetailNetworkAccessPointInfoResult',
     'GetProInstancesFilterResult',
     'GetProInstancesInstanceResult',
+    'GetProInstancesInstanceTagResult',
     'GetPublishersFilterResult',
     'GetPublishersPublisherResult',
     'GetPublishersSortResult',
@@ -160,6 +162,49 @@ class RocketmqClusterVpc(dict):
     @pulumi.getter(name="vpcId")
     def vpc_id(self) -> Optional[str]:
         return pulumi.get(self, "vpc_id")
+
+
+@pulumi.output_type
+class RocketmqVipInstanceIpRule(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ipRule":
+            suggest = "ip_rule"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RocketmqVipInstanceIpRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RocketmqVipInstanceIpRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RocketmqVipInstanceIpRule.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 allow: bool,
+                 ip_rule: str,
+                 remark: str):
+        pulumi.set(__self__, "allow", allow)
+        pulumi.set(__self__, "ip_rule", ip_rule)
+        pulumi.set(__self__, "remark", remark)
+
+    @property
+    @pulumi.getter
+    def allow(self) -> bool:
+        return pulumi.get(self, "allow")
+
+    @property
+    @pulumi.getter(name="ipRule")
+    def ip_rule(self) -> str:
+        return pulumi.get(self, "ip_rule")
+
+    @property
+    @pulumi.getter
+    def remark(self) -> str:
+        return pulumi.get(self, "remark")
 
 
 @pulumi.output_type
@@ -407,6 +452,7 @@ class GetProInstancesInstanceResult(dict):
     def __init__(__self__, *,
                  auto_renew_flag: int,
                  config_display: str,
+                 create_time: str,
                  expire_time: int,
                  instance_id: str,
                  instance_name: str,
@@ -420,9 +466,11 @@ class GetProInstancesInstanceResult(dict):
                  spec_name: str,
                  status: int,
                  subnet_id: str,
+                 tags: Sequence['outputs.GetProInstancesInstanceTagResult'],
                  vpc_id: str):
         pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         pulumi.set(__self__, "config_display", config_display)
+        pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "expire_time", expire_time)
         pulumi.set(__self__, "instance_id", instance_id)
         pulumi.set(__self__, "instance_name", instance_name)
@@ -436,6 +484,7 @@ class GetProInstancesInstanceResult(dict):
         pulumi.set(__self__, "spec_name", spec_name)
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "subnet_id", subnet_id)
+        pulumi.set(__self__, "tags", tags)
         pulumi.set(__self__, "vpc_id", vpc_id)
 
     @property
@@ -447,6 +496,11 @@ class GetProInstancesInstanceResult(dict):
     @pulumi.getter(name="configDisplay")
     def config_display(self) -> str:
         return pulumi.get(self, "config_display")
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> str:
+        return pulumi.get(self, "create_time")
 
     @property
     @pulumi.getter(name="expireTime")
@@ -514,9 +568,33 @@ class GetProInstancesInstanceResult(dict):
         return pulumi.get(self, "subnet_id")
 
     @property
+    @pulumi.getter
+    def tags(self) -> Sequence['outputs.GetProInstancesInstanceTagResult']:
+        return pulumi.get(self, "tags")
+
+    @property
     @pulumi.getter(name="vpcId")
     def vpc_id(self) -> str:
         return pulumi.get(self, "vpc_id")
+
+
+@pulumi.output_type
+class GetProInstancesInstanceTagResult(dict):
+    def __init__(__self__, *,
+                 tag_key: str,
+                 tag_value: str):
+        pulumi.set(__self__, "tag_key", tag_key)
+        pulumi.set(__self__, "tag_value", tag_value)
+
+    @property
+    @pulumi.getter(name="tagKey")
+    def tag_key(self) -> str:
+        return pulumi.get(self, "tag_key")
+
+    @property
+    @pulumi.getter(name="tagValue")
+    def tag_value(self) -> str:
+        return pulumi.get(self, "tag_value")
 
 
 @pulumi.output_type

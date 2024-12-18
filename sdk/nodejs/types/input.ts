@@ -6,10 +6,26 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
 export interface ProviderAssumeRole {
+    externalId?: pulumi.Input<string>;
     policy?: pulumi.Input<string>;
     roleArn: pulumi.Input<string>;
     sessionDuration: pulumi.Input<number>;
     sessionName: pulumi.Input<string>;
+}
+
+export interface ProviderAssumeRoleWithSaml {
+    principalArn: pulumi.Input<string>;
+    roleArn: pulumi.Input<string>;
+    samlAssertion: pulumi.Input<string>;
+    sessionDuration: pulumi.Input<number>;
+    sessionName: pulumi.Input<string>;
+}
+
+export interface ProviderAssumeRoleWithWebIdentity {
+    roleArn: pulumi.Input<string>;
+    sessionDuration: pulumi.Input<number>;
+    sessionName: pulumi.Input<string>;
+    webIdentityToken: pulumi.Input<string>;
 }
 export namespace Address {
 }
@@ -343,6 +359,11 @@ export namespace As {
         values: pulumi.Input<pulumi.Input<string>[]>;
     }
 
+    export interface LifecycleHookLifecycleCommand {
+        commandId: pulumi.Input<string>;
+        parameters?: pulumi.Input<string>;
+    }
+
     export interface LoadBalancerForwardLoadBalancer {
         listenerId: pulumi.Input<string>;
         loadBalancerId: pulumi.Input<string>;
@@ -384,10 +405,33 @@ export namespace As {
         port: pulumi.Input<number>;
         weight: pulumi.Input<number>;
     }
+
+    export interface StartInstanceRefreshRefreshSettings {
+        checkInstanceTargetHealth?: pulumi.Input<boolean>;
+        rollingUpdateSettings: pulumi.Input<inputs.As.StartInstanceRefreshRefreshSettingsRollingUpdateSettings>;
+    }
+
+    export interface StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+        batchNumber: pulumi.Input<number>;
+        batchPause?: pulumi.Input<string>;
+        maxSurge?: pulumi.Input<number>;
+    }
 }
 
 export namespace Audit {
+    export interface GetEventsLookupAttribute {
+        attributeKey: string;
+        attributeValue?: string;
+    }
+
+    export interface GetEventsLookupAttributeArgs {
+        attributeKey: pulumi.Input<string>;
+        attributeValue?: pulumi.Input<string>;
+    }
+
     export interface TrackStorage {
+        storageAccountId?: pulumi.Input<string>;
+        storageAppId?: pulumi.Input<string>;
         storageName: pulumi.Input<string>;
         storagePrefix: pulumi.Input<string>;
         storageRegion: pulumi.Input<string>;
@@ -399,6 +443,13 @@ export namespace Audits {
 }
 
 export namespace Availability {
+}
+
+export namespace Batch {
+    export interface ApplyAccountBaselinesBaselineConfigItem {
+        configuration?: pulumi.Input<string>;
+        identifier?: pulumi.Input<string>;
+    }
 }
 
 export namespace Bi {
@@ -457,6 +508,16 @@ export namespace Ccn {
         values: pulumi.Input<pulumi.Input<string>[]>;
     }
 
+    export interface GetRoutesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetRoutesFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
     export interface InstancesAcceptAttachInstance {
         description?: pulumi.Input<string>;
         instanceId: pulumi.Input<string>;
@@ -480,6 +541,53 @@ export namespace Ccn {
         instanceType?: pulumi.Input<string>;
         routeTableId?: pulumi.Input<string>;
     }
+
+    export interface RouteTableAssociateInstanceConfigInstance {
+        instanceId: pulumi.Input<string>;
+        instanceType: pulumi.Input<string>;
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicy {
+        action: pulumi.Input<string>;
+        broadcastConditions: pulumi.Input<pulumi.Input<inputs.Ccn.RouteTableBroadcastPoliciesPolicyBroadcastCondition>[]>;
+        description: pulumi.Input<string>;
+        routeConditions: pulumi.Input<pulumi.Input<inputs.Ccn.RouteTableBroadcastPoliciesPolicyRouteCondition>[]>;
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicyBroadcastCondition {
+        matchPattern: pulumi.Input<number>;
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface RouteTableBroadcastPoliciesPolicyRouteCondition {
+        matchPattern: pulumi.Input<number>;
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface RouteTableInputPoliciesPolicy {
+        action: pulumi.Input<string>;
+        description: pulumi.Input<string>;
+        routeConditions: pulumi.Input<pulumi.Input<inputs.Ccn.RouteTableInputPoliciesPolicyRouteCondition>[]>;
+    }
+
+    export interface RouteTableInputPoliciesPolicyRouteCondition {
+        matchPattern: pulumi.Input<number>;
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface RouteTableSelectionPoliciesSelectionPolicy {
+        description: pulumi.Input<string>;
+        instanceId: pulumi.Input<string>;
+        instanceType: pulumi.Input<string>;
+        routeTableId: pulumi.Input<string>;
+        sourceCidrBlock: pulumi.Input<string>;
+    }
+}
+
+export namespace Cdc {
 }
 
 export namespace Cdh {
@@ -717,6 +825,7 @@ export namespace Cdn {
         backupOriginType?: pulumi.Input<string>;
         backupServerName?: pulumi.Input<string>;
         cosPrivateAccess?: pulumi.Input<string>;
+        originCompany?: pulumi.Input<string>;
         originLists: pulumi.Input<pulumi.Input<string>[]>;
         originPullProtocol?: pulumi.Input<string>;
         originType: pulumi.Input<string>;
@@ -734,6 +843,14 @@ export namespace Cdn {
     }
 
     export interface DomainOssPrivateAccess {
+        accessKey?: pulumi.Input<string>;
+        bucket?: pulumi.Input<string>;
+        region?: pulumi.Input<string>;
+        secretKey?: pulumi.Input<string>;
+        switch: pulumi.Input<string>;
+    }
+
+    export interface DomainOthersPrivateAccess {
         accessKey?: pulumi.Input<string>;
         bucket?: pulumi.Input<string>;
         region?: pulumi.Input<string>;
@@ -836,6 +953,58 @@ export namespace Cdn {
     }
 }
 
+export namespace Cdwdoris {
+    export interface GetInstancesSearchTag {
+        allValue?: number;
+        tagKey?: string;
+        tagValue?: string;
+    }
+
+    export interface GetInstancesSearchTagArgs {
+        allValue?: pulumi.Input<number>;
+        tagKey?: pulumi.Input<string>;
+        tagValue?: pulumi.Input<string>;
+    }
+
+    export interface InstanceBeSpec {
+        count: pulumi.Input<number>;
+        diskSize: pulumi.Input<number>;
+        specName: pulumi.Input<string>;
+    }
+
+    export interface InstanceChargeProperties {
+        chargeType?: pulumi.Input<string>;
+        renewFlag?: pulumi.Input<number>;
+        timeSpan?: pulumi.Input<number>;
+        timeUnit?: pulumi.Input<string>;
+    }
+
+    export interface InstanceFeSpec {
+        count: pulumi.Input<number>;
+        diskSize: pulumi.Input<number>;
+        specName: pulumi.Input<string>;
+    }
+
+    export interface InstanceTag {
+        tagKey: pulumi.Input<string>;
+        tagValue: pulumi.Input<string>;
+    }
+
+    export interface InstanceUserMultiZoneInfos {
+        subnetId?: pulumi.Input<string>;
+        subnetIpNum?: pulumi.Input<number>;
+        zone?: pulumi.Input<string>;
+    }
+
+    export interface WorkloadGroupWorkloadGroup {
+        cpuHardLimit?: pulumi.Input<string>;
+        cpuShare?: pulumi.Input<number>;
+        enableMemoryOverCommit?: pulumi.Input<boolean>;
+        memoryLimit?: pulumi.Input<number>;
+        workloadGroupName?: pulumi.Input<string>;
+    }
+}
+
 export namespace Cdwpg {
     export interface InstanceChargeProperties {
         chargeType?: pulumi.Input<string>;
@@ -879,6 +1048,12 @@ export namespace Cfw {
         deployRegion: pulumi.Input<string>;
         width: pulumi.Input<number>;
         zoneSets: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface VpcPolicyBetaList {
+        lastTime?: pulumi.Input<string>;
+        taskId?: pulumi.Input<number>;
+        taskName?: pulumi.Input<string>;
     }
 }
 
@@ -2420,6 +2595,18 @@ export namespace Ckafka {
     }
 }
 
+export namespace Classic {
+    export interface GetElasticPublicIpv6sFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetElasticPublicIpv6sFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+}
+
 export namespace Clb {
     export interface AttachmentTarget {
         eniIp?: pulumi.Input<string>;
@@ -2515,6 +2702,11 @@ export namespace Clb {
         subnetId: pulumi.Input<string>;
     }
 
+    export interface ListenerRuleOauth {
+        oauthEnable?: pulumi.Input<boolean>;
+        oauthFailureStatus?: pulumi.Input<string>;
+    }
+
     export interface ReplaceCertForLbsCertificate {
         certCaContent?: pulumi.Input<string>;
         certCaId?: pulumi.Input<string>;
@@ -2533,8 +2725,9 @@ export namespace Clb {
 
     export interface TargetGroupAttachmentsAssociation {
         listenerId?: pulumi.Input<string>;
+        loadBalancerId?: pulumi.Input<string>;
         locationId?: pulumi.Input<string>;
-        targetGroupId: pulumi.Input<string>;
+        targetGroupId?: pulumi.Input<string>;
     }
 
     export interface TargetGroupTargetGroupInstance {
@@ -2611,6 +2804,7 @@ export namespace Cls {
         number: pulumi.Input<number>;
         query: pulumi.Input<string>;
         startTimeOffset: pulumi.Input<number>;
+        syntaxRule?: pulumi.Input<number>;
         topicId: pulumi.Input<string>;
     }
 
@@ -2636,9 +2830,15 @@ export namespace Cls {
         type: pulumi.Input<string>;
     }
 
+    export interface AlarmMultiCondition {
+        alarmLevel?: pulumi.Input<number>;
+        condition?: pulumi.Input<string>;
+    }
+
     export interface AlarmNoticeNoticeReceiver {
         endTime?: pulumi.Input<string>;
         index?: pulumi.Input<number>;
+        noticeContentId?: pulumi.Input<string>;
         receiverChannels: pulumi.Input<pulumi.Input<string>[]>;
         receiverIds: pulumi.Input<pulumi.Input<number>[]>;
         receiverType: pulumi.Input<string>;
@@ -2646,12 +2846,23 @@ export namespace Cls {
     }
 
     export interface AlarmNoticeWebCallback {
+        /**
+         * @deprecated This parameter is deprecated. Please use `notice_content_id`.
+         */
         body?: pulumi.Input<string>;
         callbackType: pulumi.Input<string>;
+        /**
+         * @deprecated This parameter is deprecated. Please use `notice_content_id`.
+         */
         headers?: pulumi.Input<pulumi.Input<string>[]>;
         index?: pulumi.Input<number>;
         method?: pulumi.Input<string>;
+        mobiles?: pulumi.Input<pulumi.Input<string>[]>;
+        noticeContentId?: pulumi.Input<string>;
+        remindType?: pulumi.Input<number>;
         url: pulumi.Input<string>;
+        userIds?: pulumi.Input<pulumi.Input<string>[]>;
+        webCallbackId?: pulumi.Input<string>;
     }
 
     export interface CkafkaConsumerCkafka {
@@ -2834,10 +3045,25 @@ export namespace Cls {
         topicId: pulumi.Input<string>;
     }
 
+    export interface GetLogsetsFilter {
+        key: string;
+        values: string[];
+    }
+
+    export interface GetLogsetsFilterArgs {
+        key: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
     export interface IndexRule {
+        dynamicIndex?: pulumi.Input<inputs.Cls.IndexRuleDynamicIndex>;
         fullText?: pulumi.Input<inputs.Cls.IndexRuleFullText>;
         keyValue?: pulumi.Input<inputs.Cls.IndexRuleKeyValue>;
         tag?: pulumi.Input<inputs.Cls.IndexRuleTag>;
+    }
+
+    export interface IndexRuleDynamicIndex {
+        status: pulumi.Input<boolean>;
     }
 
     export interface IndexRuleFullText {
@@ -2909,11 +3135,44 @@ export namespace Cls {
         values: pulumi.Input<pulumi.Input<string>[]>;
     }
 
+    export interface NoticeContentNoticeContents {
+        recoveryContent?: pulumi.Input<inputs.Cls.NoticeContentNoticeContentsRecoveryContent>;
+        triggerContent?: pulumi.Input<inputs.Cls.NoticeContentNoticeContentsTriggerContent>;
+        type: pulumi.Input<string>;
+    }
+
+    export interface NoticeContentNoticeContentsRecoveryContent {
+        content?: pulumi.Input<string>;
+        headers?: pulumi.Input<pulumi.Input<string>[]>;
+        title?: pulumi.Input<string>;
+    }
+
+    export interface NoticeContentNoticeContentsTriggerContent {
+        content?: pulumi.Input<string>;
+        headers?: pulumi.Input<pulumi.Input<string>[]>;
+        title?: pulumi.Input<string>;
+    }
+
     export interface ScheduledSqlDstResource {
         bizType?: pulumi.Input<number>;
         metricName?: pulumi.Input<string>;
         region?: pulumi.Input<string>;
         topicId: pulumi.Input<string>;
+    }
+
+    export interface TopicExtends {
+        anonymousAccess?: pulumi.Input<inputs.Cls.TopicExtendsAnonymousAccess>;
+    }
+
+    export interface TopicExtendsAnonymousAccess {
+        conditions?: pulumi.Input<pulumi.Input<inputs.Cls.TopicExtendsAnonymousAccessCondition>[]>;
+        operations?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface TopicExtendsAnonymousAccessCondition {
+        attributes?: pulumi.Input<string>;
+        conditionValue?: pulumi.Input<string>;
+        rule?: pulumi.Input<number>;
     }
 }
 
@@ -3050,12 +3309,17 @@ export namespace Cos {
     }
 
     export interface BucketLifecycleRule {
+        abortIncompleteMultipartUpload?: pulumi.Input<inputs.Cos.BucketLifecycleRuleAbortIncompleteMultipartUpload>;
         expiration?: pulumi.Input<inputs.Cos.BucketLifecycleRuleExpiration>;
         filterPrefix: pulumi.Input<string>;
         id?: pulumi.Input<string>;
         nonCurrentExpiration?: pulumi.Input<inputs.Cos.BucketLifecycleRuleNonCurrentExpiration>;
         nonCurrentTransitions?: pulumi.Input<pulumi.Input<inputs.Cos.BucketLifecycleRuleNonCurrentTransition>[]>;
         transitions?: pulumi.Input<pulumi.Input<inputs.Cos.BucketLifecycleRuleTransition>[]>;
+    }
+
+    export interface BucketLifecycleRuleAbortIncompleteMultipartUpload {
+        daysAfterInitiation: pulumi.Input<number>;
     }
 
     export interface BucketLifecycleRuleExpiration {
@@ -3109,8 +3373,50 @@ export namespace Cos {
         endpoint?: pulumi.Input<string>;
         errorDocument?: pulumi.Input<string>;
         indexDocument?: pulumi.Input<string>;
+        redirectAllRequestsTo?: pulumi.Input<string>;
     }
 
+}
+
+export namespace Csip {
+    export interface RiskCenterAsset {
+        arn?: pulumi.Input<string>;
+        asset?: pulumi.Input<string>;
+        assetName?: pulumi.Input<string>;
+        assetType?: pulumi.Input<string>;
+        instanceType?: pulumi.Input<string>;
+        region?: pulumi.Input<string>;
+    }
+
+    export interface RiskCenterTaskAdvanceCfg {
+        cfgRisks?: pulumi.Input<pulumi.Input<inputs.Csip.RiskCenterTaskAdvanceCfgCfgRisk>[]>;
+        portRisks?: pulumi.Input<pulumi.Input<inputs.Csip.RiskCenterTaskAdvanceCfgPortRisk>[]>;
+        vulRisks?: pulumi.Input<pulumi.Input<inputs.Csip.RiskCenterTaskAdvanceCfgVulRisk>[]>;
+        weakPwdRisks?: pulumi.Input<pulumi.Input<inputs.Csip.RiskCenterTaskAdvanceCfgWeakPwdRisk>[]>;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgCfgRisk {
+        enable: pulumi.Input<number>;
+        itemId: pulumi.Input<string>;
+        resourceType: pulumi.Input<string>;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgPortRisk {
+        checkType: pulumi.Input<number>;
+        detail: pulumi.Input<string>;
+        enable: pulumi.Input<number>;
+        portSets: pulumi.Input<string>;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgVulRisk {
+        enable: pulumi.Input<number>;
+        riskId: pulumi.Input<string>;
+    }
+
+    export interface RiskCenterTaskAdvanceCfgWeakPwdRisk {
+        checkItemId: pulumi.Input<number>;
+        enable: pulumi.Input<number>;
+    }
 }
 
 export namespace Css {
@@ -3214,6 +3520,11 @@ export namespace Css {
 }
 
 export namespace Cvm {
+    export interface ActionTimerActionTimer {
+        actionTime?: pulumi.Input<string>;
+        timerAction?: pulumi.Input<string>;
+    }
+
     export interface ChcConfigBmcVirtualPrivateCloud {
         asVpcGateway?: pulumi.Input<boolean>;
         ipv6AddressCount?: pulumi.Input<number>;
@@ -3338,6 +3649,9 @@ export namespace Cvm {
 
     export interface LaunchTemplatePlacement {
         hostIds?: pulumi.Input<pulumi.Input<string>[]>;
+        /**
+         * @deprecated It has been deprecated from version 1.81.108.
+         */
         hostIps?: pulumi.Input<pulumi.Input<string>[]>;
         projectId?: pulumi.Input<number>;
         zone: pulumi.Input<string>;
@@ -3553,6 +3867,18 @@ export namespace Cynosdb {
         dbHost: pulumi.Input<string>;
         dbPrivilege: pulumi.Input<string>;
         dbUserName: pulumi.Input<string>;
+    }
+
+    export interface ClusterInstanceInitInfo {
+        cpu: pulumi.Input<number>;
+        deviceType?: pulumi.Input<string>;
+        instanceCount: pulumi.Input<number>;
+        instanceType: pulumi.Input<string>;
+        maxRoCount?: pulumi.Input<number>;
+        maxRoCpu?: pulumi.Input<number>;
+        memory: pulumi.Input<number>;
+        minRoCount?: pulumi.Input<number>;
+        minRoCpu?: pulumi.Input<number>;
     }
 
     export interface ClusterParamItem {
@@ -4369,6 +4695,17 @@ export namespace Deprecatedsecurity {
     }
 }
 
+export namespace Deprecatedvpc {
+    export interface Ipv6EniAddressIpv6Address {
+        address: pulumi.Input<string>;
+        addressId?: pulumi.Input<string>;
+        description?: pulumi.Input<string>;
+        isWanIpBlocked?: pulumi.Input<boolean>;
+        primary?: pulumi.Input<boolean>;
+        state?: pulumi.Input<string>;
+    }
+}
+
 export namespace Dlc {
     export interface AddUsersToWorkGroupAttachmentAddInfo {
         userIds: pulumi.Input<pulumi.Input<string>[]>;
@@ -5010,11 +5347,28 @@ export namespace Eip {
 export namespace Eips {
 }
 
+export namespace Elastic {
+    export interface GetPublicIpv6sFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetPublicIpv6sFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+}
+
 export namespace Elasticsearch {
     export interface DiagnoseDiagnoseJobMeta {
         jobDescription?: pulumi.Input<string>;
         jobName?: pulumi.Input<string>;
         jobZhName?: pulumi.Input<string>;
+    }
+
+    export interface InstanceCosBackup {
+        backupTime: pulumi.Input<string>;
+        isAutoBackup: pulumi.Input<boolean>;
     }
 
     export interface InstanceEsAcl {
@@ -5062,6 +5416,22 @@ export namespace Elasticsearch {
 }
 
 export namespace Emr {
+    export interface ClusterPlacementInfo {
+        projectId?: pulumi.Input<number>;
+        zone: pulumi.Input<string>;
+    }
+
+    export interface ClusterPreExecutedFileSetting {
+        args?: pulumi.Input<pulumi.Input<string>[]>;
+        cosFileName?: pulumi.Input<string>;
+        cosFileUri?: pulumi.Input<string>;
+        cosSecretId?: pulumi.Input<string>;
+        cosSecretKey?: pulumi.Input<string>;
+        remark?: pulumi.Input<string>;
+        runOrder?: pulumi.Input<number>;
+        whenRun?: pulumi.Input<string>;
+    }
+
     export interface ClusterResourceSpec {
         commonCount?: pulumi.Input<number>;
         commonResourceSpec?: pulumi.Input<inputs.Emr.ClusterResourceSpecCommonResourceSpec>;
@@ -5078,9 +5448,16 @@ export namespace Emr {
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         memSize?: pulumi.Input<number>;
+        multiDisks?: pulumi.Input<pulumi.Input<inputs.Emr.ClusterResourceSpecCommonResourceSpecMultiDisk>[]>;
         rootSize?: pulumi.Input<number>;
         spec?: pulumi.Input<string>;
         storageType?: pulumi.Input<number>;
+    }
+
+    export interface ClusterResourceSpecCommonResourceSpecMultiDisk {
+        count?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        volume?: pulumi.Input<number>;
     }
 
     export interface ClusterResourceSpecCoreResourceSpec {
@@ -5088,9 +5465,16 @@ export namespace Emr {
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         memSize?: pulumi.Input<number>;
+        multiDisks?: pulumi.Input<pulumi.Input<inputs.Emr.ClusterResourceSpecCoreResourceSpecMultiDisk>[]>;
         rootSize?: pulumi.Input<number>;
         spec?: pulumi.Input<string>;
         storageType?: pulumi.Input<number>;
+    }
+
+    export interface ClusterResourceSpecCoreResourceSpecMultiDisk {
+        count?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        volume?: pulumi.Input<number>;
     }
 
     export interface ClusterResourceSpecMasterResourceSpec {
@@ -5098,9 +5482,16 @@ export namespace Emr {
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         memSize?: pulumi.Input<number>;
+        multiDisks?: pulumi.Input<pulumi.Input<inputs.Emr.ClusterResourceSpecMasterResourceSpecMultiDisk>[]>;
         rootSize?: pulumi.Input<number>;
         spec?: pulumi.Input<string>;
         storageType?: pulumi.Input<number>;
+    }
+
+    export interface ClusterResourceSpecMasterResourceSpecMultiDisk {
+        count?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        volume?: pulumi.Input<number>;
     }
 
     export interface ClusterResourceSpecTaskResourceSpec {
@@ -5108,9 +5499,21 @@ export namespace Emr {
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         memSize?: pulumi.Input<number>;
+        multiDisks?: pulumi.Input<pulumi.Input<inputs.Emr.ClusterResourceSpecTaskResourceSpecMultiDisk>[]>;
         rootSize?: pulumi.Input<number>;
         spec?: pulumi.Input<string>;
         storageType?: pulumi.Input<number>;
+    }
+
+    export interface ClusterResourceSpecTaskResourceSpecMultiDisk {
+        count?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        volume?: pulumi.Input<number>;
+    }
+
+    export interface ClusterTerminateNodeInfo {
+        cvmInstanceIds?: pulumi.Input<pulumi.Input<string>[]>;
+        nodeFlag?: pulumi.Input<string>;
     }
 
     export interface GetAutoScaleRecordsFilter {
@@ -5137,9 +5540,50 @@ export namespace Eni {
         ip?: pulumi.Input<string>;
         primary?: pulumi.Input<boolean>;
     }
+
+    export interface Ipv4AddressPrivateIpAddress {
+        addressId?: pulumi.Input<string>;
+        description?: pulumi.Input<string>;
+        isWanIpBlocked?: pulumi.Input<boolean>;
+        primary?: pulumi.Input<boolean>;
+        privateIpAddress: pulumi.Input<string>;
+        publicIpAddress?: pulumi.Input<string>;
+        qosLevel?: pulumi.Input<string>;
+        state?: pulumi.Input<string>;
+    }
+
+    export interface Ipv6AddressIpv6Address {
+        address: pulumi.Input<string>;
+        addressId?: pulumi.Input<string>;
+        description?: pulumi.Input<string>;
+        isWanIpBlocked?: pulumi.Input<boolean>;
+        primary?: pulumi.Input<boolean>;
+        state?: pulumi.Input<string>;
+    }
 }
 
 export namespace Enis {
+}
+
+export namespace Events {
+    export interface AuditTrackFilters {
+        resourceFields?: pulumi.Input<pulumi.Input<inputs.Events.AuditTrackFiltersResourceField>[]>;
+    }
+
+    export interface AuditTrackFiltersResourceField {
+        actionType: pulumi.Input<string>;
+        eventNames: pulumi.Input<pulumi.Input<string>[]>;
+        resourceType: pulumi.Input<string>;
+    }
+
+    export interface AuditTrackStorage {
+        storageAccountId?: pulumi.Input<string>;
+        storageAppId?: pulumi.Input<string>;
+        storageName: pulumi.Input<string>;
+        storagePrefix: pulumi.Input<string>;
+        storageRegion: pulumi.Input<string>;
+        storageType: pulumi.Input<string>;
+    }
 }
 
 export namespace Gaap {
@@ -5186,6 +5630,16 @@ export namespace Gaap {
 export namespace Ha {
 }
 
+export namespace Identity {
+    export interface CenterRoleConfigurationPermissionCustomPoliciesAttachmentPolicy {
+        addTime?: pulumi.Input<string>;
+        rolePolicyDocument: pulumi.Input<string>;
+        rolePolicyName: pulumi.Input<string>;
+        rolePolicyType?: pulumi.Input<string>;
+    }
+
+}
+
 export namespace Image {
     export interface GetInstanceFilter {
         name: string;
@@ -5218,12 +5672,25 @@ export namespace Instance {
         dataDiskSnapshotId?: pulumi.Input<string>;
         dataDiskType: pulumi.Input<string>;
         deleteWithInstance?: pulumi.Input<boolean>;
+        deleteWithInstancePrepaid?: pulumi.Input<boolean>;
         encrypt?: pulumi.Input<boolean>;
         throughputPerformance?: pulumi.Input<number>;
     }
 }
 
 export namespace Instances {
+}
+
+export namespace Invite {
+    export interface OrganizationMemberOperationAuthFile {
+        name: pulumi.Input<string>;
+        url: pulumi.Input<string>;
+    }
+
+    export interface OrganizationMemberOperationTag {
+        tagKey: pulumi.Input<string>;
+        tagValue: pulumi.Input<string>;
+    }
 }
 
 export namespace Key {
@@ -5243,8 +5710,13 @@ export namespace Kubernetes {
         dockerGraphPath?: pulumi.Input<string>;
         extraArgs?: pulumi.Input<pulumi.Input<string>[]>;
         gpuArgs?: pulumi.Input<inputs.Kubernetes.ClusterAttachmentWorkerConfigGpuArgs>;
+        /**
+         * @deprecated This argument was deprecated, use `unschedulable` instead.
+         */
         isSchedule?: pulumi.Input<boolean>;
         mountTarget?: pulumi.Input<string>;
+        preStartUserScript?: pulumi.Input<string>;
+        taints?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterAttachmentWorkerConfigTaint>[]>;
         userData?: pulumi.Input<string>;
     }
 
@@ -5268,11 +5740,30 @@ export namespace Kubernetes {
     export interface ClusterAttachmentWorkerConfigOverrides {
         dataDisks?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterAttachmentWorkerConfigOverridesDataDisk>[]>;
         desiredPodNum?: pulumi.Input<number>;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         dockerGraphPath?: pulumi.Input<string>;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         extraArgs?: pulumi.Input<pulumi.Input<string>[]>;
         gpuArgs?: pulumi.Input<inputs.Kubernetes.ClusterAttachmentWorkerConfigOverridesGpuArgs>;
+        /**
+         * @deprecated This argument was deprecated, use `unschedulable` instead.
+         */
         isSchedule?: pulumi.Input<boolean>;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         mountTarget?: pulumi.Input<string>;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
+        preStartUserScript?: pulumi.Input<string>;
+        /**
+         * @deprecated This argument was no longer supported by TencentCloud TKE.
+         */
         userData?: pulumi.Input<string>;
     }
 
@@ -5291,6 +5782,12 @@ export namespace Kubernetes {
         customDriver?: pulumi.Input<{[key: string]: any}>;
         driver?: pulumi.Input<{[key: string]: any}>;
         migEnable?: pulumi.Input<boolean>;
+    }
+
+    export interface ClusterAttachmentWorkerConfigTaint {
+        effect?: pulumi.Input<string>;
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
     }
 
     export interface ClusterAuthOptions {
@@ -5327,7 +5824,58 @@ export namespace Kubernetes {
     }
 
     export interface ClusterExistInstanceInstancesPara {
+        enhancedMonitorService?: pulumi.Input<boolean>;
+        enhancedSecurityService?: pulumi.Input<boolean>;
         instanceIds: pulumi.Input<pulumi.Input<string>[]>;
+        keyIds?: pulumi.Input<pulumi.Input<string>[]>;
+        masterConfig?: pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfig>;
+        password?: pulumi.Input<string>;
+        securityGroupIds?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfig {
+        dataDisk?: pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigDataDisk>;
+        desiredPodNumber?: pulumi.Input<number>;
+        dockerGraphPath?: pulumi.Input<string>;
+        extraArgs?: pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigExtraArgs>;
+        gpuArgs?: pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigGpuArgs>;
+        labels?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigLabel>[]>;
+        mountTarget?: pulumi.Input<string>;
+        taints?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterExistInstanceInstancesParaMasterConfigTaint>[]>;
+        unschedulable?: pulumi.Input<number>;
+        userScript?: pulumi.Input<string>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigDataDisk {
+        autoFormatAndMount?: pulumi.Input<boolean>;
+        diskPartition?: pulumi.Input<string>;
+        diskSize?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        fileSystem?: pulumi.Input<string>;
+        mountTarget?: pulumi.Input<string>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigExtraArgs {
+        kubelets?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigGpuArgs {
+        cuda?: pulumi.Input<{[key: string]: any}>;
+        cudnn?: pulumi.Input<{[key: string]: any}>;
+        customDriver?: pulumi.Input<{[key: string]: any}>;
+        driver?: pulumi.Input<{[key: string]: any}>;
+        migEnable?: pulumi.Input<boolean>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigLabel {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface ClusterExistInstanceInstancesParaMasterConfigTaint {
+        effect?: pulumi.Input<string>;
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
     }
 
     export interface ClusterExtensionAddon {
@@ -5338,6 +5886,58 @@ export namespace Kubernetes {
     export interface ClusterLogAgent {
         enabled: pulumi.Input<boolean>;
         kubeletRootDir?: pulumi.Input<string>;
+    }
+
+    export interface ClusterMasterAttachmentExtraArgs {
+        etcds?: pulumi.Input<pulumi.Input<string>[]>;
+        kubeApiServers?: pulumi.Input<pulumi.Input<string>[]>;
+        kubeControllerManagers?: pulumi.Input<pulumi.Input<string>[]>;
+        kubeSchedulers?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfig {
+        dataDisk?: pulumi.Input<inputs.Kubernetes.ClusterMasterAttachmentMasterConfigDataDisk>;
+        desiredPodNumber?: pulumi.Input<number>;
+        dockerGraphPath?: pulumi.Input<string>;
+        extraArgs?: pulumi.Input<inputs.Kubernetes.ClusterMasterAttachmentMasterConfigExtraArgs>;
+        gpuArgs?: pulumi.Input<inputs.Kubernetes.ClusterMasterAttachmentMasterConfigGpuArgs>;
+        labels?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterMasterAttachmentMasterConfigLabel>[]>;
+        mountTarget?: pulumi.Input<string>;
+        taints?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterMasterAttachmentMasterConfigTaint>[]>;
+        unschedulable?: pulumi.Input<number>;
+        userScript?: pulumi.Input<string>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigDataDisk {
+        autoFormatAndMount?: pulumi.Input<boolean>;
+        diskPartition?: pulumi.Input<string>;
+        diskSize?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        fileSystem?: pulumi.Input<string>;
+        mountTarget?: pulumi.Input<string>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigExtraArgs {
+        kubelets?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigGpuArgs {
+        cuda?: pulumi.Input<{[key: string]: any}>;
+        cudnn?: pulumi.Input<{[key: string]: any}>;
+        customDriver?: pulumi.Input<{[key: string]: any}>;
+        driver?: pulumi.Input<{[key: string]: any}>;
+        migEnable?: pulumi.Input<boolean>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigLabel {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface ClusterMasterAttachmentMasterConfigTaint {
+        effect?: pulumi.Input<string>;
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
     }
 
     export interface ClusterMasterConfig {
@@ -5392,6 +5992,12 @@ export namespace Kubernetes {
         scaleInUtilizationThreshold?: pulumi.Input<number>;
         skipNodesWithLocalStorage?: pulumi.Input<boolean>;
         skipNodesWithSystemPods?: pulumi.Input<boolean>;
+    }
+
+    export interface ClusterResourceDeleteOption {
+        deleteMode: pulumi.Input<string>;
+        resourceType: pulumi.Input<string>;
+        skipDeletionProtection?: pulumi.Input<boolean>;
     }
 
     export interface ClusterWorkerConfig {
@@ -5459,6 +6065,16 @@ export namespace Kubernetes {
         values: pulumi.Input<pulumi.Input<string>[]>;
     }
 
+    export interface GetClusterNativeNodePoolsFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetClusterNativeNodePoolsFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
     export interface GetClusterNodePoolsFilter {
         name: string;
         values: string[];
@@ -5467,6 +6083,112 @@ export namespace Kubernetes {
     export interface GetClusterNodePoolsFilterArgs {
         name: pulumi.Input<string>;
         values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface HealthCheckPolicyRule {
+        autoRepairEnabled: pulumi.Input<boolean>;
+        enabled: pulumi.Input<boolean>;
+        name: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolAnnotation {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolLabel {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolNative {
+        autoRepair?: pulumi.Input<boolean>;
+        dataDisks?: pulumi.Input<pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeDataDisk>[]>;
+        enableAutoscaling?: pulumi.Input<boolean>;
+        healthCheckPolicyName?: pulumi.Input<string>;
+        hostNamePattern?: pulumi.Input<string>;
+        instanceChargePrepaid?: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeInstanceChargePrepaid>;
+        instanceChargeType: pulumi.Input<string>;
+        instanceTypes: pulumi.Input<pulumi.Input<string>[]>;
+        internetAccessible?: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeInternetAccessible>;
+        keyIds?: pulumi.Input<pulumi.Input<string>[]>;
+        kubeletArgs?: pulumi.Input<pulumi.Input<string>[]>;
+        lifecycle?: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeLifecycle>;
+        machineType?: pulumi.Input<string>;
+        management?: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeManagement>;
+        replicas?: pulumi.Input<number>;
+        runtimeRootDir?: pulumi.Input<string>;
+        scaling?: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeScaling>;
+        securityGroupIds: pulumi.Input<pulumi.Input<string>[]>;
+        subnetIds: pulumi.Input<pulumi.Input<string>[]>;
+        systemDisk: pulumi.Input<inputs.Kubernetes.NativeNodePoolNativeSystemDisk>;
+    }
+
+    export interface NativeNodePoolNativeDataDisk {
+        autoFormatAndMount: pulumi.Input<boolean>;
+        diskPartition?: pulumi.Input<string>;
+        diskSize: pulumi.Input<number>;
+        diskType: pulumi.Input<string>;
+        encrypt?: pulumi.Input<string>;
+        fileSystem?: pulumi.Input<string>;
+        kmsKeyId?: pulumi.Input<string>;
+        mountTarget?: pulumi.Input<string>;
+        snapshotId?: pulumi.Input<string>;
+        throughputPerformance?: pulumi.Input<number>;
+    }
+
+    export interface NativeNodePoolNativeInstanceChargePrepaid {
+        period: pulumi.Input<number>;
+        renewFlag?: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolNativeInternetAccessible {
+        bandwidthPackageId?: pulumi.Input<string>;
+        chargeType: pulumi.Input<string>;
+        maxBandwidthOut: pulumi.Input<number>;
+    }
+
+    export interface NativeNodePoolNativeLifecycle {
+        postInit?: pulumi.Input<string>;
+        preInit?: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolNativeManagement {
+        hosts?: pulumi.Input<pulumi.Input<string>[]>;
+        kernelArgs?: pulumi.Input<pulumi.Input<string>[]>;
+        nameservers?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface NativeNodePoolNativeScaling {
+        createPolicy?: pulumi.Input<string>;
+        maxReplicas?: pulumi.Input<number>;
+        minReplicas?: pulumi.Input<number>;
+    }
+
+    export interface NativeNodePoolNativeSystemDisk {
+        diskSize: pulumi.Input<number>;
+        diskType: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolTag {
+        resourceType?: pulumi.Input<string>;
+        tags?: pulumi.Input<pulumi.Input<inputs.Kubernetes.NativeNodePoolTagTag>[]>;
+    }
+
+    export interface NativeNodePoolTagTag {
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
+    }
+
+    export interface NativeNodePoolTaint {
+        effect?: pulumi.Input<string>;
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
+    }
+
+    export interface NodePoolAnnotation {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
     }
 
     export interface NodePoolAutoScalingConfig {
@@ -5482,6 +6204,7 @@ export namespace Kubernetes {
         instanceChargeTypePrepaidPeriod?: pulumi.Input<number>;
         instanceChargeTypePrepaidRenewFlag?: pulumi.Input<string>;
         instanceName?: pulumi.Input<string>;
+        instanceNameStyle?: pulumi.Input<string>;
         instanceType: pulumi.Input<string>;
         internetChargeType?: pulumi.Input<string>;
         internetMaxBandwidthOut?: pulumi.Input<number>;
@@ -5516,6 +6239,7 @@ export namespace Kubernetes {
         gpuArgs?: pulumi.Input<inputs.Kubernetes.NodePoolNodeConfigGpuArgs>;
         isSchedule?: pulumi.Input<boolean>;
         mountTarget?: pulumi.Input<string>;
+        preStartUserScript?: pulumi.Input<string>;
         userData?: pulumi.Input<string>;
     }
 
@@ -5544,6 +6268,7 @@ export namespace Kubernetes {
 
     export interface ScaleWorkerDataDisk {
         autoFormatAndMount?: pulumi.Input<boolean>;
+        diskPartition?: pulumi.Input<string>;
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         fileSystem?: pulumi.Input<string>;
@@ -5556,6 +6281,12 @@ export namespace Kubernetes {
         customDriver?: pulumi.Input<{[key: string]: any}>;
         driver?: pulumi.Input<{[key: string]: any}>;
         migEnable?: pulumi.Input<boolean>;
+    }
+
+    export interface ScaleWorkerTaint {
+        effect?: pulumi.Input<string>;
+        key?: pulumi.Input<string>;
+        value?: pulumi.Input<string>;
     }
 
     export interface ScaleWorkerWorkerConfig {
@@ -5585,19 +6316,37 @@ export namespace Kubernetes {
         subnetId: pulumi.Input<string>;
         systemDiskSize?: pulumi.Input<number>;
         systemDiskType?: pulumi.Input<string>;
+        tags?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ScaleWorkerWorkerConfigTag>[]>;
         userData?: pulumi.Input<string>;
     }
 
     export interface ScaleWorkerWorkerConfigDataDisk {
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         autoFormatAndMount?: pulumi.Input<boolean>;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         diskPartition?: pulumi.Input<string>;
         diskSize?: pulumi.Input<number>;
         diskType?: pulumi.Input<string>;
         encrypt?: pulumi.Input<boolean>;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         fileSystem?: pulumi.Input<string>;
         kmsKeyId?: pulumi.Input<string>;
+        /**
+         * @deprecated This argument was deprecated, use `data_disk` instead.
+         */
         mountTarget?: pulumi.Input<string>;
         snapshotId?: pulumi.Input<string>;
+    }
+
+    export interface ScaleWorkerWorkerConfigTag {
+        key: pulumi.Input<string>;
+        value: pulumi.Input<string>;
     }
 
     export interface ScaleWorkerWorkerInstancesList {
@@ -5743,6 +6492,34 @@ export namespace Lighthouse {
     }
 }
 
+export namespace Lite {
+    export interface GetHbaseInstancesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetHbaseInstancesFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface HbaseInstanceTag {
+        tagKey?: pulumi.Input<string>;
+        tagValue?: pulumi.Input<string>;
+    }
+
+    export interface HbaseInstanceZoneSetting {
+        nodeNum: pulumi.Input<number>;
+        vpcSettings: pulumi.Input<inputs.Lite.HbaseInstanceZoneSettingVpcSettings>;
+        zone: pulumi.Input<string>;
+    }
+
+    export interface HbaseInstanceZoneSettingVpcSettings {
+        subnetId: pulumi.Input<string>;
+        vpcId: pulumi.Input<string>;
+    }
+}
+
 export namespace Mariadb {
     export interface AccountPrivilegesAccounts {
         host: pulumi.Input<string>;
@@ -5816,13 +6593,33 @@ export namespace Mongodb {
         namespace: pulumi.Input<string>;
     }
 
+    export interface InstanceAddNodeList {
+        role: pulumi.Input<string>;
+        zone: pulumi.Input<string>;
+    }
+
     export interface InstanceBackupDownloadTaskBackupSet {
         replicaSetId: pulumi.Input<string>;
+    }
+
+    export interface InstanceRemoveNodeList {
+        nodeName: pulumi.Input<string>;
+        role: pulumi.Input<string>;
+        zone: pulumi.Input<string>;
     }
 
     export interface InstanceStandbyInstanceList {
         standbyInstanceId?: pulumi.Input<string>;
         standbyInstanceRegion?: pulumi.Input<string>;
+    }
+
+    export interface InstanceTransparentDataEncryptionKeyInfoList {
+        createTime?: pulumi.Input<string>;
+        keyId?: pulumi.Input<string>;
+        keyName?: pulumi.Input<string>;
+        keyOrigin?: pulumi.Input<string>;
+        keyUsage?: pulumi.Input<string>;
+        status?: pulumi.Input<string>;
     }
 }
 
@@ -5979,6 +6776,16 @@ export namespace Monitor {
         values: pulumi.Input<pulumi.Input<string>[]>;
     }
 
+    export interface GetTmpInstancesTagFilter {
+        key: string;
+        value: string;
+    }
+
+    export interface GetTmpInstancesTagFilterArgs {
+        key: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
     export interface GrafanaSsoAccountRole {
         organization: pulumi.Input<string>;
         role: pulumi.Input<string>;
@@ -5987,6 +6794,28 @@ export namespace Monitor {
     export interface PolicyBindingObjectDimension {
         dimensionsJson: pulumi.Input<string>;
         uniqueId?: pulumi.Input<string>;
+    }
+
+    export interface TmpAlertGroupCustomReceiver {
+        allowedTimeRanges?: pulumi.Input<pulumi.Input<inputs.Monitor.TmpAlertGroupCustomReceiverAllowedTimeRange>[]>;
+        clusterId?: pulumi.Input<string>;
+        clusterType?: pulumi.Input<string>;
+        type?: pulumi.Input<string>;
+        url?: pulumi.Input<string>;
+    }
+
+    export interface TmpAlertGroupCustomReceiverAllowedTimeRange {
+        end?: pulumi.Input<string>;
+        start?: pulumi.Input<string>;
+    }
+
+    export interface TmpAlertGroupRule {
+        annotations?: pulumi.Input<{[key: string]: any}>;
+        duration?: pulumi.Input<string>;
+        expr?: pulumi.Input<string>;
+        labels?: pulumi.Input<{[key: string]: any}>;
+        ruleName?: pulumi.Input<string>;
+        state?: pulumi.Input<number>;
     }
 
     export interface TmpAlertRuleAnnotation {
@@ -6062,6 +6891,7 @@ export namespace Monitor {
         inClusterPodConfig?: pulumi.Input<inputs.Monitor.TmpTkeClusterAgentAgentsInClusterPodConfig>;
         notInstallBasicScrape?: pulumi.Input<boolean>;
         notScrape?: pulumi.Input<boolean>;
+        openDefaultRecord?: pulumi.Input<boolean>;
         region: pulumi.Input<string>;
         status?: pulumi.Input<string>;
     }
@@ -9019,6 +9849,16 @@ export namespace Oceanus {
 }
 
 export namespace Organization {
+    export interface GetNodesTag {
+        tagKey: string;
+        tagValue: string;
+    }
+
+    export interface GetNodesTagArgs {
+        tagKey: pulumi.Input<string>;
+        tagValue: pulumi.Input<string>;
+    }
+
     export interface InstanceOrgPermission {
         id?: pulumi.Input<number>;
         name?: pulumi.Input<string>;
@@ -9035,12 +9875,62 @@ export namespace Organization {
         id?: pulumi.Input<number>;
         name?: pulumi.Input<string>;
     }
+
+    export interface OrgShareUnitMemberMember {
+        shareMemberUin: pulumi.Input<number>;
+    }
 }
 
 export namespace Placement {
 }
 
 export namespace Postgresql {
+    export interface AccountPrivilegesOperationModifyPrivilegeSet {
+        databasePrivilege?: pulumi.Input<inputs.Postgresql.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege>;
+        isCascade?: pulumi.Input<boolean>;
+        modifyType?: pulumi.Input<string>;
+    }
+
+    export interface AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilege {
+        object?: pulumi.Input<inputs.Postgresql.AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject>;
+        privilegeSets?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface AccountPrivilegesOperationModifyPrivilegeSetDatabasePrivilegeObject {
+        databaseName?: pulumi.Input<string>;
+        objectName: pulumi.Input<string>;
+        objectType: pulumi.Input<string>;
+        schemaName?: pulumi.Input<string>;
+        tableName?: pulumi.Input<string>;
+    }
+
+    export interface CloneDbInstanceDbNodeSet {
+        dedicatedClusterId?: pulumi.Input<string>;
+        role: pulumi.Input<string>;
+        zone: pulumi.Input<string>;
+    }
+
+    export interface CloneDbInstanceTagList {
+        tagKey: pulumi.Input<string>;
+        tagValue: pulumi.Input<string>;
+    }
+
+    export interface GetAccountPrivilegesDatabaseObjectSet {
+        databaseName?: string;
+        objectName: string;
+        objectType: string;
+        schemaName?: string;
+        tableName?: string;
+    }
+
+    export interface GetAccountPrivilegesDatabaseObjectSetArgs {
+        databaseName?: pulumi.Input<string>;
+        objectName: pulumi.Input<string>;
+        objectType: pulumi.Input<string>;
+        schemaName?: pulumi.Input<string>;
+        tableName?: pulumi.Input<string>;
+    }
+
     export interface GetBackupDownloadUrlsBackupDownloadRestriction {
         ipRestrictionEffect?: string;
         ipSets?: string[];
@@ -9063,6 +9953,16 @@ export namespace Postgresql {
     }
 
     export interface GetBaseBackupsFilterArgs {
+        name?: pulumi.Input<string>;
+        values?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface GetDedicatedClustersFilter {
+        name?: string;
+        values?: string[];
+    }
+
+    export interface GetDedicatedClustersFilterArgs {
         name?: pulumi.Input<string>;
         values?: pulumi.Input<pulumi.Input<string>[]>;
     }
@@ -9105,6 +10005,7 @@ export namespace Postgresql {
     }
 
     export interface InstanceDbNodeSet {
+        dedicatedClusterId?: pulumi.Input<string>;
         role?: pulumi.Input<string>;
         zone: pulumi.Input<string>;
     }
@@ -9113,9 +10014,44 @@ export namespace Postgresql {
         expectedValue: pulumi.Input<string>;
         name: pulumi.Input<string>;
     }
+
+    export interface ReadonlyGroupNetInfoList {
+        ip?: pulumi.Input<string>;
+        port?: pulumi.Input<number>;
+    }
 }
 
 export namespace PrivateDns {
+    export interface GetEndPointsFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetEndPointsFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface GetForwardRulesFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetForwardRulesFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface GetPrivateZoneListFilter {
+        name: string;
+        values: string[];
+    }
+
+    export interface GetPrivateZoneListFilterArgs {
+        name: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
     export interface GetRecordsFilter {
         name: string;
         values: string[];
@@ -9482,6 +10418,29 @@ export namespace Rum {
 }
 
 export namespace Scf {
+    export interface CustomDomainCertConfig {
+        certificateId?: pulumi.Input<string>;
+    }
+
+    export interface CustomDomainEndpointsConfig {
+        functionName: pulumi.Input<string>;
+        namespace: pulumi.Input<string>;
+        pathMatch: pulumi.Input<string>;
+        pathRewrites?: pulumi.Input<pulumi.Input<inputs.Scf.CustomDomainEndpointsConfigPathRewrite>[]>;
+        qualifier: pulumi.Input<string>;
+    }
+
+    export interface CustomDomainEndpointsConfigPathRewrite {
+        path: pulumi.Input<string>;
+        rewrite: pulumi.Input<string>;
+        type: pulumi.Input<string>;
+    }
+
+    export interface CustomDomainWafConfig {
+        wafInstanceId?: pulumi.Input<string>;
+        wafOpen?: pulumi.Input<string>;
+    }
+
     export interface FunctionAliasRoutingConfig {
         additionalVersionMatches?: pulumi.Input<pulumi.Input<inputs.Scf.FunctionAliasRoutingConfigAdditionalVersionMatch>[]>;
         additionalVersionWeights?: pulumi.Input<pulumi.Input<inputs.Scf.FunctionAliasRoutingConfigAdditionalVersionWeight>[]>;
@@ -9663,6 +10622,21 @@ export namespace Ses {
     }
 }
 
+export namespace Sg {
+    export interface RuleData {
+        description: pulumi.Input<string>;
+        destContent: pulumi.Input<string>;
+        destType: pulumi.Input<string>;
+        orderIndex?: pulumi.Input<string>;
+        port?: pulumi.Input<string>;
+        protocol?: pulumi.Input<string>;
+        ruleAction: pulumi.Input<string>;
+        serviceTemplateId?: pulumi.Input<string>;
+        sourceContent: pulumi.Input<string>;
+        sourceType: pulumi.Input<string>;
+    }
+}
+
 export namespace Sqlserver {
     export interface BusinessIntelligenceInstanceResourceTag {
         tagKey?: pulumi.Input<string>;
@@ -9744,6 +10718,17 @@ export namespace Sqlserver {
 }
 
 export namespace Ssl {
+    export interface CheckCertificateDomainVerificationOperationVerificationResult {
+        caCheck?: pulumi.Input<number>;
+        checkValues?: pulumi.Input<pulumi.Input<string>[]>;
+        domain?: pulumi.Input<string>;
+        frequently?: pulumi.Input<boolean>;
+        issued?: pulumi.Input<boolean>;
+        localCheck?: pulumi.Input<number>;
+        localCheckFailReason?: pulumi.Input<string>;
+        verifyType?: pulumi.Input<string>;
+    }
+
     export interface FreeCertificateDvAuth {
         dvAuthKey?: pulumi.Input<string>;
         dvAuthValue?: pulumi.Input<string>;
@@ -10146,6 +11131,7 @@ export namespace Tcr {
     export interface InstanceReplication {
         id?: pulumi.Input<string>;
         regionId?: pulumi.Input<number>;
+        regionName?: pulumi.Input<string>;
         synTag?: pulumi.Input<boolean>;
     }
 
@@ -10207,6 +11193,13 @@ export namespace Tcr {
     export interface WebhookTriggerTriggerTargetHeader {
         key: pulumi.Input<string>;
         values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+}
+
+export namespace Tcss {
+    export interface ImageRegistryConnDetectConfig {
+        quuid?: pulumi.Input<string>;
+        uuid?: pulumi.Input<string>;
     }
 }
 
@@ -10277,6 +11270,12 @@ export namespace Tdmq {
     export interface RocketmqClusterVpc {
         subnetId?: pulumi.Input<string>;
         vpcId?: pulumi.Input<string>;
+    }
+
+    export interface RocketmqVipInstanceIpRule {
+        allow: pulumi.Input<boolean>;
+        ipRule: pulumi.Input<string>;
+        remark: pulumi.Input<string>;
     }
 
     export interface RocketmqVipInstanceVpcInfo {
@@ -10466,23 +11465,107 @@ export namespace Teo {
         type?: pulumi.Input<string>;
     }
 
-    export interface OriginGroupOriginRecord {
-        areas?: pulumi.Input<pulumi.Input<string>[]>;
-        port: pulumi.Input<number>;
+    export interface FunctionRuleFunctionRuleCondition {
+        ruleConditions: pulumi.Input<pulumi.Input<inputs.Teo.FunctionRuleFunctionRuleConditionRuleCondition>[]>;
+    }
+
+    export interface FunctionRuleFunctionRuleConditionRuleCondition {
+        ignoreCase?: pulumi.Input<boolean>;
+        name?: pulumi.Input<string>;
+        operator: pulumi.Input<string>;
+        target: pulumi.Input<string>;
+        values?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface FunctionRuntimeEnvironmentEnvironmentVariable {
+        key: pulumi.Input<string>;
+        type: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface L4ProxyDdosProtectionConfig {
+        levelMainland?: pulumi.Input<string>;
+        levelOverseas?: pulumi.Input<string>;
+        maxBandwidthMainland?: pulumi.Input<number>;
+    }
+
+    export interface OriginGroupRecord {
         private?: pulumi.Input<boolean>;
-        privateParameters?: pulumi.Input<pulumi.Input<inputs.Teo.OriginGroupOriginRecordPrivateParameter>[]>;
+        privateParameters?: pulumi.Input<pulumi.Input<inputs.Teo.OriginGroupRecordPrivateParameter>[]>;
         record: pulumi.Input<string>;
         recordId?: pulumi.Input<string>;
+        type?: pulumi.Input<string>;
         weight?: pulumi.Input<number>;
     }
 
-    export interface OriginGroupOriginRecordPrivateParameter {
+    export interface OriginGroupRecordPrivateParameter {
         name: pulumi.Input<string>;
         value: pulumi.Input<string>;
     }
 
+    export interface OriginGroupReference {
+        instanceId?: pulumi.Input<string>;
+        instanceName?: pulumi.Input<string>;
+        instanceType?: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryCls {
+        logSetId: pulumi.Input<string>;
+        logSetRegion: pulumi.Input<string>;
+        topicId: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryCustomEndpoint {
+        accessId?: pulumi.Input<string>;
+        accessKey?: pulumi.Input<string>;
+        compressType?: pulumi.Input<string>;
+        headers?: pulumi.Input<pulumi.Input<inputs.Teo.RealtimeLogDeliveryCustomEndpointHeader>[]>;
+        protocol?: pulumi.Input<string>;
+        url: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryCustomEndpointHeader {
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryCustomField {
+        enabled?: pulumi.Input<boolean>;
+        name: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryDeliveryCondition {
+        conditions?: pulumi.Input<pulumi.Input<inputs.Teo.RealtimeLogDeliveryDeliveryConditionCondition>[]>;
+    }
+
+    export interface RealtimeLogDeliveryDeliveryConditionCondition {
+        key: pulumi.Input<string>;
+        operator: pulumi.Input<string>;
+        values: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface RealtimeLogDeliveryLogFormat {
+        batchPrefix?: pulumi.Input<string>;
+        batchSuffix?: pulumi.Input<string>;
+        fieldDelimiter?: pulumi.Input<string>;
+        formatType: pulumi.Input<string>;
+        recordDelimiter?: pulumi.Input<string>;
+        recordPrefix?: pulumi.Input<string>;
+        recordSuffix?: pulumi.Input<string>;
+    }
+
+    export interface RealtimeLogDeliveryS3 {
+        accessId: pulumi.Input<string>;
+        accessKey: pulumi.Input<string>;
+        bucket: pulumi.Input<string>;
+        compressType?: pulumi.Input<string>;
+        endpoint: pulumi.Input<string>;
+        region: pulumi.Input<string>;
+    }
+
     export interface RuleEngineRule {
-        actions: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleAction>[]>;
+        actions?: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleAction>[]>;
         ors: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleOr>[]>;
         subRules?: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleSubRule>[]>;
     }
@@ -10534,7 +11617,7 @@ export namespace Teo {
         name?: pulumi.Input<string>;
         operator: pulumi.Input<string>;
         target: pulumi.Input<string>;
-        values: pulumi.Input<pulumi.Input<string>[]>;
+        values?: pulumi.Input<pulumi.Input<string>[]>;
     }
 
     export interface RuleEngineRuleSubRule {
@@ -10543,7 +11626,7 @@ export namespace Teo {
     }
 
     export interface RuleEngineRuleSubRuleRule {
-        actions: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleSubRuleRuleAction>[]>;
+        actions?: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleSubRuleRuleAction>[]>;
         ors: pulumi.Input<pulumi.Input<inputs.Teo.RuleEngineRuleSubRuleRuleOr>[]>;
     }
 
@@ -10594,7 +11677,13 @@ export namespace Teo {
         name?: pulumi.Input<string>;
         operator: pulumi.Input<string>;
         target: pulumi.Input<string>;
-        values: pulumi.Input<pulumi.Input<string>[]>;
+        values?: pulumi.Input<pulumi.Input<string>[]>;
+    }
+
+    export interface SecurityIpGroupIpGroup {
+        contents: pulumi.Input<pulumi.Input<string>[]>;
+        groupId?: pulumi.Input<number>;
+        name: pulumi.Input<string>;
     }
 
     export interface ZoneOwnershipVerification {
@@ -10615,7 +11704,6 @@ export namespace Teo {
 
     export interface ZoneSettingCacheCache {
         cacheTime?: pulumi.Input<number>;
-        ignoreCacheControl?: pulumi.Input<string>;
         switch?: pulumi.Input<string>;
     }
 
@@ -10688,7 +11776,6 @@ export namespace Teo {
 
     export interface ZoneSettingOrigin {
         backupOrigins?: pulumi.Input<pulumi.Input<string>[]>;
-        cosPrivateAccess?: pulumi.Input<string>;
         originPullProtocol?: pulumi.Input<string>;
         origins?: pulumi.Input<pulumi.Input<string>[]>;
     }
@@ -10713,6 +11800,83 @@ export namespace Teo {
     export interface ZoneSettingWebSocket {
         switch: pulumi.Input<string>;
         timeout?: pulumi.Input<number>;
+    }
+}
+
+export namespace Thpc {
+    export interface WorkspacesDataDisk {
+        burstPerformance?: pulumi.Input<boolean>;
+        deleteWithInstance?: pulumi.Input<boolean>;
+        diskId?: pulumi.Input<string>;
+        diskSize?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+        encrypt?: pulumi.Input<boolean>;
+        kmsKeyId?: pulumi.Input<string>;
+        snapshotId?: pulumi.Input<string>;
+        throughputPerformance?: pulumi.Input<number>;
+    }
+
+    export interface WorkspacesEnhancedService {
+        automationService?: pulumi.Input<inputs.Thpc.WorkspacesEnhancedServiceAutomationService>;
+        monitorService?: pulumi.Input<inputs.Thpc.WorkspacesEnhancedServiceMonitorService>;
+        securityService?: pulumi.Input<inputs.Thpc.WorkspacesEnhancedServiceSecurityService>;
+    }
+
+    export interface WorkspacesEnhancedServiceAutomationService {
+        enabled?: pulumi.Input<boolean>;
+    }
+
+    export interface WorkspacesEnhancedServiceMonitorService {
+        enabled?: pulumi.Input<boolean>;
+    }
+
+    export interface WorkspacesEnhancedServiceSecurityService {
+        enabled?: pulumi.Input<boolean>;
+    }
+
+    export interface WorkspacesInternetAccessible {
+        bandwidthPackageId?: pulumi.Input<string>;
+        internetChargeType?: pulumi.Input<string>;
+        internetMaxBandwidthOut?: pulumi.Input<number>;
+        publicIpAssigned?: pulumi.Input<boolean>;
+    }
+
+    export interface WorkspacesLoginSettings {
+        keyIds?: pulumi.Input<pulumi.Input<string>[]>;
+        password?: pulumi.Input<string>;
+    }
+
+    export interface WorkspacesPlacement {
+        projectId?: pulumi.Input<number>;
+        zone: pulumi.Input<string>;
+    }
+
+    export interface WorkspacesSpaceChargePrepaid {
+        period?: pulumi.Input<number>;
+        renewFlag?: pulumi.Input<string>;
+    }
+
+    export interface WorkspacesSystemDisk {
+        diskId?: pulumi.Input<string>;
+        diskSize?: pulumi.Input<number>;
+        diskType?: pulumi.Input<string>;
+    }
+
+    export interface WorkspacesTagSpecification {
+        tags: pulumi.Input<pulumi.Input<inputs.Thpc.WorkspacesTagSpecificationTag>[]>;
+    }
+
+    export interface WorkspacesTagSpecificationTag {
+        key: pulumi.Input<string>;
+        value: pulumi.Input<string>;
+    }
+
+    export interface WorkspacesVirtualPrivateCloud {
+        asVpcGateway?: pulumi.Input<boolean>;
+        ipv6AddressCount?: pulumi.Input<number>;
+        privateIpAddresses?: pulumi.Input<pulumi.Input<string>[]>;
+        subnetId: pulumi.Input<string>;
+        vpcId: pulumi.Input<string>;
     }
 }
 
@@ -10793,6 +11957,12 @@ export namespace Tse {
     export interface CngwGroupNodeConfig {
         number: pulumi.Input<number>;
         specification: pulumi.Input<string>;
+    }
+
+    export interface CngwNetworkAccessControlAccessControl {
+        cidrBlackLists?: pulumi.Input<pulumi.Input<string>[]>;
+        cidrWhiteLists?: pulumi.Input<pulumi.Input<string>[]>;
+        mode?: pulumi.Input<string>;
     }
 
     export interface CngwRouteHeader {
@@ -10907,6 +12077,63 @@ export namespace Tse {
         port: pulumi.Input<number>;
         source?: pulumi.Input<string>;
         weight: pulumi.Input<number>;
+    }
+
+    export interface CngwStrategyConfig {
+        behavior?: pulumi.Input<inputs.Tse.CngwStrategyConfigBehavior>;
+        createTime?: pulumi.Input<string>;
+        maxReplicas?: pulumi.Input<number>;
+        metrics?: pulumi.Input<pulumi.Input<inputs.Tse.CngwStrategyConfigMetric>[]>;
+        modifyTime?: pulumi.Input<string>;
+        strategyId?: pulumi.Input<string>;
+    }
+
+    export interface CngwStrategyConfigBehavior {
+        scaleDown?: pulumi.Input<inputs.Tse.CngwStrategyConfigBehaviorScaleDown>;
+        scaleUp?: pulumi.Input<inputs.Tse.CngwStrategyConfigBehaviorScaleUp>;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleDown {
+        policies?: pulumi.Input<pulumi.Input<inputs.Tse.CngwStrategyConfigBehaviorScaleDownPolicy>[]>;
+        selectPolicy?: pulumi.Input<string>;
+        stabilizationWindowSeconds?: pulumi.Input<number>;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleDownPolicy {
+        periodSeconds?: pulumi.Input<number>;
+        type?: pulumi.Input<string>;
+        value?: pulumi.Input<number>;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleUp {
+        policies?: pulumi.Input<pulumi.Input<inputs.Tse.CngwStrategyConfigBehaviorScaleUpPolicy>[]>;
+        selectPolicy?: pulumi.Input<string>;
+        stabilizationWindowSeconds?: pulumi.Input<number>;
+    }
+
+    export interface CngwStrategyConfigBehaviorScaleUpPolicy {
+        periodSeconds?: pulumi.Input<number>;
+        type?: pulumi.Input<string>;
+        value?: pulumi.Input<number>;
+    }
+
+    export interface CngwStrategyConfigMetric {
+        resourceName?: pulumi.Input<string>;
+        targetType?: pulumi.Input<string>;
+        targetValue?: pulumi.Input<number>;
+        type?: pulumi.Input<string>;
+    }
+
+    export interface CngwStrategyCronConfig {
+        params?: pulumi.Input<pulumi.Input<inputs.Tse.CngwStrategyCronConfigParam>[]>;
+        strategyId?: pulumi.Input<string>;
+    }
+
+    export interface CngwStrategyCronConfigParam {
+        crontab?: pulumi.Input<string>;
+        period?: pulumi.Input<string>;
+        startAt?: pulumi.Input<string>;
+        targetReplicas?: pulumi.Input<number>;
     }
 
     export interface GetGatewayCertificatesFilter {
@@ -11227,6 +12454,8 @@ export namespace Vod {
     export interface AdaptiveDynamicStreamingTemplateStreamInfo {
         audio: pulumi.Input<inputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoAudio>;
         removeAudio?: pulumi.Input<boolean>;
+        removeVideo?: pulumi.Input<boolean>;
+        tehdConfig?: pulumi.Input<inputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig>;
         video: pulumi.Input<inputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfoVideo>;
     }
 
@@ -11237,14 +12466,31 @@ export namespace Vod {
         sampleRate: pulumi.Input<number>;
     }
 
+    export interface AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig {
+        maxVideoBitrate?: pulumi.Input<number>;
+        type: pulumi.Input<string>;
+    }
+
     export interface AdaptiveDynamicStreamingTemplateStreamInfoVideo {
         bitrate: pulumi.Input<number>;
         codec: pulumi.Input<string>;
+        codecTag?: pulumi.Input<string>;
         fillType?: pulumi.Input<string>;
         fps: pulumi.Input<number>;
+        gop?: pulumi.Input<number>;
         height?: pulumi.Input<number>;
+        preserveHdrSwitch?: pulumi.Input<string>;
         resolutionAdaptive?: pulumi.Input<boolean>;
+        vcrf?: pulumi.Input<number>;
         width?: pulumi.Input<number>;
+    }
+
+    export interface ProcedureTemplateAiAnalysisTask {
+        definition?: pulumi.Input<string>;
+    }
+
+    export interface ProcedureTemplateAiRecognitionTask {
+        definition?: pulumi.Input<string>;
     }
 
     export interface ProcedureTemplateMediaProcessTask {
@@ -11259,6 +12505,7 @@ export namespace Vod {
 
     export interface ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList {
         definition: pulumi.Input<string>;
+        subtitleLists?: pulumi.Input<pulumi.Input<string>[]>;
         watermarkLists?: pulumi.Input<pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkList>[]>;
     }
 
@@ -11311,6 +12558,7 @@ export namespace Vod {
     export interface ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList {
         definition: pulumi.Input<string>;
         extTimeOffsetLists?: pulumi.Input<pulumi.Input<string>[]>;
+        timeOffsetLists?: pulumi.Input<pulumi.Input<number>[]>;
         watermarkLists?: pulumi.Input<pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList>[]>;
     }
 
@@ -11323,9 +12571,22 @@ export namespace Vod {
     }
 
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskList {
+        copyRightWatermark?: pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark>;
         definition: pulumi.Input<string>;
+        endTimeOffset?: pulumi.Input<number>;
+        headTailLists?: pulumi.Input<pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList>[]>;
         mosaicLists?: pulumi.Input<pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList>[]>;
+        startTimeOffset?: pulumi.Input<number>;
+        traceWatermark?: pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark>;
         watermarkLists?: pulumi.Input<pulumi.Input<inputs.Vod.ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList>[]>;
+    }
+
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark {
+        text?: pulumi.Input<string>;
+    }
+
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList {
+        definition?: pulumi.Input<string>;
     }
 
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList {
@@ -11338,12 +12599,21 @@ export namespace Vod {
         yPos?: pulumi.Input<string>;
     }
 
+    export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark {
+        switch?: pulumi.Input<string>;
+    }
+
     export interface ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList {
         definition: pulumi.Input<string>;
         endTimeOffset?: pulumi.Input<number>;
         startTimeOffset?: pulumi.Input<number>;
         svgContent?: pulumi.Input<string>;
         textContent?: pulumi.Input<string>;
+    }
+
+    export interface ProcedureTemplateReviewAudioVideoTask {
+        definition?: pulumi.Input<string>;
+        reviewContents?: pulumi.Input<pulumi.Input<string>[]>;
     }
 
     export interface SuperPlayerConfigDrmStreamingInfo {
@@ -11353,6 +12623,52 @@ export namespace Vod {
     export interface SuperPlayerConfigResolutionName {
         minEdgeLength: pulumi.Input<number>;
         name: pulumi.Input<string>;
+    }
+
+    export interface TranscodeTemplateAudioTemplate {
+        audioChannel?: pulumi.Input<number>;
+        bitrate: pulumi.Input<number>;
+        codec: pulumi.Input<string>;
+        sampleRate: pulumi.Input<number>;
+    }
+
+    export interface TranscodeTemplateTehdConfig {
+        maxVideoBitrate?: pulumi.Input<number>;
+        type: pulumi.Input<string>;
+    }
+
+    export interface TranscodeTemplateVideoTemplate {
+        bitrate: pulumi.Input<number>;
+        codec: pulumi.Input<string>;
+        codecTag?: pulumi.Input<string>;
+        fillType?: pulumi.Input<string>;
+        fps: pulumi.Input<number>;
+        gop?: pulumi.Input<number>;
+        height?: pulumi.Input<number>;
+        preserveHdrSwitch?: pulumi.Input<string>;
+        resolutionAdaptive?: pulumi.Input<string>;
+        vcrf?: pulumi.Input<number>;
+        width?: pulumi.Input<number>;
+    }
+
+    export interface WatermarkTemplateImageTemplate {
+        height?: pulumi.Input<string>;
+        imageContent: pulumi.Input<string>;
+        repeatType?: pulumi.Input<string>;
+        transparency?: pulumi.Input<number>;
+        width?: pulumi.Input<string>;
+    }
+
+    export interface WatermarkTemplateSvgTemplate {
+        height?: pulumi.Input<string>;
+        width?: pulumi.Input<string>;
+    }
+
+    export interface WatermarkTemplateTextTemplate {
+        fontAlpha: pulumi.Input<number>;
+        fontColor: pulumi.Input<string>;
+        fontSize: pulumi.Input<string>;
+        fontType: pulumi.Input<string>;
     }
 }
 
@@ -11390,15 +12706,6 @@ export namespace Vpc {
     export interface GetNetDetectStatesFilterArgs {
         name: pulumi.Input<string>;
         values: pulumi.Input<pulumi.Input<string>[]>;
-    }
-
-    export interface Ipv6EniAddressIpv6Address {
-        address: pulumi.Input<string>;
-        addressId?: pulumi.Input<string>;
-        description?: pulumi.Input<string>;
-        isWanIpBlocked?: pulumi.Input<boolean>;
-        primary?: pulumi.Input<boolean>;
-        state?: pulumi.Input<string>;
     }
 
     export interface Ipv6SubnetCidrBlockIpv6SubnetCidrBlocks {
@@ -11454,6 +12761,19 @@ export namespace Vpc {
 }
 
 export namespace Vpn {
+    export interface ConnectionBgpConfig {
+        localBgpIp: pulumi.Input<string>;
+        remoteBgpIp: pulumi.Input<string>;
+        tunnelCidr: pulumi.Input<string>;
+    }
+
+    export interface ConnectionHealthCheckConfig {
+        probeInterval?: pulumi.Input<number>;
+        probeThreshold?: pulumi.Input<number>;
+        probeTimeout?: pulumi.Input<number>;
+        probeType?: pulumi.Input<string>;
+    }
+
     export interface ConnectionSecurityGroupPolicy {
         localCidrBlock: pulumi.Input<string>;
         remoteCidrBlocks: pulumi.Input<pulumi.Input<string>[]>;
@@ -11501,18 +12821,6 @@ export namespace Waf {
         field: pulumi.Input<string>;
     }
 
-    export interface GetWafInfosParam {
-        domainId?: string;
-        listenerId?: string;
-        loadBalancerId: string;
-    }
-
-    export interface GetWafInfosParamArgs {
-        domainId?: pulumi.Input<string>;
-        listenerId?: pulumi.Input<string>;
-        loadBalancerId: pulumi.Input<string>;
-    }
-
     export interface IpAccessControlItem {
         action: pulumi.Input<number>;
         id?: pulumi.Input<string>;
@@ -11521,6 +12829,24 @@ export namespace Waf {
         source?: pulumi.Input<string>;
         validStatus?: pulumi.Input<number>;
         validTs: pulumi.Input<number>;
+    }
+
+    export interface IpAccessControlV2JobDateTime {
+        crons?: pulumi.Input<pulumi.Input<inputs.Waf.IpAccessControlV2JobDateTimeCron>[]>;
+        timeTZone?: pulumi.Input<string>;
+        timeds?: pulumi.Input<pulumi.Input<inputs.Waf.IpAccessControlV2JobDateTimeTimed>[]>;
+    }
+
+    export interface IpAccessControlV2JobDateTimeCron {
+        days?: pulumi.Input<pulumi.Input<number>[]>;
+        endTime?: pulumi.Input<string>;
+        startTime?: pulumi.Input<string>;
+        wDays?: pulumi.Input<pulumi.Input<number>[]>;
+    }
+
+    export interface IpAccessControlV2JobDateTimeTimed {
+        endDateTime?: pulumi.Input<number>;
+        startDateTime?: pulumi.Input<number>;
     }
 
     export interface SaasDomainPort {

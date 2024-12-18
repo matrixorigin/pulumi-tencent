@@ -33,6 +33,10 @@ export class EndPoint extends pulumi.CustomResource {
     }
 
     /**
+     * CDC instance ID.
+     */
+    public /*out*/ readonly cdcId!: pulumi.Output<string>;
+    /**
      * Create Time.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
@@ -52,6 +56,10 @@ export class EndPoint extends pulumi.CustomResource {
      * VIP of endpoint ip.
      */
     public readonly endPointVip!: pulumi.Output<string | undefined>;
+    /**
+     * Ordered security groups associated with the endpoint.
+     */
+    public readonly securityGroupsIds!: pulumi.Output<string[]>;
     /**
      * state of end point.
      */
@@ -78,11 +86,13 @@ export class EndPoint extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as EndPointState | undefined;
+            resourceInputs["cdcId"] = state ? state.cdcId : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["endPointName"] = state ? state.endPointName : undefined;
             resourceInputs["endPointOwner"] = state ? state.endPointOwner : undefined;
             resourceInputs["endPointServiceId"] = state ? state.endPointServiceId : undefined;
             resourceInputs["endPointVip"] = state ? state.endPointVip : undefined;
+            resourceInputs["securityGroupsIds"] = state ? state.securityGroupsIds : undefined;
             resourceInputs["state"] = state ? state.state : undefined;
             resourceInputs["subnetId"] = state ? state.subnetId : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
@@ -103,8 +113,10 @@ export class EndPoint extends pulumi.CustomResource {
             resourceInputs["endPointName"] = args ? args.endPointName : undefined;
             resourceInputs["endPointServiceId"] = args ? args.endPointServiceId : undefined;
             resourceInputs["endPointVip"] = args ? args.endPointVip : undefined;
+            resourceInputs["securityGroupsIds"] = args ? args.securityGroupsIds : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["cdcId"] = undefined /*out*/;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["endPointOwner"] = undefined /*out*/;
             resourceInputs["state"] = undefined /*out*/;
@@ -118,6 +130,10 @@ export class EndPoint extends pulumi.CustomResource {
  * Input properties used for looking up and filtering EndPoint resources.
  */
 export interface EndPointState {
+    /**
+     * CDC instance ID.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * Create Time.
      */
@@ -138,6 +154,10 @@ export interface EndPointState {
      * VIP of endpoint ip.
      */
     endPointVip?: pulumi.Input<string>;
+    /**
+     * Ordered security groups associated with the endpoint.
+     */
+    securityGroupsIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * state of end point.
      */
@@ -168,6 +188,10 @@ export interface EndPointArgs {
      * VIP of endpoint ip.
      */
     endPointVip?: pulumi.Input<string>;
+    /**
+     * Ordered security groups associated with the endpoint.
+     */
+    securityGroupsIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * ID of subnet instance.
      */

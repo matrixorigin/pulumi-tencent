@@ -11,6 +11,8 @@ from .. import _utilities
 
 __all__ = [
     'AssumeRole',
+    'AssumeRoleWithSaml',
+    'AssumeRoleWithWebIdentity',
 ]
 
 @pulumi.output_type
@@ -19,10 +21,13 @@ class AssumeRole(dict):
                  role_arn: str,
                  session_duration: int,
                  session_name: str,
+                 external_id: Optional[str] = None,
                  policy: Optional[str] = None):
         pulumi.set(__self__, "role_arn", role_arn)
         pulumi.set(__self__, "session_duration", session_duration)
         pulumi.set(__self__, "session_name", session_name)
+        if external_id is not None:
+            pulumi.set(__self__, "external_id", external_id)
         if policy is not None:
             pulumi.set(__self__, "policy", policy)
 
@@ -42,8 +47,86 @@ class AssumeRole(dict):
         return pulumi.get(self, "session_name")
 
     @property
+    @pulumi.getter(name="externalId")
+    def external_id(self) -> Optional[str]:
+        return pulumi.get(self, "external_id")
+
+    @property
     @pulumi.getter
     def policy(self) -> Optional[str]:
         return pulumi.get(self, "policy")
+
+
+@pulumi.output_type
+class AssumeRoleWithSaml(dict):
+    def __init__(__self__, *,
+                 principal_arn: str,
+                 role_arn: str,
+                 saml_assertion: str,
+                 session_duration: int,
+                 session_name: str):
+        pulumi.set(__self__, "principal_arn", principal_arn)
+        pulumi.set(__self__, "role_arn", role_arn)
+        pulumi.set(__self__, "saml_assertion", saml_assertion)
+        pulumi.set(__self__, "session_duration", session_duration)
+        pulumi.set(__self__, "session_name", session_name)
+
+    @property
+    @pulumi.getter(name="principalArn")
+    def principal_arn(self) -> str:
+        return pulumi.get(self, "principal_arn")
+
+    @property
+    @pulumi.getter(name="roleArn")
+    def role_arn(self) -> str:
+        return pulumi.get(self, "role_arn")
+
+    @property
+    @pulumi.getter(name="samlAssertion")
+    def saml_assertion(self) -> str:
+        return pulumi.get(self, "saml_assertion")
+
+    @property
+    @pulumi.getter(name="sessionDuration")
+    def session_duration(self) -> int:
+        return pulumi.get(self, "session_duration")
+
+    @property
+    @pulumi.getter(name="sessionName")
+    def session_name(self) -> str:
+        return pulumi.get(self, "session_name")
+
+
+@pulumi.output_type
+class AssumeRoleWithWebIdentity(dict):
+    def __init__(__self__, *,
+                 role_arn: str,
+                 session_duration: int,
+                 session_name: str,
+                 web_identity_token: str):
+        pulumi.set(__self__, "role_arn", role_arn)
+        pulumi.set(__self__, "session_duration", session_duration)
+        pulumi.set(__self__, "session_name", session_name)
+        pulumi.set(__self__, "web_identity_token", web_identity_token)
+
+    @property
+    @pulumi.getter(name="roleArn")
+    def role_arn(self) -> str:
+        return pulumi.get(self, "role_arn")
+
+    @property
+    @pulumi.getter(name="sessionDuration")
+    def session_duration(self) -> int:
+        return pulumi.get(self, "session_duration")
+
+    @property
+    @pulumi.getter(name="sessionName")
+    def session_name(self) -> str:
+        return pulumi.get(self, "session_name")
+
+    @property
+    @pulumi.getter(name="webIdentityToken")
+    def web_identity_token(self) -> str:
+        return pulumi.get(self, "web_identity_token")
 
 

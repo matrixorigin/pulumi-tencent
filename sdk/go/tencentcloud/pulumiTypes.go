@@ -14,6 +14,7 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type ProviderAssumeRole struct {
+	ExternalId      *string `pulumi:"externalId"`
 	Policy          *string `pulumi:"policy"`
 	RoleArn         string  `pulumi:"roleArn"`
 	SessionDuration int     `pulumi:"sessionDuration"`
@@ -32,6 +33,7 @@ type ProviderAssumeRoleInput interface {
 }
 
 type ProviderAssumeRoleArgs struct {
+	ExternalId      pulumi.StringPtrInput `pulumi:"externalId"`
 	Policy          pulumi.StringPtrInput `pulumi:"policy"`
 	RoleArn         pulumi.StringInput    `pulumi:"roleArn"`
 	SessionDuration pulumi.IntInput       `pulumi:"sessionDuration"`
@@ -115,6 +117,10 @@ func (o ProviderAssumeRoleOutput) ToProviderAssumeRolePtrOutputWithContext(ctx c
 	}).(ProviderAssumeRolePtrOutput)
 }
 
+func (o ProviderAssumeRoleOutput) ExternalId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProviderAssumeRole) *string { return v.ExternalId }).(pulumi.StringPtrOutput)
+}
+
 func (o ProviderAssumeRoleOutput) Policy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ProviderAssumeRole) *string { return v.Policy }).(pulumi.StringPtrOutput)
 }
@@ -155,6 +161,15 @@ func (o ProviderAssumeRolePtrOutput) Elem() ProviderAssumeRoleOutput {
 	}).(ProviderAssumeRoleOutput)
 }
 
+func (o ProviderAssumeRolePtrOutput) ExternalId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRole) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ExternalId
+	}).(pulumi.StringPtrOutput)
+}
+
 func (o ProviderAssumeRolePtrOutput) Policy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProviderAssumeRole) *string {
 		if v == nil {
@@ -191,9 +206,388 @@ func (o ProviderAssumeRolePtrOutput) SessionName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ProviderAssumeRoleWithSaml struct {
+	PrincipalArn    string `pulumi:"principalArn"`
+	RoleArn         string `pulumi:"roleArn"`
+	SamlAssertion   string `pulumi:"samlAssertion"`
+	SessionDuration int    `pulumi:"sessionDuration"`
+	SessionName     string `pulumi:"sessionName"`
+}
+
+// ProviderAssumeRoleWithSamlInput is an input type that accepts ProviderAssumeRoleWithSamlArgs and ProviderAssumeRoleWithSamlOutput values.
+// You can construct a concrete instance of `ProviderAssumeRoleWithSamlInput` via:
+//
+//	ProviderAssumeRoleWithSamlArgs{...}
+type ProviderAssumeRoleWithSamlInput interface {
+	pulumi.Input
+
+	ToProviderAssumeRoleWithSamlOutput() ProviderAssumeRoleWithSamlOutput
+	ToProviderAssumeRoleWithSamlOutputWithContext(context.Context) ProviderAssumeRoleWithSamlOutput
+}
+
+type ProviderAssumeRoleWithSamlArgs struct {
+	PrincipalArn    pulumi.StringInput `pulumi:"principalArn"`
+	RoleArn         pulumi.StringInput `pulumi:"roleArn"`
+	SamlAssertion   pulumi.StringInput `pulumi:"samlAssertion"`
+	SessionDuration pulumi.IntInput    `pulumi:"sessionDuration"`
+	SessionName     pulumi.StringInput `pulumi:"sessionName"`
+}
+
+func (ProviderAssumeRoleWithSamlArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderAssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (i ProviderAssumeRoleWithSamlArgs) ToProviderAssumeRoleWithSamlOutput() ProviderAssumeRoleWithSamlOutput {
+	return i.ToProviderAssumeRoleWithSamlOutputWithContext(context.Background())
+}
+
+func (i ProviderAssumeRoleWithSamlArgs) ToProviderAssumeRoleWithSamlOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithSamlOutput)
+}
+
+func (i ProviderAssumeRoleWithSamlArgs) ToProviderAssumeRoleWithSamlPtrOutput() ProviderAssumeRoleWithSamlPtrOutput {
+	return i.ToProviderAssumeRoleWithSamlPtrOutputWithContext(context.Background())
+}
+
+func (i ProviderAssumeRoleWithSamlArgs) ToProviderAssumeRoleWithSamlPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithSamlOutput).ToProviderAssumeRoleWithSamlPtrOutputWithContext(ctx)
+}
+
+// ProviderAssumeRoleWithSamlPtrInput is an input type that accepts ProviderAssumeRoleWithSamlArgs, ProviderAssumeRoleWithSamlPtr and ProviderAssumeRoleWithSamlPtrOutput values.
+// You can construct a concrete instance of `ProviderAssumeRoleWithSamlPtrInput` via:
+//
+//	        ProviderAssumeRoleWithSamlArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProviderAssumeRoleWithSamlPtrInput interface {
+	pulumi.Input
+
+	ToProviderAssumeRoleWithSamlPtrOutput() ProviderAssumeRoleWithSamlPtrOutput
+	ToProviderAssumeRoleWithSamlPtrOutputWithContext(context.Context) ProviderAssumeRoleWithSamlPtrOutput
+}
+
+type providerAssumeRoleWithSamlPtrType ProviderAssumeRoleWithSamlArgs
+
+func ProviderAssumeRoleWithSamlPtr(v *ProviderAssumeRoleWithSamlArgs) ProviderAssumeRoleWithSamlPtrInput {
+	return (*providerAssumeRoleWithSamlPtrType)(v)
+}
+
+func (*providerAssumeRoleWithSamlPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderAssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (i *providerAssumeRoleWithSamlPtrType) ToProviderAssumeRoleWithSamlPtrOutput() ProviderAssumeRoleWithSamlPtrOutput {
+	return i.ToProviderAssumeRoleWithSamlPtrOutputWithContext(context.Background())
+}
+
+func (i *providerAssumeRoleWithSamlPtrType) ToProviderAssumeRoleWithSamlPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithSamlPtrOutput)
+}
+
+type ProviderAssumeRoleWithSamlOutput struct{ *pulumi.OutputState }
+
+func (ProviderAssumeRoleWithSamlOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderAssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) ToProviderAssumeRoleWithSamlOutput() ProviderAssumeRoleWithSamlOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) ToProviderAssumeRoleWithSamlOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) ToProviderAssumeRoleWithSamlPtrOutput() ProviderAssumeRoleWithSamlPtrOutput {
+	return o.ToProviderAssumeRoleWithSamlPtrOutputWithContext(context.Background())
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) ToProviderAssumeRoleWithSamlPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProviderAssumeRoleWithSaml) *ProviderAssumeRoleWithSaml {
+		return &v
+	}).(ProviderAssumeRoleWithSamlPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) PrincipalArn() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithSaml) string { return v.PrincipalArn }).(pulumi.StringOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithSaml) string { return v.RoleArn }).(pulumi.StringOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) SamlAssertion() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithSaml) string { return v.SamlAssertion }).(pulumi.StringOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithSaml) int { return v.SessionDuration }).(pulumi.IntOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlOutput) SessionName() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithSaml) string { return v.SessionName }).(pulumi.StringOutput)
+}
+
+type ProviderAssumeRoleWithSamlPtrOutput struct{ *pulumi.OutputState }
+
+func (ProviderAssumeRoleWithSamlPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderAssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) ToProviderAssumeRoleWithSamlPtrOutput() ProviderAssumeRoleWithSamlPtrOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) ToProviderAssumeRoleWithSamlPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithSamlPtrOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) Elem() ProviderAssumeRoleWithSamlOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) ProviderAssumeRoleWithSaml {
+		if v != nil {
+			return *v
+		}
+		var ret ProviderAssumeRoleWithSaml
+		return ret
+	}).(ProviderAssumeRoleWithSamlOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) PrincipalArn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.PrincipalArn
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) RoleArn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RoleArn
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) SamlAssertion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.SamlAssertion
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) SessionDuration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.SessionDuration
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithSamlPtrOutput) SessionName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithSaml) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.SessionName
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProviderAssumeRoleWithWebIdentity struct {
+	RoleArn          string `pulumi:"roleArn"`
+	SessionDuration  int    `pulumi:"sessionDuration"`
+	SessionName      string `pulumi:"sessionName"`
+	WebIdentityToken string `pulumi:"webIdentityToken"`
+}
+
+// ProviderAssumeRoleWithWebIdentityInput is an input type that accepts ProviderAssumeRoleWithWebIdentityArgs and ProviderAssumeRoleWithWebIdentityOutput values.
+// You can construct a concrete instance of `ProviderAssumeRoleWithWebIdentityInput` via:
+//
+//	ProviderAssumeRoleWithWebIdentityArgs{...}
+type ProviderAssumeRoleWithWebIdentityInput interface {
+	pulumi.Input
+
+	ToProviderAssumeRoleWithWebIdentityOutput() ProviderAssumeRoleWithWebIdentityOutput
+	ToProviderAssumeRoleWithWebIdentityOutputWithContext(context.Context) ProviderAssumeRoleWithWebIdentityOutput
+}
+
+type ProviderAssumeRoleWithWebIdentityArgs struct {
+	RoleArn          pulumi.StringInput `pulumi:"roleArn"`
+	SessionDuration  pulumi.IntInput    `pulumi:"sessionDuration"`
+	SessionName      pulumi.StringInput `pulumi:"sessionName"`
+	WebIdentityToken pulumi.StringInput `pulumi:"webIdentityToken"`
+}
+
+func (ProviderAssumeRoleWithWebIdentityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderAssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (i ProviderAssumeRoleWithWebIdentityArgs) ToProviderAssumeRoleWithWebIdentityOutput() ProviderAssumeRoleWithWebIdentityOutput {
+	return i.ToProviderAssumeRoleWithWebIdentityOutputWithContext(context.Background())
+}
+
+func (i ProviderAssumeRoleWithWebIdentityArgs) ToProviderAssumeRoleWithWebIdentityOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithWebIdentityOutput)
+}
+
+func (i ProviderAssumeRoleWithWebIdentityArgs) ToProviderAssumeRoleWithWebIdentityPtrOutput() ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return i.ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(context.Background())
+}
+
+func (i ProviderAssumeRoleWithWebIdentityArgs) ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithWebIdentityOutput).ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(ctx)
+}
+
+// ProviderAssumeRoleWithWebIdentityPtrInput is an input type that accepts ProviderAssumeRoleWithWebIdentityArgs, ProviderAssumeRoleWithWebIdentityPtr and ProviderAssumeRoleWithWebIdentityPtrOutput values.
+// You can construct a concrete instance of `ProviderAssumeRoleWithWebIdentityPtrInput` via:
+//
+//	        ProviderAssumeRoleWithWebIdentityArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProviderAssumeRoleWithWebIdentityPtrInput interface {
+	pulumi.Input
+
+	ToProviderAssumeRoleWithWebIdentityPtrOutput() ProviderAssumeRoleWithWebIdentityPtrOutput
+	ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(context.Context) ProviderAssumeRoleWithWebIdentityPtrOutput
+}
+
+type providerAssumeRoleWithWebIdentityPtrType ProviderAssumeRoleWithWebIdentityArgs
+
+func ProviderAssumeRoleWithWebIdentityPtr(v *ProviderAssumeRoleWithWebIdentityArgs) ProviderAssumeRoleWithWebIdentityPtrInput {
+	return (*providerAssumeRoleWithWebIdentityPtrType)(v)
+}
+
+func (*providerAssumeRoleWithWebIdentityPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderAssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (i *providerAssumeRoleWithWebIdentityPtrType) ToProviderAssumeRoleWithWebIdentityPtrOutput() ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return i.ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(context.Background())
+}
+
+func (i *providerAssumeRoleWithWebIdentityPtrType) ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderAssumeRoleWithWebIdentityPtrOutput)
+}
+
+type ProviderAssumeRoleWithWebIdentityOutput struct{ *pulumi.OutputState }
+
+func (ProviderAssumeRoleWithWebIdentityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderAssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) ToProviderAssumeRoleWithWebIdentityOutput() ProviderAssumeRoleWithWebIdentityOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) ToProviderAssumeRoleWithWebIdentityOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) ToProviderAssumeRoleWithWebIdentityPtrOutput() ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return o.ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(context.Background())
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProviderAssumeRoleWithWebIdentity) *ProviderAssumeRoleWithWebIdentity {
+		return &v
+	}).(ProviderAssumeRoleWithWebIdentityPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithWebIdentity) string { return v.RoleArn }).(pulumi.StringOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithWebIdentity) int { return v.SessionDuration }).(pulumi.IntOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) SessionName() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithWebIdentity) string { return v.SessionName }).(pulumi.StringOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityOutput) WebIdentityToken() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderAssumeRoleWithWebIdentity) string { return v.WebIdentityToken }).(pulumi.StringOutput)
+}
+
+type ProviderAssumeRoleWithWebIdentityPtrOutput struct{ *pulumi.OutputState }
+
+func (ProviderAssumeRoleWithWebIdentityPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderAssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) ToProviderAssumeRoleWithWebIdentityPtrOutput() ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) ToProviderAssumeRoleWithWebIdentityPtrOutputWithContext(ctx context.Context) ProviderAssumeRoleWithWebIdentityPtrOutput {
+	return o
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) Elem() ProviderAssumeRoleWithWebIdentityOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithWebIdentity) ProviderAssumeRoleWithWebIdentity {
+		if v != nil {
+			return *v
+		}
+		var ret ProviderAssumeRoleWithWebIdentity
+		return ret
+	}).(ProviderAssumeRoleWithWebIdentityOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) RoleArn() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithWebIdentity) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.RoleArn
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) SessionDuration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithWebIdentity) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.SessionDuration
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) SessionName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithWebIdentity) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.SessionName
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderAssumeRoleWithWebIdentityPtrOutput) WebIdentityToken() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderAssumeRoleWithWebIdentity) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.WebIdentityToken
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRoleInput)(nil)).Elem(), ProviderAssumeRoleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRolePtrInput)(nil)).Elem(), ProviderAssumeRoleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRoleWithSamlInput)(nil)).Elem(), ProviderAssumeRoleWithSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRoleWithSamlPtrInput)(nil)).Elem(), ProviderAssumeRoleWithSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRoleWithWebIdentityInput)(nil)).Elem(), ProviderAssumeRoleWithWebIdentityArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderAssumeRoleWithWebIdentityPtrInput)(nil)).Elem(), ProviderAssumeRoleWithWebIdentityArgs{})
 	pulumi.RegisterOutputType(ProviderAssumeRoleOutput{})
 	pulumi.RegisterOutputType(ProviderAssumeRolePtrOutput{})
+	pulumi.RegisterOutputType(ProviderAssumeRoleWithSamlOutput{})
+	pulumi.RegisterOutputType(ProviderAssumeRoleWithSamlPtrOutput{})
+	pulumi.RegisterOutputType(ProviderAssumeRoleWithWebIdentityOutput{})
+	pulumi.RegisterOutputType(ProviderAssumeRoleWithWebIdentityPtrOutput{})
 }

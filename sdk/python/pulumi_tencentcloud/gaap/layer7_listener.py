@@ -16,18 +16,20 @@ class Layer7ListenerArgs:
     def __init__(__self__, *,
                  port: pulumi.Input[int],
                  protocol: pulumi.Input[str],
-                 proxy_id: pulumi.Input[str],
                  auth_type: Optional[pulumi.Input[int]] = None,
                  certificate_id: Optional[pulumi.Input[str]] = None,
                  client_certificate_id: Optional[pulumi.Input[str]] = None,
                  client_certificate_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  forward_protocol: Optional[pulumi.Input[str]] = None,
-                 name: Optional[pulumi.Input[str]] = None):
+                 group_id: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 proxy_id: Optional[pulumi.Input[str]] = None,
+                 tls_ciphers: Optional[pulumi.Input[str]] = None,
+                 tls_support_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a Layer7Listener resource.
         :param pulumi.Input[int] port: Port of the layer7 listener.
         :param pulumi.Input[str] protocol: Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
-        :param pulumi.Input[str] proxy_id: ID of the GAAP proxy.
         :param pulumi.Input[int] auth_type: Authentication type of the layer7 listener. `0` is one-way authentication and `1` is mutual authentication. NOTES: Only
                supports listeners of `HTTPS` protocol.
         :param pulumi.Input[str] certificate_id: Certificate ID of the layer7 listener. NOTES: Only supports listeners of `HTTPS` protocol.
@@ -36,11 +38,14 @@ class Layer7ListenerArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] client_certificate_ids: ID list of the client certificate. Set only when `auth_type` is specified as mutual authentication. NOTES: Only supports
                listeners of `HTTPS` protocol.
         :param pulumi.Input[str] forward_protocol: Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
+        :param pulumi.Input[str] group_id: Group ID.
         :param pulumi.Input[str] name: Name of the layer7 listener, the maximum length is 30.
+        :param pulumi.Input[str] proxy_id: ID of the GAAP proxy.
+        :param pulumi.Input[str] tls_ciphers: Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tls_support_versions: TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
         """
         pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "protocol", protocol)
-        pulumi.set(__self__, "proxy_id", proxy_id)
         if auth_type is not None:
             pulumi.set(__self__, "auth_type", auth_type)
         if certificate_id is not None:
@@ -54,8 +59,16 @@ class Layer7ListenerArgs:
             pulumi.set(__self__, "client_certificate_ids", client_certificate_ids)
         if forward_protocol is not None:
             pulumi.set(__self__, "forward_protocol", forward_protocol)
+        if group_id is not None:
+            pulumi.set(__self__, "group_id", group_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if proxy_id is not None:
+            pulumi.set(__self__, "proxy_id", proxy_id)
+        if tls_ciphers is not None:
+            pulumi.set(__self__, "tls_ciphers", tls_ciphers)
+        if tls_support_versions is not None:
+            pulumi.set(__self__, "tls_support_versions", tls_support_versions)
 
     @property
     @pulumi.getter
@@ -80,18 +93,6 @@ class Layer7ListenerArgs:
     @protocol.setter
     def protocol(self, value: pulumi.Input[str]):
         pulumi.set(self, "protocol", value)
-
-    @property
-    @pulumi.getter(name="proxyId")
-    def proxy_id(self) -> pulumi.Input[str]:
-        """
-        ID of the GAAP proxy.
-        """
-        return pulumi.get(self, "proxy_id")
-
-    @proxy_id.setter
-    def proxy_id(self, value: pulumi.Input[str]):
-        pulumi.set(self, "proxy_id", value)
 
     @property
     @pulumi.getter(name="authType")
@@ -160,6 +161,18 @@ class Layer7ListenerArgs:
         pulumi.set(self, "forward_protocol", value)
 
     @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Group ID.
+        """
+        return pulumi.get(self, "group_id")
+
+    @group_id.setter
+    def group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "group_id", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -171,6 +184,42 @@ class Layer7ListenerArgs:
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
 
+    @property
+    @pulumi.getter(name="proxyId")
+    def proxy_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of the GAAP proxy.
+        """
+        return pulumi.get(self, "proxy_id")
+
+    @proxy_id.setter
+    def proxy_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "proxy_id", value)
+
+    @property
+    @pulumi.getter(name="tlsCiphers")
+    def tls_ciphers(self) -> Optional[pulumi.Input[str]]:
+        """
+        Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        """
+        return pulumi.get(self, "tls_ciphers")
+
+    @tls_ciphers.setter
+    def tls_ciphers(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tls_ciphers", value)
+
+    @property
+    @pulumi.getter(name="tlsSupportVersions")
+    def tls_support_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+        """
+        return pulumi.get(self, "tls_support_versions")
+
+    @tls_support_versions.setter
+    def tls_support_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tls_support_versions", value)
+
 
 @pulumi.input_type
 class _Layer7ListenerState:
@@ -181,11 +230,14 @@ class _Layer7ListenerState:
                  client_certificate_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  forward_protocol: Optional[pulumi.Input[str]] = None,
+                 group_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
                  proxy_id: Optional[pulumi.Input[str]] = None,
-                 status: Optional[pulumi.Input[int]] = None):
+                 status: Optional[pulumi.Input[int]] = None,
+                 tls_ciphers: Optional[pulumi.Input[str]] = None,
+                 tls_support_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Input properties used for looking up and filtering Layer7Listener resources.
         :param pulumi.Input[int] auth_type: Authentication type of the layer7 listener. `0` is one-way authentication and `1` is mutual authentication. NOTES: Only
@@ -197,11 +249,14 @@ class _Layer7ListenerState:
                listeners of `HTTPS` protocol.
         :param pulumi.Input[str] create_time: Creation time of the layer7 listener.
         :param pulumi.Input[str] forward_protocol: Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
+        :param pulumi.Input[str] group_id: Group ID.
         :param pulumi.Input[str] name: Name of the layer7 listener, the maximum length is 30.
         :param pulumi.Input[int] port: Port of the layer7 listener.
         :param pulumi.Input[str] protocol: Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
         :param pulumi.Input[str] proxy_id: ID of the GAAP proxy.
         :param pulumi.Input[int] status: Status of the layer7 listener.
+        :param pulumi.Input[str] tls_ciphers: Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tls_support_versions: TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
         """
         if auth_type is not None:
             pulumi.set(__self__, "auth_type", auth_type)
@@ -218,6 +273,8 @@ class _Layer7ListenerState:
             pulumi.set(__self__, "create_time", create_time)
         if forward_protocol is not None:
             pulumi.set(__self__, "forward_protocol", forward_protocol)
+        if group_id is not None:
+            pulumi.set(__self__, "group_id", group_id)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if port is not None:
@@ -228,6 +285,10 @@ class _Layer7ListenerState:
             pulumi.set(__self__, "proxy_id", proxy_id)
         if status is not None:
             pulumi.set(__self__, "status", status)
+        if tls_ciphers is not None:
+            pulumi.set(__self__, "tls_ciphers", tls_ciphers)
+        if tls_support_versions is not None:
+            pulumi.set(__self__, "tls_support_versions", tls_support_versions)
 
     @property
     @pulumi.getter(name="authType")
@@ -308,6 +369,18 @@ class _Layer7ListenerState:
         pulumi.set(self, "forward_protocol", value)
 
     @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Group ID.
+        """
+        return pulumi.get(self, "group_id")
+
+    @group_id.setter
+    def group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "group_id", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -367,6 +440,30 @@ class _Layer7ListenerState:
     def status(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "status", value)
 
+    @property
+    @pulumi.getter(name="tlsCiphers")
+    def tls_ciphers(self) -> Optional[pulumi.Input[str]]:
+        """
+        Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        """
+        return pulumi.get(self, "tls_ciphers")
+
+    @tls_ciphers.setter
+    def tls_ciphers(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "tls_ciphers", value)
+
+    @property
+    @pulumi.getter(name="tlsSupportVersions")
+    def tls_support_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+        """
+        return pulumi.get(self, "tls_support_versions")
+
+    @tls_support_versions.setter
+    def tls_support_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "tls_support_versions", value)
+
 
 class Layer7Listener(pulumi.CustomResource):
     @overload
@@ -378,10 +475,13 @@ class Layer7Listener(pulumi.CustomResource):
                  client_certificate_id: Optional[pulumi.Input[str]] = None,
                  client_certificate_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  forward_protocol: Optional[pulumi.Input[str]] = None,
+                 group_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
                  proxy_id: Optional[pulumi.Input[str]] = None,
+                 tls_ciphers: Optional[pulumi.Input[str]] = None,
+                 tls_support_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         """
         Create a Layer7Listener resource with the given unique name, props, and options.
@@ -395,10 +495,13 @@ class Layer7Listener(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[str]]] client_certificate_ids: ID list of the client certificate. Set only when `auth_type` is specified as mutual authentication. NOTES: Only supports
                listeners of `HTTPS` protocol.
         :param pulumi.Input[str] forward_protocol: Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
+        :param pulumi.Input[str] group_id: Group ID.
         :param pulumi.Input[str] name: Name of the layer7 listener, the maximum length is 30.
         :param pulumi.Input[int] port: Port of the layer7 listener.
         :param pulumi.Input[str] protocol: Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
         :param pulumi.Input[str] proxy_id: ID of the GAAP proxy.
+        :param pulumi.Input[str] tls_ciphers: Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tls_support_versions: TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
         """
         ...
     @overload
@@ -428,10 +531,13 @@ class Layer7Listener(pulumi.CustomResource):
                  client_certificate_id: Optional[pulumi.Input[str]] = None,
                  client_certificate_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  forward_protocol: Optional[pulumi.Input[str]] = None,
+                 group_id: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  protocol: Optional[pulumi.Input[str]] = None,
                  proxy_id: Optional[pulumi.Input[str]] = None,
+                 tls_ciphers: Optional[pulumi.Input[str]] = None,
+                 tls_support_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -449,6 +555,7 @@ class Layer7Listener(pulumi.CustomResource):
             __props__.__dict__["client_certificate_id"] = client_certificate_id
             __props__.__dict__["client_certificate_ids"] = client_certificate_ids
             __props__.__dict__["forward_protocol"] = forward_protocol
+            __props__.__dict__["group_id"] = group_id
             __props__.__dict__["name"] = name
             if port is None and not opts.urn:
                 raise TypeError("Missing required property 'port'")
@@ -456,9 +563,9 @@ class Layer7Listener(pulumi.CustomResource):
             if protocol is None and not opts.urn:
                 raise TypeError("Missing required property 'protocol'")
             __props__.__dict__["protocol"] = protocol
-            if proxy_id is None and not opts.urn:
-                raise TypeError("Missing required property 'proxy_id'")
             __props__.__dict__["proxy_id"] = proxy_id
+            __props__.__dict__["tls_ciphers"] = tls_ciphers
+            __props__.__dict__["tls_support_versions"] = tls_support_versions
             __props__.__dict__["create_time"] = None
             __props__.__dict__["status"] = None
         super(Layer7Listener, __self__).__init__(
@@ -477,11 +584,14 @@ class Layer7Listener(pulumi.CustomResource):
             client_certificate_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             forward_protocol: Optional[pulumi.Input[str]] = None,
+            group_id: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
             port: Optional[pulumi.Input[int]] = None,
             protocol: Optional[pulumi.Input[str]] = None,
             proxy_id: Optional[pulumi.Input[str]] = None,
-            status: Optional[pulumi.Input[int]] = None) -> 'Layer7Listener':
+            status: Optional[pulumi.Input[int]] = None,
+            tls_ciphers: Optional[pulumi.Input[str]] = None,
+            tls_support_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None) -> 'Layer7Listener':
         """
         Get an existing Layer7Listener resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -498,11 +608,14 @@ class Layer7Listener(pulumi.CustomResource):
                listeners of `HTTPS` protocol.
         :param pulumi.Input[str] create_time: Creation time of the layer7 listener.
         :param pulumi.Input[str] forward_protocol: Protocol type of the forwarding. Valid value: `HTTP` and `HTTPS`. NOTES: Only supports listeners of `HTTPS` protocol.
+        :param pulumi.Input[str] group_id: Group ID.
         :param pulumi.Input[str] name: Name of the layer7 listener, the maximum length is 30.
         :param pulumi.Input[int] port: Port of the layer7 listener.
         :param pulumi.Input[str] protocol: Protocol of the layer7 listener. Valid value: `HTTP` and `HTTPS`.
         :param pulumi.Input[str] proxy_id: ID of the GAAP proxy.
         :param pulumi.Input[int] status: Status of the layer7 listener.
+        :param pulumi.Input[str] tls_ciphers: Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] tls_support_versions: TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -514,11 +627,14 @@ class Layer7Listener(pulumi.CustomResource):
         __props__.__dict__["client_certificate_ids"] = client_certificate_ids
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["forward_protocol"] = forward_protocol
+        __props__.__dict__["group_id"] = group_id
         __props__.__dict__["name"] = name
         __props__.__dict__["port"] = port
         __props__.__dict__["protocol"] = protocol
         __props__.__dict__["proxy_id"] = proxy_id
         __props__.__dict__["status"] = status
+        __props__.__dict__["tls_ciphers"] = tls_ciphers
+        __props__.__dict__["tls_support_versions"] = tls_support_versions
         return Layer7Listener(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -576,6 +692,14 @@ class Layer7Listener(pulumi.CustomResource):
         return pulumi.get(self, "forward_protocol")
 
     @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        Group ID.
+        """
+        return pulumi.get(self, "group_id")
+
+    @property
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
@@ -601,7 +725,7 @@ class Layer7Listener(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="proxyId")
-    def proxy_id(self) -> pulumi.Output[str]:
+    def proxy_id(self) -> pulumi.Output[Optional[str]]:
         """
         ID of the GAAP proxy.
         """
@@ -614,4 +738,20 @@ class Layer7Listener(pulumi.CustomResource):
         Status of the layer7 listener.
         """
         return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="tlsCiphers")
+    def tls_ciphers(self) -> pulumi.Output[str]:
+        """
+        Password Suite, optional GAAP_TLS_CIPHERS_STRICT, GAAP_TLS_CIPHERS_GENERAL, GAAP_TLS_CIPHERS_WIDE(default).
+        """
+        return pulumi.get(self, "tls_ciphers")
+
+    @property
+    @pulumi.getter(name="tlsSupportVersions")
+    def tls_support_versions(self) -> pulumi.Output[Sequence[str]]:
+        """
+        TLS version, optional TLSv1, TLSv1.1, TLSv1.2, TLSv1.3.
+        """
+        return pulumi.get(self, "tls_support_versions")
 

@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 export class ReadonlyGroup extends pulumi.CustomResource {
@@ -57,6 +59,10 @@ export class ReadonlyGroup extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * List of db instance net info.
+     */
+    public /*out*/ readonly netInfoLists!: pulumi.Output<outputs.Postgresql.ReadonlyGroupNetInfoList[]>;
+    /**
      * Project ID.
      */
     public readonly projectId!: pulumi.Output<number>;
@@ -102,6 +108,7 @@ export class ReadonlyGroup extends pulumi.CustomResource {
             resourceInputs["maxReplayLatency"] = state ? state.maxReplayLatency : undefined;
             resourceInputs["minDelayEliminateReserve"] = state ? state.minDelayEliminateReserve : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["netInfoLists"] = state ? state.netInfoLists : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
             resourceInputs["replayLagEliminate"] = state ? state.replayLagEliminate : undefined;
             resourceInputs["replayLatencyEliminate"] = state ? state.replayLatencyEliminate : undefined;
@@ -149,6 +156,7 @@ export class ReadonlyGroup extends pulumi.CustomResource {
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
+            resourceInputs["netInfoLists"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(ReadonlyGroup.__pulumiType, name, resourceInputs, opts);
@@ -183,6 +191,10 @@ export interface ReadonlyGroupState {
      * RO group name.
      */
     name?: pulumi.Input<string>;
+    /**
+     * List of db instance net info.
+     */
+    netInfoLists?: pulumi.Input<pulumi.Input<inputs.Postgresql.ReadonlyGroupNetInfoList>[]>;
     /**
      * Project ID.
      */

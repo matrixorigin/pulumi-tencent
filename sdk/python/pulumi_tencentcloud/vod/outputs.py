@@ -13,7 +13,10 @@ from . import outputs
 __all__ = [
     'AdaptiveDynamicStreamingTemplateStreamInfo',
     'AdaptiveDynamicStreamingTemplateStreamInfoAudio',
+    'AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig',
     'AdaptiveDynamicStreamingTemplateStreamInfoVideo',
+    'ProcedureTemplateAiAnalysisTask',
+    'ProcedureTemplateAiRecognitionTask',
     'ProcedureTemplateMediaProcessTask',
     'ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList',
     'ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkList',
@@ -26,10 +29,20 @@ __all__ = [
     'ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList',
     'ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskList',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList',
+    'ProcedureTemplateReviewAudioVideoTask',
     'SuperPlayerConfigDrmStreamingInfo',
     'SuperPlayerConfigResolutionName',
+    'TranscodeTemplateAudioTemplate',
+    'TranscodeTemplateTehdConfig',
+    'TranscodeTemplateVideoTemplate',
+    'WatermarkTemplateImageTemplate',
+    'WatermarkTemplateSvgTemplate',
+    'WatermarkTemplateTextTemplate',
     'GetAdaptiveDynamicStreamingTemplatesTemplateListResult',
     'GetAdaptiveDynamicStreamingTemplatesTemplateListStreamInfoResult',
     'GetAdaptiveDynamicStreamingTemplatesTemplateListStreamInfoAudioResult',
@@ -63,6 +76,10 @@ class AdaptiveDynamicStreamingTemplateStreamInfo(dict):
         suggest = None
         if key == "removeAudio":
             suggest = "remove_audio"
+        elif key == "removeVideo":
+            suggest = "remove_video"
+        elif key == "tehdConfig":
+            suggest = "tehd_config"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in AdaptiveDynamicStreamingTemplateStreamInfo. Access the value via the '{suggest}' property getter instead.")
@@ -78,11 +95,17 @@ class AdaptiveDynamicStreamingTemplateStreamInfo(dict):
     def __init__(__self__, *,
                  audio: 'outputs.AdaptiveDynamicStreamingTemplateStreamInfoAudio',
                  video: 'outputs.AdaptiveDynamicStreamingTemplateStreamInfoVideo',
-                 remove_audio: Optional[bool] = None):
+                 remove_audio: Optional[bool] = None,
+                 remove_video: Optional[bool] = None,
+                 tehd_config: Optional['outputs.AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig'] = None):
         pulumi.set(__self__, "audio", audio)
         pulumi.set(__self__, "video", video)
         if remove_audio is not None:
             pulumi.set(__self__, "remove_audio", remove_audio)
+        if remove_video is not None:
+            pulumi.set(__self__, "remove_video", remove_video)
+        if tehd_config is not None:
+            pulumi.set(__self__, "tehd_config", tehd_config)
 
     @property
     @pulumi.getter
@@ -98,6 +121,16 @@ class AdaptiveDynamicStreamingTemplateStreamInfo(dict):
     @pulumi.getter(name="removeAudio")
     def remove_audio(self) -> Optional[bool]:
         return pulumi.get(self, "remove_audio")
+
+    @property
+    @pulumi.getter(name="removeVideo")
+    def remove_video(self) -> Optional[bool]:
+        return pulumi.get(self, "remove_video")
+
+    @property
+    @pulumi.getter(name="tehdConfig")
+    def tehd_config(self) -> Optional['outputs.AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig']:
+        return pulumi.get(self, "tehd_config")
 
 
 @pulumi.output_type
@@ -154,12 +187,53 @@ class AdaptiveDynamicStreamingTemplateStreamInfoAudio(dict):
 
 
 @pulumi.output_type
+class AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxVideoBitrate":
+            suggest = "max_video_bitrate"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: str,
+                 max_video_bitrate: Optional[int] = None):
+        pulumi.set(__self__, "type", type)
+        if max_video_bitrate is not None:
+            pulumi.set(__self__, "max_video_bitrate", max_video_bitrate)
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="maxVideoBitrate")
+    def max_video_bitrate(self) -> Optional[int]:
+        return pulumi.get(self, "max_video_bitrate")
+
+
+@pulumi.output_type
 class AdaptiveDynamicStreamingTemplateStreamInfoVideo(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "fillType":
+        if key == "codecTag":
+            suggest = "codec_tag"
+        elif key == "fillType":
             suggest = "fill_type"
+        elif key == "preserveHdrSwitch":
+            suggest = "preserve_hdr_switch"
         elif key == "resolutionAdaptive":
             suggest = "resolution_adaptive"
 
@@ -178,19 +252,31 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideo(dict):
                  bitrate: int,
                  codec: str,
                  fps: int,
+                 codec_tag: Optional[str] = None,
                  fill_type: Optional[str] = None,
+                 gop: Optional[int] = None,
                  height: Optional[int] = None,
+                 preserve_hdr_switch: Optional[str] = None,
                  resolution_adaptive: Optional[bool] = None,
+                 vcrf: Optional[int] = None,
                  width: Optional[int] = None):
         pulumi.set(__self__, "bitrate", bitrate)
         pulumi.set(__self__, "codec", codec)
         pulumi.set(__self__, "fps", fps)
+        if codec_tag is not None:
+            pulumi.set(__self__, "codec_tag", codec_tag)
         if fill_type is not None:
             pulumi.set(__self__, "fill_type", fill_type)
+        if gop is not None:
+            pulumi.set(__self__, "gop", gop)
         if height is not None:
             pulumi.set(__self__, "height", height)
+        if preserve_hdr_switch is not None:
+            pulumi.set(__self__, "preserve_hdr_switch", preserve_hdr_switch)
         if resolution_adaptive is not None:
             pulumi.set(__self__, "resolution_adaptive", resolution_adaptive)
+        if vcrf is not None:
+            pulumi.set(__self__, "vcrf", vcrf)
         if width is not None:
             pulumi.set(__self__, "width", width)
 
@@ -210,14 +296,29 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideo(dict):
         return pulumi.get(self, "fps")
 
     @property
+    @pulumi.getter(name="codecTag")
+    def codec_tag(self) -> Optional[str]:
+        return pulumi.get(self, "codec_tag")
+
+    @property
     @pulumi.getter(name="fillType")
     def fill_type(self) -> Optional[str]:
         return pulumi.get(self, "fill_type")
 
     @property
     @pulumi.getter
+    def gop(self) -> Optional[int]:
+        return pulumi.get(self, "gop")
+
+    @property
+    @pulumi.getter
     def height(self) -> Optional[int]:
         return pulumi.get(self, "height")
+
+    @property
+    @pulumi.getter(name="preserveHdrSwitch")
+    def preserve_hdr_switch(self) -> Optional[str]:
+        return pulumi.get(self, "preserve_hdr_switch")
 
     @property
     @pulumi.getter(name="resolutionAdaptive")
@@ -226,8 +327,39 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideo(dict):
 
     @property
     @pulumi.getter
+    def vcrf(self) -> Optional[int]:
+        return pulumi.get(self, "vcrf")
+
+    @property
+    @pulumi.getter
     def width(self) -> Optional[int]:
         return pulumi.get(self, "width")
+
+
+@pulumi.output_type
+class ProcedureTemplateAiAnalysisTask(dict):
+    def __init__(__self__, *,
+                 definition: Optional[str] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[str]:
+        return pulumi.get(self, "definition")
+
+
+@pulumi.output_type
+class ProcedureTemplateAiRecognitionTask(dict):
+    def __init__(__self__, *,
+                 definition: Optional[str] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[str]:
+        return pulumi.get(self, "definition")
 
 
 @pulumi.output_type
@@ -325,7 +457,9 @@ class ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "watermarkLists":
+        if key == "subtitleLists":
+            suggest = "subtitle_lists"
+        elif key == "watermarkLists":
             suggest = "watermark_lists"
 
         if suggest:
@@ -341,8 +475,11 @@ class ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList(dict):
 
     def __init__(__self__, *,
                  definition: str,
+                 subtitle_lists: Optional[Sequence[str]] = None,
                  watermark_lists: Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkList']] = None):
         pulumi.set(__self__, "definition", definition)
+        if subtitle_lists is not None:
+            pulumi.set(__self__, "subtitle_lists", subtitle_lists)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -350,6 +487,11 @@ class ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList(dict):
     @pulumi.getter
     def definition(self) -> str:
         return pulumi.get(self, "definition")
+
+    @property
+    @pulumi.getter(name="subtitleLists")
+    def subtitle_lists(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "subtitle_lists")
 
     @property
     @pulumi.getter(name="watermarkLists")
@@ -714,6 +856,8 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList(dict):
         suggest = None
         if key == "extTimeOffsetLists":
             suggest = "ext_time_offset_lists"
+        elif key == "timeOffsetLists":
+            suggest = "time_offset_lists"
         elif key == "watermarkLists":
             suggest = "watermark_lists"
 
@@ -731,10 +875,13 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList(dict):
     def __init__(__self__, *,
                  definition: str,
                  ext_time_offset_lists: Optional[Sequence[str]] = None,
+                 time_offset_lists: Optional[Sequence[float]] = None,
                  watermark_lists: Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList']] = None):
         pulumi.set(__self__, "definition", definition)
         if ext_time_offset_lists is not None:
             pulumi.set(__self__, "ext_time_offset_lists", ext_time_offset_lists)
+        if time_offset_lists is not None:
+            pulumi.set(__self__, "time_offset_lists", time_offset_lists)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -747,6 +894,11 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList(dict):
     @pulumi.getter(name="extTimeOffsetLists")
     def ext_time_offset_lists(self) -> Optional[Sequence[str]]:
         return pulumi.get(self, "ext_time_offset_lists")
+
+    @property
+    @pulumi.getter(name="timeOffsetLists")
+    def time_offset_lists(self) -> Optional[Sequence[float]]:
+        return pulumi.get(self, "time_offset_lists")
 
     @property
     @pulumi.getter(name="watermarkLists")
@@ -826,8 +978,18 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskList(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "mosaicLists":
+        if key == "copyRightWatermark":
+            suggest = "copy_right_watermark"
+        elif key == "endTimeOffset":
+            suggest = "end_time_offset"
+        elif key == "headTailLists":
+            suggest = "head_tail_lists"
+        elif key == "mosaicLists":
             suggest = "mosaic_lists"
+        elif key == "startTimeOffset":
+            suggest = "start_time_offset"
+        elif key == "traceWatermark":
+            suggest = "trace_watermark"
         elif key == "watermarkLists":
             suggest = "watermark_lists"
 
@@ -844,11 +1006,26 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskList(dict):
 
     def __init__(__self__, *,
                  definition: str,
+                 copy_right_watermark: Optional['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark'] = None,
+                 end_time_offset: Optional[float] = None,
+                 head_tail_lists: Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList']] = None,
                  mosaic_lists: Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList']] = None,
+                 start_time_offset: Optional[float] = None,
+                 trace_watermark: Optional['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark'] = None,
                  watermark_lists: Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList']] = None):
         pulumi.set(__self__, "definition", definition)
+        if copy_right_watermark is not None:
+            pulumi.set(__self__, "copy_right_watermark", copy_right_watermark)
+        if end_time_offset is not None:
+            pulumi.set(__self__, "end_time_offset", end_time_offset)
+        if head_tail_lists is not None:
+            pulumi.set(__self__, "head_tail_lists", head_tail_lists)
         if mosaic_lists is not None:
             pulumi.set(__self__, "mosaic_lists", mosaic_lists)
+        if start_time_offset is not None:
+            pulumi.set(__self__, "start_time_offset", start_time_offset)
+        if trace_watermark is not None:
+            pulumi.set(__self__, "trace_watermark", trace_watermark)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -858,14 +1035,65 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskList(dict):
         return pulumi.get(self, "definition")
 
     @property
+    @pulumi.getter(name="copyRightWatermark")
+    def copy_right_watermark(self) -> Optional['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark']:
+        return pulumi.get(self, "copy_right_watermark")
+
+    @property
+    @pulumi.getter(name="endTimeOffset")
+    def end_time_offset(self) -> Optional[float]:
+        return pulumi.get(self, "end_time_offset")
+
+    @property
+    @pulumi.getter(name="headTailLists")
+    def head_tail_lists(self) -> Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList']]:
+        return pulumi.get(self, "head_tail_lists")
+
+    @property
     @pulumi.getter(name="mosaicLists")
     def mosaic_lists(self) -> Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList']]:
         return pulumi.get(self, "mosaic_lists")
 
     @property
+    @pulumi.getter(name="startTimeOffset")
+    def start_time_offset(self) -> Optional[float]:
+        return pulumi.get(self, "start_time_offset")
+
+    @property
+    @pulumi.getter(name="traceWatermark")
+    def trace_watermark(self) -> Optional['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark']:
+        return pulumi.get(self, "trace_watermark")
+
+    @property
     @pulumi.getter(name="watermarkLists")
     def watermark_lists(self) -> Optional[Sequence['outputs.ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList']]:
         return pulumi.get(self, "watermark_lists")
+
+
+@pulumi.output_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark(dict):
+    def __init__(__self__, *,
+                 text: Optional[str] = None):
+        if text is not None:
+            pulumi.set(__self__, "text", text)
+
+    @property
+    @pulumi.getter
+    def text(self) -> Optional[str]:
+        return pulumi.get(self, "text")
+
+
+@pulumi.output_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList(dict):
+    def __init__(__self__, *,
+                 definition: Optional[str] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[str]:
+        return pulumi.get(self, "definition")
 
 
 @pulumi.output_type
@@ -955,6 +1183,19 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList(dict):
 
 
 @pulumi.output_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark(dict):
+    def __init__(__self__, *,
+                 switch: Optional[str] = None):
+        if switch is not None:
+            pulumi.set(__self__, "switch", switch)
+
+    @property
+    @pulumi.getter
+    def switch(self) -> Optional[str]:
+        return pulumi.get(self, "switch")
+
+
+@pulumi.output_type
 class ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1022,6 +1263,44 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList(dict):
 
 
 @pulumi.output_type
+class ProcedureTemplateReviewAudioVideoTask(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "reviewContents":
+            suggest = "review_contents"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ProcedureTemplateReviewAudioVideoTask. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ProcedureTemplateReviewAudioVideoTask.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ProcedureTemplateReviewAudioVideoTask.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 definition: Optional[str] = None,
+                 review_contents: Optional[Sequence[str]] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+        if review_contents is not None:
+            pulumi.set(__self__, "review_contents", review_contents)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[str]:
+        return pulumi.get(self, "definition")
+
+    @property
+    @pulumi.getter(name="reviewContents")
+    def review_contents(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "review_contents")
+
+
+@pulumi.output_type
 class SuperPlayerConfigDrmStreamingInfo(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -1085,6 +1364,349 @@ class SuperPlayerConfigResolutionName(dict):
     @pulumi.getter
     def name(self) -> str:
         return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class TranscodeTemplateAudioTemplate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "sampleRate":
+            suggest = "sample_rate"
+        elif key == "audioChannel":
+            suggest = "audio_channel"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TranscodeTemplateAudioTemplate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TranscodeTemplateAudioTemplate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TranscodeTemplateAudioTemplate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bitrate: int,
+                 codec: str,
+                 sample_rate: int,
+                 audio_channel: Optional[int] = None):
+        pulumi.set(__self__, "bitrate", bitrate)
+        pulumi.set(__self__, "codec", codec)
+        pulumi.set(__self__, "sample_rate", sample_rate)
+        if audio_channel is not None:
+            pulumi.set(__self__, "audio_channel", audio_channel)
+
+    @property
+    @pulumi.getter
+    def bitrate(self) -> int:
+        return pulumi.get(self, "bitrate")
+
+    @property
+    @pulumi.getter
+    def codec(self) -> str:
+        return pulumi.get(self, "codec")
+
+    @property
+    @pulumi.getter(name="sampleRate")
+    def sample_rate(self) -> int:
+        return pulumi.get(self, "sample_rate")
+
+    @property
+    @pulumi.getter(name="audioChannel")
+    def audio_channel(self) -> Optional[int]:
+        return pulumi.get(self, "audio_channel")
+
+
+@pulumi.output_type
+class TranscodeTemplateTehdConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "maxVideoBitrate":
+            suggest = "max_video_bitrate"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TranscodeTemplateTehdConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TranscodeTemplateTehdConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TranscodeTemplateTehdConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 type: str,
+                 max_video_bitrate: Optional[int] = None):
+        pulumi.set(__self__, "type", type)
+        if max_video_bitrate is not None:
+            pulumi.set(__self__, "max_video_bitrate", max_video_bitrate)
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="maxVideoBitrate")
+    def max_video_bitrate(self) -> Optional[int]:
+        return pulumi.get(self, "max_video_bitrate")
+
+
+@pulumi.output_type
+class TranscodeTemplateVideoTemplate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "codecTag":
+            suggest = "codec_tag"
+        elif key == "fillType":
+            suggest = "fill_type"
+        elif key == "preserveHdrSwitch":
+            suggest = "preserve_hdr_switch"
+        elif key == "resolutionAdaptive":
+            suggest = "resolution_adaptive"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TranscodeTemplateVideoTemplate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TranscodeTemplateVideoTemplate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TranscodeTemplateVideoTemplate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 bitrate: int,
+                 codec: str,
+                 fps: int,
+                 codec_tag: Optional[str] = None,
+                 fill_type: Optional[str] = None,
+                 gop: Optional[int] = None,
+                 height: Optional[int] = None,
+                 preserve_hdr_switch: Optional[str] = None,
+                 resolution_adaptive: Optional[str] = None,
+                 vcrf: Optional[int] = None,
+                 width: Optional[int] = None):
+        pulumi.set(__self__, "bitrate", bitrate)
+        pulumi.set(__self__, "codec", codec)
+        pulumi.set(__self__, "fps", fps)
+        if codec_tag is not None:
+            pulumi.set(__self__, "codec_tag", codec_tag)
+        if fill_type is not None:
+            pulumi.set(__self__, "fill_type", fill_type)
+        if gop is not None:
+            pulumi.set(__self__, "gop", gop)
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if preserve_hdr_switch is not None:
+            pulumi.set(__self__, "preserve_hdr_switch", preserve_hdr_switch)
+        if resolution_adaptive is not None:
+            pulumi.set(__self__, "resolution_adaptive", resolution_adaptive)
+        if vcrf is not None:
+            pulumi.set(__self__, "vcrf", vcrf)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter
+    def bitrate(self) -> int:
+        return pulumi.get(self, "bitrate")
+
+    @property
+    @pulumi.getter
+    def codec(self) -> str:
+        return pulumi.get(self, "codec")
+
+    @property
+    @pulumi.getter
+    def fps(self) -> int:
+        return pulumi.get(self, "fps")
+
+    @property
+    @pulumi.getter(name="codecTag")
+    def codec_tag(self) -> Optional[str]:
+        return pulumi.get(self, "codec_tag")
+
+    @property
+    @pulumi.getter(name="fillType")
+    def fill_type(self) -> Optional[str]:
+        return pulumi.get(self, "fill_type")
+
+    @property
+    @pulumi.getter
+    def gop(self) -> Optional[int]:
+        return pulumi.get(self, "gop")
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[int]:
+        return pulumi.get(self, "height")
+
+    @property
+    @pulumi.getter(name="preserveHdrSwitch")
+    def preserve_hdr_switch(self) -> Optional[str]:
+        return pulumi.get(self, "preserve_hdr_switch")
+
+    @property
+    @pulumi.getter(name="resolutionAdaptive")
+    def resolution_adaptive(self) -> Optional[str]:
+        return pulumi.get(self, "resolution_adaptive")
+
+    @property
+    @pulumi.getter
+    def vcrf(self) -> Optional[int]:
+        return pulumi.get(self, "vcrf")
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[int]:
+        return pulumi.get(self, "width")
+
+
+@pulumi.output_type
+class WatermarkTemplateImageTemplate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "imageContent":
+            suggest = "image_content"
+        elif key == "repeatType":
+            suggest = "repeat_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WatermarkTemplateImageTemplate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WatermarkTemplateImageTemplate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WatermarkTemplateImageTemplate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 image_content: str,
+                 height: Optional[str] = None,
+                 repeat_type: Optional[str] = None,
+                 transparency: Optional[int] = None,
+                 width: Optional[str] = None):
+        pulumi.set(__self__, "image_content", image_content)
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if repeat_type is not None:
+            pulumi.set(__self__, "repeat_type", repeat_type)
+        if transparency is not None:
+            pulumi.set(__self__, "transparency", transparency)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter(name="imageContent")
+    def image_content(self) -> str:
+        return pulumi.get(self, "image_content")
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[str]:
+        return pulumi.get(self, "height")
+
+    @property
+    @pulumi.getter(name="repeatType")
+    def repeat_type(self) -> Optional[str]:
+        return pulumi.get(self, "repeat_type")
+
+    @property
+    @pulumi.getter
+    def transparency(self) -> Optional[int]:
+        return pulumi.get(self, "transparency")
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[str]:
+        return pulumi.get(self, "width")
+
+
+@pulumi.output_type
+class WatermarkTemplateSvgTemplate(dict):
+    def __init__(__self__, *,
+                 height: Optional[str] = None,
+                 width: Optional[str] = None):
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[str]:
+        return pulumi.get(self, "height")
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[str]:
+        return pulumi.get(self, "width")
+
+
+@pulumi.output_type
+class WatermarkTemplateTextTemplate(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fontAlpha":
+            suggest = "font_alpha"
+        elif key == "fontColor":
+            suggest = "font_color"
+        elif key == "fontSize":
+            suggest = "font_size"
+        elif key == "fontType":
+            suggest = "font_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in WatermarkTemplateTextTemplate. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        WatermarkTemplateTextTemplate.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        WatermarkTemplateTextTemplate.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 font_alpha: float,
+                 font_color: str,
+                 font_size: str,
+                 font_type: str):
+        pulumi.set(__self__, "font_alpha", font_alpha)
+        pulumi.set(__self__, "font_color", font_color)
+        pulumi.set(__self__, "font_size", font_size)
+        pulumi.set(__self__, "font_type", font_type)
+
+    @property
+    @pulumi.getter(name="fontAlpha")
+    def font_alpha(self) -> float:
+        return pulumi.get(self, "font_alpha")
+
+    @property
+    @pulumi.getter(name="fontColor")
+    def font_color(self) -> str:
+        return pulumi.get(self, "font_color")
+
+    @property
+    @pulumi.getter(name="fontSize")
+    def font_size(self) -> str:
+        return pulumi.get(self, "font_size")
+
+    @property
+    @pulumi.getter(name="fontType")
+    def font_type(self) -> str:
+        return pulumi.get(self, "font_type")
 
 
 @pulumi.output_type

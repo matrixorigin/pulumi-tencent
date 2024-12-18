@@ -15,14 +15,28 @@ import (
 type UpdateCertificateInstanceOperation struct {
 	pulumi.CustomResourceState
 
+	// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+	AllowDownload pulumi.BoolPtrOutput `pulumi:"allowDownload"`
 	// Update new certificate ID.
-	CertificateId pulumi.StringOutput `pulumi:"certificateId"`
+	CertificateId pulumi.StringPtrOutput `pulumi:"certificateId"`
+	// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePrivateKey pulumi.StringPtrOutput `pulumi:"certificatePrivateKey"`
+	// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePublicKey pulumi.StringPtrOutput `pulumi:"certificatePublicKey"`
+	// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+	// and ignore the OldCertificateId expiration reminder.
+	ExpiringNotificationSwitch pulumi.IntPtrOutput `pulumi:"expiringNotificationSwitch"`
 	// Update the original certificate ID.
 	OldCertificateId pulumi.StringOutput `pulumi:"oldCertificateId"`
-	// The resource type that needs to be deployed. The parameter value is optional:
-	// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+	// Project ID, if you choose to upload the certificate, you can configure this parameter.
+	ProjectId pulumi.IntPtrOutput `pulumi:"projectId"`
+	// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+	// configure this parameter.
+	Repeatable pulumi.BoolPtrOutput `pulumi:"repeatable"`
+	// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+	// apigateway, vod, tke, tcb.
 	ResourceTypes pulumi.StringArrayOutput `pulumi:"resourceTypes"`
-	// List of regions where cloud resources need to be deployed.
+	// List of regions where cloud resources need to be deploye.
 	ResourceTypesRegions UpdateCertificateInstanceOperationResourceTypesRegionArrayOutput `pulumi:"resourceTypesRegions"`
 }
 
@@ -33,15 +47,23 @@ func NewUpdateCertificateInstanceOperation(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.CertificateId == nil {
-		return nil, errors.New("invalid value for required argument 'CertificateId'")
-	}
 	if args.OldCertificateId == nil {
 		return nil, errors.New("invalid value for required argument 'OldCertificateId'")
 	}
 	if args.ResourceTypes == nil {
 		return nil, errors.New("invalid value for required argument 'ResourceTypes'")
 	}
+	if args.CertificatePrivateKey != nil {
+		args.CertificatePrivateKey = pulumi.ToSecret(args.CertificatePrivateKey).(pulumi.StringPtrInput)
+	}
+	if args.CertificatePublicKey != nil {
+		args.CertificatePublicKey = pulumi.ToSecret(args.CertificatePublicKey).(pulumi.StringPtrInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"certificatePrivateKey",
+		"certificatePublicKey",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource UpdateCertificateInstanceOperation
 	err := ctx.RegisterResource("tencentcloud:Ssl/updateCertificateInstanceOperation:UpdateCertificateInstanceOperation", name, args, &resource, opts...)
@@ -65,26 +87,54 @@ func GetUpdateCertificateInstanceOperation(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering UpdateCertificateInstanceOperation resources.
 type updateCertificateInstanceOperationState struct {
+	// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+	AllowDownload *bool `pulumi:"allowDownload"`
 	// Update new certificate ID.
 	CertificateId *string `pulumi:"certificateId"`
+	// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePrivateKey *string `pulumi:"certificatePrivateKey"`
+	// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePublicKey *string `pulumi:"certificatePublicKey"`
+	// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+	// and ignore the OldCertificateId expiration reminder.
+	ExpiringNotificationSwitch *int `pulumi:"expiringNotificationSwitch"`
 	// Update the original certificate ID.
 	OldCertificateId *string `pulumi:"oldCertificateId"`
-	// The resource type that needs to be deployed. The parameter value is optional:
-	// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+	// Project ID, if you choose to upload the certificate, you can configure this parameter.
+	ProjectId *int `pulumi:"projectId"`
+	// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+	// configure this parameter.
+	Repeatable *bool `pulumi:"repeatable"`
+	// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+	// apigateway, vod, tke, tcb.
 	ResourceTypes []string `pulumi:"resourceTypes"`
-	// List of regions where cloud resources need to be deployed.
+	// List of regions where cloud resources need to be deploye.
 	ResourceTypesRegions []UpdateCertificateInstanceOperationResourceTypesRegion `pulumi:"resourceTypesRegions"`
 }
 
 type UpdateCertificateInstanceOperationState struct {
+	// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+	AllowDownload pulumi.BoolPtrInput
 	// Update new certificate ID.
 	CertificateId pulumi.StringPtrInput
+	// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePrivateKey pulumi.StringPtrInput
+	// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePublicKey pulumi.StringPtrInput
+	// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+	// and ignore the OldCertificateId expiration reminder.
+	ExpiringNotificationSwitch pulumi.IntPtrInput
 	// Update the original certificate ID.
 	OldCertificateId pulumi.StringPtrInput
-	// The resource type that needs to be deployed. The parameter value is optional:
-	// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+	// Project ID, if you choose to upload the certificate, you can configure this parameter.
+	ProjectId pulumi.IntPtrInput
+	// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+	// configure this parameter.
+	Repeatable pulumi.BoolPtrInput
+	// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+	// apigateway, vod, tke, tcb.
 	ResourceTypes pulumi.StringArrayInput
-	// List of regions where cloud resources need to be deployed.
+	// List of regions where cloud resources need to be deploye.
 	ResourceTypesRegions UpdateCertificateInstanceOperationResourceTypesRegionArrayInput
 }
 
@@ -93,27 +143,55 @@ func (UpdateCertificateInstanceOperationState) ElementType() reflect.Type {
 }
 
 type updateCertificateInstanceOperationArgs struct {
+	// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+	AllowDownload *bool `pulumi:"allowDownload"`
 	// Update new certificate ID.
-	CertificateId string `pulumi:"certificateId"`
+	CertificateId *string `pulumi:"certificateId"`
+	// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePrivateKey *string `pulumi:"certificatePrivateKey"`
+	// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePublicKey *string `pulumi:"certificatePublicKey"`
+	// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+	// and ignore the OldCertificateId expiration reminder.
+	ExpiringNotificationSwitch *int `pulumi:"expiringNotificationSwitch"`
 	// Update the original certificate ID.
 	OldCertificateId string `pulumi:"oldCertificateId"`
-	// The resource type that needs to be deployed. The parameter value is optional:
-	// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+	// Project ID, if you choose to upload the certificate, you can configure this parameter.
+	ProjectId *int `pulumi:"projectId"`
+	// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+	// configure this parameter.
+	Repeatable *bool `pulumi:"repeatable"`
+	// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+	// apigateway, vod, tke, tcb.
 	ResourceTypes []string `pulumi:"resourceTypes"`
-	// List of regions where cloud resources need to be deployed.
+	// List of regions where cloud resources need to be deploye.
 	ResourceTypesRegions []UpdateCertificateInstanceOperationResourceTypesRegion `pulumi:"resourceTypesRegions"`
 }
 
 // The set of arguments for constructing a UpdateCertificateInstanceOperation resource.
 type UpdateCertificateInstanceOperationArgs struct {
+	// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+	AllowDownload pulumi.BoolPtrInput
 	// Update new certificate ID.
-	CertificateId pulumi.StringInput
+	CertificateId pulumi.StringPtrInput
+	// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePrivateKey pulumi.StringPtrInput
+	// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+	CertificatePublicKey pulumi.StringPtrInput
+	// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+	// and ignore the OldCertificateId expiration reminder.
+	ExpiringNotificationSwitch pulumi.IntPtrInput
 	// Update the original certificate ID.
 	OldCertificateId pulumi.StringInput
-	// The resource type that needs to be deployed. The parameter value is optional:
-	// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+	// Project ID, if you choose to upload the certificate, you can configure this parameter.
+	ProjectId pulumi.IntPtrInput
+	// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+	// configure this parameter.
+	Repeatable pulumi.BoolPtrInput
+	// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+	// apigateway, vod, tke, tcb.
 	ResourceTypes pulumi.StringArrayInput
-	// List of regions where cloud resources need to be deployed.
+	// List of regions where cloud resources need to be deploye.
 	ResourceTypesRegions UpdateCertificateInstanceOperationResourceTypesRegionArrayInput
 }
 
@@ -204,9 +282,30 @@ func (o UpdateCertificateInstanceOperationOutput) ToUpdateCertificateInstanceOpe
 	return o
 }
 
+// Whether to allow downloading, if you choose to upload the certificate, you can configure this parameter.
+func (o UpdateCertificateInstanceOperationOutput) AllowDownload() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.BoolPtrOutput { return v.AllowDownload }).(pulumi.BoolPtrOutput)
+}
+
 // Update new certificate ID.
-func (o UpdateCertificateInstanceOperationOutput) CertificateId() pulumi.StringOutput {
-	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringOutput { return v.CertificateId }).(pulumi.StringOutput)
+func (o UpdateCertificateInstanceOperationOutput) CertificateId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringPtrOutput { return v.CertificateId }).(pulumi.StringPtrOutput)
+}
+
+// Certificate private key. If you upload the certificate public key, CertificateId does not need to be passed.
+func (o UpdateCertificateInstanceOperationOutput) CertificatePrivateKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringPtrOutput { return v.CertificatePrivateKey }).(pulumi.StringPtrOutput)
+}
+
+// Certificate public key. If you upload the certificate public key, CertificateId does not need to be passed.
+func (o UpdateCertificateInstanceOperationOutput) CertificatePublicKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringPtrOutput { return v.CertificatePublicKey }).(pulumi.StringPtrOutput)
+}
+
+// Whether to ignore expiration reminders for old certificates 0: Do not ignore notifications. 1: Ignore the notification
+// and ignore the OldCertificateId expiration reminder.
+func (o UpdateCertificateInstanceOperationOutput) ExpiringNotificationSwitch() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.IntPtrOutput { return v.ExpiringNotificationSwitch }).(pulumi.IntPtrOutput)
 }
 
 // Update the original certificate ID.
@@ -214,13 +313,24 @@ func (o UpdateCertificateInstanceOperationOutput) OldCertificateId() pulumi.Stri
 	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringOutput { return v.OldCertificateId }).(pulumi.StringOutput)
 }
 
-// The resource type that needs to be deployed. The parameter value is optional:
-// clb,cdn,waf,live,ddos,teo,apigateway,vod,tke,tcb.
+// Project ID, if you choose to upload the certificate, you can configure this parameter.
+func (o UpdateCertificateInstanceOperationOutput) ProjectId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.IntPtrOutput { return v.ProjectId }).(pulumi.IntPtrOutput)
+}
+
+// Whether the same certificate is allowed to be uploaded repeatedly. If you choose to upload the certificate, you can
+// configure this parameter.
+func (o UpdateCertificateInstanceOperationOutput) Repeatable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.BoolPtrOutput { return v.Repeatable }).(pulumi.BoolPtrOutput)
+}
+
+// The resource type that needs to be deployed. The parameter value is optional: clb, cdn, waf, live, ddos, teo,
+// apigateway, vod, tke, tcb.
 func (o UpdateCertificateInstanceOperationOutput) ResourceTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) pulumi.StringArrayOutput { return v.ResourceTypes }).(pulumi.StringArrayOutput)
 }
 
-// List of regions where cloud resources need to be deployed.
+// List of regions where cloud resources need to be deploye.
 func (o UpdateCertificateInstanceOperationOutput) ResourceTypesRegions() UpdateCertificateInstanceOperationResourceTypesRegionArrayOutput {
 	return o.ApplyT(func(v *UpdateCertificateInstanceOperation) UpdateCertificateInstanceOperationResourceTypesRegionArrayOutput {
 		return v.ResourceTypesRegions

@@ -15,6 +15,8 @@ import (
 type GrafanaInstance struct {
 	pulumi.CustomResourceState
 
+	// Whether to automatically use vouchers.
+	AutoVoucher pulumi.BoolPtrOutput `pulumi:"autoVoucher"`
 	// Control whether grafana could be accessed by internet.
 	EnableInternet pulumi.BoolOutput `pulumi:"enableInternet"`
 	// Grafana server admin password.
@@ -78,6 +80,8 @@ func GetGrafanaInstance(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering GrafanaInstance resources.
 type grafanaInstanceState struct {
+	// Whether to automatically use vouchers.
+	AutoVoucher *bool `pulumi:"autoVoucher"`
 	// Control whether grafana could be accessed by internet.
 	EnableInternet *bool `pulumi:"enableInternet"`
 	// Grafana server admin password.
@@ -109,6 +113,8 @@ type grafanaInstanceState struct {
 }
 
 type GrafanaInstanceState struct {
+	// Whether to automatically use vouchers.
+	AutoVoucher pulumi.BoolPtrInput
 	// Control whether grafana could be accessed by internet.
 	EnableInternet pulumi.BoolPtrInput
 	// Grafana server admin password.
@@ -144,6 +150,8 @@ func (GrafanaInstanceState) ElementType() reflect.Type {
 }
 
 type grafanaInstanceArgs struct {
+	// Whether to automatically use vouchers.
+	AutoVoucher *bool `pulumi:"autoVoucher"`
 	// Control whether grafana could be accessed by internet.
 	EnableInternet *bool `pulumi:"enableInternet"`
 	// Grafana server admin password.
@@ -166,6 +174,8 @@ type grafanaInstanceArgs struct {
 
 // The set of arguments for constructing a GrafanaInstance resource.
 type GrafanaInstanceArgs struct {
+	// Whether to automatically use vouchers.
+	AutoVoucher pulumi.BoolPtrInput
 	// Control whether grafana could be accessed by internet.
 	EnableInternet pulumi.BoolPtrInput
 	// Grafana server admin password.
@@ -271,6 +281,11 @@ func (o GrafanaInstanceOutput) ToGrafanaInstanceOutput() GrafanaInstanceOutput {
 
 func (o GrafanaInstanceOutput) ToGrafanaInstanceOutputWithContext(ctx context.Context) GrafanaInstanceOutput {
 	return o
+}
+
+// Whether to automatically use vouchers.
+func (o GrafanaInstanceOutput) AutoVoucher() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *GrafanaInstance) pulumi.BoolPtrOutput { return v.AutoVoucher }).(pulumi.BoolPtrOutput)
 }
 
 // Control whether grafana could be accessed by internet.

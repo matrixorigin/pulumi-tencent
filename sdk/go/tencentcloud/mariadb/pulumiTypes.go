@@ -1704,17 +1704,22 @@ func (o GetDatabasesDatabaseArrayOutput) Index(i pulumi.IntInput) GetDatabasesDa
 }
 
 type GetDbInstancesInstance struct {
-	DbVersionId  string                              `pulumi:"dbVersionId"`
-	InstanceId   string                              `pulumi:"instanceId"`
-	InstanceName string                              `pulumi:"instanceName"`
-	Memory       int                                 `pulumi:"memory"`
-	ProjectId    int                                 `pulumi:"projectId"`
-	Region       string                              `pulumi:"region"`
-	ResourceTags []GetDbInstancesInstanceResourceTag `pulumi:"resourceTags"`
-	Storage      int                                 `pulumi:"storage"`
-	SubnetId     string                              `pulumi:"subnetId"`
-	VpcId        string                              `pulumi:"vpcId"`
-	Zone         string                              `pulumi:"zone"`
+	DbVersionId    string                              `pulumi:"dbVersionId"`
+	InstanceId     string                              `pulumi:"instanceId"`
+	InstanceName   string                              `pulumi:"instanceName"`
+	InternetDomain string                              `pulumi:"internetDomain"`
+	InternetIp     string                              `pulumi:"internetIp"`
+	InternetPort   int                                 `pulumi:"internetPort"`
+	Memory         int                                 `pulumi:"memory"`
+	ProjectId      int                                 `pulumi:"projectId"`
+	Region         string                              `pulumi:"region"`
+	ResourceTags   []GetDbInstancesInstanceResourceTag `pulumi:"resourceTags"`
+	Storage        int                                 `pulumi:"storage"`
+	SubnetId       string                              `pulumi:"subnetId"`
+	Vip            string                              `pulumi:"vip"`
+	VpcId          string                              `pulumi:"vpcId"`
+	Vport          int                                 `pulumi:"vport"`
+	Zone           string                              `pulumi:"zone"`
 }
 
 // GetDbInstancesInstanceInput is an input type that accepts GetDbInstancesInstanceArgs and GetDbInstancesInstanceOutput values.
@@ -1729,17 +1734,22 @@ type GetDbInstancesInstanceInput interface {
 }
 
 type GetDbInstancesInstanceArgs struct {
-	DbVersionId  pulumi.StringInput                          `pulumi:"dbVersionId"`
-	InstanceId   pulumi.StringInput                          `pulumi:"instanceId"`
-	InstanceName pulumi.StringInput                          `pulumi:"instanceName"`
-	Memory       pulumi.IntInput                             `pulumi:"memory"`
-	ProjectId    pulumi.IntInput                             `pulumi:"projectId"`
-	Region       pulumi.StringInput                          `pulumi:"region"`
-	ResourceTags GetDbInstancesInstanceResourceTagArrayInput `pulumi:"resourceTags"`
-	Storage      pulumi.IntInput                             `pulumi:"storage"`
-	SubnetId     pulumi.StringInput                          `pulumi:"subnetId"`
-	VpcId        pulumi.StringInput                          `pulumi:"vpcId"`
-	Zone         pulumi.StringInput                          `pulumi:"zone"`
+	DbVersionId    pulumi.StringInput                          `pulumi:"dbVersionId"`
+	InstanceId     pulumi.StringInput                          `pulumi:"instanceId"`
+	InstanceName   pulumi.StringInput                          `pulumi:"instanceName"`
+	InternetDomain pulumi.StringInput                          `pulumi:"internetDomain"`
+	InternetIp     pulumi.StringInput                          `pulumi:"internetIp"`
+	InternetPort   pulumi.IntInput                             `pulumi:"internetPort"`
+	Memory         pulumi.IntInput                             `pulumi:"memory"`
+	ProjectId      pulumi.IntInput                             `pulumi:"projectId"`
+	Region         pulumi.StringInput                          `pulumi:"region"`
+	ResourceTags   GetDbInstancesInstanceResourceTagArrayInput `pulumi:"resourceTags"`
+	Storage        pulumi.IntInput                             `pulumi:"storage"`
+	SubnetId       pulumi.StringInput                          `pulumi:"subnetId"`
+	Vip            pulumi.StringInput                          `pulumi:"vip"`
+	VpcId          pulumi.StringInput                          `pulumi:"vpcId"`
+	Vport          pulumi.IntInput                             `pulumi:"vport"`
+	Zone           pulumi.StringInput                          `pulumi:"zone"`
 }
 
 func (GetDbInstancesInstanceArgs) ElementType() reflect.Type {
@@ -1805,6 +1815,18 @@ func (o GetDbInstancesInstanceOutput) InstanceName() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.InstanceName }).(pulumi.StringOutput)
 }
 
+func (o GetDbInstancesInstanceOutput) InternetDomain() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.InternetDomain }).(pulumi.StringOutput)
+}
+
+func (o GetDbInstancesInstanceOutput) InternetIp() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.InternetIp }).(pulumi.StringOutput)
+}
+
+func (o GetDbInstancesInstanceOutput) InternetPort() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDbInstancesInstance) int { return v.InternetPort }).(pulumi.IntOutput)
+}
+
 func (o GetDbInstancesInstanceOutput) Memory() pulumi.IntOutput {
 	return o.ApplyT(func(v GetDbInstancesInstance) int { return v.Memory }).(pulumi.IntOutput)
 }
@@ -1829,8 +1851,16 @@ func (o GetDbInstancesInstanceOutput) SubnetId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.SubnetId }).(pulumi.StringOutput)
 }
 
+func (o GetDbInstancesInstanceOutput) Vip() pulumi.StringOutput {
+	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.Vip }).(pulumi.StringOutput)
+}
+
 func (o GetDbInstancesInstanceOutput) VpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetDbInstancesInstance) string { return v.VpcId }).(pulumi.StringOutput)
+}
+
+func (o GetDbInstancesInstanceOutput) Vport() pulumi.IntOutput {
+	return o.ApplyT(func(v GetDbInstancesInstance) int { return v.Vport }).(pulumi.IntOutput)
 }
 
 func (o GetDbInstancesInstanceOutput) Zone() pulumi.StringOutput {

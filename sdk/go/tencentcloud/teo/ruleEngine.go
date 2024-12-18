@@ -19,9 +19,11 @@ type RuleEngine struct {
 	RuleId pulumi.StringOutput `pulumi:"ruleId"`
 	// The rule name (1 to 255 characters).
 	RuleName pulumi.StringOutput `pulumi:"ruleName"`
+	// Rule priority, the larger the value, the higher the priority, the minimum is 1.
+	RulePriority pulumi.IntOutput `pulumi:"rulePriority"`
 	// Rule items list.
 	Rules RuleEngineRuleArrayOutput `pulumi:"rules"`
-	// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+	// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 	Status pulumi.StringOutput `pulumi:"status"`
 	// rule tag list.
 	Tags pulumi.StringArrayOutput `pulumi:"tags"`
@@ -75,9 +77,11 @@ type ruleEngineState struct {
 	RuleId *string `pulumi:"ruleId"`
 	// The rule name (1 to 255 characters).
 	RuleName *string `pulumi:"ruleName"`
+	// Rule priority, the larger the value, the higher the priority, the minimum is 1.
+	RulePriority *int `pulumi:"rulePriority"`
 	// Rule items list.
 	Rules []RuleEngineRule `pulumi:"rules"`
-	// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+	// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 	Status *string `pulumi:"status"`
 	// rule tag list.
 	Tags []string `pulumi:"tags"`
@@ -90,9 +94,11 @@ type RuleEngineState struct {
 	RuleId pulumi.StringPtrInput
 	// The rule name (1 to 255 characters).
 	RuleName pulumi.StringPtrInput
+	// Rule priority, the larger the value, the higher the priority, the minimum is 1.
+	RulePriority pulumi.IntPtrInput
 	// Rule items list.
 	Rules RuleEngineRuleArrayInput
-	// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+	// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 	Status pulumi.StringPtrInput
 	// rule tag list.
 	Tags pulumi.StringArrayInput
@@ -109,7 +115,7 @@ type ruleEngineArgs struct {
 	RuleName string `pulumi:"ruleName"`
 	// Rule items list.
 	Rules []RuleEngineRule `pulumi:"rules"`
-	// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+	// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 	Status string `pulumi:"status"`
 	// rule tag list.
 	Tags []string `pulumi:"tags"`
@@ -123,7 +129,7 @@ type RuleEngineArgs struct {
 	RuleName pulumi.StringInput
 	// Rule items list.
 	Rules RuleEngineRuleArrayInput
-	// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+	// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 	Status pulumi.StringInput
 	// rule tag list.
 	Tags pulumi.StringArrayInput
@@ -228,12 +234,17 @@ func (o RuleEngineOutput) RuleName() pulumi.StringOutput {
 	return o.ApplyT(func(v *RuleEngine) pulumi.StringOutput { return v.RuleName }).(pulumi.StringOutput)
 }
 
+// Rule priority, the larger the value, the higher the priority, the minimum is 1.
+func (o RuleEngineOutput) RulePriority() pulumi.IntOutput {
+	return o.ApplyT(func(v *RuleEngine) pulumi.IntOutput { return v.RulePriority }).(pulumi.IntOutput)
+}
+
 // Rule items list.
 func (o RuleEngineOutput) Rules() RuleEngineRuleArrayOutput {
 	return o.ApplyT(func(v *RuleEngine) RuleEngineRuleArrayOutput { return v.Rules }).(RuleEngineRuleArrayOutput)
 }
 
-// Rule status. Values: `enable`: Enabled; `disable`: Disabled.
+// Rule status. Values: - `enable`: Enabled. - `disable`: Disabled.
 func (o RuleEngineOutput) Status() pulumi.StringOutput {
 	return o.ApplyT(func(v *RuleEngine) pulumi.StringOutput { return v.Status }).(pulumi.StringOutput)
 }

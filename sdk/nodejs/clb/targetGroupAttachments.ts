@@ -35,13 +35,17 @@ export class TargetGroupAttachments extends pulumi.CustomResource {
     }
 
     /**
-     * Association array, the combination cannot exceed 20
+     * Association array, the combination cannot exceed 20.
      */
     public readonly associations!: pulumi.Output<outputs.Clb.TargetGroupAttachmentsAssociation[]>;
     /**
-     * CLB instance ID
+     * CLB instance ID, (load_balancer_id and target_group_id require at least one).
      */
-    public readonly loadBalancerId!: pulumi.Output<string>;
+    public readonly loadBalancerId!: pulumi.Output<string | undefined>;
+    /**
+     * Target group ID, (load_balancer_id and target_group_id require at least one).
+     */
+    public readonly targetGroupId!: pulumi.Output<string | undefined>;
 
     /**
      * Create a TargetGroupAttachments resource with the given unique name, arguments, and options.
@@ -58,16 +62,15 @@ export class TargetGroupAttachments extends pulumi.CustomResource {
             const state = argsOrState as TargetGroupAttachmentsState | undefined;
             resourceInputs["associations"] = state ? state.associations : undefined;
             resourceInputs["loadBalancerId"] = state ? state.loadBalancerId : undefined;
+            resourceInputs["targetGroupId"] = state ? state.targetGroupId : undefined;
         } else {
             const args = argsOrState as TargetGroupAttachmentsArgs | undefined;
             if ((!args || args.associations === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'associations'");
             }
-            if ((!args || args.loadBalancerId === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'loadBalancerId'");
-            }
             resourceInputs["associations"] = args ? args.associations : undefined;
             resourceInputs["loadBalancerId"] = args ? args.loadBalancerId : undefined;
+            resourceInputs["targetGroupId"] = args ? args.targetGroupId : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(TargetGroupAttachments.__pulumiType, name, resourceInputs, opts);
@@ -79,13 +82,17 @@ export class TargetGroupAttachments extends pulumi.CustomResource {
  */
 export interface TargetGroupAttachmentsState {
     /**
-     * Association array, the combination cannot exceed 20
+     * Association array, the combination cannot exceed 20.
      */
     associations?: pulumi.Input<pulumi.Input<inputs.Clb.TargetGroupAttachmentsAssociation>[]>;
     /**
-     * CLB instance ID
+     * CLB instance ID, (load_balancer_id and target_group_id require at least one).
      */
     loadBalancerId?: pulumi.Input<string>;
+    /**
+     * Target group ID, (load_balancer_id and target_group_id require at least one).
+     */
+    targetGroupId?: pulumi.Input<string>;
 }
 
 /**
@@ -93,11 +100,15 @@ export interface TargetGroupAttachmentsState {
  */
 export interface TargetGroupAttachmentsArgs {
     /**
-     * Association array, the combination cannot exceed 20
+     * Association array, the combination cannot exceed 20.
      */
     associations: pulumi.Input<pulumi.Input<inputs.Clb.TargetGroupAttachmentsAssociation>[]>;
     /**
-     * CLB instance ID
+     * CLB instance ID, (load_balancer_id and target_group_id require at least one).
      */
-    loadBalancerId: pulumi.Input<string>;
+    loadBalancerId?: pulumi.Input<string>;
+    /**
+     * Target group ID, (load_balancer_id and target_group_id require at least one).
+     */
+    targetGroupId?: pulumi.Input<string>;
 }

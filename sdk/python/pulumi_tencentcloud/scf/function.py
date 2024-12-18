@@ -523,6 +523,7 @@ class _FunctionState:
                  environment: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  err_no: Optional[pulumi.Input[int]] = None,
                  func_type: Optional[pulumi.Input[str]] = None,
+                 function_id: Optional[pulumi.Input[str]] = None,
                  handler: Optional[pulumi.Input[str]] = None,
                  host: Optional[pulumi.Input[str]] = None,
                  image_configs: Optional[pulumi.Input[Sequence[pulumi.Input['FunctionImageConfigArgs']]]] = None,
@@ -570,6 +571,7 @@ class _FunctionState:
         :param pulumi.Input[int] err_no: SCF function code error code.
         :param pulumi.Input[str] func_type: Function type. The default value is Event. Enter Event if you need to create a trigger function. Enter HTTP if you need
                to create an HTTP function service.
+        :param pulumi.Input[str] function_id: function ID.
         :param pulumi.Input[str] handler: Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,
                numbers, connectors, and underscores, it should start with a letter. The last character cannot be `-` or `_`. Available
                length is 2-60.
@@ -637,6 +639,8 @@ class _FunctionState:
             pulumi.set(__self__, "err_no", err_no)
         if func_type is not None:
             pulumi.set(__self__, "func_type", func_type)
+        if function_id is not None:
+            pulumi.set(__self__, "function_id", function_id)
         if handler is not None:
             pulumi.set(__self__, "handler", handler)
         if host is not None:
@@ -914,6 +918,18 @@ class _FunctionState:
     @func_type.setter
     def func_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "func_type", value)
+
+    @property
+    @pulumi.getter(name="functionId")
+    def function_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        function ID.
+        """
+        return pulumi.get(self, "function_id")
+
+    @function_id.setter
+    def function_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "function_id", value)
 
     @property
     @pulumi.getter
@@ -1370,6 +1386,7 @@ class Function(pulumi.CustomResource):
             __props__.__dict__["eip_fixed"] = None
             __props__.__dict__["eips"] = None
             __props__.__dict__["err_no"] = None
+            __props__.__dict__["function_id"] = None
             __props__.__dict__["host"] = None
             __props__.__dict__["install_dependency"] = None
             __props__.__dict__["modify_time"] = None
@@ -1406,6 +1423,7 @@ class Function(pulumi.CustomResource):
             environment: Optional[pulumi.Input[Mapping[str, Any]]] = None,
             err_no: Optional[pulumi.Input[int]] = None,
             func_type: Optional[pulumi.Input[str]] = None,
+            function_id: Optional[pulumi.Input[str]] = None,
             handler: Optional[pulumi.Input[str]] = None,
             host: Optional[pulumi.Input[str]] = None,
             image_configs: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['FunctionImageConfigArgs']]]]] = None,
@@ -1458,6 +1476,7 @@ class Function(pulumi.CustomResource):
         :param pulumi.Input[int] err_no: SCF function code error code.
         :param pulumi.Input[str] func_type: Function type. The default value is Event. Enter Event if you need to create a trigger function. Enter HTTP if you need
                to create an HTTP function service.
+        :param pulumi.Input[str] function_id: function ID.
         :param pulumi.Input[str] handler: Handler of the SCF function. The format of name is `<filename>.<method_name>`, and it supports 26 English letters,
                numbers, connectors, and underscores, it should start with a letter. The last character cannot be `-` or `_`. Available
                length is 2-60.
@@ -1510,6 +1529,7 @@ class Function(pulumi.CustomResource):
         __props__.__dict__["environment"] = environment
         __props__.__dict__["err_no"] = err_no
         __props__.__dict__["func_type"] = func_type
+        __props__.__dict__["function_id"] = function_id
         __props__.__dict__["handler"] = handler
         __props__.__dict__["host"] = host
         __props__.__dict__["image_configs"] = image_configs
@@ -1689,6 +1709,14 @@ class Function(pulumi.CustomResource):
         to create an HTTP function service.
         """
         return pulumi.get(self, "func_type")
+
+    @property
+    @pulumi.getter(name="functionId")
+    def function_id(self) -> pulumi.Output[str]:
+        """
+        function ID.
+        """
+        return pulumi.get(self, "function_id")
 
     @property
     @pulumi.getter

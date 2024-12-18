@@ -14,6 +14,7 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type AssumeRole struct {
+	ExternalId      *string `pulumi:"externalId"`
 	Policy          *string `pulumi:"policy"`
 	RoleArn         string  `pulumi:"roleArn"`
 	SessionDuration int     `pulumi:"sessionDuration"`
@@ -32,6 +33,7 @@ type AssumeRoleInput interface {
 }
 
 type AssumeRoleArgs struct {
+	ExternalId      pulumi.StringPtrInput `pulumi:"externalId"`
 	Policy          pulumi.StringPtrInput `pulumi:"policy"`
 	RoleArn         pulumi.StringInput    `pulumi:"roleArn"`
 	SessionDuration pulumi.IntInput       `pulumi:"sessionDuration"`
@@ -64,6 +66,10 @@ func (o AssumeRoleOutput) ToAssumeRoleOutputWithContext(ctx context.Context) Ass
 	return o
 }
 
+func (o AssumeRoleOutput) ExternalId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AssumeRole) *string { return v.ExternalId }).(pulumi.StringPtrOutput)
+}
+
 func (o AssumeRoleOutput) Policy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AssumeRole) *string { return v.Policy }).(pulumi.StringPtrOutput)
 }
@@ -80,7 +86,151 @@ func (o AssumeRoleOutput) SessionName() pulumi.StringOutput {
 	return o.ApplyT(func(v AssumeRole) string { return v.SessionName }).(pulumi.StringOutput)
 }
 
+type AssumeRoleWithSaml struct {
+	PrincipalArn    string `pulumi:"principalArn"`
+	RoleArn         string `pulumi:"roleArn"`
+	SamlAssertion   string `pulumi:"samlAssertion"`
+	SessionDuration int    `pulumi:"sessionDuration"`
+	SessionName     string `pulumi:"sessionName"`
+}
+
+// AssumeRoleWithSamlInput is an input type that accepts AssumeRoleWithSamlArgs and AssumeRoleWithSamlOutput values.
+// You can construct a concrete instance of `AssumeRoleWithSamlInput` via:
+//
+//	AssumeRoleWithSamlArgs{...}
+type AssumeRoleWithSamlInput interface {
+	pulumi.Input
+
+	ToAssumeRoleWithSamlOutput() AssumeRoleWithSamlOutput
+	ToAssumeRoleWithSamlOutputWithContext(context.Context) AssumeRoleWithSamlOutput
+}
+
+type AssumeRoleWithSamlArgs struct {
+	PrincipalArn    pulumi.StringInput `pulumi:"principalArn"`
+	RoleArn         pulumi.StringInput `pulumi:"roleArn"`
+	SamlAssertion   pulumi.StringInput `pulumi:"samlAssertion"`
+	SessionDuration pulumi.IntInput    `pulumi:"sessionDuration"`
+	SessionName     pulumi.StringInput `pulumi:"sessionName"`
+}
+
+func (AssumeRoleWithSamlArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (i AssumeRoleWithSamlArgs) ToAssumeRoleWithSamlOutput() AssumeRoleWithSamlOutput {
+	return i.ToAssumeRoleWithSamlOutputWithContext(context.Background())
+}
+
+func (i AssumeRoleWithSamlArgs) ToAssumeRoleWithSamlOutputWithContext(ctx context.Context) AssumeRoleWithSamlOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AssumeRoleWithSamlOutput)
+}
+
+type AssumeRoleWithSamlOutput struct{ *pulumi.OutputState }
+
+func (AssumeRoleWithSamlOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AssumeRoleWithSaml)(nil)).Elem()
+}
+
+func (o AssumeRoleWithSamlOutput) ToAssumeRoleWithSamlOutput() AssumeRoleWithSamlOutput {
+	return o
+}
+
+func (o AssumeRoleWithSamlOutput) ToAssumeRoleWithSamlOutputWithContext(ctx context.Context) AssumeRoleWithSamlOutput {
+	return o
+}
+
+func (o AssumeRoleWithSamlOutput) PrincipalArn() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithSaml) string { return v.PrincipalArn }).(pulumi.StringOutput)
+}
+
+func (o AssumeRoleWithSamlOutput) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithSaml) string { return v.RoleArn }).(pulumi.StringOutput)
+}
+
+func (o AssumeRoleWithSamlOutput) SamlAssertion() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithSaml) string { return v.SamlAssertion }).(pulumi.StringOutput)
+}
+
+func (o AssumeRoleWithSamlOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v AssumeRoleWithSaml) int { return v.SessionDuration }).(pulumi.IntOutput)
+}
+
+func (o AssumeRoleWithSamlOutput) SessionName() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithSaml) string { return v.SessionName }).(pulumi.StringOutput)
+}
+
+type AssumeRoleWithWebIdentity struct {
+	RoleArn          string `pulumi:"roleArn"`
+	SessionDuration  int    `pulumi:"sessionDuration"`
+	SessionName      string `pulumi:"sessionName"`
+	WebIdentityToken string `pulumi:"webIdentityToken"`
+}
+
+// AssumeRoleWithWebIdentityInput is an input type that accepts AssumeRoleWithWebIdentityArgs and AssumeRoleWithWebIdentityOutput values.
+// You can construct a concrete instance of `AssumeRoleWithWebIdentityInput` via:
+//
+//	AssumeRoleWithWebIdentityArgs{...}
+type AssumeRoleWithWebIdentityInput interface {
+	pulumi.Input
+
+	ToAssumeRoleWithWebIdentityOutput() AssumeRoleWithWebIdentityOutput
+	ToAssumeRoleWithWebIdentityOutputWithContext(context.Context) AssumeRoleWithWebIdentityOutput
+}
+
+type AssumeRoleWithWebIdentityArgs struct {
+	RoleArn          pulumi.StringInput `pulumi:"roleArn"`
+	SessionDuration  pulumi.IntInput    `pulumi:"sessionDuration"`
+	SessionName      pulumi.StringInput `pulumi:"sessionName"`
+	WebIdentityToken pulumi.StringInput `pulumi:"webIdentityToken"`
+}
+
+func (AssumeRoleWithWebIdentityArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (i AssumeRoleWithWebIdentityArgs) ToAssumeRoleWithWebIdentityOutput() AssumeRoleWithWebIdentityOutput {
+	return i.ToAssumeRoleWithWebIdentityOutputWithContext(context.Background())
+}
+
+func (i AssumeRoleWithWebIdentityArgs) ToAssumeRoleWithWebIdentityOutputWithContext(ctx context.Context) AssumeRoleWithWebIdentityOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AssumeRoleWithWebIdentityOutput)
+}
+
+type AssumeRoleWithWebIdentityOutput struct{ *pulumi.OutputState }
+
+func (AssumeRoleWithWebIdentityOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AssumeRoleWithWebIdentity)(nil)).Elem()
+}
+
+func (o AssumeRoleWithWebIdentityOutput) ToAssumeRoleWithWebIdentityOutput() AssumeRoleWithWebIdentityOutput {
+	return o
+}
+
+func (o AssumeRoleWithWebIdentityOutput) ToAssumeRoleWithWebIdentityOutputWithContext(ctx context.Context) AssumeRoleWithWebIdentityOutput {
+	return o
+}
+
+func (o AssumeRoleWithWebIdentityOutput) RoleArn() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithWebIdentity) string { return v.RoleArn }).(pulumi.StringOutput)
+}
+
+func (o AssumeRoleWithWebIdentityOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v AssumeRoleWithWebIdentity) int { return v.SessionDuration }).(pulumi.IntOutput)
+}
+
+func (o AssumeRoleWithWebIdentityOutput) SessionName() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithWebIdentity) string { return v.SessionName }).(pulumi.StringOutput)
+}
+
+func (o AssumeRoleWithWebIdentityOutput) WebIdentityToken() pulumi.StringOutput {
+	return o.ApplyT(func(v AssumeRoleWithWebIdentity) string { return v.WebIdentityToken }).(pulumi.StringOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AssumeRoleInput)(nil)).Elem(), AssumeRoleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AssumeRoleWithSamlInput)(nil)).Elem(), AssumeRoleWithSamlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AssumeRoleWithWebIdentityInput)(nil)).Elem(), AssumeRoleWithWebIdentityArgs{})
 	pulumi.RegisterOutputType(AssumeRoleOutput{})
+	pulumi.RegisterOutputType(AssumeRoleWithSamlOutput{})
+	pulumi.RegisterOutputType(AssumeRoleWithWebIdentityOutput{})
 }

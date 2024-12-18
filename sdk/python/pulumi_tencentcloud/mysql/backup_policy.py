@@ -24,7 +24,8 @@ class BackupPolicyArgs:
         """
         The set of arguments for constructing a BackupPolicy resource.
         :param pulumi.Input[str] mysql_id: Instance ID to which policies will be applied.
-        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup.
+        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+               support `physical`, Single node only support `snapshot`.
         :param pulumi.Input[str] backup_time: Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
                following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
                `22:00-02:00`.
@@ -67,7 +68,8 @@ class BackupPolicyArgs:
     @pulumi.getter(name="backupModel")
     def backup_model(self) -> Optional[pulumi.Input[str]]:
         """
-        Backup method. Supported values include: `physical` - physical backup.
+        Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+        support `physical`, Single node only support `snapshot`.
         """
         return pulumi.get(self, "backup_model")
 
@@ -154,7 +156,8 @@ class _BackupPolicyState:
                  retention_period: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering BackupPolicy resources.
-        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup.
+        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+               support `physical`, Single node only support `snapshot`.
         :param pulumi.Input[str] backup_time: Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
                following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
                `22:00-02:00`.
@@ -187,7 +190,8 @@ class _BackupPolicyState:
     @pulumi.getter(name="backupModel")
     def backup_model(self) -> Optional[pulumi.Input[str]]:
         """
-        Backup method. Supported values include: `physical` - physical backup.
+        Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+        support `physical`, Single node only support `snapshot`.
         """
         return pulumi.get(self, "backup_model")
 
@@ -291,7 +295,8 @@ class BackupPolicy(pulumi.CustomResource):
         Create a BackupPolicy resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup.
+        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+               support `physical`, Single node only support `snapshot`.
         :param pulumi.Input[str] backup_time: Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
                following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
                `22:00-02:00`.
@@ -377,7 +382,8 @@ class BackupPolicy(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup.
+        :param pulumi.Input[str] backup_model: Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+               support `physical`, Single node only support `snapshot`.
         :param pulumi.Input[str] backup_time: Instance backup time, in the format of 'HH:mm-HH:mm'. Time setting interval is four hours. Default to `02:00-06:00`. The
                following value can be supported: `02:00-06:00`, `06:00-10:00`, `10:00-14:00`, `14:00-18:00`, `18:00-22:00`, and
                `22:00-02:00`.
@@ -408,7 +414,8 @@ class BackupPolicy(pulumi.CustomResource):
     @pulumi.getter(name="backupModel")
     def backup_model(self) -> pulumi.Output[Optional[str]]:
         """
-        Backup method. Supported values include: `physical` - physical backup.
+        Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+        support `physical`, Single node only support `snapshot`.
         """
         return pulumi.get(self, "backup_model")
 

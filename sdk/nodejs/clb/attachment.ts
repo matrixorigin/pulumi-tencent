@@ -39,6 +39,10 @@ export class Attachment extends pulumi.CustomResource {
      */
     public readonly clbId!: pulumi.Output<string>;
     /**
+     * Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    public readonly domain!: pulumi.Output<string | undefined>;
+    /**
      * ID of the CLB listener.
      */
     public readonly listenerId!: pulumi.Output<string>;
@@ -54,6 +58,10 @@ export class Attachment extends pulumi.CustomResource {
      * Information of the backends to be attached.
      */
     public readonly targets!: pulumi.Output<outputs.Clb.AttachmentTarget[]>;
+    /**
+     * URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    public readonly url!: pulumi.Output<string | undefined>;
 
     /**
      * Create a Attachment resource with the given unique name, arguments, and options.
@@ -69,10 +77,12 @@ export class Attachment extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as AttachmentState | undefined;
             resourceInputs["clbId"] = state ? state.clbId : undefined;
+            resourceInputs["domain"] = state ? state.domain : undefined;
             resourceInputs["listenerId"] = state ? state.listenerId : undefined;
             resourceInputs["protocolType"] = state ? state.protocolType : undefined;
             resourceInputs["ruleId"] = state ? state.ruleId : undefined;
             resourceInputs["targets"] = state ? state.targets : undefined;
+            resourceInputs["url"] = state ? state.url : undefined;
         } else {
             const args = argsOrState as AttachmentArgs | undefined;
             if ((!args || args.clbId === undefined) && !opts.urn) {
@@ -85,9 +95,11 @@ export class Attachment extends pulumi.CustomResource {
                 throw new Error("Missing required property 'targets'");
             }
             resourceInputs["clbId"] = args ? args.clbId : undefined;
+            resourceInputs["domain"] = args ? args.domain : undefined;
             resourceInputs["listenerId"] = args ? args.listenerId : undefined;
             resourceInputs["ruleId"] = args ? args.ruleId : undefined;
             resourceInputs["targets"] = args ? args.targets : undefined;
+            resourceInputs["url"] = args ? args.url : undefined;
             resourceInputs["protocolType"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -104,6 +116,10 @@ export interface AttachmentState {
      */
     clbId?: pulumi.Input<string>;
     /**
+     * Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    domain?: pulumi.Input<string>;
+    /**
      * ID of the CLB listener.
      */
     listenerId?: pulumi.Input<string>;
@@ -119,6 +135,10 @@ export interface AttachmentState {
      * Information of the backends to be attached.
      */
     targets?: pulumi.Input<pulumi.Input<inputs.Clb.AttachmentTarget>[]>;
+    /**
+     * URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    url?: pulumi.Input<string>;
 }
 
 /**
@@ -129,6 +149,10 @@ export interface AttachmentArgs {
      * ID of the CLB.
      */
     clbId: pulumi.Input<string>;
+    /**
+     * Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    domain?: pulumi.Input<string>;
     /**
      * ID of the CLB listener.
      */
@@ -141,4 +165,8 @@ export interface AttachmentArgs {
      * Information of the backends to be attached.
      */
     targets: pulumi.Input<pulumi.Input<inputs.Clb.AttachmentTarget>[]>;
+    /**
+     * URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+     */
+    url?: pulumi.Input<string>;
 }

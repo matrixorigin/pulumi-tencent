@@ -15,6 +15,7 @@ __all__ = [
     'AlarmAnalysisConfigInfoArgs',
     'AlarmCallBackArgs',
     'AlarmMonitorTimeArgs',
+    'AlarmMultiConditionArgs',
     'AlarmNoticeNoticeReceiverArgs',
     'AlarmNoticeWebCallbackArgs',
     'CkafkaConsumerCkafkaArgs',
@@ -41,6 +42,7 @@ __all__ = [
     'CosShipperFilterRuleArgs',
     'DataTransformDstResourceArgs',
     'IndexRuleArgs',
+    'IndexRuleDynamicIndexArgs',
     'IndexRuleFullTextArgs',
     'IndexRuleKeyValueArgs',
     'IndexRuleKeyValueKeyValueArgs',
@@ -51,7 +53,14 @@ __all__ = [
     'KafkaRechargeLogRechargeRuleArgs',
     'KafkaRechargeProtocolArgs',
     'MachineGroupMachineGroupTypeArgs',
+    'NoticeContentNoticeContentsArgs',
+    'NoticeContentNoticeContentsRecoveryContentArgs',
+    'NoticeContentNoticeContentsTriggerContentArgs',
     'ScheduledSqlDstResourceArgs',
+    'TopicExtendsArgs',
+    'TopicExtendsAnonymousAccessArgs',
+    'TopicExtendsAnonymousAccessConditionArgs',
+    'GetLogsetsFilterArgs',
 ]
 
 @pulumi.input_type
@@ -62,13 +71,16 @@ class AlarmAlarmTargetArgs:
                  number: pulumi.Input[int],
                  query: pulumi.Input[str],
                  start_time_offset: pulumi.Input[int],
-                 topic_id: pulumi.Input[str]):
+                 topic_id: pulumi.Input[str],
+                 syntax_rule: Optional[pulumi.Input[int]] = None):
         pulumi.set(__self__, "end_time_offset", end_time_offset)
         pulumi.set(__self__, "logset_id", logset_id)
         pulumi.set(__self__, "number", number)
         pulumi.set(__self__, "query", query)
         pulumi.set(__self__, "start_time_offset", start_time_offset)
         pulumi.set(__self__, "topic_id", topic_id)
+        if syntax_rule is not None:
+            pulumi.set(__self__, "syntax_rule", syntax_rule)
 
     @property
     @pulumi.getter(name="endTimeOffset")
@@ -123,6 +135,15 @@ class AlarmAlarmTargetArgs:
     @topic_id.setter
     def topic_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "topic_id", value)
+
+    @property
+    @pulumi.getter(name="syntaxRule")
+    def syntax_rule(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "syntax_rule")
+
+    @syntax_rule.setter
+    def syntax_rule(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "syntax_rule", value)
 
 
 @pulumi.input_type
@@ -258,6 +279,35 @@ class AlarmMonitorTimeArgs:
 
 
 @pulumi.input_type
+class AlarmMultiConditionArgs:
+    def __init__(__self__, *,
+                 alarm_level: Optional[pulumi.Input[int]] = None,
+                 condition: Optional[pulumi.Input[str]] = None):
+        if alarm_level is not None:
+            pulumi.set(__self__, "alarm_level", alarm_level)
+        if condition is not None:
+            pulumi.set(__self__, "condition", condition)
+
+    @property
+    @pulumi.getter(name="alarmLevel")
+    def alarm_level(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "alarm_level")
+
+    @alarm_level.setter
+    def alarm_level(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "alarm_level", value)
+
+    @property
+    @pulumi.getter
+    def condition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "condition")
+
+    @condition.setter
+    def condition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "condition", value)
+
+
+@pulumi.input_type
 class AlarmNoticeNoticeReceiverArgs:
     def __init__(__self__, *,
                  receiver_channels: pulumi.Input[Sequence[pulumi.Input[str]]],
@@ -265,6 +315,7 @@ class AlarmNoticeNoticeReceiverArgs:
                  receiver_type: pulumi.Input[str],
                  end_time: Optional[pulumi.Input[str]] = None,
                  index: Optional[pulumi.Input[int]] = None,
+                 notice_content_id: Optional[pulumi.Input[str]] = None,
                  start_time: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "receiver_channels", receiver_channels)
         pulumi.set(__self__, "receiver_ids", receiver_ids)
@@ -273,6 +324,8 @@ class AlarmNoticeNoticeReceiverArgs:
             pulumi.set(__self__, "end_time", end_time)
         if index is not None:
             pulumi.set(__self__, "index", index)
+        if notice_content_id is not None:
+            pulumi.set(__self__, "notice_content_id", notice_content_id)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
 
@@ -322,6 +375,15 @@ class AlarmNoticeNoticeReceiverArgs:
         pulumi.set(self, "index", value)
 
     @property
+    @pulumi.getter(name="noticeContentId")
+    def notice_content_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "notice_content_id")
+
+    @notice_content_id.setter
+    def notice_content_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "notice_content_id", value)
+
+    @property
     @pulumi.getter(name="startTime")
     def start_time(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "start_time")
@@ -339,17 +401,38 @@ class AlarmNoticeWebCallbackArgs:
                  body: Optional[pulumi.Input[str]] = None,
                  headers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  index: Optional[pulumi.Input[int]] = None,
-                 method: Optional[pulumi.Input[str]] = None):
+                 method: Optional[pulumi.Input[str]] = None,
+                 mobiles: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 notice_content_id: Optional[pulumi.Input[str]] = None,
+                 remind_type: Optional[pulumi.Input[int]] = None,
+                 user_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 web_callback_id: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "callback_type", callback_type)
         pulumi.set(__self__, "url", url)
         if body is not None:
+            warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+            pulumi.log.warn("""body is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
+        if body is not None:
             pulumi.set(__self__, "body", body)
+        if headers is not None:
+            warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+            pulumi.log.warn("""headers is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
         if headers is not None:
             pulumi.set(__self__, "headers", headers)
         if index is not None:
             pulumi.set(__self__, "index", index)
         if method is not None:
             pulumi.set(__self__, "method", method)
+        if mobiles is not None:
+            pulumi.set(__self__, "mobiles", mobiles)
+        if notice_content_id is not None:
+            pulumi.set(__self__, "notice_content_id", notice_content_id)
+        if remind_type is not None:
+            pulumi.set(__self__, "remind_type", remind_type)
+        if user_ids is not None:
+            pulumi.set(__self__, "user_ids", user_ids)
+        if web_callback_id is not None:
+            pulumi.set(__self__, "web_callback_id", web_callback_id)
 
     @property
     @pulumi.getter(name="callbackType")
@@ -372,6 +455,9 @@ class AlarmNoticeWebCallbackArgs:
     @property
     @pulumi.getter
     def body(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+        pulumi.log.warn("""body is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
+
         return pulumi.get(self, "body")
 
     @body.setter
@@ -381,6 +467,9 @@ class AlarmNoticeWebCallbackArgs:
     @property
     @pulumi.getter
     def headers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        warnings.warn("""This parameter is deprecated. Please use `notice_content_id`.""", DeprecationWarning)
+        pulumi.log.warn("""headers is deprecated: This parameter is deprecated. Please use `notice_content_id`.""")
+
         return pulumi.get(self, "headers")
 
     @headers.setter
@@ -404,6 +493,51 @@ class AlarmNoticeWebCallbackArgs:
     @method.setter
     def method(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "method", value)
+
+    @property
+    @pulumi.getter
+    def mobiles(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "mobiles")
+
+    @mobiles.setter
+    def mobiles(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "mobiles", value)
+
+    @property
+    @pulumi.getter(name="noticeContentId")
+    def notice_content_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "notice_content_id")
+
+    @notice_content_id.setter
+    def notice_content_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "notice_content_id", value)
+
+    @property
+    @pulumi.getter(name="remindType")
+    def remind_type(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "remind_type")
+
+    @remind_type.setter
+    def remind_type(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "remind_type", value)
+
+    @property
+    @pulumi.getter(name="userIds")
+    def user_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "user_ids")
+
+    @user_ids.setter
+    def user_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "user_ids", value)
+
+    @property
+    @pulumi.getter(name="webCallbackId")
+    def web_callback_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "web_callback_id")
+
+    @web_callback_id.setter
+    def web_callback_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "web_callback_id", value)
 
 
 @pulumi.input_type
@@ -1821,15 +1955,27 @@ class DataTransformDstResourceArgs:
 @pulumi.input_type
 class IndexRuleArgs:
     def __init__(__self__, *,
+                 dynamic_index: Optional[pulumi.Input['IndexRuleDynamicIndexArgs']] = None,
                  full_text: Optional[pulumi.Input['IndexRuleFullTextArgs']] = None,
                  key_value: Optional[pulumi.Input['IndexRuleKeyValueArgs']] = None,
                  tag: Optional[pulumi.Input['IndexRuleTagArgs']] = None):
+        if dynamic_index is not None:
+            pulumi.set(__self__, "dynamic_index", dynamic_index)
         if full_text is not None:
             pulumi.set(__self__, "full_text", full_text)
         if key_value is not None:
             pulumi.set(__self__, "key_value", key_value)
         if tag is not None:
             pulumi.set(__self__, "tag", tag)
+
+    @property
+    @pulumi.getter(name="dynamicIndex")
+    def dynamic_index(self) -> Optional[pulumi.Input['IndexRuleDynamicIndexArgs']]:
+        return pulumi.get(self, "dynamic_index")
+
+    @dynamic_index.setter
+    def dynamic_index(self, value: Optional[pulumi.Input['IndexRuleDynamicIndexArgs']]):
+        pulumi.set(self, "dynamic_index", value)
 
     @property
     @pulumi.getter(name="fullText")
@@ -1857,6 +2003,22 @@ class IndexRuleArgs:
     @tag.setter
     def tag(self, value: Optional[pulumi.Input['IndexRuleTagArgs']]):
         pulumi.set(self, "tag", value)
+
+
+@pulumi.input_type
+class IndexRuleDynamicIndexArgs:
+    def __init__(__self__, *,
+                 status: pulumi.Input[bool]):
+        pulumi.set(__self__, "status", status)
+
+    @property
+    @pulumi.getter
+    def status(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "status")
+
+    @status.setter
+    def status(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "status", value)
 
 
 @pulumi.input_type
@@ -2364,6 +2526,128 @@ class MachineGroupMachineGroupTypeArgs:
 
 
 @pulumi.input_type
+class NoticeContentNoticeContentsArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[str],
+                 recovery_content: Optional[pulumi.Input['NoticeContentNoticeContentsRecoveryContentArgs']] = None,
+                 trigger_content: Optional[pulumi.Input['NoticeContentNoticeContentsTriggerContentArgs']] = None):
+        pulumi.set(__self__, "type", type)
+        if recovery_content is not None:
+            pulumi.set(__self__, "recovery_content", recovery_content)
+        if trigger_content is not None:
+            pulumi.set(__self__, "trigger_content", trigger_content)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="recoveryContent")
+    def recovery_content(self) -> Optional[pulumi.Input['NoticeContentNoticeContentsRecoveryContentArgs']]:
+        return pulumi.get(self, "recovery_content")
+
+    @recovery_content.setter
+    def recovery_content(self, value: Optional[pulumi.Input['NoticeContentNoticeContentsRecoveryContentArgs']]):
+        pulumi.set(self, "recovery_content", value)
+
+    @property
+    @pulumi.getter(name="triggerContent")
+    def trigger_content(self) -> Optional[pulumi.Input['NoticeContentNoticeContentsTriggerContentArgs']]:
+        return pulumi.get(self, "trigger_content")
+
+    @trigger_content.setter
+    def trigger_content(self, value: Optional[pulumi.Input['NoticeContentNoticeContentsTriggerContentArgs']]):
+        pulumi.set(self, "trigger_content", value)
+
+
+@pulumi.input_type
+class NoticeContentNoticeContentsRecoveryContentArgs:
+    def __init__(__self__, *,
+                 content: Optional[pulumi.Input[str]] = None,
+                 headers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 title: Optional[pulumi.Input[str]] = None):
+        if content is not None:
+            pulumi.set(__self__, "content", content)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @property
+    @pulumi.getter
+    def content(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "content")
+
+    @content.setter
+    def content(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "content", value)
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "headers", value)
+
+    @property
+    @pulumi.getter
+    def title(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "title")
+
+    @title.setter
+    def title(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "title", value)
+
+
+@pulumi.input_type
+class NoticeContentNoticeContentsTriggerContentArgs:
+    def __init__(__self__, *,
+                 content: Optional[pulumi.Input[str]] = None,
+                 headers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 title: Optional[pulumi.Input[str]] = None):
+        if content is not None:
+            pulumi.set(__self__, "content", content)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if title is not None:
+            pulumi.set(__self__, "title", title)
+
+    @property
+    @pulumi.getter
+    def content(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "content")
+
+    @content.setter
+    def content(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "content", value)
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "headers", value)
+
+    @property
+    @pulumi.getter
+    def title(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "title")
+
+    @title.setter
+    def title(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "title", value)
+
+
+@pulumi.input_type
 class ScheduledSqlDstResourceArgs:
     def __init__(__self__, *,
                  topic_id: pulumi.Input[str],
@@ -2413,5 +2697,119 @@ class ScheduledSqlDstResourceArgs:
     @region.setter
     def region(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "region", value)
+
+
+@pulumi.input_type
+class TopicExtendsArgs:
+    def __init__(__self__, *,
+                 anonymous_access: Optional[pulumi.Input['TopicExtendsAnonymousAccessArgs']] = None):
+        if anonymous_access is not None:
+            pulumi.set(__self__, "anonymous_access", anonymous_access)
+
+    @property
+    @pulumi.getter(name="anonymousAccess")
+    def anonymous_access(self) -> Optional[pulumi.Input['TopicExtendsAnonymousAccessArgs']]:
+        return pulumi.get(self, "anonymous_access")
+
+    @anonymous_access.setter
+    def anonymous_access(self, value: Optional[pulumi.Input['TopicExtendsAnonymousAccessArgs']]):
+        pulumi.set(self, "anonymous_access", value)
+
+
+@pulumi.input_type
+class TopicExtendsAnonymousAccessArgs:
+    def __init__(__self__, *,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['TopicExtendsAnonymousAccessConditionArgs']]]] = None,
+                 operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if operations is not None:
+            pulumi.set(__self__, "operations", operations)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TopicExtendsAnonymousAccessConditionArgs']]]]:
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['TopicExtendsAnonymousAccessConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
+
+    @property
+    @pulumi.getter
+    def operations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "operations")
+
+    @operations.setter
+    def operations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "operations", value)
+
+
+@pulumi.input_type
+class TopicExtendsAnonymousAccessConditionArgs:
+    def __init__(__self__, *,
+                 attributes: Optional[pulumi.Input[str]] = None,
+                 condition_value: Optional[pulumi.Input[str]] = None,
+                 rule: Optional[pulumi.Input[int]] = None):
+        if attributes is not None:
+            pulumi.set(__self__, "attributes", attributes)
+        if condition_value is not None:
+            pulumi.set(__self__, "condition_value", condition_value)
+        if rule is not None:
+            pulumi.set(__self__, "rule", rule)
+
+    @property
+    @pulumi.getter
+    def attributes(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "attributes")
+
+    @attributes.setter
+    def attributes(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "attributes", value)
+
+    @property
+    @pulumi.getter(name="conditionValue")
+    def condition_value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "condition_value")
+
+    @condition_value.setter
+    def condition_value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "condition_value", value)
+
+    @property
+    @pulumi.getter
+    def rule(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "rule")
+
+    @rule.setter
+    def rule(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "rule", value)
+
+
+@pulumi.input_type
+class GetLogsetsFilterArgs:
+    def __init__(__self__, *,
+                 key: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: str):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Sequence[str]):
+        pulumi.set(self, "values", value)
 
 

@@ -48,7 +48,7 @@ type FreeCertificate struct {
 	InsertTime pulumi.StringOutput `pulumi:"insertTime"`
 	// Specify old certificate ID, used for re-apply.
 	OldCertificateId pulumi.StringPtrOutput `pulumi:"oldCertificateId"`
-	// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+	// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 	PackageType pulumi.StringPtrOutput `pulumi:"packageType"`
 	// Product zh name.
 	ProductZhName pulumi.StringOutput `pulumi:"productZhName"`
@@ -65,7 +65,7 @@ type FreeCertificate struct {
 	StatusMsg pulumi.StringOutput `pulumi:"statusMsg"`
 	// Certificate status name.
 	StatusName pulumi.StringOutput `pulumi:"statusName"`
-	// Specify validity period in month, only support `"12"` months for now.
+	// Specify validity period in month, only support `"3"` months for now.
 	ValidityPeriod pulumi.StringPtrOutput `pulumi:"validityPeriod"`
 	// Vulnerability status.
 	VulnerabilityStatus pulumi.StringOutput `pulumi:"vulnerabilityStatus"`
@@ -147,7 +147,7 @@ type freeCertificateState struct {
 	InsertTime *string `pulumi:"insertTime"`
 	// Specify old certificate ID, used for re-apply.
 	OldCertificateId *string `pulumi:"oldCertificateId"`
-	// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+	// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 	PackageType *string `pulumi:"packageType"`
 	// Product zh name.
 	ProductZhName *string `pulumi:"productZhName"`
@@ -164,7 +164,7 @@ type freeCertificateState struct {
 	StatusMsg *string `pulumi:"statusMsg"`
 	// Certificate status name.
 	StatusName *string `pulumi:"statusName"`
-	// Specify validity period in month, only support `"12"` months for now.
+	// Specify validity period in month, only support `"3"` months for now.
 	ValidityPeriod *string `pulumi:"validityPeriod"`
 	// Vulnerability status.
 	VulnerabilityStatus *string `pulumi:"vulnerabilityStatus"`
@@ -204,7 +204,7 @@ type FreeCertificateState struct {
 	InsertTime pulumi.StringPtrInput
 	// Specify old certificate ID, used for re-apply.
 	OldCertificateId pulumi.StringPtrInput
-	// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+	// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 	PackageType pulumi.StringPtrInput
 	// Product zh name.
 	ProductZhName pulumi.StringPtrInput
@@ -221,7 +221,7 @@ type FreeCertificateState struct {
 	StatusMsg pulumi.StringPtrInput
 	// Certificate status name.
 	StatusName pulumi.StringPtrInput
-	// Specify validity period in month, only support `"12"` months for now.
+	// Specify validity period in month, only support `"3"` months for now.
 	ValidityPeriod pulumi.StringPtrInput
 	// Vulnerability status.
 	VulnerabilityStatus pulumi.StringPtrInput
@@ -251,11 +251,11 @@ type freeCertificateArgs struct {
 	DvAuthMethod string `pulumi:"dvAuthMethod"`
 	// Specify old certificate ID, used for re-apply.
 	OldCertificateId *string `pulumi:"oldCertificateId"`
-	// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+	// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 	PackageType *string `pulumi:"packageType"`
 	// ID of projects which this certification belong to.
 	ProjectId *int `pulumi:"projectId"`
-	// Specify validity period in month, only support `"12"` months for now.
+	// Specify validity period in month, only support `"3"` months for now.
 	ValidityPeriod *string `pulumi:"validityPeriod"`
 }
 
@@ -280,11 +280,11 @@ type FreeCertificateArgs struct {
 	DvAuthMethod pulumi.StringInput
 	// Specify old certificate ID, used for re-apply.
 	OldCertificateId pulumi.StringPtrInput
-	// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+	// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 	PackageType pulumi.StringPtrInput
 	// ID of projects which this certification belong to.
 	ProjectId pulumi.IntPtrInput
-	// Specify validity period in month, only support `"12"` months for now.
+	// Specify validity period in month, only support `"3"` months for now.
 	ValidityPeriod pulumi.StringPtrInput
 }
 
@@ -456,7 +456,7 @@ func (o FreeCertificateOutput) OldCertificateId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FreeCertificate) pulumi.StringPtrOutput { return v.OldCertificateId }).(pulumi.StringPtrOutput)
 }
 
-// Type of package. Only support `"2"` (TrustAsia TLS RSA CA).
+// Type of package. Only support `"83"` (TrustAsia TLS RSA CA).
 func (o FreeCertificateOutput) PackageType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FreeCertificate) pulumi.StringPtrOutput { return v.PackageType }).(pulumi.StringPtrOutput)
 }
@@ -494,7 +494,7 @@ func (o FreeCertificateOutput) StatusName() pulumi.StringOutput {
 	return o.ApplyT(func(v *FreeCertificate) pulumi.StringOutput { return v.StatusName }).(pulumi.StringOutput)
 }
 
-// Specify validity period in month, only support `"12"` months for now.
+// Specify validity period in month, only support `"3"` months for now.
 func (o FreeCertificateOutput) ValidityPeriod() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FreeCertificate) pulumi.StringPtrOutput { return v.ValidityPeriod }).(pulumi.StringPtrOutput)
 }

@@ -33,7 +33,7 @@ export class Project extends pulumi.CustomResource {
     }
 
     /**
-     * Creata Time.
+     * Create Time.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
     /**
@@ -162,7 +162,7 @@ export class Project extends pulumi.CustomResource {
  */
 export interface ProjectState {
     /**
-     * Creata Time.
+     * Create Time.
      */
     createTime?: pulumi.Input<string>;
     /**

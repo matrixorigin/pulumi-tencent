@@ -14,6 +14,7 @@ __all__ = [
     'AccountPrivilegesTablePrivilegeArgs',
     'AuditLogFileFilterArgs',
     'ClusterDatabasesUserHostPrivilegeArgs',
+    'ClusterInstanceInitInfoArgs',
     'ClusterParamItemArgs',
     'ClusterRoGroupAddrArgs',
     'ClusterRoGroupInstanceArgs',
@@ -295,6 +296,115 @@ class ClusterDatabasesUserHostPrivilegeArgs:
     @db_user_name.setter
     def db_user_name(self, value: pulumi.Input[str]):
         pulumi.set(self, "db_user_name", value)
+
+
+@pulumi.input_type
+class ClusterInstanceInitInfoArgs:
+    def __init__(__self__, *,
+                 cpu: pulumi.Input[int],
+                 instance_count: pulumi.Input[int],
+                 instance_type: pulumi.Input[str],
+                 memory: pulumi.Input[int],
+                 device_type: Optional[pulumi.Input[str]] = None,
+                 max_ro_count: Optional[pulumi.Input[int]] = None,
+                 max_ro_cpu: Optional[pulumi.Input[float]] = None,
+                 min_ro_count: Optional[pulumi.Input[int]] = None,
+                 min_ro_cpu: Optional[pulumi.Input[float]] = None):
+        pulumi.set(__self__, "cpu", cpu)
+        pulumi.set(__self__, "instance_count", instance_count)
+        pulumi.set(__self__, "instance_type", instance_type)
+        pulumi.set(__self__, "memory", memory)
+        if device_type is not None:
+            pulumi.set(__self__, "device_type", device_type)
+        if max_ro_count is not None:
+            pulumi.set(__self__, "max_ro_count", max_ro_count)
+        if max_ro_cpu is not None:
+            pulumi.set(__self__, "max_ro_cpu", max_ro_cpu)
+        if min_ro_count is not None:
+            pulumi.set(__self__, "min_ro_count", min_ro_count)
+        if min_ro_cpu is not None:
+            pulumi.set(__self__, "min_ro_cpu", min_ro_cpu)
+
+    @property
+    @pulumi.getter
+    def cpu(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "cpu")
+
+    @cpu.setter
+    def cpu(self, value: pulumi.Input[int]):
+        pulumi.set(self, "cpu", value)
+
+    @property
+    @pulumi.getter(name="instanceCount")
+    def instance_count(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "instance_count")
+
+    @instance_count.setter
+    def instance_count(self, value: pulumi.Input[int]):
+        pulumi.set(self, "instance_count", value)
+
+    @property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "instance_type")
+
+    @instance_type.setter
+    def instance_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "instance_type", value)
+
+    @property
+    @pulumi.getter
+    def memory(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "memory")
+
+    @memory.setter
+    def memory(self, value: pulumi.Input[int]):
+        pulumi.set(self, "memory", value)
+
+    @property
+    @pulumi.getter(name="deviceType")
+    def device_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "device_type")
+
+    @device_type.setter
+    def device_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "device_type", value)
+
+    @property
+    @pulumi.getter(name="maxRoCount")
+    def max_ro_count(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_ro_count")
+
+    @max_ro_count.setter
+    def max_ro_count(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_ro_count", value)
+
+    @property
+    @pulumi.getter(name="maxRoCpu")
+    def max_ro_cpu(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "max_ro_cpu")
+
+    @max_ro_cpu.setter
+    def max_ro_cpu(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "max_ro_cpu", value)
+
+    @property
+    @pulumi.getter(name="minRoCount")
+    def min_ro_count(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "min_ro_count")
+
+    @min_ro_count.setter
+    def min_ro_count(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "min_ro_count", value)
+
+    @property
+    @pulumi.getter(name="minRoCpu")
+    def min_ro_cpu(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "min_ro_cpu")
+
+    @min_ro_cpu.setter
+    def min_ro_cpu(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "min_ro_cpu", value)
 
 
 @pulumi.input_type

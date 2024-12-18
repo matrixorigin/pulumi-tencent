@@ -41,6 +41,10 @@ export class ReadonlyInstance extends pulumi.CustomResource {
      */
     public readonly autoVoucher!: pulumi.Output<number | undefined>;
     /**
+     * Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+     */
+    public readonly cpu!: pulumi.Output<number>;
+    /**
      * Create time of the postgresql instance.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
@@ -48,6 +52,10 @@ export class ReadonlyInstance extends pulumi.CustomResource {
      * PostgreSQL kernel version, which must be the same as that of the primary instance.
      */
     public readonly dbVersion!: pulumi.Output<string>;
+    /**
+     * Dedicated cluster ID.
+     */
+    public readonly dedicatedClusterId!: pulumi.Output<string | undefined>;
     /**
      * instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
      */
@@ -134,8 +142,10 @@ export class ReadonlyInstance extends pulumi.CustomResource {
             const state = argsOrState as ReadonlyInstanceState | undefined;
             resourceInputs["autoRenewFlag"] = state ? state.autoRenewFlag : undefined;
             resourceInputs["autoVoucher"] = state ? state.autoVoucher : undefined;
+            resourceInputs["cpu"] = state ? state.cpu : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["dbVersion"] = state ? state.dbVersion : undefined;
+            resourceInputs["dedicatedClusterId"] = state ? state.dedicatedClusterId : undefined;
             resourceInputs["instanceChargeType"] = state ? state.instanceChargeType : undefined;
             resourceInputs["instanceId"] = state ? state.instanceId : undefined;
             resourceInputs["masterDbInstanceId"] = state ? state.masterDbInstanceId : undefined;
@@ -184,7 +194,9 @@ export class ReadonlyInstance extends pulumi.CustomResource {
             }
             resourceInputs["autoRenewFlag"] = args ? args.autoRenewFlag : undefined;
             resourceInputs["autoVoucher"] = args ? args.autoVoucher : undefined;
+            resourceInputs["cpu"] = args ? args.cpu : undefined;
             resourceInputs["dbVersion"] = args ? args.dbVersion : undefined;
+            resourceInputs["dedicatedClusterId"] = args ? args.dedicatedClusterId : undefined;
             resourceInputs["instanceChargeType"] = args ? args.instanceChargeType : undefined;
             resourceInputs["masterDbInstanceId"] = args ? args.masterDbInstanceId : undefined;
             resourceInputs["memory"] = args ? args.memory : undefined;
@@ -222,6 +234,10 @@ export interface ReadonlyInstanceState {
      */
     autoVoucher?: pulumi.Input<number>;
     /**
+     * Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+     */
+    cpu?: pulumi.Input<number>;
+    /**
      * Create time of the postgresql instance.
      */
     createTime?: pulumi.Input<string>;
@@ -229,6 +245,10 @@ export interface ReadonlyInstanceState {
      * PostgreSQL kernel version, which must be the same as that of the primary instance.
      */
     dbVersion?: pulumi.Input<string>;
+    /**
+     * Dedicated cluster ID.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
     /**
      * instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
      */
@@ -314,9 +334,17 @@ export interface ReadonlyInstanceArgs {
      */
     autoVoucher?: pulumi.Input<number>;
     /**
+     * Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+     */
+    cpu?: pulumi.Input<number>;
+    /**
      * PostgreSQL kernel version, which must be the same as that of the primary instance.
      */
     dbVersion: pulumi.Input<string>;
+    /**
+     * Dedicated cluster ID.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
     /**
      * instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
      */

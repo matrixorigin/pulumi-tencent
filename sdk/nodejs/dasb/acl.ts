@@ -136,12 +136,12 @@ export class Acl extends pulumi.CustomResource {
      * Access permission effective time, such as: 2021-09-22T00:00:00+08:00If the effective and expiry time are not filled in,
      * the access rights will be valid for a long time.
      */
-    public readonly validateFrom!: pulumi.Output<string | undefined>;
+    public readonly validateFrom!: pulumi.Output<string>;
     /**
      * Access permission expiration time, such as: 2021-09-23T00:00:00+08:00If the effective and expiry time are not filled in,
      * the access rights will be valid for a long time.
      */
-    public readonly validateTo!: pulumi.Output<string | undefined>;
+    public readonly validateTo!: pulumi.Output<string>;
 
     /**
      * Create a Acl resource with the given unique name, arguments, and options.

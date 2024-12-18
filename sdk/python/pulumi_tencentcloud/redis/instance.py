@@ -29,8 +29,10 @@ class InstanceArgs:
                  password: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
+                 product_version: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  recycle: Optional[pulumi.Input[int]] = None,
+                 redis_cluster_id: Optional[pulumi.Input[str]] = None,
                  redis_replicas_num: Optional[pulumi.Input[int]] = None,
                  redis_shard_num: Optional[pulumi.Input[int]] = None,
                  replica_zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -40,19 +42,21 @@ class InstanceArgs:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  type_id: Optional[pulumi.Input[int]] = None,
-                 vpc_id: Optional[pulumi.Input[str]] = None):
+                 vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a Instance resource.
         :param pulumi.Input[str] availability_zone: The available zone ID of an instance to be created, please refer to `tencentcloud_redis_zone_config.list`.
         :param pulumi.Input[int] mem_size: The memory volume of an available instance(in MB), please refer to
                `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-               of the instance; when Redis is cluster type, it represents memory size of per sharding.
+               of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+               master-slave instance.
         :param pulumi.Input[int] auto_renew_flag: Auto-renew flag. 0 - default state (manual renewal); 1 - automatic renewal; 2 - explicit no automatic renewal.
         :param pulumi.Input[str] charge_type: The charge type of instance. Valid values: `PREPAID` and `POSTPAID`. Default value is `POSTPAID`. Note: TencentCloud
                International only supports `POSTPAID`. Caution that update operation on this field will delete old instances and create
                new with new charge type.
         :param pulumi.Input[bool] force_delete: Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-               instead of staying recycle bin. Note: only works for `PREPAID` instance.
+               instead of staying recycle bin.
         :param pulumi.Input[str] ip: IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[bool] no_auth: Indicates whether the redis instance support no-auth access. NOTE: Only available in private cloud environment.
@@ -67,8 +71,11 @@ class InstanceArgs:
                `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
                Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+        :param pulumi.Input[str] product_version: Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+               cluster version. Default is `local`.
         :param pulumi.Input[int] project_id: Specifies which project the instance should belong to.
         :param pulumi.Input[int] recycle: Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
+        :param pulumi.Input[str] redis_cluster_id: Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
         :param pulumi.Input[int] redis_replicas_num: The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
                `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
                architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -93,6 +100,7 @@ class InstanceArgs:
                [document](https://intl.cloud.tencent.com/document/product/239/32069), toggle immediately when modified.
         :param pulumi.Input[str] vpc_id: ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
                `changeBaseToVpc`, this parameter needs to be configured.
+        :param pulumi.Input[int] wait_switch: Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
         """
         pulumi.set(__self__, "availability_zone", availability_zone)
         pulumi.set(__self__, "mem_size", mem_size)
@@ -118,10 +126,14 @@ class InstanceArgs:
             pulumi.set(__self__, "port", port)
         if prepaid_period is not None:
             pulumi.set(__self__, "prepaid_period", prepaid_period)
+        if product_version is not None:
+            pulumi.set(__self__, "product_version", product_version)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if recycle is not None:
             pulumi.set(__self__, "recycle", recycle)
+        if redis_cluster_id is not None:
+            pulumi.set(__self__, "redis_cluster_id", redis_cluster_id)
         if redis_replicas_num is not None:
             pulumi.set(__self__, "redis_replicas_num", redis_replicas_num)
         if redis_shard_num is not None:
@@ -145,6 +157,8 @@ class InstanceArgs:
             pulumi.set(__self__, "type_id", type_id)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+        if wait_switch is not None:
+            pulumi.set(__self__, "wait_switch", wait_switch)
 
     @property
     @pulumi.getter(name="availabilityZone")
@@ -164,7 +178,8 @@ class InstanceArgs:
         """
         The memory volume of an available instance(in MB), please refer to
         `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-        of the instance; when Redis is cluster type, it represents memory size of per sharding.
+        of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+        master-slave instance.
         """
         return pulumi.get(self, "mem_size")
 
@@ -203,7 +218,7 @@ class InstanceArgs:
     def force_delete(self) -> Optional[pulumi.Input[bool]]:
         """
         Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-        instead of staying recycle bin. Note: only works for `PREPAID` instance.
+        instead of staying recycle bin.
         """
         return pulumi.get(self, "force_delete")
 
@@ -314,6 +329,19 @@ class InstanceArgs:
         pulumi.set(self, "prepaid_period", value)
 
     @property
+    @pulumi.getter(name="productVersion")
+    def product_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+        cluster version. Default is `local`.
+        """
+        return pulumi.get(self, "product_version")
+
+    @product_version.setter
+    def product_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "product_version", value)
+
+    @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[int]]:
         """
@@ -336,6 +364,18 @@ class InstanceArgs:
     @recycle.setter
     def recycle(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "recycle", value)
+
+    @property
+    @pulumi.getter(name="redisClusterId")
+    def redis_cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+        """
+        return pulumi.get(self, "redis_cluster_id")
+
+    @redis_cluster_id.setter
+    def redis_cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "redis_cluster_id", value)
 
     @property
     @pulumi.getter(name="redisReplicasNum")
@@ -474,6 +514,18 @@ class InstanceArgs:
     def vpc_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "vpc_id", value)
 
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> Optional[pulumi.Input[int]]:
+        """
+        Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+        """
+        return pulumi.get(self, "wait_switch")
+
+    @wait_switch.setter
+    def wait_switch(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "wait_switch", value)
+
 
 @pulumi.input_type
 class _InstanceState:
@@ -482,6 +534,7 @@ class _InstanceState:
                  availability_zone: Optional[pulumi.Input[str]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
+                 dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
                  force_delete: Optional[pulumi.Input[bool]] = None,
                  ip: Optional[pulumi.Input[str]] = None,
                  mem_size: Optional[pulumi.Input[int]] = None,
@@ -493,8 +546,10 @@ class _InstanceState:
                  password: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
+                 product_version: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  recycle: Optional[pulumi.Input[int]] = None,
+                 redis_cluster_id: Optional[pulumi.Input[str]] = None,
                  redis_replicas_num: Optional[pulumi.Input[int]] = None,
                  redis_shard_num: Optional[pulumi.Input[int]] = None,
                  replica_zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -505,7 +560,8 @@ class _InstanceState:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  type: Optional[pulumi.Input[str]] = None,
                  type_id: Optional[pulumi.Input[int]] = None,
-                 vpc_id: Optional[pulumi.Input[str]] = None):
+                 vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
         :param pulumi.Input[int] auto_renew_flag: Auto-renew flag. 0 - default state (manual renewal); 1 - automatic renewal; 2 - explicit no automatic renewal.
@@ -514,12 +570,14 @@ class _InstanceState:
                International only supports `POSTPAID`. Caution that update operation on this field will delete old instances and create
                new with new charge type.
         :param pulumi.Input[str] create_time: The time when the instance was created.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated Cluster ID.
         :param pulumi.Input[bool] force_delete: Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-               instead of staying recycle bin. Note: only works for `PREPAID` instance.
+               instead of staying recycle bin.
         :param pulumi.Input[str] ip: IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] mem_size: The memory volume of an available instance(in MB), please refer to
                `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-               of the instance; when Redis is cluster type, it represents memory size of per sharding.
+               of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+               master-slave instance.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[bool] no_auth: Indicates whether the redis instance support no-auth access. NOTE: Only available in private cloud environment.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceNodeInfoArgs']]] node_infos: Readonly Primary/Replica nodes.
@@ -534,8 +592,11 @@ class _InstanceState:
                `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
                Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+        :param pulumi.Input[str] product_version: Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+               cluster version. Default is `local`.
         :param pulumi.Input[int] project_id: Specifies which project the instance should belong to.
         :param pulumi.Input[int] recycle: Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
+        :param pulumi.Input[str] redis_cluster_id: Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
         :param pulumi.Input[int] redis_replicas_num: The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
                `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
                architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -561,6 +622,7 @@ class _InstanceState:
                [document](https://intl.cloud.tencent.com/document/product/239/32069), toggle immediately when modified.
         :param pulumi.Input[str] vpc_id: ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
                `changeBaseToVpc`, this parameter needs to be configured.
+        :param pulumi.Input[int] wait_switch: Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
         """
         if auto_renew_flag is not None:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
@@ -570,6 +632,8 @@ class _InstanceState:
             pulumi.set(__self__, "charge_type", charge_type)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
+        if dedicated_cluster_id is not None:
+            pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         if force_delete is not None:
             pulumi.set(__self__, "force_delete", force_delete)
         if ip is not None:
@@ -592,10 +656,14 @@ class _InstanceState:
             pulumi.set(__self__, "port", port)
         if prepaid_period is not None:
             pulumi.set(__self__, "prepaid_period", prepaid_period)
+        if product_version is not None:
+            pulumi.set(__self__, "product_version", product_version)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
         if recycle is not None:
             pulumi.set(__self__, "recycle", recycle)
+        if redis_cluster_id is not None:
+            pulumi.set(__self__, "redis_cluster_id", redis_cluster_id)
         if redis_replicas_num is not None:
             pulumi.set(__self__, "redis_replicas_num", redis_replicas_num)
         if redis_shard_num is not None:
@@ -621,6 +689,8 @@ class _InstanceState:
             pulumi.set(__self__, "type_id", type_id)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+        if wait_switch is not None:
+            pulumi.set(__self__, "wait_switch", wait_switch)
 
     @property
     @pulumi.getter(name="autoRenewFlag")
@@ -673,11 +743,23 @@ class _InstanceState:
         pulumi.set(self, "create_time", value)
 
     @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Dedicated Cluster ID.
+        """
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @dedicated_cluster_id.setter
+    def dedicated_cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "dedicated_cluster_id", value)
+
+    @property
     @pulumi.getter(name="forceDelete")
     def force_delete(self) -> Optional[pulumi.Input[bool]]:
         """
         Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-        instead of staying recycle bin. Note: only works for `PREPAID` instance.
+        instead of staying recycle bin.
         """
         return pulumi.get(self, "force_delete")
 
@@ -703,7 +785,8 @@ class _InstanceState:
         """
         The memory volume of an available instance(in MB), please refer to
         `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-        of the instance; when Redis is cluster type, it represents memory size of per sharding.
+        of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+        master-slave instance.
         """
         return pulumi.get(self, "mem_size")
 
@@ -814,6 +897,19 @@ class _InstanceState:
         pulumi.set(self, "prepaid_period", value)
 
     @property
+    @pulumi.getter(name="productVersion")
+    def product_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+        cluster version. Default is `local`.
+        """
+        return pulumi.get(self, "product_version")
+
+    @product_version.setter
+    def product_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "product_version", value)
+
+    @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> Optional[pulumi.Input[int]]:
         """
@@ -836,6 +932,18 @@ class _InstanceState:
     @recycle.setter
     def recycle(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "recycle", value)
+
+    @property
+    @pulumi.getter(name="redisClusterId")
+    def redis_cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+        """
+        return pulumi.get(self, "redis_cluster_id")
+
+    @redis_cluster_id.setter
+    def redis_cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "redis_cluster_id", value)
 
     @property
     @pulumi.getter(name="redisReplicasNum")
@@ -986,6 +1094,18 @@ class _InstanceState:
     def vpc_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "vpc_id", value)
 
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> Optional[pulumi.Input[int]]:
+        """
+        Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+        """
+        return pulumi.get(self, "wait_switch")
+
+    @wait_switch.setter
+    def wait_switch(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "wait_switch", value)
+
 
 class Instance(pulumi.CustomResource):
     @overload
@@ -1005,8 +1125,10 @@ class Instance(pulumi.CustomResource):
                  password: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
+                 product_version: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  recycle: Optional[pulumi.Input[int]] = None,
+                 redis_cluster_id: Optional[pulumi.Input[str]] = None,
                  redis_replicas_num: Optional[pulumi.Input[int]] = None,
                  redis_shard_num: Optional[pulumi.Input[int]] = None,
                  replica_zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -1017,6 +1139,7 @@ class Instance(pulumi.CustomResource):
                  type: Optional[pulumi.Input[str]] = None,
                  type_id: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
         Create a Instance resource with the given unique name, props, and options.
@@ -1028,11 +1151,12 @@ class Instance(pulumi.CustomResource):
                International only supports `POSTPAID`. Caution that update operation on this field will delete old instances and create
                new with new charge type.
         :param pulumi.Input[bool] force_delete: Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-               instead of staying recycle bin. Note: only works for `PREPAID` instance.
+               instead of staying recycle bin.
         :param pulumi.Input[str] ip: IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] mem_size: The memory volume of an available instance(in MB), please refer to
                `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-               of the instance; when Redis is cluster type, it represents memory size of per sharding.
+               of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+               master-slave instance.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[bool] no_auth: Indicates whether the redis instance support no-auth access. NOTE: Only available in private cloud environment.
         :param pulumi.Input[str] operation_network: Refers to the category of the pre-modified network, including: `changeVip`: refers to switching the private network,
@@ -1046,8 +1170,11 @@ class Instance(pulumi.CustomResource):
                `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
                Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+        :param pulumi.Input[str] product_version: Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+               cluster version. Default is `local`.
         :param pulumi.Input[int] project_id: Specifies which project the instance should belong to.
         :param pulumi.Input[int] recycle: Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
+        :param pulumi.Input[str] redis_cluster_id: Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
         :param pulumi.Input[int] redis_replicas_num: The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
                `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
                architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -1072,6 +1199,7 @@ class Instance(pulumi.CustomResource):
                [document](https://intl.cloud.tencent.com/document/product/239/32069), toggle immediately when modified.
         :param pulumi.Input[str] vpc_id: ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
                `changeBaseToVpc`, this parameter needs to be configured.
+        :param pulumi.Input[int] wait_switch: Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
         """
         ...
     @overload
@@ -1109,8 +1237,10 @@ class Instance(pulumi.CustomResource):
                  password: Optional[pulumi.Input[str]] = None,
                  port: Optional[pulumi.Input[int]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
+                 product_version: Optional[pulumi.Input[str]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  recycle: Optional[pulumi.Input[int]] = None,
+                 redis_cluster_id: Optional[pulumi.Input[str]] = None,
                  redis_replicas_num: Optional[pulumi.Input[int]] = None,
                  redis_shard_num: Optional[pulumi.Input[int]] = None,
                  replica_zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -1121,6 +1251,7 @@ class Instance(pulumi.CustomResource):
                  type: Optional[pulumi.Input[str]] = None,
                  type_id: Optional[pulumi.Input[int]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
+                 wait_switch: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1147,8 +1278,10 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["password"] = None if password is None else pulumi.Output.secret(password)
             __props__.__dict__["port"] = port
             __props__.__dict__["prepaid_period"] = prepaid_period
+            __props__.__dict__["product_version"] = product_version
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["recycle"] = recycle
+            __props__.__dict__["redis_cluster_id"] = redis_cluster_id
             __props__.__dict__["redis_replicas_num"] = redis_replicas_num
             __props__.__dict__["redis_shard_num"] = redis_shard_num
             __props__.__dict__["replica_zone_ids"] = replica_zone_ids
@@ -1162,7 +1295,9 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["type"] = type
             __props__.__dict__["type_id"] = type_id
             __props__.__dict__["vpc_id"] = vpc_id
+            __props__.__dict__["wait_switch"] = wait_switch
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["dedicated_cluster_id"] = None
             __props__.__dict__["node_infos"] = None
             __props__.__dict__["status"] = None
         secret_opts = pulumi.ResourceOptions(additional_secret_outputs=["password"])
@@ -1181,6 +1316,7 @@ class Instance(pulumi.CustomResource):
             availability_zone: Optional[pulumi.Input[str]] = None,
             charge_type: Optional[pulumi.Input[str]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
+            dedicated_cluster_id: Optional[pulumi.Input[str]] = None,
             force_delete: Optional[pulumi.Input[bool]] = None,
             ip: Optional[pulumi.Input[str]] = None,
             mem_size: Optional[pulumi.Input[int]] = None,
@@ -1192,8 +1328,10 @@ class Instance(pulumi.CustomResource):
             password: Optional[pulumi.Input[str]] = None,
             port: Optional[pulumi.Input[int]] = None,
             prepaid_period: Optional[pulumi.Input[int]] = None,
+            product_version: Optional[pulumi.Input[str]] = None,
             project_id: Optional[pulumi.Input[int]] = None,
             recycle: Optional[pulumi.Input[int]] = None,
+            redis_cluster_id: Optional[pulumi.Input[str]] = None,
             redis_replicas_num: Optional[pulumi.Input[int]] = None,
             redis_shard_num: Optional[pulumi.Input[int]] = None,
             replica_zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
@@ -1204,7 +1342,8 @@ class Instance(pulumi.CustomResource):
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
             type: Optional[pulumi.Input[str]] = None,
             type_id: Optional[pulumi.Input[int]] = None,
-            vpc_id: Optional[pulumi.Input[str]] = None) -> 'Instance':
+            vpc_id: Optional[pulumi.Input[str]] = None,
+            wait_switch: Optional[pulumi.Input[int]] = None) -> 'Instance':
         """
         Get an existing Instance resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -1218,12 +1357,14 @@ class Instance(pulumi.CustomResource):
                International only supports `POSTPAID`. Caution that update operation on this field will delete old instances and create
                new with new charge type.
         :param pulumi.Input[str] create_time: The time when the instance was created.
+        :param pulumi.Input[str] dedicated_cluster_id: Dedicated Cluster ID.
         :param pulumi.Input[bool] force_delete: Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-               instead of staying recycle bin. Note: only works for `PREPAID` instance.
+               instead of staying recycle bin.
         :param pulumi.Input[str] ip: IP address of an instance. When the `operation_network` is `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] mem_size: The memory volume of an available instance(in MB), please refer to
                `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-               of the instance; when Redis is cluster type, it represents memory size of per sharding.
+               of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+               master-slave instance.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[bool] no_auth: Indicates whether the redis instance support no-auth access. NOTE: Only available in private cloud environment.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceNodeInfoArgs']]]] node_infos: Readonly Primary/Replica nodes.
@@ -1238,8 +1379,11 @@ class Instance(pulumi.CustomResource):
                `changeVip`, this parameter needs to be configured.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when charge_type is set to `PREPAID`.
                Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+        :param pulumi.Input[str] product_version: Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+               cluster version. Default is `local`.
         :param pulumi.Input[int] project_id: Specifies which project the instance should belong to.
         :param pulumi.Input[int] recycle: Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
+        :param pulumi.Input[str] redis_cluster_id: Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
         :param pulumi.Input[int] redis_replicas_num: The number of instance copies. This is not required for standalone and master slave versions and must equal to count of
                `replica_zone_ids`, Non-multi-AZ does not require `replica_zone_ids`; Redis memory version 4.0, 5.0, 6.2 standard
                architecture and cluster architecture support the number of copies in the range [1, 2, 3, 4, 5]; Redis 2.8 standard
@@ -1265,6 +1409,7 @@ class Instance(pulumi.CustomResource):
                [document](https://intl.cloud.tencent.com/document/product/239/32069), toggle immediately when modified.
         :param pulumi.Input[str] vpc_id: ID of the vpc with which the instance is to be associated. When the `operation_network` is `changeVpc` or
                `changeBaseToVpc`, this parameter needs to be configured.
+        :param pulumi.Input[int] wait_switch: Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -1274,6 +1419,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["availability_zone"] = availability_zone
         __props__.__dict__["charge_type"] = charge_type
         __props__.__dict__["create_time"] = create_time
+        __props__.__dict__["dedicated_cluster_id"] = dedicated_cluster_id
         __props__.__dict__["force_delete"] = force_delete
         __props__.__dict__["ip"] = ip
         __props__.__dict__["mem_size"] = mem_size
@@ -1285,8 +1431,10 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["password"] = password
         __props__.__dict__["port"] = port
         __props__.__dict__["prepaid_period"] = prepaid_period
+        __props__.__dict__["product_version"] = product_version
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["recycle"] = recycle
+        __props__.__dict__["redis_cluster_id"] = redis_cluster_id
         __props__.__dict__["redis_replicas_num"] = redis_replicas_num
         __props__.__dict__["redis_shard_num"] = redis_shard_num
         __props__.__dict__["replica_zone_ids"] = replica_zone_ids
@@ -1298,6 +1446,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["type"] = type
         __props__.__dict__["type_id"] = type_id
         __props__.__dict__["vpc_id"] = vpc_id
+        __props__.__dict__["wait_switch"] = wait_switch
         return Instance(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -1335,11 +1484,19 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "create_time")
 
     @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> pulumi.Output[str]:
+        """
+        Dedicated Cluster ID.
+        """
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @property
     @pulumi.getter(name="forceDelete")
     def force_delete(self) -> pulumi.Output[Optional[bool]]:
         """
         Indicate whether to delete Redis instance directly or not. Default is false. If set true, the instance will be deleted
-        instead of staying recycle bin. Note: only works for `PREPAID` instance.
+        instead of staying recycle bin.
         """
         return pulumi.get(self, "force_delete")
 
@@ -1357,7 +1514,8 @@ class Instance(pulumi.CustomResource):
         """
         The memory volume of an available instance(in MB), please refer to
         `tencentcloud_redis_zone_config.list[zone].shard_memories`. When redis is standard type, it represents total memory size
-        of the instance; when Redis is cluster type, it represents memory size of per sharding.
+        of the instance; when Redis is cluster type, it represents memory size of per sharding. `512MB` is supported only in
+        master-slave instance.
         """
         return pulumi.get(self, "mem_size")
 
@@ -1432,6 +1590,15 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "prepaid_period")
 
     @property
+    @pulumi.getter(name="productVersion")
+    def product_version(self) -> pulumi.Output[str]:
+        """
+        Specify the product version of the instance. `local`: Local disk version, `cloud`: Cloud disk version, `cdc`: Exclusive
+        cluster version. Default is `local`.
+        """
+        return pulumi.get(self, "product_version")
+
+    @property
     @pulumi.getter(name="projectId")
     def project_id(self) -> pulumi.Output[Optional[int]]:
         """
@@ -1446,6 +1613,14 @@ class Instance(pulumi.CustomResource):
         Original intranet IPv4 address retention time: unit: day, value range: `0`, `1`, `2`, `3`, `7`, `15`.
         """
         return pulumi.get(self, "recycle")
+
+    @property
+    @pulumi.getter(name="redisClusterId")
+    def redis_cluster_id(self) -> pulumi.Output[str]:
+        """
+        Exclusive cluster ID. When the `product_version` is set to `cdc`, this parameter must be set.
+        """
+        return pulumi.get(self, "redis_cluster_id")
 
     @property
     @pulumi.getter(name="redisReplicasNum")
@@ -1551,4 +1726,12 @@ class Instance(pulumi.CustomResource):
         `changeBaseToVpc`, this parameter needs to be configured.
         """
         return pulumi.get(self, "vpc_id")
+
+    @property
+    @pulumi.getter(name="waitSwitch")
+    def wait_switch(self) -> pulumi.Output[Optional[int]]:
+        """
+        Switching mode: `1`-maintenance time window switching, `2`-immediate switching, default value `2`.
+        """
+        return pulumi.get(self, "wait_switch")
 

@@ -92,6 +92,10 @@ export class OrgMember extends pulumi.CustomResource {
      */
     public readonly remark!: pulumi.Output<string | undefined>;
     /**
+     * Tag description list.
+     */
+    public readonly tags!: pulumi.Output<{[key: string]: any} | undefined>;
+    /**
      * Member update time.
      */
     public /*out*/ readonly updateTime!: pulumi.Output<string>;
@@ -123,6 +127,7 @@ export class OrgMember extends pulumi.CustomResource {
             resourceInputs["policyType"] = state ? state.policyType : undefined;
             resourceInputs["recordId"] = state ? state.recordId : undefined;
             resourceInputs["remark"] = state ? state.remark : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["updateTime"] = state ? state.updateTime : undefined;
         } else {
             const args = argsOrState as OrgMemberArgs | undefined;
@@ -142,6 +147,7 @@ export class OrgMember extends pulumi.CustomResource {
             resourceInputs["policyType"] = args ? args.policyType : undefined;
             resourceInputs["recordId"] = args ? args.recordId : undefined;
             resourceInputs["remark"] = args ? args.remark : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["isAllowQuit"] = undefined /*out*/;
             resourceInputs["memberType"] = undefined /*out*/;
@@ -218,6 +224,10 @@ export interface OrgMemberState {
      */
     remark?: pulumi.Input<string>;
     /**
+     * Tag description list.
+     */
+    tags?: pulumi.Input<{[key: string]: any}>;
+    /**
      * Member update time.
      */
     updateTime?: pulumi.Input<string>;
@@ -256,4 +266,8 @@ export interface OrgMemberArgs {
      * Notes.
      */
     remark?: pulumi.Input<string>;
+    /**
+     * Tag description list.
+     */
+    tags?: pulumi.Input<{[key: string]: any}>;
 }

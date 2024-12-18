@@ -22,10 +22,13 @@ class GetSubnetsResult:
     """
     A collection of values returned by getSubnets.
     """
-    def __init__(__self__, availability_zone=None, cidr_block=None, id=None, instance_lists=None, is_default=None, is_remote_vpc_snat=None, name=None, result_output_file=None, subnet_id=None, tag_key=None, tags=None, vpc_id=None):
+    def __init__(__self__, availability_zone=None, cdc_id=None, cidr_block=None, id=None, instance_lists=None, is_default=None, is_remote_vpc_snat=None, name=None, result_output_file=None, subnet_id=None, tag_key=None, tags=None, vpc_id=None):
         if availability_zone and not isinstance(availability_zone, str):
             raise TypeError("Expected argument 'availability_zone' to be a str")
         pulumi.set(__self__, "availability_zone", availability_zone)
+        if cdc_id and not isinstance(cdc_id, str):
+            raise TypeError("Expected argument 'cdc_id' to be a str")
+        pulumi.set(__self__, "cdc_id", cdc_id)
         if cidr_block and not isinstance(cidr_block, str):
             raise TypeError("Expected argument 'cidr_block' to be a str")
         pulumi.set(__self__, "cidr_block", cidr_block)
@@ -64,6 +67,11 @@ class GetSubnetsResult:
     @pulumi.getter(name="availabilityZone")
     def availability_zone(self) -> Optional[str]:
         return pulumi.get(self, "availability_zone")
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> Optional[str]:
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="cidrBlock")
@@ -131,6 +139,7 @@ class AwaitableGetSubnetsResult(GetSubnetsResult):
             yield self
         return GetSubnetsResult(
             availability_zone=self.availability_zone,
+            cdc_id=self.cdc_id,
             cidr_block=self.cidr_block,
             id=self.id,
             instance_lists=self.instance_lists,
@@ -145,6 +154,7 @@ class AwaitableGetSubnetsResult(GetSubnetsResult):
 
 
 def get_subnets(availability_zone: Optional[str] = None,
+                cdc_id: Optional[str] = None,
                 cidr_block: Optional[str] = None,
                 is_default: Optional[bool] = None,
                 is_remote_vpc_snat: Optional[bool] = None,
@@ -160,6 +170,7 @@ def get_subnets(availability_zone: Optional[str] = None,
     """
     __args__ = dict()
     __args__['availabilityZone'] = availability_zone
+    __args__['cdcId'] = cdc_id
     __args__['cidrBlock'] = cidr_block
     __args__['isDefault'] = is_default
     __args__['isRemoteVpcSnat'] = is_remote_vpc_snat
@@ -174,6 +185,7 @@ def get_subnets(availability_zone: Optional[str] = None,
 
     return AwaitableGetSubnetsResult(
         availability_zone=pulumi.get(__ret__, 'availability_zone'),
+        cdc_id=pulumi.get(__ret__, 'cdc_id'),
         cidr_block=pulumi.get(__ret__, 'cidr_block'),
         id=pulumi.get(__ret__, 'id'),
         instance_lists=pulumi.get(__ret__, 'instance_lists'),
@@ -189,6 +201,7 @@ def get_subnets(availability_zone: Optional[str] = None,
 
 @_utilities.lift_output_func(get_subnets)
 def get_subnets_output(availability_zone: Optional[pulumi.Input[Optional[str]]] = None,
+                       cdc_id: Optional[pulumi.Input[Optional[str]]] = None,
                        cidr_block: Optional[pulumi.Input[Optional[str]]] = None,
                        is_default: Optional[pulumi.Input[Optional[bool]]] = None,
                        is_remote_vpc_snat: Optional[pulumi.Input[Optional[bool]]] = None,

@@ -14,9 +14,11 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type AdaptiveDynamicStreamingTemplateStreamInfo struct {
-	Audio       AdaptiveDynamicStreamingTemplateStreamInfoAudio `pulumi:"audio"`
-	RemoveAudio *bool                                           `pulumi:"removeAudio"`
-	Video       AdaptiveDynamicStreamingTemplateStreamInfoVideo `pulumi:"video"`
+	Audio       AdaptiveDynamicStreamingTemplateStreamInfoAudio       `pulumi:"audio"`
+	RemoveAudio *bool                                                 `pulumi:"removeAudio"`
+	RemoveVideo *bool                                                 `pulumi:"removeVideo"`
+	TehdConfig  *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig `pulumi:"tehdConfig"`
+	Video       AdaptiveDynamicStreamingTemplateStreamInfoVideo       `pulumi:"video"`
 }
 
 // AdaptiveDynamicStreamingTemplateStreamInfoInput is an input type that accepts AdaptiveDynamicStreamingTemplateStreamInfoArgs and AdaptiveDynamicStreamingTemplateStreamInfoOutput values.
@@ -31,9 +33,11 @@ type AdaptiveDynamicStreamingTemplateStreamInfoInput interface {
 }
 
 type AdaptiveDynamicStreamingTemplateStreamInfoArgs struct {
-	Audio       AdaptiveDynamicStreamingTemplateStreamInfoAudioInput `pulumi:"audio"`
-	RemoveAudio pulumi.BoolPtrInput                                  `pulumi:"removeAudio"`
-	Video       AdaptiveDynamicStreamingTemplateStreamInfoVideoInput `pulumi:"video"`
+	Audio       AdaptiveDynamicStreamingTemplateStreamInfoAudioInput         `pulumi:"audio"`
+	RemoveAudio pulumi.BoolPtrInput                                          `pulumi:"removeAudio"`
+	RemoveVideo pulumi.BoolPtrInput                                          `pulumi:"removeVideo"`
+	TehdConfig  AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput `pulumi:"tehdConfig"`
+	Video       AdaptiveDynamicStreamingTemplateStreamInfoVideoInput         `pulumi:"video"`
 }
 
 func (AdaptiveDynamicStreamingTemplateStreamInfoArgs) ElementType() reflect.Type {
@@ -95,6 +99,16 @@ func (o AdaptiveDynamicStreamingTemplateStreamInfoOutput) Audio() AdaptiveDynami
 
 func (o AdaptiveDynamicStreamingTemplateStreamInfoOutput) RemoveAudio() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfo) *bool { return v.RemoveAudio }).(pulumi.BoolPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoOutput) RemoveVideo() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfo) *bool { return v.RemoveVideo }).(pulumi.BoolPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoOutput) TehdConfig() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfo) *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig {
+		return v.TehdConfig
+	}).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput)
 }
 
 func (o AdaptiveDynamicStreamingTemplateStreamInfoOutput) Video() AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput {
@@ -190,13 +204,165 @@ func (o AdaptiveDynamicStreamingTemplateStreamInfoAudioOutput) SampleRate() pulu
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoAudio) int { return v.SampleRate }).(pulumi.IntOutput)
 }
 
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig struct {
+	MaxVideoBitrate *int   `pulumi:"maxVideoBitrate"`
+	Type            string `pulumi:"type"`
+}
+
+// AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigInput is an input type that accepts AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs and AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput values.
+// You can construct a concrete instance of `AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigInput` via:
+//
+//	AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs{...}
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigInput interface {
+	pulumi.Input
+
+	ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput
+	ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutputWithContext(context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput
+}
+
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs struct {
+	MaxVideoBitrate pulumi.IntPtrInput `pulumi:"maxVideoBitrate"`
+	Type            pulumi.StringInput `pulumi:"type"`
+}
+
+func (AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig)(nil)).Elem()
+}
+
+func (i AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput {
+	return i.ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutputWithContext(context.Background())
+}
+
+func (i AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput)
+}
+
+func (i AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return i.ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (i AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput).ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(ctx)
+}
+
+// AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput is an input type that accepts AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs, AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtr and AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput values.
+// You can construct a concrete instance of `AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput` via:
+//
+//	        AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput interface {
+	pulumi.Input
+
+	ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput
+	ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput
+}
+
+type adaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrType AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs
+
+func AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtr(v *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput {
+	return (*adaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrType)(v)
+}
+
+func (*adaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig)(nil)).Elem()
+}
+
+func (i *adaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrType) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return i.ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *adaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrType) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput)
+}
+
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput struct{ *pulumi.OutputState }
+
+func (AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig)(nil)).Elem()
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput {
+	return o
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput {
+	return o
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return o.ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig {
+		return &v
+	}).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) MaxVideoBitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) *int { return v.MaxVideoBitrate }).(pulumi.IntPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig)(nil)).Elem()
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return o
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) ToAdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutputWithContext(ctx context.Context) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput {
+	return o
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) Elem() AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput {
+	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig {
+		if v != nil {
+			return *v
+		}
+		var ret AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig
+		return ret
+	}).(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) MaxVideoBitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxVideoBitrate
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplateStreamInfoTehdConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
 type AdaptiveDynamicStreamingTemplateStreamInfoVideo struct {
 	Bitrate            int     `pulumi:"bitrate"`
 	Codec              string  `pulumi:"codec"`
+	CodecTag           *string `pulumi:"codecTag"`
 	FillType           *string `pulumi:"fillType"`
 	Fps                int     `pulumi:"fps"`
+	Gop                *int    `pulumi:"gop"`
 	Height             *int    `pulumi:"height"`
+	PreserveHdrSwitch  *string `pulumi:"preserveHdrSwitch"`
 	ResolutionAdaptive *bool   `pulumi:"resolutionAdaptive"`
+	Vcrf               *int    `pulumi:"vcrf"`
 	Width              *int    `pulumi:"width"`
 }
 
@@ -214,10 +380,14 @@ type AdaptiveDynamicStreamingTemplateStreamInfoVideoInput interface {
 type AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs struct {
 	Bitrate            pulumi.IntInput       `pulumi:"bitrate"`
 	Codec              pulumi.StringInput    `pulumi:"codec"`
+	CodecTag           pulumi.StringPtrInput `pulumi:"codecTag"`
 	FillType           pulumi.StringPtrInput `pulumi:"fillType"`
 	Fps                pulumi.IntInput       `pulumi:"fps"`
+	Gop                pulumi.IntPtrInput    `pulumi:"gop"`
 	Height             pulumi.IntPtrInput    `pulumi:"height"`
+	PreserveHdrSwitch  pulumi.StringPtrInput `pulumi:"preserveHdrSwitch"`
 	ResolutionAdaptive pulumi.BoolPtrInput   `pulumi:"resolutionAdaptive"`
+	Vcrf               pulumi.IntPtrInput    `pulumi:"vcrf"`
 	Width              pulumi.IntPtrInput    `pulumi:"width"`
 }
 
@@ -255,6 +425,10 @@ func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Codec() pulumi.St
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) string { return v.Codec }).(pulumi.StringOutput)
 }
 
+func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) CodecTag() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *string { return v.CodecTag }).(pulumi.StringPtrOutput)
+}
+
 func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) FillType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *string { return v.FillType }).(pulumi.StringPtrOutput)
 }
@@ -263,16 +437,294 @@ func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Fps() pulumi.IntO
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) int { return v.Fps }).(pulumi.IntOutput)
 }
 
+func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Gop() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *int { return v.Gop }).(pulumi.IntPtrOutput)
+}
+
 func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Height() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *int { return v.Height }).(pulumi.IntPtrOutput)
+}
+
+func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) PreserveHdrSwitch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *string { return v.PreserveHdrSwitch }).(pulumi.StringPtrOutput)
 }
 
 func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) ResolutionAdaptive() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *bool { return v.ResolutionAdaptive }).(pulumi.BoolPtrOutput)
 }
 
+func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Vcrf() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *int { return v.Vcrf }).(pulumi.IntPtrOutput)
+}
+
 func (o AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput) Width() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v AdaptiveDynamicStreamingTemplateStreamInfoVideo) *int { return v.Width }).(pulumi.IntPtrOutput)
+}
+
+type ProcedureTemplateAiAnalysisTask struct {
+	Definition *string `pulumi:"definition"`
+}
+
+// ProcedureTemplateAiAnalysisTaskInput is an input type that accepts ProcedureTemplateAiAnalysisTaskArgs and ProcedureTemplateAiAnalysisTaskOutput values.
+// You can construct a concrete instance of `ProcedureTemplateAiAnalysisTaskInput` via:
+//
+//	ProcedureTemplateAiAnalysisTaskArgs{...}
+type ProcedureTemplateAiAnalysisTaskInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateAiAnalysisTaskOutput() ProcedureTemplateAiAnalysisTaskOutput
+	ToProcedureTemplateAiAnalysisTaskOutputWithContext(context.Context) ProcedureTemplateAiAnalysisTaskOutput
+}
+
+type ProcedureTemplateAiAnalysisTaskArgs struct {
+	Definition pulumi.StringPtrInput `pulumi:"definition"`
+}
+
+func (ProcedureTemplateAiAnalysisTaskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateAiAnalysisTask)(nil)).Elem()
+}
+
+func (i ProcedureTemplateAiAnalysisTaskArgs) ToProcedureTemplateAiAnalysisTaskOutput() ProcedureTemplateAiAnalysisTaskOutput {
+	return i.ToProcedureTemplateAiAnalysisTaskOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateAiAnalysisTaskArgs) ToProcedureTemplateAiAnalysisTaskOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiAnalysisTaskOutput)
+}
+
+func (i ProcedureTemplateAiAnalysisTaskArgs) ToProcedureTemplateAiAnalysisTaskPtrOutput() ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return i.ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateAiAnalysisTaskArgs) ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiAnalysisTaskOutput).ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(ctx)
+}
+
+// ProcedureTemplateAiAnalysisTaskPtrInput is an input type that accepts ProcedureTemplateAiAnalysisTaskArgs, ProcedureTemplateAiAnalysisTaskPtr and ProcedureTemplateAiAnalysisTaskPtrOutput values.
+// You can construct a concrete instance of `ProcedureTemplateAiAnalysisTaskPtrInput` via:
+//
+//	        ProcedureTemplateAiAnalysisTaskArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProcedureTemplateAiAnalysisTaskPtrInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateAiAnalysisTaskPtrOutput() ProcedureTemplateAiAnalysisTaskPtrOutput
+	ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(context.Context) ProcedureTemplateAiAnalysisTaskPtrOutput
+}
+
+type procedureTemplateAiAnalysisTaskPtrType ProcedureTemplateAiAnalysisTaskArgs
+
+func ProcedureTemplateAiAnalysisTaskPtr(v *ProcedureTemplateAiAnalysisTaskArgs) ProcedureTemplateAiAnalysisTaskPtrInput {
+	return (*procedureTemplateAiAnalysisTaskPtrType)(v)
+}
+
+func (*procedureTemplateAiAnalysisTaskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateAiAnalysisTask)(nil)).Elem()
+}
+
+func (i *procedureTemplateAiAnalysisTaskPtrType) ToProcedureTemplateAiAnalysisTaskPtrOutput() ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return i.ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(context.Background())
+}
+
+func (i *procedureTemplateAiAnalysisTaskPtrType) ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiAnalysisTaskPtrOutput)
+}
+
+type ProcedureTemplateAiAnalysisTaskOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateAiAnalysisTaskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateAiAnalysisTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateAiAnalysisTaskOutput) ToProcedureTemplateAiAnalysisTaskOutput() ProcedureTemplateAiAnalysisTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiAnalysisTaskOutput) ToProcedureTemplateAiAnalysisTaskOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiAnalysisTaskOutput) ToProcedureTemplateAiAnalysisTaskPtrOutput() ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return o.ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(context.Background())
+}
+
+func (o ProcedureTemplateAiAnalysisTaskOutput) ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProcedureTemplateAiAnalysisTask) *ProcedureTemplateAiAnalysisTask {
+		return &v
+	}).(ProcedureTemplateAiAnalysisTaskPtrOutput)
+}
+
+func (o ProcedureTemplateAiAnalysisTaskOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateAiAnalysisTask) *string { return v.Definition }).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateAiAnalysisTaskPtrOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateAiAnalysisTaskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateAiAnalysisTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateAiAnalysisTaskPtrOutput) ToProcedureTemplateAiAnalysisTaskPtrOutput() ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiAnalysisTaskPtrOutput) ToProcedureTemplateAiAnalysisTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiAnalysisTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiAnalysisTaskPtrOutput) Elem() ProcedureTemplateAiAnalysisTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplateAiAnalysisTask) ProcedureTemplateAiAnalysisTask {
+		if v != nil {
+			return *v
+		}
+		var ret ProcedureTemplateAiAnalysisTask
+		return ret
+	}).(ProcedureTemplateAiAnalysisTaskOutput)
+}
+
+func (o ProcedureTemplateAiAnalysisTaskPtrOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProcedureTemplateAiAnalysisTask) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Definition
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateAiRecognitionTask struct {
+	Definition *string `pulumi:"definition"`
+}
+
+// ProcedureTemplateAiRecognitionTaskInput is an input type that accepts ProcedureTemplateAiRecognitionTaskArgs and ProcedureTemplateAiRecognitionTaskOutput values.
+// You can construct a concrete instance of `ProcedureTemplateAiRecognitionTaskInput` via:
+//
+//	ProcedureTemplateAiRecognitionTaskArgs{...}
+type ProcedureTemplateAiRecognitionTaskInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateAiRecognitionTaskOutput() ProcedureTemplateAiRecognitionTaskOutput
+	ToProcedureTemplateAiRecognitionTaskOutputWithContext(context.Context) ProcedureTemplateAiRecognitionTaskOutput
+}
+
+type ProcedureTemplateAiRecognitionTaskArgs struct {
+	Definition pulumi.StringPtrInput `pulumi:"definition"`
+}
+
+func (ProcedureTemplateAiRecognitionTaskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateAiRecognitionTask)(nil)).Elem()
+}
+
+func (i ProcedureTemplateAiRecognitionTaskArgs) ToProcedureTemplateAiRecognitionTaskOutput() ProcedureTemplateAiRecognitionTaskOutput {
+	return i.ToProcedureTemplateAiRecognitionTaskOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateAiRecognitionTaskArgs) ToProcedureTemplateAiRecognitionTaskOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiRecognitionTaskOutput)
+}
+
+func (i ProcedureTemplateAiRecognitionTaskArgs) ToProcedureTemplateAiRecognitionTaskPtrOutput() ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return i.ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateAiRecognitionTaskArgs) ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiRecognitionTaskOutput).ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(ctx)
+}
+
+// ProcedureTemplateAiRecognitionTaskPtrInput is an input type that accepts ProcedureTemplateAiRecognitionTaskArgs, ProcedureTemplateAiRecognitionTaskPtr and ProcedureTemplateAiRecognitionTaskPtrOutput values.
+// You can construct a concrete instance of `ProcedureTemplateAiRecognitionTaskPtrInput` via:
+//
+//	        ProcedureTemplateAiRecognitionTaskArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProcedureTemplateAiRecognitionTaskPtrInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateAiRecognitionTaskPtrOutput() ProcedureTemplateAiRecognitionTaskPtrOutput
+	ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(context.Context) ProcedureTemplateAiRecognitionTaskPtrOutput
+}
+
+type procedureTemplateAiRecognitionTaskPtrType ProcedureTemplateAiRecognitionTaskArgs
+
+func ProcedureTemplateAiRecognitionTaskPtr(v *ProcedureTemplateAiRecognitionTaskArgs) ProcedureTemplateAiRecognitionTaskPtrInput {
+	return (*procedureTemplateAiRecognitionTaskPtrType)(v)
+}
+
+func (*procedureTemplateAiRecognitionTaskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateAiRecognitionTask)(nil)).Elem()
+}
+
+func (i *procedureTemplateAiRecognitionTaskPtrType) ToProcedureTemplateAiRecognitionTaskPtrOutput() ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return i.ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(context.Background())
+}
+
+func (i *procedureTemplateAiRecognitionTaskPtrType) ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateAiRecognitionTaskPtrOutput)
+}
+
+type ProcedureTemplateAiRecognitionTaskOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateAiRecognitionTaskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateAiRecognitionTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateAiRecognitionTaskOutput) ToProcedureTemplateAiRecognitionTaskOutput() ProcedureTemplateAiRecognitionTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiRecognitionTaskOutput) ToProcedureTemplateAiRecognitionTaskOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiRecognitionTaskOutput) ToProcedureTemplateAiRecognitionTaskPtrOutput() ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return o.ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(context.Background())
+}
+
+func (o ProcedureTemplateAiRecognitionTaskOutput) ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProcedureTemplateAiRecognitionTask) *ProcedureTemplateAiRecognitionTask {
+		return &v
+	}).(ProcedureTemplateAiRecognitionTaskPtrOutput)
+}
+
+func (o ProcedureTemplateAiRecognitionTaskOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateAiRecognitionTask) *string { return v.Definition }).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateAiRecognitionTaskPtrOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateAiRecognitionTaskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateAiRecognitionTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateAiRecognitionTaskPtrOutput) ToProcedureTemplateAiRecognitionTaskPtrOutput() ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiRecognitionTaskPtrOutput) ToProcedureTemplateAiRecognitionTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateAiRecognitionTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateAiRecognitionTaskPtrOutput) Elem() ProcedureTemplateAiRecognitionTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplateAiRecognitionTask) ProcedureTemplateAiRecognitionTask {
+		if v != nil {
+			return *v
+		}
+		var ret ProcedureTemplateAiRecognitionTask
+		return ret
+	}).(ProcedureTemplateAiRecognitionTaskOutput)
+}
+
+func (o ProcedureTemplateAiRecognitionTaskPtrOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProcedureTemplateAiRecognitionTask) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Definition
+	}).(pulumi.StringPtrOutput)
 }
 
 type ProcedureTemplateMediaProcessTask struct {
@@ -514,6 +966,7 @@ func (o ProcedureTemplateMediaProcessTaskPtrOutput) TranscodeTaskLists() Procedu
 
 type ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList struct {
 	Definition     string                                                                           `pulumi:"definition"`
+	SubtitleLists  []string                                                                         `pulumi:"subtitleLists"`
 	WatermarkLists []ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkList `pulumi:"watermarkLists"`
 }
 
@@ -530,6 +983,7 @@ type ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListInput inte
 
 type ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListArgs struct {
 	Definition     pulumi.StringInput                                                                       `pulumi:"definition"`
+	SubtitleLists  pulumi.StringArrayInput                                                                  `pulumi:"subtitleLists"`
 	WatermarkLists ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkListArrayInput `pulumi:"watermarkLists"`
 }
 
@@ -586,6 +1040,12 @@ func (o ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListOutput)
 
 func (o ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListOutput) Definition() pulumi.StringOutput {
 	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList) string { return v.Definition }).(pulumi.StringOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListOutput) SubtitleLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskList) []string {
+		return v.SubtitleLists
+	}).(pulumi.StringArrayOutput)
 }
 
 func (o ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListOutput) WatermarkLists() ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkListArrayOutput {
@@ -1417,6 +1877,7 @@ func (o ProcedureTemplateMediaProcessTaskSampleSnapshotTaskListWatermarkListArra
 type ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList struct {
 	Definition         string                                                                       `pulumi:"definition"`
 	ExtTimeOffsetLists []string                                                                     `pulumi:"extTimeOffsetLists"`
+	TimeOffsetLists    []float64                                                                    `pulumi:"timeOffsetLists"`
 	WatermarkLists     []ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList `pulumi:"watermarkLists"`
 }
 
@@ -1434,6 +1895,7 @@ type ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListInput interfac
 type ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListArgs struct {
 	Definition         pulumi.StringInput                                                                   `pulumi:"definition"`
 	ExtTimeOffsetLists pulumi.StringArrayInput                                                              `pulumi:"extTimeOffsetLists"`
+	TimeOffsetLists    pulumi.Float64ArrayInput                                                             `pulumi:"timeOffsetLists"`
 	WatermarkLists     ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArrayInput `pulumi:"watermarkLists"`
 }
 
@@ -1496,6 +1958,12 @@ func (o ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListOutput) Ext
 	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList) []string {
 		return v.ExtTimeOffsetLists
 	}).(pulumi.StringArrayOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListOutput) TimeOffsetLists() pulumi.Float64ArrayOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskList) []float64 {
+		return v.TimeOffsetLists
+	}).(pulumi.Float64ArrayOutput)
 }
 
 func (o ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListOutput) WatermarkLists() ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArrayOutput {
@@ -1653,9 +2121,14 @@ func (o ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkLi
 }
 
 type ProcedureTemplateMediaProcessTaskTranscodeTaskList struct {
-	Definition     string                                                            `pulumi:"definition"`
-	MosaicLists    []ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList    `pulumi:"mosaicLists"`
-	WatermarkLists []ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList `pulumi:"watermarkLists"`
+	CopyRightWatermark *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark `pulumi:"copyRightWatermark"`
+	Definition         string                                                                `pulumi:"definition"`
+	EndTimeOffset      *float64                                                              `pulumi:"endTimeOffset"`
+	HeadTailLists      []ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList      `pulumi:"headTailLists"`
+	MosaicLists        []ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList        `pulumi:"mosaicLists"`
+	StartTimeOffset    *float64                                                              `pulumi:"startTimeOffset"`
+	TraceWatermark     *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark     `pulumi:"traceWatermark"`
+	WatermarkLists     []ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList     `pulumi:"watermarkLists"`
 }
 
 // ProcedureTemplateMediaProcessTaskTranscodeTaskListInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs and ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput values.
@@ -1670,9 +2143,14 @@ type ProcedureTemplateMediaProcessTaskTranscodeTaskListInput interface {
 }
 
 type ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs struct {
-	Definition     pulumi.StringInput                                                        `pulumi:"definition"`
-	MosaicLists    ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayInput    `pulumi:"mosaicLists"`
-	WatermarkLists ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayInput `pulumi:"watermarkLists"`
+	CopyRightWatermark ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput `pulumi:"copyRightWatermark"`
+	Definition         pulumi.StringInput                                                           `pulumi:"definition"`
+	EndTimeOffset      pulumi.Float64PtrInput                                                       `pulumi:"endTimeOffset"`
+	HeadTailLists      ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayInput     `pulumi:"headTailLists"`
+	MosaicLists        ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayInput       `pulumi:"mosaicLists"`
+	StartTimeOffset    pulumi.Float64PtrInput                                                       `pulumi:"startTimeOffset"`
+	TraceWatermark     ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput     `pulumi:"traceWatermark"`
+	WatermarkLists     ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayInput    `pulumi:"watermarkLists"`
 }
 
 func (ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs) ElementType() reflect.Type {
@@ -1726,14 +2204,40 @@ func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) ToProcedureTem
 	return o
 }
 
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) CopyRightWatermark() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark {
+		return v.CopyRightWatermark
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput)
+}
+
 func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) Definition() pulumi.StringOutput {
 	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) string { return v.Definition }).(pulumi.StringOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) EndTimeOffset() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) *float64 { return v.EndTimeOffset }).(pulumi.Float64PtrOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) HeadTailLists() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) []ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList {
+		return v.HeadTailLists
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput)
 }
 
 func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) MosaicLists() ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayOutput {
 	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) []ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList {
 		return v.MosaicLists
 	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) StartTimeOffset() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) *float64 { return v.StartTimeOffset }).(pulumi.Float64PtrOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) TraceWatermark() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskList) *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark {
+		return v.TraceWatermark
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput)
 }
 
 func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput) WatermarkLists() ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayOutput {
@@ -1760,6 +2264,233 @@ func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListArrayOutput) Index(i p
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProcedureTemplateMediaProcessTaskTranscodeTaskList {
 		return vs[0].([]ProcedureTemplateMediaProcessTaskTranscodeTaskList)[vs[1].(int)]
 	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark struct {
+	Text *string `pulumi:"text"`
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs and ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkInput` via:
+//
+//	ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs{...}
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs struct {
+	Text pulumi.StringPtrInput `pulumi:"text"`
+}
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark)(nil)).Elem()
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput)
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput).ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(ctx)
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs, ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtr and ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput` via:
+//
+//	        ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput
+}
+
+type procedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrType ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs
+
+func ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtr(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput {
+	return (*procedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrType)(v)
+}
+
+func (*procedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark)(nil)).Elem()
+}
+
+func (i *procedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrType) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (i *procedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrType) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return o.ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark) *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark {
+		return &v
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput) Text() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark) *string { return v.Text }).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput) Elem() ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput {
+	return o.ApplyT(func(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark) ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark {
+		if v != nil {
+			return *v
+		}
+		var ret ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark
+		return ret
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput) Text() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermark) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Text
+	}).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList struct {
+	Definition *string `pulumi:"definition"`
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs and ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListInput` via:
+//
+//	ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs{...}
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs struct {
+	Definition pulumi.StringPtrInput `pulumi:"definition"`
+}
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList)(nil)).Elem()
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput)
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray and ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayInput` via:
+//
+//	ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray{ ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs{...} }
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray []ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListInput
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList)(nil)).Elem()
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList) *string { return v.Definition }).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput) Index(i pulumi.IntInput) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList {
+		return vs[0].([]ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailList)[vs[1].(int)]
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput)
 }
 
 type ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicList struct {
@@ -1896,6 +2627,139 @@ func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayOutput)
 	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListOutput)
 }
 
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark struct {
+	Switch *string `pulumi:"switch"`
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs and ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkInput` via:
+//
+//	ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs{...}
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs struct {
+	Switch pulumi.StringPtrInput `pulumi:"switch"`
+}
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark)(nil)).Elem()
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput)
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput).ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(ctx)
+}
+
+// ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput is an input type that accepts ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs, ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtr and ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput values.
+// You can construct a concrete instance of `ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput` via:
+//
+//	        ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput
+	ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput
+}
+
+type procedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrType ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs
+
+func ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtr(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput {
+	return (*procedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrType)(v)
+}
+
+func (*procedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark)(nil)).Elem()
+}
+
+func (i *procedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrType) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return i.ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (i *procedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrType) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return o.ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(context.Background())
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark) *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark {
+		return &v
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput) Switch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark) *string { return v.Switch }).(pulumi.StringPtrOutput)
+}
+
+type ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark)(nil)).Elem()
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput) ToProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutputWithContext(ctx context.Context) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput) Elem() ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput {
+	return o.ApplyT(func(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark) ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark {
+		if v != nil {
+			return *v
+		}
+		var ret ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark
+		return ret
+	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput)
+}
+
+func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput) Switch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermark) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Switch
+	}).(pulumi.StringPtrOutput)
+}
+
 type ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList struct {
 	Definition      string   `pulumi:"definition"`
 	EndTimeOffset   *float64 `pulumi:"endTimeOffset"`
@@ -2016,6 +2880,154 @@ func (o ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayOutp
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList {
 		return vs[0].([]ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkList)[vs[1].(int)]
 	}).(ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListOutput)
+}
+
+type ProcedureTemplateReviewAudioVideoTask struct {
+	Definition     *string  `pulumi:"definition"`
+	ReviewContents []string `pulumi:"reviewContents"`
+}
+
+// ProcedureTemplateReviewAudioVideoTaskInput is an input type that accepts ProcedureTemplateReviewAudioVideoTaskArgs and ProcedureTemplateReviewAudioVideoTaskOutput values.
+// You can construct a concrete instance of `ProcedureTemplateReviewAudioVideoTaskInput` via:
+//
+//	ProcedureTemplateReviewAudioVideoTaskArgs{...}
+type ProcedureTemplateReviewAudioVideoTaskInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateReviewAudioVideoTaskOutput() ProcedureTemplateReviewAudioVideoTaskOutput
+	ToProcedureTemplateReviewAudioVideoTaskOutputWithContext(context.Context) ProcedureTemplateReviewAudioVideoTaskOutput
+}
+
+type ProcedureTemplateReviewAudioVideoTaskArgs struct {
+	Definition     pulumi.StringPtrInput   `pulumi:"definition"`
+	ReviewContents pulumi.StringArrayInput `pulumi:"reviewContents"`
+}
+
+func (ProcedureTemplateReviewAudioVideoTaskArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateReviewAudioVideoTask)(nil)).Elem()
+}
+
+func (i ProcedureTemplateReviewAudioVideoTaskArgs) ToProcedureTemplateReviewAudioVideoTaskOutput() ProcedureTemplateReviewAudioVideoTaskOutput {
+	return i.ToProcedureTemplateReviewAudioVideoTaskOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateReviewAudioVideoTaskArgs) ToProcedureTemplateReviewAudioVideoTaskOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateReviewAudioVideoTaskOutput)
+}
+
+func (i ProcedureTemplateReviewAudioVideoTaskArgs) ToProcedureTemplateReviewAudioVideoTaskPtrOutput() ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return i.ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(context.Background())
+}
+
+func (i ProcedureTemplateReviewAudioVideoTaskArgs) ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateReviewAudioVideoTaskOutput).ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(ctx)
+}
+
+// ProcedureTemplateReviewAudioVideoTaskPtrInput is an input type that accepts ProcedureTemplateReviewAudioVideoTaskArgs, ProcedureTemplateReviewAudioVideoTaskPtr and ProcedureTemplateReviewAudioVideoTaskPtrOutput values.
+// You can construct a concrete instance of `ProcedureTemplateReviewAudioVideoTaskPtrInput` via:
+//
+//	        ProcedureTemplateReviewAudioVideoTaskArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProcedureTemplateReviewAudioVideoTaskPtrInput interface {
+	pulumi.Input
+
+	ToProcedureTemplateReviewAudioVideoTaskPtrOutput() ProcedureTemplateReviewAudioVideoTaskPtrOutput
+	ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(context.Context) ProcedureTemplateReviewAudioVideoTaskPtrOutput
+}
+
+type procedureTemplateReviewAudioVideoTaskPtrType ProcedureTemplateReviewAudioVideoTaskArgs
+
+func ProcedureTemplateReviewAudioVideoTaskPtr(v *ProcedureTemplateReviewAudioVideoTaskArgs) ProcedureTemplateReviewAudioVideoTaskPtrInput {
+	return (*procedureTemplateReviewAudioVideoTaskPtrType)(v)
+}
+
+func (*procedureTemplateReviewAudioVideoTaskPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateReviewAudioVideoTask)(nil)).Elem()
+}
+
+func (i *procedureTemplateReviewAudioVideoTaskPtrType) ToProcedureTemplateReviewAudioVideoTaskPtrOutput() ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return i.ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(context.Background())
+}
+
+func (i *procedureTemplateReviewAudioVideoTaskPtrType) ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProcedureTemplateReviewAudioVideoTaskPtrOutput)
+}
+
+type ProcedureTemplateReviewAudioVideoTaskOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateReviewAudioVideoTaskOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProcedureTemplateReviewAudioVideoTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) ToProcedureTemplateReviewAudioVideoTaskOutput() ProcedureTemplateReviewAudioVideoTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) ToProcedureTemplateReviewAudioVideoTaskOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskOutput {
+	return o
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) ToProcedureTemplateReviewAudioVideoTaskPtrOutput() ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return o.ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(context.Background())
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProcedureTemplateReviewAudioVideoTask) *ProcedureTemplateReviewAudioVideoTask {
+		return &v
+	}).(ProcedureTemplateReviewAudioVideoTaskPtrOutput)
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ProcedureTemplateReviewAudioVideoTask) *string { return v.Definition }).(pulumi.StringPtrOutput)
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskOutput) ReviewContents() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProcedureTemplateReviewAudioVideoTask) []string { return v.ReviewContents }).(pulumi.StringArrayOutput)
+}
+
+type ProcedureTemplateReviewAudioVideoTaskPtrOutput struct{ *pulumi.OutputState }
+
+func (ProcedureTemplateReviewAudioVideoTaskPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProcedureTemplateReviewAudioVideoTask)(nil)).Elem()
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskPtrOutput) ToProcedureTemplateReviewAudioVideoTaskPtrOutput() ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskPtrOutput) ToProcedureTemplateReviewAudioVideoTaskPtrOutputWithContext(ctx context.Context) ProcedureTemplateReviewAudioVideoTaskPtrOutput {
+	return o
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskPtrOutput) Elem() ProcedureTemplateReviewAudioVideoTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplateReviewAudioVideoTask) ProcedureTemplateReviewAudioVideoTask {
+		if v != nil {
+			return *v
+		}
+		var ret ProcedureTemplateReviewAudioVideoTask
+		return ret
+	}).(ProcedureTemplateReviewAudioVideoTaskOutput)
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskPtrOutput) Definition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProcedureTemplateReviewAudioVideoTask) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Definition
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProcedureTemplateReviewAudioVideoTaskPtrOutput) ReviewContents() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ProcedureTemplateReviewAudioVideoTask) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ReviewContents
+	}).(pulumi.StringArrayOutput)
 }
 
 type SuperPlayerConfigDrmStreamingInfo struct {
@@ -2249,6 +3261,1134 @@ func (o SuperPlayerConfigResolutionNameArrayOutput) Index(i pulumi.IntInput) Sup
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) SuperPlayerConfigResolutionName {
 		return vs[0].([]SuperPlayerConfigResolutionName)[vs[1].(int)]
 	}).(SuperPlayerConfigResolutionNameOutput)
+}
+
+type TranscodeTemplateAudioTemplate struct {
+	AudioChannel *int   `pulumi:"audioChannel"`
+	Bitrate      int    `pulumi:"bitrate"`
+	Codec        string `pulumi:"codec"`
+	SampleRate   int    `pulumi:"sampleRate"`
+}
+
+// TranscodeTemplateAudioTemplateInput is an input type that accepts TranscodeTemplateAudioTemplateArgs and TranscodeTemplateAudioTemplateOutput values.
+// You can construct a concrete instance of `TranscodeTemplateAudioTemplateInput` via:
+//
+//	TranscodeTemplateAudioTemplateArgs{...}
+type TranscodeTemplateAudioTemplateInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateAudioTemplateOutput() TranscodeTemplateAudioTemplateOutput
+	ToTranscodeTemplateAudioTemplateOutputWithContext(context.Context) TranscodeTemplateAudioTemplateOutput
+}
+
+type TranscodeTemplateAudioTemplateArgs struct {
+	AudioChannel pulumi.IntPtrInput `pulumi:"audioChannel"`
+	Bitrate      pulumi.IntInput    `pulumi:"bitrate"`
+	Codec        pulumi.StringInput `pulumi:"codec"`
+	SampleRate   pulumi.IntInput    `pulumi:"sampleRate"`
+}
+
+func (TranscodeTemplateAudioTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateAudioTemplate)(nil)).Elem()
+}
+
+func (i TranscodeTemplateAudioTemplateArgs) ToTranscodeTemplateAudioTemplateOutput() TranscodeTemplateAudioTemplateOutput {
+	return i.ToTranscodeTemplateAudioTemplateOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateAudioTemplateArgs) ToTranscodeTemplateAudioTemplateOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateAudioTemplateOutput)
+}
+
+func (i TranscodeTemplateAudioTemplateArgs) ToTranscodeTemplateAudioTemplatePtrOutput() TranscodeTemplateAudioTemplatePtrOutput {
+	return i.ToTranscodeTemplateAudioTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateAudioTemplateArgs) ToTranscodeTemplateAudioTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateAudioTemplateOutput).ToTranscodeTemplateAudioTemplatePtrOutputWithContext(ctx)
+}
+
+// TranscodeTemplateAudioTemplatePtrInput is an input type that accepts TranscodeTemplateAudioTemplateArgs, TranscodeTemplateAudioTemplatePtr and TranscodeTemplateAudioTemplatePtrOutput values.
+// You can construct a concrete instance of `TranscodeTemplateAudioTemplatePtrInput` via:
+//
+//	        TranscodeTemplateAudioTemplateArgs{...}
+//
+//	or:
+//
+//	        nil
+type TranscodeTemplateAudioTemplatePtrInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateAudioTemplatePtrOutput() TranscodeTemplateAudioTemplatePtrOutput
+	ToTranscodeTemplateAudioTemplatePtrOutputWithContext(context.Context) TranscodeTemplateAudioTemplatePtrOutput
+}
+
+type transcodeTemplateAudioTemplatePtrType TranscodeTemplateAudioTemplateArgs
+
+func TranscodeTemplateAudioTemplatePtr(v *TranscodeTemplateAudioTemplateArgs) TranscodeTemplateAudioTemplatePtrInput {
+	return (*transcodeTemplateAudioTemplatePtrType)(v)
+}
+
+func (*transcodeTemplateAudioTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateAudioTemplate)(nil)).Elem()
+}
+
+func (i *transcodeTemplateAudioTemplatePtrType) ToTranscodeTemplateAudioTemplatePtrOutput() TranscodeTemplateAudioTemplatePtrOutput {
+	return i.ToTranscodeTemplateAudioTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *transcodeTemplateAudioTemplatePtrType) ToTranscodeTemplateAudioTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateAudioTemplatePtrOutput)
+}
+
+type TranscodeTemplateAudioTemplateOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateAudioTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateAudioTemplate)(nil)).Elem()
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) ToTranscodeTemplateAudioTemplateOutput() TranscodeTemplateAudioTemplateOutput {
+	return o
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) ToTranscodeTemplateAudioTemplateOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplateOutput {
+	return o
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) ToTranscodeTemplateAudioTemplatePtrOutput() TranscodeTemplateAudioTemplatePtrOutput {
+	return o.ToTranscodeTemplateAudioTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) ToTranscodeTemplateAudioTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TranscodeTemplateAudioTemplate) *TranscodeTemplateAudioTemplate {
+		return &v
+	}).(TranscodeTemplateAudioTemplatePtrOutput)
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) AudioChannel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateAudioTemplate) *int { return v.AudioChannel }).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) Bitrate() pulumi.IntOutput {
+	return o.ApplyT(func(v TranscodeTemplateAudioTemplate) int { return v.Bitrate }).(pulumi.IntOutput)
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) Codec() pulumi.StringOutput {
+	return o.ApplyT(func(v TranscodeTemplateAudioTemplate) string { return v.Codec }).(pulumi.StringOutput)
+}
+
+func (o TranscodeTemplateAudioTemplateOutput) SampleRate() pulumi.IntOutput {
+	return o.ApplyT(func(v TranscodeTemplateAudioTemplate) int { return v.SampleRate }).(pulumi.IntOutput)
+}
+
+type TranscodeTemplateAudioTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateAudioTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateAudioTemplate)(nil)).Elem()
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) ToTranscodeTemplateAudioTemplatePtrOutput() TranscodeTemplateAudioTemplatePtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) ToTranscodeTemplateAudioTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateAudioTemplatePtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) Elem() TranscodeTemplateAudioTemplateOutput {
+	return o.ApplyT(func(v *TranscodeTemplateAudioTemplate) TranscodeTemplateAudioTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret TranscodeTemplateAudioTemplate
+		return ret
+	}).(TranscodeTemplateAudioTemplateOutput)
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) AudioChannel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateAudioTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.AudioChannel
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) Bitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateAudioTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Bitrate
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) Codec() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateAudioTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Codec
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateAudioTemplatePtrOutput) SampleRate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateAudioTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.SampleRate
+	}).(pulumi.IntPtrOutput)
+}
+
+type TranscodeTemplateTehdConfig struct {
+	MaxVideoBitrate *int   `pulumi:"maxVideoBitrate"`
+	Type            string `pulumi:"type"`
+}
+
+// TranscodeTemplateTehdConfigInput is an input type that accepts TranscodeTemplateTehdConfigArgs and TranscodeTemplateTehdConfigOutput values.
+// You can construct a concrete instance of `TranscodeTemplateTehdConfigInput` via:
+//
+//	TranscodeTemplateTehdConfigArgs{...}
+type TranscodeTemplateTehdConfigInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateTehdConfigOutput() TranscodeTemplateTehdConfigOutput
+	ToTranscodeTemplateTehdConfigOutputWithContext(context.Context) TranscodeTemplateTehdConfigOutput
+}
+
+type TranscodeTemplateTehdConfigArgs struct {
+	MaxVideoBitrate pulumi.IntPtrInput `pulumi:"maxVideoBitrate"`
+	Type            pulumi.StringInput `pulumi:"type"`
+}
+
+func (TranscodeTemplateTehdConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateTehdConfig)(nil)).Elem()
+}
+
+func (i TranscodeTemplateTehdConfigArgs) ToTranscodeTemplateTehdConfigOutput() TranscodeTemplateTehdConfigOutput {
+	return i.ToTranscodeTemplateTehdConfigOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateTehdConfigArgs) ToTranscodeTemplateTehdConfigOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateTehdConfigOutput)
+}
+
+func (i TranscodeTemplateTehdConfigArgs) ToTranscodeTemplateTehdConfigPtrOutput() TranscodeTemplateTehdConfigPtrOutput {
+	return i.ToTranscodeTemplateTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateTehdConfigArgs) ToTranscodeTemplateTehdConfigPtrOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateTehdConfigOutput).ToTranscodeTemplateTehdConfigPtrOutputWithContext(ctx)
+}
+
+// TranscodeTemplateTehdConfigPtrInput is an input type that accepts TranscodeTemplateTehdConfigArgs, TranscodeTemplateTehdConfigPtr and TranscodeTemplateTehdConfigPtrOutput values.
+// You can construct a concrete instance of `TranscodeTemplateTehdConfigPtrInput` via:
+//
+//	        TranscodeTemplateTehdConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type TranscodeTemplateTehdConfigPtrInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateTehdConfigPtrOutput() TranscodeTemplateTehdConfigPtrOutput
+	ToTranscodeTemplateTehdConfigPtrOutputWithContext(context.Context) TranscodeTemplateTehdConfigPtrOutput
+}
+
+type transcodeTemplateTehdConfigPtrType TranscodeTemplateTehdConfigArgs
+
+func TranscodeTemplateTehdConfigPtr(v *TranscodeTemplateTehdConfigArgs) TranscodeTemplateTehdConfigPtrInput {
+	return (*transcodeTemplateTehdConfigPtrType)(v)
+}
+
+func (*transcodeTemplateTehdConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateTehdConfig)(nil)).Elem()
+}
+
+func (i *transcodeTemplateTehdConfigPtrType) ToTranscodeTemplateTehdConfigPtrOutput() TranscodeTemplateTehdConfigPtrOutput {
+	return i.ToTranscodeTemplateTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *transcodeTemplateTehdConfigPtrType) ToTranscodeTemplateTehdConfigPtrOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateTehdConfigPtrOutput)
+}
+
+type TranscodeTemplateTehdConfigOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateTehdConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateTehdConfig)(nil)).Elem()
+}
+
+func (o TranscodeTemplateTehdConfigOutput) ToTranscodeTemplateTehdConfigOutput() TranscodeTemplateTehdConfigOutput {
+	return o
+}
+
+func (o TranscodeTemplateTehdConfigOutput) ToTranscodeTemplateTehdConfigOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigOutput {
+	return o
+}
+
+func (o TranscodeTemplateTehdConfigOutput) ToTranscodeTemplateTehdConfigPtrOutput() TranscodeTemplateTehdConfigPtrOutput {
+	return o.ToTranscodeTemplateTehdConfigPtrOutputWithContext(context.Background())
+}
+
+func (o TranscodeTemplateTehdConfigOutput) ToTranscodeTemplateTehdConfigPtrOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TranscodeTemplateTehdConfig) *TranscodeTemplateTehdConfig {
+		return &v
+	}).(TranscodeTemplateTehdConfigPtrOutput)
+}
+
+func (o TranscodeTemplateTehdConfigOutput) MaxVideoBitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateTehdConfig) *int { return v.MaxVideoBitrate }).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateTehdConfigOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v TranscodeTemplateTehdConfig) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type TranscodeTemplateTehdConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateTehdConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateTehdConfig)(nil)).Elem()
+}
+
+func (o TranscodeTemplateTehdConfigPtrOutput) ToTranscodeTemplateTehdConfigPtrOutput() TranscodeTemplateTehdConfigPtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateTehdConfigPtrOutput) ToTranscodeTemplateTehdConfigPtrOutputWithContext(ctx context.Context) TranscodeTemplateTehdConfigPtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateTehdConfigPtrOutput) Elem() TranscodeTemplateTehdConfigOutput {
+	return o.ApplyT(func(v *TranscodeTemplateTehdConfig) TranscodeTemplateTehdConfig {
+		if v != nil {
+			return *v
+		}
+		var ret TranscodeTemplateTehdConfig
+		return ret
+	}).(TranscodeTemplateTehdConfigOutput)
+}
+
+func (o TranscodeTemplateTehdConfigPtrOutput) MaxVideoBitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateTehdConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxVideoBitrate
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateTehdConfigPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateTehdConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type TranscodeTemplateVideoTemplate struct {
+	Bitrate            int     `pulumi:"bitrate"`
+	Codec              string  `pulumi:"codec"`
+	CodecTag           *string `pulumi:"codecTag"`
+	FillType           *string `pulumi:"fillType"`
+	Fps                int     `pulumi:"fps"`
+	Gop                *int    `pulumi:"gop"`
+	Height             *int    `pulumi:"height"`
+	PreserveHdrSwitch  *string `pulumi:"preserveHdrSwitch"`
+	ResolutionAdaptive *string `pulumi:"resolutionAdaptive"`
+	Vcrf               *int    `pulumi:"vcrf"`
+	Width              *int    `pulumi:"width"`
+}
+
+// TranscodeTemplateVideoTemplateInput is an input type that accepts TranscodeTemplateVideoTemplateArgs and TranscodeTemplateVideoTemplateOutput values.
+// You can construct a concrete instance of `TranscodeTemplateVideoTemplateInput` via:
+//
+//	TranscodeTemplateVideoTemplateArgs{...}
+type TranscodeTemplateVideoTemplateInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateVideoTemplateOutput() TranscodeTemplateVideoTemplateOutput
+	ToTranscodeTemplateVideoTemplateOutputWithContext(context.Context) TranscodeTemplateVideoTemplateOutput
+}
+
+type TranscodeTemplateVideoTemplateArgs struct {
+	Bitrate            pulumi.IntInput       `pulumi:"bitrate"`
+	Codec              pulumi.StringInput    `pulumi:"codec"`
+	CodecTag           pulumi.StringPtrInput `pulumi:"codecTag"`
+	FillType           pulumi.StringPtrInput `pulumi:"fillType"`
+	Fps                pulumi.IntInput       `pulumi:"fps"`
+	Gop                pulumi.IntPtrInput    `pulumi:"gop"`
+	Height             pulumi.IntPtrInput    `pulumi:"height"`
+	PreserveHdrSwitch  pulumi.StringPtrInput `pulumi:"preserveHdrSwitch"`
+	ResolutionAdaptive pulumi.StringPtrInput `pulumi:"resolutionAdaptive"`
+	Vcrf               pulumi.IntPtrInput    `pulumi:"vcrf"`
+	Width              pulumi.IntPtrInput    `pulumi:"width"`
+}
+
+func (TranscodeTemplateVideoTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateVideoTemplate)(nil)).Elem()
+}
+
+func (i TranscodeTemplateVideoTemplateArgs) ToTranscodeTemplateVideoTemplateOutput() TranscodeTemplateVideoTemplateOutput {
+	return i.ToTranscodeTemplateVideoTemplateOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateVideoTemplateArgs) ToTranscodeTemplateVideoTemplateOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateVideoTemplateOutput)
+}
+
+func (i TranscodeTemplateVideoTemplateArgs) ToTranscodeTemplateVideoTemplatePtrOutput() TranscodeTemplateVideoTemplatePtrOutput {
+	return i.ToTranscodeTemplateVideoTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i TranscodeTemplateVideoTemplateArgs) ToTranscodeTemplateVideoTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateVideoTemplateOutput).ToTranscodeTemplateVideoTemplatePtrOutputWithContext(ctx)
+}
+
+// TranscodeTemplateVideoTemplatePtrInput is an input type that accepts TranscodeTemplateVideoTemplateArgs, TranscodeTemplateVideoTemplatePtr and TranscodeTemplateVideoTemplatePtrOutput values.
+// You can construct a concrete instance of `TranscodeTemplateVideoTemplatePtrInput` via:
+//
+//	        TranscodeTemplateVideoTemplateArgs{...}
+//
+//	or:
+//
+//	        nil
+type TranscodeTemplateVideoTemplatePtrInput interface {
+	pulumi.Input
+
+	ToTranscodeTemplateVideoTemplatePtrOutput() TranscodeTemplateVideoTemplatePtrOutput
+	ToTranscodeTemplateVideoTemplatePtrOutputWithContext(context.Context) TranscodeTemplateVideoTemplatePtrOutput
+}
+
+type transcodeTemplateVideoTemplatePtrType TranscodeTemplateVideoTemplateArgs
+
+func TranscodeTemplateVideoTemplatePtr(v *TranscodeTemplateVideoTemplateArgs) TranscodeTemplateVideoTemplatePtrInput {
+	return (*transcodeTemplateVideoTemplatePtrType)(v)
+}
+
+func (*transcodeTemplateVideoTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateVideoTemplate)(nil)).Elem()
+}
+
+func (i *transcodeTemplateVideoTemplatePtrType) ToTranscodeTemplateVideoTemplatePtrOutput() TranscodeTemplateVideoTemplatePtrOutput {
+	return i.ToTranscodeTemplateVideoTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *transcodeTemplateVideoTemplatePtrType) ToTranscodeTemplateVideoTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TranscodeTemplateVideoTemplatePtrOutput)
+}
+
+type TranscodeTemplateVideoTemplateOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateVideoTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TranscodeTemplateVideoTemplate)(nil)).Elem()
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) ToTranscodeTemplateVideoTemplateOutput() TranscodeTemplateVideoTemplateOutput {
+	return o
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) ToTranscodeTemplateVideoTemplateOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplateOutput {
+	return o
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) ToTranscodeTemplateVideoTemplatePtrOutput() TranscodeTemplateVideoTemplatePtrOutput {
+	return o.ToTranscodeTemplateVideoTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) ToTranscodeTemplateVideoTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TranscodeTemplateVideoTemplate) *TranscodeTemplateVideoTemplate {
+		return &v
+	}).(TranscodeTemplateVideoTemplatePtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Bitrate() pulumi.IntOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) int { return v.Bitrate }).(pulumi.IntOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Codec() pulumi.StringOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) string { return v.Codec }).(pulumi.StringOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) CodecTag() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *string { return v.CodecTag }).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) FillType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *string { return v.FillType }).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Fps() pulumi.IntOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) int { return v.Fps }).(pulumi.IntOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Gop() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *int { return v.Gop }).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Height() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *int { return v.Height }).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) PreserveHdrSwitch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *string { return v.PreserveHdrSwitch }).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) ResolutionAdaptive() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *string { return v.ResolutionAdaptive }).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Vcrf() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *int { return v.Vcrf }).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplateOutput) Width() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TranscodeTemplateVideoTemplate) *int { return v.Width }).(pulumi.IntPtrOutput)
+}
+
+type TranscodeTemplateVideoTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (TranscodeTemplateVideoTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TranscodeTemplateVideoTemplate)(nil)).Elem()
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) ToTranscodeTemplateVideoTemplatePtrOutput() TranscodeTemplateVideoTemplatePtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) ToTranscodeTemplateVideoTemplatePtrOutputWithContext(ctx context.Context) TranscodeTemplateVideoTemplatePtrOutput {
+	return o
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Elem() TranscodeTemplateVideoTemplateOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) TranscodeTemplateVideoTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret TranscodeTemplateVideoTemplate
+		return ret
+	}).(TranscodeTemplateVideoTemplateOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Bitrate() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Bitrate
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Codec() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Codec
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) CodecTag() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CodecTag
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) FillType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FillType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Fps() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.Fps
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Gop() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Gop
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Height() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Height
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) PreserveHdrSwitch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.PreserveHdrSwitch
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) ResolutionAdaptive() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ResolutionAdaptive
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Vcrf() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Vcrf
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o TranscodeTemplateVideoTemplatePtrOutput) Width() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *TranscodeTemplateVideoTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Width
+	}).(pulumi.IntPtrOutput)
+}
+
+type WatermarkTemplateImageTemplate struct {
+	Height       *string `pulumi:"height"`
+	ImageContent string  `pulumi:"imageContent"`
+	RepeatType   *string `pulumi:"repeatType"`
+	Transparency *int    `pulumi:"transparency"`
+	Width        *string `pulumi:"width"`
+}
+
+// WatermarkTemplateImageTemplateInput is an input type that accepts WatermarkTemplateImageTemplateArgs and WatermarkTemplateImageTemplateOutput values.
+// You can construct a concrete instance of `WatermarkTemplateImageTemplateInput` via:
+//
+//	WatermarkTemplateImageTemplateArgs{...}
+type WatermarkTemplateImageTemplateInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateImageTemplateOutput() WatermarkTemplateImageTemplateOutput
+	ToWatermarkTemplateImageTemplateOutputWithContext(context.Context) WatermarkTemplateImageTemplateOutput
+}
+
+type WatermarkTemplateImageTemplateArgs struct {
+	Height       pulumi.StringPtrInput `pulumi:"height"`
+	ImageContent pulumi.StringInput    `pulumi:"imageContent"`
+	RepeatType   pulumi.StringPtrInput `pulumi:"repeatType"`
+	Transparency pulumi.IntPtrInput    `pulumi:"transparency"`
+	Width        pulumi.StringPtrInput `pulumi:"width"`
+}
+
+func (WatermarkTemplateImageTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateImageTemplate)(nil)).Elem()
+}
+
+func (i WatermarkTemplateImageTemplateArgs) ToWatermarkTemplateImageTemplateOutput() WatermarkTemplateImageTemplateOutput {
+	return i.ToWatermarkTemplateImageTemplateOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateImageTemplateArgs) ToWatermarkTemplateImageTemplateOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateImageTemplateOutput)
+}
+
+func (i WatermarkTemplateImageTemplateArgs) ToWatermarkTemplateImageTemplatePtrOutput() WatermarkTemplateImageTemplatePtrOutput {
+	return i.ToWatermarkTemplateImageTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateImageTemplateArgs) ToWatermarkTemplateImageTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateImageTemplateOutput).ToWatermarkTemplateImageTemplatePtrOutputWithContext(ctx)
+}
+
+// WatermarkTemplateImageTemplatePtrInput is an input type that accepts WatermarkTemplateImageTemplateArgs, WatermarkTemplateImageTemplatePtr and WatermarkTemplateImageTemplatePtrOutput values.
+// You can construct a concrete instance of `WatermarkTemplateImageTemplatePtrInput` via:
+//
+//	        WatermarkTemplateImageTemplateArgs{...}
+//
+//	or:
+//
+//	        nil
+type WatermarkTemplateImageTemplatePtrInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateImageTemplatePtrOutput() WatermarkTemplateImageTemplatePtrOutput
+	ToWatermarkTemplateImageTemplatePtrOutputWithContext(context.Context) WatermarkTemplateImageTemplatePtrOutput
+}
+
+type watermarkTemplateImageTemplatePtrType WatermarkTemplateImageTemplateArgs
+
+func WatermarkTemplateImageTemplatePtr(v *WatermarkTemplateImageTemplateArgs) WatermarkTemplateImageTemplatePtrInput {
+	return (*watermarkTemplateImageTemplatePtrType)(v)
+}
+
+func (*watermarkTemplateImageTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateImageTemplate)(nil)).Elem()
+}
+
+func (i *watermarkTemplateImageTemplatePtrType) ToWatermarkTemplateImageTemplatePtrOutput() WatermarkTemplateImageTemplatePtrOutput {
+	return i.ToWatermarkTemplateImageTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *watermarkTemplateImageTemplatePtrType) ToWatermarkTemplateImageTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateImageTemplatePtrOutput)
+}
+
+type WatermarkTemplateImageTemplateOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateImageTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateImageTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateImageTemplateOutput) ToWatermarkTemplateImageTemplateOutput() WatermarkTemplateImageTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateImageTemplateOutput) ToWatermarkTemplateImageTemplateOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateImageTemplateOutput) ToWatermarkTemplateImageTemplatePtrOutput() WatermarkTemplateImageTemplatePtrOutput {
+	return o.ToWatermarkTemplateImageTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o WatermarkTemplateImageTemplateOutput) ToWatermarkTemplateImageTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WatermarkTemplateImageTemplate) *WatermarkTemplateImageTemplate {
+		return &v
+	}).(WatermarkTemplateImageTemplatePtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplateOutput) Height() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateImageTemplate) *string { return v.Height }).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplateOutput) ImageContent() pulumi.StringOutput {
+	return o.ApplyT(func(v WatermarkTemplateImageTemplate) string { return v.ImageContent }).(pulumi.StringOutput)
+}
+
+func (o WatermarkTemplateImageTemplateOutput) RepeatType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateImageTemplate) *string { return v.RepeatType }).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplateOutput) Transparency() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateImageTemplate) *int { return v.Transparency }).(pulumi.IntPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplateOutput) Width() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateImageTemplate) *string { return v.Width }).(pulumi.StringPtrOutput)
+}
+
+type WatermarkTemplateImageTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateImageTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateImageTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) ToWatermarkTemplateImageTemplatePtrOutput() WatermarkTemplateImageTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) ToWatermarkTemplateImageTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateImageTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) Elem() WatermarkTemplateImageTemplateOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) WatermarkTemplateImageTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret WatermarkTemplateImageTemplate
+		return ret
+	}).(WatermarkTemplateImageTemplateOutput)
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) Height() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Height
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) ImageContent() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ImageContent
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) RepeatType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RepeatType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) Transparency() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Transparency
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o WatermarkTemplateImageTemplatePtrOutput) Width() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateImageTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Width
+	}).(pulumi.StringPtrOutput)
+}
+
+type WatermarkTemplateSvgTemplate struct {
+	Height *string `pulumi:"height"`
+	Width  *string `pulumi:"width"`
+}
+
+// WatermarkTemplateSvgTemplateInput is an input type that accepts WatermarkTemplateSvgTemplateArgs and WatermarkTemplateSvgTemplateOutput values.
+// You can construct a concrete instance of `WatermarkTemplateSvgTemplateInput` via:
+//
+//	WatermarkTemplateSvgTemplateArgs{...}
+type WatermarkTemplateSvgTemplateInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateSvgTemplateOutput() WatermarkTemplateSvgTemplateOutput
+	ToWatermarkTemplateSvgTemplateOutputWithContext(context.Context) WatermarkTemplateSvgTemplateOutput
+}
+
+type WatermarkTemplateSvgTemplateArgs struct {
+	Height pulumi.StringPtrInput `pulumi:"height"`
+	Width  pulumi.StringPtrInput `pulumi:"width"`
+}
+
+func (WatermarkTemplateSvgTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateSvgTemplate)(nil)).Elem()
+}
+
+func (i WatermarkTemplateSvgTemplateArgs) ToWatermarkTemplateSvgTemplateOutput() WatermarkTemplateSvgTemplateOutput {
+	return i.ToWatermarkTemplateSvgTemplateOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateSvgTemplateArgs) ToWatermarkTemplateSvgTemplateOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateSvgTemplateOutput)
+}
+
+func (i WatermarkTemplateSvgTemplateArgs) ToWatermarkTemplateSvgTemplatePtrOutput() WatermarkTemplateSvgTemplatePtrOutput {
+	return i.ToWatermarkTemplateSvgTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateSvgTemplateArgs) ToWatermarkTemplateSvgTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateSvgTemplateOutput).ToWatermarkTemplateSvgTemplatePtrOutputWithContext(ctx)
+}
+
+// WatermarkTemplateSvgTemplatePtrInput is an input type that accepts WatermarkTemplateSvgTemplateArgs, WatermarkTemplateSvgTemplatePtr and WatermarkTemplateSvgTemplatePtrOutput values.
+// You can construct a concrete instance of `WatermarkTemplateSvgTemplatePtrInput` via:
+//
+//	        WatermarkTemplateSvgTemplateArgs{...}
+//
+//	or:
+//
+//	        nil
+type WatermarkTemplateSvgTemplatePtrInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateSvgTemplatePtrOutput() WatermarkTemplateSvgTemplatePtrOutput
+	ToWatermarkTemplateSvgTemplatePtrOutputWithContext(context.Context) WatermarkTemplateSvgTemplatePtrOutput
+}
+
+type watermarkTemplateSvgTemplatePtrType WatermarkTemplateSvgTemplateArgs
+
+func WatermarkTemplateSvgTemplatePtr(v *WatermarkTemplateSvgTemplateArgs) WatermarkTemplateSvgTemplatePtrInput {
+	return (*watermarkTemplateSvgTemplatePtrType)(v)
+}
+
+func (*watermarkTemplateSvgTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateSvgTemplate)(nil)).Elem()
+}
+
+func (i *watermarkTemplateSvgTemplatePtrType) ToWatermarkTemplateSvgTemplatePtrOutput() WatermarkTemplateSvgTemplatePtrOutput {
+	return i.ToWatermarkTemplateSvgTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *watermarkTemplateSvgTemplatePtrType) ToWatermarkTemplateSvgTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateSvgTemplatePtrOutput)
+}
+
+type WatermarkTemplateSvgTemplateOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateSvgTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateSvgTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) ToWatermarkTemplateSvgTemplateOutput() WatermarkTemplateSvgTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) ToWatermarkTemplateSvgTemplateOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) ToWatermarkTemplateSvgTemplatePtrOutput() WatermarkTemplateSvgTemplatePtrOutput {
+	return o.ToWatermarkTemplateSvgTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) ToWatermarkTemplateSvgTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WatermarkTemplateSvgTemplate) *WatermarkTemplateSvgTemplate {
+		return &v
+	}).(WatermarkTemplateSvgTemplatePtrOutput)
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) Height() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateSvgTemplate) *string { return v.Height }).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateSvgTemplateOutput) Width() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v WatermarkTemplateSvgTemplate) *string { return v.Width }).(pulumi.StringPtrOutput)
+}
+
+type WatermarkTemplateSvgTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateSvgTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateSvgTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateSvgTemplatePtrOutput) ToWatermarkTemplateSvgTemplatePtrOutput() WatermarkTemplateSvgTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateSvgTemplatePtrOutput) ToWatermarkTemplateSvgTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateSvgTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateSvgTemplatePtrOutput) Elem() WatermarkTemplateSvgTemplateOutput {
+	return o.ApplyT(func(v *WatermarkTemplateSvgTemplate) WatermarkTemplateSvgTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret WatermarkTemplateSvgTemplate
+		return ret
+	}).(WatermarkTemplateSvgTemplateOutput)
+}
+
+func (o WatermarkTemplateSvgTemplatePtrOutput) Height() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateSvgTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Height
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateSvgTemplatePtrOutput) Width() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateSvgTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Width
+	}).(pulumi.StringPtrOutput)
+}
+
+type WatermarkTemplateTextTemplate struct {
+	FontAlpha float64 `pulumi:"fontAlpha"`
+	FontColor string  `pulumi:"fontColor"`
+	FontSize  string  `pulumi:"fontSize"`
+	FontType  string  `pulumi:"fontType"`
+}
+
+// WatermarkTemplateTextTemplateInput is an input type that accepts WatermarkTemplateTextTemplateArgs and WatermarkTemplateTextTemplateOutput values.
+// You can construct a concrete instance of `WatermarkTemplateTextTemplateInput` via:
+//
+//	WatermarkTemplateTextTemplateArgs{...}
+type WatermarkTemplateTextTemplateInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateTextTemplateOutput() WatermarkTemplateTextTemplateOutput
+	ToWatermarkTemplateTextTemplateOutputWithContext(context.Context) WatermarkTemplateTextTemplateOutput
+}
+
+type WatermarkTemplateTextTemplateArgs struct {
+	FontAlpha pulumi.Float64Input `pulumi:"fontAlpha"`
+	FontColor pulumi.StringInput  `pulumi:"fontColor"`
+	FontSize  pulumi.StringInput  `pulumi:"fontSize"`
+	FontType  pulumi.StringInput  `pulumi:"fontType"`
+}
+
+func (WatermarkTemplateTextTemplateArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateTextTemplate)(nil)).Elem()
+}
+
+func (i WatermarkTemplateTextTemplateArgs) ToWatermarkTemplateTextTemplateOutput() WatermarkTemplateTextTemplateOutput {
+	return i.ToWatermarkTemplateTextTemplateOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateTextTemplateArgs) ToWatermarkTemplateTextTemplateOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplateOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateTextTemplateOutput)
+}
+
+func (i WatermarkTemplateTextTemplateArgs) ToWatermarkTemplateTextTemplatePtrOutput() WatermarkTemplateTextTemplatePtrOutput {
+	return i.ToWatermarkTemplateTextTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i WatermarkTemplateTextTemplateArgs) ToWatermarkTemplateTextTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateTextTemplateOutput).ToWatermarkTemplateTextTemplatePtrOutputWithContext(ctx)
+}
+
+// WatermarkTemplateTextTemplatePtrInput is an input type that accepts WatermarkTemplateTextTemplateArgs, WatermarkTemplateTextTemplatePtr and WatermarkTemplateTextTemplatePtrOutput values.
+// You can construct a concrete instance of `WatermarkTemplateTextTemplatePtrInput` via:
+//
+//	        WatermarkTemplateTextTemplateArgs{...}
+//
+//	or:
+//
+//	        nil
+type WatermarkTemplateTextTemplatePtrInput interface {
+	pulumi.Input
+
+	ToWatermarkTemplateTextTemplatePtrOutput() WatermarkTemplateTextTemplatePtrOutput
+	ToWatermarkTemplateTextTemplatePtrOutputWithContext(context.Context) WatermarkTemplateTextTemplatePtrOutput
+}
+
+type watermarkTemplateTextTemplatePtrType WatermarkTemplateTextTemplateArgs
+
+func WatermarkTemplateTextTemplatePtr(v *WatermarkTemplateTextTemplateArgs) WatermarkTemplateTextTemplatePtrInput {
+	return (*watermarkTemplateTextTemplatePtrType)(v)
+}
+
+func (*watermarkTemplateTextTemplatePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateTextTemplate)(nil)).Elem()
+}
+
+func (i *watermarkTemplateTextTemplatePtrType) ToWatermarkTemplateTextTemplatePtrOutput() WatermarkTemplateTextTemplatePtrOutput {
+	return i.ToWatermarkTemplateTextTemplatePtrOutputWithContext(context.Background())
+}
+
+func (i *watermarkTemplateTextTemplatePtrType) ToWatermarkTemplateTextTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplatePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(WatermarkTemplateTextTemplatePtrOutput)
+}
+
+type WatermarkTemplateTextTemplateOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateTextTemplateOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*WatermarkTemplateTextTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateTextTemplateOutput) ToWatermarkTemplateTextTemplateOutput() WatermarkTemplateTextTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateTextTemplateOutput) ToWatermarkTemplateTextTemplateOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplateOutput {
+	return o
+}
+
+func (o WatermarkTemplateTextTemplateOutput) ToWatermarkTemplateTextTemplatePtrOutput() WatermarkTemplateTextTemplatePtrOutput {
+	return o.ToWatermarkTemplateTextTemplatePtrOutputWithContext(context.Background())
+}
+
+func (o WatermarkTemplateTextTemplateOutput) ToWatermarkTemplateTextTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplatePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v WatermarkTemplateTextTemplate) *WatermarkTemplateTextTemplate {
+		return &v
+	}).(WatermarkTemplateTextTemplatePtrOutput)
+}
+
+func (o WatermarkTemplateTextTemplateOutput) FontAlpha() pulumi.Float64Output {
+	return o.ApplyT(func(v WatermarkTemplateTextTemplate) float64 { return v.FontAlpha }).(pulumi.Float64Output)
+}
+
+func (o WatermarkTemplateTextTemplateOutput) FontColor() pulumi.StringOutput {
+	return o.ApplyT(func(v WatermarkTemplateTextTemplate) string { return v.FontColor }).(pulumi.StringOutput)
+}
+
+func (o WatermarkTemplateTextTemplateOutput) FontSize() pulumi.StringOutput {
+	return o.ApplyT(func(v WatermarkTemplateTextTemplate) string { return v.FontSize }).(pulumi.StringOutput)
+}
+
+func (o WatermarkTemplateTextTemplateOutput) FontType() pulumi.StringOutput {
+	return o.ApplyT(func(v WatermarkTemplateTextTemplate) string { return v.FontType }).(pulumi.StringOutput)
+}
+
+type WatermarkTemplateTextTemplatePtrOutput struct{ *pulumi.OutputState }
+
+func (WatermarkTemplateTextTemplatePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**WatermarkTemplateTextTemplate)(nil)).Elem()
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) ToWatermarkTemplateTextTemplatePtrOutput() WatermarkTemplateTextTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) ToWatermarkTemplateTextTemplatePtrOutputWithContext(ctx context.Context) WatermarkTemplateTextTemplatePtrOutput {
+	return o
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) Elem() WatermarkTemplateTextTemplateOutput {
+	return o.ApplyT(func(v *WatermarkTemplateTextTemplate) WatermarkTemplateTextTemplate {
+		if v != nil {
+			return *v
+		}
+		var ret WatermarkTemplateTextTemplate
+		return ret
+	}).(WatermarkTemplateTextTemplateOutput)
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) FontAlpha() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateTextTemplate) *float64 {
+		if v == nil {
+			return nil
+		}
+		return &v.FontAlpha
+	}).(pulumi.Float64PtrOutput)
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) FontColor() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateTextTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.FontColor
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) FontSize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateTextTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.FontSize
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o WatermarkTemplateTextTemplatePtrOutput) FontType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *WatermarkTemplateTextTemplate) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.FontType
+	}).(pulumi.StringPtrOutput)
 }
 
 type GetAdaptiveDynamicStreamingTemplatesTemplateList struct {
@@ -5261,7 +7401,13 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoArrayInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoAudioInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoAudioArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AdaptiveDynamicStreamingTemplateStreamInfoVideoInput)(nil)).Elem(), AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateAiAnalysisTaskInput)(nil)).Elem(), ProcedureTemplateAiAnalysisTaskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateAiAnalysisTaskPtrInput)(nil)).Elem(), ProcedureTemplateAiAnalysisTaskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateAiRecognitionTaskInput)(nil)).Elem(), ProcedureTemplateAiRecognitionTaskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateAiRecognitionTaskPtrInput)(nil)).Elem(), ProcedureTemplateAiRecognitionTaskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskPtrInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListArgs{})
@@ -5286,14 +7432,34 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArrayInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListArrayInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayInput)(nil)).Elem(), ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateReviewAudioVideoTaskInput)(nil)).Elem(), ProcedureTemplateReviewAudioVideoTaskArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProcedureTemplateReviewAudioVideoTaskPtrInput)(nil)).Elem(), ProcedureTemplateReviewAudioVideoTaskArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SuperPlayerConfigDrmStreamingInfoInput)(nil)).Elem(), SuperPlayerConfigDrmStreamingInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SuperPlayerConfigDrmStreamingInfoPtrInput)(nil)).Elem(), SuperPlayerConfigDrmStreamingInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SuperPlayerConfigResolutionNameInput)(nil)).Elem(), SuperPlayerConfigResolutionNameArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SuperPlayerConfigResolutionNameArrayInput)(nil)).Elem(), SuperPlayerConfigResolutionNameArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateAudioTemplateInput)(nil)).Elem(), TranscodeTemplateAudioTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateAudioTemplatePtrInput)(nil)).Elem(), TranscodeTemplateAudioTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateTehdConfigInput)(nil)).Elem(), TranscodeTemplateTehdConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateTehdConfigPtrInput)(nil)).Elem(), TranscodeTemplateTehdConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateVideoTemplateInput)(nil)).Elem(), TranscodeTemplateVideoTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TranscodeTemplateVideoTemplatePtrInput)(nil)).Elem(), TranscodeTemplateVideoTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateImageTemplateInput)(nil)).Elem(), WatermarkTemplateImageTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateImageTemplatePtrInput)(nil)).Elem(), WatermarkTemplateImageTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateSvgTemplateInput)(nil)).Elem(), WatermarkTemplateSvgTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateSvgTemplatePtrInput)(nil)).Elem(), WatermarkTemplateSvgTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateTextTemplateInput)(nil)).Elem(), WatermarkTemplateTextTemplateArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*WatermarkTemplateTextTemplatePtrInput)(nil)).Elem(), WatermarkTemplateTextTemplateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdaptiveDynamicStreamingTemplatesTemplateListInput)(nil)).Elem(), GetAdaptiveDynamicStreamingTemplatesTemplateListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdaptiveDynamicStreamingTemplatesTemplateListArrayInput)(nil)).Elem(), GetAdaptiveDynamicStreamingTemplatesTemplateListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdaptiveDynamicStreamingTemplatesTemplateListStreamInfoInput)(nil)).Elem(), GetAdaptiveDynamicStreamingTemplatesTemplateListStreamInfoArgs{})
@@ -5345,7 +7511,13 @@ func init() {
 	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoOutput{})
 	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoArrayOutput{})
 	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoAudioOutput{})
+	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigOutput{})
+	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigPtrOutput{})
 	pulumi.RegisterOutputType(AdaptiveDynamicStreamingTemplateStreamInfoVideoOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateAiAnalysisTaskOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateAiAnalysisTaskPtrOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateAiRecognitionTaskOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateAiRecognitionTaskPtrOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskPtrOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListOutput{})
@@ -5370,14 +7542,34 @@ func init() {
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArrayOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListArrayOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkPtrOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArrayOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArrayOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkPtrOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListOutput{})
 	pulumi.RegisterOutputType(ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArrayOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateReviewAudioVideoTaskOutput{})
+	pulumi.RegisterOutputType(ProcedureTemplateReviewAudioVideoTaskPtrOutput{})
 	pulumi.RegisterOutputType(SuperPlayerConfigDrmStreamingInfoOutput{})
 	pulumi.RegisterOutputType(SuperPlayerConfigDrmStreamingInfoPtrOutput{})
 	pulumi.RegisterOutputType(SuperPlayerConfigResolutionNameOutput{})
 	pulumi.RegisterOutputType(SuperPlayerConfigResolutionNameArrayOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateAudioTemplateOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateAudioTemplatePtrOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateTehdConfigOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateTehdConfigPtrOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateVideoTemplateOutput{})
+	pulumi.RegisterOutputType(TranscodeTemplateVideoTemplatePtrOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateImageTemplateOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateImageTemplatePtrOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateSvgTemplateOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateSvgTemplatePtrOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateTextTemplateOutput{})
+	pulumi.RegisterOutputType(WatermarkTemplateTextTemplatePtrOutput{})
 	pulumi.RegisterOutputType(GetAdaptiveDynamicStreamingTemplatesTemplateListOutput{})
 	pulumi.RegisterOutputType(GetAdaptiveDynamicStreamingTemplatesTemplateListArrayOutput{})
 	pulumi.RegisterOutputType(GetAdaptiveDynamicStreamingTemplatesTemplateListStreamInfoOutput{})

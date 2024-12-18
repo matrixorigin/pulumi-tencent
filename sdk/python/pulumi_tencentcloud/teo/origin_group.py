@@ -16,76 +16,59 @@ __all__ = ['OriginGroupArgs', 'OriginGroup']
 @pulumi.input_type
 class OriginGroupArgs:
     def __init__(__self__, *,
-                 configuration_type: pulumi.Input[str],
-                 origin_group_name: pulumi.Input[str],
-                 origin_records: pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]],
-                 origin_type: pulumi.Input[str],
-                 zone_id: pulumi.Input[str]):
+                 records: pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]],
+                 type: pulumi.Input[str],
+                 zone_id: pulumi.Input[str],
+                 host_header: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a OriginGroup resource.
-        :param pulumi.Input[str] configuration_type: Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-               `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-               origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-        :param pulumi.Input[str] origin_group_name: OriginGroup Name.
-        :param pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]] origin_records: Origin site records.
-        :param pulumi.Input[str] origin_type: Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
+        :param pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]] records: Origin site records.
+        :param pulumi.Input[str] type: Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+               origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+               HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+               storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+               acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
         :param pulumi.Input[str] zone_id: Site ID.
+        :param pulumi.Input[str] host_header: Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+               configuration priority to be higher than the Host Header of the origin site group.
+        :param pulumi.Input[str] name: OriginGroup Name.
         """
-        pulumi.set(__self__, "configuration_type", configuration_type)
-        pulumi.set(__self__, "origin_group_name", origin_group_name)
-        pulumi.set(__self__, "origin_records", origin_records)
-        pulumi.set(__self__, "origin_type", origin_type)
+        pulumi.set(__self__, "records", records)
+        pulumi.set(__self__, "type", type)
         pulumi.set(__self__, "zone_id", zone_id)
+        if host_header is not None:
+            pulumi.set(__self__, "host_header", host_header)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
 
     @property
-    @pulumi.getter(name="configurationType")
-    def configuration_type(self) -> pulumi.Input[str]:
-        """
-        Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-        `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-        origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-        """
-        return pulumi.get(self, "configuration_type")
-
-    @configuration_type.setter
-    def configuration_type(self, value: pulumi.Input[str]):
-        pulumi.set(self, "configuration_type", value)
-
-    @property
-    @pulumi.getter(name="originGroupName")
-    def origin_group_name(self) -> pulumi.Input[str]:
-        """
-        OriginGroup Name.
-        """
-        return pulumi.get(self, "origin_group_name")
-
-    @origin_group_name.setter
-    def origin_group_name(self, value: pulumi.Input[str]):
-        pulumi.set(self, "origin_group_name", value)
-
-    @property
-    @pulumi.getter(name="originRecords")
-    def origin_records(self) -> pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]]:
+    @pulumi.getter
+    def records(self) -> pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]]:
         """
         Origin site records.
         """
-        return pulumi.get(self, "origin_records")
+        return pulumi.get(self, "records")
 
-    @origin_records.setter
-    def origin_records(self, value: pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]]):
-        pulumi.set(self, "origin_records", value)
+    @records.setter
+    def records(self, value: pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]]):
+        pulumi.set(self, "records", value)
 
     @property
-    @pulumi.getter(name="originType")
-    def origin_type(self) -> pulumi.Input[str]:
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
         """
-        Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
+        Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+        origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+        HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+        storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+        acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
         """
-        return pulumi.get(self, "origin_type")
+        return pulumi.get(self, "type")
 
-    @origin_type.setter
-    def origin_type(self, value: pulumi.Input[str]):
-        pulumi.set(self, "origin_type", value)
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
 
     @property
     @pulumi.getter(name="zoneId")
@@ -99,57 +82,116 @@ class OriginGroupArgs:
     def zone_id(self, value: pulumi.Input[str]):
         pulumi.set(self, "zone_id", value)
 
+    @property
+    @pulumi.getter(name="hostHeader")
+    def host_header(self) -> Optional[pulumi.Input[str]]:
+        """
+        Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+        configuration priority to be higher than the Host Header of the origin site group.
+        """
+        return pulumi.get(self, "host_header")
+
+    @host_header.setter
+    def host_header(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "host_header", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        OriginGroup Name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
 
 @pulumi.input_type
 class _OriginGroupState:
     def __init__(__self__, *,
-                 configuration_type: Optional[pulumi.Input[str]] = None,
+                 create_time: Optional[pulumi.Input[str]] = None,
+                 host_header: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
                  origin_group_id: Optional[pulumi.Input[str]] = None,
-                 origin_group_name: Optional[pulumi.Input[str]] = None,
-                 origin_records: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]]] = None,
-                 origin_type: Optional[pulumi.Input[str]] = None,
+                 records: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]]] = None,
+                 references: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupReferenceArgs']]]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  update_time: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering OriginGroup resources.
-        :param pulumi.Input[str] configuration_type: Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-               `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-               origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
+        :param pulumi.Input[str] create_time: Origin site group creation time.
+        :param pulumi.Input[str] host_header: Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+               configuration priority to be higher than the Host Header of the origin site group.
+        :param pulumi.Input[str] name: OriginGroup Name.
         :param pulumi.Input[str] origin_group_id: OriginGroup ID.
-        :param pulumi.Input[str] origin_group_name: OriginGroup Name.
-        :param pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]] origin_records: Origin site records.
-        :param pulumi.Input[str] origin_type: Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-        :param pulumi.Input[str] update_time: Last modification date.
+        :param pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]] records: Origin site records.
+        :param pulumi.Input[Sequence[pulumi.Input['OriginGroupReferenceArgs']]] references: List of referenced instances of the origin site group.
+        :param pulumi.Input[str] type: Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+               origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+               HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+               storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+               acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+        :param pulumi.Input[str] update_time: Origin site group update time.
         :param pulumi.Input[str] zone_id: Site ID.
         """
-        if configuration_type is not None:
-            pulumi.set(__self__, "configuration_type", configuration_type)
+        if create_time is not None:
+            pulumi.set(__self__, "create_time", create_time)
+        if host_header is not None:
+            pulumi.set(__self__, "host_header", host_header)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
         if origin_group_id is not None:
             pulumi.set(__self__, "origin_group_id", origin_group_id)
-        if origin_group_name is not None:
-            pulumi.set(__self__, "origin_group_name", origin_group_name)
-        if origin_records is not None:
-            pulumi.set(__self__, "origin_records", origin_records)
-        if origin_type is not None:
-            pulumi.set(__self__, "origin_type", origin_type)
+        if records is not None:
+            pulumi.set(__self__, "records", records)
+        if references is not None:
+            pulumi.set(__self__, "references", references)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if update_time is not None:
             pulumi.set(__self__, "update_time", update_time)
         if zone_id is not None:
             pulumi.set(__self__, "zone_id", zone_id)
 
     @property
-    @pulumi.getter(name="configurationType")
-    def configuration_type(self) -> Optional[pulumi.Input[str]]:
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-        `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-        origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
+        Origin site group creation time.
         """
-        return pulumi.get(self, "configuration_type")
+        return pulumi.get(self, "create_time")
 
-    @configuration_type.setter
-    def configuration_type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "configuration_type", value)
+    @create_time.setter
+    def create_time(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "create_time", value)
+
+    @property
+    @pulumi.getter(name="hostHeader")
+    def host_header(self) -> Optional[pulumi.Input[str]]:
+        """
+        Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+        configuration priority to be higher than the Host Header of the origin site group.
+        """
+        return pulumi.get(self, "host_header")
+
+    @host_header.setter
+    def host_header(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "host_header", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        OriginGroup Name.
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
 
     @property
     @pulumi.getter(name="originGroupId")
@@ -164,46 +206,50 @@ class _OriginGroupState:
         pulumi.set(self, "origin_group_id", value)
 
     @property
-    @pulumi.getter(name="originGroupName")
-    def origin_group_name(self) -> Optional[pulumi.Input[str]]:
-        """
-        OriginGroup Name.
-        """
-        return pulumi.get(self, "origin_group_name")
-
-    @origin_group_name.setter
-    def origin_group_name(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "origin_group_name", value)
-
-    @property
-    @pulumi.getter(name="originRecords")
-    def origin_records(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]]]:
+    @pulumi.getter
+    def records(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]]]:
         """
         Origin site records.
         """
-        return pulumi.get(self, "origin_records")
+        return pulumi.get(self, "records")
 
-    @origin_records.setter
-    def origin_records(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordArgs']]]]):
-        pulumi.set(self, "origin_records", value)
+    @records.setter
+    def records(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordArgs']]]]):
+        pulumi.set(self, "records", value)
 
     @property
-    @pulumi.getter(name="originType")
-    def origin_type(self) -> Optional[pulumi.Input[str]]:
+    @pulumi.getter
+    def references(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupReferenceArgs']]]]:
         """
-        Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
+        List of referenced instances of the origin site group.
         """
-        return pulumi.get(self, "origin_type")
+        return pulumi.get(self, "references")
 
-    @origin_type.setter
-    def origin_type(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "origin_type", value)
+    @references.setter
+    def references(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupReferenceArgs']]]]):
+        pulumi.set(self, "references", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+        origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+        HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+        storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+        acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
 
     @property
     @pulumi.getter(name="updateTime")
     def update_time(self) -> Optional[pulumi.Input[str]]:
         """
-        Last modification date.
+        Origin site group update time.
         """
         return pulumi.get(self, "update_time")
 
@@ -229,22 +275,25 @@ class OriginGroup(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 configuration_type: Optional[pulumi.Input[str]] = None,
-                 origin_group_name: Optional[pulumi.Input[str]] = None,
-                 origin_records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupOriginRecordArgs']]]]] = None,
-                 origin_type: Optional[pulumi.Input[str]] = None,
+                 host_header: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupRecordArgs']]]]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a OriginGroup resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] configuration_type: Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-               `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-               origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-        :param pulumi.Input[str] origin_group_name: OriginGroup Name.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupOriginRecordArgs']]]] origin_records: Origin site records.
-        :param pulumi.Input[str] origin_type: Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
+        :param pulumi.Input[str] host_header: Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+               configuration priority to be higher than the Host Header of the origin site group.
+        :param pulumi.Input[str] name: OriginGroup Name.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupRecordArgs']]]] records: Origin site records.
+        :param pulumi.Input[str] type: Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+               origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+               HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+               storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+               acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
         :param pulumi.Input[str] zone_id: Site ID.
         """
         ...
@@ -270,10 +319,10 @@ class OriginGroup(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 configuration_type: Optional[pulumi.Input[str]] = None,
-                 origin_group_name: Optional[pulumi.Input[str]] = None,
-                 origin_records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupOriginRecordArgs']]]]] = None,
-                 origin_type: Optional[pulumi.Input[str]] = None,
+                 host_header: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupRecordArgs']]]]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -284,22 +333,20 @@ class OriginGroup(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = OriginGroupArgs.__new__(OriginGroupArgs)
 
-            if configuration_type is None and not opts.urn:
-                raise TypeError("Missing required property 'configuration_type'")
-            __props__.__dict__["configuration_type"] = configuration_type
-            if origin_group_name is None and not opts.urn:
-                raise TypeError("Missing required property 'origin_group_name'")
-            __props__.__dict__["origin_group_name"] = origin_group_name
-            if origin_records is None and not opts.urn:
-                raise TypeError("Missing required property 'origin_records'")
-            __props__.__dict__["origin_records"] = origin_records
-            if origin_type is None and not opts.urn:
-                raise TypeError("Missing required property 'origin_type'")
-            __props__.__dict__["origin_type"] = origin_type
+            __props__.__dict__["host_header"] = host_header
+            __props__.__dict__["name"] = name
+            if records is None and not opts.urn:
+                raise TypeError("Missing required property 'records'")
+            __props__.__dict__["records"] = records
+            if type is None and not opts.urn:
+                raise TypeError("Missing required property 'type'")
+            __props__.__dict__["type"] = type
             if zone_id is None and not opts.urn:
                 raise TypeError("Missing required property 'zone_id'")
             __props__.__dict__["zone_id"] = zone_id
+            __props__.__dict__["create_time"] = None
             __props__.__dict__["origin_group_id"] = None
+            __props__.__dict__["references"] = None
             __props__.__dict__["update_time"] = None
         super(OriginGroup, __self__).__init__(
             'tencentcloud:Teo/originGroup:OriginGroup',
@@ -311,11 +358,13 @@ class OriginGroup(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            configuration_type: Optional[pulumi.Input[str]] = None,
+            create_time: Optional[pulumi.Input[str]] = None,
+            host_header: Optional[pulumi.Input[str]] = None,
+            name: Optional[pulumi.Input[str]] = None,
             origin_group_id: Optional[pulumi.Input[str]] = None,
-            origin_group_name: Optional[pulumi.Input[str]] = None,
-            origin_records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupOriginRecordArgs']]]]] = None,
-            origin_type: Optional[pulumi.Input[str]] = None,
+            records: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupRecordArgs']]]]] = None,
+            references: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupReferenceArgs']]]]] = None,
+            type: Optional[pulumi.Input[str]] = None,
             update_time: Optional[pulumi.Input[str]] = None,
             zone_id: Optional[pulumi.Input[str]] = None) -> 'OriginGroup':
         """
@@ -325,38 +374,60 @@ class OriginGroup(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] configuration_type: Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-               `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-               origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
+        :param pulumi.Input[str] create_time: Origin site group creation time.
+        :param pulumi.Input[str] host_header: Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+               configuration priority to be higher than the Host Header of the origin site group.
+        :param pulumi.Input[str] name: OriginGroup Name.
         :param pulumi.Input[str] origin_group_id: OriginGroup ID.
-        :param pulumi.Input[str] origin_group_name: OriginGroup Name.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupOriginRecordArgs']]]] origin_records: Origin site records.
-        :param pulumi.Input[str] origin_type: Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-        :param pulumi.Input[str] update_time: Last modification date.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupRecordArgs']]]] records: Origin site records.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['OriginGroupReferenceArgs']]]] references: List of referenced instances of the origin site group.
+        :param pulumi.Input[str] type: Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+               origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+               HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+               storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+               acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+        :param pulumi.Input[str] update_time: Origin site group update time.
         :param pulumi.Input[str] zone_id: Site ID.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _OriginGroupState.__new__(_OriginGroupState)
 
-        __props__.__dict__["configuration_type"] = configuration_type
+        __props__.__dict__["create_time"] = create_time
+        __props__.__dict__["host_header"] = host_header
+        __props__.__dict__["name"] = name
         __props__.__dict__["origin_group_id"] = origin_group_id
-        __props__.__dict__["origin_group_name"] = origin_group_name
-        __props__.__dict__["origin_records"] = origin_records
-        __props__.__dict__["origin_type"] = origin_type
+        __props__.__dict__["records"] = records
+        __props__.__dict__["references"] = references
+        __props__.__dict__["type"] = type
         __props__.__dict__["update_time"] = update_time
         __props__.__dict__["zone_id"] = zone_id
         return OriginGroup(resource_name, opts=opts, __props__=__props__)
 
     @property
-    @pulumi.getter(name="configurationType")
-    def configuration_type(self) -> pulumi.Output[str]:
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> pulumi.Output[str]:
         """
-        Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-        `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-        origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
+        Origin site group creation time.
         """
-        return pulumi.get(self, "configuration_type")
+        return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter(name="hostHeader")
+    def host_header(self) -> pulumi.Output[Optional[str]]:
+        """
+        Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+        configuration priority to be higher than the Host Header of the origin site group.
+        """
+        return pulumi.get(self, "host_header")
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Output[str]:
+        """
+        OriginGroup Name.
+        """
+        return pulumi.get(self, "name")
 
     @property
     @pulumi.getter(name="originGroupId")
@@ -367,34 +438,38 @@ class OriginGroup(pulumi.CustomResource):
         return pulumi.get(self, "origin_group_id")
 
     @property
-    @pulumi.getter(name="originGroupName")
-    def origin_group_name(self) -> pulumi.Output[str]:
-        """
-        OriginGroup Name.
-        """
-        return pulumi.get(self, "origin_group_name")
-
-    @property
-    @pulumi.getter(name="originRecords")
-    def origin_records(self) -> pulumi.Output[Sequence['outputs.OriginGroupOriginRecord']]:
+    @pulumi.getter
+    def records(self) -> pulumi.Output[Sequence['outputs.OriginGroupRecord']]:
         """
         Origin site records.
         """
-        return pulumi.get(self, "origin_records")
+        return pulumi.get(self, "records")
 
     @property
-    @pulumi.getter(name="originType")
-    def origin_type(self) -> pulumi.Output[str]:
+    @pulumi.getter
+    def references(self) -> pulumi.Output[Sequence['outputs.OriginGroupReference']]:
         """
-        Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
+        List of referenced instances of the origin site group.
         """
-        return pulumi.get(self, "origin_type")
+        return pulumi.get(self, "references")
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Output[str]:
+        """
+        Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+        origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+        HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+        storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+        acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+        """
+        return pulumi.get(self, "type")
 
     @property
     @pulumi.getter(name="updateTime")
     def update_time(self) -> pulumi.Output[str]:
         """
-        Last modification date.
+        Origin site group update time.
         """
         return pulumi.get(self, "update_time")
 

@@ -45,6 +45,10 @@ export class EdgePolicy extends pulumi.CustomResource {
      */
     public readonly enable!: pulumi.Output<string | undefined>;
     /**
+     * Parameter template id.
+     */
+    public /*out*/ readonly paramTemplateId!: pulumi.Output<string>;
+    /**
      * The port for the access control policy. Value: -1/-1: All ports 80: Port 80.
      */
     public readonly port!: pulumi.Output<string>;
@@ -103,6 +107,7 @@ export class EdgePolicy extends pulumi.CustomResource {
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["direction"] = state ? state.direction : undefined;
             resourceInputs["enable"] = state ? state.enable : undefined;
+            resourceInputs["paramTemplateId"] = state ? state.paramTemplateId : undefined;
             resourceInputs["port"] = state ? state.port : undefined;
             resourceInputs["protocol"] = state ? state.protocol : undefined;
             resourceInputs["ruleAction"] = state ? state.ruleAction : undefined;
@@ -149,6 +154,7 @@ export class EdgePolicy extends pulumi.CustomResource {
             resourceInputs["sourceType"] = args ? args.sourceType : undefined;
             resourceInputs["targetContent"] = args ? args.targetContent : undefined;
             resourceInputs["targetType"] = args ? args.targetType : undefined;
+            resourceInputs["paramTemplateId"] = undefined /*out*/;
             resourceInputs["uuid"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
@@ -172,6 +178,10 @@ export interface EdgePolicyState {
      * Rule status, true means enabled, false means disabled. Default is true.
      */
     enable?: pulumi.Input<string>;
+    /**
+     * Parameter template id.
+     */
+    paramTemplateId?: pulumi.Input<string>;
     /**
      * The port for the access control policy. Value: -1/-1: All ports 80: Port 80.
      */

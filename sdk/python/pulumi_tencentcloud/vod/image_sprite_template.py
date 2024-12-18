@@ -20,6 +20,7 @@ class ImageSpriteTemplateArgs:
                  sample_type: pulumi.Input[str],
                  comment: Optional[pulumi.Input[str]] = None,
                  fill_type: Optional[pulumi.Input[str]] = None,
+                 format: Optional[pulumi.Input[str]] = None,
                  height: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
@@ -38,6 +39,7 @@ class ImageSpriteTemplateArgs:
                aspect ratio of the source video, which may make the screenshot shorter or longer; `black`: fill with black. This option
                retains the aspect ratio of the source video for the screenshot and fills the unmatched area with black color blocks.
                Default value: `black`.
+        :param pulumi.Input[str] format: Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
         :param pulumi.Input[int] height: Maximum value of the `height` (or short side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width`
                and `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is
                not `0`, `width` will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be
@@ -46,8 +48,9 @@ class ImageSpriteTemplateArgs:
         :param pulumi.Input[bool] resolution_adaptive: Resolution adaption. Valid values: `true`,`false`. `true`: enabled. In this case, `width` represents the long side of a
                video, while `height` the short side; `false`: disabled. In this case, `width` represents the width of a video, while
                `height` the height. Default value: `true`.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
                `0`, width will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be proportionally
@@ -61,6 +64,8 @@ class ImageSpriteTemplateArgs:
             pulumi.set(__self__, "comment", comment)
         if fill_type is not None:
             pulumi.set(__self__, "fill_type", fill_type)
+        if format is not None:
+            pulumi.set(__self__, "format", format)
         if height is not None:
             pulumi.set(__self__, "height", height)
         if name is not None:
@@ -151,6 +156,18 @@ class ImageSpriteTemplateArgs:
 
     @property
     @pulumi.getter
+    def format(self) -> Optional[pulumi.Input[str]]:
+        """
+        Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
+        """
+        return pulumi.get(self, "format")
+
+    @format.setter
+    def format(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "format", value)
+
+    @property
+    @pulumi.getter
     def height(self) -> Optional[pulumi.Input[int]]:
         """
         Maximum value of the `height` (or short side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width`
@@ -194,8 +211,9 @@ class ImageSpriteTemplateArgs:
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
@@ -226,6 +244,7 @@ class _ImageSpriteTemplateState:
                  comment: Optional[pulumi.Input[str]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  fill_type: Optional[pulumi.Input[str]] = None,
+                 format: Optional[pulumi.Input[str]] = None,
                  height: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
@@ -233,6 +252,7 @@ class _ImageSpriteTemplateState:
                  sample_interval: Optional[pulumi.Input[int]] = None,
                  sample_type: Optional[pulumi.Input[str]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  update_time: Optional[pulumi.Input[str]] = None,
                  width: Optional[pulumi.Input[int]] = None):
         """
@@ -245,6 +265,7 @@ class _ImageSpriteTemplateState:
                aspect ratio of the source video, which may make the screenshot shorter or longer; `black`: fill with black. This option
                retains the aspect ratio of the source video for the screenshot and fills the unmatched area with black color blocks.
                Default value: `black`.
+        :param pulumi.Input[str] format: Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
         :param pulumi.Input[int] height: Maximum value of the `height` (or short side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width`
                and `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is
                not `0`, `width` will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be
@@ -257,8 +278,10 @@ class _ImageSpriteTemplateState:
         :param pulumi.Input[int] sample_interval: Sampling interval. If `sample_type` is `Percent`, sampling will be performed at an interval of the specified percentage.
                If `sample_type` is `Time`, sampling will be performed at the specified time interval in seconds.
         :param pulumi.Input[str] sample_type: Sampling type. Valid values: `Percent`, `Time`. `Percent`: by percent. `Time`: by time interval.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
@@ -273,6 +296,8 @@ class _ImageSpriteTemplateState:
             pulumi.set(__self__, "create_time", create_time)
         if fill_type is not None:
             pulumi.set(__self__, "fill_type", fill_type)
+        if format is not None:
+            pulumi.set(__self__, "format", format)
         if height is not None:
             pulumi.set(__self__, "height", height)
         if name is not None:
@@ -287,6 +312,8 @@ class _ImageSpriteTemplateState:
             pulumi.set(__self__, "sample_type", sample_type)
         if sub_app_id is not None:
             pulumi.set(__self__, "sub_app_id", sub_app_id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if update_time is not None:
             pulumi.set(__self__, "update_time", update_time)
         if width is not None:
@@ -343,6 +370,18 @@ class _ImageSpriteTemplateState:
     @fill_type.setter
     def fill_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "fill_type", value)
+
+    @property
+    @pulumi.getter
+    def format(self) -> Optional[pulumi.Input[str]]:
+        """
+        Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
+        """
+        return pulumi.get(self, "format")
+
+    @format.setter
+    def format(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "format", value)
 
     @property
     @pulumi.getter
@@ -426,14 +465,27 @@ class _ImageSpriteTemplateState:
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
     @sub_app_id.setter
     def sub_app_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "sub_app_id", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
 
     @property
     @pulumi.getter(name="updateTime")
@@ -471,6 +523,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
                  column_count: Optional[pulumi.Input[int]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  fill_type: Optional[pulumi.Input[str]] = None,
+                 format: Optional[pulumi.Input[str]] = None,
                  height: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
@@ -491,6 +544,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
                aspect ratio of the source video, which may make the screenshot shorter or longer; `black`: fill with black. This option
                retains the aspect ratio of the source video for the screenshot and fills the unmatched area with black color blocks.
                Default value: `black`.
+        :param pulumi.Input[str] format: Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
         :param pulumi.Input[int] height: Maximum value of the `height` (or short side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width`
                and `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is
                not `0`, `width` will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be
@@ -503,8 +557,9 @@ class ImageSpriteTemplate(pulumi.CustomResource):
         :param pulumi.Input[int] sample_interval: Sampling interval. If `sample_type` is `Percent`, sampling will be performed at an interval of the specified percentage.
                If `sample_type` is `Time`, sampling will be performed at the specified time interval in seconds.
         :param pulumi.Input[str] sample_type: Sampling type. Valid values: `Percent`, `Time`. `Percent`: by percent. `Time`: by time interval.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
                `0`, width will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be proportionally
@@ -536,6 +591,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
                  column_count: Optional[pulumi.Input[int]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  fill_type: Optional[pulumi.Input[str]] = None,
+                 format: Optional[pulumi.Input[str]] = None,
                  height: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
@@ -558,6 +614,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
             __props__.__dict__["column_count"] = column_count
             __props__.__dict__["comment"] = comment
             __props__.__dict__["fill_type"] = fill_type
+            __props__.__dict__["format"] = format
             __props__.__dict__["height"] = height
             __props__.__dict__["name"] = name
             __props__.__dict__["resolution_adaptive"] = resolution_adaptive
@@ -573,6 +630,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
             __props__.__dict__["sub_app_id"] = sub_app_id
             __props__.__dict__["width"] = width
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["type"] = None
             __props__.__dict__["update_time"] = None
         super(ImageSpriteTemplate, __self__).__init__(
             'tencentcloud:Vod/imageSpriteTemplate:ImageSpriteTemplate',
@@ -588,6 +646,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
             comment: Optional[pulumi.Input[str]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             fill_type: Optional[pulumi.Input[str]] = None,
+            format: Optional[pulumi.Input[str]] = None,
             height: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
             resolution_adaptive: Optional[pulumi.Input[bool]] = None,
@@ -595,6 +654,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
             sample_interval: Optional[pulumi.Input[int]] = None,
             sample_type: Optional[pulumi.Input[str]] = None,
             sub_app_id: Optional[pulumi.Input[int]] = None,
+            type: Optional[pulumi.Input[str]] = None,
             update_time: Optional[pulumi.Input[str]] = None,
             width: Optional[pulumi.Input[int]] = None) -> 'ImageSpriteTemplate':
         """
@@ -612,6 +672,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
                aspect ratio of the source video, which may make the screenshot shorter or longer; `black`: fill with black. This option
                retains the aspect ratio of the source video for the screenshot and fills the unmatched area with black color blocks.
                Default value: `black`.
+        :param pulumi.Input[str] format: Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
         :param pulumi.Input[int] height: Maximum value of the `height` (or short side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width`
                and `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is
                not `0`, `width` will be proportionally scaled; If `width` is not `0`, but `height` is `0`, `height` will be
@@ -624,8 +685,10 @@ class ImageSpriteTemplate(pulumi.CustomResource):
         :param pulumi.Input[int] sample_interval: Sampling interval. If `sample_type` is `Percent`, sampling will be performed at an interval of the specified percentage.
                If `sample_type` is `Time`, sampling will be performed at the specified time interval in seconds.
         :param pulumi.Input[str] sample_type: Sampling type. Valid values: `Percent`, `Time`. `Percent`: by percent. `Time`: by time interval.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         :param pulumi.Input[int] width: Maximum value of the `width` (or long side) of a screenshot in px. Value range: 0 and [128, 4,096]. If both `width` and
                `height` are `0`, the resolution will be the same as that of the source video; If `width` is `0`, but `height` is not
@@ -640,6 +703,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
         __props__.__dict__["comment"] = comment
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["fill_type"] = fill_type
+        __props__.__dict__["format"] = format
         __props__.__dict__["height"] = height
         __props__.__dict__["name"] = name
         __props__.__dict__["resolution_adaptive"] = resolution_adaptive
@@ -647,6 +711,7 @@ class ImageSpriteTemplate(pulumi.CustomResource):
         __props__.__dict__["sample_interval"] = sample_interval
         __props__.__dict__["sample_type"] = sample_type
         __props__.__dict__["sub_app_id"] = sub_app_id
+        __props__.__dict__["type"] = type
         __props__.__dict__["update_time"] = update_time
         __props__.__dict__["width"] = width
         return ImageSpriteTemplate(resource_name, opts=opts, __props__=__props__)
@@ -686,6 +751,14 @@ class ImageSpriteTemplate(pulumi.CustomResource):
         Default value: `black`.
         """
         return pulumi.get(self, "fill_type")
+
+    @property
+    @pulumi.getter
+    def format(self) -> pulumi.Output[str]:
+        """
+        Image format, Valid values: - jpg: jpg format; - png: png format; - webp: webp format; Default value: jpg.
+        """
+        return pulumi.get(self, "format")
 
     @property
     @pulumi.getter
@@ -745,10 +818,19 @@ class ImageSpriteTemplate(pulumi.CustomResource):
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> pulumi.Output[Optional[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Output[str]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
 
     @property
     @pulumi.getter(name="updateTime")

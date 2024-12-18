@@ -154,6 +154,7 @@ class InstanceArgs:
 @pulumi.input_type
 class _InstanceState:
     def __init__(__self__, *,
+                 cdc_id: Optional[pulumi.Input[str]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  description: Optional[pulumi.Input[str]] = None,
                  ipv4_count: Optional[pulumi.Input[int]] = None,
@@ -169,6 +170,7 @@ class _InstanceState:
                  vpc_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
+        :param pulumi.Input[str] cdc_id: CDC instance ID.
         :param pulumi.Input[str] create_time: Creation time of the ENI.
         :param pulumi.Input[str] description: Description of the ENI, maximum length 60.
         :param pulumi.Input[int] ipv4_count: The number of intranet IPv4s. When it is greater than 1, there is only one primary intranet IP. The others are auxiliary
@@ -185,6 +187,8 @@ class _InstanceState:
         :param pulumi.Input[Mapping[str, Any]] tags: Tags of the ENI.
         :param pulumi.Input[str] vpc_id: ID of the vpc.
         """
+        if cdc_id is not None:
+            pulumi.set(__self__, "cdc_id", cdc_id)
         if create_time is not None:
             pulumi.set(__self__, "create_time", create_time)
         if description is not None:
@@ -211,6 +215,18 @@ class _InstanceState:
             pulumi.set(__self__, "tags", tags)
         if vpc_id is not None:
             pulumi.set(__self__, "vpc_id", vpc_id)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        CDC instance ID.
+        """
+        return pulumi.get(self, "cdc_id")
+
+    @cdc_id.setter
+    def cdc_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cdc_id", value)
 
     @property
     @pulumi.getter(name="createTime")
@@ -452,6 +468,7 @@ class Instance(pulumi.CustomResource):
             if vpc_id is None and not opts.urn:
                 raise TypeError("Missing required property 'vpc_id'")
             __props__.__dict__["vpc_id"] = vpc_id
+            __props__.__dict__["cdc_id"] = None
             __props__.__dict__["create_time"] = None
             __props__.__dict__["ipv4_infos"] = None
             __props__.__dict__["mac"] = None
@@ -467,6 +484,7 @@ class Instance(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            cdc_id: Optional[pulumi.Input[str]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             description: Optional[pulumi.Input[str]] = None,
             ipv4_count: Optional[pulumi.Input[int]] = None,
@@ -487,6 +505,7 @@ class Instance(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] cdc_id: CDC instance ID.
         :param pulumi.Input[str] create_time: Creation time of the ENI.
         :param pulumi.Input[str] description: Description of the ENI, maximum length 60.
         :param pulumi.Input[int] ipv4_count: The number of intranet IPv4s. When it is greater than 1, there is only one primary intranet IP. The others are auxiliary
@@ -507,6 +526,7 @@ class Instance(pulumi.CustomResource):
 
         __props__ = _InstanceState.__new__(_InstanceState)
 
+        __props__.__dict__["cdc_id"] = cdc_id
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["description"] = description
         __props__.__dict__["ipv4_count"] = ipv4_count
@@ -521,6 +541,14 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["tags"] = tags
         __props__.__dict__["vpc_id"] = vpc_id
         return Instance(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="cdcId")
+    def cdc_id(self) -> pulumi.Output[str]:
+        """
+        CDC instance ID.
+        """
+        return pulumi.get(self, "cdc_id")
 
     @property
     @pulumi.getter(name="createTime")

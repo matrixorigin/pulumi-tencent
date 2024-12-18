@@ -16,26 +16,63 @@ __all__ = ['ProcedureTemplateArgs', 'ProcedureTemplate']
 @pulumi.input_type
 class ProcedureTemplateArgs:
     def __init__(__self__, *,
+                 ai_analysis_task: Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']] = None,
+                 ai_recognition_task: Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  media_process_task: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 review_audio_video_task: Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a ProcedureTemplate resource.
+        :param pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs'] ai_analysis_task: Parameter of AI-based content analysis task.
+        :param pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs'] ai_recognition_task: Type parameter of AI-based content recognition task.
         :param pulumi.Input[str] comment: Template description. Length limit: 256 characters.
         :param pulumi.Input['ProcedureTemplateMediaProcessTaskArgs'] media_process_task: Parameter of video processing task.
         :param pulumi.Input[str] name: Task flow name (up to 20 characters).
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs'] review_audio_video_task: Type parameter of AI-based content recognition task.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         """
+        if ai_analysis_task is not None:
+            pulumi.set(__self__, "ai_analysis_task", ai_analysis_task)
+        if ai_recognition_task is not None:
+            pulumi.set(__self__, "ai_recognition_task", ai_recognition_task)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
         if media_process_task is not None:
             pulumi.set(__self__, "media_process_task", media_process_task)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if review_audio_video_task is not None:
+            pulumi.set(__self__, "review_audio_video_task", review_audio_video_task)
         if sub_app_id is not None:
             pulumi.set(__self__, "sub_app_id", sub_app_id)
+
+    @property
+    @pulumi.getter(name="aiAnalysisTask")
+    def ai_analysis_task(self) -> Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']]:
+        """
+        Parameter of AI-based content analysis task.
+        """
+        return pulumi.get(self, "ai_analysis_task")
+
+    @ai_analysis_task.setter
+    def ai_analysis_task(self, value: Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']]):
+        pulumi.set(self, "ai_analysis_task", value)
+
+    @property
+    @pulumi.getter(name="aiRecognitionTask")
+    def ai_recognition_task(self) -> Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']]:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "ai_recognition_task")
+
+    @ai_recognition_task.setter
+    def ai_recognition_task(self, value: Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']]):
+        pulumi.set(self, "ai_recognition_task", value)
 
     @property
     @pulumi.getter
@@ -74,11 +111,24 @@ class ProcedureTemplateArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="reviewAudioVideoTask")
+    def review_audio_video_task(self) -> Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']]:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "review_audio_video_task")
+
+    @review_audio_video_task.setter
+    def review_audio_video_task(self, value: Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']]):
+        pulumi.set(self, "review_audio_video_task", value)
+
+    @property
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
@@ -90,22 +140,35 @@ class ProcedureTemplateArgs:
 @pulumi.input_type
 class _ProcedureTemplateState:
     def __init__(__self__, *,
+                 ai_analysis_task: Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']] = None,
+                 ai_recognition_task: Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  create_time: Optional[pulumi.Input[str]] = None,
                  media_process_task: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskArgs']] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 review_audio_video_task: Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  update_time: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering ProcedureTemplate resources.
+        :param pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs'] ai_analysis_task: Parameter of AI-based content analysis task.
+        :param pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs'] ai_recognition_task: Type parameter of AI-based content recognition task.
         :param pulumi.Input[str] comment: Template description. Length limit: 256 characters.
         :param pulumi.Input[str] create_time: Creation time of template in ISO date format.
         :param pulumi.Input['ProcedureTemplateMediaProcessTaskArgs'] media_process_task: Parameter of video processing task.
         :param pulumi.Input[str] name: Task flow name (up to 20 characters).
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs'] review_audio_video_task: Type parameter of AI-based content recognition task.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         """
+        if ai_analysis_task is not None:
+            pulumi.set(__self__, "ai_analysis_task", ai_analysis_task)
+        if ai_recognition_task is not None:
+            pulumi.set(__self__, "ai_recognition_task", ai_recognition_task)
         if comment is not None:
             pulumi.set(__self__, "comment", comment)
         if create_time is not None:
@@ -114,10 +177,38 @@ class _ProcedureTemplateState:
             pulumi.set(__self__, "media_process_task", media_process_task)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if review_audio_video_task is not None:
+            pulumi.set(__self__, "review_audio_video_task", review_audio_video_task)
         if sub_app_id is not None:
             pulumi.set(__self__, "sub_app_id", sub_app_id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if update_time is not None:
             pulumi.set(__self__, "update_time", update_time)
+
+    @property
+    @pulumi.getter(name="aiAnalysisTask")
+    def ai_analysis_task(self) -> Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']]:
+        """
+        Parameter of AI-based content analysis task.
+        """
+        return pulumi.get(self, "ai_analysis_task")
+
+    @ai_analysis_task.setter
+    def ai_analysis_task(self, value: Optional[pulumi.Input['ProcedureTemplateAiAnalysisTaskArgs']]):
+        pulumi.set(self, "ai_analysis_task", value)
+
+    @property
+    @pulumi.getter(name="aiRecognitionTask")
+    def ai_recognition_task(self) -> Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']]:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "ai_recognition_task")
+
+    @ai_recognition_task.setter
+    def ai_recognition_task(self, value: Optional[pulumi.Input['ProcedureTemplateAiRecognitionTaskArgs']]):
+        pulumi.set(self, "ai_recognition_task", value)
 
     @property
     @pulumi.getter
@@ -168,17 +259,42 @@ class _ProcedureTemplateState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="reviewAudioVideoTask")
+    def review_audio_video_task(self) -> Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']]:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "review_audio_video_task")
+
+    @review_audio_video_task.setter
+    def review_audio_video_task(self, value: Optional[pulumi.Input['ProcedureTemplateReviewAudioVideoTaskArgs']]):
+        pulumi.set(self, "review_audio_video_task", value)
+
+    @property
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
     @sub_app_id.setter
     def sub_app_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "sub_app_id", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
 
     @property
     @pulumi.getter(name="updateTime")
@@ -198,20 +314,27 @@ class ProcedureTemplate(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 ai_analysis_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiAnalysisTaskArgs']]] = None,
+                 ai_recognition_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiRecognitionTaskArgs']]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  media_process_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateMediaProcessTaskArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 review_audio_video_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateReviewAudioVideoTaskArgs']]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
         Create a ProcedureTemplate resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateAiAnalysisTaskArgs']] ai_analysis_task: Parameter of AI-based content analysis task.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateAiRecognitionTaskArgs']] ai_recognition_task: Type parameter of AI-based content recognition task.
         :param pulumi.Input[str] comment: Template description. Length limit: 256 characters.
         :param pulumi.Input[pulumi.InputType['ProcedureTemplateMediaProcessTaskArgs']] media_process_task: Parameter of video processing task.
         :param pulumi.Input[str] name: Task flow name (up to 20 characters).
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateReviewAudioVideoTaskArgs']] review_audio_video_task: Type parameter of AI-based content recognition task.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         """
         ...
     @overload
@@ -236,9 +359,12 @@ class ProcedureTemplate(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 ai_analysis_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiAnalysisTaskArgs']]] = None,
+                 ai_recognition_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiRecognitionTaskArgs']]] = None,
                  comment: Optional[pulumi.Input[str]] = None,
                  media_process_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateMediaProcessTaskArgs']]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 review_audio_video_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateReviewAudioVideoTaskArgs']]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -249,11 +375,15 @@ class ProcedureTemplate(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProcedureTemplateArgs.__new__(ProcedureTemplateArgs)
 
+            __props__.__dict__["ai_analysis_task"] = ai_analysis_task
+            __props__.__dict__["ai_recognition_task"] = ai_recognition_task
             __props__.__dict__["comment"] = comment
             __props__.__dict__["media_process_task"] = media_process_task
             __props__.__dict__["name"] = name
+            __props__.__dict__["review_audio_video_task"] = review_audio_video_task
             __props__.__dict__["sub_app_id"] = sub_app_id
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["type"] = None
             __props__.__dict__["update_time"] = None
         super(ProcedureTemplate, __self__).__init__(
             'tencentcloud:Vod/procedureTemplate:ProcedureTemplate',
@@ -265,11 +395,15 @@ class ProcedureTemplate(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            ai_analysis_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiAnalysisTaskArgs']]] = None,
+            ai_recognition_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateAiRecognitionTaskArgs']]] = None,
             comment: Optional[pulumi.Input[str]] = None,
             create_time: Optional[pulumi.Input[str]] = None,
             media_process_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateMediaProcessTaskArgs']]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            review_audio_video_task: Optional[pulumi.Input[pulumi.InputType['ProcedureTemplateReviewAudioVideoTaskArgs']]] = None,
             sub_app_id: Optional[pulumi.Input[int]] = None,
+            type: Optional[pulumi.Input[str]] = None,
             update_time: Optional[pulumi.Input[str]] = None) -> 'ProcedureTemplate':
         """
         Get an existing ProcedureTemplate resource's state with the given name, id, and optional extra
@@ -278,25 +412,50 @@ class ProcedureTemplate(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateAiAnalysisTaskArgs']] ai_analysis_task: Parameter of AI-based content analysis task.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateAiRecognitionTaskArgs']] ai_recognition_task: Type parameter of AI-based content recognition task.
         :param pulumi.Input[str] comment: Template description. Length limit: 256 characters.
         :param pulumi.Input[str] create_time: Creation time of template in ISO date format.
         :param pulumi.Input[pulumi.InputType['ProcedureTemplateMediaProcessTaskArgs']] media_process_task: Parameter of video processing task.
         :param pulumi.Input[str] name: Task flow name (up to 20 characters).
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[pulumi.InputType['ProcedureTemplateReviewAudioVideoTaskArgs']] review_audio_video_task: Type parameter of AI-based content recognition task.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
+        :param pulumi.Input[str] type: Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _ProcedureTemplateState.__new__(_ProcedureTemplateState)
 
+        __props__.__dict__["ai_analysis_task"] = ai_analysis_task
+        __props__.__dict__["ai_recognition_task"] = ai_recognition_task
         __props__.__dict__["comment"] = comment
         __props__.__dict__["create_time"] = create_time
         __props__.__dict__["media_process_task"] = media_process_task
         __props__.__dict__["name"] = name
+        __props__.__dict__["review_audio_video_task"] = review_audio_video_task
         __props__.__dict__["sub_app_id"] = sub_app_id
+        __props__.__dict__["type"] = type
         __props__.__dict__["update_time"] = update_time
         return ProcedureTemplate(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="aiAnalysisTask")
+    def ai_analysis_task(self) -> pulumi.Output['outputs.ProcedureTemplateAiAnalysisTask']:
+        """
+        Parameter of AI-based content analysis task.
+        """
+        return pulumi.get(self, "ai_analysis_task")
+
+    @property
+    @pulumi.getter(name="aiRecognitionTask")
+    def ai_recognition_task(self) -> pulumi.Output['outputs.ProcedureTemplateAiRecognitionTask']:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "ai_recognition_task")
 
     @property
     @pulumi.getter
@@ -331,13 +490,30 @@ class ProcedureTemplate(pulumi.CustomResource):
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="reviewAudioVideoTask")
+    def review_audio_video_task(self) -> pulumi.Output['outputs.ProcedureTemplateReviewAudioVideoTask']:
+        """
+        Type parameter of AI-based content recognition task.
+        """
+        return pulumi.get(self, "review_audio_video_task")
+
+    @property
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> pulumi.Output[Optional[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Output[str]:
+        """
+        Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+        """
+        return pulumi.get(self, "type")
 
     @property
     @pulumi.getter(name="updateTime")

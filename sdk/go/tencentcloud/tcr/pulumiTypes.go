@@ -237,9 +237,10 @@ func (o ImmutableTagRuleRulePtrOutput) TagPattern() pulumi.StringPtrOutput {
 }
 
 type InstanceReplication struct {
-	Id       *string `pulumi:"id"`
-	RegionId *int    `pulumi:"regionId"`
-	SynTag   *bool   `pulumi:"synTag"`
+	Id         *string `pulumi:"id"`
+	RegionId   *int    `pulumi:"regionId"`
+	RegionName *string `pulumi:"regionName"`
+	SynTag     *bool   `pulumi:"synTag"`
 }
 
 // InstanceReplicationInput is an input type that accepts InstanceReplicationArgs and InstanceReplicationOutput values.
@@ -254,9 +255,10 @@ type InstanceReplicationInput interface {
 }
 
 type InstanceReplicationArgs struct {
-	Id       pulumi.StringPtrInput `pulumi:"id"`
-	RegionId pulumi.IntPtrInput    `pulumi:"regionId"`
-	SynTag   pulumi.BoolPtrInput   `pulumi:"synTag"`
+	Id         pulumi.StringPtrInput `pulumi:"id"`
+	RegionId   pulumi.IntPtrInput    `pulumi:"regionId"`
+	RegionName pulumi.StringPtrInput `pulumi:"regionName"`
+	SynTag     pulumi.BoolPtrInput   `pulumi:"synTag"`
 }
 
 func (InstanceReplicationArgs) ElementType() reflect.Type {
@@ -316,6 +318,10 @@ func (o InstanceReplicationOutput) Id() pulumi.StringPtrOutput {
 
 func (o InstanceReplicationOutput) RegionId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v InstanceReplication) *int { return v.RegionId }).(pulumi.IntPtrOutput)
+}
+
+func (o InstanceReplicationOutput) RegionName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceReplication) *string { return v.RegionName }).(pulumi.StringPtrOutput)
 }
 
 func (o InstanceReplicationOutput) SynTag() pulumi.BoolPtrOutput {

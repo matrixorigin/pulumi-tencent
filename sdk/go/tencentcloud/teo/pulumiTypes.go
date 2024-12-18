@@ -571,234 +571,2027 @@ func (o CertificateConfigServerCertInfoArrayOutput) Index(i pulumi.IntInput) Cer
 	}).(CertificateConfigServerCertInfoOutput)
 }
 
-type OriginGroupOriginRecord struct {
-	Areas             []string                                  `pulumi:"areas"`
-	Port              int                                       `pulumi:"port"`
-	Private           *bool                                     `pulumi:"private"`
-	PrivateParameters []OriginGroupOriginRecordPrivateParameter `pulumi:"privateParameters"`
-	Record            string                                    `pulumi:"record"`
-	RecordId          *string                                   `pulumi:"recordId"`
-	Weight            *int                                      `pulumi:"weight"`
+type FunctionRuleFunctionRuleCondition struct {
+	RuleConditions []FunctionRuleFunctionRuleConditionRuleCondition `pulumi:"ruleConditions"`
 }
 
-// OriginGroupOriginRecordInput is an input type that accepts OriginGroupOriginRecordArgs and OriginGroupOriginRecordOutput values.
-// You can construct a concrete instance of `OriginGroupOriginRecordInput` via:
+// FunctionRuleFunctionRuleConditionInput is an input type that accepts FunctionRuleFunctionRuleConditionArgs and FunctionRuleFunctionRuleConditionOutput values.
+// You can construct a concrete instance of `FunctionRuleFunctionRuleConditionInput` via:
 //
-//	OriginGroupOriginRecordArgs{...}
-type OriginGroupOriginRecordInput interface {
+//	FunctionRuleFunctionRuleConditionArgs{...}
+type FunctionRuleFunctionRuleConditionInput interface {
 	pulumi.Input
 
-	ToOriginGroupOriginRecordOutput() OriginGroupOriginRecordOutput
-	ToOriginGroupOriginRecordOutputWithContext(context.Context) OriginGroupOriginRecordOutput
+	ToFunctionRuleFunctionRuleConditionOutput() FunctionRuleFunctionRuleConditionOutput
+	ToFunctionRuleFunctionRuleConditionOutputWithContext(context.Context) FunctionRuleFunctionRuleConditionOutput
 }
 
-type OriginGroupOriginRecordArgs struct {
-	Areas             pulumi.StringArrayInput                           `pulumi:"areas"`
-	Port              pulumi.IntInput                                   `pulumi:"port"`
-	Private           pulumi.BoolPtrInput                               `pulumi:"private"`
-	PrivateParameters OriginGroupOriginRecordPrivateParameterArrayInput `pulumi:"privateParameters"`
-	Record            pulumi.StringInput                                `pulumi:"record"`
-	RecordId          pulumi.StringPtrInput                             `pulumi:"recordId"`
-	Weight            pulumi.IntPtrInput                                `pulumi:"weight"`
+type FunctionRuleFunctionRuleConditionArgs struct {
+	RuleConditions FunctionRuleFunctionRuleConditionRuleConditionArrayInput `pulumi:"ruleConditions"`
 }
 
-func (OriginGroupOriginRecordArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*OriginGroupOriginRecord)(nil)).Elem()
+func (FunctionRuleFunctionRuleConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuleFunctionRuleCondition)(nil)).Elem()
 }
 
-func (i OriginGroupOriginRecordArgs) ToOriginGroupOriginRecordOutput() OriginGroupOriginRecordOutput {
-	return i.ToOriginGroupOriginRecordOutputWithContext(context.Background())
+func (i FunctionRuleFunctionRuleConditionArgs) ToFunctionRuleFunctionRuleConditionOutput() FunctionRuleFunctionRuleConditionOutput {
+	return i.ToFunctionRuleFunctionRuleConditionOutputWithContext(context.Background())
 }
 
-func (i OriginGroupOriginRecordArgs) ToOriginGroupOriginRecordOutputWithContext(ctx context.Context) OriginGroupOriginRecordOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupOriginRecordOutput)
+func (i FunctionRuleFunctionRuleConditionArgs) ToFunctionRuleFunctionRuleConditionOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuleFunctionRuleConditionOutput)
 }
 
-// OriginGroupOriginRecordArrayInput is an input type that accepts OriginGroupOriginRecordArray and OriginGroupOriginRecordArrayOutput values.
-// You can construct a concrete instance of `OriginGroupOriginRecordArrayInput` via:
+// FunctionRuleFunctionRuleConditionArrayInput is an input type that accepts FunctionRuleFunctionRuleConditionArray and FunctionRuleFunctionRuleConditionArrayOutput values.
+// You can construct a concrete instance of `FunctionRuleFunctionRuleConditionArrayInput` via:
 //
-//	OriginGroupOriginRecordArray{ OriginGroupOriginRecordArgs{...} }
-type OriginGroupOriginRecordArrayInput interface {
+//	FunctionRuleFunctionRuleConditionArray{ FunctionRuleFunctionRuleConditionArgs{...} }
+type FunctionRuleFunctionRuleConditionArrayInput interface {
 	pulumi.Input
 
-	ToOriginGroupOriginRecordArrayOutput() OriginGroupOriginRecordArrayOutput
-	ToOriginGroupOriginRecordArrayOutputWithContext(context.Context) OriginGroupOriginRecordArrayOutput
+	ToFunctionRuleFunctionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionArrayOutput
+	ToFunctionRuleFunctionRuleConditionArrayOutputWithContext(context.Context) FunctionRuleFunctionRuleConditionArrayOutput
 }
 
-type OriginGroupOriginRecordArray []OriginGroupOriginRecordInput
+type FunctionRuleFunctionRuleConditionArray []FunctionRuleFunctionRuleConditionInput
 
-func (OriginGroupOriginRecordArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]OriginGroupOriginRecord)(nil)).Elem()
+func (FunctionRuleFunctionRuleConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuleFunctionRuleCondition)(nil)).Elem()
 }
 
-func (i OriginGroupOriginRecordArray) ToOriginGroupOriginRecordArrayOutput() OriginGroupOriginRecordArrayOutput {
-	return i.ToOriginGroupOriginRecordArrayOutputWithContext(context.Background())
+func (i FunctionRuleFunctionRuleConditionArray) ToFunctionRuleFunctionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionArrayOutput {
+	return i.ToFunctionRuleFunctionRuleConditionArrayOutputWithContext(context.Background())
 }
 
-func (i OriginGroupOriginRecordArray) ToOriginGroupOriginRecordArrayOutputWithContext(ctx context.Context) OriginGroupOriginRecordArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupOriginRecordArrayOutput)
+func (i FunctionRuleFunctionRuleConditionArray) ToFunctionRuleFunctionRuleConditionArrayOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuleFunctionRuleConditionArrayOutput)
 }
 
-type OriginGroupOriginRecordOutput struct{ *pulumi.OutputState }
+type FunctionRuleFunctionRuleConditionOutput struct{ *pulumi.OutputState }
 
-func (OriginGroupOriginRecordOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*OriginGroupOriginRecord)(nil)).Elem()
+func (FunctionRuleFunctionRuleConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuleFunctionRuleCondition)(nil)).Elem()
 }
 
-func (o OriginGroupOriginRecordOutput) ToOriginGroupOriginRecordOutput() OriginGroupOriginRecordOutput {
+func (o FunctionRuleFunctionRuleConditionOutput) ToFunctionRuleFunctionRuleConditionOutput() FunctionRuleFunctionRuleConditionOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordOutput) ToOriginGroupOriginRecordOutputWithContext(ctx context.Context) OriginGroupOriginRecordOutput {
+func (o FunctionRuleFunctionRuleConditionOutput) ToFunctionRuleFunctionRuleConditionOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordOutput) Areas() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) []string { return v.Areas }).(pulumi.StringArrayOutput)
+func (o FunctionRuleFunctionRuleConditionOutput) RuleConditions() FunctionRuleFunctionRuleConditionRuleConditionArrayOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleCondition) []FunctionRuleFunctionRuleConditionRuleCondition {
+		return v.RuleConditions
+	}).(FunctionRuleFunctionRuleConditionRuleConditionArrayOutput)
 }
 
-func (o OriginGroupOriginRecordOutput) Port() pulumi.IntOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) int { return v.Port }).(pulumi.IntOutput)
+type FunctionRuleFunctionRuleConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (FunctionRuleFunctionRuleConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuleFunctionRuleCondition)(nil)).Elem()
 }
 
-func (o OriginGroupOriginRecordOutput) Private() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) *bool { return v.Private }).(pulumi.BoolPtrOutput)
-}
-
-func (o OriginGroupOriginRecordOutput) PrivateParameters() OriginGroupOriginRecordPrivateParameterArrayOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) []OriginGroupOriginRecordPrivateParameter { return v.PrivateParameters }).(OriginGroupOriginRecordPrivateParameterArrayOutput)
-}
-
-func (o OriginGroupOriginRecordOutput) Record() pulumi.StringOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) string { return v.Record }).(pulumi.StringOutput)
-}
-
-func (o OriginGroupOriginRecordOutput) RecordId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) *string { return v.RecordId }).(pulumi.StringPtrOutput)
-}
-
-func (o OriginGroupOriginRecordOutput) Weight() pulumi.IntPtrOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecord) *int { return v.Weight }).(pulumi.IntPtrOutput)
-}
-
-type OriginGroupOriginRecordArrayOutput struct{ *pulumi.OutputState }
-
-func (OriginGroupOriginRecordArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]OriginGroupOriginRecord)(nil)).Elem()
-}
-
-func (o OriginGroupOriginRecordArrayOutput) ToOriginGroupOriginRecordArrayOutput() OriginGroupOriginRecordArrayOutput {
+func (o FunctionRuleFunctionRuleConditionArrayOutput) ToFunctionRuleFunctionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionArrayOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordArrayOutput) ToOriginGroupOriginRecordArrayOutputWithContext(ctx context.Context) OriginGroupOriginRecordArrayOutput {
+func (o FunctionRuleFunctionRuleConditionArrayOutput) ToFunctionRuleFunctionRuleConditionArrayOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionArrayOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordArrayOutput) Index(i pulumi.IntInput) OriginGroupOriginRecordOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OriginGroupOriginRecord {
-		return vs[0].([]OriginGroupOriginRecord)[vs[1].(int)]
-	}).(OriginGroupOriginRecordOutput)
+func (o FunctionRuleFunctionRuleConditionArrayOutput) Index(i pulumi.IntInput) FunctionRuleFunctionRuleConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FunctionRuleFunctionRuleCondition {
+		return vs[0].([]FunctionRuleFunctionRuleCondition)[vs[1].(int)]
+	}).(FunctionRuleFunctionRuleConditionOutput)
 }
 
-type OriginGroupOriginRecordPrivateParameter struct {
+type FunctionRuleFunctionRuleConditionRuleCondition struct {
+	IgnoreCase *bool    `pulumi:"ignoreCase"`
+	Name       *string  `pulumi:"name"`
+	Operator   string   `pulumi:"operator"`
+	Target     string   `pulumi:"target"`
+	Values     []string `pulumi:"values"`
+}
+
+// FunctionRuleFunctionRuleConditionRuleConditionInput is an input type that accepts FunctionRuleFunctionRuleConditionRuleConditionArgs and FunctionRuleFunctionRuleConditionRuleConditionOutput values.
+// You can construct a concrete instance of `FunctionRuleFunctionRuleConditionRuleConditionInput` via:
+//
+//	FunctionRuleFunctionRuleConditionRuleConditionArgs{...}
+type FunctionRuleFunctionRuleConditionRuleConditionInput interface {
+	pulumi.Input
+
+	ToFunctionRuleFunctionRuleConditionRuleConditionOutput() FunctionRuleFunctionRuleConditionRuleConditionOutput
+	ToFunctionRuleFunctionRuleConditionRuleConditionOutputWithContext(context.Context) FunctionRuleFunctionRuleConditionRuleConditionOutput
+}
+
+type FunctionRuleFunctionRuleConditionRuleConditionArgs struct {
+	IgnoreCase pulumi.BoolPtrInput     `pulumi:"ignoreCase"`
+	Name       pulumi.StringPtrInput   `pulumi:"name"`
+	Operator   pulumi.StringInput      `pulumi:"operator"`
+	Target     pulumi.StringInput      `pulumi:"target"`
+	Values     pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (FunctionRuleFunctionRuleConditionRuleConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuleFunctionRuleConditionRuleCondition)(nil)).Elem()
+}
+
+func (i FunctionRuleFunctionRuleConditionRuleConditionArgs) ToFunctionRuleFunctionRuleConditionRuleConditionOutput() FunctionRuleFunctionRuleConditionRuleConditionOutput {
+	return i.ToFunctionRuleFunctionRuleConditionRuleConditionOutputWithContext(context.Background())
+}
+
+func (i FunctionRuleFunctionRuleConditionRuleConditionArgs) ToFunctionRuleFunctionRuleConditionRuleConditionOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionRuleConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuleFunctionRuleConditionRuleConditionOutput)
+}
+
+// FunctionRuleFunctionRuleConditionRuleConditionArrayInput is an input type that accepts FunctionRuleFunctionRuleConditionRuleConditionArray and FunctionRuleFunctionRuleConditionRuleConditionArrayOutput values.
+// You can construct a concrete instance of `FunctionRuleFunctionRuleConditionRuleConditionArrayInput` via:
+//
+//	FunctionRuleFunctionRuleConditionRuleConditionArray{ FunctionRuleFunctionRuleConditionRuleConditionArgs{...} }
+type FunctionRuleFunctionRuleConditionRuleConditionArrayInput interface {
+	pulumi.Input
+
+	ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionRuleConditionArrayOutput
+	ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutputWithContext(context.Context) FunctionRuleFunctionRuleConditionRuleConditionArrayOutput
+}
+
+type FunctionRuleFunctionRuleConditionRuleConditionArray []FunctionRuleFunctionRuleConditionRuleConditionInput
+
+func (FunctionRuleFunctionRuleConditionRuleConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuleFunctionRuleConditionRuleCondition)(nil)).Elem()
+}
+
+func (i FunctionRuleFunctionRuleConditionRuleConditionArray) ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionRuleConditionArrayOutput {
+	return i.ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutputWithContext(context.Background())
+}
+
+func (i FunctionRuleFunctionRuleConditionRuleConditionArray) ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionRuleConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuleFunctionRuleConditionRuleConditionArrayOutput)
+}
+
+type FunctionRuleFunctionRuleConditionRuleConditionOutput struct{ *pulumi.OutputState }
+
+func (FunctionRuleFunctionRuleConditionRuleConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuleFunctionRuleConditionRuleCondition)(nil)).Elem()
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) ToFunctionRuleFunctionRuleConditionRuleConditionOutput() FunctionRuleFunctionRuleConditionRuleConditionOutput {
+	return o
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) ToFunctionRuleFunctionRuleConditionRuleConditionOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionRuleConditionOutput {
+	return o
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) IgnoreCase() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleConditionRuleCondition) *bool { return v.IgnoreCase }).(pulumi.BoolPtrOutput)
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleConditionRuleCondition) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleConditionRuleCondition) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) Target() pulumi.StringOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleConditionRuleCondition) string { return v.Target }).(pulumi.StringOutput)
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v FunctionRuleFunctionRuleConditionRuleCondition) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type FunctionRuleFunctionRuleConditionRuleConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (FunctionRuleFunctionRuleConditionRuleConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuleFunctionRuleConditionRuleCondition)(nil)).Elem()
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionArrayOutput) ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutput() FunctionRuleFunctionRuleConditionRuleConditionArrayOutput {
+	return o
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionArrayOutput) ToFunctionRuleFunctionRuleConditionRuleConditionArrayOutputWithContext(ctx context.Context) FunctionRuleFunctionRuleConditionRuleConditionArrayOutput {
+	return o
+}
+
+func (o FunctionRuleFunctionRuleConditionRuleConditionArrayOutput) Index(i pulumi.IntInput) FunctionRuleFunctionRuleConditionRuleConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FunctionRuleFunctionRuleConditionRuleCondition {
+		return vs[0].([]FunctionRuleFunctionRuleConditionRuleCondition)[vs[1].(int)]
+	}).(FunctionRuleFunctionRuleConditionRuleConditionOutput)
+}
+
+type FunctionRuntimeEnvironmentEnvironmentVariable struct {
+	Key   string `pulumi:"key"`
+	Type  string `pulumi:"type"`
+	Value string `pulumi:"value"`
+}
+
+// FunctionRuntimeEnvironmentEnvironmentVariableInput is an input type that accepts FunctionRuntimeEnvironmentEnvironmentVariableArgs and FunctionRuntimeEnvironmentEnvironmentVariableOutput values.
+// You can construct a concrete instance of `FunctionRuntimeEnvironmentEnvironmentVariableInput` via:
+//
+//	FunctionRuntimeEnvironmentEnvironmentVariableArgs{...}
+type FunctionRuntimeEnvironmentEnvironmentVariableInput interface {
+	pulumi.Input
+
+	ToFunctionRuntimeEnvironmentEnvironmentVariableOutput() FunctionRuntimeEnvironmentEnvironmentVariableOutput
+	ToFunctionRuntimeEnvironmentEnvironmentVariableOutputWithContext(context.Context) FunctionRuntimeEnvironmentEnvironmentVariableOutput
+}
+
+type FunctionRuntimeEnvironmentEnvironmentVariableArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Type  pulumi.StringInput `pulumi:"type"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (FunctionRuntimeEnvironmentEnvironmentVariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuntimeEnvironmentEnvironmentVariable)(nil)).Elem()
+}
+
+func (i FunctionRuntimeEnvironmentEnvironmentVariableArgs) ToFunctionRuntimeEnvironmentEnvironmentVariableOutput() FunctionRuntimeEnvironmentEnvironmentVariableOutput {
+	return i.ToFunctionRuntimeEnvironmentEnvironmentVariableOutputWithContext(context.Background())
+}
+
+func (i FunctionRuntimeEnvironmentEnvironmentVariableArgs) ToFunctionRuntimeEnvironmentEnvironmentVariableOutputWithContext(ctx context.Context) FunctionRuntimeEnvironmentEnvironmentVariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuntimeEnvironmentEnvironmentVariableOutput)
+}
+
+// FunctionRuntimeEnvironmentEnvironmentVariableArrayInput is an input type that accepts FunctionRuntimeEnvironmentEnvironmentVariableArray and FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput values.
+// You can construct a concrete instance of `FunctionRuntimeEnvironmentEnvironmentVariableArrayInput` via:
+//
+//	FunctionRuntimeEnvironmentEnvironmentVariableArray{ FunctionRuntimeEnvironmentEnvironmentVariableArgs{...} }
+type FunctionRuntimeEnvironmentEnvironmentVariableArrayInput interface {
+	pulumi.Input
+
+	ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutput() FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput
+	ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutputWithContext(context.Context) FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput
+}
+
+type FunctionRuntimeEnvironmentEnvironmentVariableArray []FunctionRuntimeEnvironmentEnvironmentVariableInput
+
+func (FunctionRuntimeEnvironmentEnvironmentVariableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuntimeEnvironmentEnvironmentVariable)(nil)).Elem()
+}
+
+func (i FunctionRuntimeEnvironmentEnvironmentVariableArray) ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutput() FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput {
+	return i.ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutputWithContext(context.Background())
+}
+
+func (i FunctionRuntimeEnvironmentEnvironmentVariableArray) ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutputWithContext(ctx context.Context) FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput)
+}
+
+type FunctionRuntimeEnvironmentEnvironmentVariableOutput struct{ *pulumi.OutputState }
+
+func (FunctionRuntimeEnvironmentEnvironmentVariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FunctionRuntimeEnvironmentEnvironmentVariable)(nil)).Elem()
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableOutput) ToFunctionRuntimeEnvironmentEnvironmentVariableOutput() FunctionRuntimeEnvironmentEnvironmentVariableOutput {
+	return o
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableOutput) ToFunctionRuntimeEnvironmentEnvironmentVariableOutputWithContext(ctx context.Context) FunctionRuntimeEnvironmentEnvironmentVariableOutput {
+	return o
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v FunctionRuntimeEnvironmentEnvironmentVariable) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v FunctionRuntimeEnvironmentEnvironmentVariable) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v FunctionRuntimeEnvironmentEnvironmentVariable) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput struct{ *pulumi.OutputState }
+
+func (FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]FunctionRuntimeEnvironmentEnvironmentVariable)(nil)).Elem()
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput) ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutput() FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput) ToFunctionRuntimeEnvironmentEnvironmentVariableArrayOutputWithContext(ctx context.Context) FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput {
+	return o
+}
+
+func (o FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput) Index(i pulumi.IntInput) FunctionRuntimeEnvironmentEnvironmentVariableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) FunctionRuntimeEnvironmentEnvironmentVariable {
+		return vs[0].([]FunctionRuntimeEnvironmentEnvironmentVariable)[vs[1].(int)]
+	}).(FunctionRuntimeEnvironmentEnvironmentVariableOutput)
+}
+
+type L4ProxyDdosProtectionConfig struct {
+	LevelMainland        *string `pulumi:"levelMainland"`
+	LevelOverseas        *string `pulumi:"levelOverseas"`
+	MaxBandwidthMainland *int    `pulumi:"maxBandwidthMainland"`
+}
+
+// L4ProxyDdosProtectionConfigInput is an input type that accepts L4ProxyDdosProtectionConfigArgs and L4ProxyDdosProtectionConfigOutput values.
+// You can construct a concrete instance of `L4ProxyDdosProtectionConfigInput` via:
+//
+//	L4ProxyDdosProtectionConfigArgs{...}
+type L4ProxyDdosProtectionConfigInput interface {
+	pulumi.Input
+
+	ToL4ProxyDdosProtectionConfigOutput() L4ProxyDdosProtectionConfigOutput
+	ToL4ProxyDdosProtectionConfigOutputWithContext(context.Context) L4ProxyDdosProtectionConfigOutput
+}
+
+type L4ProxyDdosProtectionConfigArgs struct {
+	LevelMainland        pulumi.StringPtrInput `pulumi:"levelMainland"`
+	LevelOverseas        pulumi.StringPtrInput `pulumi:"levelOverseas"`
+	MaxBandwidthMainland pulumi.IntPtrInput    `pulumi:"maxBandwidthMainland"`
+}
+
+func (L4ProxyDdosProtectionConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*L4ProxyDdosProtectionConfig)(nil)).Elem()
+}
+
+func (i L4ProxyDdosProtectionConfigArgs) ToL4ProxyDdosProtectionConfigOutput() L4ProxyDdosProtectionConfigOutput {
+	return i.ToL4ProxyDdosProtectionConfigOutputWithContext(context.Background())
+}
+
+func (i L4ProxyDdosProtectionConfigArgs) ToL4ProxyDdosProtectionConfigOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(L4ProxyDdosProtectionConfigOutput)
+}
+
+func (i L4ProxyDdosProtectionConfigArgs) ToL4ProxyDdosProtectionConfigPtrOutput() L4ProxyDdosProtectionConfigPtrOutput {
+	return i.ToL4ProxyDdosProtectionConfigPtrOutputWithContext(context.Background())
+}
+
+func (i L4ProxyDdosProtectionConfigArgs) ToL4ProxyDdosProtectionConfigPtrOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(L4ProxyDdosProtectionConfigOutput).ToL4ProxyDdosProtectionConfigPtrOutputWithContext(ctx)
+}
+
+// L4ProxyDdosProtectionConfigPtrInput is an input type that accepts L4ProxyDdosProtectionConfigArgs, L4ProxyDdosProtectionConfigPtr and L4ProxyDdosProtectionConfigPtrOutput values.
+// You can construct a concrete instance of `L4ProxyDdosProtectionConfigPtrInput` via:
+//
+//	        L4ProxyDdosProtectionConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type L4ProxyDdosProtectionConfigPtrInput interface {
+	pulumi.Input
+
+	ToL4ProxyDdosProtectionConfigPtrOutput() L4ProxyDdosProtectionConfigPtrOutput
+	ToL4ProxyDdosProtectionConfigPtrOutputWithContext(context.Context) L4ProxyDdosProtectionConfigPtrOutput
+}
+
+type l4proxyDdosProtectionConfigPtrType L4ProxyDdosProtectionConfigArgs
+
+func L4ProxyDdosProtectionConfigPtr(v *L4ProxyDdosProtectionConfigArgs) L4ProxyDdosProtectionConfigPtrInput {
+	return (*l4proxyDdosProtectionConfigPtrType)(v)
+}
+
+func (*l4proxyDdosProtectionConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**L4ProxyDdosProtectionConfig)(nil)).Elem()
+}
+
+func (i *l4proxyDdosProtectionConfigPtrType) ToL4ProxyDdosProtectionConfigPtrOutput() L4ProxyDdosProtectionConfigPtrOutput {
+	return i.ToL4ProxyDdosProtectionConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *l4proxyDdosProtectionConfigPtrType) ToL4ProxyDdosProtectionConfigPtrOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(L4ProxyDdosProtectionConfigPtrOutput)
+}
+
+type L4ProxyDdosProtectionConfigOutput struct{ *pulumi.OutputState }
+
+func (L4ProxyDdosProtectionConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*L4ProxyDdosProtectionConfig)(nil)).Elem()
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) ToL4ProxyDdosProtectionConfigOutput() L4ProxyDdosProtectionConfigOutput {
+	return o
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) ToL4ProxyDdosProtectionConfigOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigOutput {
+	return o
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) ToL4ProxyDdosProtectionConfigPtrOutput() L4ProxyDdosProtectionConfigPtrOutput {
+	return o.ToL4ProxyDdosProtectionConfigPtrOutputWithContext(context.Background())
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) ToL4ProxyDdosProtectionConfigPtrOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v L4ProxyDdosProtectionConfig) *L4ProxyDdosProtectionConfig {
+		return &v
+	}).(L4ProxyDdosProtectionConfigPtrOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) LevelMainland() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v L4ProxyDdosProtectionConfig) *string { return v.LevelMainland }).(pulumi.StringPtrOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) LevelOverseas() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v L4ProxyDdosProtectionConfig) *string { return v.LevelOverseas }).(pulumi.StringPtrOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigOutput) MaxBandwidthMainland() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v L4ProxyDdosProtectionConfig) *int { return v.MaxBandwidthMainland }).(pulumi.IntPtrOutput)
+}
+
+type L4ProxyDdosProtectionConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (L4ProxyDdosProtectionConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**L4ProxyDdosProtectionConfig)(nil)).Elem()
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) ToL4ProxyDdosProtectionConfigPtrOutput() L4ProxyDdosProtectionConfigPtrOutput {
+	return o
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) ToL4ProxyDdosProtectionConfigPtrOutputWithContext(ctx context.Context) L4ProxyDdosProtectionConfigPtrOutput {
+	return o
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) Elem() L4ProxyDdosProtectionConfigOutput {
+	return o.ApplyT(func(v *L4ProxyDdosProtectionConfig) L4ProxyDdosProtectionConfig {
+		if v != nil {
+			return *v
+		}
+		var ret L4ProxyDdosProtectionConfig
+		return ret
+	}).(L4ProxyDdosProtectionConfigOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) LevelMainland() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *L4ProxyDdosProtectionConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LevelMainland
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) LevelOverseas() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *L4ProxyDdosProtectionConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.LevelOverseas
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o L4ProxyDdosProtectionConfigPtrOutput) MaxBandwidthMainland() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *L4ProxyDdosProtectionConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxBandwidthMainland
+	}).(pulumi.IntPtrOutput)
+}
+
+type OriginGroupRecord struct {
+	Private           *bool                               `pulumi:"private"`
+	PrivateParameters []OriginGroupRecordPrivateParameter `pulumi:"privateParameters"`
+	Record            string                              `pulumi:"record"`
+	RecordId          *string                             `pulumi:"recordId"`
+	Type              *string                             `pulumi:"type"`
+	Weight            *int                                `pulumi:"weight"`
+}
+
+// OriginGroupRecordInput is an input type that accepts OriginGroupRecordArgs and OriginGroupRecordOutput values.
+// You can construct a concrete instance of `OriginGroupRecordInput` via:
+//
+//	OriginGroupRecordArgs{...}
+type OriginGroupRecordInput interface {
+	pulumi.Input
+
+	ToOriginGroupRecordOutput() OriginGroupRecordOutput
+	ToOriginGroupRecordOutputWithContext(context.Context) OriginGroupRecordOutput
+}
+
+type OriginGroupRecordArgs struct {
+	Private           pulumi.BoolPtrInput                         `pulumi:"private"`
+	PrivateParameters OriginGroupRecordPrivateParameterArrayInput `pulumi:"privateParameters"`
+	Record            pulumi.StringInput                          `pulumi:"record"`
+	RecordId          pulumi.StringPtrInput                       `pulumi:"recordId"`
+	Type              pulumi.StringPtrInput                       `pulumi:"type"`
+	Weight            pulumi.IntPtrInput                          `pulumi:"weight"`
+}
+
+func (OriginGroupRecordArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupRecord)(nil)).Elem()
+}
+
+func (i OriginGroupRecordArgs) ToOriginGroupRecordOutput() OriginGroupRecordOutput {
+	return i.ToOriginGroupRecordOutputWithContext(context.Background())
+}
+
+func (i OriginGroupRecordArgs) ToOriginGroupRecordOutputWithContext(ctx context.Context) OriginGroupRecordOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupRecordOutput)
+}
+
+// OriginGroupRecordArrayInput is an input type that accepts OriginGroupRecordArray and OriginGroupRecordArrayOutput values.
+// You can construct a concrete instance of `OriginGroupRecordArrayInput` via:
+//
+//	OriginGroupRecordArray{ OriginGroupRecordArgs{...} }
+type OriginGroupRecordArrayInput interface {
+	pulumi.Input
+
+	ToOriginGroupRecordArrayOutput() OriginGroupRecordArrayOutput
+	ToOriginGroupRecordArrayOutputWithContext(context.Context) OriginGroupRecordArrayOutput
+}
+
+type OriginGroupRecordArray []OriginGroupRecordInput
+
+func (OriginGroupRecordArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupRecord)(nil)).Elem()
+}
+
+func (i OriginGroupRecordArray) ToOriginGroupRecordArrayOutput() OriginGroupRecordArrayOutput {
+	return i.ToOriginGroupRecordArrayOutputWithContext(context.Background())
+}
+
+func (i OriginGroupRecordArray) ToOriginGroupRecordArrayOutputWithContext(ctx context.Context) OriginGroupRecordArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupRecordArrayOutput)
+}
+
+type OriginGroupRecordOutput struct{ *pulumi.OutputState }
+
+func (OriginGroupRecordOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupRecord)(nil)).Elem()
+}
+
+func (o OriginGroupRecordOutput) ToOriginGroupRecordOutput() OriginGroupRecordOutput {
+	return o
+}
+
+func (o OriginGroupRecordOutput) ToOriginGroupRecordOutputWithContext(ctx context.Context) OriginGroupRecordOutput {
+	return o
+}
+
+func (o OriginGroupRecordOutput) Private() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v OriginGroupRecord) *bool { return v.Private }).(pulumi.BoolPtrOutput)
+}
+
+func (o OriginGroupRecordOutput) PrivateParameters() OriginGroupRecordPrivateParameterArrayOutput {
+	return o.ApplyT(func(v OriginGroupRecord) []OriginGroupRecordPrivateParameter { return v.PrivateParameters }).(OriginGroupRecordPrivateParameterArrayOutput)
+}
+
+func (o OriginGroupRecordOutput) Record() pulumi.StringOutput {
+	return o.ApplyT(func(v OriginGroupRecord) string { return v.Record }).(pulumi.StringOutput)
+}
+
+func (o OriginGroupRecordOutput) RecordId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OriginGroupRecord) *string { return v.RecordId }).(pulumi.StringPtrOutput)
+}
+
+func (o OriginGroupRecordOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OriginGroupRecord) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+func (o OriginGroupRecordOutput) Weight() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v OriginGroupRecord) *int { return v.Weight }).(pulumi.IntPtrOutput)
+}
+
+type OriginGroupRecordArrayOutput struct{ *pulumi.OutputState }
+
+func (OriginGroupRecordArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupRecord)(nil)).Elem()
+}
+
+func (o OriginGroupRecordArrayOutput) ToOriginGroupRecordArrayOutput() OriginGroupRecordArrayOutput {
+	return o
+}
+
+func (o OriginGroupRecordArrayOutput) ToOriginGroupRecordArrayOutputWithContext(ctx context.Context) OriginGroupRecordArrayOutput {
+	return o
+}
+
+func (o OriginGroupRecordArrayOutput) Index(i pulumi.IntInput) OriginGroupRecordOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OriginGroupRecord {
+		return vs[0].([]OriginGroupRecord)[vs[1].(int)]
+	}).(OriginGroupRecordOutput)
+}
+
+type OriginGroupRecordPrivateParameter struct {
 	Name  string `pulumi:"name"`
 	Value string `pulumi:"value"`
 }
 
-// OriginGroupOriginRecordPrivateParameterInput is an input type that accepts OriginGroupOriginRecordPrivateParameterArgs and OriginGroupOriginRecordPrivateParameterOutput values.
-// You can construct a concrete instance of `OriginGroupOriginRecordPrivateParameterInput` via:
+// OriginGroupRecordPrivateParameterInput is an input type that accepts OriginGroupRecordPrivateParameterArgs and OriginGroupRecordPrivateParameterOutput values.
+// You can construct a concrete instance of `OriginGroupRecordPrivateParameterInput` via:
 //
-//	OriginGroupOriginRecordPrivateParameterArgs{...}
-type OriginGroupOriginRecordPrivateParameterInput interface {
+//	OriginGroupRecordPrivateParameterArgs{...}
+type OriginGroupRecordPrivateParameterInput interface {
 	pulumi.Input
 
-	ToOriginGroupOriginRecordPrivateParameterOutput() OriginGroupOriginRecordPrivateParameterOutput
-	ToOriginGroupOriginRecordPrivateParameterOutputWithContext(context.Context) OriginGroupOriginRecordPrivateParameterOutput
+	ToOriginGroupRecordPrivateParameterOutput() OriginGroupRecordPrivateParameterOutput
+	ToOriginGroupRecordPrivateParameterOutputWithContext(context.Context) OriginGroupRecordPrivateParameterOutput
 }
 
-type OriginGroupOriginRecordPrivateParameterArgs struct {
+type OriginGroupRecordPrivateParameterArgs struct {
 	Name  pulumi.StringInput `pulumi:"name"`
 	Value pulumi.StringInput `pulumi:"value"`
 }
 
-func (OriginGroupOriginRecordPrivateParameterArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*OriginGroupOriginRecordPrivateParameter)(nil)).Elem()
+func (OriginGroupRecordPrivateParameterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupRecordPrivateParameter)(nil)).Elem()
 }
 
-func (i OriginGroupOriginRecordPrivateParameterArgs) ToOriginGroupOriginRecordPrivateParameterOutput() OriginGroupOriginRecordPrivateParameterOutput {
-	return i.ToOriginGroupOriginRecordPrivateParameterOutputWithContext(context.Background())
+func (i OriginGroupRecordPrivateParameterArgs) ToOriginGroupRecordPrivateParameterOutput() OriginGroupRecordPrivateParameterOutput {
+	return i.ToOriginGroupRecordPrivateParameterOutputWithContext(context.Background())
 }
 
-func (i OriginGroupOriginRecordPrivateParameterArgs) ToOriginGroupOriginRecordPrivateParameterOutputWithContext(ctx context.Context) OriginGroupOriginRecordPrivateParameterOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupOriginRecordPrivateParameterOutput)
+func (i OriginGroupRecordPrivateParameterArgs) ToOriginGroupRecordPrivateParameterOutputWithContext(ctx context.Context) OriginGroupRecordPrivateParameterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupRecordPrivateParameterOutput)
 }
 
-// OriginGroupOriginRecordPrivateParameterArrayInput is an input type that accepts OriginGroupOriginRecordPrivateParameterArray and OriginGroupOriginRecordPrivateParameterArrayOutput values.
-// You can construct a concrete instance of `OriginGroupOriginRecordPrivateParameterArrayInput` via:
+// OriginGroupRecordPrivateParameterArrayInput is an input type that accepts OriginGroupRecordPrivateParameterArray and OriginGroupRecordPrivateParameterArrayOutput values.
+// You can construct a concrete instance of `OriginGroupRecordPrivateParameterArrayInput` via:
 //
-//	OriginGroupOriginRecordPrivateParameterArray{ OriginGroupOriginRecordPrivateParameterArgs{...} }
-type OriginGroupOriginRecordPrivateParameterArrayInput interface {
+//	OriginGroupRecordPrivateParameterArray{ OriginGroupRecordPrivateParameterArgs{...} }
+type OriginGroupRecordPrivateParameterArrayInput interface {
 	pulumi.Input
 
-	ToOriginGroupOriginRecordPrivateParameterArrayOutput() OriginGroupOriginRecordPrivateParameterArrayOutput
-	ToOriginGroupOriginRecordPrivateParameterArrayOutputWithContext(context.Context) OriginGroupOriginRecordPrivateParameterArrayOutput
+	ToOriginGroupRecordPrivateParameterArrayOutput() OriginGroupRecordPrivateParameterArrayOutput
+	ToOriginGroupRecordPrivateParameterArrayOutputWithContext(context.Context) OriginGroupRecordPrivateParameterArrayOutput
 }
 
-type OriginGroupOriginRecordPrivateParameterArray []OriginGroupOriginRecordPrivateParameterInput
+type OriginGroupRecordPrivateParameterArray []OriginGroupRecordPrivateParameterInput
 
-func (OriginGroupOriginRecordPrivateParameterArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]OriginGroupOriginRecordPrivateParameter)(nil)).Elem()
+func (OriginGroupRecordPrivateParameterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupRecordPrivateParameter)(nil)).Elem()
 }
 
-func (i OriginGroupOriginRecordPrivateParameterArray) ToOriginGroupOriginRecordPrivateParameterArrayOutput() OriginGroupOriginRecordPrivateParameterArrayOutput {
-	return i.ToOriginGroupOriginRecordPrivateParameterArrayOutputWithContext(context.Background())
+func (i OriginGroupRecordPrivateParameterArray) ToOriginGroupRecordPrivateParameterArrayOutput() OriginGroupRecordPrivateParameterArrayOutput {
+	return i.ToOriginGroupRecordPrivateParameterArrayOutputWithContext(context.Background())
 }
 
-func (i OriginGroupOriginRecordPrivateParameterArray) ToOriginGroupOriginRecordPrivateParameterArrayOutputWithContext(ctx context.Context) OriginGroupOriginRecordPrivateParameterArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupOriginRecordPrivateParameterArrayOutput)
+func (i OriginGroupRecordPrivateParameterArray) ToOriginGroupRecordPrivateParameterArrayOutputWithContext(ctx context.Context) OriginGroupRecordPrivateParameterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupRecordPrivateParameterArrayOutput)
 }
 
-type OriginGroupOriginRecordPrivateParameterOutput struct{ *pulumi.OutputState }
+type OriginGroupRecordPrivateParameterOutput struct{ *pulumi.OutputState }
 
-func (OriginGroupOriginRecordPrivateParameterOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*OriginGroupOriginRecordPrivateParameter)(nil)).Elem()
+func (OriginGroupRecordPrivateParameterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupRecordPrivateParameter)(nil)).Elem()
 }
 
-func (o OriginGroupOriginRecordPrivateParameterOutput) ToOriginGroupOriginRecordPrivateParameterOutput() OriginGroupOriginRecordPrivateParameterOutput {
+func (o OriginGroupRecordPrivateParameterOutput) ToOriginGroupRecordPrivateParameterOutput() OriginGroupRecordPrivateParameterOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordPrivateParameterOutput) ToOriginGroupOriginRecordPrivateParameterOutputWithContext(ctx context.Context) OriginGroupOriginRecordPrivateParameterOutput {
+func (o OriginGroupRecordPrivateParameterOutput) ToOriginGroupRecordPrivateParameterOutputWithContext(ctx context.Context) OriginGroupRecordPrivateParameterOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordPrivateParameterOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecordPrivateParameter) string { return v.Name }).(pulumi.StringOutput)
+func (o OriginGroupRecordPrivateParameterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v OriginGroupRecordPrivateParameter) string { return v.Name }).(pulumi.StringOutput)
 }
 
-func (o OriginGroupOriginRecordPrivateParameterOutput) Value() pulumi.StringOutput {
-	return o.ApplyT(func(v OriginGroupOriginRecordPrivateParameter) string { return v.Value }).(pulumi.StringOutput)
+func (o OriginGroupRecordPrivateParameterOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v OriginGroupRecordPrivateParameter) string { return v.Value }).(pulumi.StringOutput)
 }
 
-type OriginGroupOriginRecordPrivateParameterArrayOutput struct{ *pulumi.OutputState }
+type OriginGroupRecordPrivateParameterArrayOutput struct{ *pulumi.OutputState }
 
-func (OriginGroupOriginRecordPrivateParameterArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]OriginGroupOriginRecordPrivateParameter)(nil)).Elem()
+func (OriginGroupRecordPrivateParameterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupRecordPrivateParameter)(nil)).Elem()
 }
 
-func (o OriginGroupOriginRecordPrivateParameterArrayOutput) ToOriginGroupOriginRecordPrivateParameterArrayOutput() OriginGroupOriginRecordPrivateParameterArrayOutput {
+func (o OriginGroupRecordPrivateParameterArrayOutput) ToOriginGroupRecordPrivateParameterArrayOutput() OriginGroupRecordPrivateParameterArrayOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordPrivateParameterArrayOutput) ToOriginGroupOriginRecordPrivateParameterArrayOutputWithContext(ctx context.Context) OriginGroupOriginRecordPrivateParameterArrayOutput {
+func (o OriginGroupRecordPrivateParameterArrayOutput) ToOriginGroupRecordPrivateParameterArrayOutputWithContext(ctx context.Context) OriginGroupRecordPrivateParameterArrayOutput {
 	return o
 }
 
-func (o OriginGroupOriginRecordPrivateParameterArrayOutput) Index(i pulumi.IntInput) OriginGroupOriginRecordPrivateParameterOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OriginGroupOriginRecordPrivateParameter {
-		return vs[0].([]OriginGroupOriginRecordPrivateParameter)[vs[1].(int)]
-	}).(OriginGroupOriginRecordPrivateParameterOutput)
+func (o OriginGroupRecordPrivateParameterArrayOutput) Index(i pulumi.IntInput) OriginGroupRecordPrivateParameterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OriginGroupRecordPrivateParameter {
+		return vs[0].([]OriginGroupRecordPrivateParameter)[vs[1].(int)]
+	}).(OriginGroupRecordPrivateParameterOutput)
+}
+
+type OriginGroupReference struct {
+	InstanceId   *string `pulumi:"instanceId"`
+	InstanceName *string `pulumi:"instanceName"`
+	InstanceType *string `pulumi:"instanceType"`
+}
+
+// OriginGroupReferenceInput is an input type that accepts OriginGroupReferenceArgs and OriginGroupReferenceOutput values.
+// You can construct a concrete instance of `OriginGroupReferenceInput` via:
+//
+//	OriginGroupReferenceArgs{...}
+type OriginGroupReferenceInput interface {
+	pulumi.Input
+
+	ToOriginGroupReferenceOutput() OriginGroupReferenceOutput
+	ToOriginGroupReferenceOutputWithContext(context.Context) OriginGroupReferenceOutput
+}
+
+type OriginGroupReferenceArgs struct {
+	InstanceId   pulumi.StringPtrInput `pulumi:"instanceId"`
+	InstanceName pulumi.StringPtrInput `pulumi:"instanceName"`
+	InstanceType pulumi.StringPtrInput `pulumi:"instanceType"`
+}
+
+func (OriginGroupReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupReference)(nil)).Elem()
+}
+
+func (i OriginGroupReferenceArgs) ToOriginGroupReferenceOutput() OriginGroupReferenceOutput {
+	return i.ToOriginGroupReferenceOutputWithContext(context.Background())
+}
+
+func (i OriginGroupReferenceArgs) ToOriginGroupReferenceOutputWithContext(ctx context.Context) OriginGroupReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupReferenceOutput)
+}
+
+// OriginGroupReferenceArrayInput is an input type that accepts OriginGroupReferenceArray and OriginGroupReferenceArrayOutput values.
+// You can construct a concrete instance of `OriginGroupReferenceArrayInput` via:
+//
+//	OriginGroupReferenceArray{ OriginGroupReferenceArgs{...} }
+type OriginGroupReferenceArrayInput interface {
+	pulumi.Input
+
+	ToOriginGroupReferenceArrayOutput() OriginGroupReferenceArrayOutput
+	ToOriginGroupReferenceArrayOutputWithContext(context.Context) OriginGroupReferenceArrayOutput
+}
+
+type OriginGroupReferenceArray []OriginGroupReferenceInput
+
+func (OriginGroupReferenceArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupReference)(nil)).Elem()
+}
+
+func (i OriginGroupReferenceArray) ToOriginGroupReferenceArrayOutput() OriginGroupReferenceArrayOutput {
+	return i.ToOriginGroupReferenceArrayOutputWithContext(context.Background())
+}
+
+func (i OriginGroupReferenceArray) ToOriginGroupReferenceArrayOutputWithContext(ctx context.Context) OriginGroupReferenceArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(OriginGroupReferenceArrayOutput)
+}
+
+type OriginGroupReferenceOutput struct{ *pulumi.OutputState }
+
+func (OriginGroupReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*OriginGroupReference)(nil)).Elem()
+}
+
+func (o OriginGroupReferenceOutput) ToOriginGroupReferenceOutput() OriginGroupReferenceOutput {
+	return o
+}
+
+func (o OriginGroupReferenceOutput) ToOriginGroupReferenceOutputWithContext(ctx context.Context) OriginGroupReferenceOutput {
+	return o
+}
+
+func (o OriginGroupReferenceOutput) InstanceId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OriginGroupReference) *string { return v.InstanceId }).(pulumi.StringPtrOutput)
+}
+
+func (o OriginGroupReferenceOutput) InstanceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OriginGroupReference) *string { return v.InstanceName }).(pulumi.StringPtrOutput)
+}
+
+func (o OriginGroupReferenceOutput) InstanceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v OriginGroupReference) *string { return v.InstanceType }).(pulumi.StringPtrOutput)
+}
+
+type OriginGroupReferenceArrayOutput struct{ *pulumi.OutputState }
+
+func (OriginGroupReferenceArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]OriginGroupReference)(nil)).Elem()
+}
+
+func (o OriginGroupReferenceArrayOutput) ToOriginGroupReferenceArrayOutput() OriginGroupReferenceArrayOutput {
+	return o
+}
+
+func (o OriginGroupReferenceArrayOutput) ToOriginGroupReferenceArrayOutputWithContext(ctx context.Context) OriginGroupReferenceArrayOutput {
+	return o
+}
+
+func (o OriginGroupReferenceArrayOutput) Index(i pulumi.IntInput) OriginGroupReferenceOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) OriginGroupReference {
+		return vs[0].([]OriginGroupReference)[vs[1].(int)]
+	}).(OriginGroupReferenceOutput)
+}
+
+type RealtimeLogDeliveryCls struct {
+	LogSetId     string `pulumi:"logSetId"`
+	LogSetRegion string `pulumi:"logSetRegion"`
+	TopicId      string `pulumi:"topicId"`
+}
+
+// RealtimeLogDeliveryClsInput is an input type that accepts RealtimeLogDeliveryClsArgs and RealtimeLogDeliveryClsOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryClsInput` via:
+//
+//	RealtimeLogDeliveryClsArgs{...}
+type RealtimeLogDeliveryClsInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryClsOutput() RealtimeLogDeliveryClsOutput
+	ToRealtimeLogDeliveryClsOutputWithContext(context.Context) RealtimeLogDeliveryClsOutput
+}
+
+type RealtimeLogDeliveryClsArgs struct {
+	LogSetId     pulumi.StringInput `pulumi:"logSetId"`
+	LogSetRegion pulumi.StringInput `pulumi:"logSetRegion"`
+	TopicId      pulumi.StringInput `pulumi:"topicId"`
+}
+
+func (RealtimeLogDeliveryClsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCls)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryClsArgs) ToRealtimeLogDeliveryClsOutput() RealtimeLogDeliveryClsOutput {
+	return i.ToRealtimeLogDeliveryClsOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryClsArgs) ToRealtimeLogDeliveryClsOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryClsOutput)
+}
+
+func (i RealtimeLogDeliveryClsArgs) ToRealtimeLogDeliveryClsPtrOutput() RealtimeLogDeliveryClsPtrOutput {
+	return i.ToRealtimeLogDeliveryClsPtrOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryClsArgs) ToRealtimeLogDeliveryClsPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryClsOutput).ToRealtimeLogDeliveryClsPtrOutputWithContext(ctx)
+}
+
+// RealtimeLogDeliveryClsPtrInput is an input type that accepts RealtimeLogDeliveryClsArgs, RealtimeLogDeliveryClsPtr and RealtimeLogDeliveryClsPtrOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryClsPtrInput` via:
+//
+//	        RealtimeLogDeliveryClsArgs{...}
+//
+//	or:
+//
+//	        nil
+type RealtimeLogDeliveryClsPtrInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryClsPtrOutput() RealtimeLogDeliveryClsPtrOutput
+	ToRealtimeLogDeliveryClsPtrOutputWithContext(context.Context) RealtimeLogDeliveryClsPtrOutput
+}
+
+type realtimeLogDeliveryClsPtrType RealtimeLogDeliveryClsArgs
+
+func RealtimeLogDeliveryClsPtr(v *RealtimeLogDeliveryClsArgs) RealtimeLogDeliveryClsPtrInput {
+	return (*realtimeLogDeliveryClsPtrType)(v)
+}
+
+func (*realtimeLogDeliveryClsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryCls)(nil)).Elem()
+}
+
+func (i *realtimeLogDeliveryClsPtrType) ToRealtimeLogDeliveryClsPtrOutput() RealtimeLogDeliveryClsPtrOutput {
+	return i.ToRealtimeLogDeliveryClsPtrOutputWithContext(context.Background())
+}
+
+func (i *realtimeLogDeliveryClsPtrType) ToRealtimeLogDeliveryClsPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryClsPtrOutput)
+}
+
+type RealtimeLogDeliveryClsOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryClsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCls)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryClsOutput) ToRealtimeLogDeliveryClsOutput() RealtimeLogDeliveryClsOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryClsOutput) ToRealtimeLogDeliveryClsOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryClsOutput) ToRealtimeLogDeliveryClsPtrOutput() RealtimeLogDeliveryClsPtrOutput {
+	return o.ToRealtimeLogDeliveryClsPtrOutputWithContext(context.Background())
+}
+
+func (o RealtimeLogDeliveryClsOutput) ToRealtimeLogDeliveryClsPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RealtimeLogDeliveryCls) *RealtimeLogDeliveryCls {
+		return &v
+	}).(RealtimeLogDeliveryClsPtrOutput)
+}
+
+func (o RealtimeLogDeliveryClsOutput) LogSetId() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCls) string { return v.LogSetId }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryClsOutput) LogSetRegion() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCls) string { return v.LogSetRegion }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryClsOutput) TopicId() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCls) string { return v.TopicId }).(pulumi.StringOutput)
+}
+
+type RealtimeLogDeliveryClsPtrOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryClsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryCls)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) ToRealtimeLogDeliveryClsPtrOutput() RealtimeLogDeliveryClsPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) ToRealtimeLogDeliveryClsPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryClsPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) Elem() RealtimeLogDeliveryClsOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCls) RealtimeLogDeliveryCls {
+		if v != nil {
+			return *v
+		}
+		var ret RealtimeLogDeliveryCls
+		return ret
+	}).(RealtimeLogDeliveryClsOutput)
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) LogSetId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCls) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.LogSetId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) LogSetRegion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCls) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.LogSetRegion
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryClsPtrOutput) TopicId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCls) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.TopicId
+	}).(pulumi.StringPtrOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpoint struct {
+	AccessId     *string                                   `pulumi:"accessId"`
+	AccessKey    *string                                   `pulumi:"accessKey"`
+	CompressType *string                                   `pulumi:"compressType"`
+	Headers      []RealtimeLogDeliveryCustomEndpointHeader `pulumi:"headers"`
+	Protocol     *string                                   `pulumi:"protocol"`
+	Url          string                                    `pulumi:"url"`
+}
+
+// RealtimeLogDeliveryCustomEndpointInput is an input type that accepts RealtimeLogDeliveryCustomEndpointArgs and RealtimeLogDeliveryCustomEndpointOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomEndpointInput` via:
+//
+//	RealtimeLogDeliveryCustomEndpointArgs{...}
+type RealtimeLogDeliveryCustomEndpointInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomEndpointOutput() RealtimeLogDeliveryCustomEndpointOutput
+	ToRealtimeLogDeliveryCustomEndpointOutputWithContext(context.Context) RealtimeLogDeliveryCustomEndpointOutput
+}
+
+type RealtimeLogDeliveryCustomEndpointArgs struct {
+	AccessId     pulumi.StringPtrInput                             `pulumi:"accessId"`
+	AccessKey    pulumi.StringPtrInput                             `pulumi:"accessKey"`
+	CompressType pulumi.StringPtrInput                             `pulumi:"compressType"`
+	Headers      RealtimeLogDeliveryCustomEndpointHeaderArrayInput `pulumi:"headers"`
+	Protocol     pulumi.StringPtrInput                             `pulumi:"protocol"`
+	Url          pulumi.StringInput                                `pulumi:"url"`
+}
+
+func (RealtimeLogDeliveryCustomEndpointArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomEndpoint)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryCustomEndpointArgs) ToRealtimeLogDeliveryCustomEndpointOutput() RealtimeLogDeliveryCustomEndpointOutput {
+	return i.ToRealtimeLogDeliveryCustomEndpointOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomEndpointArgs) ToRealtimeLogDeliveryCustomEndpointOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomEndpointOutput)
+}
+
+func (i RealtimeLogDeliveryCustomEndpointArgs) ToRealtimeLogDeliveryCustomEndpointPtrOutput() RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return i.ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomEndpointArgs) ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomEndpointOutput).ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(ctx)
+}
+
+// RealtimeLogDeliveryCustomEndpointPtrInput is an input type that accepts RealtimeLogDeliveryCustomEndpointArgs, RealtimeLogDeliveryCustomEndpointPtr and RealtimeLogDeliveryCustomEndpointPtrOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomEndpointPtrInput` via:
+//
+//	        RealtimeLogDeliveryCustomEndpointArgs{...}
+//
+//	or:
+//
+//	        nil
+type RealtimeLogDeliveryCustomEndpointPtrInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomEndpointPtrOutput() RealtimeLogDeliveryCustomEndpointPtrOutput
+	ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(context.Context) RealtimeLogDeliveryCustomEndpointPtrOutput
+}
+
+type realtimeLogDeliveryCustomEndpointPtrType RealtimeLogDeliveryCustomEndpointArgs
+
+func RealtimeLogDeliveryCustomEndpointPtr(v *RealtimeLogDeliveryCustomEndpointArgs) RealtimeLogDeliveryCustomEndpointPtrInput {
+	return (*realtimeLogDeliveryCustomEndpointPtrType)(v)
+}
+
+func (*realtimeLogDeliveryCustomEndpointPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryCustomEndpoint)(nil)).Elem()
+}
+
+func (i *realtimeLogDeliveryCustomEndpointPtrType) ToRealtimeLogDeliveryCustomEndpointPtrOutput() RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return i.ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(context.Background())
+}
+
+func (i *realtimeLogDeliveryCustomEndpointPtrType) ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomEndpointPtrOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpointOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomEndpointOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomEndpoint)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) ToRealtimeLogDeliveryCustomEndpointOutput() RealtimeLogDeliveryCustomEndpointOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) ToRealtimeLogDeliveryCustomEndpointOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) ToRealtimeLogDeliveryCustomEndpointPtrOutput() RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return o.ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(context.Background())
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RealtimeLogDeliveryCustomEndpoint) *RealtimeLogDeliveryCustomEndpoint {
+		return &v
+	}).(RealtimeLogDeliveryCustomEndpointPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) AccessId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) *string { return v.AccessId }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) AccessKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) *string { return v.AccessKey }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) CompressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) *string { return v.CompressType }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) Headers() RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) []RealtimeLogDeliveryCustomEndpointHeader { return v.Headers }).(RealtimeLogDeliveryCustomEndpointHeaderArrayOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointOutput) Url() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpoint) string { return v.Url }).(pulumi.StringOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpointPtrOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomEndpointPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryCustomEndpoint)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) ToRealtimeLogDeliveryCustomEndpointPtrOutput() RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) ToRealtimeLogDeliveryCustomEndpointPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) Elem() RealtimeLogDeliveryCustomEndpointOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) RealtimeLogDeliveryCustomEndpoint {
+		if v != nil {
+			return *v
+		}
+		var ret RealtimeLogDeliveryCustomEndpoint
+		return ret
+	}).(RealtimeLogDeliveryCustomEndpointOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) AccessId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccessId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) AccessKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccessKey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) CompressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CompressType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) Headers() RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) []RealtimeLogDeliveryCustomEndpointHeader {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(RealtimeLogDeliveryCustomEndpointHeaderArrayOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Protocol
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryCustomEndpoint) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpointHeader struct {
+	Name  string `pulumi:"name"`
+	Value string `pulumi:"value"`
+}
+
+// RealtimeLogDeliveryCustomEndpointHeaderInput is an input type that accepts RealtimeLogDeliveryCustomEndpointHeaderArgs and RealtimeLogDeliveryCustomEndpointHeaderOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomEndpointHeaderInput` via:
+//
+//	RealtimeLogDeliveryCustomEndpointHeaderArgs{...}
+type RealtimeLogDeliveryCustomEndpointHeaderInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomEndpointHeaderOutput() RealtimeLogDeliveryCustomEndpointHeaderOutput
+	ToRealtimeLogDeliveryCustomEndpointHeaderOutputWithContext(context.Context) RealtimeLogDeliveryCustomEndpointHeaderOutput
+}
+
+type RealtimeLogDeliveryCustomEndpointHeaderArgs struct {
+	Name  pulumi.StringInput `pulumi:"name"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (RealtimeLogDeliveryCustomEndpointHeaderArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointHeader)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryCustomEndpointHeaderArgs) ToRealtimeLogDeliveryCustomEndpointHeaderOutput() RealtimeLogDeliveryCustomEndpointHeaderOutput {
+	return i.ToRealtimeLogDeliveryCustomEndpointHeaderOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomEndpointHeaderArgs) ToRealtimeLogDeliveryCustomEndpointHeaderOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointHeaderOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomEndpointHeaderOutput)
+}
+
+// RealtimeLogDeliveryCustomEndpointHeaderArrayInput is an input type that accepts RealtimeLogDeliveryCustomEndpointHeaderArray and RealtimeLogDeliveryCustomEndpointHeaderArrayOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomEndpointHeaderArrayInput` via:
+//
+//	RealtimeLogDeliveryCustomEndpointHeaderArray{ RealtimeLogDeliveryCustomEndpointHeaderArgs{...} }
+type RealtimeLogDeliveryCustomEndpointHeaderArrayInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutput() RealtimeLogDeliveryCustomEndpointHeaderArrayOutput
+	ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutputWithContext(context.Context) RealtimeLogDeliveryCustomEndpointHeaderArrayOutput
+}
+
+type RealtimeLogDeliveryCustomEndpointHeaderArray []RealtimeLogDeliveryCustomEndpointHeaderInput
+
+func (RealtimeLogDeliveryCustomEndpointHeaderArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryCustomEndpointHeader)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryCustomEndpointHeaderArray) ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutput() RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return i.ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomEndpointHeaderArray) ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomEndpointHeaderArrayOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpointHeaderOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomEndpointHeaderOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointHeader)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderOutput) ToRealtimeLogDeliveryCustomEndpointHeaderOutput() RealtimeLogDeliveryCustomEndpointHeaderOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderOutput) ToRealtimeLogDeliveryCustomEndpointHeaderOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointHeaderOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpointHeader) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomEndpointHeader) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type RealtimeLogDeliveryCustomEndpointHeaderArrayOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomEndpointHeaderArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryCustomEndpointHeader)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderArrayOutput) ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutput() RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderArrayOutput) ToRealtimeLogDeliveryCustomEndpointHeaderArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomEndpointHeaderArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomEndpointHeaderArrayOutput) Index(i pulumi.IntInput) RealtimeLogDeliveryCustomEndpointHeaderOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RealtimeLogDeliveryCustomEndpointHeader {
+		return vs[0].([]RealtimeLogDeliveryCustomEndpointHeader)[vs[1].(int)]
+	}).(RealtimeLogDeliveryCustomEndpointHeaderOutput)
+}
+
+type RealtimeLogDeliveryCustomField struct {
+	Enabled *bool  `pulumi:"enabled"`
+	Name    string `pulumi:"name"`
+	Value   string `pulumi:"value"`
+}
+
+// RealtimeLogDeliveryCustomFieldInput is an input type that accepts RealtimeLogDeliveryCustomFieldArgs and RealtimeLogDeliveryCustomFieldOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomFieldInput` via:
+//
+//	RealtimeLogDeliveryCustomFieldArgs{...}
+type RealtimeLogDeliveryCustomFieldInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomFieldOutput() RealtimeLogDeliveryCustomFieldOutput
+	ToRealtimeLogDeliveryCustomFieldOutputWithContext(context.Context) RealtimeLogDeliveryCustomFieldOutput
+}
+
+type RealtimeLogDeliveryCustomFieldArgs struct {
+	Enabled pulumi.BoolPtrInput `pulumi:"enabled"`
+	Name    pulumi.StringInput  `pulumi:"name"`
+	Value   pulumi.StringInput  `pulumi:"value"`
+}
+
+func (RealtimeLogDeliveryCustomFieldArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomField)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryCustomFieldArgs) ToRealtimeLogDeliveryCustomFieldOutput() RealtimeLogDeliveryCustomFieldOutput {
+	return i.ToRealtimeLogDeliveryCustomFieldOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomFieldArgs) ToRealtimeLogDeliveryCustomFieldOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomFieldOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomFieldOutput)
+}
+
+// RealtimeLogDeliveryCustomFieldArrayInput is an input type that accepts RealtimeLogDeliveryCustomFieldArray and RealtimeLogDeliveryCustomFieldArrayOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryCustomFieldArrayInput` via:
+//
+//	RealtimeLogDeliveryCustomFieldArray{ RealtimeLogDeliveryCustomFieldArgs{...} }
+type RealtimeLogDeliveryCustomFieldArrayInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryCustomFieldArrayOutput() RealtimeLogDeliveryCustomFieldArrayOutput
+	ToRealtimeLogDeliveryCustomFieldArrayOutputWithContext(context.Context) RealtimeLogDeliveryCustomFieldArrayOutput
+}
+
+type RealtimeLogDeliveryCustomFieldArray []RealtimeLogDeliveryCustomFieldInput
+
+func (RealtimeLogDeliveryCustomFieldArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryCustomField)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryCustomFieldArray) ToRealtimeLogDeliveryCustomFieldArrayOutput() RealtimeLogDeliveryCustomFieldArrayOutput {
+	return i.ToRealtimeLogDeliveryCustomFieldArrayOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryCustomFieldArray) ToRealtimeLogDeliveryCustomFieldArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomFieldArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryCustomFieldArrayOutput)
+}
+
+type RealtimeLogDeliveryCustomFieldOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomFieldOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryCustomField)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomFieldOutput) ToRealtimeLogDeliveryCustomFieldOutput() RealtimeLogDeliveryCustomFieldOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomFieldOutput) ToRealtimeLogDeliveryCustomFieldOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomFieldOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomFieldOutput) Enabled() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomField) *bool { return v.Enabled }).(pulumi.BoolPtrOutput)
+}
+
+func (o RealtimeLogDeliveryCustomFieldOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomField) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryCustomFieldOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryCustomField) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type RealtimeLogDeliveryCustomFieldArrayOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryCustomFieldArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryCustomField)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryCustomFieldArrayOutput) ToRealtimeLogDeliveryCustomFieldArrayOutput() RealtimeLogDeliveryCustomFieldArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomFieldArrayOutput) ToRealtimeLogDeliveryCustomFieldArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryCustomFieldArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryCustomFieldArrayOutput) Index(i pulumi.IntInput) RealtimeLogDeliveryCustomFieldOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RealtimeLogDeliveryCustomField {
+		return vs[0].([]RealtimeLogDeliveryCustomField)[vs[1].(int)]
+	}).(RealtimeLogDeliveryCustomFieldOutput)
+}
+
+type RealtimeLogDeliveryDeliveryCondition struct {
+	Conditions []RealtimeLogDeliveryDeliveryConditionCondition `pulumi:"conditions"`
+}
+
+// RealtimeLogDeliveryDeliveryConditionInput is an input type that accepts RealtimeLogDeliveryDeliveryConditionArgs and RealtimeLogDeliveryDeliveryConditionOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryDeliveryConditionInput` via:
+//
+//	RealtimeLogDeliveryDeliveryConditionArgs{...}
+type RealtimeLogDeliveryDeliveryConditionInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryDeliveryConditionOutput() RealtimeLogDeliveryDeliveryConditionOutput
+	ToRealtimeLogDeliveryDeliveryConditionOutputWithContext(context.Context) RealtimeLogDeliveryDeliveryConditionOutput
+}
+
+type RealtimeLogDeliveryDeliveryConditionArgs struct {
+	Conditions RealtimeLogDeliveryDeliveryConditionConditionArrayInput `pulumi:"conditions"`
+}
+
+func (RealtimeLogDeliveryDeliveryConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryDeliveryCondition)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionArgs) ToRealtimeLogDeliveryDeliveryConditionOutput() RealtimeLogDeliveryDeliveryConditionOutput {
+	return i.ToRealtimeLogDeliveryDeliveryConditionOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionArgs) ToRealtimeLogDeliveryDeliveryConditionOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryDeliveryConditionOutput)
+}
+
+// RealtimeLogDeliveryDeliveryConditionArrayInput is an input type that accepts RealtimeLogDeliveryDeliveryConditionArray and RealtimeLogDeliveryDeliveryConditionArrayOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryDeliveryConditionArrayInput` via:
+//
+//	RealtimeLogDeliveryDeliveryConditionArray{ RealtimeLogDeliveryDeliveryConditionArgs{...} }
+type RealtimeLogDeliveryDeliveryConditionArrayInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryDeliveryConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionArrayOutput
+	ToRealtimeLogDeliveryDeliveryConditionArrayOutputWithContext(context.Context) RealtimeLogDeliveryDeliveryConditionArrayOutput
+}
+
+type RealtimeLogDeliveryDeliveryConditionArray []RealtimeLogDeliveryDeliveryConditionInput
+
+func (RealtimeLogDeliveryDeliveryConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryDeliveryCondition)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionArray) ToRealtimeLogDeliveryDeliveryConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionArrayOutput {
+	return i.ToRealtimeLogDeliveryDeliveryConditionArrayOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionArray) ToRealtimeLogDeliveryDeliveryConditionArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryDeliveryConditionArrayOutput)
+}
+
+type RealtimeLogDeliveryDeliveryConditionOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryDeliveryConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryDeliveryCondition)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionOutput) ToRealtimeLogDeliveryDeliveryConditionOutput() RealtimeLogDeliveryDeliveryConditionOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionOutput) ToRealtimeLogDeliveryDeliveryConditionOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionOutput) Conditions() RealtimeLogDeliveryDeliveryConditionConditionArrayOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryDeliveryCondition) []RealtimeLogDeliveryDeliveryConditionCondition {
+		return v.Conditions
+	}).(RealtimeLogDeliveryDeliveryConditionConditionArrayOutput)
+}
+
+type RealtimeLogDeliveryDeliveryConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryDeliveryConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryDeliveryCondition)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionArrayOutput) ToRealtimeLogDeliveryDeliveryConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionArrayOutput) ToRealtimeLogDeliveryDeliveryConditionArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionArrayOutput) Index(i pulumi.IntInput) RealtimeLogDeliveryDeliveryConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RealtimeLogDeliveryDeliveryCondition {
+		return vs[0].([]RealtimeLogDeliveryDeliveryCondition)[vs[1].(int)]
+	}).(RealtimeLogDeliveryDeliveryConditionOutput)
+}
+
+type RealtimeLogDeliveryDeliveryConditionCondition struct {
+	Key      string   `pulumi:"key"`
+	Operator string   `pulumi:"operator"`
+	Values   []string `pulumi:"values"`
+}
+
+// RealtimeLogDeliveryDeliveryConditionConditionInput is an input type that accepts RealtimeLogDeliveryDeliveryConditionConditionArgs and RealtimeLogDeliveryDeliveryConditionConditionOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryDeliveryConditionConditionInput` via:
+//
+//	RealtimeLogDeliveryDeliveryConditionConditionArgs{...}
+type RealtimeLogDeliveryDeliveryConditionConditionInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryDeliveryConditionConditionOutput() RealtimeLogDeliveryDeliveryConditionConditionOutput
+	ToRealtimeLogDeliveryDeliveryConditionConditionOutputWithContext(context.Context) RealtimeLogDeliveryDeliveryConditionConditionOutput
+}
+
+type RealtimeLogDeliveryDeliveryConditionConditionArgs struct {
+	Key      pulumi.StringInput      `pulumi:"key"`
+	Operator pulumi.StringInput      `pulumi:"operator"`
+	Values   pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (RealtimeLogDeliveryDeliveryConditionConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionCondition)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionConditionArgs) ToRealtimeLogDeliveryDeliveryConditionConditionOutput() RealtimeLogDeliveryDeliveryConditionConditionOutput {
+	return i.ToRealtimeLogDeliveryDeliveryConditionConditionOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionConditionArgs) ToRealtimeLogDeliveryDeliveryConditionConditionOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryDeliveryConditionConditionOutput)
+}
+
+// RealtimeLogDeliveryDeliveryConditionConditionArrayInput is an input type that accepts RealtimeLogDeliveryDeliveryConditionConditionArray and RealtimeLogDeliveryDeliveryConditionConditionArrayOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryDeliveryConditionConditionArrayInput` via:
+//
+//	RealtimeLogDeliveryDeliveryConditionConditionArray{ RealtimeLogDeliveryDeliveryConditionConditionArgs{...} }
+type RealtimeLogDeliveryDeliveryConditionConditionArrayInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionConditionArrayOutput
+	ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutputWithContext(context.Context) RealtimeLogDeliveryDeliveryConditionConditionArrayOutput
+}
+
+type RealtimeLogDeliveryDeliveryConditionConditionArray []RealtimeLogDeliveryDeliveryConditionConditionInput
+
+func (RealtimeLogDeliveryDeliveryConditionConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryDeliveryConditionCondition)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionConditionArray) ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionConditionArrayOutput {
+	return i.ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryDeliveryConditionConditionArray) ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryDeliveryConditionConditionArrayOutput)
+}
+
+type RealtimeLogDeliveryDeliveryConditionConditionOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryDeliveryConditionConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionCondition)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionOutput) ToRealtimeLogDeliveryDeliveryConditionConditionOutput() RealtimeLogDeliveryDeliveryConditionConditionOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionOutput) ToRealtimeLogDeliveryDeliveryConditionConditionOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionConditionOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryDeliveryConditionCondition) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryDeliveryConditionCondition) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryDeliveryConditionCondition) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type RealtimeLogDeliveryDeliveryConditionConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryDeliveryConditionConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]RealtimeLogDeliveryDeliveryConditionCondition)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionArrayOutput) ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutput() RealtimeLogDeliveryDeliveryConditionConditionArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionArrayOutput) ToRealtimeLogDeliveryDeliveryConditionConditionArrayOutputWithContext(ctx context.Context) RealtimeLogDeliveryDeliveryConditionConditionArrayOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryDeliveryConditionConditionArrayOutput) Index(i pulumi.IntInput) RealtimeLogDeliveryDeliveryConditionConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) RealtimeLogDeliveryDeliveryConditionCondition {
+		return vs[0].([]RealtimeLogDeliveryDeliveryConditionCondition)[vs[1].(int)]
+	}).(RealtimeLogDeliveryDeliveryConditionConditionOutput)
+}
+
+type RealtimeLogDeliveryLogFormat struct {
+	BatchPrefix     *string `pulumi:"batchPrefix"`
+	BatchSuffix     *string `pulumi:"batchSuffix"`
+	FieldDelimiter  *string `pulumi:"fieldDelimiter"`
+	FormatType      string  `pulumi:"formatType"`
+	RecordDelimiter *string `pulumi:"recordDelimiter"`
+	RecordPrefix    *string `pulumi:"recordPrefix"`
+	RecordSuffix    *string `pulumi:"recordSuffix"`
+}
+
+// RealtimeLogDeliveryLogFormatInput is an input type that accepts RealtimeLogDeliveryLogFormatArgs and RealtimeLogDeliveryLogFormatOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryLogFormatInput` via:
+//
+//	RealtimeLogDeliveryLogFormatArgs{...}
+type RealtimeLogDeliveryLogFormatInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryLogFormatOutput() RealtimeLogDeliveryLogFormatOutput
+	ToRealtimeLogDeliveryLogFormatOutputWithContext(context.Context) RealtimeLogDeliveryLogFormatOutput
+}
+
+type RealtimeLogDeliveryLogFormatArgs struct {
+	BatchPrefix     pulumi.StringPtrInput `pulumi:"batchPrefix"`
+	BatchSuffix     pulumi.StringPtrInput `pulumi:"batchSuffix"`
+	FieldDelimiter  pulumi.StringPtrInput `pulumi:"fieldDelimiter"`
+	FormatType      pulumi.StringInput    `pulumi:"formatType"`
+	RecordDelimiter pulumi.StringPtrInput `pulumi:"recordDelimiter"`
+	RecordPrefix    pulumi.StringPtrInput `pulumi:"recordPrefix"`
+	RecordSuffix    pulumi.StringPtrInput `pulumi:"recordSuffix"`
+}
+
+func (RealtimeLogDeliveryLogFormatArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryLogFormat)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryLogFormatArgs) ToRealtimeLogDeliveryLogFormatOutput() RealtimeLogDeliveryLogFormatOutput {
+	return i.ToRealtimeLogDeliveryLogFormatOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryLogFormatArgs) ToRealtimeLogDeliveryLogFormatOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryLogFormatOutput)
+}
+
+func (i RealtimeLogDeliveryLogFormatArgs) ToRealtimeLogDeliveryLogFormatPtrOutput() RealtimeLogDeliveryLogFormatPtrOutput {
+	return i.ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryLogFormatArgs) ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryLogFormatOutput).ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(ctx)
+}
+
+// RealtimeLogDeliveryLogFormatPtrInput is an input type that accepts RealtimeLogDeliveryLogFormatArgs, RealtimeLogDeliveryLogFormatPtr and RealtimeLogDeliveryLogFormatPtrOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryLogFormatPtrInput` via:
+//
+//	        RealtimeLogDeliveryLogFormatArgs{...}
+//
+//	or:
+//
+//	        nil
+type RealtimeLogDeliveryLogFormatPtrInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryLogFormatPtrOutput() RealtimeLogDeliveryLogFormatPtrOutput
+	ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(context.Context) RealtimeLogDeliveryLogFormatPtrOutput
+}
+
+type realtimeLogDeliveryLogFormatPtrType RealtimeLogDeliveryLogFormatArgs
+
+func RealtimeLogDeliveryLogFormatPtr(v *RealtimeLogDeliveryLogFormatArgs) RealtimeLogDeliveryLogFormatPtrInput {
+	return (*realtimeLogDeliveryLogFormatPtrType)(v)
+}
+
+func (*realtimeLogDeliveryLogFormatPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryLogFormat)(nil)).Elem()
+}
+
+func (i *realtimeLogDeliveryLogFormatPtrType) ToRealtimeLogDeliveryLogFormatPtrOutput() RealtimeLogDeliveryLogFormatPtrOutput {
+	return i.ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(context.Background())
+}
+
+func (i *realtimeLogDeliveryLogFormatPtrType) ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryLogFormatPtrOutput)
+}
+
+type RealtimeLogDeliveryLogFormatOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryLogFormatOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryLogFormat)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) ToRealtimeLogDeliveryLogFormatOutput() RealtimeLogDeliveryLogFormatOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) ToRealtimeLogDeliveryLogFormatOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) ToRealtimeLogDeliveryLogFormatPtrOutput() RealtimeLogDeliveryLogFormatPtrOutput {
+	return o.ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(context.Background())
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RealtimeLogDeliveryLogFormat) *RealtimeLogDeliveryLogFormat {
+		return &v
+	}).(RealtimeLogDeliveryLogFormatPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) BatchPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.BatchPrefix }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) BatchSuffix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.BatchSuffix }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) FieldDelimiter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.FieldDelimiter }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) FormatType() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) string { return v.FormatType }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) RecordDelimiter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.RecordDelimiter }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) RecordPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.RecordPrefix }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatOutput) RecordSuffix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryLogFormat) *string { return v.RecordSuffix }).(pulumi.StringPtrOutput)
+}
+
+type RealtimeLogDeliveryLogFormatPtrOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryLogFormatPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryLogFormat)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) ToRealtimeLogDeliveryLogFormatPtrOutput() RealtimeLogDeliveryLogFormatPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) ToRealtimeLogDeliveryLogFormatPtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryLogFormatPtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) Elem() RealtimeLogDeliveryLogFormatOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) RealtimeLogDeliveryLogFormat {
+		if v != nil {
+			return *v
+		}
+		var ret RealtimeLogDeliveryLogFormat
+		return ret
+	}).(RealtimeLogDeliveryLogFormatOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) BatchPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BatchPrefix
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) BatchSuffix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BatchSuffix
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) FieldDelimiter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.FieldDelimiter
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) FormatType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.FormatType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) RecordDelimiter() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RecordDelimiter
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) RecordPrefix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RecordPrefix
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryLogFormatPtrOutput) RecordSuffix() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryLogFormat) *string {
+		if v == nil {
+			return nil
+		}
+		return v.RecordSuffix
+	}).(pulumi.StringPtrOutput)
+}
+
+type RealtimeLogDeliveryS3 struct {
+	AccessId     string  `pulumi:"accessId"`
+	AccessKey    string  `pulumi:"accessKey"`
+	Bucket       string  `pulumi:"bucket"`
+	CompressType *string `pulumi:"compressType"`
+	Endpoint     string  `pulumi:"endpoint"`
+	Region       string  `pulumi:"region"`
+}
+
+// RealtimeLogDeliveryS3Input is an input type that accepts RealtimeLogDeliveryS3Args and RealtimeLogDeliveryS3Output values.
+// You can construct a concrete instance of `RealtimeLogDeliveryS3Input` via:
+//
+//	RealtimeLogDeliveryS3Args{...}
+type RealtimeLogDeliveryS3Input interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryS3Output() RealtimeLogDeliveryS3Output
+	ToRealtimeLogDeliveryS3OutputWithContext(context.Context) RealtimeLogDeliveryS3Output
+}
+
+type RealtimeLogDeliveryS3Args struct {
+	AccessId     pulumi.StringInput    `pulumi:"accessId"`
+	AccessKey    pulumi.StringInput    `pulumi:"accessKey"`
+	Bucket       pulumi.StringInput    `pulumi:"bucket"`
+	CompressType pulumi.StringPtrInput `pulumi:"compressType"`
+	Endpoint     pulumi.StringInput    `pulumi:"endpoint"`
+	Region       pulumi.StringInput    `pulumi:"region"`
+}
+
+func (RealtimeLogDeliveryS3Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryS3)(nil)).Elem()
+}
+
+func (i RealtimeLogDeliveryS3Args) ToRealtimeLogDeliveryS3Output() RealtimeLogDeliveryS3Output {
+	return i.ToRealtimeLogDeliveryS3OutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryS3Args) ToRealtimeLogDeliveryS3OutputWithContext(ctx context.Context) RealtimeLogDeliveryS3Output {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryS3Output)
+}
+
+func (i RealtimeLogDeliveryS3Args) ToRealtimeLogDeliveryS3PtrOutput() RealtimeLogDeliveryS3PtrOutput {
+	return i.ToRealtimeLogDeliveryS3PtrOutputWithContext(context.Background())
+}
+
+func (i RealtimeLogDeliveryS3Args) ToRealtimeLogDeliveryS3PtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryS3Output).ToRealtimeLogDeliveryS3PtrOutputWithContext(ctx)
+}
+
+// RealtimeLogDeliveryS3PtrInput is an input type that accepts RealtimeLogDeliveryS3Args, RealtimeLogDeliveryS3Ptr and RealtimeLogDeliveryS3PtrOutput values.
+// You can construct a concrete instance of `RealtimeLogDeliveryS3PtrInput` via:
+//
+//	        RealtimeLogDeliveryS3Args{...}
+//
+//	or:
+//
+//	        nil
+type RealtimeLogDeliveryS3PtrInput interface {
+	pulumi.Input
+
+	ToRealtimeLogDeliveryS3PtrOutput() RealtimeLogDeliveryS3PtrOutput
+	ToRealtimeLogDeliveryS3PtrOutputWithContext(context.Context) RealtimeLogDeliveryS3PtrOutput
+}
+
+type realtimeLogDeliveryS3PtrType RealtimeLogDeliveryS3Args
+
+func RealtimeLogDeliveryS3Ptr(v *RealtimeLogDeliveryS3Args) RealtimeLogDeliveryS3PtrInput {
+	return (*realtimeLogDeliveryS3PtrType)(v)
+}
+
+func (*realtimeLogDeliveryS3PtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryS3)(nil)).Elem()
+}
+
+func (i *realtimeLogDeliveryS3PtrType) ToRealtimeLogDeliveryS3PtrOutput() RealtimeLogDeliveryS3PtrOutput {
+	return i.ToRealtimeLogDeliveryS3PtrOutputWithContext(context.Background())
+}
+
+func (i *realtimeLogDeliveryS3PtrType) ToRealtimeLogDeliveryS3PtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryS3PtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(RealtimeLogDeliveryS3PtrOutput)
+}
+
+type RealtimeLogDeliveryS3Output struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryS3Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*RealtimeLogDeliveryS3)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryS3Output) ToRealtimeLogDeliveryS3Output() RealtimeLogDeliveryS3Output {
+	return o
+}
+
+func (o RealtimeLogDeliveryS3Output) ToRealtimeLogDeliveryS3OutputWithContext(ctx context.Context) RealtimeLogDeliveryS3Output {
+	return o
+}
+
+func (o RealtimeLogDeliveryS3Output) ToRealtimeLogDeliveryS3PtrOutput() RealtimeLogDeliveryS3PtrOutput {
+	return o.ToRealtimeLogDeliveryS3PtrOutputWithContext(context.Background())
+}
+
+func (o RealtimeLogDeliveryS3Output) ToRealtimeLogDeliveryS3PtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryS3PtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v RealtimeLogDeliveryS3) *RealtimeLogDeliveryS3 {
+		return &v
+	}).(RealtimeLogDeliveryS3PtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) AccessId() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) string { return v.AccessId }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) AccessKey() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) string { return v.AccessKey }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) Bucket() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) string { return v.Bucket }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) CompressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) *string { return v.CompressType }).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) Endpoint() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) string { return v.Endpoint }).(pulumi.StringOutput)
+}
+
+func (o RealtimeLogDeliveryS3Output) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v RealtimeLogDeliveryS3) string { return v.Region }).(pulumi.StringOutput)
+}
+
+type RealtimeLogDeliveryS3PtrOutput struct{ *pulumi.OutputState }
+
+func (RealtimeLogDeliveryS3PtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**RealtimeLogDeliveryS3)(nil)).Elem()
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) ToRealtimeLogDeliveryS3PtrOutput() RealtimeLogDeliveryS3PtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) ToRealtimeLogDeliveryS3PtrOutputWithContext(ctx context.Context) RealtimeLogDeliveryS3PtrOutput {
+	return o
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) Elem() RealtimeLogDeliveryS3Output {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) RealtimeLogDeliveryS3 {
+		if v != nil {
+			return *v
+		}
+		var ret RealtimeLogDeliveryS3
+		return ret
+	}).(RealtimeLogDeliveryS3Output)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) AccessId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AccessId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) AccessKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.AccessKey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) Bucket() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Bucket
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) CompressType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CompressType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) Endpoint() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Endpoint
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o RealtimeLogDeliveryS3PtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *RealtimeLogDeliveryS3) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Region
+	}).(pulumi.StringPtrOutput)
 }
 
 type RuleEngineRule struct {
@@ -3271,6 +5064,169 @@ func (o RuleEngineRuleSubRuleRuleOrAndArrayOutput) Index(i pulumi.IntInput) Rule
 	}).(RuleEngineRuleSubRuleRuleOrAndOutput)
 }
 
+type SecurityIpGroupIpGroup struct {
+	Contents []string `pulumi:"contents"`
+	GroupId  *int     `pulumi:"groupId"`
+	Name     string   `pulumi:"name"`
+}
+
+// SecurityIpGroupIpGroupInput is an input type that accepts SecurityIpGroupIpGroupArgs and SecurityIpGroupIpGroupOutput values.
+// You can construct a concrete instance of `SecurityIpGroupIpGroupInput` via:
+//
+//	SecurityIpGroupIpGroupArgs{...}
+type SecurityIpGroupIpGroupInput interface {
+	pulumi.Input
+
+	ToSecurityIpGroupIpGroupOutput() SecurityIpGroupIpGroupOutput
+	ToSecurityIpGroupIpGroupOutputWithContext(context.Context) SecurityIpGroupIpGroupOutput
+}
+
+type SecurityIpGroupIpGroupArgs struct {
+	Contents pulumi.StringArrayInput `pulumi:"contents"`
+	GroupId  pulumi.IntPtrInput      `pulumi:"groupId"`
+	Name     pulumi.StringInput      `pulumi:"name"`
+}
+
+func (SecurityIpGroupIpGroupArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecurityIpGroupIpGroup)(nil)).Elem()
+}
+
+func (i SecurityIpGroupIpGroupArgs) ToSecurityIpGroupIpGroupOutput() SecurityIpGroupIpGroupOutput {
+	return i.ToSecurityIpGroupIpGroupOutputWithContext(context.Background())
+}
+
+func (i SecurityIpGroupIpGroupArgs) ToSecurityIpGroupIpGroupOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecurityIpGroupIpGroupOutput)
+}
+
+func (i SecurityIpGroupIpGroupArgs) ToSecurityIpGroupIpGroupPtrOutput() SecurityIpGroupIpGroupPtrOutput {
+	return i.ToSecurityIpGroupIpGroupPtrOutputWithContext(context.Background())
+}
+
+func (i SecurityIpGroupIpGroupArgs) ToSecurityIpGroupIpGroupPtrOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecurityIpGroupIpGroupOutput).ToSecurityIpGroupIpGroupPtrOutputWithContext(ctx)
+}
+
+// SecurityIpGroupIpGroupPtrInput is an input type that accepts SecurityIpGroupIpGroupArgs, SecurityIpGroupIpGroupPtr and SecurityIpGroupIpGroupPtrOutput values.
+// You can construct a concrete instance of `SecurityIpGroupIpGroupPtrInput` via:
+//
+//	        SecurityIpGroupIpGroupArgs{...}
+//
+//	or:
+//
+//	        nil
+type SecurityIpGroupIpGroupPtrInput interface {
+	pulumi.Input
+
+	ToSecurityIpGroupIpGroupPtrOutput() SecurityIpGroupIpGroupPtrOutput
+	ToSecurityIpGroupIpGroupPtrOutputWithContext(context.Context) SecurityIpGroupIpGroupPtrOutput
+}
+
+type securityIpGroupIpGroupPtrType SecurityIpGroupIpGroupArgs
+
+func SecurityIpGroupIpGroupPtr(v *SecurityIpGroupIpGroupArgs) SecurityIpGroupIpGroupPtrInput {
+	return (*securityIpGroupIpGroupPtrType)(v)
+}
+
+func (*securityIpGroupIpGroupPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecurityIpGroupIpGroup)(nil)).Elem()
+}
+
+func (i *securityIpGroupIpGroupPtrType) ToSecurityIpGroupIpGroupPtrOutput() SecurityIpGroupIpGroupPtrOutput {
+	return i.ToSecurityIpGroupIpGroupPtrOutputWithContext(context.Background())
+}
+
+func (i *securityIpGroupIpGroupPtrType) ToSecurityIpGroupIpGroupPtrOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SecurityIpGroupIpGroupPtrOutput)
+}
+
+type SecurityIpGroupIpGroupOutput struct{ *pulumi.OutputState }
+
+func (SecurityIpGroupIpGroupOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SecurityIpGroupIpGroup)(nil)).Elem()
+}
+
+func (o SecurityIpGroupIpGroupOutput) ToSecurityIpGroupIpGroupOutput() SecurityIpGroupIpGroupOutput {
+	return o
+}
+
+func (o SecurityIpGroupIpGroupOutput) ToSecurityIpGroupIpGroupOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupOutput {
+	return o
+}
+
+func (o SecurityIpGroupIpGroupOutput) ToSecurityIpGroupIpGroupPtrOutput() SecurityIpGroupIpGroupPtrOutput {
+	return o.ToSecurityIpGroupIpGroupPtrOutputWithContext(context.Background())
+}
+
+func (o SecurityIpGroupIpGroupOutput) ToSecurityIpGroupIpGroupPtrOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v SecurityIpGroupIpGroup) *SecurityIpGroupIpGroup {
+		return &v
+	}).(SecurityIpGroupIpGroupPtrOutput)
+}
+
+func (o SecurityIpGroupIpGroupOutput) Contents() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v SecurityIpGroupIpGroup) []string { return v.Contents }).(pulumi.StringArrayOutput)
+}
+
+func (o SecurityIpGroupIpGroupOutput) GroupId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v SecurityIpGroupIpGroup) *int { return v.GroupId }).(pulumi.IntPtrOutput)
+}
+
+func (o SecurityIpGroupIpGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v SecurityIpGroupIpGroup) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type SecurityIpGroupIpGroupPtrOutput struct{ *pulumi.OutputState }
+
+func (SecurityIpGroupIpGroupPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**SecurityIpGroupIpGroup)(nil)).Elem()
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) ToSecurityIpGroupIpGroupPtrOutput() SecurityIpGroupIpGroupPtrOutput {
+	return o
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) ToSecurityIpGroupIpGroupPtrOutputWithContext(ctx context.Context) SecurityIpGroupIpGroupPtrOutput {
+	return o
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) Elem() SecurityIpGroupIpGroupOutput {
+	return o.ApplyT(func(v *SecurityIpGroupIpGroup) SecurityIpGroupIpGroup {
+		if v != nil {
+			return *v
+		}
+		var ret SecurityIpGroupIpGroup
+		return ret
+	}).(SecurityIpGroupIpGroupOutput)
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) Contents() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *SecurityIpGroupIpGroup) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Contents
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) GroupId() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *SecurityIpGroupIpGroup) *int {
+		if v == nil {
+			return nil
+		}
+		return v.GroupId
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o SecurityIpGroupIpGroupPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *SecurityIpGroupIpGroup) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
 type ZoneOwnershipVerification struct {
 	DnsVerifications []ZoneOwnershipVerificationDnsVerification `pulumi:"dnsVerifications"`
 }
@@ -3637,9 +5593,8 @@ func (o ZoneSettingCachePtrOutput) NoCache() ZoneSettingCacheNoCachePtrOutput {
 }
 
 type ZoneSettingCacheCache struct {
-	CacheTime          *int    `pulumi:"cacheTime"`
-	IgnoreCacheControl *string `pulumi:"ignoreCacheControl"`
-	Switch             *string `pulumi:"switch"`
+	CacheTime *int    `pulumi:"cacheTime"`
+	Switch    *string `pulumi:"switch"`
 }
 
 // ZoneSettingCacheCacheInput is an input type that accepts ZoneSettingCacheCacheArgs and ZoneSettingCacheCacheOutput values.
@@ -3654,9 +5609,8 @@ type ZoneSettingCacheCacheInput interface {
 }
 
 type ZoneSettingCacheCacheArgs struct {
-	CacheTime          pulumi.IntPtrInput    `pulumi:"cacheTime"`
-	IgnoreCacheControl pulumi.StringPtrInput `pulumi:"ignoreCacheControl"`
-	Switch             pulumi.StringPtrInput `pulumi:"switch"`
+	CacheTime pulumi.IntPtrInput    `pulumi:"cacheTime"`
+	Switch    pulumi.StringPtrInput `pulumi:"switch"`
 }
 
 func (ZoneSettingCacheCacheArgs) ElementType() reflect.Type {
@@ -3740,10 +5694,6 @@ func (o ZoneSettingCacheCacheOutput) CacheTime() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ZoneSettingCacheCache) *int { return v.CacheTime }).(pulumi.IntPtrOutput)
 }
 
-func (o ZoneSettingCacheCacheOutput) IgnoreCacheControl() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ZoneSettingCacheCache) *string { return v.IgnoreCacheControl }).(pulumi.StringPtrOutput)
-}
-
 func (o ZoneSettingCacheCacheOutput) Switch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ZoneSettingCacheCache) *string { return v.Switch }).(pulumi.StringPtrOutput)
 }
@@ -3779,15 +5729,6 @@ func (o ZoneSettingCacheCachePtrOutput) CacheTime() pulumi.IntPtrOutput {
 		}
 		return v.CacheTime
 	}).(pulumi.IntPtrOutput)
-}
-
-func (o ZoneSettingCacheCachePtrOutput) IgnoreCacheControl() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ZoneSettingCacheCache) *string {
-		if v == nil {
-			return nil
-		}
-		return v.IgnoreCacheControl
-	}).(pulumi.StringPtrOutput)
 }
 
 func (o ZoneSettingCacheCachePtrOutput) Switch() pulumi.StringPtrOutput {
@@ -5755,7 +7696,6 @@ func (o ZoneSettingOfflineCachePtrOutput) Switch() pulumi.StringPtrOutput {
 
 type ZoneSettingOrigin struct {
 	BackupOrigins      []string `pulumi:"backupOrigins"`
-	CosPrivateAccess   *string  `pulumi:"cosPrivateAccess"`
 	OriginPullProtocol *string  `pulumi:"originPullProtocol"`
 	Origins            []string `pulumi:"origins"`
 }
@@ -5773,7 +7713,6 @@ type ZoneSettingOriginInput interface {
 
 type ZoneSettingOriginArgs struct {
 	BackupOrigins      pulumi.StringArrayInput `pulumi:"backupOrigins"`
-	CosPrivateAccess   pulumi.StringPtrInput   `pulumi:"cosPrivateAccess"`
 	OriginPullProtocol pulumi.StringPtrInput   `pulumi:"originPullProtocol"`
 	Origins            pulumi.StringArrayInput `pulumi:"origins"`
 }
@@ -5859,10 +7798,6 @@ func (o ZoneSettingOriginOutput) BackupOrigins() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ZoneSettingOrigin) []string { return v.BackupOrigins }).(pulumi.StringArrayOutput)
 }
 
-func (o ZoneSettingOriginOutput) CosPrivateAccess() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v ZoneSettingOrigin) *string { return v.CosPrivateAccess }).(pulumi.StringPtrOutput)
-}
-
 func (o ZoneSettingOriginOutput) OriginPullProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ZoneSettingOrigin) *string { return v.OriginPullProtocol }).(pulumi.StringPtrOutput)
 }
@@ -5902,15 +7837,6 @@ func (o ZoneSettingOriginPtrOutput) BackupOrigins() pulumi.StringArrayOutput {
 		}
 		return v.BackupOrigins
 	}).(pulumi.StringArrayOutput)
-}
-
-func (o ZoneSettingOriginPtrOutput) CosPrivateAccess() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ZoneSettingOrigin) *string {
-		if v == nil {
-			return nil
-		}
-		return v.CosPrivateAccess
-	}).(pulumi.StringPtrOutput)
 }
 
 func (o ZoneSettingOriginPtrOutput) OriginPullProtocol() pulumi.StringPtrOutput {
@@ -7223,14 +9149,14 @@ func (o GetRuleEngineSettingsActionPropertyExtraParameterArrayOutput) Index(i pu
 }
 
 type GetZoneAvailablePlansPlanInfoList struct {
-	Area       string `pulumi:"area"`
-	Currency   string `pulumi:"currency"`
-	Flux       int    `pulumi:"flux"`
-	Frequency  string `pulumi:"frequency"`
-	PlanType   string `pulumi:"planType"`
-	Price      int    `pulumi:"price"`
-	Request    int    `pulumi:"request"`
-	SiteNumber int    `pulumi:"siteNumber"`
+	Area       string  `pulumi:"area"`
+	Currency   string  `pulumi:"currency"`
+	Flux       int     `pulumi:"flux"`
+	Frequency  string  `pulumi:"frequency"`
+	PlanType   string  `pulumi:"planType"`
+	Price      float64 `pulumi:"price"`
+	Request    int     `pulumi:"request"`
+	SiteNumber int     `pulumi:"siteNumber"`
 }
 
 // GetZoneAvailablePlansPlanInfoListInput is an input type that accepts GetZoneAvailablePlansPlanInfoListArgs and GetZoneAvailablePlansPlanInfoListOutput values.
@@ -7245,14 +9171,14 @@ type GetZoneAvailablePlansPlanInfoListInput interface {
 }
 
 type GetZoneAvailablePlansPlanInfoListArgs struct {
-	Area       pulumi.StringInput `pulumi:"area"`
-	Currency   pulumi.StringInput `pulumi:"currency"`
-	Flux       pulumi.IntInput    `pulumi:"flux"`
-	Frequency  pulumi.StringInput `pulumi:"frequency"`
-	PlanType   pulumi.StringInput `pulumi:"planType"`
-	Price      pulumi.IntInput    `pulumi:"price"`
-	Request    pulumi.IntInput    `pulumi:"request"`
-	SiteNumber pulumi.IntInput    `pulumi:"siteNumber"`
+	Area       pulumi.StringInput  `pulumi:"area"`
+	Currency   pulumi.StringInput  `pulumi:"currency"`
+	Flux       pulumi.IntInput     `pulumi:"flux"`
+	Frequency  pulumi.StringInput  `pulumi:"frequency"`
+	PlanType   pulumi.StringInput  `pulumi:"planType"`
+	Price      pulumi.Float64Input `pulumi:"price"`
+	Request    pulumi.IntInput     `pulumi:"request"`
+	SiteNumber pulumi.IntInput     `pulumi:"siteNumber"`
 }
 
 func (GetZoneAvailablePlansPlanInfoListArgs) ElementType() reflect.Type {
@@ -7326,8 +9252,8 @@ func (o GetZoneAvailablePlansPlanInfoListOutput) PlanType() pulumi.StringOutput 
 	return o.ApplyT(func(v GetZoneAvailablePlansPlanInfoList) string { return v.PlanType }).(pulumi.StringOutput)
 }
 
-func (o GetZoneAvailablePlansPlanInfoListOutput) Price() pulumi.IntOutput {
-	return o.ApplyT(func(v GetZoneAvailablePlansPlanInfoList) int { return v.Price }).(pulumi.IntOutput)
+func (o GetZoneAvailablePlansPlanInfoListOutput) Price() pulumi.Float64Output {
+	return o.ApplyT(func(v GetZoneAvailablePlansPlanInfoList) float64 { return v.Price }).(pulumi.Float64Output)
 }
 
 func (o GetZoneAvailablePlansPlanInfoListOutput) Request() pulumi.IntOutput {
@@ -7367,10 +9293,36 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ApplicationProxyIpv6PtrInput)(nil)).Elem(), ApplicationProxyIpv6Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateConfigServerCertInfoInput)(nil)).Elem(), CertificateConfigServerCertInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CertificateConfigServerCertInfoArrayInput)(nil)).Elem(), CertificateConfigServerCertInfoArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupOriginRecordInput)(nil)).Elem(), OriginGroupOriginRecordArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupOriginRecordArrayInput)(nil)).Elem(), OriginGroupOriginRecordArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupOriginRecordPrivateParameterInput)(nil)).Elem(), OriginGroupOriginRecordPrivateParameterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupOriginRecordPrivateParameterArrayInput)(nil)).Elem(), OriginGroupOriginRecordPrivateParameterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuleFunctionRuleConditionInput)(nil)).Elem(), FunctionRuleFunctionRuleConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuleFunctionRuleConditionArrayInput)(nil)).Elem(), FunctionRuleFunctionRuleConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuleFunctionRuleConditionRuleConditionInput)(nil)).Elem(), FunctionRuleFunctionRuleConditionRuleConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuleFunctionRuleConditionRuleConditionArrayInput)(nil)).Elem(), FunctionRuleFunctionRuleConditionRuleConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuntimeEnvironmentEnvironmentVariableInput)(nil)).Elem(), FunctionRuntimeEnvironmentEnvironmentVariableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FunctionRuntimeEnvironmentEnvironmentVariableArrayInput)(nil)).Elem(), FunctionRuntimeEnvironmentEnvironmentVariableArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*L4ProxyDdosProtectionConfigInput)(nil)).Elem(), L4ProxyDdosProtectionConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*L4ProxyDdosProtectionConfigPtrInput)(nil)).Elem(), L4ProxyDdosProtectionConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupRecordInput)(nil)).Elem(), OriginGroupRecordArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupRecordArrayInput)(nil)).Elem(), OriginGroupRecordArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupRecordPrivateParameterInput)(nil)).Elem(), OriginGroupRecordPrivateParameterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupRecordPrivateParameterArrayInput)(nil)).Elem(), OriginGroupRecordPrivateParameterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupReferenceInput)(nil)).Elem(), OriginGroupReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*OriginGroupReferenceArrayInput)(nil)).Elem(), OriginGroupReferenceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryClsInput)(nil)).Elem(), RealtimeLogDeliveryClsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryClsPtrInput)(nil)).Elem(), RealtimeLogDeliveryClsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointInput)(nil)).Elem(), RealtimeLogDeliveryCustomEndpointArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointPtrInput)(nil)).Elem(), RealtimeLogDeliveryCustomEndpointArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointHeaderInput)(nil)).Elem(), RealtimeLogDeliveryCustomEndpointHeaderArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomEndpointHeaderArrayInput)(nil)).Elem(), RealtimeLogDeliveryCustomEndpointHeaderArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomFieldInput)(nil)).Elem(), RealtimeLogDeliveryCustomFieldArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryCustomFieldArrayInput)(nil)).Elem(), RealtimeLogDeliveryCustomFieldArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionInput)(nil)).Elem(), RealtimeLogDeliveryDeliveryConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionArrayInput)(nil)).Elem(), RealtimeLogDeliveryDeliveryConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionConditionInput)(nil)).Elem(), RealtimeLogDeliveryDeliveryConditionConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryDeliveryConditionConditionArrayInput)(nil)).Elem(), RealtimeLogDeliveryDeliveryConditionConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryLogFormatInput)(nil)).Elem(), RealtimeLogDeliveryLogFormatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryLogFormatPtrInput)(nil)).Elem(), RealtimeLogDeliveryLogFormatArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryS3Input)(nil)).Elem(), RealtimeLogDeliveryS3Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*RealtimeLogDeliveryS3PtrInput)(nil)).Elem(), RealtimeLogDeliveryS3Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleInput)(nil)).Elem(), RuleEngineRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleArrayInput)(nil)).Elem(), RuleEngineRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleActionInput)(nil)).Elem(), RuleEngineRuleActionArgs{})
@@ -7413,6 +9365,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleSubRuleRuleOrArrayInput)(nil)).Elem(), RuleEngineRuleSubRuleRuleOrArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleSubRuleRuleOrAndInput)(nil)).Elem(), RuleEngineRuleSubRuleRuleOrAndArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*RuleEngineRuleSubRuleRuleOrAndArrayInput)(nil)).Elem(), RuleEngineRuleSubRuleRuleOrAndArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecurityIpGroupIpGroupInput)(nil)).Elem(), SecurityIpGroupIpGroupArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SecurityIpGroupIpGroupPtrInput)(nil)).Elem(), SecurityIpGroupIpGroupArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneOwnershipVerificationInput)(nil)).Elem(), ZoneOwnershipVerificationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneOwnershipVerificationArrayInput)(nil)).Elem(), ZoneOwnershipVerificationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneOwnershipVerificationDnsVerificationInput)(nil)).Elem(), ZoneOwnershipVerificationDnsVerificationArgs{})
@@ -7479,10 +9433,36 @@ func init() {
 	pulumi.RegisterOutputType(ApplicationProxyIpv6PtrOutput{})
 	pulumi.RegisterOutputType(CertificateConfigServerCertInfoOutput{})
 	pulumi.RegisterOutputType(CertificateConfigServerCertInfoArrayOutput{})
-	pulumi.RegisterOutputType(OriginGroupOriginRecordOutput{})
-	pulumi.RegisterOutputType(OriginGroupOriginRecordArrayOutput{})
-	pulumi.RegisterOutputType(OriginGroupOriginRecordPrivateParameterOutput{})
-	pulumi.RegisterOutputType(OriginGroupOriginRecordPrivateParameterArrayOutput{})
+	pulumi.RegisterOutputType(FunctionRuleFunctionRuleConditionOutput{})
+	pulumi.RegisterOutputType(FunctionRuleFunctionRuleConditionArrayOutput{})
+	pulumi.RegisterOutputType(FunctionRuleFunctionRuleConditionRuleConditionOutput{})
+	pulumi.RegisterOutputType(FunctionRuleFunctionRuleConditionRuleConditionArrayOutput{})
+	pulumi.RegisterOutputType(FunctionRuntimeEnvironmentEnvironmentVariableOutput{})
+	pulumi.RegisterOutputType(FunctionRuntimeEnvironmentEnvironmentVariableArrayOutput{})
+	pulumi.RegisterOutputType(L4ProxyDdosProtectionConfigOutput{})
+	pulumi.RegisterOutputType(L4ProxyDdosProtectionConfigPtrOutput{})
+	pulumi.RegisterOutputType(OriginGroupRecordOutput{})
+	pulumi.RegisterOutputType(OriginGroupRecordArrayOutput{})
+	pulumi.RegisterOutputType(OriginGroupRecordPrivateParameterOutput{})
+	pulumi.RegisterOutputType(OriginGroupRecordPrivateParameterArrayOutput{})
+	pulumi.RegisterOutputType(OriginGroupReferenceOutput{})
+	pulumi.RegisterOutputType(OriginGroupReferenceArrayOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryClsOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryClsPtrOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomEndpointOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomEndpointPtrOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomEndpointHeaderOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomEndpointHeaderArrayOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomFieldOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryCustomFieldArrayOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryDeliveryConditionOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryDeliveryConditionArrayOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryDeliveryConditionConditionOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryDeliveryConditionConditionArrayOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryLogFormatOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryLogFormatPtrOutput{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryS3Output{})
+	pulumi.RegisterOutputType(RealtimeLogDeliveryS3PtrOutput{})
 	pulumi.RegisterOutputType(RuleEngineRuleOutput{})
 	pulumi.RegisterOutputType(RuleEngineRuleArrayOutput{})
 	pulumi.RegisterOutputType(RuleEngineRuleActionOutput{})
@@ -7525,6 +9505,8 @@ func init() {
 	pulumi.RegisterOutputType(RuleEngineRuleSubRuleRuleOrArrayOutput{})
 	pulumi.RegisterOutputType(RuleEngineRuleSubRuleRuleOrAndOutput{})
 	pulumi.RegisterOutputType(RuleEngineRuleSubRuleRuleOrAndArrayOutput{})
+	pulumi.RegisterOutputType(SecurityIpGroupIpGroupOutput{})
+	pulumi.RegisterOutputType(SecurityIpGroupIpGroupPtrOutput{})
 	pulumi.RegisterOutputType(ZoneOwnershipVerificationOutput{})
 	pulumi.RegisterOutputType(ZoneOwnershipVerificationArrayOutput{})
 	pulumi.RegisterOutputType(ZoneOwnershipVerificationDnsVerificationOutput{})

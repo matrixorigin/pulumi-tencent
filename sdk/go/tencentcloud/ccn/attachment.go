@@ -19,7 +19,7 @@ type Attachment struct {
 	AttachedTime pulumi.StringOutput `pulumi:"attachedTime"`
 	// ID of the CCN.
 	CcnId pulumi.StringOutput `pulumi:"ccnId"`
-	// Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+	// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 	// attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 	CcnUin pulumi.StringOutput `pulumi:"ccnUin"`
 	// A network address block of the instance that is attached.
@@ -35,6 +35,8 @@ type Attachment struct {
 	InstanceType pulumi.StringOutput `pulumi:"instanceType"`
 	// Route id list.
 	RouteIds pulumi.StringArrayOutput `pulumi:"routeIds"`
+	// Ccn instance route table ID.
+	RouteTableId pulumi.StringOutput `pulumi:"routeTableId"`
 	// States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,
 	// `ATTACHING`, `DETACHING` and `DETACHFAILED`. `FAILED` means asynchronous forced disassociation after 2 hours.
 	// `DETACHFAILED` means asynchronous forced disassociation after 2 hours.
@@ -87,7 +89,7 @@ type attachmentState struct {
 	AttachedTime *string `pulumi:"attachedTime"`
 	// ID of the CCN.
 	CcnId *string `pulumi:"ccnId"`
-	// Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+	// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 	// attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 	CcnUin *string `pulumi:"ccnUin"`
 	// A network address block of the instance that is attached.
@@ -103,6 +105,8 @@ type attachmentState struct {
 	InstanceType *string `pulumi:"instanceType"`
 	// Route id list.
 	RouteIds []string `pulumi:"routeIds"`
+	// Ccn instance route table ID.
+	RouteTableId *string `pulumi:"routeTableId"`
 	// States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,
 	// `ATTACHING`, `DETACHING` and `DETACHFAILED`. `FAILED` means asynchronous forced disassociation after 2 hours.
 	// `DETACHFAILED` means asynchronous forced disassociation after 2 hours.
@@ -114,7 +118,7 @@ type AttachmentState struct {
 	AttachedTime pulumi.StringPtrInput
 	// ID of the CCN.
 	CcnId pulumi.StringPtrInput
-	// Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+	// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 	// attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 	CcnUin pulumi.StringPtrInput
 	// A network address block of the instance that is attached.
@@ -130,6 +134,8 @@ type AttachmentState struct {
 	InstanceType pulumi.StringPtrInput
 	// Route id list.
 	RouteIds pulumi.StringArrayInput
+	// Ccn instance route table ID.
+	RouteTableId pulumi.StringPtrInput
 	// States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,
 	// `ATTACHING`, `DETACHING` and `DETACHFAILED`. `FAILED` means asynchronous forced disassociation after 2 hours.
 	// `DETACHFAILED` means asynchronous forced disassociation after 2 hours.
@@ -143,7 +149,7 @@ func (AttachmentState) ElementType() reflect.Type {
 type attachmentArgs struct {
 	// ID of the CCN.
 	CcnId string `pulumi:"ccnId"`
-	// Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+	// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 	// attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 	CcnUin *string `pulumi:"ccnUin"`
 	// Remark of attachment.
@@ -155,13 +161,15 @@ type attachmentArgs struct {
 	// Type of attached instance network, and available values include `VPC`, `DIRECTCONNECT`, `BMVPC` and `VPNGW`. Note:
 	// `VPNGW` type is only for whitelist customer now.
 	InstanceType string `pulumi:"instanceType"`
+	// Ccn instance route table ID.
+	RouteTableId *string `pulumi:"routeTableId"`
 }
 
 // The set of arguments for constructing a Attachment resource.
 type AttachmentArgs struct {
 	// ID of the CCN.
 	CcnId pulumi.StringInput
-	// Uin of the ccn attached. Default is ``, which means the uin of this account. This parameter is used with case when
+	// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 	// attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 	CcnUin pulumi.StringPtrInput
 	// Remark of attachment.
@@ -173,6 +181,8 @@ type AttachmentArgs struct {
 	// Type of attached instance network, and available values include `VPC`, `DIRECTCONNECT`, `BMVPC` and `VPNGW`. Note:
 	// `VPNGW` type is only for whitelist customer now.
 	InstanceType pulumi.StringInput
+	// Ccn instance route table ID.
+	RouteTableId pulumi.StringPtrInput
 }
 
 func (AttachmentArgs) ElementType() reflect.Type {
@@ -272,7 +282,7 @@ func (o AttachmentOutput) CcnId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Attachment) pulumi.StringOutput { return v.CcnId }).(pulumi.StringOutput)
 }
 
-// Uin of the ccn attached. Default is “, which means the uin of this account. This parameter is used with case when
+// Uin of the ccn attached. If not set, which means the uin of this account. This parameter is used with case when
 // attaching ccn of other account to the instance of this account. For now only support instance type `VPC`.
 func (o AttachmentOutput) CcnUin() pulumi.StringOutput {
 	return o.ApplyT(func(v *Attachment) pulumi.StringOutput { return v.CcnUin }).(pulumi.StringOutput)
@@ -307,6 +317,11 @@ func (o AttachmentOutput) InstanceType() pulumi.StringOutput {
 // Route id list.
 func (o AttachmentOutput) RouteIds() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Attachment) pulumi.StringArrayOutput { return v.RouteIds }).(pulumi.StringArrayOutput)
+}
+
+// Ccn instance route table ID.
+func (o AttachmentOutput) RouteTableId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Attachment) pulumi.StringOutput { return v.RouteTableId }).(pulumi.StringOutput)
 }
 
 // States of instance is attached. Valid values: `PENDING`, `ACTIVE`, `EXPIRED`, `REJECTED`, `DELETED`, `FAILED`,

@@ -16,21 +16,51 @@ __all__ = [
     'ClusterAttachmentWorkerConfigOverridesArgs',
     'ClusterAttachmentWorkerConfigOverridesDataDiskArgs',
     'ClusterAttachmentWorkerConfigOverridesGpuArgsArgs',
+    'ClusterAttachmentWorkerConfigTaintArgs',
     'ClusterAuthOptionsArgs',
     'ClusterClusterAuditArgs',
     'ClusterClusterExtraArgsArgs',
     'ClusterEventPersistenceArgs',
     'ClusterExistInstanceArgs',
     'ClusterExistInstanceInstancesParaArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigLabelArgs',
+    'ClusterExistInstanceInstancesParaMasterConfigTaintArgs',
     'ClusterExtensionAddonArgs',
     'ClusterLogAgentArgs',
+    'ClusterMasterAttachmentExtraArgsArgs',
+    'ClusterMasterAttachmentMasterConfigArgs',
+    'ClusterMasterAttachmentMasterConfigDataDiskArgs',
+    'ClusterMasterAttachmentMasterConfigExtraArgsArgs',
+    'ClusterMasterAttachmentMasterConfigGpuArgsArgs',
+    'ClusterMasterAttachmentMasterConfigLabelArgs',
+    'ClusterMasterAttachmentMasterConfigTaintArgs',
     'ClusterMasterConfigArgs',
     'ClusterMasterConfigDataDiskArgs',
     'ClusterNodePoolGlobalConfigArgs',
+    'ClusterResourceDeleteOptionArgs',
     'ClusterWorkerConfigArgs',
     'ClusterWorkerConfigDataDiskArgs',
     'ClusterWorkerInstancesListArgs',
     'EncryptionProtectionKmsConfigurationArgs',
+    'HealthCheckPolicyRuleArgs',
+    'NativeNodePoolAnnotationArgs',
+    'NativeNodePoolLabelArgs',
+    'NativeNodePoolNativeArgs',
+    'NativeNodePoolNativeDataDiskArgs',
+    'NativeNodePoolNativeInstanceChargePrepaidArgs',
+    'NativeNodePoolNativeInternetAccessibleArgs',
+    'NativeNodePoolNativeLifecycleArgs',
+    'NativeNodePoolNativeManagementArgs',
+    'NativeNodePoolNativeScalingArgs',
+    'NativeNodePoolNativeSystemDiskArgs',
+    'NativeNodePoolTagArgs',
+    'NativeNodePoolTagTagArgs',
+    'NativeNodePoolTaintArgs',
+    'NodePoolAnnotationArgs',
     'NodePoolAutoScalingConfigArgs',
     'NodePoolAutoScalingConfigDataDiskArgs',
     'NodePoolNodeConfigArgs',
@@ -39,12 +69,15 @@ __all__ = [
     'NodePoolTaintArgs',
     'ScaleWorkerDataDiskArgs',
     'ScaleWorkerGpuArgsArgs',
+    'ScaleWorkerTaintArgs',
     'ScaleWorkerWorkerConfigArgs',
     'ScaleWorkerWorkerConfigDataDiskArgs',
+    'ScaleWorkerWorkerConfigTagArgs',
     'ScaleWorkerWorkerInstancesListArgs',
     'ServerlessNodePoolServerlessNodeArgs',
     'ServerlessNodePoolTaintArgs',
     'GetClusterInstancesFilterArgs',
+    'GetClusterNativeNodePoolsFilterArgs',
     'GetClusterNodePoolsFilterArgs',
 ]
 
@@ -58,6 +91,8 @@ class ClusterAttachmentWorkerConfigArgs:
                  gpu_args: Optional[pulumi.Input['ClusterAttachmentWorkerConfigGpuArgsArgs']] = None,
                  is_schedule: Optional[pulumi.Input[bool]] = None,
                  mount_target: Optional[pulumi.Input[str]] = None,
+                 pre_start_user_script: Optional[pulumi.Input[str]] = None,
+                 taints: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterAttachmentWorkerConfigTaintArgs']]]] = None,
                  user_data: Optional[pulumi.Input[str]] = None):
         if data_disks is not None:
             pulumi.set(__self__, "data_disks", data_disks)
@@ -70,9 +105,16 @@ class ClusterAttachmentWorkerConfigArgs:
         if gpu_args is not None:
             pulumi.set(__self__, "gpu_args", gpu_args)
         if is_schedule is not None:
+            warnings.warn("""This argument was deprecated, use `unschedulable` instead.""", DeprecationWarning)
+            pulumi.log.warn("""is_schedule is deprecated: This argument was deprecated, use `unschedulable` instead.""")
+        if is_schedule is not None:
             pulumi.set(__self__, "is_schedule", is_schedule)
         if mount_target is not None:
             pulumi.set(__self__, "mount_target", mount_target)
+        if pre_start_user_script is not None:
+            pulumi.set(__self__, "pre_start_user_script", pre_start_user_script)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
         if user_data is not None:
             pulumi.set(__self__, "user_data", user_data)
 
@@ -124,6 +166,9 @@ class ClusterAttachmentWorkerConfigArgs:
     @property
     @pulumi.getter(name="isSchedule")
     def is_schedule(self) -> Optional[pulumi.Input[bool]]:
+        warnings.warn("""This argument was deprecated, use `unschedulable` instead.""", DeprecationWarning)
+        pulumi.log.warn("""is_schedule is deprecated: This argument was deprecated, use `unschedulable` instead.""")
+
         return pulumi.get(self, "is_schedule")
 
     @is_schedule.setter
@@ -138,6 +183,24 @@ class ClusterAttachmentWorkerConfigArgs:
     @mount_target.setter
     def mount_target(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "mount_target", value)
+
+    @property
+    @pulumi.getter(name="preStartUserScript")
+    def pre_start_user_script(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "pre_start_user_script")
+
+    @pre_start_user_script.setter
+    def pre_start_user_script(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pre_start_user_script", value)
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterAttachmentWorkerConfigTaintArgs']]]]:
+        return pulumi.get(self, "taints")
+
+    @taints.setter
+    def taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterAttachmentWorkerConfigTaintArgs']]]]):
+        pulumi.set(self, "taints", value)
 
     @property
     @pulumi.getter(name="userData")
@@ -301,21 +364,42 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
                  gpu_args: Optional[pulumi.Input['ClusterAttachmentWorkerConfigOverridesGpuArgsArgs']] = None,
                  is_schedule: Optional[pulumi.Input[bool]] = None,
                  mount_target: Optional[pulumi.Input[str]] = None,
+                 pre_start_user_script: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None):
         if data_disks is not None:
             pulumi.set(__self__, "data_disks", data_disks)
         if desired_pod_num is not None:
             pulumi.set(__self__, "desired_pod_num", desired_pod_num)
         if docker_graph_path is not None:
+            warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+            pulumi.log.warn("""docker_graph_path is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+        if docker_graph_path is not None:
             pulumi.set(__self__, "docker_graph_path", docker_graph_path)
+        if extra_args is not None:
+            warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+            pulumi.log.warn("""extra_args is deprecated: This argument was no longer supported by TencentCloud TKE.""")
         if extra_args is not None:
             pulumi.set(__self__, "extra_args", extra_args)
         if gpu_args is not None:
             pulumi.set(__self__, "gpu_args", gpu_args)
         if is_schedule is not None:
+            warnings.warn("""This argument was deprecated, use `unschedulable` instead.""", DeprecationWarning)
+            pulumi.log.warn("""is_schedule is deprecated: This argument was deprecated, use `unschedulable` instead.""")
+        if is_schedule is not None:
             pulumi.set(__self__, "is_schedule", is_schedule)
         if mount_target is not None:
+            warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+            pulumi.log.warn("""mount_target is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+        if mount_target is not None:
             pulumi.set(__self__, "mount_target", mount_target)
+        if pre_start_user_script is not None:
+            warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+            pulumi.log.warn("""pre_start_user_script is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+        if pre_start_user_script is not None:
+            pulumi.set(__self__, "pre_start_user_script", pre_start_user_script)
+        if user_data is not None:
+            warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+            pulumi.log.warn("""user_data is deprecated: This argument was no longer supported by TencentCloud TKE.""")
         if user_data is not None:
             pulumi.set(__self__, "user_data", user_data)
 
@@ -340,6 +424,9 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
     @property
     @pulumi.getter(name="dockerGraphPath")
     def docker_graph_path(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+        pulumi.log.warn("""docker_graph_path is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+
         return pulumi.get(self, "docker_graph_path")
 
     @docker_graph_path.setter
@@ -349,6 +436,9 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
     @property
     @pulumi.getter(name="extraArgs")
     def extra_args(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+        pulumi.log.warn("""extra_args is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+
         return pulumi.get(self, "extra_args")
 
     @extra_args.setter
@@ -367,6 +457,9 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
     @property
     @pulumi.getter(name="isSchedule")
     def is_schedule(self) -> Optional[pulumi.Input[bool]]:
+        warnings.warn("""This argument was deprecated, use `unschedulable` instead.""", DeprecationWarning)
+        pulumi.log.warn("""is_schedule is deprecated: This argument was deprecated, use `unschedulable` instead.""")
+
         return pulumi.get(self, "is_schedule")
 
     @is_schedule.setter
@@ -376,6 +469,9 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
     @property
     @pulumi.getter(name="mountTarget")
     def mount_target(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+        pulumi.log.warn("""mount_target is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+
         return pulumi.get(self, "mount_target")
 
     @mount_target.setter
@@ -383,8 +479,23 @@ class ClusterAttachmentWorkerConfigOverridesArgs:
         pulumi.set(self, "mount_target", value)
 
     @property
+    @pulumi.getter(name="preStartUserScript")
+    def pre_start_user_script(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+        pulumi.log.warn("""pre_start_user_script is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+
+        return pulumi.get(self, "pre_start_user_script")
+
+    @pre_start_user_script.setter
+    def pre_start_user_script(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pre_start_user_script", value)
+
+    @property
     @pulumi.getter(name="userData")
     def user_data(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was no longer supported by TencentCloud TKE.""", DeprecationWarning)
+        pulumi.log.warn("""user_data is deprecated: This argument was no longer supported by TencentCloud TKE.""")
+
         return pulumi.get(self, "user_data")
 
     @user_data.setter
@@ -532,6 +643,47 @@ class ClusterAttachmentWorkerConfigOverridesGpuArgsArgs:
     @mig_enable.setter
     def mig_enable(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "mig_enable", value)
+
+
+@pulumi.input_type
+class ClusterAttachmentWorkerConfigTaintArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[str]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type
@@ -776,8 +928,26 @@ class ClusterExistInstanceArgs:
 @pulumi.input_type
 class ClusterExistInstanceInstancesParaArgs:
     def __init__(__self__, *,
-                 instance_ids: pulumi.Input[Sequence[pulumi.Input[str]]]):
+                 instance_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 enhanced_monitor_service: Optional[pulumi.Input[bool]] = None,
+                 enhanced_security_service: Optional[pulumi.Input[bool]] = None,
+                 key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 master_config: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigArgs']] = None,
+                 password: Optional[pulumi.Input[str]] = None,
+                 security_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         pulumi.set(__self__, "instance_ids", instance_ids)
+        if enhanced_monitor_service is not None:
+            pulumi.set(__self__, "enhanced_monitor_service", enhanced_monitor_service)
+        if enhanced_security_service is not None:
+            pulumi.set(__self__, "enhanced_security_service", enhanced_security_service)
+        if key_ids is not None:
+            pulumi.set(__self__, "key_ids", key_ids)
+        if master_config is not None:
+            pulumi.set(__self__, "master_config", master_config)
+        if password is not None:
+            pulumi.set(__self__, "password", password)
+        if security_group_ids is not None:
+            pulumi.set(__self__, "security_group_ids", security_group_ids)
 
     @property
     @pulumi.getter(name="instanceIds")
@@ -787,6 +957,412 @@ class ClusterExistInstanceInstancesParaArgs:
     @instance_ids.setter
     def instance_ids(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
         pulumi.set(self, "instance_ids", value)
+
+    @property
+    @pulumi.getter(name="enhancedMonitorService")
+    def enhanced_monitor_service(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enhanced_monitor_service")
+
+    @enhanced_monitor_service.setter
+    def enhanced_monitor_service(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enhanced_monitor_service", value)
+
+    @property
+    @pulumi.getter(name="enhancedSecurityService")
+    def enhanced_security_service(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enhanced_security_service")
+
+    @enhanced_security_service.setter
+    def enhanced_security_service(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enhanced_security_service", value)
+
+    @property
+    @pulumi.getter(name="keyIds")
+    def key_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "key_ids")
+
+    @key_ids.setter
+    def key_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "key_ids", value)
+
+    @property
+    @pulumi.getter(name="masterConfig")
+    def master_config(self) -> Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigArgs']]:
+        return pulumi.get(self, "master_config")
+
+    @master_config.setter
+    def master_config(self, value: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigArgs']]):
+        pulumi.set(self, "master_config", value)
+
+    @property
+    @pulumi.getter
+    def password(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "password")
+
+    @password.setter
+    def password(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "password", value)
+
+    @property
+    @pulumi.getter(name="securityGroupIds")
+    def security_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "security_group_ids")
+
+    @security_group_ids.setter
+    def security_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "security_group_ids", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigArgs:
+    def __init__(__self__, *,
+                 data_disk: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs']] = None,
+                 desired_pod_number: Optional[pulumi.Input[int]] = None,
+                 docker_graph_path: Optional[pulumi.Input[str]] = None,
+                 extra_args: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs']] = None,
+                 gpu_args: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs']] = None,
+                 labels: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigLabelArgs']]]] = None,
+                 mount_target: Optional[pulumi.Input[str]] = None,
+                 taints: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigTaintArgs']]]] = None,
+                 unschedulable: Optional[pulumi.Input[int]] = None,
+                 user_script: Optional[pulumi.Input[str]] = None):
+        if data_disk is not None:
+            pulumi.set(__self__, "data_disk", data_disk)
+        if desired_pod_number is not None:
+            pulumi.set(__self__, "desired_pod_number", desired_pod_number)
+        if docker_graph_path is not None:
+            pulumi.set(__self__, "docker_graph_path", docker_graph_path)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if gpu_args is not None:
+            pulumi.set(__self__, "gpu_args", gpu_args)
+        if labels is not None:
+            pulumi.set(__self__, "labels", labels)
+        if mount_target is not None:
+            pulumi.set(__self__, "mount_target", mount_target)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
+        if unschedulable is not None:
+            pulumi.set(__self__, "unschedulable", unschedulable)
+        if user_script is not None:
+            pulumi.set(__self__, "user_script", user_script)
+
+    @property
+    @pulumi.getter(name="dataDisk")
+    def data_disk(self) -> Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs']]:
+        return pulumi.get(self, "data_disk")
+
+    @data_disk.setter
+    def data_disk(self, value: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs']]):
+        pulumi.set(self, "data_disk", value)
+
+    @property
+    @pulumi.getter(name="desiredPodNumber")
+    def desired_pod_number(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "desired_pod_number")
+
+    @desired_pod_number.setter
+    def desired_pod_number(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "desired_pod_number", value)
+
+    @property
+    @pulumi.getter(name="dockerGraphPath")
+    def docker_graph_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "docker_graph_path")
+
+    @docker_graph_path.setter
+    def docker_graph_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "docker_graph_path", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs']]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs']]):
+        pulumi.set(self, "extra_args", value)
+
+    @property
+    @pulumi.getter(name="gpuArgs")
+    def gpu_args(self) -> Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs']]:
+        return pulumi.get(self, "gpu_args")
+
+    @gpu_args.setter
+    def gpu_args(self, value: Optional[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs']]):
+        pulumi.set(self, "gpu_args", value)
+
+    @property
+    @pulumi.getter
+    def labels(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigLabelArgs']]]]:
+        return pulumi.get(self, "labels")
+
+    @labels.setter
+    def labels(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigLabelArgs']]]]):
+        pulumi.set(self, "labels", value)
+
+    @property
+    @pulumi.getter(name="mountTarget")
+    def mount_target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mount_target")
+
+    @mount_target.setter
+    def mount_target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_target", value)
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigTaintArgs']]]]:
+        return pulumi.get(self, "taints")
+
+    @taints.setter
+    def taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterExistInstanceInstancesParaMasterConfigTaintArgs']]]]):
+        pulumi.set(self, "taints", value)
+
+    @property
+    @pulumi.getter
+    def unschedulable(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "unschedulable")
+
+    @unschedulable.setter
+    def unschedulable(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "unschedulable", value)
+
+    @property
+    @pulumi.getter(name="userScript")
+    def user_script(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "user_script")
+
+    @user_script.setter
+    def user_script(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_script", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigDataDiskArgs:
+    def __init__(__self__, *,
+                 auto_format_and_mount: Optional[pulumi.Input[bool]] = None,
+                 disk_partition: Optional[pulumi.Input[str]] = None,
+                 disk_size: Optional[pulumi.Input[int]] = None,
+                 disk_type: Optional[pulumi.Input[str]] = None,
+                 file_system: Optional[pulumi.Input[str]] = None,
+                 mount_target: Optional[pulumi.Input[str]] = None):
+        if auto_format_and_mount is not None:
+            pulumi.set(__self__, "auto_format_and_mount", auto_format_and_mount)
+        if disk_partition is not None:
+            pulumi.set(__self__, "disk_partition", disk_partition)
+        if disk_size is not None:
+            pulumi.set(__self__, "disk_size", disk_size)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if file_system is not None:
+            pulumi.set(__self__, "file_system", file_system)
+        if mount_target is not None:
+            pulumi.set(__self__, "mount_target", mount_target)
+
+    @property
+    @pulumi.getter(name="autoFormatAndMount")
+    def auto_format_and_mount(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "auto_format_and_mount")
+
+    @auto_format_and_mount.setter
+    def auto_format_and_mount(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_format_and_mount", value)
+
+    @property
+    @pulumi.getter(name="diskPartition")
+    def disk_partition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_partition")
+
+    @disk_partition.setter
+    def disk_partition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_partition", value)
+
+    @property
+    @pulumi.getter(name="diskSize")
+    def disk_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "disk_size")
+
+    @disk_size.setter
+    def disk_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "disk_size", value)
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_type")
+
+    @disk_type.setter
+    def disk_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_type", value)
+
+    @property
+    @pulumi.getter(name="fileSystem")
+    def file_system(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "file_system")
+
+    @file_system.setter
+    def file_system(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "file_system", value)
+
+    @property
+    @pulumi.getter(name="mountTarget")
+    def mount_target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mount_target")
+
+    @mount_target.setter
+    def mount_target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_target", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigExtraArgsArgs:
+    def __init__(__self__, *,
+                 kubelets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if kubelets is not None:
+            pulumi.set(__self__, "kubelets", kubelets)
+
+    @property
+    @pulumi.getter
+    def kubelets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kubelets")
+
+    @kubelets.setter
+    def kubelets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kubelets", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigGpuArgsArgs:
+    def __init__(__self__, *,
+                 cuda: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 cudnn: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 custom_driver: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 driver: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 mig_enable: Optional[pulumi.Input[bool]] = None):
+        if cuda is not None:
+            pulumi.set(__self__, "cuda", cuda)
+        if cudnn is not None:
+            pulumi.set(__self__, "cudnn", cudnn)
+        if custom_driver is not None:
+            pulumi.set(__self__, "custom_driver", custom_driver)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if mig_enable is not None:
+            pulumi.set(__self__, "mig_enable", mig_enable)
+
+    @property
+    @pulumi.getter
+    def cuda(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "cuda")
+
+    @cuda.setter
+    def cuda(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "cuda", value)
+
+    @property
+    @pulumi.getter
+    def cudnn(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "cudnn")
+
+    @cudnn.setter
+    def cudnn(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "cudnn", value)
+
+    @property
+    @pulumi.getter(name="customDriver")
+    def custom_driver(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "custom_driver")
+
+    @custom_driver.setter
+    def custom_driver(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "custom_driver", value)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "driver", value)
+
+    @property
+    @pulumi.getter(name="migEnable")
+    def mig_enable(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "mig_enable")
+
+    @mig_enable.setter
+    def mig_enable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "mig_enable", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigLabelArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class ClusterExistInstanceInstancesParaMasterConfigTaintArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[str]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type
@@ -842,6 +1418,411 @@ class ClusterLogAgentArgs:
     @kubelet_root_dir.setter
     def kubelet_root_dir(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "kubelet_root_dir", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentExtraArgsArgs:
+    def __init__(__self__, *,
+                 etcds: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 kube_api_servers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 kube_controller_managers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 kube_schedulers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if etcds is not None:
+            pulumi.set(__self__, "etcds", etcds)
+        if kube_api_servers is not None:
+            pulumi.set(__self__, "kube_api_servers", kube_api_servers)
+        if kube_controller_managers is not None:
+            pulumi.set(__self__, "kube_controller_managers", kube_controller_managers)
+        if kube_schedulers is not None:
+            pulumi.set(__self__, "kube_schedulers", kube_schedulers)
+
+    @property
+    @pulumi.getter
+    def etcds(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "etcds")
+
+    @etcds.setter
+    def etcds(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "etcds", value)
+
+    @property
+    @pulumi.getter(name="kubeApiServers")
+    def kube_api_servers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kube_api_servers")
+
+    @kube_api_servers.setter
+    def kube_api_servers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kube_api_servers", value)
+
+    @property
+    @pulumi.getter(name="kubeControllerManagers")
+    def kube_controller_managers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kube_controller_managers")
+
+    @kube_controller_managers.setter
+    def kube_controller_managers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kube_controller_managers", value)
+
+    @property
+    @pulumi.getter(name="kubeSchedulers")
+    def kube_schedulers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kube_schedulers")
+
+    @kube_schedulers.setter
+    def kube_schedulers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kube_schedulers", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigArgs:
+    def __init__(__self__, *,
+                 data_disk: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigDataDiskArgs']] = None,
+                 desired_pod_number: Optional[pulumi.Input[int]] = None,
+                 docker_graph_path: Optional[pulumi.Input[str]] = None,
+                 extra_args: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigExtraArgsArgs']] = None,
+                 gpu_args: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigGpuArgsArgs']] = None,
+                 labels: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigLabelArgs']]]] = None,
+                 mount_target: Optional[pulumi.Input[str]] = None,
+                 taints: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigTaintArgs']]]] = None,
+                 unschedulable: Optional[pulumi.Input[int]] = None,
+                 user_script: Optional[pulumi.Input[str]] = None):
+        if data_disk is not None:
+            pulumi.set(__self__, "data_disk", data_disk)
+        if desired_pod_number is not None:
+            pulumi.set(__self__, "desired_pod_number", desired_pod_number)
+        if docker_graph_path is not None:
+            pulumi.set(__self__, "docker_graph_path", docker_graph_path)
+        if extra_args is not None:
+            pulumi.set(__self__, "extra_args", extra_args)
+        if gpu_args is not None:
+            pulumi.set(__self__, "gpu_args", gpu_args)
+        if labels is not None:
+            pulumi.set(__self__, "labels", labels)
+        if mount_target is not None:
+            pulumi.set(__self__, "mount_target", mount_target)
+        if taints is not None:
+            pulumi.set(__self__, "taints", taints)
+        if unschedulable is not None:
+            pulumi.set(__self__, "unschedulable", unschedulable)
+        if user_script is not None:
+            pulumi.set(__self__, "user_script", user_script)
+
+    @property
+    @pulumi.getter(name="dataDisk")
+    def data_disk(self) -> Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigDataDiskArgs']]:
+        return pulumi.get(self, "data_disk")
+
+    @data_disk.setter
+    def data_disk(self, value: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigDataDiskArgs']]):
+        pulumi.set(self, "data_disk", value)
+
+    @property
+    @pulumi.getter(name="desiredPodNumber")
+    def desired_pod_number(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "desired_pod_number")
+
+    @desired_pod_number.setter
+    def desired_pod_number(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "desired_pod_number", value)
+
+    @property
+    @pulumi.getter(name="dockerGraphPath")
+    def docker_graph_path(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "docker_graph_path")
+
+    @docker_graph_path.setter
+    def docker_graph_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "docker_graph_path", value)
+
+    @property
+    @pulumi.getter(name="extraArgs")
+    def extra_args(self) -> Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigExtraArgsArgs']]:
+        return pulumi.get(self, "extra_args")
+
+    @extra_args.setter
+    def extra_args(self, value: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigExtraArgsArgs']]):
+        pulumi.set(self, "extra_args", value)
+
+    @property
+    @pulumi.getter(name="gpuArgs")
+    def gpu_args(self) -> Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigGpuArgsArgs']]:
+        return pulumi.get(self, "gpu_args")
+
+    @gpu_args.setter
+    def gpu_args(self, value: Optional[pulumi.Input['ClusterMasterAttachmentMasterConfigGpuArgsArgs']]):
+        pulumi.set(self, "gpu_args", value)
+
+    @property
+    @pulumi.getter
+    def labels(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigLabelArgs']]]]:
+        return pulumi.get(self, "labels")
+
+    @labels.setter
+    def labels(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigLabelArgs']]]]):
+        pulumi.set(self, "labels", value)
+
+    @property
+    @pulumi.getter(name="mountTarget")
+    def mount_target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mount_target")
+
+    @mount_target.setter
+    def mount_target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_target", value)
+
+    @property
+    @pulumi.getter
+    def taints(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigTaintArgs']]]]:
+        return pulumi.get(self, "taints")
+
+    @taints.setter
+    def taints(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ClusterMasterAttachmentMasterConfigTaintArgs']]]]):
+        pulumi.set(self, "taints", value)
+
+    @property
+    @pulumi.getter
+    def unschedulable(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "unschedulable")
+
+    @unschedulable.setter
+    def unschedulable(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "unschedulable", value)
+
+    @property
+    @pulumi.getter(name="userScript")
+    def user_script(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "user_script")
+
+    @user_script.setter
+    def user_script(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "user_script", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigDataDiskArgs:
+    def __init__(__self__, *,
+                 auto_format_and_mount: Optional[pulumi.Input[bool]] = None,
+                 disk_partition: Optional[pulumi.Input[str]] = None,
+                 disk_size: Optional[pulumi.Input[int]] = None,
+                 disk_type: Optional[pulumi.Input[str]] = None,
+                 file_system: Optional[pulumi.Input[str]] = None,
+                 mount_target: Optional[pulumi.Input[str]] = None):
+        if auto_format_and_mount is not None:
+            pulumi.set(__self__, "auto_format_and_mount", auto_format_and_mount)
+        if disk_partition is not None:
+            pulumi.set(__self__, "disk_partition", disk_partition)
+        if disk_size is not None:
+            pulumi.set(__self__, "disk_size", disk_size)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if file_system is not None:
+            pulumi.set(__self__, "file_system", file_system)
+        if mount_target is not None:
+            pulumi.set(__self__, "mount_target", mount_target)
+
+    @property
+    @pulumi.getter(name="autoFormatAndMount")
+    def auto_format_and_mount(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "auto_format_and_mount")
+
+    @auto_format_and_mount.setter
+    def auto_format_and_mount(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_format_and_mount", value)
+
+    @property
+    @pulumi.getter(name="diskPartition")
+    def disk_partition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_partition")
+
+    @disk_partition.setter
+    def disk_partition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_partition", value)
+
+    @property
+    @pulumi.getter(name="diskSize")
+    def disk_size(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "disk_size")
+
+    @disk_size.setter
+    def disk_size(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "disk_size", value)
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_type")
+
+    @disk_type.setter
+    def disk_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_type", value)
+
+    @property
+    @pulumi.getter(name="fileSystem")
+    def file_system(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "file_system")
+
+    @file_system.setter
+    def file_system(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "file_system", value)
+
+    @property
+    @pulumi.getter(name="mountTarget")
+    def mount_target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mount_target")
+
+    @mount_target.setter
+    def mount_target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_target", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigExtraArgsArgs:
+    def __init__(__self__, *,
+                 kubelets: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if kubelets is not None:
+            pulumi.set(__self__, "kubelets", kubelets)
+
+    @property
+    @pulumi.getter
+    def kubelets(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kubelets")
+
+    @kubelets.setter
+    def kubelets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kubelets", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigGpuArgsArgs:
+    def __init__(__self__, *,
+                 cuda: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 cudnn: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 custom_driver: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 driver: Optional[pulumi.Input[Mapping[str, Any]]] = None,
+                 mig_enable: Optional[pulumi.Input[bool]] = None):
+        if cuda is not None:
+            pulumi.set(__self__, "cuda", cuda)
+        if cudnn is not None:
+            pulumi.set(__self__, "cudnn", cudnn)
+        if custom_driver is not None:
+            pulumi.set(__self__, "custom_driver", custom_driver)
+        if driver is not None:
+            pulumi.set(__self__, "driver", driver)
+        if mig_enable is not None:
+            pulumi.set(__self__, "mig_enable", mig_enable)
+
+    @property
+    @pulumi.getter
+    def cuda(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "cuda")
+
+    @cuda.setter
+    def cuda(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "cuda", value)
+
+    @property
+    @pulumi.getter
+    def cudnn(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "cudnn")
+
+    @cudnn.setter
+    def cudnn(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "cudnn", value)
+
+    @property
+    @pulumi.getter(name="customDriver")
+    def custom_driver(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "custom_driver")
+
+    @custom_driver.setter
+    def custom_driver(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "custom_driver", value)
+
+    @property
+    @pulumi.getter
+    def driver(self) -> Optional[pulumi.Input[Mapping[str, Any]]]:
+        return pulumi.get(self, "driver")
+
+    @driver.setter
+    def driver(self, value: Optional[pulumi.Input[Mapping[str, Any]]]):
+        pulumi.set(self, "driver", value)
+
+    @property
+    @pulumi.getter(name="migEnable")
+    def mig_enable(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "mig_enable")
+
+    @mig_enable.setter
+    def mig_enable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "mig_enable", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigLabelArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class ClusterMasterAttachmentMasterConfigTaintArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[str]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type
@@ -1398,6 +2379,45 @@ class ClusterNodePoolGlobalConfigArgs:
 
 
 @pulumi.input_type
+class ClusterResourceDeleteOptionArgs:
+    def __init__(__self__, *,
+                 delete_mode: pulumi.Input[str],
+                 resource_type: pulumi.Input[str],
+                 skip_deletion_protection: Optional[pulumi.Input[bool]] = None):
+        pulumi.set(__self__, "delete_mode", delete_mode)
+        pulumi.set(__self__, "resource_type", resource_type)
+        if skip_deletion_protection is not None:
+            pulumi.set(__self__, "skip_deletion_protection", skip_deletion_protection)
+
+    @property
+    @pulumi.getter(name="deleteMode")
+    def delete_mode(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "delete_mode")
+
+    @delete_mode.setter
+    def delete_mode(self, value: pulumi.Input[str]):
+        pulumi.set(self, "delete_mode", value)
+
+    @property
+    @pulumi.getter(name="resourceType")
+    def resource_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "resource_type")
+
+    @resource_type.setter
+    def resource_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "resource_type", value)
+
+    @property
+    @pulumi.getter(name="skipDeletionProtection")
+    def skip_deletion_protection(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "skip_deletion_protection")
+
+    @skip_deletion_protection.setter
+    def skip_deletion_protection(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_deletion_protection", value)
+
+
+@pulumi.input_type
 class ClusterWorkerConfigArgs:
     def __init__(__self__, *,
                  instance_type: pulumi.Input[str],
@@ -1932,6 +2952,791 @@ class EncryptionProtectionKmsConfigurationArgs:
 
 
 @pulumi.input_type
+class HealthCheckPolicyRuleArgs:
+    def __init__(__self__, *,
+                 auto_repair_enabled: pulumi.Input[bool],
+                 enabled: pulumi.Input[bool],
+                 name: pulumi.Input[str]):
+        pulumi.set(__self__, "auto_repair_enabled", auto_repair_enabled)
+        pulumi.set(__self__, "enabled", enabled)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter(name="autoRepairEnabled")
+    def auto_repair_enabled(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "auto_repair_enabled")
+
+    @auto_repair_enabled.setter
+    def auto_repair_enabled(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "auto_repair_enabled", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "enabled", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class NativeNodePoolAnnotationArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class NativeNodePoolLabelArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeArgs:
+    def __init__(__self__, *,
+                 instance_charge_type: pulumi.Input[str],
+                 instance_types: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 security_group_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 subnet_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 system_disk: pulumi.Input['NativeNodePoolNativeSystemDiskArgs'],
+                 auto_repair: Optional[pulumi.Input[bool]] = None,
+                 data_disks: Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolNativeDataDiskArgs']]]] = None,
+                 enable_autoscaling: Optional[pulumi.Input[bool]] = None,
+                 health_check_policy_name: Optional[pulumi.Input[str]] = None,
+                 host_name_pattern: Optional[pulumi.Input[str]] = None,
+                 instance_charge_prepaid: Optional[pulumi.Input['NativeNodePoolNativeInstanceChargePrepaidArgs']] = None,
+                 internet_accessible: Optional[pulumi.Input['NativeNodePoolNativeInternetAccessibleArgs']] = None,
+                 key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 kubelet_args: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 lifecycle: Optional[pulumi.Input['NativeNodePoolNativeLifecycleArgs']] = None,
+                 machine_type: Optional[pulumi.Input[str]] = None,
+                 management: Optional[pulumi.Input['NativeNodePoolNativeManagementArgs']] = None,
+                 replicas: Optional[pulumi.Input[int]] = None,
+                 runtime_root_dir: Optional[pulumi.Input[str]] = None,
+                 scaling: Optional[pulumi.Input['NativeNodePoolNativeScalingArgs']] = None):
+        pulumi.set(__self__, "instance_charge_type", instance_charge_type)
+        pulumi.set(__self__, "instance_types", instance_types)
+        pulumi.set(__self__, "security_group_ids", security_group_ids)
+        pulumi.set(__self__, "subnet_ids", subnet_ids)
+        pulumi.set(__self__, "system_disk", system_disk)
+        if auto_repair is not None:
+            pulumi.set(__self__, "auto_repair", auto_repair)
+        if data_disks is not None:
+            pulumi.set(__self__, "data_disks", data_disks)
+        if enable_autoscaling is not None:
+            pulumi.set(__self__, "enable_autoscaling", enable_autoscaling)
+        if health_check_policy_name is not None:
+            pulumi.set(__self__, "health_check_policy_name", health_check_policy_name)
+        if host_name_pattern is not None:
+            pulumi.set(__self__, "host_name_pattern", host_name_pattern)
+        if instance_charge_prepaid is not None:
+            pulumi.set(__self__, "instance_charge_prepaid", instance_charge_prepaid)
+        if internet_accessible is not None:
+            pulumi.set(__self__, "internet_accessible", internet_accessible)
+        if key_ids is not None:
+            pulumi.set(__self__, "key_ids", key_ids)
+        if kubelet_args is not None:
+            pulumi.set(__self__, "kubelet_args", kubelet_args)
+        if lifecycle is not None:
+            pulumi.set(__self__, "lifecycle", lifecycle)
+        if machine_type is not None:
+            pulumi.set(__self__, "machine_type", machine_type)
+        if management is not None:
+            pulumi.set(__self__, "management", management)
+        if replicas is not None:
+            pulumi.set(__self__, "replicas", replicas)
+        if runtime_root_dir is not None:
+            pulumi.set(__self__, "runtime_root_dir", runtime_root_dir)
+        if scaling is not None:
+            pulumi.set(__self__, "scaling", scaling)
+
+    @property
+    @pulumi.getter(name="instanceChargeType")
+    def instance_charge_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "instance_charge_type")
+
+    @instance_charge_type.setter
+    def instance_charge_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "instance_charge_type", value)
+
+    @property
+    @pulumi.getter(name="instanceTypes")
+    def instance_types(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "instance_types")
+
+    @instance_types.setter
+    def instance_types(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "instance_types", value)
+
+    @property
+    @pulumi.getter(name="securityGroupIds")
+    def security_group_ids(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "security_group_ids")
+
+    @security_group_ids.setter
+    def security_group_ids(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "security_group_ids", value)
+
+    @property
+    @pulumi.getter(name="subnetIds")
+    def subnet_ids(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "subnet_ids")
+
+    @subnet_ids.setter
+    def subnet_ids(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "subnet_ids", value)
+
+    @property
+    @pulumi.getter(name="systemDisk")
+    def system_disk(self) -> pulumi.Input['NativeNodePoolNativeSystemDiskArgs']:
+        return pulumi.get(self, "system_disk")
+
+    @system_disk.setter
+    def system_disk(self, value: pulumi.Input['NativeNodePoolNativeSystemDiskArgs']):
+        pulumi.set(self, "system_disk", value)
+
+    @property
+    @pulumi.getter(name="autoRepair")
+    def auto_repair(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "auto_repair")
+
+    @auto_repair.setter
+    def auto_repair(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "auto_repair", value)
+
+    @property
+    @pulumi.getter(name="dataDisks")
+    def data_disks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolNativeDataDiskArgs']]]]:
+        return pulumi.get(self, "data_disks")
+
+    @data_disks.setter
+    def data_disks(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolNativeDataDiskArgs']]]]):
+        pulumi.set(self, "data_disks", value)
+
+    @property
+    @pulumi.getter(name="enableAutoscaling")
+    def enable_autoscaling(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enable_autoscaling")
+
+    @enable_autoscaling.setter
+    def enable_autoscaling(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enable_autoscaling", value)
+
+    @property
+    @pulumi.getter(name="healthCheckPolicyName")
+    def health_check_policy_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "health_check_policy_name")
+
+    @health_check_policy_name.setter
+    def health_check_policy_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "health_check_policy_name", value)
+
+    @property
+    @pulumi.getter(name="hostNamePattern")
+    def host_name_pattern(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "host_name_pattern")
+
+    @host_name_pattern.setter
+    def host_name_pattern(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "host_name_pattern", value)
+
+    @property
+    @pulumi.getter(name="instanceChargePrepaid")
+    def instance_charge_prepaid(self) -> Optional[pulumi.Input['NativeNodePoolNativeInstanceChargePrepaidArgs']]:
+        return pulumi.get(self, "instance_charge_prepaid")
+
+    @instance_charge_prepaid.setter
+    def instance_charge_prepaid(self, value: Optional[pulumi.Input['NativeNodePoolNativeInstanceChargePrepaidArgs']]):
+        pulumi.set(self, "instance_charge_prepaid", value)
+
+    @property
+    @pulumi.getter(name="internetAccessible")
+    def internet_accessible(self) -> Optional[pulumi.Input['NativeNodePoolNativeInternetAccessibleArgs']]:
+        return pulumi.get(self, "internet_accessible")
+
+    @internet_accessible.setter
+    def internet_accessible(self, value: Optional[pulumi.Input['NativeNodePoolNativeInternetAccessibleArgs']]):
+        pulumi.set(self, "internet_accessible", value)
+
+    @property
+    @pulumi.getter(name="keyIds")
+    def key_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "key_ids")
+
+    @key_ids.setter
+    def key_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "key_ids", value)
+
+    @property
+    @pulumi.getter(name="kubeletArgs")
+    def kubelet_args(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kubelet_args")
+
+    @kubelet_args.setter
+    def kubelet_args(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kubelet_args", value)
+
+    @property
+    @pulumi.getter
+    def lifecycle(self) -> Optional[pulumi.Input['NativeNodePoolNativeLifecycleArgs']]:
+        return pulumi.get(self, "lifecycle")
+
+    @lifecycle.setter
+    def lifecycle(self, value: Optional[pulumi.Input['NativeNodePoolNativeLifecycleArgs']]):
+        pulumi.set(self, "lifecycle", value)
+
+    @property
+    @pulumi.getter(name="machineType")
+    def machine_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "machine_type")
+
+    @machine_type.setter
+    def machine_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "machine_type", value)
+
+    @property
+    @pulumi.getter
+    def management(self) -> Optional[pulumi.Input['NativeNodePoolNativeManagementArgs']]:
+        return pulumi.get(self, "management")
+
+    @management.setter
+    def management(self, value: Optional[pulumi.Input['NativeNodePoolNativeManagementArgs']]):
+        pulumi.set(self, "management", value)
+
+    @property
+    @pulumi.getter
+    def replicas(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "replicas")
+
+    @replicas.setter
+    def replicas(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "replicas", value)
+
+    @property
+    @pulumi.getter(name="runtimeRootDir")
+    def runtime_root_dir(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "runtime_root_dir")
+
+    @runtime_root_dir.setter
+    def runtime_root_dir(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "runtime_root_dir", value)
+
+    @property
+    @pulumi.getter
+    def scaling(self) -> Optional[pulumi.Input['NativeNodePoolNativeScalingArgs']]:
+        return pulumi.get(self, "scaling")
+
+    @scaling.setter
+    def scaling(self, value: Optional[pulumi.Input['NativeNodePoolNativeScalingArgs']]):
+        pulumi.set(self, "scaling", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeDataDiskArgs:
+    def __init__(__self__, *,
+                 auto_format_and_mount: pulumi.Input[bool],
+                 disk_size: pulumi.Input[int],
+                 disk_type: pulumi.Input[str],
+                 disk_partition: Optional[pulumi.Input[str]] = None,
+                 encrypt: Optional[pulumi.Input[str]] = None,
+                 file_system: Optional[pulumi.Input[str]] = None,
+                 kms_key_id: Optional[pulumi.Input[str]] = None,
+                 mount_target: Optional[pulumi.Input[str]] = None,
+                 snapshot_id: Optional[pulumi.Input[str]] = None,
+                 throughput_performance: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "auto_format_and_mount", auto_format_and_mount)
+        pulumi.set(__self__, "disk_size", disk_size)
+        pulumi.set(__self__, "disk_type", disk_type)
+        if disk_partition is not None:
+            pulumi.set(__self__, "disk_partition", disk_partition)
+        if encrypt is not None:
+            pulumi.set(__self__, "encrypt", encrypt)
+        if file_system is not None:
+            pulumi.set(__self__, "file_system", file_system)
+        if kms_key_id is not None:
+            pulumi.set(__self__, "kms_key_id", kms_key_id)
+        if mount_target is not None:
+            pulumi.set(__self__, "mount_target", mount_target)
+        if snapshot_id is not None:
+            pulumi.set(__self__, "snapshot_id", snapshot_id)
+        if throughput_performance is not None:
+            pulumi.set(__self__, "throughput_performance", throughput_performance)
+
+    @property
+    @pulumi.getter(name="autoFormatAndMount")
+    def auto_format_and_mount(self) -> pulumi.Input[bool]:
+        return pulumi.get(self, "auto_format_and_mount")
+
+    @auto_format_and_mount.setter
+    def auto_format_and_mount(self, value: pulumi.Input[bool]):
+        pulumi.set(self, "auto_format_and_mount", value)
+
+    @property
+    @pulumi.getter(name="diskSize")
+    def disk_size(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "disk_size")
+
+    @disk_size.setter
+    def disk_size(self, value: pulumi.Input[int]):
+        pulumi.set(self, "disk_size", value)
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "disk_type")
+
+    @disk_type.setter
+    def disk_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "disk_type", value)
+
+    @property
+    @pulumi.getter(name="diskPartition")
+    def disk_partition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_partition")
+
+    @disk_partition.setter
+    def disk_partition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_partition", value)
+
+    @property
+    @pulumi.getter
+    def encrypt(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "encrypt")
+
+    @encrypt.setter
+    def encrypt(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "encrypt", value)
+
+    @property
+    @pulumi.getter(name="fileSystem")
+    def file_system(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "file_system")
+
+    @file_system.setter
+    def file_system(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "file_system", value)
+
+    @property
+    @pulumi.getter(name="kmsKeyId")
+    def kms_key_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "kms_key_id")
+
+    @kms_key_id.setter
+    def kms_key_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kms_key_id", value)
+
+    @property
+    @pulumi.getter(name="mountTarget")
+    def mount_target(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "mount_target")
+
+    @mount_target.setter
+    def mount_target(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "mount_target", value)
+
+    @property
+    @pulumi.getter(name="snapshotId")
+    def snapshot_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "snapshot_id")
+
+    @snapshot_id.setter
+    def snapshot_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "snapshot_id", value)
+
+    @property
+    @pulumi.getter(name="throughputPerformance")
+    def throughput_performance(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "throughput_performance")
+
+    @throughput_performance.setter
+    def throughput_performance(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "throughput_performance", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeInstanceChargePrepaidArgs:
+    def __init__(__self__, *,
+                 period: pulumi.Input[int],
+                 renew_flag: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "period", period)
+        if renew_flag is not None:
+            pulumi.set(__self__, "renew_flag", renew_flag)
+
+    @property
+    @pulumi.getter
+    def period(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "period")
+
+    @period.setter
+    def period(self, value: pulumi.Input[int]):
+        pulumi.set(self, "period", value)
+
+    @property
+    @pulumi.getter(name="renewFlag")
+    def renew_flag(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "renew_flag")
+
+    @renew_flag.setter
+    def renew_flag(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "renew_flag", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeInternetAccessibleArgs:
+    def __init__(__self__, *,
+                 charge_type: pulumi.Input[str],
+                 max_bandwidth_out: pulumi.Input[int],
+                 bandwidth_package_id: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "charge_type", charge_type)
+        pulumi.set(__self__, "max_bandwidth_out", max_bandwidth_out)
+        if bandwidth_package_id is not None:
+            pulumi.set(__self__, "bandwidth_package_id", bandwidth_package_id)
+
+    @property
+    @pulumi.getter(name="chargeType")
+    def charge_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "charge_type")
+
+    @charge_type.setter
+    def charge_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "charge_type", value)
+
+    @property
+    @pulumi.getter(name="maxBandwidthOut")
+    def max_bandwidth_out(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "max_bandwidth_out")
+
+    @max_bandwidth_out.setter
+    def max_bandwidth_out(self, value: pulumi.Input[int]):
+        pulumi.set(self, "max_bandwidth_out", value)
+
+    @property
+    @pulumi.getter(name="bandwidthPackageId")
+    def bandwidth_package_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "bandwidth_package_id")
+
+    @bandwidth_package_id.setter
+    def bandwidth_package_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "bandwidth_package_id", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeLifecycleArgs:
+    def __init__(__self__, *,
+                 post_init: Optional[pulumi.Input[str]] = None,
+                 pre_init: Optional[pulumi.Input[str]] = None):
+        if post_init is not None:
+            pulumi.set(__self__, "post_init", post_init)
+        if pre_init is not None:
+            pulumi.set(__self__, "pre_init", pre_init)
+
+    @property
+    @pulumi.getter(name="postInit")
+    def post_init(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "post_init")
+
+    @post_init.setter
+    def post_init(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "post_init", value)
+
+    @property
+    @pulumi.getter(name="preInit")
+    def pre_init(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "pre_init")
+
+    @pre_init.setter
+    def pre_init(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pre_init", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeManagementArgs:
+    def __init__(__self__, *,
+                 hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 kernel_args: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 nameservers: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if hosts is not None:
+            pulumi.set(__self__, "hosts", hosts)
+        if kernel_args is not None:
+            pulumi.set(__self__, "kernel_args", kernel_args)
+        if nameservers is not None:
+            pulumi.set(__self__, "nameservers", nameservers)
+
+    @property
+    @pulumi.getter
+    def hosts(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "hosts")
+
+    @hosts.setter
+    def hosts(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "hosts", value)
+
+    @property
+    @pulumi.getter(name="kernelArgs")
+    def kernel_args(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "kernel_args")
+
+    @kernel_args.setter
+    def kernel_args(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "kernel_args", value)
+
+    @property
+    @pulumi.getter
+    def nameservers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "nameservers")
+
+    @nameservers.setter
+    def nameservers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "nameservers", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeScalingArgs:
+    def __init__(__self__, *,
+                 create_policy: Optional[pulumi.Input[str]] = None,
+                 max_replicas: Optional[pulumi.Input[int]] = None,
+                 min_replicas: Optional[pulumi.Input[int]] = None):
+        if create_policy is not None:
+            pulumi.set(__self__, "create_policy", create_policy)
+        if max_replicas is not None:
+            pulumi.set(__self__, "max_replicas", max_replicas)
+        if min_replicas is not None:
+            pulumi.set(__self__, "min_replicas", min_replicas)
+
+    @property
+    @pulumi.getter(name="createPolicy")
+    def create_policy(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "create_policy")
+
+    @create_policy.setter
+    def create_policy(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "create_policy", value)
+
+    @property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_replicas")
+
+    @max_replicas.setter
+    def max_replicas(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_replicas", value)
+
+    @property
+    @pulumi.getter(name="minReplicas")
+    def min_replicas(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "min_replicas")
+
+    @min_replicas.setter
+    def min_replicas(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "min_replicas", value)
+
+
+@pulumi.input_type
+class NativeNodePoolNativeSystemDiskArgs:
+    def __init__(__self__, *,
+                 disk_size: pulumi.Input[int],
+                 disk_type: pulumi.Input[str]):
+        pulumi.set(__self__, "disk_size", disk_size)
+        pulumi.set(__self__, "disk_type", disk_type)
+
+    @property
+    @pulumi.getter(name="diskSize")
+    def disk_size(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "disk_size")
+
+    @disk_size.setter
+    def disk_size(self, value: pulumi.Input[int]):
+        pulumi.set(self, "disk_size", value)
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "disk_type")
+
+    @disk_type.setter
+    def disk_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "disk_type", value)
+
+
+@pulumi.input_type
+class NativeNodePoolTagArgs:
+    def __init__(__self__, *,
+                 resource_type: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolTagTagArgs']]]] = None):
+        if resource_type is not None:
+            pulumi.set(__self__, "resource_type", resource_type)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
+
+    @property
+    @pulumi.getter(name="resourceType")
+    def resource_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "resource_type")
+
+    @resource_type.setter
+    def resource_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "resource_type", value)
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolTagTagArgs']]]]:
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['NativeNodePoolTagTagArgs']]]]):
+        pulumi.set(self, "tags", value)
+
+
+@pulumi.input_type
+class NativeNodePoolTagTagArgs:
+    def __init__(__self__, *,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class NativeNodePoolTaintArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[str]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class NodePoolAnnotationArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
 class NodePoolAutoScalingConfigArgs:
     def __init__(__self__, *,
                  instance_type: pulumi.Input[str],
@@ -1947,6 +3752,7 @@ class NodePoolAutoScalingConfigArgs:
                  instance_charge_type_prepaid_period: Optional[pulumi.Input[int]] = None,
                  instance_charge_type_prepaid_renew_flag: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
+                 instance_name_style: Optional[pulumi.Input[str]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  internet_max_bandwidth_out: Optional[pulumi.Input[int]] = None,
                  key_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -1983,6 +3789,8 @@ class NodePoolAutoScalingConfigArgs:
             pulumi.set(__self__, "instance_charge_type_prepaid_renew_flag", instance_charge_type_prepaid_renew_flag)
         if instance_name is not None:
             pulumi.set(__self__, "instance_name", instance_name)
+        if instance_name_style is not None:
+            pulumi.set(__self__, "instance_name_style", instance_name_style)
         if internet_charge_type is not None:
             pulumi.set(__self__, "internet_charge_type", internet_charge_type)
         if internet_max_bandwidth_out is not None:
@@ -2125,6 +3933,15 @@ class NodePoolAutoScalingConfigArgs:
     @instance_name.setter
     def instance_name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "instance_name", value)
+
+    @property
+    @pulumi.getter(name="instanceNameStyle")
+    def instance_name_style(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "instance_name_style")
+
+    @instance_name_style.setter
+    def instance_name_style(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "instance_name_style", value)
 
     @property
     @pulumi.getter(name="internetChargeType")
@@ -2316,6 +4133,7 @@ class NodePoolNodeConfigArgs:
                  gpu_args: Optional[pulumi.Input['NodePoolNodeConfigGpuArgsArgs']] = None,
                  is_schedule: Optional[pulumi.Input[bool]] = None,
                  mount_target: Optional[pulumi.Input[str]] = None,
+                 pre_start_user_script: Optional[pulumi.Input[str]] = None,
                  user_data: Optional[pulumi.Input[str]] = None):
         if data_disks is not None:
             pulumi.set(__self__, "data_disks", data_disks)
@@ -2331,6 +4149,8 @@ class NodePoolNodeConfigArgs:
             pulumi.set(__self__, "is_schedule", is_schedule)
         if mount_target is not None:
             pulumi.set(__self__, "mount_target", mount_target)
+        if pre_start_user_script is not None:
+            pulumi.set(__self__, "pre_start_user_script", pre_start_user_script)
         if user_data is not None:
             pulumi.set(__self__, "user_data", user_data)
 
@@ -2396,6 +4216,15 @@ class NodePoolNodeConfigArgs:
     @mount_target.setter
     def mount_target(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "mount_target", value)
+
+    @property
+    @pulumi.getter(name="preStartUserScript")
+    def pre_start_user_script(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "pre_start_user_script")
+
+    @pre_start_user_script.setter
+    def pre_start_user_script(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "pre_start_user_script", value)
 
     @property
     @pulumi.getter(name="userData")
@@ -2591,12 +4420,15 @@ class NodePoolTaintArgs:
 class ScaleWorkerDataDiskArgs:
     def __init__(__self__, *,
                  auto_format_and_mount: Optional[pulumi.Input[bool]] = None,
+                 disk_partition: Optional[pulumi.Input[str]] = None,
                  disk_size: Optional[pulumi.Input[int]] = None,
                  disk_type: Optional[pulumi.Input[str]] = None,
                  file_system: Optional[pulumi.Input[str]] = None,
                  mount_target: Optional[pulumi.Input[str]] = None):
         if auto_format_and_mount is not None:
             pulumi.set(__self__, "auto_format_and_mount", auto_format_and_mount)
+        if disk_partition is not None:
+            pulumi.set(__self__, "disk_partition", disk_partition)
         if disk_size is not None:
             pulumi.set(__self__, "disk_size", disk_size)
         if disk_type is not None:
@@ -2614,6 +4446,15 @@ class ScaleWorkerDataDiskArgs:
     @auto_format_and_mount.setter
     def auto_format_and_mount(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "auto_format_and_mount", value)
+
+    @property
+    @pulumi.getter(name="diskPartition")
+    def disk_partition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "disk_partition")
+
+    @disk_partition.setter
+    def disk_partition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "disk_partition", value)
 
     @property
     @pulumi.getter(name="diskSize")
@@ -2718,6 +4559,47 @@ class ScaleWorkerGpuArgsArgs:
 
 
 @pulumi.input_type
+class ScaleWorkerTaintArgs:
+    def __init__(__self__, *,
+                 effect: Optional[pulumi.Input[str]] = None,
+                 key: Optional[pulumi.Input[str]] = None,
+                 value: Optional[pulumi.Input[str]] = None):
+        if effect is not None:
+            pulumi.set(__self__, "effect", effect)
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def effect(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "effect")
+
+    @effect.setter
+    def effect(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "effect", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
 class ScaleWorkerWorkerConfigArgs:
     def __init__(__self__, *,
                  instance_type: pulumi.Input[str],
@@ -2746,6 +4628,7 @@ class ScaleWorkerWorkerConfigArgs:
                  security_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  system_disk_size: Optional[pulumi.Input[int]] = None,
                  system_disk_type: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Sequence[pulumi.Input['ScaleWorkerWorkerConfigTagArgs']]]] = None,
                  user_data: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "instance_type", instance_type)
         pulumi.set(__self__, "subnet_id", subnet_id)
@@ -2797,6 +4680,8 @@ class ScaleWorkerWorkerConfigArgs:
             pulumi.set(__self__, "system_disk_size", system_disk_size)
         if system_disk_type is not None:
             pulumi.set(__self__, "system_disk_type", system_disk_type)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
         if user_data is not None:
             pulumi.set(__self__, "user_data", user_data)
 
@@ -3035,6 +4920,15 @@ class ScaleWorkerWorkerConfigArgs:
         pulumi.set(self, "system_disk_type", value)
 
     @property
+    @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ScaleWorkerWorkerConfigTagArgs']]]]:
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ScaleWorkerWorkerConfigTagArgs']]]]):
+        pulumi.set(self, "tags", value)
+
+    @property
     @pulumi.getter(name="userData")
     def user_data(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "user_data")
@@ -3057,7 +4951,13 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
                  mount_target: Optional[pulumi.Input[str]] = None,
                  snapshot_id: Optional[pulumi.Input[str]] = None):
         if auto_format_and_mount is not None:
+            warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+            pulumi.log.warn("""auto_format_and_mount is deprecated: This argument was deprecated, use `data_disk` instead.""")
+        if auto_format_and_mount is not None:
             pulumi.set(__self__, "auto_format_and_mount", auto_format_and_mount)
+        if disk_partition is not None:
+            warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+            pulumi.log.warn("""disk_partition is deprecated: This argument was deprecated, use `data_disk` instead.""")
         if disk_partition is not None:
             pulumi.set(__self__, "disk_partition", disk_partition)
         if disk_size is not None:
@@ -3067,9 +4967,15 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
         if encrypt is not None:
             pulumi.set(__self__, "encrypt", encrypt)
         if file_system is not None:
+            warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+            pulumi.log.warn("""file_system is deprecated: This argument was deprecated, use `data_disk` instead.""")
+        if file_system is not None:
             pulumi.set(__self__, "file_system", file_system)
         if kms_key_id is not None:
             pulumi.set(__self__, "kms_key_id", kms_key_id)
+        if mount_target is not None:
+            warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+            pulumi.log.warn("""mount_target is deprecated: This argument was deprecated, use `data_disk` instead.""")
         if mount_target is not None:
             pulumi.set(__self__, "mount_target", mount_target)
         if snapshot_id is not None:
@@ -3078,6 +4984,9 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
     @property
     @pulumi.getter(name="autoFormatAndMount")
     def auto_format_and_mount(self) -> Optional[pulumi.Input[bool]]:
+        warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+        pulumi.log.warn("""auto_format_and_mount is deprecated: This argument was deprecated, use `data_disk` instead.""")
+
         return pulumi.get(self, "auto_format_and_mount")
 
     @auto_format_and_mount.setter
@@ -3087,6 +4996,9 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
     @property
     @pulumi.getter(name="diskPartition")
     def disk_partition(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+        pulumi.log.warn("""disk_partition is deprecated: This argument was deprecated, use `data_disk` instead.""")
+
         return pulumi.get(self, "disk_partition")
 
     @disk_partition.setter
@@ -3123,6 +5035,9 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
     @property
     @pulumi.getter(name="fileSystem")
     def file_system(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+        pulumi.log.warn("""file_system is deprecated: This argument was deprecated, use `data_disk` instead.""")
+
         return pulumi.get(self, "file_system")
 
     @file_system.setter
@@ -3141,6 +5056,9 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
     @property
     @pulumi.getter(name="mountTarget")
     def mount_target(self) -> Optional[pulumi.Input[str]]:
+        warnings.warn("""This argument was deprecated, use `data_disk` instead.""", DeprecationWarning)
+        pulumi.log.warn("""mount_target is deprecated: This argument was deprecated, use `data_disk` instead.""")
+
         return pulumi.get(self, "mount_target")
 
     @mount_target.setter
@@ -3155,6 +5073,33 @@ class ScaleWorkerWorkerConfigDataDiskArgs:
     @snapshot_id.setter
     def snapshot_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "snapshot_id", value)
+
+
+@pulumi.input_type
+class ScaleWorkerWorkerConfigTagArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
 
 
 @pulumi.input_type
@@ -3290,6 +5235,33 @@ class ServerlessNodePoolTaintArgs:
 
 @pulumi.input_type
 class GetClusterInstancesFilterArgs:
+    def __init__(__self__, *,
+                 name: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: str):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Sequence[str]):
+        pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class GetClusterNativeNodePoolsFilterArgs:
     def __init__(__self__, *,
                  name: str,
                  values: Sequence[str]):

@@ -26,6 +26,7 @@ class GetInstanceInstanceListResult(dict):
                  cpu: int,
                  create_time: str,
                  data_disks: Sequence['outputs.GetInstanceInstanceListDataDiskResult'],
+                 dedicated_cluster_id: str,
                  expired_time: str,
                  image_id: str,
                  instance_charge_type: str,
@@ -36,6 +37,7 @@ class GetInstanceInstanceListResult(dict):
                  internet_charge_type: str,
                  internet_max_bandwidth_out: int,
                  memory: int,
+                 os_name: str,
                  private_ip: str,
                  project_id: int,
                  public_ip: str,
@@ -46,6 +48,7 @@ class GetInstanceInstanceListResult(dict):
                  system_disk_size: int,
                  system_disk_type: str,
                  tags: Mapping[str, Any],
+                 uuid: str,
                  vpc_id: str):
         pulumi.set(__self__, "allocate_public_ip", allocate_public_ip)
         pulumi.set(__self__, "availability_zone", availability_zone)
@@ -53,6 +56,7 @@ class GetInstanceInstanceListResult(dict):
         pulumi.set(__self__, "cpu", cpu)
         pulumi.set(__self__, "create_time", create_time)
         pulumi.set(__self__, "data_disks", data_disks)
+        pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
         pulumi.set(__self__, "expired_time", expired_time)
         pulumi.set(__self__, "image_id", image_id)
         pulumi.set(__self__, "instance_charge_type", instance_charge_type)
@@ -63,6 +67,7 @@ class GetInstanceInstanceListResult(dict):
         pulumi.set(__self__, "internet_charge_type", internet_charge_type)
         pulumi.set(__self__, "internet_max_bandwidth_out", internet_max_bandwidth_out)
         pulumi.set(__self__, "memory", memory)
+        pulumi.set(__self__, "os_name", os_name)
         pulumi.set(__self__, "private_ip", private_ip)
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "public_ip", public_ip)
@@ -73,6 +78,7 @@ class GetInstanceInstanceListResult(dict):
         pulumi.set(__self__, "system_disk_size", system_disk_size)
         pulumi.set(__self__, "system_disk_type", system_disk_type)
         pulumi.set(__self__, "tags", tags)
+        pulumi.set(__self__, "uuid", uuid)
         pulumi.set(__self__, "vpc_id", vpc_id)
 
     @property
@@ -104,6 +110,11 @@ class GetInstanceInstanceListResult(dict):
     @pulumi.getter(name="dataDisks")
     def data_disks(self) -> Sequence['outputs.GetInstanceInstanceListDataDiskResult']:
         return pulumi.get(self, "data_disks")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> str:
+        return pulumi.get(self, "dedicated_cluster_id")
 
     @property
     @pulumi.getter(name="expiredTime")
@@ -156,6 +167,11 @@ class GetInstanceInstanceListResult(dict):
         return pulumi.get(self, "memory")
 
     @property
+    @pulumi.getter(name="osName")
+    def os_name(self) -> str:
+        return pulumi.get(self, "os_name")
+
+    @property
     @pulumi.getter(name="privateIp")
     def private_ip(self) -> str:
         return pulumi.get(self, "private_ip")
@@ -204,6 +220,11 @@ class GetInstanceInstanceListResult(dict):
     @pulumi.getter
     def tags(self) -> Mapping[str, Any]:
         return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter
+    def uuid(self) -> str:
+        return pulumi.get(self, "uuid")
 
     @property
     @pulumi.getter(name="vpcId")

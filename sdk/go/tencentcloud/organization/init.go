@@ -25,6 +25,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Instance{}
 	case "tencentcloud:Organization/orgIdentity:OrgIdentity":
 		r = &OrgIdentity{}
+	case "tencentcloud:Organization/orgManagePolicy:OrgManagePolicy":
+		r = &OrgManagePolicy{}
+	case "tencentcloud:Organization/orgManagePolicyConfig:OrgManagePolicyConfig":
+		r = &OrgManagePolicyConfig{}
+	case "tencentcloud:Organization/orgManagePolicyTarget:OrgManagePolicyTarget":
+		r = &OrgManagePolicyTarget{}
 	case "tencentcloud:Organization/orgMember:OrgMember":
 		r = &OrgMember{}
 	case "tencentcloud:Organization/orgMemberAuthIdentityAttachment:OrgMemberAuthIdentityAttachment":
@@ -35,10 +41,16 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &OrgMemberPolicyAttachment{}
 	case "tencentcloud:Organization/orgNode:OrgNode":
 		r = &OrgNode{}
+	case "tencentcloud:Organization/orgShareUnit:OrgShareUnit":
+		r = &OrgShareUnit{}
+	case "tencentcloud:Organization/orgShareUnitMember:OrgShareUnitMember":
+		r = &OrgShareUnitMember{}
 	case "tencentcloud:Organization/policySubAccountAttachment:PolicySubAccountAttachment":
 		r = &PolicySubAccountAttachment{}
 	case "tencentcloud:Organization/quitOrganizationOperation:QuitOrganizationOperation":
 		r = &QuitOrganizationOperation{}
+	case "tencentcloud:Organization/serviceAssign:ServiceAssign":
+		r = &ServiceAssign{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -60,6 +72,21 @@ func init() {
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
 		"Organization/orgIdentity",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Organization/orgManagePolicy",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Organization/orgManagePolicyConfig",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Organization/orgManagePolicyTarget",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
@@ -89,12 +116,27 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
+		"Organization/orgShareUnit",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Organization/orgShareUnitMember",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
 		"Organization/policySubAccountAttachment",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
 		"Organization/quitOrganizationOperation",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Organization/serviceAssign",
 		&module{version},
 	)
 }

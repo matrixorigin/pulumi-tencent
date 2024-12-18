@@ -33,7 +33,8 @@ export class BackupPolicy extends pulumi.CustomResource {
     }
 
     /**
-     * Backup method. Supported values include: `physical` - physical backup.
+     * Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+     * support `physical`, Single node only support `snapshot`.
      */
     public readonly backupModel!: pulumi.Output<string | undefined>;
     /**
@@ -110,7 +111,8 @@ export class BackupPolicy extends pulumi.CustomResource {
  */
 export interface BackupPolicyState {
     /**
-     * Backup method. Supported values include: `physical` - physical backup.
+     * Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+     * support `physical`, Single node only support `snapshot`.
      */
     backupModel?: pulumi.Input<string>;
     /**
@@ -150,7 +152,8 @@ export interface BackupPolicyState {
  */
 export interface BackupPolicyArgs {
     /**
-     * Backup method. Supported values include: `physical` - physical backup.
+     * Backup method. Supported values include: `physical` - physical backup; `snapshot` - snapshot backup. Multi node only
+     * support `physical`, Single node only support `snapshot`.
      */
     backupModel?: pulumi.Input<string>;
     /**

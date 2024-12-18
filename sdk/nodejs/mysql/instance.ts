@@ -53,6 +53,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly deviceType!: pulumi.Output<string>;
     /**
+     * Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+     */
+    public readonly engineType!: pulumi.Output<string>;
+    /**
      * The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
      * Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
      */
@@ -189,6 +193,11 @@ export class Instance extends pulumi.CustomResource {
      * ID of VPC, which can be modified once every 24 hours and can't be removed.
      */
     public readonly vpcId!: pulumi.Output<string>;
+    /**
+     * Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+     * switch in time window.
+     */
+    public readonly waitSwitch!: pulumi.Output<number | undefined>;
 
     /**
      * Create a Instance resource with the given unique name, arguments, and options.
@@ -208,6 +217,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["chargeType"] = state ? state.chargeType : undefined;
             resourceInputs["cpu"] = state ? state.cpu : undefined;
             resourceInputs["deviceType"] = state ? state.deviceType : undefined;
+            resourceInputs["engineType"] = state ? state.engineType : undefined;
             resourceInputs["engineVersion"] = state ? state.engineVersion : undefined;
             resourceInputs["fastUpgrade"] = state ? state.fastUpgrade : undefined;
             resourceInputs["firstSlaveZone"] = state ? state.firstSlaveZone : undefined;
@@ -240,6 +250,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["upgradeSubversion"] = state ? state.upgradeSubversion : undefined;
             resourceInputs["volumeSize"] = state ? state.volumeSize : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
+            resourceInputs["waitSwitch"] = state ? state.waitSwitch : undefined;
         } else {
             const args = argsOrState as InstanceArgs | undefined;
             if ((!args || args.instanceName === undefined) && !opts.urn) {
@@ -256,6 +267,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["chargeType"] = args ? args.chargeType : undefined;
             resourceInputs["cpu"] = args ? args.cpu : undefined;
             resourceInputs["deviceType"] = args ? args.deviceType : undefined;
+            resourceInputs["engineType"] = args ? args.engineType : undefined;
             resourceInputs["engineVersion"] = args ? args.engineVersion : undefined;
             resourceInputs["fastUpgrade"] = args ? args.fastUpgrade : undefined;
             resourceInputs["firstSlaveZone"] = args ? args.firstSlaveZone : undefined;
@@ -281,6 +293,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["upgradeSubversion"] = args ? args.upgradeSubversion : undefined;
             resourceInputs["volumeSize"] = args ? args.volumeSize : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["waitSwitch"] = args ? args.waitSwitch : undefined;
             resourceInputs["gtid"] = undefined /*out*/;
             resourceInputs["internetHost"] = undefined /*out*/;
             resourceInputs["internetPort"] = undefined /*out*/;
@@ -320,6 +333,10 @@ export interface InstanceState {
      * Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
      */
     deviceType?: pulumi.Input<string>;
+    /**
+     * Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+     */
+    engineType?: pulumi.Input<string>;
     /**
      * The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
      * Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
@@ -457,6 +474,11 @@ export interface InstanceState {
      * ID of VPC, which can be modified once every 24 hours and can't be removed.
      */
     vpcId?: pulumi.Input<string>;
+    /**
+     * Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+     * switch in time window.
+     */
+    waitSwitch?: pulumi.Input<number>;
 }
 
 /**
@@ -483,6 +505,10 @@ export interface InstanceArgs {
      * Specify device type, available values: `UNIVERSAL` (default), `EXCLUSIVE`, `BASIC`.
      */
     deviceType?: pulumi.Input<string>;
+    /**
+     * Instance engine type. The default value is `InnoDB`. Supported values include `InnoDB` and `RocksDB`.
+     */
+    engineType?: pulumi.Input<string>;
     /**
      * The version number of the database engine to use. Supported versions include 5.5/5.6/5.7/8.0, and default is 5.7.
      * Upgrade the instance engine version to support 5.6/5.7 and switch immediately.
@@ -592,4 +618,9 @@ export interface InstanceArgs {
      * ID of VPC, which can be modified once every 24 hours and can't be removed.
      */
     vpcId?: pulumi.Input<string>;
+    /**
+     * Switch the method of accessing new instances, default is `0`. Supported values include: `0` - switch immediately, `1` -
+     * switch in time window.
+     */
+    waitSwitch?: pulumi.Input<number>;
 }

@@ -24,6 +24,8 @@ type Instance struct {
 	ChargePeriod pulumi.IntPtrOutput `pulumi:"chargePeriod"`
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrOutput `pulumi:"chargeType"`
+	// COS automatic backup information.
+	CosBackup InstanceCosBackupPtrOutput `pulumi:"cosBackup"`
 	// Instance creation time.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
@@ -40,6 +42,8 @@ type Instance struct {
 	// Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringPtrOutput `pulumi:"instanceName"`
+	// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+	KibanaPublicAccess pulumi.StringOutput `pulumi:"kibanaPublicAccess"`
 	// Kibana access URL.
 	KibanaUrl pulumi.StringOutput `pulumi:"kibanaUrl"`
 	// License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
@@ -126,6 +130,8 @@ type instanceState struct {
 	ChargePeriod *int `pulumi:"chargePeriod"`
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
 	ChargeType *string `pulumi:"chargeType"`
+	// COS automatic backup information.
+	CosBackup *InstanceCosBackup `pulumi:"cosBackup"`
 	// Instance creation time.
 	CreateTime *string `pulumi:"createTime"`
 	// Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
@@ -142,6 +148,8 @@ type instanceState struct {
 	// Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName *string `pulumi:"instanceName"`
+	// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+	KibanaPublicAccess *string `pulumi:"kibanaPublicAccess"`
 	// Kibana access URL.
 	KibanaUrl *string `pulumi:"kibanaUrl"`
 	// License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
@@ -180,6 +188,8 @@ type InstanceState struct {
 	ChargePeriod pulumi.IntPtrInput
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrInput
+	// COS automatic backup information.
+	CosBackup InstanceCosBackupPtrInput
 	// Instance creation time.
 	CreateTime pulumi.StringPtrInput
 	// Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
@@ -196,6 +206,8 @@ type InstanceState struct {
 	// Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringPtrInput
+	// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+	KibanaPublicAccess pulumi.StringPtrInput
 	// Kibana access URL.
 	KibanaUrl pulumi.StringPtrInput
 	// License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
@@ -238,6 +250,8 @@ type instanceArgs struct {
 	ChargePeriod *int `pulumi:"chargePeriod"`
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
 	ChargeType *string `pulumi:"chargeType"`
+	// COS automatic backup information.
+	CosBackup *InstanceCosBackup `pulumi:"cosBackup"`
 	// Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
 	// Default value is `0`.
 	DeployMode *int `pulumi:"deployMode"`
@@ -246,6 +260,8 @@ type instanceArgs struct {
 	// Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName *string `pulumi:"instanceName"`
+	// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+	KibanaPublicAccess *string `pulumi:"kibanaPublicAccess"`
 	// License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
 	LicenseType *string `pulumi:"licenseType"`
 	// Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
@@ -283,6 +299,8 @@ type InstanceArgs struct {
 	ChargePeriod pulumi.IntPtrInput
 	// The charge type of instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrInput
+	// COS automatic backup information.
+	CosBackup InstanceCosBackupPtrInput
 	// Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
 	// Default value is `0`.
 	DeployMode pulumi.IntPtrInput
@@ -291,6 +309,8 @@ type InstanceArgs struct {
 	// Name of the instance, which can contain 1 to 50 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringPtrInput
+	// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+	KibanaPublicAccess pulumi.StringPtrInput
 	// License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
 	LicenseType pulumi.StringPtrInput
 	// Details of AZs in multi-AZ deployment mode (which is required when deploy_mode is `1`).
@@ -425,6 +445,11 @@ func (o InstanceOutput) ChargeType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.ChargeType }).(pulumi.StringPtrOutput)
 }
 
+// COS automatic backup information.
+func (o InstanceOutput) CosBackup() InstanceCosBackupPtrOutput {
+	return o.ApplyT(func(v *Instance) InstanceCosBackupPtrOutput { return v.CosBackup }).(InstanceCosBackupPtrOutput)
+}
+
 // Instance creation time.
 func (o InstanceOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -460,6 +485,11 @@ func (o InstanceOutput) EsAcl() InstanceEsAclOutput {
 // underscores(_).
 func (o InstanceOutput) InstanceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.InstanceName }).(pulumi.StringPtrOutput)
+}
+
+// Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+func (o InstanceOutput) KibanaPublicAccess() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.KibanaPublicAccess }).(pulumi.StringOutput)
 }
 
 // Kibana access URL.

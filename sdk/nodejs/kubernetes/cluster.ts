@@ -51,6 +51,10 @@ export class Cluster extends pulumi.CustomResource {
      */
     public readonly basePodNum!: pulumi.Output<number | undefined>;
     /**
+     * CDC ID.
+     */
+    public readonly cdcId!: pulumi.Output<string | undefined>;
+    /**
      * The certificate used for access.
      */
     public /*out*/ readonly certificationAuthority!: pulumi.Output<string>;
@@ -104,7 +108,7 @@ export class Cluster extends pulumi.CustomResource {
     /**
      * Specify security group, NOTE: This argument must not be empty if cluster internet enabled.
      */
-    public readonly clusterInternetSecurityGroup!: pulumi.Output<string | undefined>;
+    public readonly clusterInternetSecurityGroup!: pulumi.Output<string>;
     /**
      * Open intranet access or not. If this field is set 'true', the field below `worker_config` must be set. Because only
      * cluster with node is allowed enable access endpoint. You may open it through `tencentcloud_kubernetes_cluster_endpoint`.
@@ -119,7 +123,7 @@ export class Cluster extends pulumi.CustomResource {
      * Subnet id who can access this independent cluster, this field must and can only set when `cluster_intranet` is true.
      * `cluster_intranet_subnet_id` can not modify once be set.
      */
-    public readonly clusterIntranetSubnetId!: pulumi.Output<string | undefined>;
+    public readonly clusterIntranetSubnetId!: pulumi.Output<string>;
     /**
      * Indicates whether `ipvs` is enabled. Default is true. False means `iptables` is enabled.
      */
@@ -148,8 +152,9 @@ export class Cluster extends pulumi.CustomResource {
      */
     public /*out*/ readonly clusterNodeNum!: pulumi.Output<number>;
     /**
-     * Operating system of the cluster, the available values include:
-     * 'centos7.6.0_x64','ubuntu18.04.1x86_64','tlinux2.4x86_64'. Default is 'tlinux2.4x86_64'.
+     * Cluster operating system, supports setting public images (the field passes the corresponding image Name) and custom
+     * images (the field passes the corresponding image ID). For details, please refer to:
+     * https://cloud.tencent.com/document/product/457/68289.
      */
     public readonly clusterOs!: pulumi.Output<string | undefined>;
     /**
@@ -216,6 +221,15 @@ export class Cluster extends pulumi.CustomResource {
      */
     public readonly ignoreClusterCidrConflict!: pulumi.Output<boolean | undefined>;
     /**
+     * Indicates whether to ignore the service cidr conflict error. Only valid in `VPC-CNI` mode.
+     */
+    public readonly ignoreServiceCidrConflict!: pulumi.Output<boolean>;
+    /**
+     * The strategy for deleting cluster instances: terminate (destroy instances, only support pay as you go cloud host
+     * instances) retain (remove only, keep instances), Default is terminate.
+     */
+    public readonly instanceDeleteMode!: pulumi.Output<string | undefined>;
+    /**
      * Indicates whether non-static ip mode is enabled. Default is false.
      */
     public readonly isNonStaticIpMode!: pulumi.Output<boolean | undefined>;
@@ -277,9 +291,18 @@ export class Cluster extends pulumi.CustomResource {
      */
     public /*out*/ readonly pgwEndpoint!: pulumi.Output<string>;
     /**
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    public readonly preStartUserScript!: pulumi.Output<string | undefined>;
+    /**
      * Project ID, default value is 0.
      */
     public readonly projectId!: pulumi.Output<number | undefined>;
+    /**
+     * The resource deletion policy when the cluster is deleted. Currently, CBS is supported (CBS is retained by default). Only
+     * valid when deleting cluster.
+     */
+    public readonly resourceDeleteOptions!: pulumi.Output<outputs.Kubernetes.ClusterResourceDeleteOption[] | undefined>;
     /**
      * Container Runtime version.
      */
@@ -322,7 +345,7 @@ export class Cluster extends pulumi.CustomResource {
     public readonly vpcId!: pulumi.Output<string>;
     /**
      * Deploy the machine configuration information of the 'WORKER' service, and create <=20 units for common users. The other
-     * 'WORK' service are added by 'tencentcloud_kubernetes_worker'.
+     * 'WORK' service are added by 'tencentcloud_kubernetes_scale_worker'.
      */
     public readonly workerConfigs!: pulumi.Output<outputs.Kubernetes.ClusterWorkerConfig[] | undefined>;
     /**
@@ -347,6 +370,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["authOptions"] = state ? state.authOptions : undefined;
             resourceInputs["autoUpgradeClusterLevel"] = state ? state.autoUpgradeClusterLevel : undefined;
             resourceInputs["basePodNum"] = state ? state.basePodNum : undefined;
+            resourceInputs["cdcId"] = state ? state.cdcId : undefined;
             resourceInputs["certificationAuthority"] = state ? state.certificationAuthority : undefined;
             resourceInputs["claimExpiredSeconds"] = state ? state.claimExpiredSeconds : undefined;
             resourceInputs["clusterAsEnabled"] = state ? state.clusterAsEnabled : undefined;
@@ -384,6 +408,8 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["extraArgs"] = state ? state.extraArgs : undefined;
             resourceInputs["globeDesiredPodNum"] = state ? state.globeDesiredPodNum : undefined;
             resourceInputs["ignoreClusterCidrConflict"] = state ? state.ignoreClusterCidrConflict : undefined;
+            resourceInputs["ignoreServiceCidrConflict"] = state ? state.ignoreServiceCidrConflict : undefined;
+            resourceInputs["instanceDeleteMode"] = state ? state.instanceDeleteMode : undefined;
             resourceInputs["isNonStaticIpMode"] = state ? state.isNonStaticIpMode : undefined;
             resourceInputs["kubeConfig"] = state ? state.kubeConfig : undefined;
             resourceInputs["kubeConfigIntranet"] = state ? state.kubeConfigIntranet : undefined;
@@ -398,7 +424,9 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["nodePoolGlobalConfigs"] = state ? state.nodePoolGlobalConfigs : undefined;
             resourceInputs["password"] = state ? state.password : undefined;
             resourceInputs["pgwEndpoint"] = state ? state.pgwEndpoint : undefined;
+            resourceInputs["preStartUserScript"] = state ? state.preStartUserScript : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
+            resourceInputs["resourceDeleteOptions"] = state ? state.resourceDeleteOptions : undefined;
             resourceInputs["runtimeVersion"] = state ? state.runtimeVersion : undefined;
             resourceInputs["securityPolicies"] = state ? state.securityPolicies : undefined;
             resourceInputs["serviceCidr"] = state ? state.serviceCidr : undefined;
@@ -419,6 +447,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["authOptions"] = args ? args.authOptions : undefined;
             resourceInputs["autoUpgradeClusterLevel"] = args ? args.autoUpgradeClusterLevel : undefined;
             resourceInputs["basePodNum"] = args ? args.basePodNum : undefined;
+            resourceInputs["cdcId"] = args ? args.cdcId : undefined;
             resourceInputs["claimExpiredSeconds"] = args ? args.claimExpiredSeconds : undefined;
             resourceInputs["clusterAudit"] = args ? args.clusterAudit : undefined;
             resourceInputs["clusterCidr"] = args ? args.clusterCidr : undefined;
@@ -451,6 +480,8 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["extraArgs"] = args ? args.extraArgs : undefined;
             resourceInputs["globeDesiredPodNum"] = args ? args.globeDesiredPodNum : undefined;
             resourceInputs["ignoreClusterCidrConflict"] = args ? args.ignoreClusterCidrConflict : undefined;
+            resourceInputs["ignoreServiceCidrConflict"] = args ? args.ignoreServiceCidrConflict : undefined;
+            resourceInputs["instanceDeleteMode"] = args ? args.instanceDeleteMode : undefined;
             resourceInputs["isNonStaticIpMode"] = args ? args.isNonStaticIpMode : undefined;
             resourceInputs["kubeProxyMode"] = args ? args.kubeProxyMode : undefined;
             resourceInputs["labels"] = args ? args.labels : undefined;
@@ -461,7 +492,9 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["networkType"] = args ? args.networkType : undefined;
             resourceInputs["nodeNameType"] = args ? args.nodeNameType : undefined;
             resourceInputs["nodePoolGlobalConfigs"] = args ? args.nodePoolGlobalConfigs : undefined;
+            resourceInputs["preStartUserScript"] = args ? args.preStartUserScript : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
+            resourceInputs["resourceDeleteOptions"] = args ? args.resourceDeleteOptions : undefined;
             resourceInputs["runtimeVersion"] = args ? args.runtimeVersion : undefined;
             resourceInputs["serviceCidr"] = args ? args.serviceCidr : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
@@ -508,6 +541,10 @@ export interface ClusterState {
      * The number of basic pods. valid when enable_customized_pod_cidr=true.
      */
     basePodNum?: pulumi.Input<number>;
+    /**
+     * CDC ID.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * The certificate used for access.
      */
@@ -606,8 +643,9 @@ export interface ClusterState {
      */
     clusterNodeNum?: pulumi.Input<number>;
     /**
-     * Operating system of the cluster, the available values include:
-     * 'centos7.6.0_x64','ubuntu18.04.1x86_64','tlinux2.4x86_64'. Default is 'tlinux2.4x86_64'.
+     * Cluster operating system, supports setting public images (the field passes the corresponding image Name) and custom
+     * images (the field passes the corresponding image ID). For details, please refer to:
+     * https://cloud.tencent.com/document/product/457/68289.
      */
     clusterOs?: pulumi.Input<string>;
     /**
@@ -674,6 +712,15 @@ export interface ClusterState {
      */
     ignoreClusterCidrConflict?: pulumi.Input<boolean>;
     /**
+     * Indicates whether to ignore the service cidr conflict error. Only valid in `VPC-CNI` mode.
+     */
+    ignoreServiceCidrConflict?: pulumi.Input<boolean>;
+    /**
+     * The strategy for deleting cluster instances: terminate (destroy instances, only support pay as you go cloud host
+     * instances) retain (remove only, keep instances), Default is terminate.
+     */
+    instanceDeleteMode?: pulumi.Input<string>;
+    /**
      * Indicates whether non-static ip mode is enabled. Default is false.
      */
     isNonStaticIpMode?: pulumi.Input<boolean>;
@@ -735,9 +782,18 @@ export interface ClusterState {
      */
     pgwEndpoint?: pulumi.Input<string>;
     /**
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    preStartUserScript?: pulumi.Input<string>;
+    /**
      * Project ID, default value is 0.
      */
     projectId?: pulumi.Input<number>;
+    /**
+     * The resource deletion policy when the cluster is deleted. Currently, CBS is supported (CBS is retained by default). Only
+     * valid when deleting cluster.
+     */
+    resourceDeleteOptions?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterResourceDeleteOption>[]>;
     /**
      * Container Runtime version.
      */
@@ -780,7 +836,7 @@ export interface ClusterState {
     vpcId?: pulumi.Input<string>;
     /**
      * Deploy the machine configuration information of the 'WORKER' service, and create <=20 units for common users. The other
-     * 'WORK' service are added by 'tencentcloud_kubernetes_worker'.
+     * 'WORK' service are added by 'tencentcloud_kubernetes_scale_worker'.
      */
     workerConfigs?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterWorkerConfig>[]>;
     /**
@@ -809,6 +865,10 @@ export interface ClusterArgs {
      * The number of basic pods. valid when enable_customized_pod_cidr=true.
      */
     basePodNum?: pulumi.Input<number>;
+    /**
+     * CDC ID.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * Claim expired seconds to recycle ENI. This field can only set when field `network_type` is 'VPC-CNI'.
      * `claim_expired_seconds` must greater or equal than 300 and less than 15768000.
@@ -889,8 +949,9 @@ export interface ClusterArgs {
      */
     clusterName?: pulumi.Input<string>;
     /**
-     * Operating system of the cluster, the available values include:
-     * 'centos7.6.0_x64','ubuntu18.04.1x86_64','tlinux2.4x86_64'. Default is 'tlinux2.4x86_64'.
+     * Cluster operating system, supports setting public images (the field passes the corresponding image Name) and custom
+     * images (the field passes the corresponding image ID). For details, please refer to:
+     * https://cloud.tencent.com/document/product/457/68289.
      */
     clusterOs?: pulumi.Input<string>;
     /**
@@ -953,6 +1014,15 @@ export interface ClusterArgs {
      */
     ignoreClusterCidrConflict?: pulumi.Input<boolean>;
     /**
+     * Indicates whether to ignore the service cidr conflict error. Only valid in `VPC-CNI` mode.
+     */
+    ignoreServiceCidrConflict?: pulumi.Input<boolean>;
+    /**
+     * The strategy for deleting cluster instances: terminate (destroy instances, only support pay as you go cloud host
+     * instances) retain (remove only, keep instances), Default is terminate.
+     */
+    instanceDeleteMode?: pulumi.Input<string>;
+    /**
      * Indicates whether non-static ip mode is enabled. Default is false.
      */
     isNonStaticIpMode?: pulumi.Input<boolean>;
@@ -998,9 +1068,18 @@ export interface ClusterArgs {
      */
     nodePoolGlobalConfigs?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterNodePoolGlobalConfig>[]>;
     /**
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    preStartUserScript?: pulumi.Input<string>;
+    /**
      * Project ID, default value is 0.
      */
     projectId?: pulumi.Input<number>;
+    /**
+     * The resource deletion policy when the cluster is deleted. Currently, CBS is supported (CBS is retained by default). Only
+     * valid when deleting cluster.
+     */
+    resourceDeleteOptions?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterResourceDeleteOption>[]>;
     /**
      * Container Runtime version.
      */
@@ -1035,7 +1114,7 @@ export interface ClusterArgs {
     vpcId: pulumi.Input<string>;
     /**
      * Deploy the machine configuration information of the 'WORKER' service, and create <=20 units for common users. The other
-     * 'WORK' service are added by 'tencentcloud_kubernetes_worker'.
+     * 'WORK' service are added by 'tencentcloud_kubernetes_scale_worker'.
      */
     workerConfigs?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ClusterWorkerConfig>[]>;
 }

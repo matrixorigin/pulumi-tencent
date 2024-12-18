@@ -20,6 +20,7 @@ __all__ = [
     'CngwGatewayVpcConfig',
     'CngwGroupInternetConfig',
     'CngwGroupNodeConfig',
+    'CngwNetworkAccessControlAccessControl',
     'CngwRouteHeader',
     'CngwRouteRateLimitLimitDetail',
     'CngwRouteRateLimitLimitDetailExternalRedis',
@@ -33,6 +34,15 @@ __all__ = [
     'CngwServiceRateLimitLimitDetailRateLimitResponseHeader',
     'CngwServiceUpstreamInfo',
     'CngwServiceUpstreamInfoTarget',
+    'CngwStrategyConfig',
+    'CngwStrategyConfigBehavior',
+    'CngwStrategyConfigBehaviorScaleDown',
+    'CngwStrategyConfigBehaviorScaleDownPolicy',
+    'CngwStrategyConfigBehaviorScaleUp',
+    'CngwStrategyConfigBehaviorScaleUpPolicy',
+    'CngwStrategyConfigMetric',
+    'CngwStrategyCronConfig',
+    'CngwStrategyCronConfigParam',
     'InstanceEngineRegionInfo',
     'InstanceEngineRegionInfoVpcInfo',
     'GetAccessAddressEnvAddressInfoResult',
@@ -618,6 +628,54 @@ class CngwGroupNodeConfig(dict):
     @pulumi.getter
     def specification(self) -> str:
         return pulumi.get(self, "specification")
+
+
+@pulumi.output_type
+class CngwNetworkAccessControlAccessControl(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cidrBlackLists":
+            suggest = "cidr_black_lists"
+        elif key == "cidrWhiteLists":
+            suggest = "cidr_white_lists"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwNetworkAccessControlAccessControl. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwNetworkAccessControlAccessControl.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwNetworkAccessControlAccessControl.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cidr_black_lists: Optional[Sequence[str]] = None,
+                 cidr_white_lists: Optional[Sequence[str]] = None,
+                 mode: Optional[str] = None):
+        if cidr_black_lists is not None:
+            pulumi.set(__self__, "cidr_black_lists", cidr_black_lists)
+        if cidr_white_lists is not None:
+            pulumi.set(__self__, "cidr_white_lists", cidr_white_lists)
+        if mode is not None:
+            pulumi.set(__self__, "mode", mode)
+
+    @property
+    @pulumi.getter(name="cidrBlackLists")
+    def cidr_black_lists(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "cidr_black_lists")
+
+    @property
+    @pulumi.getter(name="cidrWhiteLists")
+    def cidr_white_lists(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "cidr_white_lists")
+
+    @property
+    @pulumi.getter
+    def mode(self) -> Optional[str]:
+        return pulumi.get(self, "mode")
 
 
 @pulumi.output_type
@@ -1462,6 +1520,462 @@ class CngwServiceUpstreamInfoTarget(dict):
     @pulumi.getter
     def source(self) -> Optional[str]:
         return pulumi.get(self, "source")
+
+
+@pulumi.output_type
+class CngwStrategyConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "createTime":
+            suggest = "create_time"
+        elif key == "maxReplicas":
+            suggest = "max_replicas"
+        elif key == "modifyTime":
+            suggest = "modify_time"
+        elif key == "strategyId":
+            suggest = "strategy_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 behavior: Optional['outputs.CngwStrategyConfigBehavior'] = None,
+                 create_time: Optional[str] = None,
+                 max_replicas: Optional[int] = None,
+                 metrics: Optional[Sequence['outputs.CngwStrategyConfigMetric']] = None,
+                 modify_time: Optional[str] = None,
+                 strategy_id: Optional[str] = None):
+        if behavior is not None:
+            pulumi.set(__self__, "behavior", behavior)
+        if create_time is not None:
+            pulumi.set(__self__, "create_time", create_time)
+        if max_replicas is not None:
+            pulumi.set(__self__, "max_replicas", max_replicas)
+        if metrics is not None:
+            pulumi.set(__self__, "metrics", metrics)
+        if modify_time is not None:
+            pulumi.set(__self__, "modify_time", modify_time)
+        if strategy_id is not None:
+            pulumi.set(__self__, "strategy_id", strategy_id)
+
+    @property
+    @pulumi.getter
+    def behavior(self) -> Optional['outputs.CngwStrategyConfigBehavior']:
+        return pulumi.get(self, "behavior")
+
+    @property
+    @pulumi.getter(name="createTime")
+    def create_time(self) -> Optional[str]:
+        return pulumi.get(self, "create_time")
+
+    @property
+    @pulumi.getter(name="maxReplicas")
+    def max_replicas(self) -> Optional[int]:
+        return pulumi.get(self, "max_replicas")
+
+    @property
+    @pulumi.getter
+    def metrics(self) -> Optional[Sequence['outputs.CngwStrategyConfigMetric']]:
+        return pulumi.get(self, "metrics")
+
+    @property
+    @pulumi.getter(name="modifyTime")
+    def modify_time(self) -> Optional[str]:
+        return pulumi.get(self, "modify_time")
+
+    @property
+    @pulumi.getter(name="strategyId")
+    def strategy_id(self) -> Optional[str]:
+        return pulumi.get(self, "strategy_id")
+
+
+@pulumi.output_type
+class CngwStrategyConfigBehavior(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "scaleDown":
+            suggest = "scale_down"
+        elif key == "scaleUp":
+            suggest = "scale_up"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigBehavior. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigBehavior.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigBehavior.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 scale_down: Optional['outputs.CngwStrategyConfigBehaviorScaleDown'] = None,
+                 scale_up: Optional['outputs.CngwStrategyConfigBehaviorScaleUp'] = None):
+        if scale_down is not None:
+            pulumi.set(__self__, "scale_down", scale_down)
+        if scale_up is not None:
+            pulumi.set(__self__, "scale_up", scale_up)
+
+    @property
+    @pulumi.getter(name="scaleDown")
+    def scale_down(self) -> Optional['outputs.CngwStrategyConfigBehaviorScaleDown']:
+        return pulumi.get(self, "scale_down")
+
+    @property
+    @pulumi.getter(name="scaleUp")
+    def scale_up(self) -> Optional['outputs.CngwStrategyConfigBehaviorScaleUp']:
+        return pulumi.get(self, "scale_up")
+
+
+@pulumi.output_type
+class CngwStrategyConfigBehaviorScaleDown(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "selectPolicy":
+            suggest = "select_policy"
+        elif key == "stabilizationWindowSeconds":
+            suggest = "stabilization_window_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigBehaviorScaleDown. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigBehaviorScaleDown.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigBehaviorScaleDown.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 policies: Optional[Sequence['outputs.CngwStrategyConfigBehaviorScaleDownPolicy']] = None,
+                 select_policy: Optional[str] = None,
+                 stabilization_window_seconds: Optional[int] = None):
+        if policies is not None:
+            pulumi.set(__self__, "policies", policies)
+        if select_policy is not None:
+            pulumi.set(__self__, "select_policy", select_policy)
+        if stabilization_window_seconds is not None:
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
+
+    @property
+    @pulumi.getter
+    def policies(self) -> Optional[Sequence['outputs.CngwStrategyConfigBehaviorScaleDownPolicy']]:
+        return pulumi.get(self, "policies")
+
+    @property
+    @pulumi.getter(name="selectPolicy")
+    def select_policy(self) -> Optional[str]:
+        return pulumi.get(self, "select_policy")
+
+    @property
+    @pulumi.getter(name="stabilizationWindowSeconds")
+    def stabilization_window_seconds(self) -> Optional[int]:
+        return pulumi.get(self, "stabilization_window_seconds")
+
+
+@pulumi.output_type
+class CngwStrategyConfigBehaviorScaleDownPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "periodSeconds":
+            suggest = "period_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigBehaviorScaleDownPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigBehaviorScaleDownPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigBehaviorScaleDownPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 period_seconds: Optional[int] = None,
+                 type: Optional[str] = None,
+                 value: Optional[int] = None):
+        if period_seconds is not None:
+            pulumi.set(__self__, "period_seconds", period_seconds)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter(name="periodSeconds")
+    def period_seconds(self) -> Optional[int]:
+        return pulumi.get(self, "period_seconds")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[int]:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class CngwStrategyConfigBehaviorScaleUp(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "selectPolicy":
+            suggest = "select_policy"
+        elif key == "stabilizationWindowSeconds":
+            suggest = "stabilization_window_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigBehaviorScaleUp. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigBehaviorScaleUp.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigBehaviorScaleUp.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 policies: Optional[Sequence['outputs.CngwStrategyConfigBehaviorScaleUpPolicy']] = None,
+                 select_policy: Optional[str] = None,
+                 stabilization_window_seconds: Optional[int] = None):
+        if policies is not None:
+            pulumi.set(__self__, "policies", policies)
+        if select_policy is not None:
+            pulumi.set(__self__, "select_policy", select_policy)
+        if stabilization_window_seconds is not None:
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
+
+    @property
+    @pulumi.getter
+    def policies(self) -> Optional[Sequence['outputs.CngwStrategyConfigBehaviorScaleUpPolicy']]:
+        return pulumi.get(self, "policies")
+
+    @property
+    @pulumi.getter(name="selectPolicy")
+    def select_policy(self) -> Optional[str]:
+        return pulumi.get(self, "select_policy")
+
+    @property
+    @pulumi.getter(name="stabilizationWindowSeconds")
+    def stabilization_window_seconds(self) -> Optional[int]:
+        return pulumi.get(self, "stabilization_window_seconds")
+
+
+@pulumi.output_type
+class CngwStrategyConfigBehaviorScaleUpPolicy(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "periodSeconds":
+            suggest = "period_seconds"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigBehaviorScaleUpPolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigBehaviorScaleUpPolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigBehaviorScaleUpPolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 period_seconds: Optional[int] = None,
+                 type: Optional[str] = None,
+                 value: Optional[int] = None):
+        if period_seconds is not None:
+            pulumi.set(__self__, "period_seconds", period_seconds)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+        if value is not None:
+            pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter(name="periodSeconds")
+    def period_seconds(self) -> Optional[int]:
+        return pulumi.get(self, "period_seconds")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def value(self) -> Optional[int]:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class CngwStrategyConfigMetric(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "resourceName":
+            suggest = "resource_name"
+        elif key == "targetType":
+            suggest = "target_type"
+        elif key == "targetValue":
+            suggest = "target_value"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyConfigMetric. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyConfigMetric.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyConfigMetric.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 resource_name: Optional[str] = None,
+                 target_type: Optional[str] = None,
+                 target_value: Optional[int] = None,
+                 type: Optional[str] = None):
+        if resource_name is not None:
+            pulumi.set(__self__, "resource_name", resource_name)
+        if target_type is not None:
+            pulumi.set(__self__, "target_type", target_type)
+        if target_value is not None:
+            pulumi.set(__self__, "target_value", target_value)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter(name="resourceName")
+    def resource_name(self) -> Optional[str]:
+        return pulumi.get(self, "resource_name")
+
+    @property
+    @pulumi.getter(name="targetType")
+    def target_type(self) -> Optional[str]:
+        return pulumi.get(self, "target_type")
+
+    @property
+    @pulumi.getter(name="targetValue")
+    def target_value(self) -> Optional[int]:
+        return pulumi.get(self, "target_value")
+
+    @property
+    @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+
+@pulumi.output_type
+class CngwStrategyCronConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "strategyId":
+            suggest = "strategy_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyCronConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyCronConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyCronConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 params: Optional[Sequence['outputs.CngwStrategyCronConfigParam']] = None,
+                 strategy_id: Optional[str] = None):
+        if params is not None:
+            pulumi.set(__self__, "params", params)
+        if strategy_id is not None:
+            pulumi.set(__self__, "strategy_id", strategy_id)
+
+    @property
+    @pulumi.getter
+    def params(self) -> Optional[Sequence['outputs.CngwStrategyCronConfigParam']]:
+        return pulumi.get(self, "params")
+
+    @property
+    @pulumi.getter(name="strategyId")
+    def strategy_id(self) -> Optional[str]:
+        return pulumi.get(self, "strategy_id")
+
+
+@pulumi.output_type
+class CngwStrategyCronConfigParam(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "startAt":
+            suggest = "start_at"
+        elif key == "targetReplicas":
+            suggest = "target_replicas"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CngwStrategyCronConfigParam. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CngwStrategyCronConfigParam.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CngwStrategyCronConfigParam.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 crontab: Optional[str] = None,
+                 period: Optional[str] = None,
+                 start_at: Optional[str] = None,
+                 target_replicas: Optional[int] = None):
+        if crontab is not None:
+            pulumi.set(__self__, "crontab", crontab)
+        if period is not None:
+            pulumi.set(__self__, "period", period)
+        if start_at is not None:
+            pulumi.set(__self__, "start_at", start_at)
+        if target_replicas is not None:
+            pulumi.set(__self__, "target_replicas", target_replicas)
+
+    @property
+    @pulumi.getter
+    def crontab(self) -> Optional[str]:
+        return pulumi.get(self, "crontab")
+
+    @property
+    @pulumi.getter
+    def period(self) -> Optional[str]:
+        return pulumi.get(self, "period")
+
+    @property
+    @pulumi.getter(name="startAt")
+    def start_at(self) -> Optional[str]:
+        return pulumi.get(self, "start_at")
+
+    @property
+    @pulumi.getter(name="targetReplicas")
+    def target_replicas(self) -> Optional[int]:
+        return pulumi.get(self, "target_replicas")
 
 
 @pulumi.output_type

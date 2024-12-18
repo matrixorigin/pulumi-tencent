@@ -44,18 +44,22 @@ type Instance struct {
 	// user choose to set the login password after the instance creation.
 	LoginConfiguration InstanceLoginConfigurationPtrOutput `pulumi:"loginConfiguration"`
 	// Subscription period in months. Valid values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60.
-	Period pulumi.IntOutput `pulumi:"period"`
+	Period pulumi.IntPtrOutput `pulumi:"period"`
 	// Whether to allow login using the default key pair. `YES`: allow login; `NO`: disable login. Default: `YES`.
 	//
 	// Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
 	PermitDefaultKeyPairLogin pulumi.StringOutput `pulumi:"permitDefaultKeyPairLogin"`
+	// Private addresses.
+	PrivateAddresses pulumi.StringArrayOutput `pulumi:"privateAddresses"`
+	// Public addresses.
+	PublicAddresses pulumi.StringArrayOutput `pulumi:"publicAddresses"`
 	// Auto-Renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically;
 	// NOTIFY_AND_MANUAL_RENEW: notify upon expiration but do not renew automatically. You need to manually renew
 	// DISABLE_NOTIFY_AND_AUTO_RENEW: neither notify upon expiration nor renew automatically. Default value:
 	// NOTIFY_AND_MANUAL_RENEW.
 	RenewFlag pulumi.StringOutput `pulumi:"renewFlag"`
 	// List of availability zones. A random AZ is selected by default.
-	Zone pulumi.StringPtrOutput `pulumi:"zone"`
+	Zone pulumi.StringOutput `pulumi:"zone"`
 }
 
 // NewInstance registers a new resource with the given unique name, arguments, and options.
@@ -73,9 +77,6 @@ func NewInstance(ctx *pulumi.Context,
 	}
 	if args.InstanceName == nil {
 		return nil, errors.New("invalid value for required argument 'InstanceName'")
-	}
-	if args.Period == nil {
-		return nil, errors.New("invalid value for required argument 'Period'")
 	}
 	if args.RenewFlag == nil {
 		return nil, errors.New("invalid value for required argument 'RenewFlag'")
@@ -137,6 +138,10 @@ type instanceState struct {
 	//
 	// Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
 	PermitDefaultKeyPairLogin *string `pulumi:"permitDefaultKeyPairLogin"`
+	// Private addresses.
+	PrivateAddresses []string `pulumi:"privateAddresses"`
+	// Public addresses.
+	PublicAddresses []string `pulumi:"publicAddresses"`
 	// Auto-Renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically;
 	// NOTIFY_AND_MANUAL_RENEW: notify upon expiration but do not renew automatically. You need to manually renew
 	// DISABLE_NOTIFY_AND_AUTO_RENEW: neither notify upon expiration nor renew automatically. Default value:
@@ -181,6 +186,10 @@ type InstanceState struct {
 	//
 	// Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
 	PermitDefaultKeyPairLogin pulumi.StringPtrInput
+	// Private addresses.
+	PrivateAddresses pulumi.StringArrayInput
+	// Public addresses.
+	PublicAddresses pulumi.StringArrayInput
 	// Auto-Renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically;
 	// NOTIFY_AND_MANUAL_RENEW: notify upon expiration but do not renew automatically. You need to manually renew
 	// DISABLE_NOTIFY_AND_AUTO_RENEW: neither notify upon expiration nor renew automatically. Default value:
@@ -224,7 +233,7 @@ type instanceArgs struct {
 	// user choose to set the login password after the instance creation.
 	LoginConfiguration *InstanceLoginConfiguration `pulumi:"loginConfiguration"`
 	// Subscription period in months. Valid values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60.
-	Period int `pulumi:"period"`
+	Period *int `pulumi:"period"`
 	// Whether to allow login using the default key pair. `YES`: allow login; `NO`: disable login. Default: `YES`.
 	//
 	// Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
@@ -269,7 +278,7 @@ type InstanceArgs struct {
 	// user choose to set the login password after the instance creation.
 	LoginConfiguration InstanceLoginConfigurationPtrInput
 	// Subscription period in months. Valid values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60.
-	Period pulumi.IntInput
+	Period pulumi.IntPtrInput
 	// Whether to allow login using the default key pair. `YES`: allow login; `NO`: disable login. Default: `YES`.
 	//
 	// Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
@@ -429,8 +438,8 @@ func (o InstanceOutput) LoginConfiguration() InstanceLoginConfigurationPtrOutput
 }
 
 // Subscription period in months. Valid values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24, 36, 48, 60.
-func (o InstanceOutput) Period() pulumi.IntOutput {
-	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.Period }).(pulumi.IntOutput)
+func (o InstanceOutput) Period() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.Period }).(pulumi.IntPtrOutput)
 }
 
 // Whether to allow login using the default key pair. `YES`: allow login; `NO`: disable login. Default: `YES`.
@@ -438,6 +447,16 @@ func (o InstanceOutput) Period() pulumi.IntOutput {
 // Deprecated: It has been deprecated from version v1.81.8. Use `tencentcloud_lighthouse_key_pair_attachment` manage key pair.
 func (o InstanceOutput) PermitDefaultKeyPairLogin() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.PermitDefaultKeyPairLogin }).(pulumi.StringOutput)
+}
+
+// Private addresses.
+func (o InstanceOutput) PrivateAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringArrayOutput { return v.PrivateAddresses }).(pulumi.StringArrayOutput)
+}
+
+// Public addresses.
+func (o InstanceOutput) PublicAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringArrayOutput { return v.PublicAddresses }).(pulumi.StringArrayOutput)
 }
 
 // Auto-Renewal flag. Valid values: NOTIFY_AND_AUTO_RENEW: notify upon expiration and renew automatically;
@@ -449,8 +468,8 @@ func (o InstanceOutput) RenewFlag() pulumi.StringOutput {
 }
 
 // List of availability zones. A random AZ is selected by default.
-func (o InstanceOutput) Zone() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.Zone }).(pulumi.StringPtrOutput)
+func (o InstanceOutput) Zone() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Zone }).(pulumi.StringOutput)
 }
 
 type InstanceArrayOutput struct{ *pulumi.OutputState }

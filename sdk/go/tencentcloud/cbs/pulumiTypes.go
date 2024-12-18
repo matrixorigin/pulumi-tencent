@@ -302,6 +302,7 @@ type GetStoragesSetStorageList struct {
 	AvailabilityZone      string                 `pulumi:"availabilityZone"`
 	ChargeType            string                 `pulumi:"chargeType"`
 	CreateTime            string                 `pulumi:"createTime"`
+	DedicatedClusterId    string                 `pulumi:"dedicatedClusterId"`
 	Encrypt               bool                   `pulumi:"encrypt"`
 	InstanceId            string                 `pulumi:"instanceId"`
 	PrepaidRenewFlag      string                 `pulumi:"prepaidRenewFlag"`
@@ -332,6 +333,7 @@ type GetStoragesSetStorageListArgs struct {
 	AvailabilityZone      pulumi.StringInput `pulumi:"availabilityZone"`
 	ChargeType            pulumi.StringInput `pulumi:"chargeType"`
 	CreateTime            pulumi.StringInput `pulumi:"createTime"`
+	DedicatedClusterId    pulumi.StringInput `pulumi:"dedicatedClusterId"`
 	Encrypt               pulumi.BoolInput   `pulumi:"encrypt"`
 	InstanceId            pulumi.StringInput `pulumi:"instanceId"`
 	PrepaidRenewFlag      pulumi.StringInput `pulumi:"prepaidRenewFlag"`
@@ -413,6 +415,10 @@ func (o GetStoragesSetStorageListOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v GetStoragesSetStorageList) string { return v.CreateTime }).(pulumi.StringOutput)
 }
 
+func (o GetStoragesSetStorageListOutput) DedicatedClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStoragesSetStorageList) string { return v.DedicatedClusterId }).(pulumi.StringOutput)
+}
+
 func (o GetStoragesSetStorageListOutput) Encrypt() pulumi.BoolOutput {
 	return o.ApplyT(func(v GetStoragesSetStorageList) bool { return v.Encrypt }).(pulumi.BoolOutput)
 }
@@ -486,6 +492,7 @@ type GetStoragesStorageList struct {
 	AvailabilityZone      string                 `pulumi:"availabilityZone"`
 	ChargeType            string                 `pulumi:"chargeType"`
 	CreateTime            string                 `pulumi:"createTime"`
+	DedicatedClusterId    string                 `pulumi:"dedicatedClusterId"`
 	Encrypt               bool                   `pulumi:"encrypt"`
 	InstanceId            string                 `pulumi:"instanceId"`
 	PrepaidRenewFlag      string                 `pulumi:"prepaidRenewFlag"`
@@ -516,6 +523,7 @@ type GetStoragesStorageListArgs struct {
 	AvailabilityZone      pulumi.StringInput `pulumi:"availabilityZone"`
 	ChargeType            pulumi.StringInput `pulumi:"chargeType"`
 	CreateTime            pulumi.StringInput `pulumi:"createTime"`
+	DedicatedClusterId    pulumi.StringInput `pulumi:"dedicatedClusterId"`
 	Encrypt               pulumi.BoolInput   `pulumi:"encrypt"`
 	InstanceId            pulumi.StringInput `pulumi:"instanceId"`
 	PrepaidRenewFlag      pulumi.StringInput `pulumi:"prepaidRenewFlag"`
@@ -595,6 +603,10 @@ func (o GetStoragesStorageListOutput) ChargeType() pulumi.StringOutput {
 
 func (o GetStoragesStorageListOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v GetStoragesStorageList) string { return v.CreateTime }).(pulumi.StringOutput)
+}
+
+func (o GetStoragesStorageListOutput) DedicatedClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetStoragesStorageList) string { return v.DedicatedClusterId }).(pulumi.StringOutput)
 }
 
 func (o GetStoragesStorageListOutput) Encrypt() pulumi.BoolOutput {

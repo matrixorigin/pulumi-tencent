@@ -23,6 +23,8 @@ type ClusterAttachment struct {
 	// Examples of other types (Linux, etc.): The character length is [2, 60], and multiple dots are allowed. There is a
 	// segment between the dots. Each segment allows letters (with no limitation on capitalization), numbers and dashes (-).
 	Hostname pulumi.StringPtrOutput `pulumi:"hostname"`
+	// ID of Node image.
+	ImageId pulumi.StringOutput `pulumi:"imageId"`
 	// ID of the CVM instance, this cvm will reinstall the system.
 	InstanceId pulumi.StringOutput `pulumi:"instanceId"`
 	// The key pair to use for the instance, it looks like skey-16jig7tx, it should be set if `password` not set.
@@ -35,7 +37,8 @@ type ClusterAttachment struct {
 	SecurityGroups pulumi.StringArrayOutput `pulumi:"securityGroups"`
 	// State of the node.
 	State pulumi.StringOutput `pulumi:"state"`
-	// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+	// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+	// Non-zero(eg: `1`) number means it does not participate in scheduling.
 	Unschedulable pulumi.IntPtrOutput `pulumi:"unschedulable"`
 	// Deploy the machine configuration information of the 'WORKER', commonly used to attach existing instances.
 	WorkerConfig ClusterAttachmentWorkerConfigPtrOutput `pulumi:"workerConfig"`
@@ -94,6 +97,8 @@ type clusterAttachmentState struct {
 	// Examples of other types (Linux, etc.): The character length is [2, 60], and multiple dots are allowed. There is a
 	// segment between the dots. Each segment allows letters (with no limitation on capitalization), numbers and dashes (-).
 	Hostname *string `pulumi:"hostname"`
+	// ID of Node image.
+	ImageId *string `pulumi:"imageId"`
 	// ID of the CVM instance, this cvm will reinstall the system.
 	InstanceId *string `pulumi:"instanceId"`
 	// The key pair to use for the instance, it looks like skey-16jig7tx, it should be set if `password` not set.
@@ -106,7 +111,8 @@ type clusterAttachmentState struct {
 	SecurityGroups []string `pulumi:"securityGroups"`
 	// State of the node.
 	State *string `pulumi:"state"`
-	// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+	// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+	// Non-zero(eg: `1`) number means it does not participate in scheduling.
 	Unschedulable *int `pulumi:"unschedulable"`
 	// Deploy the machine configuration information of the 'WORKER', commonly used to attach existing instances.
 	WorkerConfig *ClusterAttachmentWorkerConfig `pulumi:"workerConfig"`
@@ -123,6 +129,8 @@ type ClusterAttachmentState struct {
 	// Examples of other types (Linux, etc.): The character length is [2, 60], and multiple dots are allowed. There is a
 	// segment between the dots. Each segment allows letters (with no limitation on capitalization), numbers and dashes (-).
 	Hostname pulumi.StringPtrInput
+	// ID of Node image.
+	ImageId pulumi.StringPtrInput
 	// ID of the CVM instance, this cvm will reinstall the system.
 	InstanceId pulumi.StringPtrInput
 	// The key pair to use for the instance, it looks like skey-16jig7tx, it should be set if `password` not set.
@@ -135,7 +143,8 @@ type ClusterAttachmentState struct {
 	SecurityGroups pulumi.StringArrayInput
 	// State of the node.
 	State pulumi.StringPtrInput
-	// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+	// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+	// Non-zero(eg: `1`) number means it does not participate in scheduling.
 	Unschedulable pulumi.IntPtrInput
 	// Deploy the machine configuration information of the 'WORKER', commonly used to attach existing instances.
 	WorkerConfig ClusterAttachmentWorkerConfigPtrInput
@@ -156,6 +165,8 @@ type clusterAttachmentArgs struct {
 	// Examples of other types (Linux, etc.): The character length is [2, 60], and multiple dots are allowed. There is a
 	// segment between the dots. Each segment allows letters (with no limitation on capitalization), numbers and dashes (-).
 	Hostname *string `pulumi:"hostname"`
+	// ID of Node image.
+	ImageId *string `pulumi:"imageId"`
 	// ID of the CVM instance, this cvm will reinstall the system.
 	InstanceId string `pulumi:"instanceId"`
 	// The key pair to use for the instance, it looks like skey-16jig7tx, it should be set if `password` not set.
@@ -164,7 +175,10 @@ type clusterAttachmentArgs struct {
 	Labels map[string]interface{} `pulumi:"labels"`
 	// Password to access, should be set if `key_ids` not set.
 	Password *string `pulumi:"password"`
-	// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+	// A list of security group IDs after attach to cluster.
+	SecurityGroups []string `pulumi:"securityGroups"`
+	// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+	// Non-zero(eg: `1`) number means it does not participate in scheduling.
 	Unschedulable *int `pulumi:"unschedulable"`
 	// Deploy the machine configuration information of the 'WORKER', commonly used to attach existing instances.
 	WorkerConfig *ClusterAttachmentWorkerConfig `pulumi:"workerConfig"`
@@ -182,6 +196,8 @@ type ClusterAttachmentArgs struct {
 	// Examples of other types (Linux, etc.): The character length is [2, 60], and multiple dots are allowed. There is a
 	// segment between the dots. Each segment allows letters (with no limitation on capitalization), numbers and dashes (-).
 	Hostname pulumi.StringPtrInput
+	// ID of Node image.
+	ImageId pulumi.StringPtrInput
 	// ID of the CVM instance, this cvm will reinstall the system.
 	InstanceId pulumi.StringInput
 	// The key pair to use for the instance, it looks like skey-16jig7tx, it should be set if `password` not set.
@@ -190,7 +206,10 @@ type ClusterAttachmentArgs struct {
 	Labels pulumi.MapInput
 	// Password to access, should be set if `key_ids` not set.
 	Password pulumi.StringPtrInput
-	// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+	// A list of security group IDs after attach to cluster.
+	SecurityGroups pulumi.StringArrayInput
+	// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+	// Non-zero(eg: `1`) number means it does not participate in scheduling.
 	Unschedulable pulumi.IntPtrInput
 	// Deploy the machine configuration information of the 'WORKER', commonly used to attach existing instances.
 	WorkerConfig ClusterAttachmentWorkerConfigPtrInput
@@ -299,6 +318,11 @@ func (o ClusterAttachmentOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachment) pulumi.StringPtrOutput { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
+// ID of Node image.
+func (o ClusterAttachmentOutput) ImageId() pulumi.StringOutput {
+	return o.ApplyT(func(v *ClusterAttachment) pulumi.StringOutput { return v.ImageId }).(pulumi.StringOutput)
+}
+
 // ID of the CVM instance, this cvm will reinstall the system.
 func (o ClusterAttachmentOutput) InstanceId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAttachment) pulumi.StringOutput { return v.InstanceId }).(pulumi.StringOutput)
@@ -329,7 +353,8 @@ func (o ClusterAttachmentOutput) State() pulumi.StringOutput {
 	return o.ApplyT(func(v *ClusterAttachment) pulumi.StringOutput { return v.State }).(pulumi.StringOutput)
 }
 
-// Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+// Sets whether the joining node participates in the schedule. Default is `0`, which means it participates in scheduling.
+// Non-zero(eg: `1`) number means it does not participate in scheduling.
 func (o ClusterAttachmentOutput) Unschedulable() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ClusterAttachment) pulumi.IntPtrOutput { return v.Unschedulable }).(pulumi.IntPtrOutput)
 }

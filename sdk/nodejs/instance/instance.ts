@@ -61,6 +61,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly cdhInstanceType!: pulumi.Output<string | undefined>;
     /**
+     * The number of CPU cores of the instance.
+     */
+    public /*out*/ readonly cpu!: pulumi.Output<number>;
+    /**
      * Create time of the instance.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
@@ -69,10 +73,19 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly dataDisks!: pulumi.Output<outputs.Instance.InstanceDataDisk[]>;
     /**
+     * Exclusive cluster id.
+     */
+    public readonly dedicatedClusterId!: pulumi.Output<string | undefined>;
+    /**
      * Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
      * be deleted by an API action.
      */
     public readonly disableApiTermination!: pulumi.Output<boolean | undefined>;
+    /**
+     * Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+     * installed. Modifying will cause the instance reset.
+     */
+    public readonly disableAutomationService!: pulumi.Output<boolean | undefined>;
     /**
      * Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
      * installed. Modifying will cause the instance reset.
@@ -105,15 +118,15 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly imageId!: pulumi.Output<string>;
     /**
-     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-     * `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-     * may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-     * same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+     * default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+     * `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+     * `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
      */
     public readonly instanceChargeType!: pulumi.Output<string | undefined>;
     /**
      * The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
      */
     public readonly instanceChargeTypePrepaidPeriod!: pulumi.Output<number | undefined>;
     /**
@@ -170,9 +183,17 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly keyName!: pulumi.Output<string>;
     /**
+     * Instance memory capacity, unit in GB.
+     */
+    public /*out*/ readonly memory!: pulumi.Output<number>;
+    /**
      * A list of orderly security group IDs to associate with.
      */
     public readonly orderlySecurityGroups!: pulumi.Output<string[]>;
+    /**
+     * Instance os name.
+     */
+    public /*out*/ readonly osName!: pulumi.Output<string>;
     /**
      * Password for the instance. In order for the new password to take effect, the instance will be restarted after the
      * password change. Modifying will cause the instance reset.
@@ -228,6 +249,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly systemDiskId!: pulumi.Output<string>;
     /**
+     * Resize online.
+     */
+    public readonly systemDiskResizeOnline!: pulumi.Output<boolean | undefined>;
+    /**
      * Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
      */
     public readonly systemDiskSize!: pulumi.Output<number | undefined>;
@@ -254,6 +279,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly userDataRaw!: pulumi.Output<string | undefined>;
     /**
+     * Globally unique ID of the instance.
+     */
+    public /*out*/ readonly uuid!: pulumi.Output<string>;
+    /**
      * The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
      */
     public readonly vpcId!: pulumi.Output<string>;
@@ -277,9 +306,12 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["camRoleName"] = state ? state.camRoleName : undefined;
             resourceInputs["cdhHostId"] = state ? state.cdhHostId : undefined;
             resourceInputs["cdhInstanceType"] = state ? state.cdhInstanceType : undefined;
+            resourceInputs["cpu"] = state ? state.cpu : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["dataDisks"] = state ? state.dataDisks : undefined;
+            resourceInputs["dedicatedClusterId"] = state ? state.dedicatedClusterId : undefined;
             resourceInputs["disableApiTermination"] = state ? state.disableApiTermination : undefined;
+            resourceInputs["disableAutomationService"] = state ? state.disableAutomationService : undefined;
             resourceInputs["disableMonitorService"] = state ? state.disableMonitorService : undefined;
             resourceInputs["disableSecurityService"] = state ? state.disableSecurityService : undefined;
             resourceInputs["expiredTime"] = state ? state.expiredTime : undefined;
@@ -298,7 +330,9 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["keepImageLogin"] = state ? state.keepImageLogin : undefined;
             resourceInputs["keyIds"] = state ? state.keyIds : undefined;
             resourceInputs["keyName"] = state ? state.keyName : undefined;
+            resourceInputs["memory"] = state ? state.memory : undefined;
             resourceInputs["orderlySecurityGroups"] = state ? state.orderlySecurityGroups : undefined;
+            resourceInputs["osName"] = state ? state.osName : undefined;
             resourceInputs["password"] = state ? state.password : undefined;
             resourceInputs["placementGroupId"] = state ? state.placementGroupId : undefined;
             resourceInputs["privateIp"] = state ? state.privateIp : undefined;
@@ -311,11 +345,13 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["stoppedMode"] = state ? state.stoppedMode : undefined;
             resourceInputs["subnetId"] = state ? state.subnetId : undefined;
             resourceInputs["systemDiskId"] = state ? state.systemDiskId : undefined;
+            resourceInputs["systemDiskResizeOnline"] = state ? state.systemDiskResizeOnline : undefined;
             resourceInputs["systemDiskSize"] = state ? state.systemDiskSize : undefined;
             resourceInputs["systemDiskType"] = state ? state.systemDiskType : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["userData"] = state ? state.userData : undefined;
             resourceInputs["userDataRaw"] = state ? state.userDataRaw : undefined;
+            resourceInputs["uuid"] = state ? state.uuid : undefined;
             resourceInputs["vpcId"] = state ? state.vpcId : undefined;
         } else {
             const args = argsOrState as InstanceArgs | undefined;
@@ -332,7 +368,9 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["cdhHostId"] = args ? args.cdhHostId : undefined;
             resourceInputs["cdhInstanceType"] = args ? args.cdhInstanceType : undefined;
             resourceInputs["dataDisks"] = args ? args.dataDisks : undefined;
+            resourceInputs["dedicatedClusterId"] = args ? args.dedicatedClusterId : undefined;
             resourceInputs["disableApiTermination"] = args ? args.disableApiTermination : undefined;
+            resourceInputs["disableAutomationService"] = args ? args.disableAutomationService : undefined;
             resourceInputs["disableMonitorService"] = args ? args.disableMonitorService : undefined;
             resourceInputs["disableSecurityService"] = args ? args.disableSecurityService : undefined;
             resourceInputs["forceDelete"] = args ? args.forceDelete : undefined;
@@ -361,16 +399,21 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["stoppedMode"] = args ? args.stoppedMode : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["systemDiskId"] = args ? args.systemDiskId : undefined;
+            resourceInputs["systemDiskResizeOnline"] = args ? args.systemDiskResizeOnline : undefined;
             resourceInputs["systemDiskSize"] = args ? args.systemDiskSize : undefined;
             resourceInputs["systemDiskType"] = args ? args.systemDiskType : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["userData"] = args ? args.userData : undefined;
             resourceInputs["userDataRaw"] = args ? args.userDataRaw : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["cpu"] = undefined /*out*/;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["expiredTime"] = undefined /*out*/;
             resourceInputs["instanceStatus"] = undefined /*out*/;
+            resourceInputs["memory"] = undefined /*out*/;
+            resourceInputs["osName"] = undefined /*out*/;
             resourceInputs["publicIp"] = undefined /*out*/;
+            resourceInputs["uuid"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         const secretOpts = { additionalSecretOutputs: ["password"] };
@@ -410,6 +453,10 @@ export interface InstanceState {
      */
     cdhInstanceType?: pulumi.Input<string>;
     /**
+     * The number of CPU cores of the instance.
+     */
+    cpu?: pulumi.Input<number>;
+    /**
      * Create time of the instance.
      */
     createTime?: pulumi.Input<string>;
@@ -418,10 +465,19 @@ export interface InstanceState {
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.Instance.InstanceDataDisk>[]>;
     /**
+     * Exclusive cluster id.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
+    /**
      * Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
      * be deleted by an API action.
      */
     disableApiTermination?: pulumi.Input<boolean>;
+    /**
+     * Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+     * installed. Modifying will cause the instance reset.
+     */
+    disableAutomationService?: pulumi.Input<boolean>;
     /**
      * Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
      * installed. Modifying will cause the instance reset.
@@ -454,15 +510,15 @@ export interface InstanceState {
      */
     imageId?: pulumi.Input<string>;
     /**
-     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-     * `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-     * may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-     * same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+     * default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+     * `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+     * `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
      */
     instanceChargeType?: pulumi.Input<string>;
     /**
      * The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
      */
     instanceChargeTypePrepaidPeriod?: pulumi.Input<number>;
     /**
@@ -519,9 +575,17 @@ export interface InstanceState {
      */
     keyName?: pulumi.Input<string>;
     /**
+     * Instance memory capacity, unit in GB.
+     */
+    memory?: pulumi.Input<number>;
+    /**
      * A list of orderly security group IDs to associate with.
      */
     orderlySecurityGroups?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Instance os name.
+     */
+    osName?: pulumi.Input<string>;
     /**
      * Password for the instance. In order for the new password to take effect, the instance will be restarted after the
      * password change. Modifying will cause the instance reset.
@@ -577,6 +641,10 @@ export interface InstanceState {
      */
     systemDiskId?: pulumi.Input<string>;
     /**
+     * Resize online.
+     */
+    systemDiskResizeOnline?: pulumi.Input<boolean>;
+    /**
      * Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
      */
     systemDiskSize?: pulumi.Input<number>;
@@ -602,6 +670,10 @@ export interface InstanceState {
      * encoded.
      */
     userDataRaw?: pulumi.Input<string>;
+    /**
+     * Globally unique ID of the instance.
+     */
+    uuid?: pulumi.Input<string>;
     /**
      * The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
      */
@@ -643,10 +715,19 @@ export interface InstanceArgs {
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.Instance.InstanceDataDisk>[]>;
     /**
+     * Exclusive cluster id.
+     */
+    dedicatedClusterId?: pulumi.Input<string>;
+    /**
      * Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
      * be deleted by an API action.
      */
     disableApiTermination?: pulumi.Input<boolean>;
+    /**
+     * Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+     * installed. Modifying will cause the instance reset.
+     */
+    disableAutomationService?: pulumi.Input<boolean>;
     /**
      * Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
      * installed. Modifying will cause the instance reset.
@@ -675,15 +756,15 @@ export interface InstanceArgs {
      */
     imageId: pulumi.Input<string>;
     /**
-     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-     * `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-     * may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-     * same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+     * The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+     * default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+     * `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+     * `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
      */
     instanceChargeType?: pulumi.Input<string>;
     /**
      * The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+     * `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
      */
     instanceChargeTypePrepaidPeriod?: pulumi.Input<number>;
     /**
@@ -789,6 +870,10 @@ export interface InstanceArgs {
      * id is not supported.
      */
     systemDiskId?: pulumi.Input<string>;
+    /**
+     * Resize online.
+     */
+    systemDiskResizeOnline?: pulumi.Input<boolean>;
     /**
      * Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
      */

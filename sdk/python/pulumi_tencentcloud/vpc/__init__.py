@@ -46,7 +46,6 @@ from .get_template_limits import *
 from .get_used_ip_address import *
 from .instance import *
 from .ipv6_cidr_block import *
-from .ipv6_eni_address import *
 from .ipv6_subnet_cidr_block import *
 from .local_gateway import *
 from .net_detect import *
@@ -55,6 +54,7 @@ from .notify_routes import *
 from .peer_connect_accept_operation import *
 from .peer_connect_manager import *
 from .peer_connect_reject_operation import *
+from .private_nat_gateway import *
 from .resume_snapshot_instance import *
 from .snapshot_policy import *
 from .snapshot_policy_attachment import *

@@ -114,11 +114,14 @@ class InstanceReplicationArgs:
     def __init__(__self__, *,
                  id: Optional[pulumi.Input[str]] = None,
                  region_id: Optional[pulumi.Input[int]] = None,
+                 region_name: Optional[pulumi.Input[str]] = None,
                  syn_tag: Optional[pulumi.Input[bool]] = None):
         if id is not None:
             pulumi.set(__self__, "id", id)
         if region_id is not None:
             pulumi.set(__self__, "region_id", region_id)
+        if region_name is not None:
+            pulumi.set(__self__, "region_name", region_name)
         if syn_tag is not None:
             pulumi.set(__self__, "syn_tag", syn_tag)
 
@@ -139,6 +142,15 @@ class InstanceReplicationArgs:
     @region_id.setter
     def region_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "region_id", value)
+
+    @property
+    @pulumi.getter(name="regionName")
+    def region_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "region_name")
+
+    @region_name.setter
+    def region_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "region_name", value)
 
     @property
     @pulumi.getter(name="synTag")

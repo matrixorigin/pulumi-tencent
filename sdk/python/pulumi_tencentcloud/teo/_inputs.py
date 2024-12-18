@@ -14,8 +14,21 @@ __all__ = [
     'AccelerationDomainOriginInfoPrivateParameterArgs',
     'ApplicationProxyIpv6Args',
     'CertificateConfigServerCertInfoArgs',
-    'OriginGroupOriginRecordArgs',
-    'OriginGroupOriginRecordPrivateParameterArgs',
+    'FunctionRuleFunctionRuleConditionArgs',
+    'FunctionRuleFunctionRuleConditionRuleConditionArgs',
+    'FunctionRuntimeEnvironmentEnvironmentVariableArgs',
+    'L4ProxyDdosProtectionConfigArgs',
+    'OriginGroupRecordArgs',
+    'OriginGroupRecordPrivateParameterArgs',
+    'OriginGroupReferenceArgs',
+    'RealtimeLogDeliveryClsArgs',
+    'RealtimeLogDeliveryCustomEndpointArgs',
+    'RealtimeLogDeliveryCustomEndpointHeaderArgs',
+    'RealtimeLogDeliveryCustomFieldArgs',
+    'RealtimeLogDeliveryDeliveryConditionArgs',
+    'RealtimeLogDeliveryDeliveryConditionConditionArgs',
+    'RealtimeLogDeliveryLogFormatArgs',
+    'RealtimeLogDeliveryS3Args',
     'RuleEngineRuleArgs',
     'RuleEngineRuleActionArgs',
     'RuleEngineRuleActionCodeActionArgs',
@@ -37,6 +50,7 @@ __all__ = [
     'RuleEngineRuleSubRuleRuleActionRewriteActionParameterArgs',
     'RuleEngineRuleSubRuleRuleOrArgs',
     'RuleEngineRuleSubRuleRuleOrAndArgs',
+    'SecurityIpGroupIpGroupArgs',
     'ZoneOwnershipVerificationArgs',
     'ZoneOwnershipVerificationDnsVerificationArgs',
     'ZoneSettingCacheArgs',
@@ -257,36 +271,183 @@ class CertificateConfigServerCertInfoArgs:
 
 
 @pulumi.input_type
-class OriginGroupOriginRecordArgs:
+class FunctionRuleFunctionRuleConditionArgs:
     def __init__(__self__, *,
-                 port: pulumi.Input[int],
+                 rule_conditions: pulumi.Input[Sequence[pulumi.Input['FunctionRuleFunctionRuleConditionRuleConditionArgs']]]):
+        pulumi.set(__self__, "rule_conditions", rule_conditions)
+
+    @property
+    @pulumi.getter(name="ruleConditions")
+    def rule_conditions(self) -> pulumi.Input[Sequence[pulumi.Input['FunctionRuleFunctionRuleConditionRuleConditionArgs']]]:
+        return pulumi.get(self, "rule_conditions")
+
+    @rule_conditions.setter
+    def rule_conditions(self, value: pulumi.Input[Sequence[pulumi.Input['FunctionRuleFunctionRuleConditionRuleConditionArgs']]]):
+        pulumi.set(self, "rule_conditions", value)
+
+
+@pulumi.input_type
+class FunctionRuleFunctionRuleConditionRuleConditionArgs:
+    def __init__(__self__, *,
+                 operator: pulumi.Input[str],
+                 target: pulumi.Input[str],
+                 ignore_case: Optional[pulumi.Input[bool]] = None,
+                 name: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "target", target)
+        if ignore_case is not None:
+            pulumi.set(__self__, "ignore_case", ignore_case)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[str]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter
+    def target(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "target")
+
+    @target.setter
+    def target(self, value: pulumi.Input[str]):
+        pulumi.set(self, "target", value)
+
+    @property
+    @pulumi.getter(name="ignoreCase")
+    def ignore_case(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "ignore_case")
+
+    @ignore_case.setter
+    def ignore_case(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "ignore_case", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class FunctionRuntimeEnvironmentEnvironmentVariableArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[str],
+                 type: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class L4ProxyDdosProtectionConfigArgs:
+    def __init__(__self__, *,
+                 level_mainland: Optional[pulumi.Input[str]] = None,
+                 level_overseas: Optional[pulumi.Input[str]] = None,
+                 max_bandwidth_mainland: Optional[pulumi.Input[int]] = None):
+        if level_mainland is not None:
+            pulumi.set(__self__, "level_mainland", level_mainland)
+        if level_overseas is not None:
+            pulumi.set(__self__, "level_overseas", level_overseas)
+        if max_bandwidth_mainland is not None:
+            pulumi.set(__self__, "max_bandwidth_mainland", max_bandwidth_mainland)
+
+    @property
+    @pulumi.getter(name="levelMainland")
+    def level_mainland(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "level_mainland")
+
+    @level_mainland.setter
+    def level_mainland(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "level_mainland", value)
+
+    @property
+    @pulumi.getter(name="levelOverseas")
+    def level_overseas(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "level_overseas")
+
+    @level_overseas.setter
+    def level_overseas(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "level_overseas", value)
+
+    @property
+    @pulumi.getter(name="maxBandwidthMainland")
+    def max_bandwidth_mainland(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_bandwidth_mainland")
+
+    @max_bandwidth_mainland.setter
+    def max_bandwidth_mainland(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_bandwidth_mainland", value)
+
+
+@pulumi.input_type
+class OriginGroupRecordArgs:
+    def __init__(__self__, *,
                  record: pulumi.Input[str],
-                 areas: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  private: Optional[pulumi.Input[bool]] = None,
-                 private_parameters: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordPrivateParameterArgs']]]] = None,
+                 private_parameters: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordPrivateParameterArgs']]]] = None,
                  record_id: Optional[pulumi.Input[str]] = None,
+                 type: Optional[pulumi.Input[str]] = None,
                  weight: Optional[pulumi.Input[int]] = None):
-        pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "record", record)
-        if areas is not None:
-            pulumi.set(__self__, "areas", areas)
         if private is not None:
             pulumi.set(__self__, "private", private)
         if private_parameters is not None:
             pulumi.set(__self__, "private_parameters", private_parameters)
         if record_id is not None:
             pulumi.set(__self__, "record_id", record_id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if weight is not None:
             pulumi.set(__self__, "weight", weight)
-
-    @property
-    @pulumi.getter
-    def port(self) -> pulumi.Input[int]:
-        return pulumi.get(self, "port")
-
-    @port.setter
-    def port(self, value: pulumi.Input[int]):
-        pulumi.set(self, "port", value)
 
     @property
     @pulumi.getter
@@ -299,15 +460,6 @@ class OriginGroupOriginRecordArgs:
 
     @property
     @pulumi.getter
-    def areas(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
-        return pulumi.get(self, "areas")
-
-    @areas.setter
-    def areas(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
-        pulumi.set(self, "areas", value)
-
-    @property
-    @pulumi.getter
     def private(self) -> Optional[pulumi.Input[bool]]:
         return pulumi.get(self, "private")
 
@@ -317,11 +469,11 @@ class OriginGroupOriginRecordArgs:
 
     @property
     @pulumi.getter(name="privateParameters")
-    def private_parameters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordPrivateParameterArgs']]]]:
+    def private_parameters(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordPrivateParameterArgs']]]]:
         return pulumi.get(self, "private_parameters")
 
     @private_parameters.setter
-    def private_parameters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupOriginRecordPrivateParameterArgs']]]]):
+    def private_parameters(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['OriginGroupRecordPrivateParameterArgs']]]]):
         pulumi.set(self, "private_parameters", value)
 
     @property
@@ -335,6 +487,15 @@ class OriginGroupOriginRecordArgs:
 
     @property
     @pulumi.getter
+    def type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
     def weight(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "weight")
 
@@ -344,7 +505,7 @@ class OriginGroupOriginRecordArgs:
 
 
 @pulumi.input_type
-class OriginGroupOriginRecordPrivateParameterArgs:
+class OriginGroupRecordPrivateParameterArgs:
     def __init__(__self__, *,
                  name: pulumi.Input[str],
                  value: pulumi.Input[str]):
@@ -371,24 +532,452 @@ class OriginGroupOriginRecordPrivateParameterArgs:
 
 
 @pulumi.input_type
-class RuleEngineRuleArgs:
+class OriginGroupReferenceArgs:
     def __init__(__self__, *,
-                 actions: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]],
-                 ors: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleOrArgs']]],
-                 sub_rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleArgs']]]] = None):
-        pulumi.set(__self__, "actions", actions)
-        pulumi.set(__self__, "ors", ors)
-        if sub_rules is not None:
-            pulumi.set(__self__, "sub_rules", sub_rules)
+                 instance_id: Optional[pulumi.Input[str]] = None,
+                 instance_name: Optional[pulumi.Input[str]] = None,
+                 instance_type: Optional[pulumi.Input[str]] = None):
+        if instance_id is not None:
+            pulumi.set(__self__, "instance_id", instance_id)
+        if instance_name is not None:
+            pulumi.set(__self__, "instance_name", instance_name)
+        if instance_type is not None:
+            pulumi.set(__self__, "instance_type", instance_type)
+
+    @property
+    @pulumi.getter(name="instanceId")
+    def instance_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "instance_id")
+
+    @instance_id.setter
+    def instance_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "instance_id", value)
+
+    @property
+    @pulumi.getter(name="instanceName")
+    def instance_name(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "instance_name")
+
+    @instance_name.setter
+    def instance_name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "instance_name", value)
+
+    @property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "instance_type")
+
+    @instance_type.setter
+    def instance_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "instance_type", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryClsArgs:
+    def __init__(__self__, *,
+                 log_set_id: pulumi.Input[str],
+                 log_set_region: pulumi.Input[str],
+                 topic_id: pulumi.Input[str]):
+        pulumi.set(__self__, "log_set_id", log_set_id)
+        pulumi.set(__self__, "log_set_region", log_set_region)
+        pulumi.set(__self__, "topic_id", topic_id)
+
+    @property
+    @pulumi.getter(name="logSetId")
+    def log_set_id(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "log_set_id")
+
+    @log_set_id.setter
+    def log_set_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "log_set_id", value)
+
+    @property
+    @pulumi.getter(name="logSetRegion")
+    def log_set_region(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "log_set_region")
+
+    @log_set_region.setter
+    def log_set_region(self, value: pulumi.Input[str]):
+        pulumi.set(self, "log_set_region", value)
+
+    @property
+    @pulumi.getter(name="topicId")
+    def topic_id(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "topic_id")
+
+    @topic_id.setter
+    def topic_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "topic_id", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryCustomEndpointArgs:
+    def __init__(__self__, *,
+                 url: pulumi.Input[str],
+                 access_id: Optional[pulumi.Input[str]] = None,
+                 access_key: Optional[pulumi.Input[str]] = None,
+                 compress_type: Optional[pulumi.Input[str]] = None,
+                 headers: Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryCustomEndpointHeaderArgs']]]] = None,
+                 protocol: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "url", url)
+        if access_id is not None:
+            pulumi.set(__self__, "access_id", access_id)
+        if access_key is not None:
+            pulumi.set(__self__, "access_key", access_key)
+        if compress_type is not None:
+            pulumi.set(__self__, "compress_type", compress_type)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
 
     @property
     @pulumi.getter
-    def actions(self) -> pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]]:
-        return pulumi.get(self, "actions")
+    def url(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "url")
 
-    @actions.setter
-    def actions(self, value: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]]):
-        pulumi.set(self, "actions", value)
+    @url.setter
+    def url(self, value: pulumi.Input[str]):
+        pulumi.set(self, "url", value)
+
+    @property
+    @pulumi.getter(name="accessId")
+    def access_id(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "access_id")
+
+    @access_id.setter
+    def access_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "access_id", value)
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "access_key")
+
+    @access_key.setter
+    def access_key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "access_key", value)
+
+    @property
+    @pulumi.getter(name="compressType")
+    def compress_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "compress_type")
+
+    @compress_type.setter
+    def compress_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "compress_type", value)
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryCustomEndpointHeaderArgs']]]]:
+        return pulumi.get(self, "headers")
+
+    @headers.setter
+    def headers(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryCustomEndpointHeaderArgs']]]]):
+        pulumi.set(self, "headers", value)
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "protocol", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryCustomEndpointHeaderArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str]):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryCustomFieldArgs:
+    def __init__(__self__, *,
+                 name: pulumi.Input[str],
+                 value: pulumi.Input[str],
+                 enabled: Optional[pulumi.Input[bool]] = None):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def value(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "value")
+
+    @value.setter
+    def value(self, value: pulumi.Input[str]):
+        pulumi.set(self, "value", value)
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "enabled")
+
+    @enabled.setter
+    def enabled(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "enabled", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryDeliveryConditionArgs:
+    def __init__(__self__, *,
+                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryDeliveryConditionConditionArgs']]]] = None):
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryDeliveryConditionConditionArgs']]]]:
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RealtimeLogDeliveryDeliveryConditionConditionArgs']]]]):
+        pulumi.set(self, "conditions", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryDeliveryConditionConditionArgs:
+    def __init__(__self__, *,
+                 key: pulumi.Input[str],
+                 operator: pulumi.Input[str],
+                 values: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "key")
+
+    @key.setter
+    def key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "key", value)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "operator")
+
+    @operator.setter
+    def operator(self, value: pulumi.Input[str]):
+        pulumi.set(self, "operator", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryLogFormatArgs:
+    def __init__(__self__, *,
+                 format_type: pulumi.Input[str],
+                 batch_prefix: Optional[pulumi.Input[str]] = None,
+                 batch_suffix: Optional[pulumi.Input[str]] = None,
+                 field_delimiter: Optional[pulumi.Input[str]] = None,
+                 record_delimiter: Optional[pulumi.Input[str]] = None,
+                 record_prefix: Optional[pulumi.Input[str]] = None,
+                 record_suffix: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "format_type", format_type)
+        if batch_prefix is not None:
+            pulumi.set(__self__, "batch_prefix", batch_prefix)
+        if batch_suffix is not None:
+            pulumi.set(__self__, "batch_suffix", batch_suffix)
+        if field_delimiter is not None:
+            pulumi.set(__self__, "field_delimiter", field_delimiter)
+        if record_delimiter is not None:
+            pulumi.set(__self__, "record_delimiter", record_delimiter)
+        if record_prefix is not None:
+            pulumi.set(__self__, "record_prefix", record_prefix)
+        if record_suffix is not None:
+            pulumi.set(__self__, "record_suffix", record_suffix)
+
+    @property
+    @pulumi.getter(name="formatType")
+    def format_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "format_type")
+
+    @format_type.setter
+    def format_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "format_type", value)
+
+    @property
+    @pulumi.getter(name="batchPrefix")
+    def batch_prefix(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "batch_prefix")
+
+    @batch_prefix.setter
+    def batch_prefix(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "batch_prefix", value)
+
+    @property
+    @pulumi.getter(name="batchSuffix")
+    def batch_suffix(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "batch_suffix")
+
+    @batch_suffix.setter
+    def batch_suffix(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "batch_suffix", value)
+
+    @property
+    @pulumi.getter(name="fieldDelimiter")
+    def field_delimiter(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "field_delimiter")
+
+    @field_delimiter.setter
+    def field_delimiter(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "field_delimiter", value)
+
+    @property
+    @pulumi.getter(name="recordDelimiter")
+    def record_delimiter(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "record_delimiter")
+
+    @record_delimiter.setter
+    def record_delimiter(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "record_delimiter", value)
+
+    @property
+    @pulumi.getter(name="recordPrefix")
+    def record_prefix(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "record_prefix")
+
+    @record_prefix.setter
+    def record_prefix(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "record_prefix", value)
+
+    @property
+    @pulumi.getter(name="recordSuffix")
+    def record_suffix(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "record_suffix")
+
+    @record_suffix.setter
+    def record_suffix(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "record_suffix", value)
+
+
+@pulumi.input_type
+class RealtimeLogDeliveryS3Args:
+    def __init__(__self__, *,
+                 access_id: pulumi.Input[str],
+                 access_key: pulumi.Input[str],
+                 bucket: pulumi.Input[str],
+                 endpoint: pulumi.Input[str],
+                 region: pulumi.Input[str],
+                 compress_type: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "access_id", access_id)
+        pulumi.set(__self__, "access_key", access_key)
+        pulumi.set(__self__, "bucket", bucket)
+        pulumi.set(__self__, "endpoint", endpoint)
+        pulumi.set(__self__, "region", region)
+        if compress_type is not None:
+            pulumi.set(__self__, "compress_type", compress_type)
+
+    @property
+    @pulumi.getter(name="accessId")
+    def access_id(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "access_id")
+
+    @access_id.setter
+    def access_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "access_id", value)
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "access_key")
+
+    @access_key.setter
+    def access_key(self, value: pulumi.Input[str]):
+        pulumi.set(self, "access_key", value)
+
+    @property
+    @pulumi.getter
+    def bucket(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "bucket")
+
+    @bucket.setter
+    def bucket(self, value: pulumi.Input[str]):
+        pulumi.set(self, "bucket", value)
+
+    @property
+    @pulumi.getter
+    def endpoint(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "endpoint")
+
+    @endpoint.setter
+    def endpoint(self, value: pulumi.Input[str]):
+        pulumi.set(self, "endpoint", value)
+
+    @property
+    @pulumi.getter
+    def region(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: pulumi.Input[str]):
+        pulumi.set(self, "region", value)
+
+    @property
+    @pulumi.getter(name="compressType")
+    def compress_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "compress_type")
+
+    @compress_type.setter
+    def compress_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "compress_type", value)
+
+
+@pulumi.input_type
+class RuleEngineRuleArgs:
+    def __init__(__self__, *,
+                 ors: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleOrArgs']]],
+                 actions: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]]] = None,
+                 sub_rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleArgs']]]] = None):
+        pulumi.set(__self__, "ors", ors)
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
+        if sub_rules is not None:
+            pulumi.set(__self__, "sub_rules", sub_rules)
 
     @property
     @pulumi.getter
@@ -398,6 +987,15 @@ class RuleEngineRuleArgs:
     @ors.setter
     def ors(self, value: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleOrArgs']]]):
         pulumi.set(self, "ors", value)
+
+    @property
+    @pulumi.getter
+    def actions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]]]:
+        return pulumi.get(self, "actions")
+
+    @actions.setter
+    def actions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleActionArgs']]]]):
+        pulumi.set(self, "actions", value)
 
     @property
     @pulumi.getter(name="subRules")
@@ -655,16 +1253,17 @@ class RuleEngineRuleOrAndArgs:
     def __init__(__self__, *,
                  operator: pulumi.Input[str],
                  target: pulumi.Input[str],
-                 values: pulumi.Input[Sequence[pulumi.Input[str]]],
                  ignore_case: Optional[pulumi.Input[bool]] = None,
-                 name: Optional[pulumi.Input[str]] = None):
+                 name: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         pulumi.set(__self__, "operator", operator)
         pulumi.set(__self__, "target", target)
-        pulumi.set(__self__, "values", values)
         if ignore_case is not None:
             pulumi.set(__self__, "ignore_case", ignore_case)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -685,15 +1284,6 @@ class RuleEngineRuleOrAndArgs:
         pulumi.set(self, "target", value)
 
     @property
-    @pulumi.getter
-    def values(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        return pulumi.get(self, "values")
-
-    @values.setter
-    def values(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "values", value)
-
-    @property
     @pulumi.getter(name="ignoreCase")
     def ignore_case(self) -> Optional[pulumi.Input[bool]]:
         return pulumi.get(self, "ignore_case")
@@ -710,6 +1300,15 @@ class RuleEngineRuleOrAndArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "values", value)
 
 
 @pulumi.input_type
@@ -743,19 +1342,11 @@ class RuleEngineRuleSubRuleArgs:
 @pulumi.input_type
 class RuleEngineRuleSubRuleRuleArgs:
     def __init__(__self__, *,
-                 actions: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]],
-                 ors: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleOrArgs']]]):
-        pulumi.set(__self__, "actions", actions)
+                 ors: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleOrArgs']]],
+                 actions: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]]] = None):
         pulumi.set(__self__, "ors", ors)
-
-    @property
-    @pulumi.getter
-    def actions(self) -> pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]]:
-        return pulumi.get(self, "actions")
-
-    @actions.setter
-    def actions(self, value: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]]):
-        pulumi.set(self, "actions", value)
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
 
     @property
     @pulumi.getter
@@ -765,6 +1356,15 @@ class RuleEngineRuleSubRuleRuleArgs:
     @ors.setter
     def ors(self, value: pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleOrArgs']]]):
         pulumi.set(self, "ors", value)
+
+    @property
+    @pulumi.getter
+    def actions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]]]:
+        return pulumi.get(self, "actions")
+
+    @actions.setter
+    def actions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RuleEngineRuleSubRuleRuleActionArgs']]]]):
+        pulumi.set(self, "actions", value)
 
 
 @pulumi.input_type
@@ -1013,16 +1613,17 @@ class RuleEngineRuleSubRuleRuleOrAndArgs:
     def __init__(__self__, *,
                  operator: pulumi.Input[str],
                  target: pulumi.Input[str],
-                 values: pulumi.Input[Sequence[pulumi.Input[str]]],
                  ignore_case: Optional[pulumi.Input[bool]] = None,
-                 name: Optional[pulumi.Input[str]] = None):
+                 name: Optional[pulumi.Input[str]] = None,
+                 values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         pulumi.set(__self__, "operator", operator)
         pulumi.set(__self__, "target", target)
-        pulumi.set(__self__, "values", values)
         if ignore_case is not None:
             pulumi.set(__self__, "ignore_case", ignore_case)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -1043,15 +1644,6 @@ class RuleEngineRuleSubRuleRuleOrAndArgs:
         pulumi.set(self, "target", value)
 
     @property
-    @pulumi.getter
-    def values(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
-        return pulumi.get(self, "values")
-
-    @values.setter
-    def values(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
-        pulumi.set(self, "values", value)
-
-    @property
     @pulumi.getter(name="ignoreCase")
     def ignore_case(self) -> Optional[pulumi.Input[bool]]:
         return pulumi.get(self, "ignore_case")
@@ -1068,6 +1660,54 @@ class RuleEngineRuleSubRuleRuleOrAndArgs:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "values")
+
+    @values.setter
+    def values(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "values", value)
+
+
+@pulumi.input_type
+class SecurityIpGroupIpGroupArgs:
+    def __init__(__self__, *,
+                 contents: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 name: pulumi.Input[str],
+                 group_id: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "contents", contents)
+        pulumi.set(__self__, "name", name)
+        if group_id is not None:
+            pulumi.set(__self__, "group_id", group_id)
+
+    @property
+    @pulumi.getter
+    def contents(self) -> pulumi.Input[Sequence[pulumi.Input[str]]]:
+        return pulumi.get(self, "contents")
+
+    @contents.setter
+    def contents(self, value: pulumi.Input[Sequence[pulumi.Input[str]]]):
+        pulumi.set(self, "contents", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "group_id")
+
+    @group_id.setter
+    def group_id(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "group_id", value)
 
 
 @pulumi.input_type
@@ -1173,12 +1813,9 @@ class ZoneSettingCacheArgs:
 class ZoneSettingCacheCacheArgs:
     def __init__(__self__, *,
                  cache_time: Optional[pulumi.Input[int]] = None,
-                 ignore_cache_control: Optional[pulumi.Input[str]] = None,
                  switch: Optional[pulumi.Input[str]] = None):
         if cache_time is not None:
             pulumi.set(__self__, "cache_time", cache_time)
-        if ignore_cache_control is not None:
-            pulumi.set(__self__, "ignore_cache_control", ignore_cache_control)
         if switch is not None:
             pulumi.set(__self__, "switch", switch)
 
@@ -1190,15 +1827,6 @@ class ZoneSettingCacheCacheArgs:
     @cache_time.setter
     def cache_time(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "cache_time", value)
-
-    @property
-    @pulumi.getter(name="ignoreCacheControl")
-    def ignore_cache_control(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "ignore_cache_control")
-
-    @ignore_cache_control.setter
-    def ignore_cache_control(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "ignore_cache_control", value)
 
     @property
     @pulumi.getter
@@ -1607,13 +2235,10 @@ class ZoneSettingOfflineCacheArgs:
 class ZoneSettingOriginArgs:
     def __init__(__self__, *,
                  backup_origins: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-                 cos_private_access: Optional[pulumi.Input[str]] = None,
                  origin_pull_protocol: Optional[pulumi.Input[str]] = None,
                  origins: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         if backup_origins is not None:
             pulumi.set(__self__, "backup_origins", backup_origins)
-        if cos_private_access is not None:
-            pulumi.set(__self__, "cos_private_access", cos_private_access)
         if origin_pull_protocol is not None:
             pulumi.set(__self__, "origin_pull_protocol", origin_pull_protocol)
         if origins is not None:
@@ -1627,15 +2252,6 @@ class ZoneSettingOriginArgs:
     @backup_origins.setter
     def backup_origins(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "backup_origins", value)
-
-    @property
-    @pulumi.getter(name="cosPrivateAccess")
-    def cos_private_access(self) -> Optional[pulumi.Input[str]]:
-        return pulumi.get(self, "cos_private_access")
-
-    @cos_private_access.setter
-    def cos_private_access(self, value: Optional[pulumi.Input[str]]):
-        pulumi.set(self, "cos_private_access", value)
 
     @property
     @pulumi.getter(name="originPullProtocol")

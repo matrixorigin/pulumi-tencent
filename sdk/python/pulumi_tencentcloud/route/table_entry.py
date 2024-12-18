@@ -23,7 +23,7 @@ class TableEntryArgs:
         """
         The set of arguments for constructing a TableEntry resource.
         :param pulumi.Input[str] destination_cidr_block: Destination address block.
-        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         :param pulumi.Input[str] next_type: Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
                `LOCAL_GATEWAY`.
         :param pulumi.Input[str] route_table_id: ID of routing table to which this entry belongs.
@@ -55,7 +55,7 @@ class TableEntryArgs:
     @pulumi.getter(name="nextHub")
     def next_hub(self) -> pulumi.Input[str]:
         """
-        ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         """
         return pulumi.get(self, "next_hub")
 
@@ -121,15 +121,17 @@ class _TableEntryState:
                  disabled: Optional[pulumi.Input[bool]] = None,
                  next_hub: Optional[pulumi.Input[str]] = None,
                  next_type: Optional[pulumi.Input[str]] = None,
+                 route_item_id: Optional[pulumi.Input[str]] = None,
                  route_table_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TableEntry resources.
         :param pulumi.Input[str] description: Description of the routing table entry.
         :param pulumi.Input[str] destination_cidr_block: Destination address block.
         :param pulumi.Input[bool] disabled: Whether the entry is disabled, default is `false`.
-        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         :param pulumi.Input[str] next_type: Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
                `LOCAL_GATEWAY`.
+        :param pulumi.Input[str] route_item_id: ID of route table entry.
         :param pulumi.Input[str] route_table_id: ID of routing table to which this entry belongs.
         """
         if description is not None:
@@ -142,6 +144,8 @@ class _TableEntryState:
             pulumi.set(__self__, "next_hub", next_hub)
         if next_type is not None:
             pulumi.set(__self__, "next_type", next_type)
+        if route_item_id is not None:
+            pulumi.set(__self__, "route_item_id", route_item_id)
         if route_table_id is not None:
             pulumi.set(__self__, "route_table_id", route_table_id)
 
@@ -185,7 +189,7 @@ class _TableEntryState:
     @pulumi.getter(name="nextHub")
     def next_hub(self) -> Optional[pulumi.Input[str]]:
         """
-        ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         """
         return pulumi.get(self, "next_hub")
 
@@ -205,6 +209,18 @@ class _TableEntryState:
     @next_type.setter
     def next_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "next_type", value)
+
+    @property
+    @pulumi.getter(name="routeItemId")
+    def route_item_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        ID of route table entry.
+        """
+        return pulumi.get(self, "route_item_id")
+
+    @route_item_id.setter
+    def route_item_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "route_item_id", value)
 
     @property
     @pulumi.getter(name="routeTableId")
@@ -238,7 +254,7 @@ class TableEntry(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description of the routing table entry.
         :param pulumi.Input[str] destination_cidr_block: Destination address block.
         :param pulumi.Input[bool] disabled: Whether the entry is disabled, default is `false`.
-        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         :param pulumi.Input[str] next_type: Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
                `LOCAL_GATEWAY`.
         :param pulumi.Input[str] route_table_id: ID of routing table to which this entry belongs.
@@ -295,6 +311,7 @@ class TableEntry(pulumi.CustomResource):
             if route_table_id is None and not opts.urn:
                 raise TypeError("Missing required property 'route_table_id'")
             __props__.__dict__["route_table_id"] = route_table_id
+            __props__.__dict__["route_item_id"] = None
         super(TableEntry, __self__).__init__(
             'tencentcloud:Route/tableEntry:TableEntry',
             resource_name,
@@ -310,6 +327,7 @@ class TableEntry(pulumi.CustomResource):
             disabled: Optional[pulumi.Input[bool]] = None,
             next_hub: Optional[pulumi.Input[str]] = None,
             next_type: Optional[pulumi.Input[str]] = None,
+            route_item_id: Optional[pulumi.Input[str]] = None,
             route_table_id: Optional[pulumi.Input[str]] = None) -> 'TableEntry':
         """
         Get an existing TableEntry resource's state with the given name, id, and optional extra
@@ -321,9 +339,10 @@ class TableEntry(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description of the routing table entry.
         :param pulumi.Input[str] destination_cidr_block: Destination address block.
         :param pulumi.Input[bool] disabled: Whether the entry is disabled, default is `false`.
-        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        :param pulumi.Input[str] next_hub: ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         :param pulumi.Input[str] next_type: Type of next-hop. Valid values: `CVM`, `VPN`, `DIRECTCONNECT`, `PEERCONNECTION`, `HAVIP`, `NAT`, `NORMAL_CVM`, `EIP` and
                `LOCAL_GATEWAY`.
+        :param pulumi.Input[str] route_item_id: ID of route table entry.
         :param pulumi.Input[str] route_table_id: ID of routing table to which this entry belongs.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -335,6 +354,7 @@ class TableEntry(pulumi.CustomResource):
         __props__.__dict__["disabled"] = disabled
         __props__.__dict__["next_hub"] = next_hub
         __props__.__dict__["next_type"] = next_type
+        __props__.__dict__["route_item_id"] = route_item_id
         __props__.__dict__["route_table_id"] = route_table_id
         return TableEntry(resource_name, opts=opts, __props__=__props__)
 
@@ -366,7 +386,7 @@ class TableEntry(pulumi.CustomResource):
     @pulumi.getter(name="nextHub")
     def next_hub(self) -> pulumi.Output[str]:
         """
-        ID of next-hop gateway. Note: when `next_type` is EIP, GatewayId should be `0`.
+        ID of next-hop gateway. Note: when `next_type` is EIP, `next_hub` should be `0`.
         """
         return pulumi.get(self, "next_hub")
 
@@ -378,6 +398,14 @@ class TableEntry(pulumi.CustomResource):
         `LOCAL_GATEWAY`.
         """
         return pulumi.get(self, "next_type")
+
+    @property
+    @pulumi.getter(name="routeItemId")
+    def route_item_id(self) -> pulumi.Output[str]:
+        """
+        ID of route table entry.
+        """
+        return pulumi.get(self, "route_item_id")
 
     @property
     @pulumi.getter(name="routeTableId")

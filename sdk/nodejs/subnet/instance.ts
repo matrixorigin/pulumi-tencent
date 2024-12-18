@@ -41,6 +41,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public /*out*/ readonly availableIpCount!: pulumi.Output<number>;
     /**
+     * ID of CDC instance.
+     */
+    public readonly cdcId!: pulumi.Output<string | undefined>;
+    /**
      * A network address block of the subnet.
      */
     public readonly cidrBlock!: pulumi.Output<string>;
@@ -88,6 +92,7 @@ export class Instance extends pulumi.CustomResource {
             const state = argsOrState as InstanceState | undefined;
             resourceInputs["availabilityZone"] = state ? state.availabilityZone : undefined;
             resourceInputs["availableIpCount"] = state ? state.availableIpCount : undefined;
+            resourceInputs["cdcId"] = state ? state.cdcId : undefined;
             resourceInputs["cidrBlock"] = state ? state.cidrBlock : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["isDefault"] = state ? state.isDefault : undefined;
@@ -108,6 +113,7 @@ export class Instance extends pulumi.CustomResource {
                 throw new Error("Missing required property 'vpcId'");
             }
             resourceInputs["availabilityZone"] = args ? args.availabilityZone : undefined;
+            resourceInputs["cdcId"] = args ? args.cdcId : undefined;
             resourceInputs["cidrBlock"] = args ? args.cidrBlock : undefined;
             resourceInputs["isMulticast"] = args ? args.isMulticast : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
@@ -135,6 +141,10 @@ export interface InstanceState {
      * The number of available IPs.
      */
     availableIpCount?: pulumi.Input<number>;
+    /**
+     * ID of CDC instance.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * A network address block of the subnet.
      */
@@ -177,6 +187,10 @@ export interface InstanceArgs {
      * The availability zone within which the subnet should be created.
      */
     availabilityZone: pulumi.Input<string>;
+    /**
+     * ID of CDC instance.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * A network address block of the subnet.
      */

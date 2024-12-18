@@ -31,12 +31,15 @@ type AdaptiveDynamicStreamingTemplate struct {
 	Format pulumi.StringOutput `pulumi:"format"`
 	// Template name. Length limit: 64 characters.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+	SegmentType pulumi.StringOutput `pulumi:"segmentType"`
 	// List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 	// substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 	// first substream will be used as the output frame rate.
 	StreamInfos AdaptiveDynamicStreamingTemplateStreamInfoArrayOutput `pulumi:"streamInfos"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrOutput `pulumi:"subAppId"`
 	// Last modified time of template in ISO date format.
 	UpdateTime pulumi.StringOutput `pulumi:"updateTime"`
@@ -94,12 +97,15 @@ type adaptiveDynamicStreamingTemplateState struct {
 	Format *string `pulumi:"format"`
 	// Template name. Length limit: 64 characters.
 	Name *string `pulumi:"name"`
+	// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+	SegmentType *string `pulumi:"segmentType"`
 	// List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 	// substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 	// first substream will be used as the output frame rate.
 	StreamInfos []AdaptiveDynamicStreamingTemplateStreamInfo `pulumi:"streamInfos"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId *int `pulumi:"subAppId"`
 	// Last modified time of template in ISO date format.
 	UpdateTime *string `pulumi:"updateTime"`
@@ -122,12 +128,15 @@ type AdaptiveDynamicStreamingTemplateState struct {
 	Format pulumi.StringPtrInput
 	// Template name. Length limit: 64 characters.
 	Name pulumi.StringPtrInput
+	// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+	SegmentType pulumi.StringPtrInput
 	// List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 	// substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 	// first substream will be used as the output frame rate.
 	StreamInfos AdaptiveDynamicStreamingTemplateStreamInfoArrayInput
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrInput
 	// Last modified time of template in ISO date format.
 	UpdateTime pulumi.StringPtrInput
@@ -152,12 +161,15 @@ type adaptiveDynamicStreamingTemplateArgs struct {
 	Format string `pulumi:"format"`
 	// Template name. Length limit: 64 characters.
 	Name *string `pulumi:"name"`
+	// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+	SegmentType *string `pulumi:"segmentType"`
 	// List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 	// substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 	// first substream will be used as the output frame rate.
 	StreamInfos []AdaptiveDynamicStreamingTemplateStreamInfo `pulumi:"streamInfos"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId *int `pulumi:"subAppId"`
 }
 
@@ -177,12 +189,15 @@ type AdaptiveDynamicStreamingTemplateArgs struct {
 	Format pulumi.StringInput
 	// Template name. Length limit: 64 characters.
 	Name pulumi.StringPtrInput
+	// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+	SegmentType pulumi.StringPtrInput
 	// List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 	// substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 	// first substream will be used as the output frame rate.
 	StreamInfos AdaptiveDynamicStreamingTemplateStreamInfoArrayInput
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrInput
 }
 
@@ -310,6 +325,11 @@ func (o AdaptiveDynamicStreamingTemplateOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplate) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+func (o AdaptiveDynamicStreamingTemplateOutput) SegmentType() pulumi.StringOutput {
+	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplate) pulumi.StringOutput { return v.SegmentType }).(pulumi.StringOutput)
+}
+
 // List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
 // substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
 // first substream will be used as the output frame rate.
@@ -319,8 +339,9 @@ func (o AdaptiveDynamicStreamingTemplateOutput) StreamInfos() AdaptiveDynamicStr
 	}).(AdaptiveDynamicStreamingTemplateStreamInfoArrayOutput)
 }
 
-// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-// field; otherwise, leave it empty.
+// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+// application or a newly created one), they must fill in this field with the application ID.
 func (o AdaptiveDynamicStreamingTemplateOutput) SubAppId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *AdaptiveDynamicStreamingTemplate) pulumi.IntPtrOutput { return v.SubAppId }).(pulumi.IntPtrOutput)
 }

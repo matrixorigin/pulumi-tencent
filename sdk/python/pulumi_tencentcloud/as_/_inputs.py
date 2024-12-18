@@ -10,6 +10,7 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from .. import _utilities
 
 __all__ = [
+    'LifecycleHookLifecycleCommandArgs',
     'LoadBalancerForwardLoadBalancerArgs',
     'LoadBalancerForwardLoadBalancerTargetAttributeArgs',
     'ScalingConfigDataDiskArgs',
@@ -17,8 +18,38 @@ __all__ = [
     'ScalingConfigInstanceNameSettingsArgs',
     'ScalingGroupForwardBalancerIdArgs',
     'ScalingGroupForwardBalancerIdTargetAttributeArgs',
+    'StartInstanceRefreshRefreshSettingsArgs',
+    'StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs',
     'GetInstancesFilterArgs',
 ]
+
+@pulumi.input_type
+class LifecycleHookLifecycleCommandArgs:
+    def __init__(__self__, *,
+                 command_id: pulumi.Input[str],
+                 parameters: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "command_id", command_id)
+        if parameters is not None:
+            pulumi.set(__self__, "parameters", parameters)
+
+    @property
+    @pulumi.getter(name="commandId")
+    def command_id(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "command_id")
+
+    @command_id.setter
+    def command_id(self, value: pulumi.Input[str]):
+        pulumi.set(self, "command_id", value)
+
+    @property
+    @pulumi.getter
+    def parameters(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "parameters")
+
+    @parameters.setter
+    def parameters(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "parameters", value)
+
 
 @pulumi.input_type
 class LoadBalancerForwardLoadBalancerArgs:
@@ -293,6 +324,74 @@ class ScalingGroupForwardBalancerIdTargetAttributeArgs:
     @weight.setter
     def weight(self, value: pulumi.Input[int]):
         pulumi.set(self, "weight", value)
+
+
+@pulumi.input_type
+class StartInstanceRefreshRefreshSettingsArgs:
+    def __init__(__self__, *,
+                 rolling_update_settings: pulumi.Input['StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs'],
+                 check_instance_target_health: Optional[pulumi.Input[bool]] = None):
+        pulumi.set(__self__, "rolling_update_settings", rolling_update_settings)
+        if check_instance_target_health is not None:
+            pulumi.set(__self__, "check_instance_target_health", check_instance_target_health)
+
+    @property
+    @pulumi.getter(name="rollingUpdateSettings")
+    def rolling_update_settings(self) -> pulumi.Input['StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs']:
+        return pulumi.get(self, "rolling_update_settings")
+
+    @rolling_update_settings.setter
+    def rolling_update_settings(self, value: pulumi.Input['StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs']):
+        pulumi.set(self, "rolling_update_settings", value)
+
+    @property
+    @pulumi.getter(name="checkInstanceTargetHealth")
+    def check_instance_target_health(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "check_instance_target_health")
+
+    @check_instance_target_health.setter
+    def check_instance_target_health(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "check_instance_target_health", value)
+
+
+@pulumi.input_type
+class StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs:
+    def __init__(__self__, *,
+                 batch_number: pulumi.Input[int],
+                 batch_pause: Optional[pulumi.Input[str]] = None,
+                 max_surge: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "batch_number", batch_number)
+        if batch_pause is not None:
+            pulumi.set(__self__, "batch_pause", batch_pause)
+        if max_surge is not None:
+            pulumi.set(__self__, "max_surge", max_surge)
+
+    @property
+    @pulumi.getter(name="batchNumber")
+    def batch_number(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "batch_number")
+
+    @batch_number.setter
+    def batch_number(self, value: pulumi.Input[int]):
+        pulumi.set(self, "batch_number", value)
+
+    @property
+    @pulumi.getter(name="batchPause")
+    def batch_pause(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "batch_pause")
+
+    @batch_pause.setter
+    def batch_pause(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "batch_pause", value)
+
+    @property
+    @pulumi.getter(name="maxSurge")
+    def max_surge(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_surge")
+
+    @max_surge.setter
+    def max_surge(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_surge", value)
 
 
 @pulumi.input_type

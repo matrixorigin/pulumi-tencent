@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 export class Topic extends pulumi.CustomResource {
@@ -37,6 +39,24 @@ export class Topic extends pulumi.CustomResource {
      */
     public readonly autoSplit!: pulumi.Output<boolean>;
     /**
+     * Log Topic Description.
+     */
+    public readonly describes!: pulumi.Output<string | undefined>;
+    /**
+     * Log Subject Extension Information.
+     */
+    public readonly extends!: pulumi.Output<outputs.Cls.TopicExtends | undefined>;
+    /**
+     * 0: Turn off log sinking. Non 0: The number of days of standard storage after enabling log settling. HotPeriod needs to
+     * be greater than or equal to 7 and less than Period. Only effective when StorageType is hot.
+     */
+    public readonly hotPeriod!: pulumi.Output<number>;
+    /**
+     * No authentication switch. False: closed; True: Enable. The default is false. After activation, anonymous access to the
+     * log topic will be supported for specified operations.
+     */
+    public readonly isWebTracking!: pulumi.Output<boolean>;
+    /**
      * Logset ID.
      */
     public readonly logsetId!: pulumi.Output<string>;
@@ -54,7 +74,7 @@ export class Topic extends pulumi.CustomResource {
     public readonly period!: pulumi.Output<number>;
     /**
      * Log topic storage class. Valid values: hot: real-time storage; cold: offline storage. Default value: hot. If cold is
-     * passed in, please contact the customer service to add the log topic to the allowlist first..
+     * passed in, please contact the customer service to add the log topic to the allowlist first.
      */
     public readonly storageType!: pulumi.Output<string>;
     /**
@@ -80,6 +100,10 @@ export class Topic extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as TopicState | undefined;
             resourceInputs["autoSplit"] = state ? state.autoSplit : undefined;
+            resourceInputs["describes"] = state ? state.describes : undefined;
+            resourceInputs["extends"] = state ? state.extends : undefined;
+            resourceInputs["hotPeriod"] = state ? state.hotPeriod : undefined;
+            resourceInputs["isWebTracking"] = state ? state.isWebTracking : undefined;
             resourceInputs["logsetId"] = state ? state.logsetId : undefined;
             resourceInputs["maxSplitPartitions"] = state ? state.maxSplitPartitions : undefined;
             resourceInputs["partitionCount"] = state ? state.partitionCount : undefined;
@@ -96,6 +120,10 @@ export class Topic extends pulumi.CustomResource {
                 throw new Error("Missing required property 'topicName'");
             }
             resourceInputs["autoSplit"] = args ? args.autoSplit : undefined;
+            resourceInputs["describes"] = args ? args.describes : undefined;
+            resourceInputs["extends"] = args ? args.extends : undefined;
+            resourceInputs["hotPeriod"] = args ? args.hotPeriod : undefined;
+            resourceInputs["isWebTracking"] = args ? args.isWebTracking : undefined;
             resourceInputs["logsetId"] = args ? args.logsetId : undefined;
             resourceInputs["maxSplitPartitions"] = args ? args.maxSplitPartitions : undefined;
             resourceInputs["partitionCount"] = args ? args.partitionCount : undefined;
@@ -118,6 +146,24 @@ export interface TopicState {
      */
     autoSplit?: pulumi.Input<boolean>;
     /**
+     * Log Topic Description.
+     */
+    describes?: pulumi.Input<string>;
+    /**
+     * Log Subject Extension Information.
+     */
+    extends?: pulumi.Input<inputs.Cls.TopicExtends>;
+    /**
+     * 0: Turn off log sinking. Non 0: The number of days of standard storage after enabling log settling. HotPeriod needs to
+     * be greater than or equal to 7 and less than Period. Only effective when StorageType is hot.
+     */
+    hotPeriod?: pulumi.Input<number>;
+    /**
+     * No authentication switch. False: closed; True: Enable. The default is false. After activation, anonymous access to the
+     * log topic will be supported for specified operations.
+     */
+    isWebTracking?: pulumi.Input<boolean>;
+    /**
      * Logset ID.
      */
     logsetId?: pulumi.Input<string>;
@@ -135,7 +181,7 @@ export interface TopicState {
     period?: pulumi.Input<number>;
     /**
      * Log topic storage class. Valid values: hot: real-time storage; cold: offline storage. Default value: hot. If cold is
-     * passed in, please contact the customer service to add the log topic to the allowlist first..
+     * passed in, please contact the customer service to add the log topic to the allowlist first.
      */
     storageType?: pulumi.Input<string>;
     /**
@@ -157,6 +203,24 @@ export interface TopicArgs {
      */
     autoSplit?: pulumi.Input<boolean>;
     /**
+     * Log Topic Description.
+     */
+    describes?: pulumi.Input<string>;
+    /**
+     * Log Subject Extension Information.
+     */
+    extends?: pulumi.Input<inputs.Cls.TopicExtends>;
+    /**
+     * 0: Turn off log sinking. Non 0: The number of days of standard storage after enabling log settling. HotPeriod needs to
+     * be greater than or equal to 7 and less than Period. Only effective when StorageType is hot.
+     */
+    hotPeriod?: pulumi.Input<number>;
+    /**
+     * No authentication switch. False: closed; True: Enable. The default is false. After activation, anonymous access to the
+     * log topic will be supported for specified operations.
+     */
+    isWebTracking?: pulumi.Input<boolean>;
+    /**
      * Logset ID.
      */
     logsetId: pulumi.Input<string>;
@@ -174,7 +238,7 @@ export interface TopicArgs {
     period?: pulumi.Input<number>;
     /**
      * Log topic storage class. Valid values: hot: real-time storage; cold: offline storage. Default value: hot. If cold is
-     * passed in, please contact the customer service to add the log topic to the allowlist first..
+     * passed in, please contact the customer service to add the log topic to the allowlist first.
      */
     storageType?: pulumi.Input<string>;
     /**

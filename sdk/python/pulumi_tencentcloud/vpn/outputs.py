@@ -11,6 +11,8 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'ConnectionBgpConfig',
+    'ConnectionHealthCheckConfig',
     'ConnectionSecurityGroupPolicy',
     'CustomerGatewayConfigurationDownloadCustomerGatewayVendor',
     'GetConnectionsConnectionListResult',
@@ -20,6 +22,113 @@ __all__ = [
     'GetGatewayRoutesVpnGatewayRouteListResult',
     'GetGatewaysGatewayListResult',
 ]
+
+@pulumi.output_type
+class ConnectionBgpConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "localBgpIp":
+            suggest = "local_bgp_ip"
+        elif key == "remoteBgpIp":
+            suggest = "remote_bgp_ip"
+        elif key == "tunnelCidr":
+            suggest = "tunnel_cidr"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConnectionBgpConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConnectionBgpConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConnectionBgpConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 local_bgp_ip: str,
+                 remote_bgp_ip: str,
+                 tunnel_cidr: str):
+        pulumi.set(__self__, "local_bgp_ip", local_bgp_ip)
+        pulumi.set(__self__, "remote_bgp_ip", remote_bgp_ip)
+        pulumi.set(__self__, "tunnel_cidr", tunnel_cidr)
+
+    @property
+    @pulumi.getter(name="localBgpIp")
+    def local_bgp_ip(self) -> str:
+        return pulumi.get(self, "local_bgp_ip")
+
+    @property
+    @pulumi.getter(name="remoteBgpIp")
+    def remote_bgp_ip(self) -> str:
+        return pulumi.get(self, "remote_bgp_ip")
+
+    @property
+    @pulumi.getter(name="tunnelCidr")
+    def tunnel_cidr(self) -> str:
+        return pulumi.get(self, "tunnel_cidr")
+
+
+@pulumi.output_type
+class ConnectionHealthCheckConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "probeInterval":
+            suggest = "probe_interval"
+        elif key == "probeThreshold":
+            suggest = "probe_threshold"
+        elif key == "probeTimeout":
+            suggest = "probe_timeout"
+        elif key == "probeType":
+            suggest = "probe_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ConnectionHealthCheckConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ConnectionHealthCheckConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ConnectionHealthCheckConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 probe_interval: Optional[int] = None,
+                 probe_threshold: Optional[int] = None,
+                 probe_timeout: Optional[int] = None,
+                 probe_type: Optional[str] = None):
+        if probe_interval is not None:
+            pulumi.set(__self__, "probe_interval", probe_interval)
+        if probe_threshold is not None:
+            pulumi.set(__self__, "probe_threshold", probe_threshold)
+        if probe_timeout is not None:
+            pulumi.set(__self__, "probe_timeout", probe_timeout)
+        if probe_type is not None:
+            pulumi.set(__self__, "probe_type", probe_type)
+
+    @property
+    @pulumi.getter(name="probeInterval")
+    def probe_interval(self) -> Optional[int]:
+        return pulumi.get(self, "probe_interval")
+
+    @property
+    @pulumi.getter(name="probeThreshold")
+    def probe_threshold(self) -> Optional[int]:
+        return pulumi.get(self, "probe_threshold")
+
+    @property
+    @pulumi.getter(name="probeTimeout")
+    def probe_timeout(self) -> Optional[int]:
+        return pulumi.get(self, "probe_timeout")
+
+    @property
+    @pulumi.getter(name="probeType")
+    def probe_type(self) -> Optional[str]:
+        return pulumi.get(self, "probe_type")
+
 
 @pulumi.output_type
 class ConnectionSecurityGroupPolicy(dict):

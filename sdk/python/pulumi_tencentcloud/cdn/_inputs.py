@@ -42,6 +42,7 @@ __all__ = [
     'DomainOriginPullOptimizationArgs',
     'DomainOriginPullTimeoutArgs',
     'DomainOssPrivateAccessArgs',
+    'DomainOthersPrivateAccessArgs',
     'DomainPostMaxSizeArgs',
     'DomainQnPrivateAccessArgs',
     'DomainRefererArgs',
@@ -1753,6 +1754,7 @@ class DomainOriginArgs:
                  backup_origin_type: Optional[pulumi.Input[str]] = None,
                  backup_server_name: Optional[pulumi.Input[str]] = None,
                  cos_private_access: Optional[pulumi.Input[str]] = None,
+                 origin_company: Optional[pulumi.Input[str]] = None,
                  origin_pull_protocol: Optional[pulumi.Input[str]] = None,
                  server_name: Optional[pulumi.Input[str]] = None):
         pulumi.set(__self__, "origin_lists", origin_lists)
@@ -1765,6 +1767,8 @@ class DomainOriginArgs:
             pulumi.set(__self__, "backup_server_name", backup_server_name)
         if cos_private_access is not None:
             pulumi.set(__self__, "cos_private_access", cos_private_access)
+        if origin_company is not None:
+            pulumi.set(__self__, "origin_company", origin_company)
         if origin_pull_protocol is not None:
             pulumi.set(__self__, "origin_pull_protocol", origin_pull_protocol)
         if server_name is not None:
@@ -1823,6 +1827,15 @@ class DomainOriginArgs:
     @cos_private_access.setter
     def cos_private_access(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "cos_private_access", value)
+
+    @property
+    @pulumi.getter(name="originCompany")
+    def origin_company(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "origin_company")
+
+    @origin_company.setter
+    def origin_company(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "origin_company", value)
 
     @property
     @pulumi.getter(name="originPullProtocol")
@@ -1900,6 +1913,70 @@ class DomainOriginPullTimeoutArgs:
 
 @pulumi.input_type
 class DomainOssPrivateAccessArgs:
+    def __init__(__self__, *,
+                 switch: pulumi.Input[str],
+                 access_key: Optional[pulumi.Input[str]] = None,
+                 bucket: Optional[pulumi.Input[str]] = None,
+                 region: Optional[pulumi.Input[str]] = None,
+                 secret_key: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "switch", switch)
+        if access_key is not None:
+            pulumi.set(__self__, "access_key", access_key)
+        if bucket is not None:
+            pulumi.set(__self__, "bucket", bucket)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+        if secret_key is not None:
+            pulumi.set(__self__, "secret_key", secret_key)
+
+    @property
+    @pulumi.getter
+    def switch(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "switch")
+
+    @switch.setter
+    def switch(self, value: pulumi.Input[str]):
+        pulumi.set(self, "switch", value)
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "access_key")
+
+    @access_key.setter
+    def access_key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "access_key", value)
+
+    @property
+    @pulumi.getter
+    def bucket(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "bucket")
+
+    @bucket.setter
+    def bucket(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "bucket", value)
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "region")
+
+    @region.setter
+    def region(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "region", value)
+
+    @property
+    @pulumi.getter(name="secretKey")
+    def secret_key(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "secret_key")
+
+    @secret_key.setter
+    def secret_key(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "secret_key", value)
+
+
+@pulumi.input_type
+class DomainOthersPrivateAccessArgs:
     def __init__(__self__, *,
                  switch: pulumi.Input[str],
                  access_key: Optional[pulumi.Input[str]] = None,

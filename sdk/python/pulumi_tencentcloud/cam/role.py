@@ -128,6 +128,7 @@ class _RoleState:
                  description: Optional[pulumi.Input[str]] = None,
                  document: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 role_arn: Optional[pulumi.Input[str]] = None,
                  session_duration: Optional[pulumi.Input[int]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  update_time: Optional[pulumi.Input[str]] = None):
@@ -141,6 +142,7 @@ class _RoleState:
                and `array` only support type `array`; 2. Terraform does not support the `root` syntax, when appears, it must be
                replaced with the uin it stands for.
         :param pulumi.Input[str] name: Name of CAM role.
+        :param pulumi.Input[str] role_arn: RoleArn Information for Roles.
         :param pulumi.Input[int] session_duration: The maximum validity period of the temporary key for creating a role.
         :param pulumi.Input[Mapping[str, Any]] tags: A list of tags used to associate different resources.
         :param pulumi.Input[str] update_time: The last update time of the CAM role.
@@ -155,6 +157,8 @@ class _RoleState:
             pulumi.set(__self__, "document", document)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if role_arn is not None:
+            pulumi.set(__self__, "role_arn", role_arn)
         if session_duration is not None:
             pulumi.set(__self__, "session_duration", session_duration)
         if tags is not None:
@@ -224,6 +228,18 @@ class _RoleState:
     @name.setter
     def name(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "name", value)
+
+    @property
+    @pulumi.getter(name="roleArn")
+    def role_arn(self) -> Optional[pulumi.Input[str]]:
+        """
+        RoleArn Information for Roles.
+        """
+        return pulumi.get(self, "role_arn")
+
+    @role_arn.setter
+    def role_arn(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "role_arn", value)
 
     @property
     @pulumi.getter(name="sessionDuration")
@@ -335,6 +351,7 @@ class Role(pulumi.CustomResource):
             __props__.__dict__["session_duration"] = session_duration
             __props__.__dict__["tags"] = tags
             __props__.__dict__["create_time"] = None
+            __props__.__dict__["role_arn"] = None
             __props__.__dict__["update_time"] = None
         super(Role, __self__).__init__(
             'tencentcloud:Cam/role:Role',
@@ -351,6 +368,7 @@ class Role(pulumi.CustomResource):
             description: Optional[pulumi.Input[str]] = None,
             document: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            role_arn: Optional[pulumi.Input[str]] = None,
             session_duration: Optional[pulumi.Input[int]] = None,
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
             update_time: Optional[pulumi.Input[str]] = None) -> 'Role':
@@ -369,6 +387,7 @@ class Role(pulumi.CustomResource):
                and `array` only support type `array`; 2. Terraform does not support the `root` syntax, when appears, it must be
                replaced with the uin it stands for.
         :param pulumi.Input[str] name: Name of CAM role.
+        :param pulumi.Input[str] role_arn: RoleArn Information for Roles.
         :param pulumi.Input[int] session_duration: The maximum validity period of the temporary key for creating a role.
         :param pulumi.Input[Mapping[str, Any]] tags: A list of tags used to associate different resources.
         :param pulumi.Input[str] update_time: The last update time of the CAM role.
@@ -382,6 +401,7 @@ class Role(pulumi.CustomResource):
         __props__.__dict__["description"] = description
         __props__.__dict__["document"] = document
         __props__.__dict__["name"] = name
+        __props__.__dict__["role_arn"] = role_arn
         __props__.__dict__["session_duration"] = session_duration
         __props__.__dict__["tags"] = tags
         __props__.__dict__["update_time"] = update_time
@@ -431,8 +451,16 @@ class Role(pulumi.CustomResource):
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="roleArn")
+    def role_arn(self) -> pulumi.Output[str]:
+        """
+        RoleArn Information for Roles.
+        """
+        return pulumi.get(self, "role_arn")
+
+    @property
     @pulumi.getter(name="sessionDuration")
-    def session_duration(self) -> pulumi.Output[Optional[int]]:
+    def session_duration(self) -> pulumi.Output[int]:
         """
         The maximum validity period of the temporary key for creating a role.
         """

@@ -638,6 +638,148 @@ func (o ClusterDatabasesUserHostPrivilegeArrayOutput) Index(i pulumi.IntInput) C
 	}).(ClusterDatabasesUserHostPrivilegeOutput)
 }
 
+type ClusterInstanceInitInfo struct {
+	Cpu           int      `pulumi:"cpu"`
+	DeviceType    *string  `pulumi:"deviceType"`
+	InstanceCount int      `pulumi:"instanceCount"`
+	InstanceType  string   `pulumi:"instanceType"`
+	MaxRoCount    *int     `pulumi:"maxRoCount"`
+	MaxRoCpu      *float64 `pulumi:"maxRoCpu"`
+	Memory        int      `pulumi:"memory"`
+	MinRoCount    *int     `pulumi:"minRoCount"`
+	MinRoCpu      *float64 `pulumi:"minRoCpu"`
+}
+
+// ClusterInstanceInitInfoInput is an input type that accepts ClusterInstanceInitInfoArgs and ClusterInstanceInitInfoOutput values.
+// You can construct a concrete instance of `ClusterInstanceInitInfoInput` via:
+//
+//	ClusterInstanceInitInfoArgs{...}
+type ClusterInstanceInitInfoInput interface {
+	pulumi.Input
+
+	ToClusterInstanceInitInfoOutput() ClusterInstanceInitInfoOutput
+	ToClusterInstanceInitInfoOutputWithContext(context.Context) ClusterInstanceInitInfoOutput
+}
+
+type ClusterInstanceInitInfoArgs struct {
+	Cpu           pulumi.IntInput        `pulumi:"cpu"`
+	DeviceType    pulumi.StringPtrInput  `pulumi:"deviceType"`
+	InstanceCount pulumi.IntInput        `pulumi:"instanceCount"`
+	InstanceType  pulumi.StringInput     `pulumi:"instanceType"`
+	MaxRoCount    pulumi.IntPtrInput     `pulumi:"maxRoCount"`
+	MaxRoCpu      pulumi.Float64PtrInput `pulumi:"maxRoCpu"`
+	Memory        pulumi.IntInput        `pulumi:"memory"`
+	MinRoCount    pulumi.IntPtrInput     `pulumi:"minRoCount"`
+	MinRoCpu      pulumi.Float64PtrInput `pulumi:"minRoCpu"`
+}
+
+func (ClusterInstanceInitInfoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterInstanceInitInfo)(nil)).Elem()
+}
+
+func (i ClusterInstanceInitInfoArgs) ToClusterInstanceInitInfoOutput() ClusterInstanceInitInfoOutput {
+	return i.ToClusterInstanceInitInfoOutputWithContext(context.Background())
+}
+
+func (i ClusterInstanceInitInfoArgs) ToClusterInstanceInitInfoOutputWithContext(ctx context.Context) ClusterInstanceInitInfoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstanceInitInfoOutput)
+}
+
+// ClusterInstanceInitInfoArrayInput is an input type that accepts ClusterInstanceInitInfoArray and ClusterInstanceInitInfoArrayOutput values.
+// You can construct a concrete instance of `ClusterInstanceInitInfoArrayInput` via:
+//
+//	ClusterInstanceInitInfoArray{ ClusterInstanceInitInfoArgs{...} }
+type ClusterInstanceInitInfoArrayInput interface {
+	pulumi.Input
+
+	ToClusterInstanceInitInfoArrayOutput() ClusterInstanceInitInfoArrayOutput
+	ToClusterInstanceInitInfoArrayOutputWithContext(context.Context) ClusterInstanceInitInfoArrayOutput
+}
+
+type ClusterInstanceInitInfoArray []ClusterInstanceInitInfoInput
+
+func (ClusterInstanceInitInfoArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterInstanceInitInfo)(nil)).Elem()
+}
+
+func (i ClusterInstanceInitInfoArray) ToClusterInstanceInitInfoArrayOutput() ClusterInstanceInitInfoArrayOutput {
+	return i.ToClusterInstanceInitInfoArrayOutputWithContext(context.Background())
+}
+
+func (i ClusterInstanceInitInfoArray) ToClusterInstanceInitInfoArrayOutputWithContext(ctx context.Context) ClusterInstanceInitInfoArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ClusterInstanceInitInfoArrayOutput)
+}
+
+type ClusterInstanceInitInfoOutput struct{ *pulumi.OutputState }
+
+func (ClusterInstanceInitInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ClusterInstanceInitInfo)(nil)).Elem()
+}
+
+func (o ClusterInstanceInitInfoOutput) ToClusterInstanceInitInfoOutput() ClusterInstanceInitInfoOutput {
+	return o
+}
+
+func (o ClusterInstanceInitInfoOutput) ToClusterInstanceInitInfoOutputWithContext(ctx context.Context) ClusterInstanceInitInfoOutput {
+	return o
+}
+
+func (o ClusterInstanceInitInfoOutput) Cpu() pulumi.IntOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) int { return v.Cpu }).(pulumi.IntOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) DeviceType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) *string { return v.DeviceType }).(pulumi.StringPtrOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) InstanceCount() pulumi.IntOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) int { return v.InstanceCount }).(pulumi.IntOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) InstanceType() pulumi.StringOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) string { return v.InstanceType }).(pulumi.StringOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) MaxRoCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) *int { return v.MaxRoCount }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) MaxRoCpu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) *float64 { return v.MaxRoCpu }).(pulumi.Float64PtrOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) Memory() pulumi.IntOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) int { return v.Memory }).(pulumi.IntOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) MinRoCount() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) *int { return v.MinRoCount }).(pulumi.IntPtrOutput)
+}
+
+func (o ClusterInstanceInitInfoOutput) MinRoCpu() pulumi.Float64PtrOutput {
+	return o.ApplyT(func(v ClusterInstanceInitInfo) *float64 { return v.MinRoCpu }).(pulumi.Float64PtrOutput)
+}
+
+type ClusterInstanceInitInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (ClusterInstanceInitInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ClusterInstanceInitInfo)(nil)).Elem()
+}
+
+func (o ClusterInstanceInitInfoArrayOutput) ToClusterInstanceInitInfoArrayOutput() ClusterInstanceInitInfoArrayOutput {
+	return o
+}
+
+func (o ClusterInstanceInitInfoArrayOutput) ToClusterInstanceInitInfoArrayOutputWithContext(ctx context.Context) ClusterInstanceInitInfoArrayOutput {
+	return o
+}
+
+func (o ClusterInstanceInitInfoArrayOutput) Index(i pulumi.IntInput) ClusterInstanceInitInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ClusterInstanceInitInfo {
+		return vs[0].([]ClusterInstanceInitInfo)[vs[1].(int)]
+	}).(ClusterInstanceInitInfoOutput)
+}
+
 type ClusterParamItem struct {
 	CurrentValue string  `pulumi:"currentValue"`
 	Name         string  `pulumi:"name"`
@@ -7085,6 +7227,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditLogFileFilterPtrInput)(nil)).Elem(), AuditLogFileFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterDatabasesUserHostPrivilegeInput)(nil)).Elem(), ClusterDatabasesUserHostPrivilegeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterDatabasesUserHostPrivilegeArrayInput)(nil)).Elem(), ClusterDatabasesUserHostPrivilegeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstanceInitInfoInput)(nil)).Elem(), ClusterInstanceInitInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ClusterInstanceInitInfoArrayInput)(nil)).Elem(), ClusterInstanceInitInfoArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterParamItemInput)(nil)).Elem(), ClusterParamItemArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterParamItemArrayInput)(nil)).Elem(), ClusterParamItemArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterRoGroupAddrInput)(nil)).Elem(), ClusterRoGroupAddrArgs{})
@@ -7192,6 +7336,8 @@ func init() {
 	pulumi.RegisterOutputType(AuditLogFileFilterPtrOutput{})
 	pulumi.RegisterOutputType(ClusterDatabasesUserHostPrivilegeOutput{})
 	pulumi.RegisterOutputType(ClusterDatabasesUserHostPrivilegeArrayOutput{})
+	pulumi.RegisterOutputType(ClusterInstanceInitInfoOutput{})
+	pulumi.RegisterOutputType(ClusterInstanceInitInfoArrayOutput{})
 	pulumi.RegisterOutputType(ClusterParamItemOutput{})
 	pulumi.RegisterOutputType(ClusterParamItemArrayOutput{})
 	pulumi.RegisterOutputType(ClusterRoGroupAddrOutput{})

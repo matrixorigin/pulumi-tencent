@@ -155,15 +155,20 @@ export type SendRocketmqMessage = import("./sendRocketmqMessage").SendRocketmqMe
 export const SendRocketmqMessage: typeof import("./sendRocketmqMessage").SendRocketmqMessage = null as any;
 utilities.lazyLoad(exports, ["SendRocketmqMessage"], () => require("./sendRocketmqMessage"));
 
-export { SubscriptionAttachmentArgs, SubscriptionAttachmentState } from "./subscriptionAttachment";
-export type SubscriptionAttachment = import("./subscriptionAttachment").SubscriptionAttachment;
-export const SubscriptionAttachment: typeof import("./subscriptionAttachment").SubscriptionAttachment = null as any;
-utilities.lazyLoad(exports, ["SubscriptionAttachment"], () => require("./subscriptionAttachment"));
+export { SubscriptionArgs, SubscriptionState } from "./subscription";
+export type Subscription = import("./subscription").Subscription;
+export const Subscription: typeof import("./subscription").Subscription = null as any;
+utilities.lazyLoad(exports, ["Subscription"], () => require("./subscription"));
 
 export { TopicArgs, TopicState } from "./topic";
 export type Topic = import("./topic").Topic;
 export const Topic: typeof import("./topic").Topic = null as any;
 utilities.lazyLoad(exports, ["Topic"], () => require("./topic"));
+
+export { TopicWithFullIdArgs, TopicWithFullIdState } from "./topicWithFullId";
+export type TopicWithFullId = import("./topicWithFullId").TopicWithFullId;
+export const TopicWithFullId: typeof import("./topicWithFullId").TopicWithFullId = null as any;
+utilities.lazyLoad(exports, ["TopicWithFullId"], () => require("./topicWithFullId"));
 
 
 const _module = {
@@ -202,10 +207,12 @@ const _module = {
                 return new Role(name, <any>undefined, { urn })
             case "tencentcloud:Tdmq/sendRocketmqMessage:SendRocketmqMessage":
                 return new SendRocketmqMessage(name, <any>undefined, { urn })
-            case "tencentcloud:Tdmq/subscriptionAttachment:SubscriptionAttachment":
-                return new SubscriptionAttachment(name, <any>undefined, { urn })
+            case "tencentcloud:Tdmq/subscription:Subscription":
+                return new Subscription(name, <any>undefined, { urn })
             case "tencentcloud:Tdmq/topic:Topic":
                 return new Topic(name, <any>undefined, { urn })
+            case "tencentcloud:Tdmq/topicWithFullId:TopicWithFullId":
+                return new TopicWithFullId(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }
@@ -227,5 +234,6 @@ pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/rocketmqTopic", _mod
 pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/rocketmqVipInstance", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/role", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/sendRocketmqMessage", _module)
-pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/subscriptionAttachment", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/subscription", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/topic", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "Tdmq/topicWithFullId", _module)

@@ -57,6 +57,10 @@ export class EmbedTokenApply extends pulumi.CustomResource {
      */
     public readonly scope!: pulumi.Output<string | undefined>;
     /**
+     * Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+     */
+    public readonly ticketNum!: pulumi.Output<number | undefined>;
+    /**
      * Upadte time.
      */
     public /*out*/ readonly udpateAt!: pulumi.Output<string>;
@@ -88,6 +92,7 @@ export class EmbedTokenApply extends pulumi.CustomResource {
             resourceInputs["pageId"] = state ? state.pageId : undefined;
             resourceInputs["projectId"] = state ? state.projectId : undefined;
             resourceInputs["scope"] = state ? state.scope : undefined;
+            resourceInputs["ticketNum"] = state ? state.ticketNum : undefined;
             resourceInputs["udpateAt"] = state ? state.udpateAt : undefined;
             resourceInputs["userCorpId"] = state ? state.userCorpId : undefined;
             resourceInputs["userId"] = state ? state.userId : undefined;
@@ -97,6 +102,7 @@ export class EmbedTokenApply extends pulumi.CustomResource {
             resourceInputs["pageId"] = args ? args.pageId : undefined;
             resourceInputs["projectId"] = args ? args.projectId : undefined;
             resourceInputs["scope"] = args ? args.scope : undefined;
+            resourceInputs["ticketNum"] = args ? args.ticketNum : undefined;
             resourceInputs["userCorpId"] = args ? args.userCorpId : undefined;
             resourceInputs["userId"] = args ? args.userId : undefined;
             resourceInputs["biToken"] = undefined /*out*/;
@@ -137,6 +143,10 @@ export interface EmbedTokenApplyState {
      */
     scope?: pulumi.Input<string>;
     /**
+     * Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+     */
+    ticketNum?: pulumi.Input<number>;
+    /**
      * Upadte time.
      */
     udpateAt?: pulumi.Input<string>;
@@ -170,6 +180,10 @@ export interface EmbedTokenApplyArgs {
      * Page means embedding the page, and panel means embedding the entire board.
      */
     scope?: pulumi.Input<string>;
+    /**
+     * Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+     */
+    ticketNum?: pulumi.Input<number>;
     /**
      * User enterprise ID (for multi-user only).
      */

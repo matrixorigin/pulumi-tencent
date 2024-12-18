@@ -31,6 +31,8 @@ type Instance struct {
 	// Enterprise). Default is `2008R2`.
 	EngineVersion pulumi.StringPtrOutput `pulumi:"engineVersion"`
 	// Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+	//
+	// Deprecated: It has been deprecated from version 1.81.136.
 	HaType pulumi.StringPtrOutput `pulumi:"haType"`
 	// Start time of the maintenance in one day, format like `HH:mm`.
 	MaintenanceStartTime pulumi.StringOutput `pulumi:"maintenanceStartTime"`
@@ -43,7 +45,7 @@ type Instance struct {
 	// provides.
 	Memory pulumi.IntOutput `pulumi:"memory"`
 	// Indicate whether to deploy across availability zones.
-	MultiZones pulumi.BoolPtrOutput `pulumi:"multiZones"`
+	MultiZones pulumi.BoolOutput `pulumi:"multiZones"`
 	// Name of the SQL Server instance.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Purchase instance period in month. The value does not exceed 48.
@@ -132,6 +134,8 @@ type instanceState struct {
 	// Enterprise). Default is `2008R2`.
 	EngineVersion *string `pulumi:"engineVersion"`
 	// Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+	//
+	// Deprecated: It has been deprecated from version 1.81.136.
 	HaType *string `pulumi:"haType"`
 	// Start time of the maintenance in one day, format like `HH:mm`.
 	MaintenanceStartTime *string `pulumi:"maintenanceStartTime"`
@@ -198,6 +202,8 @@ type InstanceState struct {
 	// Enterprise). Default is `2008R2`.
 	EngineVersion pulumi.StringPtrInput
 	// Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+	//
+	// Deprecated: It has been deprecated from version 1.81.136.
 	HaType pulumi.StringPtrInput
 	// Start time of the maintenance in one day, format like `HH:mm`.
 	MaintenanceStartTime pulumi.StringPtrInput
@@ -266,6 +272,8 @@ type instanceArgs struct {
 	// Enterprise). Default is `2008R2`.
 	EngineVersion *string `pulumi:"engineVersion"`
 	// Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+	//
+	// Deprecated: It has been deprecated from version 1.81.136.
 	HaType *string `pulumi:"haType"`
 	// Start time of the maintenance in one day, format like `HH:mm`.
 	MaintenanceStartTime *string `pulumi:"maintenanceStartTime"`
@@ -320,6 +328,8 @@ type InstanceArgs struct {
 	// Enterprise). Default is `2008R2`.
 	EngineVersion pulumi.StringPtrInput
 	// Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+	//
+	// Deprecated: It has been deprecated from version 1.81.136.
 	HaType pulumi.StringPtrInput
 	// Start time of the maintenance in one day, format like `HH:mm`.
 	MaintenanceStartTime pulumi.StringPtrInput
@@ -479,6 +489,8 @@ func (o InstanceOutput) EngineVersion() pulumi.StringPtrOutput {
 }
 
 // Instance type. `DUAL` (dual-server high availability), `CLUSTER` (cluster). Default is `DUAL`.
+//
+// Deprecated: It has been deprecated from version 1.81.136.
 func (o InstanceOutput) HaType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.HaType }).(pulumi.StringPtrOutput)
 }
@@ -506,8 +518,8 @@ func (o InstanceOutput) Memory() pulumi.IntOutput {
 }
 
 // Indicate whether to deploy across availability zones.
-func (o InstanceOutput) MultiZones() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.MultiZones }).(pulumi.BoolPtrOutput)
+func (o InstanceOutput) MultiZones() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolOutput { return v.MultiZones }).(pulumi.BoolOutput)
 }
 
 // Name of the SQL Server instance.

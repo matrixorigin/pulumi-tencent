@@ -2009,6 +2009,7 @@ type GetHttpDomainsDomain struct {
 	Domain                      string   `pulumi:"domain"`
 	GaapAuth                    bool     `pulumi:"gaapAuth"`
 	GaapAuthId                  string   `pulumi:"gaapAuthId"`
+	IsDefaultServer             bool     `pulumi:"isDefaultServer"`
 	RealserverAuth              bool     `pulumi:"realserverAuth"`
 	RealserverCertificateDomain string   `pulumi:"realserverCertificateDomain"`
 	// Deprecated: It has been deprecated from version 1.28.0. Use `realserver_certificate_ids` instead.
@@ -2037,6 +2038,7 @@ type GetHttpDomainsDomainArgs struct {
 	Domain                      pulumi.StringInput      `pulumi:"domain"`
 	GaapAuth                    pulumi.BoolInput        `pulumi:"gaapAuth"`
 	GaapAuthId                  pulumi.StringInput      `pulumi:"gaapAuthId"`
+	IsDefaultServer             pulumi.BoolInput        `pulumi:"isDefaultServer"`
 	RealserverAuth              pulumi.BoolInput        `pulumi:"realserverAuth"`
 	RealserverCertificateDomain pulumi.StringInput      `pulumi:"realserverCertificateDomain"`
 	// Deprecated: It has been deprecated from version 1.28.0. Use `realserver_certificate_ids` instead.
@@ -2126,6 +2128,10 @@ func (o GetHttpDomainsDomainOutput) GaapAuth() pulumi.BoolOutput {
 
 func (o GetHttpDomainsDomainOutput) GaapAuthId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetHttpDomainsDomain) string { return v.GaapAuthId }).(pulumi.StringOutput)
+}
+
+func (o GetHttpDomainsDomainOutput) IsDefaultServer() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetHttpDomainsDomain) bool { return v.IsDefaultServer }).(pulumi.BoolOutput)
 }
 
 func (o GetHttpDomainsDomainOutput) RealserverAuth() pulumi.BoolOutput {
@@ -2647,6 +2653,8 @@ type GetLayer7ListenersListener struct {
 	Protocol             string   `pulumi:"protocol"`
 	ProxyId              string   `pulumi:"proxyId"`
 	Status               int      `pulumi:"status"`
+	TlsCiphers           string   `pulumi:"tlsCiphers"`
+	TlsSupportVersions   []string `pulumi:"tlsSupportVersions"`
 }
 
 // GetLayer7ListenersListenerInput is an input type that accepts GetLayer7ListenersListenerArgs and GetLayer7ListenersListenerOutput values.
@@ -2674,6 +2682,8 @@ type GetLayer7ListenersListenerArgs struct {
 	Protocol             pulumi.StringInput      `pulumi:"protocol"`
 	ProxyId              pulumi.StringInput      `pulumi:"proxyId"`
 	Status               pulumi.IntInput         `pulumi:"status"`
+	TlsCiphers           pulumi.StringInput      `pulumi:"tlsCiphers"`
+	TlsSupportVersions   pulumi.StringArrayInput `pulumi:"tlsSupportVersions"`
 }
 
 func (GetLayer7ListenersListenerArgs) ElementType() reflect.Type {
@@ -2774,6 +2784,14 @@ func (o GetLayer7ListenersListenerOutput) ProxyId() pulumi.StringOutput {
 
 func (o GetLayer7ListenersListenerOutput) Status() pulumi.IntOutput {
 	return o.ApplyT(func(v GetLayer7ListenersListener) int { return v.Status }).(pulumi.IntOutput)
+}
+
+func (o GetLayer7ListenersListenerOutput) TlsCiphers() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLayer7ListenersListener) string { return v.TlsCiphers }).(pulumi.StringOutput)
+}
+
+func (o GetLayer7ListenersListenerOutput) TlsSupportVersions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetLayer7ListenersListener) []string { return v.TlsSupportVersions }).(pulumi.StringArrayOutput)
 }
 
 type GetLayer7ListenersListenerArrayOutput struct{ *pulumi.OutputState }
@@ -3775,6 +3793,7 @@ type GetProxyDetailProxyDetail struct {
 	Ip                    string                                          `pulumi:"ip"`
 	IpAddressVersion      string                                          `pulumi:"ipAddressVersion"`
 	IpLists               []GetProxyDetailProxyDetailIpList               `pulumi:"ipLists"`
+	IsSupportTlsChoice    int                                             `pulumi:"isSupportTlsChoice"`
 	ModifyConfigTime      int                                             `pulumi:"modifyConfigTime"`
 	NetworkType           string                                          `pulumi:"networkType"`
 	PackageType           string                                          `pulumi:"packageType"`
@@ -3824,6 +3843,7 @@ type GetProxyDetailProxyDetailArgs struct {
 	Ip                    pulumi.StringInput                                      `pulumi:"ip"`
 	IpAddressVersion      pulumi.StringInput                                      `pulumi:"ipAddressVersion"`
 	IpLists               GetProxyDetailProxyDetailIpListArrayInput               `pulumi:"ipLists"`
+	IsSupportTlsChoice    pulumi.IntInput                                         `pulumi:"isSupportTlsChoice"`
 	ModifyConfigTime      pulumi.IntInput                                         `pulumi:"modifyConfigTime"`
 	NetworkType           pulumi.StringInput                                      `pulumi:"networkType"`
 	PackageType           pulumi.StringInput                                      `pulumi:"packageType"`
@@ -3966,6 +3986,10 @@ func (o GetProxyDetailProxyDetailOutput) IpAddressVersion() pulumi.StringOutput 
 
 func (o GetProxyDetailProxyDetailOutput) IpLists() GetProxyDetailProxyDetailIpListArrayOutput {
 	return o.ApplyT(func(v GetProxyDetailProxyDetail) []GetProxyDetailProxyDetailIpList { return v.IpLists }).(GetProxyDetailProxyDetailIpListArrayOutput)
+}
+
+func (o GetProxyDetailProxyDetailOutput) IsSupportTlsChoice() pulumi.IntOutput {
+	return o.ApplyT(func(v GetProxyDetailProxyDetail) int { return v.IsSupportTlsChoice }).(pulumi.IntOutput)
 }
 
 func (o GetProxyDetailProxyDetailOutput) ModifyConfigTime() pulumi.IntOutput {

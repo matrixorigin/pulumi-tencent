@@ -12,6 +12,7 @@ export function getSubnets(args?: GetSubnetsArgs, opts?: pulumi.InvokeOptions): 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("tencentcloud:Vpc/getSubnets:getSubnets", {
         "availabilityZone": args.availabilityZone,
+        "cdcId": args.cdcId,
         "cidrBlock": args.cidrBlock,
         "isDefault": args.isDefault,
         "isRemoteVpcSnat": args.isRemoteVpcSnat,
@@ -29,6 +30,7 @@ export function getSubnets(args?: GetSubnetsArgs, opts?: pulumi.InvokeOptions): 
  */
 export interface GetSubnetsArgs {
     availabilityZone?: string;
+    cdcId?: string;
     cidrBlock?: string;
     isDefault?: boolean;
     isRemoteVpcSnat?: boolean;
@@ -45,6 +47,7 @@ export interface GetSubnetsArgs {
  */
 export interface GetSubnetsResult {
     readonly availabilityZone?: string;
+    readonly cdcId?: string;
     readonly cidrBlock?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
@@ -69,6 +72,7 @@ export function getSubnetsOutput(args?: GetSubnetsOutputArgs, opts?: pulumi.Invo
  */
 export interface GetSubnetsOutputArgs {
     availabilityZone?: pulumi.Input<string>;
+    cdcId?: pulumi.Input<string>;
     cidrBlock?: pulumi.Input<string>;
     isDefault?: pulumi.Input<boolean>;
     isRemoteVpcSnat?: pulumi.Input<boolean>;

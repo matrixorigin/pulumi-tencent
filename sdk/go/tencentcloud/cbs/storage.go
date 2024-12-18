@@ -19,8 +19,11 @@ type Storage struct {
 	Attached pulumi.BoolOutput `pulumi:"attached"`
 	// The available zone that the CBS instance locates at.
 	AvailabilityZone pulumi.StringOutput `pulumi:"availabilityZone"`
-	// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+	// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+	// The default is `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrOutput `pulumi:"chargeType"`
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrOutput `pulumi:"dedicatedClusterId"`
 	// The quota of backup points of cloud disk.
 	DiskBackupQuota pulumi.IntOutput `pulumi:"diskBackupQuota"`
 	// Indicates whether CBS is encrypted.
@@ -105,8 +108,11 @@ type storageState struct {
 	Attached *bool `pulumi:"attached"`
 	// The available zone that the CBS instance locates at.
 	AvailabilityZone *string `pulumi:"availabilityZone"`
-	// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+	// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+	// The default is `POSTPAID_BY_HOUR`.
 	ChargeType *string `pulumi:"chargeType"`
+	// Exclusive cluster id.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// The quota of backup points of cloud disk.
 	DiskBackupQuota *int `pulumi:"diskBackupQuota"`
 	// Indicates whether CBS is encrypted.
@@ -150,8 +156,11 @@ type StorageState struct {
 	Attached pulumi.BoolPtrInput
 	// The available zone that the CBS instance locates at.
 	AvailabilityZone pulumi.StringPtrInput
-	// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+	// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+	// The default is `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrInput
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrInput
 	// The quota of backup points of cloud disk.
 	DiskBackupQuota pulumi.IntPtrInput
 	// Indicates whether CBS is encrypted.
@@ -197,8 +206,11 @@ func (StorageState) ElementType() reflect.Type {
 type storageArgs struct {
 	// The available zone that the CBS instance locates at.
 	AvailabilityZone string `pulumi:"availabilityZone"`
-	// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+	// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+	// The default is `POSTPAID_BY_HOUR`.
 	ChargeType *string `pulumi:"chargeType"`
+	// Exclusive cluster id.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// The quota of backup points of cloud disk.
 	DiskBackupQuota *int `pulumi:"diskBackupQuota"`
 	// Indicates whether CBS is encrypted.
@@ -239,8 +251,11 @@ type storageArgs struct {
 type StorageArgs struct {
 	// The available zone that the CBS instance locates at.
 	AvailabilityZone pulumi.StringInput
-	// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+	// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+	// The default is `POSTPAID_BY_HOUR`.
 	ChargeType pulumi.StringPtrInput
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrInput
 	// The quota of backup points of cloud disk.
 	DiskBackupQuota pulumi.IntPtrInput
 	// Indicates whether CBS is encrypted.
@@ -374,9 +389,15 @@ func (o StorageOutput) AvailabilityZone() pulumi.StringOutput {
 	return o.ApplyT(func(v *Storage) pulumi.StringOutput { return v.AvailabilityZone }).(pulumi.StringOutput)
 }
 
-// The charge type of CBS instance. Valid values are `PREPAID` and `POSTPAID_BY_HOUR`. The default is `POSTPAID_BY_HOUR`.
+// The charge type of CBS instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `CDCPAID` and `DEDICATED_CLUSTER_PAID`.
+// The default is `POSTPAID_BY_HOUR`.
 func (o StorageOutput) ChargeType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Storage) pulumi.StringPtrOutput { return v.ChargeType }).(pulumi.StringPtrOutput)
+}
+
+// Exclusive cluster id.
+func (o StorageOutput) DedicatedClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Storage) pulumi.StringPtrOutput { return v.DedicatedClusterId }).(pulumi.StringPtrOutput)
 }
 
 // The quota of backup points of cloud disk.

@@ -11,11 +11,18 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'ClusterPlacementInfo',
+    'ClusterPreExecutedFileSetting',
     'ClusterResourceSpec',
     'ClusterResourceSpecCommonResourceSpec',
+    'ClusterResourceSpecCommonResourceSpecMultiDisk',
     'ClusterResourceSpecCoreResourceSpec',
+    'ClusterResourceSpecCoreResourceSpecMultiDisk',
     'ClusterResourceSpecMasterResourceSpec',
+    'ClusterResourceSpecMasterResourceSpecMultiDisk',
     'ClusterResourceSpecTaskResourceSpec',
+    'ClusterResourceSpecTaskResourceSpecMultiDisk',
+    'ClusterTerminateNodeInfo',
     'GetAutoScaleRecordsFilterResult',
     'GetAutoScaleRecordsRecordListResult',
     'GetCvmQuotaEksQuotaSetResult',
@@ -27,6 +34,139 @@ __all__ = [
     'GetNodesNodeMcMultiDiskResult',
     'GetNodesNodeTagResult',
 ]
+
+@pulumi.output_type
+class ClusterPlacementInfo(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "projectId":
+            suggest = "project_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterPlacementInfo. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterPlacementInfo.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterPlacementInfo.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 zone: str,
+                 project_id: Optional[int] = None):
+        pulumi.set(__self__, "zone", zone)
+        if project_id is not None:
+            pulumi.set(__self__, "project_id", project_id)
+
+    @property
+    @pulumi.getter
+    def zone(self) -> str:
+        return pulumi.get(self, "zone")
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> Optional[int]:
+        return pulumi.get(self, "project_id")
+
+
+@pulumi.output_type
+class ClusterPreExecutedFileSetting(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cosFileName":
+            suggest = "cos_file_name"
+        elif key == "cosFileUri":
+            suggest = "cos_file_uri"
+        elif key == "cosSecretId":
+            suggest = "cos_secret_id"
+        elif key == "cosSecretKey":
+            suggest = "cos_secret_key"
+        elif key == "runOrder":
+            suggest = "run_order"
+        elif key == "whenRun":
+            suggest = "when_run"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterPreExecutedFileSetting. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterPreExecutedFileSetting.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterPreExecutedFileSetting.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 args: Optional[Sequence[str]] = None,
+                 cos_file_name: Optional[str] = None,
+                 cos_file_uri: Optional[str] = None,
+                 cos_secret_id: Optional[str] = None,
+                 cos_secret_key: Optional[str] = None,
+                 remark: Optional[str] = None,
+                 run_order: Optional[int] = None,
+                 when_run: Optional[str] = None):
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if cos_file_name is not None:
+            pulumi.set(__self__, "cos_file_name", cos_file_name)
+        if cos_file_uri is not None:
+            pulumi.set(__self__, "cos_file_uri", cos_file_uri)
+        if cos_secret_id is not None:
+            pulumi.set(__self__, "cos_secret_id", cos_secret_id)
+        if cos_secret_key is not None:
+            pulumi.set(__self__, "cos_secret_key", cos_secret_key)
+        if remark is not None:
+            pulumi.set(__self__, "remark", remark)
+        if run_order is not None:
+            pulumi.set(__self__, "run_order", run_order)
+        if when_run is not None:
+            pulumi.set(__self__, "when_run", when_run)
+
+    @property
+    @pulumi.getter
+    def args(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "args")
+
+    @property
+    @pulumi.getter(name="cosFileName")
+    def cos_file_name(self) -> Optional[str]:
+        return pulumi.get(self, "cos_file_name")
+
+    @property
+    @pulumi.getter(name="cosFileUri")
+    def cos_file_uri(self) -> Optional[str]:
+        return pulumi.get(self, "cos_file_uri")
+
+    @property
+    @pulumi.getter(name="cosSecretId")
+    def cos_secret_id(self) -> Optional[str]:
+        return pulumi.get(self, "cos_secret_id")
+
+    @property
+    @pulumi.getter(name="cosSecretKey")
+    def cos_secret_key(self) -> Optional[str]:
+        return pulumi.get(self, "cos_secret_key")
+
+    @property
+    @pulumi.getter
+    def remark(self) -> Optional[str]:
+        return pulumi.get(self, "remark")
+
+    @property
+    @pulumi.getter(name="runOrder")
+    def run_order(self) -> Optional[int]:
+        return pulumi.get(self, "run_order")
+
+    @property
+    @pulumi.getter(name="whenRun")
+    def when_run(self) -> Optional[str]:
+        return pulumi.get(self, "when_run")
+
 
 @pulumi.output_type
 class ClusterResourceSpec(dict):
@@ -139,6 +279,8 @@ class ClusterResourceSpecCommonResourceSpec(dict):
             suggest = "disk_type"
         elif key == "memSize":
             suggest = "mem_size"
+        elif key == "multiDisks":
+            suggest = "multi_disks"
         elif key == "rootSize":
             suggest = "root_size"
         elif key == "storageType":
@@ -160,6 +302,7 @@ class ClusterResourceSpecCommonResourceSpec(dict):
                  disk_size: Optional[int] = None,
                  disk_type: Optional[str] = None,
                  mem_size: Optional[int] = None,
+                 multi_disks: Optional[Sequence['outputs.ClusterResourceSpecCommonResourceSpecMultiDisk']] = None,
                  root_size: Optional[int] = None,
                  spec: Optional[str] = None,
                  storage_type: Optional[int] = None):
@@ -171,6 +314,8 @@ class ClusterResourceSpecCommonResourceSpec(dict):
             pulumi.set(__self__, "disk_type", disk_type)
         if mem_size is not None:
             pulumi.set(__self__, "mem_size", mem_size)
+        if multi_disks is not None:
+            pulumi.set(__self__, "multi_disks", multi_disks)
         if root_size is not None:
             pulumi.set(__self__, "root_size", root_size)
         if spec is not None:
@@ -199,6 +344,11 @@ class ClusterResourceSpecCommonResourceSpec(dict):
         return pulumi.get(self, "mem_size")
 
     @property
+    @pulumi.getter(name="multiDisks")
+    def multi_disks(self) -> Optional[Sequence['outputs.ClusterResourceSpecCommonResourceSpecMultiDisk']]:
+        return pulumi.get(self, "multi_disks")
+
+    @property
     @pulumi.getter(name="rootSize")
     def root_size(self) -> Optional[int]:
         return pulumi.get(self, "root_size")
@@ -215,6 +365,52 @@ class ClusterResourceSpecCommonResourceSpec(dict):
 
 
 @pulumi.output_type
+class ClusterResourceSpecCommonResourceSpecMultiDisk(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "diskType":
+            suggest = "disk_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterResourceSpecCommonResourceSpecMultiDisk. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterResourceSpecCommonResourceSpecMultiDisk.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterResourceSpecCommonResourceSpecMultiDisk.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 disk_type: Optional[str] = None,
+                 volume: Optional[int] = None):
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[str]:
+        return pulumi.get(self, "disk_type")
+
+    @property
+    @pulumi.getter
+    def volume(self) -> Optional[int]:
+        return pulumi.get(self, "volume")
+
+
+@pulumi.output_type
 class ClusterResourceSpecCoreResourceSpec(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -225,6 +421,8 @@ class ClusterResourceSpecCoreResourceSpec(dict):
             suggest = "disk_type"
         elif key == "memSize":
             suggest = "mem_size"
+        elif key == "multiDisks":
+            suggest = "multi_disks"
         elif key == "rootSize":
             suggest = "root_size"
         elif key == "storageType":
@@ -246,6 +444,7 @@ class ClusterResourceSpecCoreResourceSpec(dict):
                  disk_size: Optional[int] = None,
                  disk_type: Optional[str] = None,
                  mem_size: Optional[int] = None,
+                 multi_disks: Optional[Sequence['outputs.ClusterResourceSpecCoreResourceSpecMultiDisk']] = None,
                  root_size: Optional[int] = None,
                  spec: Optional[str] = None,
                  storage_type: Optional[int] = None):
@@ -257,6 +456,8 @@ class ClusterResourceSpecCoreResourceSpec(dict):
             pulumi.set(__self__, "disk_type", disk_type)
         if mem_size is not None:
             pulumi.set(__self__, "mem_size", mem_size)
+        if multi_disks is not None:
+            pulumi.set(__self__, "multi_disks", multi_disks)
         if root_size is not None:
             pulumi.set(__self__, "root_size", root_size)
         if spec is not None:
@@ -285,6 +486,11 @@ class ClusterResourceSpecCoreResourceSpec(dict):
         return pulumi.get(self, "mem_size")
 
     @property
+    @pulumi.getter(name="multiDisks")
+    def multi_disks(self) -> Optional[Sequence['outputs.ClusterResourceSpecCoreResourceSpecMultiDisk']]:
+        return pulumi.get(self, "multi_disks")
+
+    @property
     @pulumi.getter(name="rootSize")
     def root_size(self) -> Optional[int]:
         return pulumi.get(self, "root_size")
@@ -301,6 +507,52 @@ class ClusterResourceSpecCoreResourceSpec(dict):
 
 
 @pulumi.output_type
+class ClusterResourceSpecCoreResourceSpecMultiDisk(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "diskType":
+            suggest = "disk_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterResourceSpecCoreResourceSpecMultiDisk. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterResourceSpecCoreResourceSpecMultiDisk.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterResourceSpecCoreResourceSpecMultiDisk.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 disk_type: Optional[str] = None,
+                 volume: Optional[int] = None):
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[str]:
+        return pulumi.get(self, "disk_type")
+
+    @property
+    @pulumi.getter
+    def volume(self) -> Optional[int]:
+        return pulumi.get(self, "volume")
+
+
+@pulumi.output_type
 class ClusterResourceSpecMasterResourceSpec(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -311,6 +563,8 @@ class ClusterResourceSpecMasterResourceSpec(dict):
             suggest = "disk_type"
         elif key == "memSize":
             suggest = "mem_size"
+        elif key == "multiDisks":
+            suggest = "multi_disks"
         elif key == "rootSize":
             suggest = "root_size"
         elif key == "storageType":
@@ -332,6 +586,7 @@ class ClusterResourceSpecMasterResourceSpec(dict):
                  disk_size: Optional[int] = None,
                  disk_type: Optional[str] = None,
                  mem_size: Optional[int] = None,
+                 multi_disks: Optional[Sequence['outputs.ClusterResourceSpecMasterResourceSpecMultiDisk']] = None,
                  root_size: Optional[int] = None,
                  spec: Optional[str] = None,
                  storage_type: Optional[int] = None):
@@ -343,6 +598,8 @@ class ClusterResourceSpecMasterResourceSpec(dict):
             pulumi.set(__self__, "disk_type", disk_type)
         if mem_size is not None:
             pulumi.set(__self__, "mem_size", mem_size)
+        if multi_disks is not None:
+            pulumi.set(__self__, "multi_disks", multi_disks)
         if root_size is not None:
             pulumi.set(__self__, "root_size", root_size)
         if spec is not None:
@@ -371,6 +628,11 @@ class ClusterResourceSpecMasterResourceSpec(dict):
         return pulumi.get(self, "mem_size")
 
     @property
+    @pulumi.getter(name="multiDisks")
+    def multi_disks(self) -> Optional[Sequence['outputs.ClusterResourceSpecMasterResourceSpecMultiDisk']]:
+        return pulumi.get(self, "multi_disks")
+
+    @property
     @pulumi.getter(name="rootSize")
     def root_size(self) -> Optional[int]:
         return pulumi.get(self, "root_size")
@@ -387,6 +649,52 @@ class ClusterResourceSpecMasterResourceSpec(dict):
 
 
 @pulumi.output_type
+class ClusterResourceSpecMasterResourceSpecMultiDisk(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "diskType":
+            suggest = "disk_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterResourceSpecMasterResourceSpecMultiDisk. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterResourceSpecMasterResourceSpecMultiDisk.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterResourceSpecMasterResourceSpecMultiDisk.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 disk_type: Optional[str] = None,
+                 volume: Optional[int] = None):
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[str]:
+        return pulumi.get(self, "disk_type")
+
+    @property
+    @pulumi.getter
+    def volume(self) -> Optional[int]:
+        return pulumi.get(self, "volume")
+
+
+@pulumi.output_type
 class ClusterResourceSpecTaskResourceSpec(dict):
     @staticmethod
     def __key_warning(key: str):
@@ -397,6 +705,8 @@ class ClusterResourceSpecTaskResourceSpec(dict):
             suggest = "disk_type"
         elif key == "memSize":
             suggest = "mem_size"
+        elif key == "multiDisks":
+            suggest = "multi_disks"
         elif key == "rootSize":
             suggest = "root_size"
         elif key == "storageType":
@@ -418,6 +728,7 @@ class ClusterResourceSpecTaskResourceSpec(dict):
                  disk_size: Optional[int] = None,
                  disk_type: Optional[str] = None,
                  mem_size: Optional[int] = None,
+                 multi_disks: Optional[Sequence['outputs.ClusterResourceSpecTaskResourceSpecMultiDisk']] = None,
                  root_size: Optional[int] = None,
                  spec: Optional[str] = None,
                  storage_type: Optional[int] = None):
@@ -429,6 +740,8 @@ class ClusterResourceSpecTaskResourceSpec(dict):
             pulumi.set(__self__, "disk_type", disk_type)
         if mem_size is not None:
             pulumi.set(__self__, "mem_size", mem_size)
+        if multi_disks is not None:
+            pulumi.set(__self__, "multi_disks", multi_disks)
         if root_size is not None:
             pulumi.set(__self__, "root_size", root_size)
         if spec is not None:
@@ -457,6 +770,11 @@ class ClusterResourceSpecTaskResourceSpec(dict):
         return pulumi.get(self, "mem_size")
 
     @property
+    @pulumi.getter(name="multiDisks")
+    def multi_disks(self) -> Optional[Sequence['outputs.ClusterResourceSpecTaskResourceSpecMultiDisk']]:
+        return pulumi.get(self, "multi_disks")
+
+    @property
     @pulumi.getter(name="rootSize")
     def root_size(self) -> Optional[int]:
         return pulumi.get(self, "root_size")
@@ -470,6 +788,92 @@ class ClusterResourceSpecTaskResourceSpec(dict):
     @pulumi.getter(name="storageType")
     def storage_type(self) -> Optional[int]:
         return pulumi.get(self, "storage_type")
+
+
+@pulumi.output_type
+class ClusterResourceSpecTaskResourceSpecMultiDisk(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "diskType":
+            suggest = "disk_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterResourceSpecTaskResourceSpecMultiDisk. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterResourceSpecTaskResourceSpecMultiDisk.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterResourceSpecTaskResourceSpecMultiDisk.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 count: Optional[int] = None,
+                 disk_type: Optional[str] = None,
+                 volume: Optional[int] = None):
+        if count is not None:
+            pulumi.set(__self__, "count", count)
+        if disk_type is not None:
+            pulumi.set(__self__, "disk_type", disk_type)
+        if volume is not None:
+            pulumi.set(__self__, "volume", volume)
+
+    @property
+    @pulumi.getter
+    def count(self) -> Optional[int]:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="diskType")
+    def disk_type(self) -> Optional[str]:
+        return pulumi.get(self, "disk_type")
+
+    @property
+    @pulumi.getter
+    def volume(self) -> Optional[int]:
+        return pulumi.get(self, "volume")
+
+
+@pulumi.output_type
+class ClusterTerminateNodeInfo(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "cvmInstanceIds":
+            suggest = "cvm_instance_ids"
+        elif key == "nodeFlag":
+            suggest = "node_flag"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterTerminateNodeInfo. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterTerminateNodeInfo.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterTerminateNodeInfo.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cvm_instance_ids: Optional[Sequence[str]] = None,
+                 node_flag: Optional[str] = None):
+        if cvm_instance_ids is not None:
+            pulumi.set(__self__, "cvm_instance_ids", cvm_instance_ids)
+        if node_flag is not None:
+            pulumi.set(__self__, "node_flag", node_flag)
+
+    @property
+    @pulumi.getter(name="cvmInstanceIds")
+    def cvm_instance_ids(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "cvm_instance_ids")
+
+    @property
+    @pulumi.getter(name="nodeFlag")
+    def node_flag(self) -> Optional[str]:
+        return pulumi.get(self, "node_flag")
 
 
 @pulumi.output_type

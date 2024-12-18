@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "../types/input";
+import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
 export class ListenerRule extends pulumi.CustomResource {
@@ -49,12 +51,18 @@ export class ListenerRule extends pulumi.CustomResource {
      */
     public readonly clbId!: pulumi.Output<string>;
     /**
-     * Domain name of the listener rule.
+     * Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
      */
     public readonly domain!: pulumi.Output<string>;
     /**
-     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-     * `HTTP`.
+     * Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
+     */
+    public readonly domains!: pulumi.Output<string[]>;
+    /**
+     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+     * The default is `HTTP`.
      */
     public readonly forwardType!: pulumi.Output<string>;
     /**
@@ -98,7 +106,7 @@ export class ListenerRule extends pulumi.CustomResource {
      */
     public readonly healthCheckTimeOut!: pulumi.Output<number>;
     /**
-     * Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+     * Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
      */
     public readonly healthCheckType!: pulumi.Output<string>;
     /**
@@ -115,6 +123,10 @@ export class ListenerRule extends pulumi.CustomResource {
      * ID of CLB listener.
      */
     public readonly listenerId!: pulumi.Output<string>;
+    /**
+     * OAuth configuration information.
+     */
+    public readonly oauth!: pulumi.Output<outputs.Clb.ListenerRuleOauth>;
     /**
      * Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
      */
@@ -163,6 +175,7 @@ export class ListenerRule extends pulumi.CustomResource {
             resourceInputs["certificateSslMode"] = state ? state.certificateSslMode : undefined;
             resourceInputs["clbId"] = state ? state.clbId : undefined;
             resourceInputs["domain"] = state ? state.domain : undefined;
+            resourceInputs["domains"] = state ? state.domains : undefined;
             resourceInputs["forwardType"] = state ? state.forwardType : undefined;
             resourceInputs["healthCheckHealthNum"] = state ? state.healthCheckHealthNum : undefined;
             resourceInputs["healthCheckHttpCode"] = state ? state.healthCheckHttpCode : undefined;
@@ -176,6 +189,7 @@ export class ListenerRule extends pulumi.CustomResource {
             resourceInputs["healthCheckUnhealthNum"] = state ? state.healthCheckUnhealthNum : undefined;
             resourceInputs["http2Switch"] = state ? state.http2Switch : undefined;
             resourceInputs["listenerId"] = state ? state.listenerId : undefined;
+            resourceInputs["oauth"] = state ? state.oauth : undefined;
             resourceInputs["quic"] = state ? state.quic : undefined;
             resourceInputs["ruleId"] = state ? state.ruleId : undefined;
             resourceInputs["scheduler"] = state ? state.scheduler : undefined;
@@ -186,9 +200,6 @@ export class ListenerRule extends pulumi.CustomResource {
             const args = argsOrState as ListenerRuleArgs | undefined;
             if ((!args || args.clbId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'clbId'");
-            }
-            if ((!args || args.domain === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'domain'");
             }
             if ((!args || args.listenerId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'listenerId'");
@@ -201,6 +212,7 @@ export class ListenerRule extends pulumi.CustomResource {
             resourceInputs["certificateSslMode"] = args ? args.certificateSslMode : undefined;
             resourceInputs["clbId"] = args ? args.clbId : undefined;
             resourceInputs["domain"] = args ? args.domain : undefined;
+            resourceInputs["domains"] = args ? args.domains : undefined;
             resourceInputs["forwardType"] = args ? args.forwardType : undefined;
             resourceInputs["healthCheckHealthNum"] = args ? args.healthCheckHealthNum : undefined;
             resourceInputs["healthCheckHttpCode"] = args ? args.healthCheckHttpCode : undefined;
@@ -214,6 +226,7 @@ export class ListenerRule extends pulumi.CustomResource {
             resourceInputs["healthCheckUnhealthNum"] = args ? args.healthCheckUnhealthNum : undefined;
             resourceInputs["http2Switch"] = args ? args.http2Switch : undefined;
             resourceInputs["listenerId"] = args ? args.listenerId : undefined;
+            resourceInputs["oauth"] = args ? args.oauth : undefined;
             resourceInputs["quic"] = args ? args.quic : undefined;
             resourceInputs["scheduler"] = args ? args.scheduler : undefined;
             resourceInputs["sessionExpireTime"] = args ? args.sessionExpireTime : undefined;
@@ -247,12 +260,18 @@ export interface ListenerRuleState {
      */
     clbId?: pulumi.Input<string>;
     /**
-     * Domain name of the listener rule.
+     * Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
      */
     domain?: pulumi.Input<string>;
     /**
-     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-     * `HTTP`.
+     * Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
+     */
+    domains?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+     * The default is `HTTP`.
      */
     forwardType?: pulumi.Input<string>;
     /**
@@ -296,7 +315,7 @@ export interface ListenerRuleState {
      */
     healthCheckTimeOut?: pulumi.Input<number>;
     /**
-     * Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+     * Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
      */
     healthCheckType?: pulumi.Input<string>;
     /**
@@ -313,6 +332,10 @@ export interface ListenerRuleState {
      * ID of CLB listener.
      */
     listenerId?: pulumi.Input<string>;
+    /**
+     * OAuth configuration information.
+     */
+    oauth?: pulumi.Input<inputs.Clb.ListenerRuleOauth>;
     /**
      * Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
      */
@@ -365,12 +388,18 @@ export interface ListenerRuleArgs {
      */
     clbId: pulumi.Input<string>;
     /**
-     * Domain name of the listener rule.
+     * Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
      */
-    domain: pulumi.Input<string>;
+    domain?: pulumi.Input<string>;
     /**
-     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-     * `HTTP`.
+     * Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+     * `domains`.
+     */
+    domains?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+     * The default is `HTTP`.
      */
     forwardType?: pulumi.Input<string>;
     /**
@@ -414,7 +443,7 @@ export interface ListenerRuleArgs {
      */
     healthCheckTimeOut?: pulumi.Input<number>;
     /**
-     * Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+     * Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
      */
     healthCheckType?: pulumi.Input<string>;
     /**
@@ -431,6 +460,10 @@ export interface ListenerRuleArgs {
      * ID of CLB listener.
      */
     listenerId: pulumi.Input<string>;
+    /**
+     * OAuth configuration information.
+     */
+    oauth?: pulumi.Input<inputs.Clb.ListenerRuleOauth>;
     /**
      * Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
      */

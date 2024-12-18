@@ -61,9 +61,17 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+     * CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
      */
     public readonly qos!: pulumi.Output<string | undefined>;
+    /**
+     * Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+     */
+    public readonly routeEcmpFlag!: pulumi.Output<boolean | undefined>;
+    /**
+     * Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+     */
+    public readonly routeOverlapFlag!: pulumi.Output<boolean | undefined>;
     /**
      * States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
      */
@@ -93,6 +101,8 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["instanceCount"] = state ? state.instanceCount : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["qos"] = state ? state.qos : undefined;
+            resourceInputs["routeEcmpFlag"] = state ? state.routeEcmpFlag : undefined;
+            resourceInputs["routeOverlapFlag"] = state ? state.routeOverlapFlag : undefined;
             resourceInputs["state"] = state ? state.state : undefined;
             resourceInputs["tags"] = state ? state.tags : undefined;
         } else {
@@ -102,6 +112,8 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["description"] = args ? args.description : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["qos"] = args ? args.qos : undefined;
+            resourceInputs["routeEcmpFlag"] = args ? args.routeEcmpFlag : undefined;
+            resourceInputs["routeOverlapFlag"] = args ? args.routeOverlapFlag : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["instanceCount"] = undefined /*out*/;
@@ -145,9 +157,17 @@ export interface InstanceState {
      */
     name?: pulumi.Input<string>;
     /**
-     * Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+     * CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
      */
     qos?: pulumi.Input<string>;
+    /**
+     * Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+     */
+    routeEcmpFlag?: pulumi.Input<boolean>;
+    /**
+     * Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+     */
+    routeOverlapFlag?: pulumi.Input<boolean>;
     /**
      * States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
      */
@@ -183,9 +203,17 @@ export interface InstanceArgs {
      */
     name?: pulumi.Input<string>;
     /**
-     * Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+     * CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
      */
     qos?: pulumi.Input<string>;
+    /**
+     * Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+     */
+    routeEcmpFlag?: pulumi.Input<boolean>;
+    /**
+     * Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+     */
+    routeOverlapFlag?: pulumi.Input<boolean>;
     /**
      * Instance tag.
      */

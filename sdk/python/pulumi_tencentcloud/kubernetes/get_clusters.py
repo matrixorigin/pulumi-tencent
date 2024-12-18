@@ -22,7 +22,7 @@ class GetClustersResult:
     """
     A collection of values returned by getClusters.
     """
-    def __init__(__self__, cluster_id=None, cluster_name=None, id=None, lists=None, result_output_file=None, tags=None):
+    def __init__(__self__, cluster_id=None, cluster_name=None, id=None, kube_config_file_prefix=None, lists=None, result_output_file=None, tags=None):
         if cluster_id and not isinstance(cluster_id, str):
             raise TypeError("Expected argument 'cluster_id' to be a str")
         pulumi.set(__self__, "cluster_id", cluster_id)
@@ -32,6 +32,9 @@ class GetClustersResult:
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
+        if kube_config_file_prefix and not isinstance(kube_config_file_prefix, str):
+            raise TypeError("Expected argument 'kube_config_file_prefix' to be a str")
+        pulumi.set(__self__, "kube_config_file_prefix", kube_config_file_prefix)
         if lists and not isinstance(lists, list):
             raise TypeError("Expected argument 'lists' to be a list")
         pulumi.set(__self__, "lists", lists)
@@ -61,6 +64,11 @@ class GetClustersResult:
         return pulumi.get(self, "id")
 
     @property
+    @pulumi.getter(name="kubeConfigFilePrefix")
+    def kube_config_file_prefix(self) -> Optional[str]:
+        return pulumi.get(self, "kube_config_file_prefix")
+
+    @property
     @pulumi.getter
     def lists(self) -> Sequence['outputs.GetClustersListResult']:
         return pulumi.get(self, "lists")
@@ -85,6 +93,7 @@ class AwaitableGetClustersResult(GetClustersResult):
             cluster_id=self.cluster_id,
             cluster_name=self.cluster_name,
             id=self.id,
+            kube_config_file_prefix=self.kube_config_file_prefix,
             lists=self.lists,
             result_output_file=self.result_output_file,
             tags=self.tags)
@@ -92,6 +101,7 @@ class AwaitableGetClustersResult(GetClustersResult):
 
 def get_clusters(cluster_id: Optional[str] = None,
                  cluster_name: Optional[str] = None,
+                 kube_config_file_prefix: Optional[str] = None,
                  result_output_file: Optional[str] = None,
                  tags: Optional[Mapping[str, Any]] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetClustersResult:
@@ -101,6 +111,7 @@ def get_clusters(cluster_id: Optional[str] = None,
     __args__ = dict()
     __args__['clusterId'] = cluster_id
     __args__['clusterName'] = cluster_name
+    __args__['kubeConfigFilePrefix'] = kube_config_file_prefix
     __args__['resultOutputFile'] = result_output_file
     __args__['tags'] = tags
     opts = pulumi.InvokeOptions.merge(_utilities.get_invoke_opts_defaults(), opts)
@@ -110,6 +121,7 @@ def get_clusters(cluster_id: Optional[str] = None,
         cluster_id=pulumi.get(__ret__, 'cluster_id'),
         cluster_name=pulumi.get(__ret__, 'cluster_name'),
         id=pulumi.get(__ret__, 'id'),
+        kube_config_file_prefix=pulumi.get(__ret__, 'kube_config_file_prefix'),
         lists=pulumi.get(__ret__, 'lists'),
         result_output_file=pulumi.get(__ret__, 'result_output_file'),
         tags=pulumi.get(__ret__, 'tags'))
@@ -118,6 +130,7 @@ def get_clusters(cluster_id: Optional[str] = None,
 @_utilities.lift_output_func(get_clusters)
 def get_clusters_output(cluster_id: Optional[pulumi.Input[Optional[str]]] = None,
                         cluster_name: Optional[pulumi.Input[Optional[str]]] = None,
+                        kube_config_file_prefix: Optional[pulumi.Input[Optional[str]]] = None,
                         result_output_file: Optional[pulumi.Input[Optional[str]]] = None,
                         tags: Optional[pulumi.Input[Optional[Mapping[str, Any]]]] = None,
                         opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetClustersResult]:

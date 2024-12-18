@@ -10,9 +10,11 @@ from .audit_log_file import *
 from .backup_download_restriction import *
 from .backup_encryption_status import *
 from .backup_policy import *
+from .cls_log_attachment import *
 from .database import *
 from .db_import_job_operation import *
 from .deploy_group import *
+from .dr_instance import *
 from .dr_instance_to_mater import *
 from .get_backup_list import *
 from .get_backup_overview import *
@@ -64,6 +66,7 @@ from .ro_stop_replication import *
 from .rollback import *
 from .rollback_stop import *
 from .security_groups_attachment import *
+from .ssl import *
 from .switch_for_upgrade import *
 from .switch_master_slave_operation import *
 from .switch_proxy import *

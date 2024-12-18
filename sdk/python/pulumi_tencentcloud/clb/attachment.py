@@ -19,19 +19,27 @@ class AttachmentArgs:
                  clb_id: pulumi.Input[str],
                  listener_id: pulumi.Input[str],
                  targets: pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]],
-                 rule_id: Optional[pulumi.Input[str]] = None):
+                 domain: Optional[pulumi.Input[str]] = None,
+                 rule_id: Optional[pulumi.Input[str]] = None,
+                 url: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a Attachment resource.
         :param pulumi.Input[str] clb_id: ID of the CLB.
         :param pulumi.Input[str] listener_id: ID of the CLB listener.
         :param pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]] targets: Information of the backends to be attached.
+        :param pulumi.Input[str] domain: Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         :param pulumi.Input[str] rule_id: ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
+        :param pulumi.Input[str] url: URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         """
         pulumi.set(__self__, "clb_id", clb_id)
         pulumi.set(__self__, "listener_id", listener_id)
         pulumi.set(__self__, "targets", targets)
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
         if rule_id is not None:
             pulumi.set(__self__, "rule_id", rule_id)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter(name="clbId")
@@ -70,6 +78,18 @@ class AttachmentArgs:
         pulumi.set(self, "targets", value)
 
     @property
+    @pulumi.getter
+    def domain(self) -> Optional[pulumi.Input[str]]:
+        """
+        Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "domain")
+
+    @domain.setter
+    def domain(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "domain", value)
+
+    @property
     @pulumi.getter(name="ruleId")
     def rule_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -81,25 +101,43 @@ class AttachmentArgs:
     def rule_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "rule_id", value)
 
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "url", value)
+
 
 @pulumi.input_type
 class _AttachmentState:
     def __init__(__self__, *,
                  clb_id: Optional[pulumi.Input[str]] = None,
+                 domain: Optional[pulumi.Input[str]] = None,
                  listener_id: Optional[pulumi.Input[str]] = None,
                  protocol_type: Optional[pulumi.Input[str]] = None,
                  rule_id: Optional[pulumi.Input[str]] = None,
-                 targets: Optional[pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]]] = None):
+                 targets: Optional[pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]]] = None,
+                 url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Attachment resources.
         :param pulumi.Input[str] clb_id: ID of the CLB.
+        :param pulumi.Input[str] domain: Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         :param pulumi.Input[str] listener_id: ID of the CLB listener.
         :param pulumi.Input[str] protocol_type: Type of protocol within the listener.
         :param pulumi.Input[str] rule_id: ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
         :param pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]] targets: Information of the backends to be attached.
+        :param pulumi.Input[str] url: URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         """
         if clb_id is not None:
             pulumi.set(__self__, "clb_id", clb_id)
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
         if listener_id is not None:
             pulumi.set(__self__, "listener_id", listener_id)
         if protocol_type is not None:
@@ -108,6 +146,8 @@ class _AttachmentState:
             pulumi.set(__self__, "rule_id", rule_id)
         if targets is not None:
             pulumi.set(__self__, "targets", targets)
+        if url is not None:
+            pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter(name="clbId")
@@ -120,6 +160,18 @@ class _AttachmentState:
     @clb_id.setter
     def clb_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "clb_id", value)
+
+    @property
+    @pulumi.getter
+    def domain(self) -> Optional[pulumi.Input[str]]:
+        """
+        Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "domain")
+
+    @domain.setter
+    def domain(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "domain", value)
 
     @property
     @pulumi.getter(name="listenerId")
@@ -169,6 +221,18 @@ class _AttachmentState:
     def targets(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['AttachmentTargetArgs']]]]):
         pulumi.set(self, "targets", value)
 
+    @property
+    @pulumi.getter
+    def url(self) -> Optional[pulumi.Input[str]]:
+        """
+        URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "url")
+
+    @url.setter
+    def url(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "url", value)
+
 
 class Attachment(pulumi.CustomResource):
     @overload
@@ -176,18 +240,22 @@ class Attachment(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  clb_id: Optional[pulumi.Input[str]] = None,
+                 domain: Optional[pulumi.Input[str]] = None,
                  listener_id: Optional[pulumi.Input[str]] = None,
                  rule_id: Optional[pulumi.Input[str]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]]] = None,
+                 url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a Attachment resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] clb_id: ID of the CLB.
+        :param pulumi.Input[str] domain: Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         :param pulumi.Input[str] listener_id: ID of the CLB listener.
         :param pulumi.Input[str] rule_id: ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]] targets: Information of the backends to be attached.
+        :param pulumi.Input[str] url: URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         """
         ...
     @overload
@@ -213,9 +281,11 @@ class Attachment(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  clb_id: Optional[pulumi.Input[str]] = None,
+                 domain: Optional[pulumi.Input[str]] = None,
                  listener_id: Optional[pulumi.Input[str]] = None,
                  rule_id: Optional[pulumi.Input[str]] = None,
                  targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]]] = None,
+                 url: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -228,6 +298,7 @@ class Attachment(pulumi.CustomResource):
             if clb_id is None and not opts.urn:
                 raise TypeError("Missing required property 'clb_id'")
             __props__.__dict__["clb_id"] = clb_id
+            __props__.__dict__["domain"] = domain
             if listener_id is None and not opts.urn:
                 raise TypeError("Missing required property 'listener_id'")
             __props__.__dict__["listener_id"] = listener_id
@@ -235,6 +306,7 @@ class Attachment(pulumi.CustomResource):
             if targets is None and not opts.urn:
                 raise TypeError("Missing required property 'targets'")
             __props__.__dict__["targets"] = targets
+            __props__.__dict__["url"] = url
             __props__.__dict__["protocol_type"] = None
         super(Attachment, __self__).__init__(
             'tencentcloud:Clb/attachment:Attachment',
@@ -247,10 +319,12 @@ class Attachment(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             clb_id: Optional[pulumi.Input[str]] = None,
+            domain: Optional[pulumi.Input[str]] = None,
             listener_id: Optional[pulumi.Input[str]] = None,
             protocol_type: Optional[pulumi.Input[str]] = None,
             rule_id: Optional[pulumi.Input[str]] = None,
-            targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]]] = None) -> 'Attachment':
+            targets: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]]] = None,
+            url: Optional[pulumi.Input[str]] = None) -> 'Attachment':
         """
         Get an existing Attachment resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -259,20 +333,24 @@ class Attachment(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] clb_id: ID of the CLB.
+        :param pulumi.Input[str] domain: Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         :param pulumi.Input[str] listener_id: ID of the CLB listener.
         :param pulumi.Input[str] protocol_type: Type of protocol within the listener.
         :param pulumi.Input[str] rule_id: ID of the CLB listener rule. Only supports listeners of `HTTPS` and `HTTP` protocol.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AttachmentTargetArgs']]]] targets: Information of the backends to be attached.
+        :param pulumi.Input[str] url: URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
         __props__ = _AttachmentState.__new__(_AttachmentState)
 
         __props__.__dict__["clb_id"] = clb_id
+        __props__.__dict__["domain"] = domain
         __props__.__dict__["listener_id"] = listener_id
         __props__.__dict__["protocol_type"] = protocol_type
         __props__.__dict__["rule_id"] = rule_id
         __props__.__dict__["targets"] = targets
+        __props__.__dict__["url"] = url
         return Attachment(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -282,6 +360,14 @@ class Attachment(pulumi.CustomResource):
         ID of the CLB.
         """
         return pulumi.get(self, "clb_id")
+
+    @property
+    @pulumi.getter
+    def domain(self) -> pulumi.Output[Optional[str]]:
+        """
+        Domain of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "domain")
 
     @property
     @pulumi.getter(name="listenerId")
@@ -314,4 +400,12 @@ class Attachment(pulumi.CustomResource):
         Information of the backends to be attached.
         """
         return pulumi.get(self, "targets")
+
+    @property
+    @pulumi.getter
+    def url(self) -> pulumi.Output[Optional[str]]:
+        """
+        URL of the target forwarding rule. Does not take effect when parameter `rule_id` is provided.
+        """
+        return pulumi.get(self, "url")
 

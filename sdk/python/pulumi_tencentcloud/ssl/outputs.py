@@ -11,6 +11,7 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'CheckCertificateDomainVerificationOperationVerificationResult',
     'FreeCertificateDvAuth',
     'PayCertificateDvAuth',
     'PayCertificateInformation',
@@ -61,6 +62,100 @@ __all__ = [
     'GetDescribeManagerDetailCompanyInfoResult',
     'GetDescribeManagersManagerResult',
 ]
+
+@pulumi.output_type
+class CheckCertificateDomainVerificationOperationVerificationResult(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "caCheck":
+            suggest = "ca_check"
+        elif key == "checkValues":
+            suggest = "check_values"
+        elif key == "localCheck":
+            suggest = "local_check"
+        elif key == "localCheckFailReason":
+            suggest = "local_check_fail_reason"
+        elif key == "verifyType":
+            suggest = "verify_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in CheckCertificateDomainVerificationOperationVerificationResult. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        CheckCertificateDomainVerificationOperationVerificationResult.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        CheckCertificateDomainVerificationOperationVerificationResult.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 ca_check: Optional[int] = None,
+                 check_values: Optional[Sequence[str]] = None,
+                 domain: Optional[str] = None,
+                 frequently: Optional[bool] = None,
+                 issued: Optional[bool] = None,
+                 local_check: Optional[int] = None,
+                 local_check_fail_reason: Optional[str] = None,
+                 verify_type: Optional[str] = None):
+        if ca_check is not None:
+            pulumi.set(__self__, "ca_check", ca_check)
+        if check_values is not None:
+            pulumi.set(__self__, "check_values", check_values)
+        if domain is not None:
+            pulumi.set(__self__, "domain", domain)
+        if frequently is not None:
+            pulumi.set(__self__, "frequently", frequently)
+        if issued is not None:
+            pulumi.set(__self__, "issued", issued)
+        if local_check is not None:
+            pulumi.set(__self__, "local_check", local_check)
+        if local_check_fail_reason is not None:
+            pulumi.set(__self__, "local_check_fail_reason", local_check_fail_reason)
+        if verify_type is not None:
+            pulumi.set(__self__, "verify_type", verify_type)
+
+    @property
+    @pulumi.getter(name="caCheck")
+    def ca_check(self) -> Optional[int]:
+        return pulumi.get(self, "ca_check")
+
+    @property
+    @pulumi.getter(name="checkValues")
+    def check_values(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "check_values")
+
+    @property
+    @pulumi.getter
+    def domain(self) -> Optional[str]:
+        return pulumi.get(self, "domain")
+
+    @property
+    @pulumi.getter
+    def frequently(self) -> Optional[bool]:
+        return pulumi.get(self, "frequently")
+
+    @property
+    @pulumi.getter
+    def issued(self) -> Optional[bool]:
+        return pulumi.get(self, "issued")
+
+    @property
+    @pulumi.getter(name="localCheck")
+    def local_check(self) -> Optional[int]:
+        return pulumi.get(self, "local_check")
+
+    @property
+    @pulumi.getter(name="localCheckFailReason")
+    def local_check_fail_reason(self) -> Optional[str]:
+        return pulumi.get(self, "local_check_fail_reason")
+
+    @property
+    @pulumi.getter(name="verifyType")
+    def verify_type(self) -> Optional[str]:
+        return pulumi.get(self, "verify_type")
+
 
 @pulumi.output_type
 class FreeCertificateDvAuth(dict):
@@ -462,11 +557,13 @@ class GetCertificatesCertificateResult(dict):
                  key: str,
                  name: str,
                  order_id: str,
+                 owner_uin: str,
                  product_zh_name: str,
                  project_id: int,
                  status: int,
                  subject_names: Sequence[str],
-                 type: str):
+                 type: str,
+                 validity_period: str):
         pulumi.set(__self__, "begin_time", begin_time)
         pulumi.set(__self__, "cert", cert)
         pulumi.set(__self__, "create_time", create_time)
@@ -477,11 +574,13 @@ class GetCertificatesCertificateResult(dict):
         pulumi.set(__self__, "key", key)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "order_id", order_id)
+        pulumi.set(__self__, "owner_uin", owner_uin)
         pulumi.set(__self__, "product_zh_name", product_zh_name)
         pulumi.set(__self__, "project_id", project_id)
         pulumi.set(__self__, "status", status)
         pulumi.set(__self__, "subject_names", subject_names)
         pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "validity_period", validity_period)
 
     @property
     @pulumi.getter(name="beginTime")
@@ -534,6 +633,11 @@ class GetCertificatesCertificateResult(dict):
         return pulumi.get(self, "order_id")
 
     @property
+    @pulumi.getter(name="ownerUin")
+    def owner_uin(self) -> str:
+        return pulumi.get(self, "owner_uin")
+
+    @property
     @pulumi.getter(name="productZhName")
     def product_zh_name(self) -> str:
         return pulumi.get(self, "product_zh_name")
@@ -557,6 +661,11 @@ class GetCertificatesCertificateResult(dict):
     @pulumi.getter
     def type(self) -> str:
         return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter(name="validityPeriod")
+    def validity_period(self) -> str:
+        return pulumi.get(self, "validity_period")
 
 
 @pulumi.output_type

@@ -163,7 +163,7 @@ class _ProjectState:
                  url: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Project resources.
-        :param pulumi.Input[str] create_time: Creata Time.
+        :param pulumi.Input[str] create_time: Create Time.
         :param pulumi.Input[str] creator: Creator ID.
         :param pulumi.Input[str] desc: Description of the created project (optional and up to 1,000 characters).
         :param pulumi.Input[int] enable_url_group: Whether to enable aggregation.
@@ -215,7 +215,7 @@ class _ProjectState:
     @pulumi.getter(name="createTime")
     def create_time(self) -> Optional[pulumi.Input[str]]:
         """
-        Creata Time.
+        Create Time.
         """
         return pulumi.get(self, "create_time")
 
@@ -515,7 +515,7 @@ class Project(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] create_time: Creata Time.
+        :param pulumi.Input[str] create_time: Create Time.
         :param pulumi.Input[str] creator: Creator ID.
         :param pulumi.Input[str] desc: Description of the created project (optional and up to 1,000 characters).
         :param pulumi.Input[int] enable_url_group: Whether to enable aggregation.
@@ -557,7 +557,7 @@ class Project(pulumi.CustomResource):
     @pulumi.getter(name="createTime")
     def create_time(self) -> pulumi.Output[str]:
         """
-        Creata Time.
+        Create Time.
         """
         return pulumi.get(self, "create_time")
 

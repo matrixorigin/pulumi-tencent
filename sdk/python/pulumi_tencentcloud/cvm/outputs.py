@@ -11,6 +11,7 @@ from .. import _utilities
 from . import outputs
 
 __all__ = [
+    'ActionTimerActionTimer',
     'ChcConfigBmcVirtualPrivateCloud',
     'ChcConfigDeployVirtualPrivateCloud',
     'ImportImageTagSpecification',
@@ -68,6 +69,46 @@ __all__ = [
     'GetInstancesModificationInstanceTypeConfigStatusListResult',
     'GetInstancesModificationInstanceTypeConfigStatusListInstanceTypeConfigResult',
 ]
+
+@pulumi.output_type
+class ActionTimerActionTimer(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "actionTime":
+            suggest = "action_time"
+        elif key == "timerAction":
+            suggest = "timer_action"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ActionTimerActionTimer. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ActionTimerActionTimer.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ActionTimerActionTimer.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 action_time: Optional[str] = None,
+                 timer_action: Optional[str] = None):
+        if action_time is not None:
+            pulumi.set(__self__, "action_time", action_time)
+        if timer_action is not None:
+            pulumi.set(__self__, "timer_action", timer_action)
+
+    @property
+    @pulumi.getter(name="actionTime")
+    def action_time(self) -> Optional[str]:
+        return pulumi.get(self, "action_time")
+
+    @property
+    @pulumi.getter(name="timerAction")
+    def timer_action(self) -> Optional[str]:
+        return pulumi.get(self, "timer_action")
+
 
 @pulumi.output_type
 class ChcConfigBmcVirtualPrivateCloud(dict):
@@ -871,6 +912,9 @@ class LaunchTemplatePlacement(dict):
     @property
     @pulumi.getter(name="hostIps")
     def host_ips(self) -> Optional[Sequence[str]]:
+        warnings.warn("""It has been deprecated from version 1.81.108.""", DeprecationWarning)
+        pulumi.log.warn("""host_ips is deprecated: It has been deprecated from version 1.81.108.""")
+
         return pulumi.get(self, "host_ips")
 
     @property
@@ -2390,6 +2434,9 @@ class GetChcHostsChcHostSetPlacementResult(dict):
     @property
     @pulumi.getter(name="hostIps")
     def host_ips(self) -> Sequence[str]:
+        warnings.warn("""It has been deprecated from version 1.81.108.""", DeprecationWarning)
+        pulumi.log.warn("""host_ips is deprecated: It has been deprecated from version 1.81.108.""")
+
         return pulumi.get(self, "host_ips")
 
     @property

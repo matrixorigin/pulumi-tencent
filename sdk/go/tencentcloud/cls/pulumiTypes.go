@@ -19,6 +19,7 @@ type AlarmAlarmTarget struct {
 	Number          int    `pulumi:"number"`
 	Query           string `pulumi:"query"`
 	StartTimeOffset int    `pulumi:"startTimeOffset"`
+	SyntaxRule      *int   `pulumi:"syntaxRule"`
 	TopicId         string `pulumi:"topicId"`
 }
 
@@ -39,6 +40,7 @@ type AlarmAlarmTargetArgs struct {
 	Number          pulumi.IntInput    `pulumi:"number"`
 	Query           pulumi.StringInput `pulumi:"query"`
 	StartTimeOffset pulumi.IntInput    `pulumi:"startTimeOffset"`
+	SyntaxRule      pulumi.IntPtrInput `pulumi:"syntaxRule"`
 	TopicId         pulumi.StringInput `pulumi:"topicId"`
 }
 
@@ -111,6 +113,10 @@ func (o AlarmAlarmTargetOutput) Query() pulumi.StringOutput {
 
 func (o AlarmAlarmTargetOutput) StartTimeOffset() pulumi.IntOutput {
 	return o.ApplyT(func(v AlarmAlarmTarget) int { return v.StartTimeOffset }).(pulumi.IntOutput)
+}
+
+func (o AlarmAlarmTargetOutput) SyntaxRule() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AlarmAlarmTarget) *int { return v.SyntaxRule }).(pulumi.IntPtrOutput)
 }
 
 func (o AlarmAlarmTargetOutput) TopicId() pulumi.StringOutput {
@@ -645,9 +651,110 @@ func (o AlarmMonitorTimePtrOutput) Type() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type AlarmMultiCondition struct {
+	AlarmLevel *int    `pulumi:"alarmLevel"`
+	Condition  *string `pulumi:"condition"`
+}
+
+// AlarmMultiConditionInput is an input type that accepts AlarmMultiConditionArgs and AlarmMultiConditionOutput values.
+// You can construct a concrete instance of `AlarmMultiConditionInput` via:
+//
+//	AlarmMultiConditionArgs{...}
+type AlarmMultiConditionInput interface {
+	pulumi.Input
+
+	ToAlarmMultiConditionOutput() AlarmMultiConditionOutput
+	ToAlarmMultiConditionOutputWithContext(context.Context) AlarmMultiConditionOutput
+}
+
+type AlarmMultiConditionArgs struct {
+	AlarmLevel pulumi.IntPtrInput    `pulumi:"alarmLevel"`
+	Condition  pulumi.StringPtrInput `pulumi:"condition"`
+}
+
+func (AlarmMultiConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlarmMultiCondition)(nil)).Elem()
+}
+
+func (i AlarmMultiConditionArgs) ToAlarmMultiConditionOutput() AlarmMultiConditionOutput {
+	return i.ToAlarmMultiConditionOutputWithContext(context.Background())
+}
+
+func (i AlarmMultiConditionArgs) ToAlarmMultiConditionOutputWithContext(ctx context.Context) AlarmMultiConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlarmMultiConditionOutput)
+}
+
+// AlarmMultiConditionArrayInput is an input type that accepts AlarmMultiConditionArray and AlarmMultiConditionArrayOutput values.
+// You can construct a concrete instance of `AlarmMultiConditionArrayInput` via:
+//
+//	AlarmMultiConditionArray{ AlarmMultiConditionArgs{...} }
+type AlarmMultiConditionArrayInput interface {
+	pulumi.Input
+
+	ToAlarmMultiConditionArrayOutput() AlarmMultiConditionArrayOutput
+	ToAlarmMultiConditionArrayOutputWithContext(context.Context) AlarmMultiConditionArrayOutput
+}
+
+type AlarmMultiConditionArray []AlarmMultiConditionInput
+
+func (AlarmMultiConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AlarmMultiCondition)(nil)).Elem()
+}
+
+func (i AlarmMultiConditionArray) ToAlarmMultiConditionArrayOutput() AlarmMultiConditionArrayOutput {
+	return i.ToAlarmMultiConditionArrayOutputWithContext(context.Background())
+}
+
+func (i AlarmMultiConditionArray) ToAlarmMultiConditionArrayOutputWithContext(ctx context.Context) AlarmMultiConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AlarmMultiConditionArrayOutput)
+}
+
+type AlarmMultiConditionOutput struct{ *pulumi.OutputState }
+
+func (AlarmMultiConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AlarmMultiCondition)(nil)).Elem()
+}
+
+func (o AlarmMultiConditionOutput) ToAlarmMultiConditionOutput() AlarmMultiConditionOutput {
+	return o
+}
+
+func (o AlarmMultiConditionOutput) ToAlarmMultiConditionOutputWithContext(ctx context.Context) AlarmMultiConditionOutput {
+	return o
+}
+
+func (o AlarmMultiConditionOutput) AlarmLevel() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AlarmMultiCondition) *int { return v.AlarmLevel }).(pulumi.IntPtrOutput)
+}
+
+func (o AlarmMultiConditionOutput) Condition() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlarmMultiCondition) *string { return v.Condition }).(pulumi.StringPtrOutput)
+}
+
+type AlarmMultiConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (AlarmMultiConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AlarmMultiCondition)(nil)).Elem()
+}
+
+func (o AlarmMultiConditionArrayOutput) ToAlarmMultiConditionArrayOutput() AlarmMultiConditionArrayOutput {
+	return o
+}
+
+func (o AlarmMultiConditionArrayOutput) ToAlarmMultiConditionArrayOutputWithContext(ctx context.Context) AlarmMultiConditionArrayOutput {
+	return o
+}
+
+func (o AlarmMultiConditionArrayOutput) Index(i pulumi.IntInput) AlarmMultiConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AlarmMultiCondition {
+		return vs[0].([]AlarmMultiCondition)[vs[1].(int)]
+	}).(AlarmMultiConditionOutput)
+}
+
 type AlarmNoticeNoticeReceiver struct {
 	EndTime          *string  `pulumi:"endTime"`
 	Index            *int     `pulumi:"index"`
+	NoticeContentId  *string  `pulumi:"noticeContentId"`
 	ReceiverChannels []string `pulumi:"receiverChannels"`
 	ReceiverIds      []int    `pulumi:"receiverIds"`
 	ReceiverType     string   `pulumi:"receiverType"`
@@ -668,6 +775,7 @@ type AlarmNoticeNoticeReceiverInput interface {
 type AlarmNoticeNoticeReceiverArgs struct {
 	EndTime          pulumi.StringPtrInput   `pulumi:"endTime"`
 	Index            pulumi.IntPtrInput      `pulumi:"index"`
+	NoticeContentId  pulumi.StringPtrInput   `pulumi:"noticeContentId"`
 	ReceiverChannels pulumi.StringArrayInput `pulumi:"receiverChannels"`
 	ReceiverIds      pulumi.IntArrayInput    `pulumi:"receiverIds"`
 	ReceiverType     pulumi.StringInput      `pulumi:"receiverType"`
@@ -733,6 +841,10 @@ func (o AlarmNoticeNoticeReceiverOutput) Index() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v AlarmNoticeNoticeReceiver) *int { return v.Index }).(pulumi.IntPtrOutput)
 }
 
+func (o AlarmNoticeNoticeReceiverOutput) NoticeContentId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlarmNoticeNoticeReceiver) *string { return v.NoticeContentId }).(pulumi.StringPtrOutput)
+}
+
 func (o AlarmNoticeNoticeReceiverOutput) ReceiverChannels() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v AlarmNoticeNoticeReceiver) []string { return v.ReceiverChannels }).(pulumi.StringArrayOutput)
 }
@@ -770,12 +882,19 @@ func (o AlarmNoticeNoticeReceiverArrayOutput) Index(i pulumi.IntInput) AlarmNoti
 }
 
 type AlarmNoticeWebCallback struct {
-	Body         *string  `pulumi:"body"`
-	CallbackType string   `pulumi:"callbackType"`
-	Headers      []string `pulumi:"headers"`
-	Index        *int     `pulumi:"index"`
-	Method       *string  `pulumi:"method"`
-	Url          string   `pulumi:"url"`
+	// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
+	Body         *string `pulumi:"body"`
+	CallbackType string  `pulumi:"callbackType"`
+	// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
+	Headers         []string `pulumi:"headers"`
+	Index           *int     `pulumi:"index"`
+	Method          *string  `pulumi:"method"`
+	Mobiles         []string `pulumi:"mobiles"`
+	NoticeContentId *string  `pulumi:"noticeContentId"`
+	RemindType      *int     `pulumi:"remindType"`
+	Url             string   `pulumi:"url"`
+	UserIds         []string `pulumi:"userIds"`
+	WebCallbackId   *string  `pulumi:"webCallbackId"`
 }
 
 // AlarmNoticeWebCallbackInput is an input type that accepts AlarmNoticeWebCallbackArgs and AlarmNoticeWebCallbackOutput values.
@@ -790,12 +909,19 @@ type AlarmNoticeWebCallbackInput interface {
 }
 
 type AlarmNoticeWebCallbackArgs struct {
-	Body         pulumi.StringPtrInput   `pulumi:"body"`
-	CallbackType pulumi.StringInput      `pulumi:"callbackType"`
-	Headers      pulumi.StringArrayInput `pulumi:"headers"`
-	Index        pulumi.IntPtrInput      `pulumi:"index"`
-	Method       pulumi.StringPtrInput   `pulumi:"method"`
-	Url          pulumi.StringInput      `pulumi:"url"`
+	// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
+	Body         pulumi.StringPtrInput `pulumi:"body"`
+	CallbackType pulumi.StringInput    `pulumi:"callbackType"`
+	// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
+	Headers         pulumi.StringArrayInput `pulumi:"headers"`
+	Index           pulumi.IntPtrInput      `pulumi:"index"`
+	Method          pulumi.StringPtrInput   `pulumi:"method"`
+	Mobiles         pulumi.StringArrayInput `pulumi:"mobiles"`
+	NoticeContentId pulumi.StringPtrInput   `pulumi:"noticeContentId"`
+	RemindType      pulumi.IntPtrInput      `pulumi:"remindType"`
+	Url             pulumi.StringInput      `pulumi:"url"`
+	UserIds         pulumi.StringArrayInput `pulumi:"userIds"`
+	WebCallbackId   pulumi.StringPtrInput   `pulumi:"webCallbackId"`
 }
 
 func (AlarmNoticeWebCallbackArgs) ElementType() reflect.Type {
@@ -849,6 +975,7 @@ func (o AlarmNoticeWebCallbackOutput) ToAlarmNoticeWebCallbackOutputWithContext(
 	return o
 }
 
+// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
 func (o AlarmNoticeWebCallbackOutput) Body() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlarmNoticeWebCallback) *string { return v.Body }).(pulumi.StringPtrOutput)
 }
@@ -857,6 +984,7 @@ func (o AlarmNoticeWebCallbackOutput) CallbackType() pulumi.StringOutput {
 	return o.ApplyT(func(v AlarmNoticeWebCallback) string { return v.CallbackType }).(pulumi.StringOutput)
 }
 
+// Deprecated: This parameter is deprecated. Please use `notice_content_id`.
 func (o AlarmNoticeWebCallbackOutput) Headers() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v AlarmNoticeWebCallback) []string { return v.Headers }).(pulumi.StringArrayOutput)
 }
@@ -869,8 +997,28 @@ func (o AlarmNoticeWebCallbackOutput) Method() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v AlarmNoticeWebCallback) *string { return v.Method }).(pulumi.StringPtrOutput)
 }
 
+func (o AlarmNoticeWebCallbackOutput) Mobiles() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v AlarmNoticeWebCallback) []string { return v.Mobiles }).(pulumi.StringArrayOutput)
+}
+
+func (o AlarmNoticeWebCallbackOutput) NoticeContentId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlarmNoticeWebCallback) *string { return v.NoticeContentId }).(pulumi.StringPtrOutput)
+}
+
+func (o AlarmNoticeWebCallbackOutput) RemindType() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v AlarmNoticeWebCallback) *int { return v.RemindType }).(pulumi.IntPtrOutput)
+}
+
 func (o AlarmNoticeWebCallbackOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v AlarmNoticeWebCallback) string { return v.Url }).(pulumi.StringOutput)
+}
+
+func (o AlarmNoticeWebCallbackOutput) UserIds() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v AlarmNoticeWebCallback) []string { return v.UserIds }).(pulumi.StringArrayOutput)
+}
+
+func (o AlarmNoticeWebCallbackOutput) WebCallbackId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AlarmNoticeWebCallback) *string { return v.WebCallbackId }).(pulumi.StringPtrOutput)
 }
 
 type AlarmNoticeWebCallbackArrayOutput struct{ *pulumi.OutputState }
@@ -4768,9 +4916,10 @@ func (o DataTransformDstResourceArrayOutput) Index(i pulumi.IntInput) DataTransf
 }
 
 type IndexRule struct {
-	FullText *IndexRuleFullText `pulumi:"fullText"`
-	KeyValue *IndexRuleKeyValue `pulumi:"keyValue"`
-	Tag      *IndexRuleTag      `pulumi:"tag"`
+	DynamicIndex *IndexRuleDynamicIndex `pulumi:"dynamicIndex"`
+	FullText     *IndexRuleFullText     `pulumi:"fullText"`
+	KeyValue     *IndexRuleKeyValue     `pulumi:"keyValue"`
+	Tag          *IndexRuleTag          `pulumi:"tag"`
 }
 
 // IndexRuleInput is an input type that accepts IndexRuleArgs and IndexRuleOutput values.
@@ -4785,9 +4934,10 @@ type IndexRuleInput interface {
 }
 
 type IndexRuleArgs struct {
-	FullText IndexRuleFullTextPtrInput `pulumi:"fullText"`
-	KeyValue IndexRuleKeyValuePtrInput `pulumi:"keyValue"`
-	Tag      IndexRuleTagPtrInput      `pulumi:"tag"`
+	DynamicIndex IndexRuleDynamicIndexPtrInput `pulumi:"dynamicIndex"`
+	FullText     IndexRuleFullTextPtrInput     `pulumi:"fullText"`
+	KeyValue     IndexRuleKeyValuePtrInput     `pulumi:"keyValue"`
+	Tag          IndexRuleTagPtrInput          `pulumi:"tag"`
 }
 
 func (IndexRuleArgs) ElementType() reflect.Type {
@@ -4867,6 +5017,10 @@ func (o IndexRuleOutput) ToIndexRulePtrOutputWithContext(ctx context.Context) In
 	}).(IndexRulePtrOutput)
 }
 
+func (o IndexRuleOutput) DynamicIndex() IndexRuleDynamicIndexPtrOutput {
+	return o.ApplyT(func(v IndexRule) *IndexRuleDynamicIndex { return v.DynamicIndex }).(IndexRuleDynamicIndexPtrOutput)
+}
+
 func (o IndexRuleOutput) FullText() IndexRuleFullTextPtrOutput {
 	return o.ApplyT(func(v IndexRule) *IndexRuleFullText { return v.FullText }).(IndexRuleFullTextPtrOutput)
 }
@@ -4903,6 +5057,15 @@ func (o IndexRulePtrOutput) Elem() IndexRuleOutput {
 	}).(IndexRuleOutput)
 }
 
+func (o IndexRulePtrOutput) DynamicIndex() IndexRuleDynamicIndexPtrOutput {
+	return o.ApplyT(func(v *IndexRule) *IndexRuleDynamicIndex {
+		if v == nil {
+			return nil
+		}
+		return v.DynamicIndex
+	}).(IndexRuleDynamicIndexPtrOutput)
+}
+
 func (o IndexRulePtrOutput) FullText() IndexRuleFullTextPtrOutput {
 	return o.ApplyT(func(v *IndexRule) *IndexRuleFullText {
 		if v == nil {
@@ -4928,6 +5091,139 @@ func (o IndexRulePtrOutput) Tag() IndexRuleTagPtrOutput {
 		}
 		return v.Tag
 	}).(IndexRuleTagPtrOutput)
+}
+
+type IndexRuleDynamicIndex struct {
+	Status bool `pulumi:"status"`
+}
+
+// IndexRuleDynamicIndexInput is an input type that accepts IndexRuleDynamicIndexArgs and IndexRuleDynamicIndexOutput values.
+// You can construct a concrete instance of `IndexRuleDynamicIndexInput` via:
+//
+//	IndexRuleDynamicIndexArgs{...}
+type IndexRuleDynamicIndexInput interface {
+	pulumi.Input
+
+	ToIndexRuleDynamicIndexOutput() IndexRuleDynamicIndexOutput
+	ToIndexRuleDynamicIndexOutputWithContext(context.Context) IndexRuleDynamicIndexOutput
+}
+
+type IndexRuleDynamicIndexArgs struct {
+	Status pulumi.BoolInput `pulumi:"status"`
+}
+
+func (IndexRuleDynamicIndexArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IndexRuleDynamicIndex)(nil)).Elem()
+}
+
+func (i IndexRuleDynamicIndexArgs) ToIndexRuleDynamicIndexOutput() IndexRuleDynamicIndexOutput {
+	return i.ToIndexRuleDynamicIndexOutputWithContext(context.Background())
+}
+
+func (i IndexRuleDynamicIndexArgs) ToIndexRuleDynamicIndexOutputWithContext(ctx context.Context) IndexRuleDynamicIndexOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IndexRuleDynamicIndexOutput)
+}
+
+func (i IndexRuleDynamicIndexArgs) ToIndexRuleDynamicIndexPtrOutput() IndexRuleDynamicIndexPtrOutput {
+	return i.ToIndexRuleDynamicIndexPtrOutputWithContext(context.Background())
+}
+
+func (i IndexRuleDynamicIndexArgs) ToIndexRuleDynamicIndexPtrOutputWithContext(ctx context.Context) IndexRuleDynamicIndexPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IndexRuleDynamicIndexOutput).ToIndexRuleDynamicIndexPtrOutputWithContext(ctx)
+}
+
+// IndexRuleDynamicIndexPtrInput is an input type that accepts IndexRuleDynamicIndexArgs, IndexRuleDynamicIndexPtr and IndexRuleDynamicIndexPtrOutput values.
+// You can construct a concrete instance of `IndexRuleDynamicIndexPtrInput` via:
+//
+//	        IndexRuleDynamicIndexArgs{...}
+//
+//	or:
+//
+//	        nil
+type IndexRuleDynamicIndexPtrInput interface {
+	pulumi.Input
+
+	ToIndexRuleDynamicIndexPtrOutput() IndexRuleDynamicIndexPtrOutput
+	ToIndexRuleDynamicIndexPtrOutputWithContext(context.Context) IndexRuleDynamicIndexPtrOutput
+}
+
+type indexRuleDynamicIndexPtrType IndexRuleDynamicIndexArgs
+
+func IndexRuleDynamicIndexPtr(v *IndexRuleDynamicIndexArgs) IndexRuleDynamicIndexPtrInput {
+	return (*indexRuleDynamicIndexPtrType)(v)
+}
+
+func (*indexRuleDynamicIndexPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IndexRuleDynamicIndex)(nil)).Elem()
+}
+
+func (i *indexRuleDynamicIndexPtrType) ToIndexRuleDynamicIndexPtrOutput() IndexRuleDynamicIndexPtrOutput {
+	return i.ToIndexRuleDynamicIndexPtrOutputWithContext(context.Background())
+}
+
+func (i *indexRuleDynamicIndexPtrType) ToIndexRuleDynamicIndexPtrOutputWithContext(ctx context.Context) IndexRuleDynamicIndexPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IndexRuleDynamicIndexPtrOutput)
+}
+
+type IndexRuleDynamicIndexOutput struct{ *pulumi.OutputState }
+
+func (IndexRuleDynamicIndexOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IndexRuleDynamicIndex)(nil)).Elem()
+}
+
+func (o IndexRuleDynamicIndexOutput) ToIndexRuleDynamicIndexOutput() IndexRuleDynamicIndexOutput {
+	return o
+}
+
+func (o IndexRuleDynamicIndexOutput) ToIndexRuleDynamicIndexOutputWithContext(ctx context.Context) IndexRuleDynamicIndexOutput {
+	return o
+}
+
+func (o IndexRuleDynamicIndexOutput) ToIndexRuleDynamicIndexPtrOutput() IndexRuleDynamicIndexPtrOutput {
+	return o.ToIndexRuleDynamicIndexPtrOutputWithContext(context.Background())
+}
+
+func (o IndexRuleDynamicIndexOutput) ToIndexRuleDynamicIndexPtrOutputWithContext(ctx context.Context) IndexRuleDynamicIndexPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IndexRuleDynamicIndex) *IndexRuleDynamicIndex {
+		return &v
+	}).(IndexRuleDynamicIndexPtrOutput)
+}
+
+func (o IndexRuleDynamicIndexOutput) Status() pulumi.BoolOutput {
+	return o.ApplyT(func(v IndexRuleDynamicIndex) bool { return v.Status }).(pulumi.BoolOutput)
+}
+
+type IndexRuleDynamicIndexPtrOutput struct{ *pulumi.OutputState }
+
+func (IndexRuleDynamicIndexPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IndexRuleDynamicIndex)(nil)).Elem()
+}
+
+func (o IndexRuleDynamicIndexPtrOutput) ToIndexRuleDynamicIndexPtrOutput() IndexRuleDynamicIndexPtrOutput {
+	return o
+}
+
+func (o IndexRuleDynamicIndexPtrOutput) ToIndexRuleDynamicIndexPtrOutputWithContext(ctx context.Context) IndexRuleDynamicIndexPtrOutput {
+	return o
+}
+
+func (o IndexRuleDynamicIndexPtrOutput) Elem() IndexRuleDynamicIndexOutput {
+	return o.ApplyT(func(v *IndexRuleDynamicIndex) IndexRuleDynamicIndex {
+		if v != nil {
+			return *v
+		}
+		var ret IndexRuleDynamicIndex
+		return ret
+	}).(IndexRuleDynamicIndexOutput)
+}
+
+func (o IndexRuleDynamicIndexPtrOutput) Status() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *IndexRuleDynamicIndex) *bool {
+		if v == nil {
+			return nil
+		}
+		return &v.Status
+	}).(pulumi.BoolPtrOutput)
 }
 
 type IndexRuleFullText struct {
@@ -6599,6 +6895,499 @@ func (o MachineGroupMachineGroupTypePtrOutput) Values() pulumi.StringArrayOutput
 	}).(pulumi.StringArrayOutput)
 }
 
+type NoticeContentNoticeContents struct {
+	RecoveryContent *NoticeContentNoticeContentsRecoveryContent `pulumi:"recoveryContent"`
+	TriggerContent  *NoticeContentNoticeContentsTriggerContent  `pulumi:"triggerContent"`
+	Type            string                                      `pulumi:"type"`
+}
+
+// NoticeContentNoticeContentsInput is an input type that accepts NoticeContentNoticeContentsArgs and NoticeContentNoticeContentsOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsInput` via:
+//
+//	NoticeContentNoticeContentsArgs{...}
+type NoticeContentNoticeContentsInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsOutput() NoticeContentNoticeContentsOutput
+	ToNoticeContentNoticeContentsOutputWithContext(context.Context) NoticeContentNoticeContentsOutput
+}
+
+type NoticeContentNoticeContentsArgs struct {
+	RecoveryContent NoticeContentNoticeContentsRecoveryContentPtrInput `pulumi:"recoveryContent"`
+	TriggerContent  NoticeContentNoticeContentsTriggerContentPtrInput  `pulumi:"triggerContent"`
+	Type            pulumi.StringInput                                 `pulumi:"type"`
+}
+
+func (NoticeContentNoticeContentsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContents)(nil)).Elem()
+}
+
+func (i NoticeContentNoticeContentsArgs) ToNoticeContentNoticeContentsOutput() NoticeContentNoticeContentsOutput {
+	return i.ToNoticeContentNoticeContentsOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsArgs) ToNoticeContentNoticeContentsOutputWithContext(ctx context.Context) NoticeContentNoticeContentsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsOutput)
+}
+
+func (i NoticeContentNoticeContentsArgs) ToNoticeContentNoticeContentsPtrOutput() NoticeContentNoticeContentsPtrOutput {
+	return i.ToNoticeContentNoticeContentsPtrOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsArgs) ToNoticeContentNoticeContentsPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsOutput).ToNoticeContentNoticeContentsPtrOutputWithContext(ctx)
+}
+
+// NoticeContentNoticeContentsPtrInput is an input type that accepts NoticeContentNoticeContentsArgs, NoticeContentNoticeContentsPtr and NoticeContentNoticeContentsPtrOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsPtrInput` via:
+//
+//	        NoticeContentNoticeContentsArgs{...}
+//
+//	or:
+//
+//	        nil
+type NoticeContentNoticeContentsPtrInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsPtrOutput() NoticeContentNoticeContentsPtrOutput
+	ToNoticeContentNoticeContentsPtrOutputWithContext(context.Context) NoticeContentNoticeContentsPtrOutput
+}
+
+type noticeContentNoticeContentsPtrType NoticeContentNoticeContentsArgs
+
+func NoticeContentNoticeContentsPtr(v *NoticeContentNoticeContentsArgs) NoticeContentNoticeContentsPtrInput {
+	return (*noticeContentNoticeContentsPtrType)(v)
+}
+
+func (*noticeContentNoticeContentsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContents)(nil)).Elem()
+}
+
+func (i *noticeContentNoticeContentsPtrType) ToNoticeContentNoticeContentsPtrOutput() NoticeContentNoticeContentsPtrOutput {
+	return i.ToNoticeContentNoticeContentsPtrOutputWithContext(context.Background())
+}
+
+func (i *noticeContentNoticeContentsPtrType) ToNoticeContentNoticeContentsPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsPtrOutput)
+}
+
+type NoticeContentNoticeContentsOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContents)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsOutput) ToNoticeContentNoticeContentsOutput() NoticeContentNoticeContentsOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsOutput) ToNoticeContentNoticeContentsOutputWithContext(ctx context.Context) NoticeContentNoticeContentsOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsOutput) ToNoticeContentNoticeContentsPtrOutput() NoticeContentNoticeContentsPtrOutput {
+	return o.ToNoticeContentNoticeContentsPtrOutputWithContext(context.Background())
+}
+
+func (o NoticeContentNoticeContentsOutput) ToNoticeContentNoticeContentsPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NoticeContentNoticeContents) *NoticeContentNoticeContents {
+		return &v
+	}).(NoticeContentNoticeContentsPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsOutput) RecoveryContent() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContents) *NoticeContentNoticeContentsRecoveryContent {
+		return v.RecoveryContent
+	}).(NoticeContentNoticeContentsRecoveryContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsOutput) TriggerContent() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContents) *NoticeContentNoticeContentsTriggerContent {
+		return v.TriggerContent
+	}).(NoticeContentNoticeContentsTriggerContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContents) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type NoticeContentNoticeContentsPtrOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContents)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) ToNoticeContentNoticeContentsPtrOutput() NoticeContentNoticeContentsPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) ToNoticeContentNoticeContentsPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) Elem() NoticeContentNoticeContentsOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContents) NoticeContentNoticeContents {
+		if v != nil {
+			return *v
+		}
+		var ret NoticeContentNoticeContents
+		return ret
+	}).(NoticeContentNoticeContentsOutput)
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) RecoveryContent() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContents) *NoticeContentNoticeContentsRecoveryContent {
+		if v == nil {
+			return nil
+		}
+		return v.RecoveryContent
+	}).(NoticeContentNoticeContentsRecoveryContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) TriggerContent() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContents) *NoticeContentNoticeContentsTriggerContent {
+		if v == nil {
+			return nil
+		}
+		return v.TriggerContent
+	}).(NoticeContentNoticeContentsTriggerContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContents) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+type NoticeContentNoticeContentsRecoveryContent struct {
+	Content *string  `pulumi:"content"`
+	Headers []string `pulumi:"headers"`
+	Title   *string  `pulumi:"title"`
+}
+
+// NoticeContentNoticeContentsRecoveryContentInput is an input type that accepts NoticeContentNoticeContentsRecoveryContentArgs and NoticeContentNoticeContentsRecoveryContentOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsRecoveryContentInput` via:
+//
+//	NoticeContentNoticeContentsRecoveryContentArgs{...}
+type NoticeContentNoticeContentsRecoveryContentInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsRecoveryContentOutput() NoticeContentNoticeContentsRecoveryContentOutput
+	ToNoticeContentNoticeContentsRecoveryContentOutputWithContext(context.Context) NoticeContentNoticeContentsRecoveryContentOutput
+}
+
+type NoticeContentNoticeContentsRecoveryContentArgs struct {
+	Content pulumi.StringPtrInput   `pulumi:"content"`
+	Headers pulumi.StringArrayInput `pulumi:"headers"`
+	Title   pulumi.StringPtrInput   `pulumi:"title"`
+}
+
+func (NoticeContentNoticeContentsRecoveryContentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContentsRecoveryContent)(nil)).Elem()
+}
+
+func (i NoticeContentNoticeContentsRecoveryContentArgs) ToNoticeContentNoticeContentsRecoveryContentOutput() NoticeContentNoticeContentsRecoveryContentOutput {
+	return i.ToNoticeContentNoticeContentsRecoveryContentOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsRecoveryContentArgs) ToNoticeContentNoticeContentsRecoveryContentOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsRecoveryContentOutput)
+}
+
+func (i NoticeContentNoticeContentsRecoveryContentArgs) ToNoticeContentNoticeContentsRecoveryContentPtrOutput() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return i.ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsRecoveryContentArgs) ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsRecoveryContentOutput).ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(ctx)
+}
+
+// NoticeContentNoticeContentsRecoveryContentPtrInput is an input type that accepts NoticeContentNoticeContentsRecoveryContentArgs, NoticeContentNoticeContentsRecoveryContentPtr and NoticeContentNoticeContentsRecoveryContentPtrOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsRecoveryContentPtrInput` via:
+//
+//	        NoticeContentNoticeContentsRecoveryContentArgs{...}
+//
+//	or:
+//
+//	        nil
+type NoticeContentNoticeContentsRecoveryContentPtrInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsRecoveryContentPtrOutput() NoticeContentNoticeContentsRecoveryContentPtrOutput
+	ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(context.Context) NoticeContentNoticeContentsRecoveryContentPtrOutput
+}
+
+type noticeContentNoticeContentsRecoveryContentPtrType NoticeContentNoticeContentsRecoveryContentArgs
+
+func NoticeContentNoticeContentsRecoveryContentPtr(v *NoticeContentNoticeContentsRecoveryContentArgs) NoticeContentNoticeContentsRecoveryContentPtrInput {
+	return (*noticeContentNoticeContentsRecoveryContentPtrType)(v)
+}
+
+func (*noticeContentNoticeContentsRecoveryContentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContentsRecoveryContent)(nil)).Elem()
+}
+
+func (i *noticeContentNoticeContentsRecoveryContentPtrType) ToNoticeContentNoticeContentsRecoveryContentPtrOutput() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return i.ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(context.Background())
+}
+
+func (i *noticeContentNoticeContentsRecoveryContentPtrType) ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsRecoveryContentPtrOutput)
+}
+
+type NoticeContentNoticeContentsRecoveryContentOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsRecoveryContentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContentsRecoveryContent)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) ToNoticeContentNoticeContentsRecoveryContentOutput() NoticeContentNoticeContentsRecoveryContentOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) ToNoticeContentNoticeContentsRecoveryContentOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) ToNoticeContentNoticeContentsRecoveryContentPtrOutput() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o.ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(context.Background())
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NoticeContentNoticeContentsRecoveryContent) *NoticeContentNoticeContentsRecoveryContent {
+		return &v
+	}).(NoticeContentNoticeContentsRecoveryContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) Content() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsRecoveryContent) *string { return v.Content }).(pulumi.StringPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) Headers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsRecoveryContent) []string { return v.Headers }).(pulumi.StringArrayOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsRecoveryContent) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+type NoticeContentNoticeContentsRecoveryContentPtrOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsRecoveryContentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContentsRecoveryContent)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) ToNoticeContentNoticeContentsRecoveryContentPtrOutput() NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) ToNoticeContentNoticeContentsRecoveryContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsRecoveryContentPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) Elem() NoticeContentNoticeContentsRecoveryContentOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsRecoveryContent) NoticeContentNoticeContentsRecoveryContent {
+		if v != nil {
+			return *v
+		}
+		var ret NoticeContentNoticeContentsRecoveryContent
+		return ret
+	}).(NoticeContentNoticeContentsRecoveryContentOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) Content() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsRecoveryContent) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Content
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) Headers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsRecoveryContent) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NoticeContentNoticeContentsRecoveryContentPtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsRecoveryContent) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
+type NoticeContentNoticeContentsTriggerContent struct {
+	Content *string  `pulumi:"content"`
+	Headers []string `pulumi:"headers"`
+	Title   *string  `pulumi:"title"`
+}
+
+// NoticeContentNoticeContentsTriggerContentInput is an input type that accepts NoticeContentNoticeContentsTriggerContentArgs and NoticeContentNoticeContentsTriggerContentOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsTriggerContentInput` via:
+//
+//	NoticeContentNoticeContentsTriggerContentArgs{...}
+type NoticeContentNoticeContentsTriggerContentInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsTriggerContentOutput() NoticeContentNoticeContentsTriggerContentOutput
+	ToNoticeContentNoticeContentsTriggerContentOutputWithContext(context.Context) NoticeContentNoticeContentsTriggerContentOutput
+}
+
+type NoticeContentNoticeContentsTriggerContentArgs struct {
+	Content pulumi.StringPtrInput   `pulumi:"content"`
+	Headers pulumi.StringArrayInput `pulumi:"headers"`
+	Title   pulumi.StringPtrInput   `pulumi:"title"`
+}
+
+func (NoticeContentNoticeContentsTriggerContentArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContentsTriggerContent)(nil)).Elem()
+}
+
+func (i NoticeContentNoticeContentsTriggerContentArgs) ToNoticeContentNoticeContentsTriggerContentOutput() NoticeContentNoticeContentsTriggerContentOutput {
+	return i.ToNoticeContentNoticeContentsTriggerContentOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsTriggerContentArgs) ToNoticeContentNoticeContentsTriggerContentOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsTriggerContentOutput)
+}
+
+func (i NoticeContentNoticeContentsTriggerContentArgs) ToNoticeContentNoticeContentsTriggerContentPtrOutput() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return i.ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(context.Background())
+}
+
+func (i NoticeContentNoticeContentsTriggerContentArgs) ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsTriggerContentOutput).ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(ctx)
+}
+
+// NoticeContentNoticeContentsTriggerContentPtrInput is an input type that accepts NoticeContentNoticeContentsTriggerContentArgs, NoticeContentNoticeContentsTriggerContentPtr and NoticeContentNoticeContentsTriggerContentPtrOutput values.
+// You can construct a concrete instance of `NoticeContentNoticeContentsTriggerContentPtrInput` via:
+//
+//	        NoticeContentNoticeContentsTriggerContentArgs{...}
+//
+//	or:
+//
+//	        nil
+type NoticeContentNoticeContentsTriggerContentPtrInput interface {
+	pulumi.Input
+
+	ToNoticeContentNoticeContentsTriggerContentPtrOutput() NoticeContentNoticeContentsTriggerContentPtrOutput
+	ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(context.Context) NoticeContentNoticeContentsTriggerContentPtrOutput
+}
+
+type noticeContentNoticeContentsTriggerContentPtrType NoticeContentNoticeContentsTriggerContentArgs
+
+func NoticeContentNoticeContentsTriggerContentPtr(v *NoticeContentNoticeContentsTriggerContentArgs) NoticeContentNoticeContentsTriggerContentPtrInput {
+	return (*noticeContentNoticeContentsTriggerContentPtrType)(v)
+}
+
+func (*noticeContentNoticeContentsTriggerContentPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContentsTriggerContent)(nil)).Elem()
+}
+
+func (i *noticeContentNoticeContentsTriggerContentPtrType) ToNoticeContentNoticeContentsTriggerContentPtrOutput() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return i.ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(context.Background())
+}
+
+func (i *noticeContentNoticeContentsTriggerContentPtrType) ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(NoticeContentNoticeContentsTriggerContentPtrOutput)
+}
+
+type NoticeContentNoticeContentsTriggerContentOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsTriggerContentOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*NoticeContentNoticeContentsTriggerContent)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) ToNoticeContentNoticeContentsTriggerContentOutput() NoticeContentNoticeContentsTriggerContentOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) ToNoticeContentNoticeContentsTriggerContentOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) ToNoticeContentNoticeContentsTriggerContentPtrOutput() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o.ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(context.Background())
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v NoticeContentNoticeContentsTriggerContent) *NoticeContentNoticeContentsTriggerContent {
+		return &v
+	}).(NoticeContentNoticeContentsTriggerContentPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) Content() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsTriggerContent) *string { return v.Content }).(pulumi.StringPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) Headers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsTriggerContent) []string { return v.Headers }).(pulumi.StringArrayOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v NoticeContentNoticeContentsTriggerContent) *string { return v.Title }).(pulumi.StringPtrOutput)
+}
+
+type NoticeContentNoticeContentsTriggerContentPtrOutput struct{ *pulumi.OutputState }
+
+func (NoticeContentNoticeContentsTriggerContentPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**NoticeContentNoticeContentsTriggerContent)(nil)).Elem()
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) ToNoticeContentNoticeContentsTriggerContentPtrOutput() NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) ToNoticeContentNoticeContentsTriggerContentPtrOutputWithContext(ctx context.Context) NoticeContentNoticeContentsTriggerContentPtrOutput {
+	return o
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) Elem() NoticeContentNoticeContentsTriggerContentOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsTriggerContent) NoticeContentNoticeContentsTriggerContent {
+		if v != nil {
+			return *v
+		}
+		var ret NoticeContentNoticeContentsTriggerContent
+		return ret
+	}).(NoticeContentNoticeContentsTriggerContentOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) Content() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsTriggerContent) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Content
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) Headers() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsTriggerContent) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Headers
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o NoticeContentNoticeContentsTriggerContentPtrOutput) Title() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *NoticeContentNoticeContentsTriggerContent) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Title
+	}).(pulumi.StringPtrOutput)
+}
+
 type ScheduledSqlDstResource struct {
 	BizType    *int    `pulumi:"bizType"`
 	MetricName *string `pulumi:"metricName"`
@@ -6775,6 +7564,723 @@ func (o ScheduledSqlDstResourcePtrOutput) TopicId() pulumi.StringPtrOutput {
 		}
 		return &v.TopicId
 	}).(pulumi.StringPtrOutput)
+}
+
+type TopicExtends struct {
+	AnonymousAccess *TopicExtendsAnonymousAccess `pulumi:"anonymousAccess"`
+}
+
+// TopicExtendsInput is an input type that accepts TopicExtendsArgs and TopicExtendsOutput values.
+// You can construct a concrete instance of `TopicExtendsInput` via:
+//
+//	TopicExtendsArgs{...}
+type TopicExtendsInput interface {
+	pulumi.Input
+
+	ToTopicExtendsOutput() TopicExtendsOutput
+	ToTopicExtendsOutputWithContext(context.Context) TopicExtendsOutput
+}
+
+type TopicExtendsArgs struct {
+	AnonymousAccess TopicExtendsAnonymousAccessPtrInput `pulumi:"anonymousAccess"`
+}
+
+func (TopicExtendsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtends)(nil)).Elem()
+}
+
+func (i TopicExtendsArgs) ToTopicExtendsOutput() TopicExtendsOutput {
+	return i.ToTopicExtendsOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsArgs) ToTopicExtendsOutputWithContext(ctx context.Context) TopicExtendsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsOutput)
+}
+
+func (i TopicExtendsArgs) ToTopicExtendsPtrOutput() TopicExtendsPtrOutput {
+	return i.ToTopicExtendsPtrOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsArgs) ToTopicExtendsPtrOutputWithContext(ctx context.Context) TopicExtendsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsOutput).ToTopicExtendsPtrOutputWithContext(ctx)
+}
+
+// TopicExtendsPtrInput is an input type that accepts TopicExtendsArgs, TopicExtendsPtr and TopicExtendsPtrOutput values.
+// You can construct a concrete instance of `TopicExtendsPtrInput` via:
+//
+//	        TopicExtendsArgs{...}
+//
+//	or:
+//
+//	        nil
+type TopicExtendsPtrInput interface {
+	pulumi.Input
+
+	ToTopicExtendsPtrOutput() TopicExtendsPtrOutput
+	ToTopicExtendsPtrOutputWithContext(context.Context) TopicExtendsPtrOutput
+}
+
+type topicExtendsPtrType TopicExtendsArgs
+
+func TopicExtendsPtr(v *TopicExtendsArgs) TopicExtendsPtrInput {
+	return (*topicExtendsPtrType)(v)
+}
+
+func (*topicExtendsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TopicExtends)(nil)).Elem()
+}
+
+func (i *topicExtendsPtrType) ToTopicExtendsPtrOutput() TopicExtendsPtrOutput {
+	return i.ToTopicExtendsPtrOutputWithContext(context.Background())
+}
+
+func (i *topicExtendsPtrType) ToTopicExtendsPtrOutputWithContext(ctx context.Context) TopicExtendsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsPtrOutput)
+}
+
+type TopicExtendsOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtends)(nil)).Elem()
+}
+
+func (o TopicExtendsOutput) ToTopicExtendsOutput() TopicExtendsOutput {
+	return o
+}
+
+func (o TopicExtendsOutput) ToTopicExtendsOutputWithContext(ctx context.Context) TopicExtendsOutput {
+	return o
+}
+
+func (o TopicExtendsOutput) ToTopicExtendsPtrOutput() TopicExtendsPtrOutput {
+	return o.ToTopicExtendsPtrOutputWithContext(context.Background())
+}
+
+func (o TopicExtendsOutput) ToTopicExtendsPtrOutputWithContext(ctx context.Context) TopicExtendsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TopicExtends) *TopicExtends {
+		return &v
+	}).(TopicExtendsPtrOutput)
+}
+
+func (o TopicExtendsOutput) AnonymousAccess() TopicExtendsAnonymousAccessPtrOutput {
+	return o.ApplyT(func(v TopicExtends) *TopicExtendsAnonymousAccess { return v.AnonymousAccess }).(TopicExtendsAnonymousAccessPtrOutput)
+}
+
+type TopicExtendsPtrOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TopicExtends)(nil)).Elem()
+}
+
+func (o TopicExtendsPtrOutput) ToTopicExtendsPtrOutput() TopicExtendsPtrOutput {
+	return o
+}
+
+func (o TopicExtendsPtrOutput) ToTopicExtendsPtrOutputWithContext(ctx context.Context) TopicExtendsPtrOutput {
+	return o
+}
+
+func (o TopicExtendsPtrOutput) Elem() TopicExtendsOutput {
+	return o.ApplyT(func(v *TopicExtends) TopicExtends {
+		if v != nil {
+			return *v
+		}
+		var ret TopicExtends
+		return ret
+	}).(TopicExtendsOutput)
+}
+
+func (o TopicExtendsPtrOutput) AnonymousAccess() TopicExtendsAnonymousAccessPtrOutput {
+	return o.ApplyT(func(v *TopicExtends) *TopicExtendsAnonymousAccess {
+		if v == nil {
+			return nil
+		}
+		return v.AnonymousAccess
+	}).(TopicExtendsAnonymousAccessPtrOutput)
+}
+
+type TopicExtendsAnonymousAccess struct {
+	Conditions []TopicExtendsAnonymousAccessCondition `pulumi:"conditions"`
+	Operations []string                               `pulumi:"operations"`
+}
+
+// TopicExtendsAnonymousAccessInput is an input type that accepts TopicExtendsAnonymousAccessArgs and TopicExtendsAnonymousAccessOutput values.
+// You can construct a concrete instance of `TopicExtendsAnonymousAccessInput` via:
+//
+//	TopicExtendsAnonymousAccessArgs{...}
+type TopicExtendsAnonymousAccessInput interface {
+	pulumi.Input
+
+	ToTopicExtendsAnonymousAccessOutput() TopicExtendsAnonymousAccessOutput
+	ToTopicExtendsAnonymousAccessOutputWithContext(context.Context) TopicExtendsAnonymousAccessOutput
+}
+
+type TopicExtendsAnonymousAccessArgs struct {
+	Conditions TopicExtendsAnonymousAccessConditionArrayInput `pulumi:"conditions"`
+	Operations pulumi.StringArrayInput                        `pulumi:"operations"`
+}
+
+func (TopicExtendsAnonymousAccessArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtendsAnonymousAccess)(nil)).Elem()
+}
+
+func (i TopicExtendsAnonymousAccessArgs) ToTopicExtendsAnonymousAccessOutput() TopicExtendsAnonymousAccessOutput {
+	return i.ToTopicExtendsAnonymousAccessOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsAnonymousAccessArgs) ToTopicExtendsAnonymousAccessOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsAnonymousAccessOutput)
+}
+
+func (i TopicExtendsAnonymousAccessArgs) ToTopicExtendsAnonymousAccessPtrOutput() TopicExtendsAnonymousAccessPtrOutput {
+	return i.ToTopicExtendsAnonymousAccessPtrOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsAnonymousAccessArgs) ToTopicExtendsAnonymousAccessPtrOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsAnonymousAccessOutput).ToTopicExtendsAnonymousAccessPtrOutputWithContext(ctx)
+}
+
+// TopicExtendsAnonymousAccessPtrInput is an input type that accepts TopicExtendsAnonymousAccessArgs, TopicExtendsAnonymousAccessPtr and TopicExtendsAnonymousAccessPtrOutput values.
+// You can construct a concrete instance of `TopicExtendsAnonymousAccessPtrInput` via:
+//
+//	        TopicExtendsAnonymousAccessArgs{...}
+//
+//	or:
+//
+//	        nil
+type TopicExtendsAnonymousAccessPtrInput interface {
+	pulumi.Input
+
+	ToTopicExtendsAnonymousAccessPtrOutput() TopicExtendsAnonymousAccessPtrOutput
+	ToTopicExtendsAnonymousAccessPtrOutputWithContext(context.Context) TopicExtendsAnonymousAccessPtrOutput
+}
+
+type topicExtendsAnonymousAccessPtrType TopicExtendsAnonymousAccessArgs
+
+func TopicExtendsAnonymousAccessPtr(v *TopicExtendsAnonymousAccessArgs) TopicExtendsAnonymousAccessPtrInput {
+	return (*topicExtendsAnonymousAccessPtrType)(v)
+}
+
+func (*topicExtendsAnonymousAccessPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TopicExtendsAnonymousAccess)(nil)).Elem()
+}
+
+func (i *topicExtendsAnonymousAccessPtrType) ToTopicExtendsAnonymousAccessPtrOutput() TopicExtendsAnonymousAccessPtrOutput {
+	return i.ToTopicExtendsAnonymousAccessPtrOutputWithContext(context.Background())
+}
+
+func (i *topicExtendsAnonymousAccessPtrType) ToTopicExtendsAnonymousAccessPtrOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsAnonymousAccessPtrOutput)
+}
+
+type TopicExtendsAnonymousAccessOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsAnonymousAccessOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtendsAnonymousAccess)(nil)).Elem()
+}
+
+func (o TopicExtendsAnonymousAccessOutput) ToTopicExtendsAnonymousAccessOutput() TopicExtendsAnonymousAccessOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessOutput) ToTopicExtendsAnonymousAccessOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessOutput) ToTopicExtendsAnonymousAccessPtrOutput() TopicExtendsAnonymousAccessPtrOutput {
+	return o.ToTopicExtendsAnonymousAccessPtrOutputWithContext(context.Background())
+}
+
+func (o TopicExtendsAnonymousAccessOutput) ToTopicExtendsAnonymousAccessPtrOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TopicExtendsAnonymousAccess) *TopicExtendsAnonymousAccess {
+		return &v
+	}).(TopicExtendsAnonymousAccessPtrOutput)
+}
+
+func (o TopicExtendsAnonymousAccessOutput) Conditions() TopicExtendsAnonymousAccessConditionArrayOutput {
+	return o.ApplyT(func(v TopicExtendsAnonymousAccess) []TopicExtendsAnonymousAccessCondition { return v.Conditions }).(TopicExtendsAnonymousAccessConditionArrayOutput)
+}
+
+func (o TopicExtendsAnonymousAccessOutput) Operations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v TopicExtendsAnonymousAccess) []string { return v.Operations }).(pulumi.StringArrayOutput)
+}
+
+type TopicExtendsAnonymousAccessPtrOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsAnonymousAccessPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TopicExtendsAnonymousAccess)(nil)).Elem()
+}
+
+func (o TopicExtendsAnonymousAccessPtrOutput) ToTopicExtendsAnonymousAccessPtrOutput() TopicExtendsAnonymousAccessPtrOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessPtrOutput) ToTopicExtendsAnonymousAccessPtrOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessPtrOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessPtrOutput) Elem() TopicExtendsAnonymousAccessOutput {
+	return o.ApplyT(func(v *TopicExtendsAnonymousAccess) TopicExtendsAnonymousAccess {
+		if v != nil {
+			return *v
+		}
+		var ret TopicExtendsAnonymousAccess
+		return ret
+	}).(TopicExtendsAnonymousAccessOutput)
+}
+
+func (o TopicExtendsAnonymousAccessPtrOutput) Conditions() TopicExtendsAnonymousAccessConditionArrayOutput {
+	return o.ApplyT(func(v *TopicExtendsAnonymousAccess) []TopicExtendsAnonymousAccessCondition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(TopicExtendsAnonymousAccessConditionArrayOutput)
+}
+
+func (o TopicExtendsAnonymousAccessPtrOutput) Operations() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *TopicExtendsAnonymousAccess) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Operations
+	}).(pulumi.StringArrayOutput)
+}
+
+type TopicExtendsAnonymousAccessCondition struct {
+	Attributes     *string `pulumi:"attributes"`
+	ConditionValue *string `pulumi:"conditionValue"`
+	Rule           *int    `pulumi:"rule"`
+}
+
+// TopicExtendsAnonymousAccessConditionInput is an input type that accepts TopicExtendsAnonymousAccessConditionArgs and TopicExtendsAnonymousAccessConditionOutput values.
+// You can construct a concrete instance of `TopicExtendsAnonymousAccessConditionInput` via:
+//
+//	TopicExtendsAnonymousAccessConditionArgs{...}
+type TopicExtendsAnonymousAccessConditionInput interface {
+	pulumi.Input
+
+	ToTopicExtendsAnonymousAccessConditionOutput() TopicExtendsAnonymousAccessConditionOutput
+	ToTopicExtendsAnonymousAccessConditionOutputWithContext(context.Context) TopicExtendsAnonymousAccessConditionOutput
+}
+
+type TopicExtendsAnonymousAccessConditionArgs struct {
+	Attributes     pulumi.StringPtrInput `pulumi:"attributes"`
+	ConditionValue pulumi.StringPtrInput `pulumi:"conditionValue"`
+	Rule           pulumi.IntPtrInput    `pulumi:"rule"`
+}
+
+func (TopicExtendsAnonymousAccessConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtendsAnonymousAccessCondition)(nil)).Elem()
+}
+
+func (i TopicExtendsAnonymousAccessConditionArgs) ToTopicExtendsAnonymousAccessConditionOutput() TopicExtendsAnonymousAccessConditionOutput {
+	return i.ToTopicExtendsAnonymousAccessConditionOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsAnonymousAccessConditionArgs) ToTopicExtendsAnonymousAccessConditionOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsAnonymousAccessConditionOutput)
+}
+
+// TopicExtendsAnonymousAccessConditionArrayInput is an input type that accepts TopicExtendsAnonymousAccessConditionArray and TopicExtendsAnonymousAccessConditionArrayOutput values.
+// You can construct a concrete instance of `TopicExtendsAnonymousAccessConditionArrayInput` via:
+//
+//	TopicExtendsAnonymousAccessConditionArray{ TopicExtendsAnonymousAccessConditionArgs{...} }
+type TopicExtendsAnonymousAccessConditionArrayInput interface {
+	pulumi.Input
+
+	ToTopicExtendsAnonymousAccessConditionArrayOutput() TopicExtendsAnonymousAccessConditionArrayOutput
+	ToTopicExtendsAnonymousAccessConditionArrayOutputWithContext(context.Context) TopicExtendsAnonymousAccessConditionArrayOutput
+}
+
+type TopicExtendsAnonymousAccessConditionArray []TopicExtendsAnonymousAccessConditionInput
+
+func (TopicExtendsAnonymousAccessConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopicExtendsAnonymousAccessCondition)(nil)).Elem()
+}
+
+func (i TopicExtendsAnonymousAccessConditionArray) ToTopicExtendsAnonymousAccessConditionArrayOutput() TopicExtendsAnonymousAccessConditionArrayOutput {
+	return i.ToTopicExtendsAnonymousAccessConditionArrayOutputWithContext(context.Background())
+}
+
+func (i TopicExtendsAnonymousAccessConditionArray) ToTopicExtendsAnonymousAccessConditionArrayOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TopicExtendsAnonymousAccessConditionArrayOutput)
+}
+
+type TopicExtendsAnonymousAccessConditionOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsAnonymousAccessConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TopicExtendsAnonymousAccessCondition)(nil)).Elem()
+}
+
+func (o TopicExtendsAnonymousAccessConditionOutput) ToTopicExtendsAnonymousAccessConditionOutput() TopicExtendsAnonymousAccessConditionOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessConditionOutput) ToTopicExtendsAnonymousAccessConditionOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessConditionOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessConditionOutput) Attributes() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TopicExtendsAnonymousAccessCondition) *string { return v.Attributes }).(pulumi.StringPtrOutput)
+}
+
+func (o TopicExtendsAnonymousAccessConditionOutput) ConditionValue() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TopicExtendsAnonymousAccessCondition) *string { return v.ConditionValue }).(pulumi.StringPtrOutput)
+}
+
+func (o TopicExtendsAnonymousAccessConditionOutput) Rule() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TopicExtendsAnonymousAccessCondition) *int { return v.Rule }).(pulumi.IntPtrOutput)
+}
+
+type TopicExtendsAnonymousAccessConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (TopicExtendsAnonymousAccessConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TopicExtendsAnonymousAccessCondition)(nil)).Elem()
+}
+
+func (o TopicExtendsAnonymousAccessConditionArrayOutput) ToTopicExtendsAnonymousAccessConditionArrayOutput() TopicExtendsAnonymousAccessConditionArrayOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessConditionArrayOutput) ToTopicExtendsAnonymousAccessConditionArrayOutputWithContext(ctx context.Context) TopicExtendsAnonymousAccessConditionArrayOutput {
+	return o
+}
+
+func (o TopicExtendsAnonymousAccessConditionArrayOutput) Index(i pulumi.IntInput) TopicExtendsAnonymousAccessConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TopicExtendsAnonymousAccessCondition {
+		return vs[0].([]TopicExtendsAnonymousAccessCondition)[vs[1].(int)]
+	}).(TopicExtendsAnonymousAccessConditionOutput)
+}
+
+type GetLogsetsFilter struct {
+	Key    string   `pulumi:"key"`
+	Values []string `pulumi:"values"`
+}
+
+// GetLogsetsFilterInput is an input type that accepts GetLogsetsFilterArgs and GetLogsetsFilterOutput values.
+// You can construct a concrete instance of `GetLogsetsFilterInput` via:
+//
+//	GetLogsetsFilterArgs{...}
+type GetLogsetsFilterInput interface {
+	pulumi.Input
+
+	ToGetLogsetsFilterOutput() GetLogsetsFilterOutput
+	ToGetLogsetsFilterOutputWithContext(context.Context) GetLogsetsFilterOutput
+}
+
+type GetLogsetsFilterArgs struct {
+	Key    pulumi.StringInput      `pulumi:"key"`
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetLogsetsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsFilter)(nil)).Elem()
+}
+
+func (i GetLogsetsFilterArgs) ToGetLogsetsFilterOutput() GetLogsetsFilterOutput {
+	return i.ToGetLogsetsFilterOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsFilterArgs) ToGetLogsetsFilterOutputWithContext(ctx context.Context) GetLogsetsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsFilterOutput)
+}
+
+// GetLogsetsFilterArrayInput is an input type that accepts GetLogsetsFilterArray and GetLogsetsFilterArrayOutput values.
+// You can construct a concrete instance of `GetLogsetsFilterArrayInput` via:
+//
+//	GetLogsetsFilterArray{ GetLogsetsFilterArgs{...} }
+type GetLogsetsFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetLogsetsFilterArrayOutput() GetLogsetsFilterArrayOutput
+	ToGetLogsetsFilterArrayOutputWithContext(context.Context) GetLogsetsFilterArrayOutput
+}
+
+type GetLogsetsFilterArray []GetLogsetsFilterInput
+
+func (GetLogsetsFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsFilter)(nil)).Elem()
+}
+
+func (i GetLogsetsFilterArray) ToGetLogsetsFilterArrayOutput() GetLogsetsFilterArrayOutput {
+	return i.ToGetLogsetsFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsFilterArray) ToGetLogsetsFilterArrayOutputWithContext(ctx context.Context) GetLogsetsFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsFilterArrayOutput)
+}
+
+type GetLogsetsFilterOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsFilter)(nil)).Elem()
+}
+
+func (o GetLogsetsFilterOutput) ToGetLogsetsFilterOutput() GetLogsetsFilterOutput {
+	return o
+}
+
+func (o GetLogsetsFilterOutput) ToGetLogsetsFilterOutputWithContext(ctx context.Context) GetLogsetsFilterOutput {
+	return o
+}
+
+func (o GetLogsetsFilterOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsFilter) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsFilterOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetLogsetsFilter) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetLogsetsFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsFilter)(nil)).Elem()
+}
+
+func (o GetLogsetsFilterArrayOutput) ToGetLogsetsFilterArrayOutput() GetLogsetsFilterArrayOutput {
+	return o
+}
+
+func (o GetLogsetsFilterArrayOutput) ToGetLogsetsFilterArrayOutputWithContext(ctx context.Context) GetLogsetsFilterArrayOutput {
+	return o
+}
+
+func (o GetLogsetsFilterArrayOutput) Index(i pulumi.IntInput) GetLogsetsFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetLogsetsFilter {
+		return vs[0].([]GetLogsetsFilter)[vs[1].(int)]
+	}).(GetLogsetsFilterOutput)
+}
+
+type GetLogsetsLogset struct {
+	AssumerName string                `pulumi:"assumerName"`
+	CreateTime  string                `pulumi:"createTime"`
+	LogsetId    string                `pulumi:"logsetId"`
+	LogsetName  string                `pulumi:"logsetName"`
+	RoleName    string                `pulumi:"roleName"`
+	Tags        []GetLogsetsLogsetTag `pulumi:"tags"`
+	TopicCount  int                   `pulumi:"topicCount"`
+}
+
+// GetLogsetsLogsetInput is an input type that accepts GetLogsetsLogsetArgs and GetLogsetsLogsetOutput values.
+// You can construct a concrete instance of `GetLogsetsLogsetInput` via:
+//
+//	GetLogsetsLogsetArgs{...}
+type GetLogsetsLogsetInput interface {
+	pulumi.Input
+
+	ToGetLogsetsLogsetOutput() GetLogsetsLogsetOutput
+	ToGetLogsetsLogsetOutputWithContext(context.Context) GetLogsetsLogsetOutput
+}
+
+type GetLogsetsLogsetArgs struct {
+	AssumerName pulumi.StringInput            `pulumi:"assumerName"`
+	CreateTime  pulumi.StringInput            `pulumi:"createTime"`
+	LogsetId    pulumi.StringInput            `pulumi:"logsetId"`
+	LogsetName  pulumi.StringInput            `pulumi:"logsetName"`
+	RoleName    pulumi.StringInput            `pulumi:"roleName"`
+	Tags        GetLogsetsLogsetTagArrayInput `pulumi:"tags"`
+	TopicCount  pulumi.IntInput               `pulumi:"topicCount"`
+}
+
+func (GetLogsetsLogsetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsLogset)(nil)).Elem()
+}
+
+func (i GetLogsetsLogsetArgs) ToGetLogsetsLogsetOutput() GetLogsetsLogsetOutput {
+	return i.ToGetLogsetsLogsetOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsLogsetArgs) ToGetLogsetsLogsetOutputWithContext(ctx context.Context) GetLogsetsLogsetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsLogsetOutput)
+}
+
+// GetLogsetsLogsetArrayInput is an input type that accepts GetLogsetsLogsetArray and GetLogsetsLogsetArrayOutput values.
+// You can construct a concrete instance of `GetLogsetsLogsetArrayInput` via:
+//
+//	GetLogsetsLogsetArray{ GetLogsetsLogsetArgs{...} }
+type GetLogsetsLogsetArrayInput interface {
+	pulumi.Input
+
+	ToGetLogsetsLogsetArrayOutput() GetLogsetsLogsetArrayOutput
+	ToGetLogsetsLogsetArrayOutputWithContext(context.Context) GetLogsetsLogsetArrayOutput
+}
+
+type GetLogsetsLogsetArray []GetLogsetsLogsetInput
+
+func (GetLogsetsLogsetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsLogset)(nil)).Elem()
+}
+
+func (i GetLogsetsLogsetArray) ToGetLogsetsLogsetArrayOutput() GetLogsetsLogsetArrayOutput {
+	return i.ToGetLogsetsLogsetArrayOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsLogsetArray) ToGetLogsetsLogsetArrayOutputWithContext(ctx context.Context) GetLogsetsLogsetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsLogsetArrayOutput)
+}
+
+type GetLogsetsLogsetOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsLogsetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsLogset)(nil)).Elem()
+}
+
+func (o GetLogsetsLogsetOutput) ToGetLogsetsLogsetOutput() GetLogsetsLogsetOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetOutput) ToGetLogsetsLogsetOutputWithContext(ctx context.Context) GetLogsetsLogsetOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetOutput) AssumerName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) string { return v.AssumerName }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetOutput) CreateTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) string { return v.CreateTime }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetOutput) LogsetId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) string { return v.LogsetId }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetOutput) LogsetName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) string { return v.LogsetName }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetOutput) RoleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) string { return v.RoleName }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetOutput) Tags() GetLogsetsLogsetTagArrayOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) []GetLogsetsLogsetTag { return v.Tags }).(GetLogsetsLogsetTagArrayOutput)
+}
+
+func (o GetLogsetsLogsetOutput) TopicCount() pulumi.IntOutput {
+	return o.ApplyT(func(v GetLogsetsLogset) int { return v.TopicCount }).(pulumi.IntOutput)
+}
+
+type GetLogsetsLogsetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsLogsetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsLogset)(nil)).Elem()
+}
+
+func (o GetLogsetsLogsetArrayOutput) ToGetLogsetsLogsetArrayOutput() GetLogsetsLogsetArrayOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetArrayOutput) ToGetLogsetsLogsetArrayOutputWithContext(ctx context.Context) GetLogsetsLogsetArrayOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetArrayOutput) Index(i pulumi.IntInput) GetLogsetsLogsetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetLogsetsLogset {
+		return vs[0].([]GetLogsetsLogset)[vs[1].(int)]
+	}).(GetLogsetsLogsetOutput)
+}
+
+type GetLogsetsLogsetTag struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// GetLogsetsLogsetTagInput is an input type that accepts GetLogsetsLogsetTagArgs and GetLogsetsLogsetTagOutput values.
+// You can construct a concrete instance of `GetLogsetsLogsetTagInput` via:
+//
+//	GetLogsetsLogsetTagArgs{...}
+type GetLogsetsLogsetTagInput interface {
+	pulumi.Input
+
+	ToGetLogsetsLogsetTagOutput() GetLogsetsLogsetTagOutput
+	ToGetLogsetsLogsetTagOutputWithContext(context.Context) GetLogsetsLogsetTagOutput
+}
+
+type GetLogsetsLogsetTagArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetLogsetsLogsetTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsLogsetTag)(nil)).Elem()
+}
+
+func (i GetLogsetsLogsetTagArgs) ToGetLogsetsLogsetTagOutput() GetLogsetsLogsetTagOutput {
+	return i.ToGetLogsetsLogsetTagOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsLogsetTagArgs) ToGetLogsetsLogsetTagOutputWithContext(ctx context.Context) GetLogsetsLogsetTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsLogsetTagOutput)
+}
+
+// GetLogsetsLogsetTagArrayInput is an input type that accepts GetLogsetsLogsetTagArray and GetLogsetsLogsetTagArrayOutput values.
+// You can construct a concrete instance of `GetLogsetsLogsetTagArrayInput` via:
+//
+//	GetLogsetsLogsetTagArray{ GetLogsetsLogsetTagArgs{...} }
+type GetLogsetsLogsetTagArrayInput interface {
+	pulumi.Input
+
+	ToGetLogsetsLogsetTagArrayOutput() GetLogsetsLogsetTagArrayOutput
+	ToGetLogsetsLogsetTagArrayOutputWithContext(context.Context) GetLogsetsLogsetTagArrayOutput
+}
+
+type GetLogsetsLogsetTagArray []GetLogsetsLogsetTagInput
+
+func (GetLogsetsLogsetTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsLogsetTag)(nil)).Elem()
+}
+
+func (i GetLogsetsLogsetTagArray) ToGetLogsetsLogsetTagArrayOutput() GetLogsetsLogsetTagArrayOutput {
+	return i.ToGetLogsetsLogsetTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetLogsetsLogsetTagArray) ToGetLogsetsLogsetTagArrayOutputWithContext(ctx context.Context) GetLogsetsLogsetTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetLogsetsLogsetTagArrayOutput)
+}
+
+type GetLogsetsLogsetTagOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsLogsetTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetLogsetsLogsetTag)(nil)).Elem()
+}
+
+func (o GetLogsetsLogsetTagOutput) ToGetLogsetsLogsetTagOutput() GetLogsetsLogsetTagOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetTagOutput) ToGetLogsetsLogsetTagOutputWithContext(ctx context.Context) GetLogsetsLogsetTagOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetTagOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogsetTag) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetLogsetsLogsetTagOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetLogsetsLogsetTag) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetLogsetsLogsetTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetLogsetsLogsetTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetLogsetsLogsetTag)(nil)).Elem()
+}
+
+func (o GetLogsetsLogsetTagArrayOutput) ToGetLogsetsLogsetTagArrayOutput() GetLogsetsLogsetTagArrayOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetTagArrayOutput) ToGetLogsetsLogsetTagArrayOutputWithContext(ctx context.Context) GetLogsetsLogsetTagArrayOutput {
+	return o
+}
+
+func (o GetLogsetsLogsetTagArrayOutput) Index(i pulumi.IntInput) GetLogsetsLogsetTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetLogsetsLogsetTag {
+		return vs[0].([]GetLogsetsLogsetTag)[vs[1].(int)]
+	}).(GetLogsetsLogsetTagOutput)
 }
 
 type GetMachineGroupConfigsConfig struct {
@@ -7720,6 +9226,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmCallBackPtrInput)(nil)).Elem(), AlarmCallBackArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmMonitorTimeInput)(nil)).Elem(), AlarmMonitorTimeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmMonitorTimePtrInput)(nil)).Elem(), AlarmMonitorTimeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlarmMultiConditionInput)(nil)).Elem(), AlarmMultiConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AlarmMultiConditionArrayInput)(nil)).Elem(), AlarmMultiConditionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmNoticeNoticeReceiverInput)(nil)).Elem(), AlarmNoticeNoticeReceiverArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmNoticeNoticeReceiverArrayInput)(nil)).Elem(), AlarmNoticeNoticeReceiverArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AlarmNoticeWebCallbackInput)(nil)).Elem(), AlarmNoticeWebCallbackArgs{})
@@ -7772,6 +9280,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DataTransformDstResourceArrayInput)(nil)).Elem(), DataTransformDstResourceArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleInput)(nil)).Elem(), IndexRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IndexRulePtrInput)(nil)).Elem(), IndexRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleDynamicIndexInput)(nil)).Elem(), IndexRuleDynamicIndexArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleDynamicIndexPtrInput)(nil)).Elem(), IndexRuleDynamicIndexArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleFullTextInput)(nil)).Elem(), IndexRuleFullTextArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleFullTextPtrInput)(nil)).Elem(), IndexRuleFullTextArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IndexRuleKeyValueInput)(nil)).Elem(), IndexRuleKeyValueArgs{})
@@ -7792,8 +9302,26 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*KafkaRechargeProtocolPtrInput)(nil)).Elem(), KafkaRechargeProtocolArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineGroupMachineGroupTypeInput)(nil)).Elem(), MachineGroupMachineGroupTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MachineGroupMachineGroupTypePtrInput)(nil)).Elem(), MachineGroupMachineGroupTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsInput)(nil)).Elem(), NoticeContentNoticeContentsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsPtrInput)(nil)).Elem(), NoticeContentNoticeContentsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsRecoveryContentInput)(nil)).Elem(), NoticeContentNoticeContentsRecoveryContentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsRecoveryContentPtrInput)(nil)).Elem(), NoticeContentNoticeContentsRecoveryContentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsTriggerContentInput)(nil)).Elem(), NoticeContentNoticeContentsTriggerContentArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*NoticeContentNoticeContentsTriggerContentPtrInput)(nil)).Elem(), NoticeContentNoticeContentsTriggerContentArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScheduledSqlDstResourceInput)(nil)).Elem(), ScheduledSqlDstResourceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScheduledSqlDstResourcePtrInput)(nil)).Elem(), ScheduledSqlDstResourceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsInput)(nil)).Elem(), TopicExtendsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsPtrInput)(nil)).Elem(), TopicExtendsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsAnonymousAccessInput)(nil)).Elem(), TopicExtendsAnonymousAccessArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsAnonymousAccessPtrInput)(nil)).Elem(), TopicExtendsAnonymousAccessArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsAnonymousAccessConditionInput)(nil)).Elem(), TopicExtendsAnonymousAccessConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TopicExtendsAnonymousAccessConditionArrayInput)(nil)).Elem(), TopicExtendsAnonymousAccessConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsFilterInput)(nil)).Elem(), GetLogsetsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsFilterArrayInput)(nil)).Elem(), GetLogsetsFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsLogsetInput)(nil)).Elem(), GetLogsetsLogsetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsLogsetArrayInput)(nil)).Elem(), GetLogsetsLogsetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsLogsetTagInput)(nil)).Elem(), GetLogsetsLogsetTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetLogsetsLogsetTagArrayInput)(nil)).Elem(), GetLogsetsLogsetTagArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMachineGroupConfigsConfigInput)(nil)).Elem(), GetMachineGroupConfigsConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMachineGroupConfigsConfigArrayInput)(nil)).Elem(), GetMachineGroupConfigsConfigArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetMachineGroupConfigsConfigExcludePathInput)(nil)).Elem(), GetMachineGroupConfigsConfigExcludePathArgs{})
@@ -7818,6 +9346,8 @@ func init() {
 	pulumi.RegisterOutputType(AlarmCallBackPtrOutput{})
 	pulumi.RegisterOutputType(AlarmMonitorTimeOutput{})
 	pulumi.RegisterOutputType(AlarmMonitorTimePtrOutput{})
+	pulumi.RegisterOutputType(AlarmMultiConditionOutput{})
+	pulumi.RegisterOutputType(AlarmMultiConditionArrayOutput{})
 	pulumi.RegisterOutputType(AlarmNoticeNoticeReceiverOutput{})
 	pulumi.RegisterOutputType(AlarmNoticeNoticeReceiverArrayOutput{})
 	pulumi.RegisterOutputType(AlarmNoticeWebCallbackOutput{})
@@ -7870,6 +9400,8 @@ func init() {
 	pulumi.RegisterOutputType(DataTransformDstResourceArrayOutput{})
 	pulumi.RegisterOutputType(IndexRuleOutput{})
 	pulumi.RegisterOutputType(IndexRulePtrOutput{})
+	pulumi.RegisterOutputType(IndexRuleDynamicIndexOutput{})
+	pulumi.RegisterOutputType(IndexRuleDynamicIndexPtrOutput{})
 	pulumi.RegisterOutputType(IndexRuleFullTextOutput{})
 	pulumi.RegisterOutputType(IndexRuleFullTextPtrOutput{})
 	pulumi.RegisterOutputType(IndexRuleKeyValueOutput{})
@@ -7890,8 +9422,26 @@ func init() {
 	pulumi.RegisterOutputType(KafkaRechargeProtocolPtrOutput{})
 	pulumi.RegisterOutputType(MachineGroupMachineGroupTypeOutput{})
 	pulumi.RegisterOutputType(MachineGroupMachineGroupTypePtrOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsPtrOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsRecoveryContentOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsRecoveryContentPtrOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsTriggerContentOutput{})
+	pulumi.RegisterOutputType(NoticeContentNoticeContentsTriggerContentPtrOutput{})
 	pulumi.RegisterOutputType(ScheduledSqlDstResourceOutput{})
 	pulumi.RegisterOutputType(ScheduledSqlDstResourcePtrOutput{})
+	pulumi.RegisterOutputType(TopicExtendsOutput{})
+	pulumi.RegisterOutputType(TopicExtendsPtrOutput{})
+	pulumi.RegisterOutputType(TopicExtendsAnonymousAccessOutput{})
+	pulumi.RegisterOutputType(TopicExtendsAnonymousAccessPtrOutput{})
+	pulumi.RegisterOutputType(TopicExtendsAnonymousAccessConditionOutput{})
+	pulumi.RegisterOutputType(TopicExtendsAnonymousAccessConditionArrayOutput{})
+	pulumi.RegisterOutputType(GetLogsetsFilterOutput{})
+	pulumi.RegisterOutputType(GetLogsetsFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetLogsetsLogsetOutput{})
+	pulumi.RegisterOutputType(GetLogsetsLogsetArrayOutput{})
+	pulumi.RegisterOutputType(GetLogsetsLogsetTagOutput{})
+	pulumi.RegisterOutputType(GetLogsetsLogsetTagArrayOutput{})
 	pulumi.RegisterOutputType(GetMachineGroupConfigsConfigOutput{})
 	pulumi.RegisterOutputType(GetMachineGroupConfigsConfigArrayOutput{})
 	pulumi.RegisterOutputType(GetMachineGroupConfigsConfigExcludePathOutput{})

@@ -23,6 +23,7 @@ class AdaptiveDynamicStreamingTemplateArgs:
                  disable_higher_video_resolution: Optional[pulumi.Input[bool]] = None,
                  drm_type: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 segment_type: Optional[pulumi.Input[str]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None):
         """
         The set of arguments for constructing a AdaptiveDynamicStreamingTemplate resource.
@@ -37,8 +38,10 @@ class AdaptiveDynamicStreamingTemplateArgs:
                `true`: yes. Default value: `false`.
         :param pulumi.Input[str] drm_type: DRM scheme type. Valid values: `SimpleAES`. If this field is an empty string, DRM will not be performed on the video.
         :param pulumi.Input[str] name: Template name. Length limit: 64 characters.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[str] segment_type: Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         """
         pulumi.set(__self__, "format", format)
         pulumi.set(__self__, "stream_infos", stream_infos)
@@ -52,6 +55,8 @@ class AdaptiveDynamicStreamingTemplateArgs:
             pulumi.set(__self__, "drm_type", drm_type)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if segment_type is not None:
+            pulumi.set(__self__, "segment_type", segment_type)
         if sub_app_id is not None:
             pulumi.set(__self__, "sub_app_id", sub_app_id)
 
@@ -144,11 +149,24 @@ class AdaptiveDynamicStreamingTemplateArgs:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="segmentType")
+    def segment_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+        """
+        return pulumi.get(self, "segment_type")
+
+    @segment_type.setter
+    def segment_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "segment_type", value)
+
+    @property
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
@@ -167,6 +185,7 @@ class _AdaptiveDynamicStreamingTemplateState:
                  drm_type: Optional[pulumi.Input[str]] = None,
                  format: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 segment_type: Optional[pulumi.Input[str]] = None,
                  stream_infos: Optional[pulumi.Input[Sequence[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
                  update_time: Optional[pulumi.Input[str]] = None):
@@ -181,11 +200,13 @@ class _AdaptiveDynamicStreamingTemplateState:
         :param pulumi.Input[str] drm_type: DRM scheme type. Valid values: `SimpleAES`. If this field is an empty string, DRM will not be performed on the video.
         :param pulumi.Input[str] format: Adaptive bitstream format. Valid values: `HLS`.
         :param pulumi.Input[str] name: Template name. Length limit: 64 characters.
+        :param pulumi.Input[str] segment_type: Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
         :param pulumi.Input[Sequence[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]] stream_infos: List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
                substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
                first substream will be used as the output frame rate.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         """
         if comment is not None:
@@ -202,6 +223,8 @@ class _AdaptiveDynamicStreamingTemplateState:
             pulumi.set(__self__, "format", format)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if segment_type is not None:
+            pulumi.set(__self__, "segment_type", segment_type)
         if stream_infos is not None:
             pulumi.set(__self__, "stream_infos", stream_infos)
         if sub_app_id is not None:
@@ -296,6 +319,18 @@ class _AdaptiveDynamicStreamingTemplateState:
         pulumi.set(self, "name", value)
 
     @property
+    @pulumi.getter(name="segmentType")
+    def segment_type(self) -> Optional[pulumi.Input[str]]:
+        """
+        Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+        """
+        return pulumi.get(self, "segment_type")
+
+    @segment_type.setter
+    def segment_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "segment_type", value)
+
+    @property
     @pulumi.getter(name="streamInfos")
     def stream_infos(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]]:
         """
@@ -313,8 +348,9 @@ class _AdaptiveDynamicStreamingTemplateState:
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> Optional[pulumi.Input[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 
@@ -346,6 +382,7 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
                  drm_type: Optional[pulumi.Input[str]] = None,
                  format: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 segment_type: Optional[pulumi.Input[str]] = None,
                  stream_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
@@ -361,11 +398,13 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
         :param pulumi.Input[str] drm_type: DRM scheme type. Valid values: `SimpleAES`. If this field is an empty string, DRM will not be performed on the video.
         :param pulumi.Input[str] format: Adaptive bitstream format. Valid values: `HLS`.
         :param pulumi.Input[str] name: Template name. Length limit: 64 characters.
+        :param pulumi.Input[str] segment_type: Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]] stream_infos: List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
                substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
                first substream will be used as the output frame rate.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         """
         ...
     @overload
@@ -396,6 +435,7 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
                  drm_type: Optional[pulumi.Input[str]] = None,
                  format: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
+                 segment_type: Optional[pulumi.Input[str]] = None,
                  stream_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]]] = None,
                  sub_app_id: Optional[pulumi.Input[int]] = None,
                  __props__=None):
@@ -415,6 +455,7 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
                 raise TypeError("Missing required property 'format'")
             __props__.__dict__["format"] = format
             __props__.__dict__["name"] = name
+            __props__.__dict__["segment_type"] = segment_type
             if stream_infos is None and not opts.urn:
                 raise TypeError("Missing required property 'stream_infos'")
             __props__.__dict__["stream_infos"] = stream_infos
@@ -438,6 +479,7 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
             drm_type: Optional[pulumi.Input[str]] = None,
             format: Optional[pulumi.Input[str]] = None,
             name: Optional[pulumi.Input[str]] = None,
+            segment_type: Optional[pulumi.Input[str]] = None,
             stream_infos: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]]] = None,
             sub_app_id: Optional[pulumi.Input[int]] = None,
             update_time: Optional[pulumi.Input[str]] = None) -> 'AdaptiveDynamicStreamingTemplate':
@@ -457,11 +499,13 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
         :param pulumi.Input[str] drm_type: DRM scheme type. Valid values: `SimpleAES`. If this field is an empty string, DRM will not be performed on the video.
         :param pulumi.Input[str] format: Adaptive bitstream format. Valid values: `HLS`.
         :param pulumi.Input[str] name: Template name. Length limit: 64 characters.
+        :param pulumi.Input[str] segment_type: Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AdaptiveDynamicStreamingTemplateStreamInfoArgs']]]] stream_infos: List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
                substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
                first substream will be used as the output frame rate.
-        :param pulumi.Input[int] sub_app_id: Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-               field; otherwise, leave it empty.
+        :param pulumi.Input[int] sub_app_id: The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+               service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+               application or a newly created one), they must fill in this field with the application ID.
         :param pulumi.Input[str] update_time: Last modified time of template in ISO date format.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -475,6 +519,7 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
         __props__.__dict__["drm_type"] = drm_type
         __props__.__dict__["format"] = format
         __props__.__dict__["name"] = name
+        __props__.__dict__["segment_type"] = segment_type
         __props__.__dict__["stream_infos"] = stream_infos
         __props__.__dict__["sub_app_id"] = sub_app_id
         __props__.__dict__["update_time"] = update_time
@@ -539,6 +584,14 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
         return pulumi.get(self, "name")
 
     @property
+    @pulumi.getter(name="segmentType")
+    def segment_type(self) -> pulumi.Output[str]:
+        """
+        Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+        """
+        return pulumi.get(self, "segment_type")
+
+    @property
     @pulumi.getter(name="streamInfos")
     def stream_infos(self) -> pulumi.Output[Sequence['outputs.AdaptiveDynamicStreamingTemplateStreamInfo']]:
         """
@@ -552,8 +605,9 @@ class AdaptiveDynamicStreamingTemplate(pulumi.CustomResource):
     @pulumi.getter(name="subAppId")
     def sub_app_id(self) -> pulumi.Output[Optional[int]]:
         """
-        Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-        field; otherwise, leave it empty.
+        The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+        service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+        application or a newly created one), they must fill in this field with the application ID.
         """
         return pulumi.get(self, "sub_app_id")
 

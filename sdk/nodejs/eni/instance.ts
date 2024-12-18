@@ -35,6 +35,10 @@ export class Instance extends pulumi.CustomResource {
     }
 
     /**
+     * CDC instance ID.
+     */
+    public /*out*/ readonly cdcId!: pulumi.Output<string>;
+    /**
      * Creation time of the ENI.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
@@ -102,6 +106,7 @@ export class Instance extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as InstanceState | undefined;
+            resourceInputs["cdcId"] = state ? state.cdcId : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["description"] = state ? state.description : undefined;
             resourceInputs["ipv4Count"] = state ? state.ipv4Count : undefined;
@@ -131,6 +136,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["vpcId"] = args ? args.vpcId : undefined;
+            resourceInputs["cdcId"] = undefined /*out*/;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["ipv4Infos"] = undefined /*out*/;
             resourceInputs["mac"] = undefined /*out*/;
@@ -146,6 +152,10 @@ export class Instance extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Instance resources.
  */
 export interface InstanceState {
+    /**
+     * CDC instance ID.
+     */
+    cdcId?: pulumi.Input<string>;
     /**
      * Creation time of the ENI.
      */

@@ -26,6 +26,8 @@ if typing.TYPE_CHECKING:
     audits = __audits
     import pulumi_tencentcloud.availability as __availability
     availability = __availability
+    import pulumi_tencentcloud.batch as __batch
+    batch = __batch
     import pulumi_tencentcloud.bi as __bi
     bi = __bi
     import pulumi_tencentcloud.cam as __cam
@@ -36,10 +38,14 @@ if typing.TYPE_CHECKING:
     cbs = __cbs
     import pulumi_tencentcloud.ccn as __ccn
     ccn = __ccn
+    import pulumi_tencentcloud.cdc as __cdc
+    cdc = __cdc
     import pulumi_tencentcloud.cdh as __cdh
     cdh = __cdh
     import pulumi_tencentcloud.cdn as __cdn
     cdn = __cdn
+    import pulumi_tencentcloud.cdwdoris as __cdwdoris
+    cdwdoris = __cdwdoris
     import pulumi_tencentcloud.cdwpg as __cdwpg
     cdwpg = __cdwpg
     import pulumi_tencentcloud.cfs as __cfs
@@ -54,6 +60,8 @@ if typing.TYPE_CHECKING:
     ciam = __ciam
     import pulumi_tencentcloud.ckafka as __ckafka
     ckafka = __ckafka
+    import pulumi_tencentcloud.classic as __classic
+    classic = __classic
     import pulumi_tencentcloud.clb as __clb
     clb = __clb
     import pulumi_tencentcloud.clickhouse as __clickhouse
@@ -64,6 +72,8 @@ if typing.TYPE_CHECKING:
     config = __config
     import pulumi_tencentcloud.cos as __cos
     cos = __cos
+    import pulumi_tencentcloud.csip as __csip
+    csip = __csip
     import pulumi_tencentcloud.css as __css
     css = __css
     import pulumi_tencentcloud.cvm as __cvm
@@ -86,8 +96,6 @@ if typing.TYPE_CHECKING:
     dcx = __dcx
     import pulumi_tencentcloud.deprecatedalb as __deprecatedalb
     deprecatedalb = __deprecatedalb
-    import pulumi_tencentcloud.deprecatedaudit as __deprecatedaudit
-    deprecatedaudit = __deprecatedaudit
     import pulumi_tencentcloud.deprecatedavailability as __deprecatedavailability
     deprecatedavailability = __deprecatedavailability
     import pulumi_tencentcloud.deprecatedcontainer as __deprecatedcontainer
@@ -132,6 +140,8 @@ if typing.TYPE_CHECKING:
     eip = __eip
     import pulumi_tencentcloud.eips as __eips
     eips = __eips
+    import pulumi_tencentcloud.elastic as __elastic
+    elastic = __elastic
     import pulumi_tencentcloud.elasticsearch as __elasticsearch
     elasticsearch = __elasticsearch
     import pulumi_tencentcloud.emr as __emr
@@ -140,10 +150,14 @@ if typing.TYPE_CHECKING:
     eni = __eni
     import pulumi_tencentcloud.enis as __enis
     enis = __enis
+    import pulumi_tencentcloud.events as __events
+    events = __events
     import pulumi_tencentcloud.gaap as __gaap
     gaap = __gaap
     import pulumi_tencentcloud.ha as __ha
     ha = __ha
+    import pulumi_tencentcloud.identity as __identity
+    identity = __identity
     import pulumi_tencentcloud.image as __image
     image = __image
     import pulumi_tencentcloud.images as __images
@@ -152,6 +166,8 @@ if typing.TYPE_CHECKING:
     instance = __instance
     import pulumi_tencentcloud.instances as __instances
     instances = __instances
+    import pulumi_tencentcloud.invite as __invite
+    invite = __invite
     import pulumi_tencentcloud.ipv6 as __ipv6
     ipv6 = __ipv6
     import pulumi_tencentcloud.key as __key
@@ -162,6 +178,8 @@ if typing.TYPE_CHECKING:
     kubernetes = __kubernetes
     import pulumi_tencentcloud.lighthouse as __lighthouse
     lighthouse = __lighthouse
+    import pulumi_tencentcloud.lite as __lite
+    lite = __lite
     import pulumi_tencentcloud.mariadb as __mariadb
     mariadb = __mariadb
     import pulumi_tencentcloud.mdl as __mdl
@@ -178,6 +196,8 @@ if typing.TYPE_CHECKING:
     nat = __nat
     import pulumi_tencentcloud.oceanus as __oceanus
     oceanus = __oceanus
+    import pulumi_tencentcloud.open as __open
+    open = __open
     import pulumi_tencentcloud.organization as __organization
     organization = __organization
     import pulumi_tencentcloud.placement as __placement
@@ -196,6 +216,8 @@ if typing.TYPE_CHECKING:
     pts = __pts
     import pulumi_tencentcloud.redis as __redis
     redis = __redis
+    import pulumi_tencentcloud.reserve as __reserve
+    reserve = __reserve
     import pulumi_tencentcloud.reserved as __reserved
     reserved = __reserved
     import pulumi_tencentcloud.route as __route
@@ -208,6 +230,8 @@ if typing.TYPE_CHECKING:
     security = __security
     import pulumi_tencentcloud.ses as __ses
     ses = __ses
+    import pulumi_tencentcloud.sg as __sg
+    sg = __sg
     import pulumi_tencentcloud.sms as __sms
     sms = __sms
     import pulumi_tencentcloud.sqlserver as __sqlserver
@@ -218,8 +242,12 @@ if typing.TYPE_CHECKING:
     ssm = __ssm
     import pulumi_tencentcloud.sts as __sts
     sts = __sts
+    import pulumi_tencentcloud.subdomain as __subdomain
+    subdomain = __subdomain
     import pulumi_tencentcloud.subnet as __subnet
     subnet = __subnet
+    import pulumi_tencentcloud.subscribe as __subscribe
+    subscribe = __subscribe
     import pulumi_tencentcloud.tag as __tag
     tag = __tag
     import pulumi_tencentcloud.tat as __tat
@@ -232,6 +260,8 @@ if typing.TYPE_CHECKING:
     tcmq = __tcmq
     import pulumi_tencentcloud.tcr as __tcr
     tcr = __tcr
+    import pulumi_tencentcloud.tcss as __tcss
+    tcss = __tcss
     import pulumi_tencentcloud.tdcpg as __tdcpg
     tdcpg = __tdcpg
     import pulumi_tencentcloud.tdmq as __tdmq
@@ -240,6 +270,8 @@ if typing.TYPE_CHECKING:
     tem = __tem
     import pulumi_tencentcloud.teo as __teo
     teo = __teo
+    import pulumi_tencentcloud.thpc as __thpc
+    thpc = __thpc
     import pulumi_tencentcloud.trocket as __trocket
     trocket = __trocket
     import pulumi_tencentcloud.tse as __tse
@@ -267,13 +299,16 @@ else:
     audit = _utilities.lazy_import('pulumi_tencentcloud.audit')
     audits = _utilities.lazy_import('pulumi_tencentcloud.audits')
     availability = _utilities.lazy_import('pulumi_tencentcloud.availability')
+    batch = _utilities.lazy_import('pulumi_tencentcloud.batch')
     bi = _utilities.lazy_import('pulumi_tencentcloud.bi')
     cam = _utilities.lazy_import('pulumi_tencentcloud.cam')
     cat = _utilities.lazy_import('pulumi_tencentcloud.cat')
     cbs = _utilities.lazy_import('pulumi_tencentcloud.cbs')
     ccn = _utilities.lazy_import('pulumi_tencentcloud.ccn')
+    cdc = _utilities.lazy_import('pulumi_tencentcloud.cdc')
     cdh = _utilities.lazy_import('pulumi_tencentcloud.cdh')
     cdn = _utilities.lazy_import('pulumi_tencentcloud.cdn')
+    cdwdoris = _utilities.lazy_import('pulumi_tencentcloud.cdwdoris')
     cdwpg = _utilities.lazy_import('pulumi_tencentcloud.cdwpg')
     cfs = _utilities.lazy_import('pulumi_tencentcloud.cfs')
     cfw = _utilities.lazy_import('pulumi_tencentcloud.cfw')
@@ -281,11 +316,13 @@ else:
     ci = _utilities.lazy_import('pulumi_tencentcloud.ci')
     ciam = _utilities.lazy_import('pulumi_tencentcloud.ciam')
     ckafka = _utilities.lazy_import('pulumi_tencentcloud.ckafka')
+    classic = _utilities.lazy_import('pulumi_tencentcloud.classic')
     clb = _utilities.lazy_import('pulumi_tencentcloud.clb')
     clickhouse = _utilities.lazy_import('pulumi_tencentcloud.clickhouse')
     cls = _utilities.lazy_import('pulumi_tencentcloud.cls')
     config = _utilities.lazy_import('pulumi_tencentcloud.config')
     cos = _utilities.lazy_import('pulumi_tencentcloud.cos')
+    csip = _utilities.lazy_import('pulumi_tencentcloud.csip')
     css = _utilities.lazy_import('pulumi_tencentcloud.css')
     cvm = _utilities.lazy_import('pulumi_tencentcloud.cvm')
     cwp = _utilities.lazy_import('pulumi_tencentcloud.cwp')
@@ -297,7 +334,6 @@ else:
     dcdb = _utilities.lazy_import('pulumi_tencentcloud.dcdb')
     dcx = _utilities.lazy_import('pulumi_tencentcloud.dcx')
     deprecatedalb = _utilities.lazy_import('pulumi_tencentcloud.deprecatedalb')
-    deprecatedaudit = _utilities.lazy_import('pulumi_tencentcloud.deprecatedaudit')
     deprecatedavailability = _utilities.lazy_import('pulumi_tencentcloud.deprecatedavailability')
     deprecatedcontainer = _utilities.lazy_import('pulumi_tencentcloud.deprecatedcontainer')
     deprecatedeip = _utilities.lazy_import('pulumi_tencentcloud.deprecatedeip')
@@ -320,21 +356,26 @@ else:
     eb = _utilities.lazy_import('pulumi_tencentcloud.eb')
     eip = _utilities.lazy_import('pulumi_tencentcloud.eip')
     eips = _utilities.lazy_import('pulumi_tencentcloud.eips')
+    elastic = _utilities.lazy_import('pulumi_tencentcloud.elastic')
     elasticsearch = _utilities.lazy_import('pulumi_tencentcloud.elasticsearch')
     emr = _utilities.lazy_import('pulumi_tencentcloud.emr')
     eni = _utilities.lazy_import('pulumi_tencentcloud.eni')
     enis = _utilities.lazy_import('pulumi_tencentcloud.enis')
+    events = _utilities.lazy_import('pulumi_tencentcloud.events')
     gaap = _utilities.lazy_import('pulumi_tencentcloud.gaap')
     ha = _utilities.lazy_import('pulumi_tencentcloud.ha')
+    identity = _utilities.lazy_import('pulumi_tencentcloud.identity')
     image = _utilities.lazy_import('pulumi_tencentcloud.image')
     images = _utilities.lazy_import('pulumi_tencentcloud.images')
     instance = _utilities.lazy_import('pulumi_tencentcloud.instance')
     instances = _utilities.lazy_import('pulumi_tencentcloud.instances')
+    invite = _utilities.lazy_import('pulumi_tencentcloud.invite')
     ipv6 = _utilities.lazy_import('pulumi_tencentcloud.ipv6')
     key = _utilities.lazy_import('pulumi_tencentcloud.key')
     kms = _utilities.lazy_import('pulumi_tencentcloud.kms')
     kubernetes = _utilities.lazy_import('pulumi_tencentcloud.kubernetes')
     lighthouse = _utilities.lazy_import('pulumi_tencentcloud.lighthouse')
+    lite = _utilities.lazy_import('pulumi_tencentcloud.lite')
     mariadb = _utilities.lazy_import('pulumi_tencentcloud.mariadb')
     mdl = _utilities.lazy_import('pulumi_tencentcloud.mdl')
     mongodb = _utilities.lazy_import('pulumi_tencentcloud.mongodb')
@@ -343,6 +384,7 @@ else:
     mysql = _utilities.lazy_import('pulumi_tencentcloud.mysql')
     nat = _utilities.lazy_import('pulumi_tencentcloud.nat')
     oceanus = _utilities.lazy_import('pulumi_tencentcloud.oceanus')
+    open = _utilities.lazy_import('pulumi_tencentcloud.open')
     organization = _utilities.lazy_import('pulumi_tencentcloud.organization')
     placement = _utilities.lazy_import('pulumi_tencentcloud.placement')
     postgresql = _utilities.lazy_import('pulumi_tencentcloud.postgresql')
@@ -352,28 +394,34 @@ else:
     protocol = _utilities.lazy_import('pulumi_tencentcloud.protocol')
     pts = _utilities.lazy_import('pulumi_tencentcloud.pts')
     redis = _utilities.lazy_import('pulumi_tencentcloud.redis')
+    reserve = _utilities.lazy_import('pulumi_tencentcloud.reserve')
     reserved = _utilities.lazy_import('pulumi_tencentcloud.reserved')
     route = _utilities.lazy_import('pulumi_tencentcloud.route')
     rum = _utilities.lazy_import('pulumi_tencentcloud.rum')
     scf = _utilities.lazy_import('pulumi_tencentcloud.scf')
     security = _utilities.lazy_import('pulumi_tencentcloud.security')
     ses = _utilities.lazy_import('pulumi_tencentcloud.ses')
+    sg = _utilities.lazy_import('pulumi_tencentcloud.sg')
     sms = _utilities.lazy_import('pulumi_tencentcloud.sms')
     sqlserver = _utilities.lazy_import('pulumi_tencentcloud.sqlserver')
     ssl = _utilities.lazy_import('pulumi_tencentcloud.ssl')
     ssm = _utilities.lazy_import('pulumi_tencentcloud.ssm')
     sts = _utilities.lazy_import('pulumi_tencentcloud.sts')
+    subdomain = _utilities.lazy_import('pulumi_tencentcloud.subdomain')
     subnet = _utilities.lazy_import('pulumi_tencentcloud.subnet')
+    subscribe = _utilities.lazy_import('pulumi_tencentcloud.subscribe')
     tag = _utilities.lazy_import('pulumi_tencentcloud.tag')
     tat = _utilities.lazy_import('pulumi_tencentcloud.tat')
     tcaplus = _utilities.lazy_import('pulumi_tencentcloud.tcaplus')
     tcm = _utilities.lazy_import('pulumi_tencentcloud.tcm')
     tcmq = _utilities.lazy_import('pulumi_tencentcloud.tcmq')
     tcr = _utilities.lazy_import('pulumi_tencentcloud.tcr')
+    tcss = _utilities.lazy_import('pulumi_tencentcloud.tcss')
     tdcpg = _utilities.lazy_import('pulumi_tencentcloud.tdcpg')
     tdmq = _utilities.lazy_import('pulumi_tencentcloud.tdmq')
     tem = _utilities.lazy_import('pulumi_tencentcloud.tem')
     teo = _utilities.lazy_import('pulumi_tencentcloud.teo')
+    thpc = _utilities.lazy_import('pulumi_tencentcloud.thpc')
     trocket = _utilities.lazy_import('pulumi_tencentcloud.trocket')
     tse = _utilities.lazy_import('pulumi_tencentcloud.tse')
     tsf = _utilities.lazy_import('pulumi_tencentcloud.tsf')
@@ -605,6 +653,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "ApiGateway/updateService",
+  "fqn": "pulumi_tencentcloud.apigateway",
+  "classes": {
+   "tencentcloud:ApiGateway/updateService:UpdateService": "UpdateService"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "ApiGateway/upstream",
   "fqn": "pulumi_tencentcloud.apigateway",
   "classes": {
@@ -757,6 +813,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "As/startInstanceRefresh",
+  "fqn": "pulumi_tencentcloud.as_",
+  "classes": {
+   "tencentcloud:As/startInstanceRefresh:StartInstanceRefresh": "StartInstanceRefresh"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "As/startInstances",
   "fqn": "pulumi_tencentcloud.as_",
   "classes": {
@@ -777,6 +841,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.audit",
   "classes": {
    "tencentcloud:Audit/track:Track": "Track"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Batch/applyAccountBaselines",
+  "fqn": "pulumi_tencentcloud.batch",
+  "classes": {
+   "tencentcloud:Batch/applyAccountBaselines:ApplyAccountBaselines": "ApplyAccountBaselines"
   }
  },
  {
@@ -1157,10 +1229,66 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Ccn/routeTable",
+  "fqn": "pulumi_tencentcloud.ccn",
+  "classes": {
+   "tencentcloud:Ccn/routeTable:RouteTable": "RouteTable"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Ccn/routeTableAssociateInstanceConfig",
+  "fqn": "pulumi_tencentcloud.ccn",
+  "classes": {
+   "tencentcloud:Ccn/routeTableAssociateInstanceConfig:RouteTableAssociateInstanceConfig": "RouteTableAssociateInstanceConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Ccn/routeTableBroadcastPolicies",
+  "fqn": "pulumi_tencentcloud.ccn",
+  "classes": {
+   "tencentcloud:Ccn/routeTableBroadcastPolicies:RouteTableBroadcastPolicies": "RouteTableBroadcastPolicies"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Ccn/routeTableInputPolicies",
+  "fqn": "pulumi_tencentcloud.ccn",
+  "classes": {
+   "tencentcloud:Ccn/routeTableInputPolicies:RouteTableInputPolicies": "RouteTableInputPolicies"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Ccn/routeTableSelectionPolicies",
+  "fqn": "pulumi_tencentcloud.ccn",
+  "classes": {
+   "tencentcloud:Ccn/routeTableSelectionPolicies:RouteTableSelectionPolicies": "RouteTableSelectionPolicies"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Ccn/routes",
   "fqn": "pulumi_tencentcloud.ccn",
   "classes": {
    "tencentcloud:Ccn/routes:Routes": "Routes"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cdc/dedicatedCluster",
+  "fqn": "pulumi_tencentcloud.cdc",
+  "classes": {
+   "tencentcloud:Cdc/dedicatedCluster:DedicatedCluster": "DedicatedCluster"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cdc/site",
+  "fqn": "pulumi_tencentcloud.cdc",
+  "classes": {
+   "tencentcloud:Cdc/site:Site": "Site"
   }
  },
  {
@@ -1193,6 +1321,22 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.cdn",
   "classes": {
    "tencentcloud:Cdn/urlPush:UrlPush": "UrlPush"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cdwdoris/instance",
+  "fqn": "pulumi_tencentcloud.cdwdoris",
+  "classes": {
+   "tencentcloud:Cdwdoris/instance:Instance": "Instance"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cdwdoris/workloadGroup",
+  "fqn": "pulumi_tencentcloud.cdwdoris",
+  "classes": {
+   "tencentcloud:Cdwdoris/workloadGroup:WorkloadGroup": "WorkloadGroup"
   }
  },
  {
@@ -1677,6 +1821,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Classic/elasticPublicIpv6",
+  "fqn": "pulumi_tencentcloud.classic",
+  "classes": {
+   "tencentcloud:Classic/elasticPublicIpv6:ElasticPublicIpv6": "ElasticPublicIpv6"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Clb/attachment",
   "fqn": "pulumi_tencentcloud.clb",
   "classes": {
@@ -1729,6 +1881,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.clb",
   "classes": {
    "tencentcloud:Clb/listener:Listener": "Listener"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Clb/listenerDefaultDomain",
+  "fqn": "pulumi_tencentcloud.clb",
+  "classes": {
+   "tencentcloud:Clb/listenerDefaultDomain:ListenerDefaultDomain": "ListenerDefaultDomain"
   }
  },
  {
@@ -1917,6 +2077,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Cls/cloudProductLogTask",
+  "fqn": "pulumi_tencentcloud.cls",
+  "classes": {
+   "tencentcloud:Cls/cloudProductLogTask:CloudProductLogTask": "CloudProductLogTask"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Cls/config",
   "fqn": "pulumi_tencentcloud.cls",
   "classes": {
@@ -2001,6 +2169,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.cls",
   "classes": {
    "tencentcloud:Cls/machineGroup:MachineGroup": "MachineGroup"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cls/noticeContent",
+  "fqn": "pulumi_tencentcloud.cls",
+  "classes": {
+   "tencentcloud:Cls/noticeContent:NoticeContent": "NoticeContent"
   }
  },
  {
@@ -2121,6 +2297,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.cos",
   "classes": {
    "tencentcloud:Cos/objectRestoreOperation:ObjectRestoreOperation": "ObjectRestoreOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Csip/riskCenter",
+  "fqn": "pulumi_tencentcloud.csip",
+  "classes": {
+   "tencentcloud:Csip/riskCenter:RiskCenter": "RiskCenter"
   }
  },
  {
@@ -2329,6 +2513,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.css",
   "classes": {
    "tencentcloud:Css/watermarkRuleAttachment:WatermarkRuleAttachment": "WatermarkRuleAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Cvm/actionTimer",
+  "fqn": "pulumi_tencentcloud.cvm",
+  "classes": {
+   "tencentcloud:Cvm/actionTimer:ActionTimer": "ActionTimer"
   }
  },
  {
@@ -3117,14 +3309,6 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
-  "mod": "Deprecatedaudit/instance",
-  "fqn": "pulumi_tencentcloud.deprecatedaudit",
-  "classes": {
-   "tencentcloud:Deprecatedaudit/instance:Instance": "Instance"
-  }
- },
- {
-  "pkg": "tencentcloud",
   "mod": "Deprecatedcontainer/cluster",
   "fqn": "pulumi_tencentcloud.deprecatedcontainer",
   "classes": {
@@ -3205,10 +3389,26 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Deprecatedsecurity/groupLiteRule",
+  "fqn": "pulumi_tencentcloud.deprecatedsecurity",
+  "classes": {
+   "tencentcloud:Deprecatedsecurity/groupLiteRule:GroupLiteRule": "GroupLiteRule"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Deprecatedsecurity/groupRule",
   "fqn": "pulumi_tencentcloud.deprecatedsecurity",
   "classes": {
    "tencentcloud:Deprecatedsecurity/groupRule:GroupRule": "GroupRule"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Deprecatedvpc/ipv6EniAddress",
+  "fqn": "pulumi_tencentcloud.deprecatedvpc",
+  "classes": {
+   "tencentcloud:Deprecatedvpc/ipv6EniAddress:Ipv6EniAddress": "Ipv6EniAddress"
   }
  },
  {
@@ -3701,6 +3901,22 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Elastic/publicIpv6",
+  "fqn": "pulumi_tencentcloud.elastic",
+  "classes": {
+   "tencentcloud:Elastic/publicIpv6:PublicIpv6": "PublicIpv6"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Elastic/publicIpv6Attachment",
+  "fqn": "pulumi_tencentcloud.elastic",
+  "classes": {
+   "tencentcloud:Elastic/publicIpv6Attachment:PublicIpv6Attachment": "PublicIpv6Attachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Elasticsearch/diagnose",
   "fqn": "pulumi_tencentcloud.elasticsearch",
   "classes": {
@@ -3845,10 +4061,34 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Eni/ipv4Address",
+  "fqn": "pulumi_tencentcloud.eni",
+  "classes": {
+   "tencentcloud:Eni/ipv4Address:Ipv4Address": "Ipv4Address"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Eni/ipv6Address",
+  "fqn": "pulumi_tencentcloud.eni",
+  "classes": {
+   "tencentcloud:Eni/ipv6Address:Ipv6Address": "Ipv6Address"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Eni/sgAttachment",
   "fqn": "pulumi_tencentcloud.eni",
   "classes": {
    "tencentcloud:Eni/sgAttachment:SgAttachment": "SgAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Events/auditTrack",
+  "fqn": "pulumi_tencentcloud.events",
+  "classes": {
+   "tencentcloud:Events/auditTrack:AuditTrack": "AuditTrack"
   }
  },
  {
@@ -3981,6 +4221,110 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Identity/centerExternalSamlIdentityProvider",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerExternalSamlIdentityProvider:CenterExternalSamlIdentityProvider": "CenterExternalSamlIdentityProvider"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerGroup",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerGroup:CenterGroup": "CenterGroup"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerRoleAssignment",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerRoleAssignment:CenterRoleAssignment": "CenterRoleAssignment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerRoleConfiguration",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerRoleConfiguration:CenterRoleConfiguration": "CenterRoleConfiguration"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerRoleConfigurationPermissionCustomPoliciesAttachment",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerRoleConfigurationPermissionCustomPoliciesAttachment:CenterRoleConfigurationPermissionCustomPoliciesAttachment": "CenterRoleConfigurationPermissionCustomPoliciesAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerRoleConfigurationPermissionCustomPolicyAttachment",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerRoleConfigurationPermissionCustomPolicyAttachment:CenterRoleConfigurationPermissionCustomPolicyAttachment": "CenterRoleConfigurationPermissionCustomPolicyAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerRoleConfigurationPermissionPolicyAttachment",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerRoleConfigurationPermissionPolicyAttachment:CenterRoleConfigurationPermissionPolicyAttachment": "CenterRoleConfigurationPermissionPolicyAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerScimCredential",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerScimCredential:CenterScimCredential": "CenterScimCredential"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerScimCredentialStatus",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerScimCredentialStatus:CenterScimCredentialStatus": "CenterScimCredentialStatus"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerScimSynchronizationStatus",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerScimSynchronizationStatus:CenterScimSynchronizationStatus": "CenterScimSynchronizationStatus"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerUser",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerUser:CenterUser": "CenterUser"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerUserGroupAttachment",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerUserGroupAttachment:CenterUserGroupAttachment": "CenterUserGroupAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Identity/centerUserSyncProvisioning",
+  "fqn": "pulumi_tencentcloud.identity",
+  "classes": {
+   "tencentcloud:Identity/centerUserSyncProvisioning:CenterUserSyncProvisioning": "CenterUserSyncProvisioning"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Image/instance",
   "fqn": "pulumi_tencentcloud.image",
   "classes": {
@@ -4001,6 +4345,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.instance",
   "classes": {
    "tencentcloud:Instance/set:Set": "Set"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Invite/organizationMemberOperation",
+  "fqn": "pulumi_tencentcloud.invite",
+  "classes": {
+   "tencentcloud:Invite/organizationMemberOperation:OrganizationMemberOperation": "OrganizationMemberOperation"
   }
  },
  {
@@ -4061,10 +4413,26 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Kubernetes/addon",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/addon:Addon": "Addon"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Kubernetes/addonAttachment",
   "fqn": "pulumi_tencentcloud.kubernetes",
   "classes": {
    "tencentcloud:Kubernetes/addonAttachment:AddonAttachment": "AddonAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Kubernetes/addonConfig",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/addonConfig:AddonConfig": "AddonConfig"
   }
  },
  {
@@ -4109,10 +4477,42 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Kubernetes/clusterMasterAttachment",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/clusterMasterAttachment:ClusterMasterAttachment": "ClusterMasterAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Kubernetes/encryptionProtection",
   "fqn": "pulumi_tencentcloud.kubernetes",
   "classes": {
    "tencentcloud:Kubernetes/encryptionProtection:EncryptionProtection": "EncryptionProtection"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Kubernetes/healthCheckPolicy",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/healthCheckPolicy:HealthCheckPolicy": "HealthCheckPolicy"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Kubernetes/logConfig",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/logConfig:LogConfig": "LogConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Kubernetes/nativeNodePool",
+  "fqn": "pulumi_tencentcloud.kubernetes",
+  "classes": {
+   "tencentcloud:Kubernetes/nativeNodePool:NativeNodePool": "NativeNodePool"
   }
  },
  {
@@ -4273,6 +4673,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.lighthouse",
   "classes": {
    "tencentcloud:Lighthouse/stopInstance:StopInstance": "StopInstance"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Lite/hbaseInstance",
+  "fqn": "pulumi_tencentcloud.lite",
+  "classes": {
+   "tencentcloud:Lite/hbaseInstance:HbaseInstance": "HbaseInstance"
   }
  },
  {
@@ -4453,6 +4861,22 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Mongodb/instanceBackupRule",
+  "fqn": "pulumi_tencentcloud.mongodb",
+  "classes": {
+   "tencentcloud:Mongodb/instanceBackupRule:InstanceBackupRule": "InstanceBackupRule"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Mongodb/instanceTransparentDataEncryption",
+  "fqn": "pulumi_tencentcloud.mongodb",
+  "classes": {
+   "tencentcloud:Mongodb/instanceTransparentDataEncryption:InstanceTransparentDataEncryption": "InstanceTransparentDataEncryption"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Mongodb/shardingInstance",
   "fqn": "pulumi_tencentcloud.mongodb",
   "classes": {
@@ -4593,6 +5017,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.monitor",
   "classes": {
    "tencentcloud:Monitor/policyBindingObject:PolicyBindingObject": "PolicyBindingObject"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Monitor/tmpAlertGroup",
+  "fqn": "pulumi_tencentcloud.monitor",
+  "classes": {
+   "tencentcloud:Monitor/tmpAlertGroup:TmpAlertGroup": "TmpAlertGroup"
   }
  },
  {
@@ -4981,6 +5413,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Mysql/clsLogAttachment",
+  "fqn": "pulumi_tencentcloud.mysql",
+  "classes": {
+   "tencentcloud:Mysql/clsLogAttachment:ClsLogAttachment": "ClsLogAttachment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Mysql/database",
   "fqn": "pulumi_tencentcloud.mysql",
   "classes": {
@@ -5001,6 +5441,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.mysql",
   "classes": {
    "tencentcloud:Mysql/deployGroup:DeployGroup": "DeployGroup"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Mysql/drInstance",
+  "fqn": "pulumi_tencentcloud.mysql",
+  "classes": {
+   "tencentcloud:Mysql/drInstance:DrInstance": "DrInstance"
   }
  },
  {
@@ -5189,6 +5637,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Mysql/ssl",
+  "fqn": "pulumi_tencentcloud.mysql",
+  "classes": {
+   "tencentcloud:Mysql/ssl:Ssl": "Ssl"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Mysql/switchForUpgrade",
   "fqn": "pulumi_tencentcloud.mysql",
   "classes": {
@@ -5333,6 +5789,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Open/identityCenterOperation",
+  "fqn": "pulumi_tencentcloud.open",
+  "classes": {
+   "tencentcloud:Open/identityCenterOperation:IdentityCenterOperation": "IdentityCenterOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Organization/instance",
   "fqn": "pulumi_tencentcloud.organization",
   "classes": {
@@ -5345,6 +5809,30 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.organization",
   "classes": {
    "tencentcloud:Organization/orgIdentity:OrgIdentity": "OrgIdentity"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Organization/orgManagePolicy",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/orgManagePolicy:OrgManagePolicy": "OrgManagePolicy"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Organization/orgManagePolicyConfig",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/orgManagePolicyConfig:OrgManagePolicyConfig": "OrgManagePolicyConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Organization/orgManagePolicyTarget",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/orgManagePolicyTarget:OrgManagePolicyTarget": "OrgManagePolicyTarget"
   }
  },
  {
@@ -5389,6 +5877,22 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Organization/orgShareUnit",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/orgShareUnit:OrgShareUnit": "OrgShareUnit"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Organization/orgShareUnitMember",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/orgShareUnitMember:OrgShareUnitMember": "OrgShareUnitMember"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Organization/policySubAccountAttachment",
   "fqn": "pulumi_tencentcloud.organization",
   "classes": {
@@ -5405,10 +5909,42 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Organization/serviceAssign",
+  "fqn": "pulumi_tencentcloud.organization",
+  "classes": {
+   "tencentcloud:Organization/serviceAssign:ServiceAssign": "ServiceAssign"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Placement/group",
   "fqn": "pulumi_tencentcloud.placement",
   "classes": {
    "tencentcloud:Placement/group:Group": "Group"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Postgresql/account",
+  "fqn": "pulumi_tencentcloud.postgresql",
+  "classes": {
+   "tencentcloud:Postgresql/account:Account": "Account"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Postgresql/accountPrivilegesOperation",
+  "fqn": "pulumi_tencentcloud.postgresql",
+  "classes": {
+   "tencentcloud:Postgresql/accountPrivilegesOperation:AccountPrivilegesOperation": "AccountPrivilegesOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Postgresql/applyParameterTemplateOperation",
+  "fqn": "pulumi_tencentcloud.postgresql",
+  "classes": {
+   "tencentcloud:Postgresql/applyParameterTemplateOperation:ApplyParameterTemplateOperation": "ApplyParameterTemplateOperation"
   }
  },
  {
@@ -5433,6 +5969,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.postgresql",
   "classes": {
    "tencentcloud:Postgresql/baseBackup:BaseBackup": "BaseBackup"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Postgresql/cloneDbInstance",
+  "fqn": "pulumi_tencentcloud.postgresql",
+  "classes": {
+   "tencentcloud:Postgresql/cloneDbInstance:CloneDbInstance": "CloneDbInstance"
   }
  },
  {
@@ -5553,6 +6097,22 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.postgresql",
   "classes": {
    "tencentcloud:Postgresql/securityGroupConfig:SecurityGroupConfig": "SecurityGroupConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "PrivateDns/endPoint",
+  "fqn": "pulumi_tencentcloud.privatedns",
+  "classes": {
+   "tencentcloud:PrivateDns/endPoint:EndPoint": "EndPoint"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "PrivateDns/forwardRule",
+  "fqn": "pulumi_tencentcloud.privatedns",
+  "classes": {
+   "tencentcloud:PrivateDns/forwardRule:ForwardRule": "ForwardRule"
   }
  },
  {
@@ -5741,6 +6301,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Redis/logDelivery",
+  "fqn": "pulumi_tencentcloud.redis",
+  "classes": {
+   "tencentcloud:Redis/logDelivery:LogDelivery": "LogDelivery"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Redis/maintenanceWindow",
   "fqn": "pulumi_tencentcloud.redis",
   "classes": {
@@ -5853,6 +6421,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Reserve/ipAddress",
+  "fqn": "pulumi_tencentcloud.reserve",
+  "classes": {
+   "tencentcloud:Reserve/ipAddress:IpAddress": "IpAddress"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Reserved/instance",
   "fqn": "pulumi_tencentcloud.reserved",
   "classes": {
@@ -5937,6 +6513,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.rum",
   "classes": {
    "tencentcloud:Rum/whitelist:Whitelist": "Whitelist"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Scf/customDomain",
+  "fqn": "pulumi_tencentcloud.scf",
+  "classes": {
+   "tencentcloud:Scf/customDomain:CustomDomain": "CustomDomain"
   }
  },
  {
@@ -6045,14 +6629,6 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
-  "mod": "Security/groupLiteRule",
-  "fqn": "pulumi_tencentcloud.security",
-  "classes": {
-   "tencentcloud:Security/groupLiteRule:GroupLiteRule": "GroupLiteRule"
-  }
- },
- {
-  "pkg": "tencentcloud",
   "mod": "Security/groupRuleSet",
   "fqn": "pulumi_tencentcloud.security",
   "classes": {
@@ -6121,6 +6697,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.ses",
   "classes": {
    "tencentcloud:Ses/verifyDomain:VerifyDomain": "VerifyDomain"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Sg/rule",
+  "fqn": "pulumi_tencentcloud.sg",
+  "classes": {
+   "tencentcloud:Sg/rule:Rule": "Rule"
   }
  },
  {
@@ -6453,6 +7037,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Ssl/checkCertificateDomainVerificationOperation",
+  "fqn": "pulumi_tencentcloud.ssl",
+  "classes": {
+   "tencentcloud:Ssl/checkCertificateDomainVerificationOperation:CheckCertificateDomainVerificationOperation": "CheckCertificateDomainVerificationOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Ssl/completeCertificateOperation",
   "fqn": "pulumi_tencentcloud.ssl",
   "classes": {
@@ -6597,10 +7189,26 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Subdomain/validateTxtValueOperation",
+  "fqn": "pulumi_tencentcloud.subdomain",
+  "classes": {
+   "tencentcloud:Subdomain/validateTxtValueOperation:ValidateTxtValueOperation": "ValidateTxtValueOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Subnet/instance",
   "fqn": "pulumi_tencentcloud.subnet",
   "classes": {
    "tencentcloud:Subnet/instance:Instance": "Instance"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Subscribe/privateZoneService",
+  "fqn": "pulumi_tencentcloud.subscribe",
+  "classes": {
+   "tencentcloud:Subscribe/privateZoneService:PrivateZoneService": "PrivateZoneService"
   }
  },
  {
@@ -6869,6 +7477,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Tcss/imageRegistry",
+  "fqn": "pulumi_tencentcloud.tcss",
+  "classes": {
+   "tencentcloud:Tcss/imageRegistry:ImageRegistry": "ImageRegistry"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Tdcpg/cluster",
   "fqn": "pulumi_tencentcloud.tdcpg",
   "classes": {
@@ -7013,10 +7629,10 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
-  "mod": "Tdmq/subscriptionAttachment",
+  "mod": "Tdmq/subscription",
   "fqn": "pulumi_tencentcloud.tdmq",
   "classes": {
-   "tencentcloud:Tdmq/subscriptionAttachment:SubscriptionAttachment": "SubscriptionAttachment"
+   "tencentcloud:Tdmq/subscription:Subscription": "Subscription"
   }
  },
  {
@@ -7025,6 +7641,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.tdmq",
   "classes": {
    "tencentcloud:Tdmq/topic:Topic": "Topic"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Tdmq/topicWithFullId",
+  "fqn": "pulumi_tencentcloud.tdmq",
+  "classes": {
+   "tencentcloud:Tdmq/topicWithFullId:TopicWithFullId": "TopicWithFullId"
   }
  },
  {
@@ -7125,6 +7749,46 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Teo/function",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/function:Function": "Function"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Teo/functionRule",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/functionRule:FunctionRule": "FunctionRule"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Teo/functionRulePriority",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/functionRulePriority:FunctionRulePriority": "FunctionRulePriority"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Teo/functionRuntimeEnvironment",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/functionRuntimeEnvironment:FunctionRuntimeEnvironment": "FunctionRuntimeEnvironment"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Teo/l4Proxy",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/l4Proxy:L4Proxy": "L4Proxy"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Teo/originGroup",
   "fqn": "pulumi_tencentcloud.teo",
   "classes": {
@@ -7141,10 +7805,26 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Teo/realtimeLogDelivery",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/realtimeLogDelivery:RealtimeLogDelivery": "RealtimeLogDelivery"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Teo/ruleEngine",
   "fqn": "pulumi_tencentcloud.teo",
   "classes": {
    "tencentcloud:Teo/ruleEngine:RuleEngine": "RuleEngine"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Teo/securityIpGroup",
+  "fqn": "pulumi_tencentcloud.teo",
+  "classes": {
+   "tencentcloud:Teo/securityIpGroup:SecurityIpGroup": "SecurityIpGroup"
   }
  },
  {
@@ -7161,6 +7841,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.teo",
   "classes": {
    "tencentcloud:Teo/zoneSetting:ZoneSetting": "ZoneSetting"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Thpc/workspaces",
+  "fqn": "pulumi_tencentcloud.thpc",
+  "classes": {
+   "tencentcloud:Thpc/workspaces:Workspaces": "Workspaces"
   }
  },
  {
@@ -7229,6 +7917,22 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Tse/cngwNetwork",
+  "fqn": "pulumi_tencentcloud.tse",
+  "classes": {
+   "tencentcloud:Tse/cngwNetwork:CngwNetwork": "CngwNetwork"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Tse/cngwNetworkAccessControl",
+  "fqn": "pulumi_tencentcloud.tse",
+  "classes": {
+   "tencentcloud:Tse/cngwNetworkAccessControl:CngwNetworkAccessControl": "CngwNetworkAccessControl"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Tse/cngwRoute",
   "fqn": "pulumi_tencentcloud.tse",
   "classes": {
@@ -7257,6 +7961,22 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.tse",
   "classes": {
    "tencentcloud:Tse/cngwServiceRateLimit:CngwServiceRateLimit": "CngwServiceRateLimit"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Tse/cngwStrategy",
+  "fqn": "pulumi_tencentcloud.tse",
+  "classes": {
+   "tencentcloud:Tse/cngwStrategy:CngwStrategy": "CngwStrategy"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Tse/cngwStrategyBindGroup",
+  "fqn": "pulumi_tencentcloud.tse",
+  "classes": {
+   "tencentcloud:Tse/cngwStrategyBindGroup:CngwStrategyBindGroup": "CngwStrategyBindGroup"
   }
  },
  {
@@ -7525,6 +8245,14 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
+  "mod": "Vod/eventConfig",
+  "fqn": "pulumi_tencentcloud.vod",
+  "classes": {
+   "tencentcloud:Vod/eventConfig:EventConfig": "EventConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
   "mod": "Vod/imageSpriteTemplate",
   "fqn": "pulumi_tencentcloud.vod",
   "classes": {
@@ -7537,6 +8265,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.vod",
   "classes": {
    "tencentcloud:Vod/procedureTemplate:ProcedureTemplate": "ProcedureTemplate"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Vod/sampleSnapshotTemplate",
+  "fqn": "pulumi_tencentcloud.vod",
+  "classes": {
+   "tencentcloud:Vod/sampleSnapshotTemplate:SampleSnapshotTemplate": "SampleSnapshotTemplate"
   }
  },
  {
@@ -7561,6 +8297,22 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.vod",
   "classes": {
    "tencentcloud:Vod/superPlayerConfig:SuperPlayerConfig": "SuperPlayerConfig"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Vod/transcodeTemplate",
+  "fqn": "pulumi_tencentcloud.vod",
+  "classes": {
+   "tencentcloud:Vod/transcodeTemplate:TranscodeTemplate": "TranscodeTemplate"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Vod/watermarkTemplate",
+  "fqn": "pulumi_tencentcloud.vod",
+  "classes": {
+   "tencentcloud:Vod/watermarkTemplate:WatermarkTemplate": "WatermarkTemplate"
   }
  },
  {
@@ -7685,14 +8437,6 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
-  "mod": "Vpc/ipv6EniAddress",
-  "fqn": "pulumi_tencentcloud.vpc",
-  "classes": {
-   "tencentcloud:Vpc/ipv6EniAddress:Ipv6EniAddress": "Ipv6EniAddress"
-  }
- },
- {
-  "pkg": "tencentcloud",
   "mod": "Vpc/ipv6SubnetCidrBlock",
   "fqn": "pulumi_tencentcloud.vpc",
   "classes": {
@@ -7753,6 +8497,14 @@ _utilities.register(
   "fqn": "pulumi_tencentcloud.vpc",
   "classes": {
    "tencentcloud:Vpc/peerConnectRejectOperation:PeerConnectRejectOperation": "PeerConnectRejectOperation"
+  }
+ },
+ {
+  "pkg": "tencentcloud",
+  "mod": "Vpc/privateNatGateway",
+  "fqn": "pulumi_tencentcloud.vpc",
+  "classes": {
+   "tencentcloud:Vpc/privateNatGateway:PrivateNatGateway": "PrivateNatGateway"
   }
  },
  {
@@ -7965,10 +8717,10 @@ _utilities.register(
  },
  {
   "pkg": "tencentcloud",
-  "mod": "Waf/modifyAccessPeriod",
+  "mod": "Waf/ipAccessControlV2",
   "fqn": "pulumi_tencentcloud.waf",
   "classes": {
-   "tencentcloud:Waf/modifyAccessPeriod:ModifyAccessPeriod": "ModifyAccessPeriod"
+   "tencentcloud:Waf/ipAccessControlV2:IpAccessControlV2": "IpAccessControlV2"
   }
  },
  {

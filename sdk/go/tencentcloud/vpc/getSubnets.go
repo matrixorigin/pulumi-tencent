@@ -24,6 +24,7 @@ func GetSubnets(ctx *pulumi.Context, args *GetSubnetsArgs, opts ...pulumi.Invoke
 // A collection of arguments for invoking getSubnets.
 type GetSubnetsArgs struct {
 	AvailabilityZone *string                `pulumi:"availabilityZone"`
+	CdcId            *string                `pulumi:"cdcId"`
 	CidrBlock        *string                `pulumi:"cidrBlock"`
 	IsDefault        *bool                  `pulumi:"isDefault"`
 	IsRemoteVpcSnat  *bool                  `pulumi:"isRemoteVpcSnat"`
@@ -38,6 +39,7 @@ type GetSubnetsArgs struct {
 // A collection of values returned by getSubnets.
 type GetSubnetsResult struct {
 	AvailabilityZone *string `pulumi:"availabilityZone"`
+	CdcId            *string `pulumi:"cdcId"`
 	CidrBlock        *string `pulumi:"cidrBlock"`
 	// The provider-assigned unique ID for this managed resource.
 	Id               string                   `pulumi:"id"`
@@ -68,6 +70,7 @@ func GetSubnetsOutput(ctx *pulumi.Context, args GetSubnetsOutputArgs, opts ...pu
 // A collection of arguments for invoking getSubnets.
 type GetSubnetsOutputArgs struct {
 	AvailabilityZone pulumi.StringPtrInput `pulumi:"availabilityZone"`
+	CdcId            pulumi.StringPtrInput `pulumi:"cdcId"`
 	CidrBlock        pulumi.StringPtrInput `pulumi:"cidrBlock"`
 	IsDefault        pulumi.BoolPtrInput   `pulumi:"isDefault"`
 	IsRemoteVpcSnat  pulumi.BoolPtrInput   `pulumi:"isRemoteVpcSnat"`
@@ -100,6 +103,10 @@ func (o GetSubnetsResultOutput) ToGetSubnetsResultOutputWithContext(ctx context.
 
 func (o GetSubnetsResultOutput) AvailabilityZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetSubnetsResult) *string { return v.AvailabilityZone }).(pulumi.StringPtrOutput)
+}
+
+func (o GetSubnetsResultOutput) CdcId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetSubnetsResult) *string { return v.CdcId }).(pulumi.StringPtrOutput)
 }
 
 func (o GetSubnetsResultOutput) CidrBlock() pulumi.StringPtrOutput {

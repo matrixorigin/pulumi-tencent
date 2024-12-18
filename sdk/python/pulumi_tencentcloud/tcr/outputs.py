@@ -125,6 +125,8 @@ class InstanceReplication(dict):
         suggest = None
         if key == "regionId":
             suggest = "region_id"
+        elif key == "regionName":
+            suggest = "region_name"
         elif key == "synTag":
             suggest = "syn_tag"
 
@@ -142,11 +144,14 @@ class InstanceReplication(dict):
     def __init__(__self__, *,
                  id: Optional[str] = None,
                  region_id: Optional[int] = None,
+                 region_name: Optional[str] = None,
                  syn_tag: Optional[bool] = None):
         if id is not None:
             pulumi.set(__self__, "id", id)
         if region_id is not None:
             pulumi.set(__self__, "region_id", region_id)
+        if region_name is not None:
+            pulumi.set(__self__, "region_name", region_name)
         if syn_tag is not None:
             pulumi.set(__self__, "syn_tag", syn_tag)
 
@@ -159,6 +164,11 @@ class InstanceReplication(dict):
     @pulumi.getter(name="regionId")
     def region_id(self) -> Optional[int]:
         return pulumi.get(self, "region_id")
+
+    @property
+    @pulumi.getter(name="regionName")
+    def region_name(self) -> Optional[str]:
+        return pulumi.get(self, "region_name")
 
     @property
     @pulumi.getter(name="synTag")

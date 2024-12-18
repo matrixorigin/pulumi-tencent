@@ -19,12 +19,12 @@ type User struct {
 	AuthType pulumi.IntPtrOutput `pulumi:"authType"`
 	// Department ID, such as: 1.2.3.
 	DepartmentId pulumi.StringPtrOutput `pulumi:"departmentId"`
-	// Email.
+	// Email. Please provide at least one of `phone` or `email`.
 	Email pulumi.StringPtrOutput `pulumi:"email"`
 	// The set of user group IDs to which it belongs.
 	GroupIdSets pulumi.IntArrayOutput `pulumi:"groupIdSets"`
-	// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-	// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+	// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+	// provide at least one of `phone` or `email`.
 	Phone pulumi.StringPtrOutput `pulumi:"phone"`
 	// Real name, maximum length 20 characters, cannot contain blank characters.
 	RealName pulumi.StringOutput `pulumi:"realName"`
@@ -33,14 +33,14 @@ type User struct {
 	UserName pulumi.StringOutput `pulumi:"userName"`
 	// User effective time, such as: 2021-09-22T00:00:00+00:00If the effective and expiry time are not filled in, the user will
 	// be valid for a long time.
-	ValidateFrom pulumi.StringPtrOutput `pulumi:"validateFrom"`
+	ValidateFrom pulumi.StringOutput `pulumi:"validateFrom"`
 	// Access time period limit, a string composed of 0 and 1, length 168 (7 * 24), representing the time period the user is
 	// allowed to access in a week. The Nth character in the string represents the Nth hour of the week, 0 - means access is
 	// not allowed, 1 - means access is allowed.
 	ValidateTime pulumi.StringPtrOutput `pulumi:"validateTime"`
 	// User expiration time, such as: 2021-09-23T00:00:00+00:00If the effective and expiry time are not filled in, the user
 	// will be valid for a long time.
-	ValidateTo pulumi.StringPtrOutput `pulumi:"validateTo"`
+	ValidateTo pulumi.StringOutput `pulumi:"validateTo"`
 }
 
 // NewUser registers a new resource with the given unique name, arguments, and options.
@@ -83,12 +83,12 @@ type userState struct {
 	AuthType *int `pulumi:"authType"`
 	// Department ID, such as: 1.2.3.
 	DepartmentId *string `pulumi:"departmentId"`
-	// Email.
+	// Email. Please provide at least one of `phone` or `email`.
 	Email *string `pulumi:"email"`
 	// The set of user group IDs to which it belongs.
 	GroupIdSets []int `pulumi:"groupIdSets"`
-	// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-	// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+	// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+	// provide at least one of `phone` or `email`.
 	Phone *string `pulumi:"phone"`
 	// Real name, maximum length 20 characters, cannot contain blank characters.
 	RealName *string `pulumi:"realName"`
@@ -112,12 +112,12 @@ type UserState struct {
 	AuthType pulumi.IntPtrInput
 	// Department ID, such as: 1.2.3.
 	DepartmentId pulumi.StringPtrInput
-	// Email.
+	// Email. Please provide at least one of `phone` or `email`.
 	Email pulumi.StringPtrInput
 	// The set of user group IDs to which it belongs.
 	GroupIdSets pulumi.IntArrayInput
-	// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-	// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+	// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+	// provide at least one of `phone` or `email`.
 	Phone pulumi.StringPtrInput
 	// Real name, maximum length 20 characters, cannot contain blank characters.
 	RealName pulumi.StringPtrInput
@@ -145,12 +145,12 @@ type userArgs struct {
 	AuthType *int `pulumi:"authType"`
 	// Department ID, such as: 1.2.3.
 	DepartmentId *string `pulumi:"departmentId"`
-	// Email.
+	// Email. Please provide at least one of `phone` or `email`.
 	Email *string `pulumi:"email"`
 	// The set of user group IDs to which it belongs.
 	GroupIdSets []int `pulumi:"groupIdSets"`
-	// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-	// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+	// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+	// provide at least one of `phone` or `email`.
 	Phone *string `pulumi:"phone"`
 	// Real name, maximum length 20 characters, cannot contain blank characters.
 	RealName string `pulumi:"realName"`
@@ -175,12 +175,12 @@ type UserArgs struct {
 	AuthType pulumi.IntPtrInput
 	// Department ID, such as: 1.2.3.
 	DepartmentId pulumi.StringPtrInput
-	// Email.
+	// Email. Please provide at least one of `phone` or `email`.
 	Email pulumi.StringPtrInput
 	// The set of user group IDs to which it belongs.
 	GroupIdSets pulumi.IntArrayInput
-	// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-	// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+	// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+	// provide at least one of `phone` or `email`.
 	Phone pulumi.StringPtrInput
 	// Real name, maximum length 20 characters, cannot contain blank characters.
 	RealName pulumi.StringInput
@@ -296,7 +296,7 @@ func (o UserOutput) DepartmentId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.DepartmentId }).(pulumi.StringPtrOutput)
 }
 
-// Email.
+// Email. Please provide at least one of `phone` or `email`.
 func (o UserOutput) Email() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.Email }).(pulumi.StringPtrOutput)
 }
@@ -306,8 +306,8 @@ func (o UserOutput) GroupIdSets() pulumi.IntArrayOutput {
 	return o.ApplyT(func(v *User) pulumi.IntArrayOutput { return v.GroupIdSets }).(pulumi.IntArrayOutput)
 }
 
-// Fill in the mainland mobile phone number directly. If it is a number from other countries or regions, enter it in the
-// format of country area code|mobile phone number. For example: +852|xxxxxxxx.
+// Enter it in the format of country area code|mobile phone number. For example: +86|***********, +852|xxxxxxxx. Please
+// provide at least one of `phone` or `email`.
 func (o UserOutput) Phone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.Phone }).(pulumi.StringPtrOutput)
 }
@@ -325,8 +325,8 @@ func (o UserOutput) UserName() pulumi.StringOutput {
 
 // User effective time, such as: 2021-09-22T00:00:00+00:00If the effective and expiry time are not filled in, the user will
 // be valid for a long time.
-func (o UserOutput) ValidateFrom() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.ValidateFrom }).(pulumi.StringPtrOutput)
+func (o UserOutput) ValidateFrom() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.ValidateFrom }).(pulumi.StringOutput)
 }
 
 // Access time period limit, a string composed of 0 and 1, length 168 (7 * 24), representing the time period the user is
@@ -338,8 +338,8 @@ func (o UserOutput) ValidateTime() pulumi.StringPtrOutput {
 
 // User expiration time, such as: 2021-09-23T00:00:00+00:00If the effective and expiry time are not filled in, the user
 // will be valid for a long time.
-func (o UserOutput) ValidateTo() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *User) pulumi.StringPtrOutput { return v.ValidateTo }).(pulumi.StringPtrOutput)
+func (o UserOutput) ValidateTo() pulumi.StringOutput {
+	return o.ApplyT(func(v *User) pulumi.StringOutput { return v.ValidateTo }).(pulumi.StringOutput)
 }
 
 type UserArrayOutput struct{ *pulumi.OutputState }

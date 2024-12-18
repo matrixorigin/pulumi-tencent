@@ -19,6 +19,8 @@ type CngwGroup struct {
 	Description pulumi.StringPtrOutput `pulumi:"description"`
 	// gateway IDonly postpaid gateway supported.
 	GatewayId pulumi.StringOutput `pulumi:"gatewayId"`
+	// gateway group id.
+	GroupId pulumi.StringOutput `pulumi:"groupId"`
 	// internet configration.
 	InternetConfig CngwGroupInternetConfigPtrOutput `pulumi:"internetConfig"`
 	// public network outbound traffic bandwidth,[1,2048]Mbps.
@@ -74,6 +76,8 @@ type cngwGroupState struct {
 	Description *string `pulumi:"description"`
 	// gateway IDonly postpaid gateway supported.
 	GatewayId *string `pulumi:"gatewayId"`
+	// gateway group id.
+	GroupId *string `pulumi:"groupId"`
 	// internet configration.
 	InternetConfig *CngwGroupInternetConfig `pulumi:"internetConfig"`
 	// public network outbound traffic bandwidth,[1,2048]Mbps.
@@ -91,6 +95,8 @@ type CngwGroupState struct {
 	Description pulumi.StringPtrInput
 	// gateway IDonly postpaid gateway supported.
 	GatewayId pulumi.StringPtrInput
+	// gateway group id.
+	GroupId pulumi.StringPtrInput
 	// internet configration.
 	InternetConfig CngwGroupInternetConfigPtrInput
 	// public network outbound traffic bandwidth,[1,2048]Mbps.
@@ -237,6 +243,11 @@ func (o CngwGroupOutput) Description() pulumi.StringPtrOutput {
 // gateway IDonly postpaid gateway supported.
 func (o CngwGroupOutput) GatewayId() pulumi.StringOutput {
 	return o.ApplyT(func(v *CngwGroup) pulumi.StringOutput { return v.GatewayId }).(pulumi.StringOutput)
+}
+
+// gateway group id.
+func (o CngwGroupOutput) GroupId() pulumi.StringOutput {
+	return o.ApplyT(func(v *CngwGroup) pulumi.StringOutput { return v.GroupId }).(pulumi.StringOutput)
 }
 
 // internet configration.

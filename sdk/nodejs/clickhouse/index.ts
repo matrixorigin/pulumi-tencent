@@ -45,6 +45,11 @@ export const getBackupTables: typeof import("./getBackupTables").getBackupTables
 export const getBackupTablesOutput: typeof import("./getBackupTables").getBackupTablesOutput = null as any;
 utilities.lazyLoad(exports, ["getBackupTables","getBackupTablesOutput"], () => require("./getBackupTables"));
 
+export { GetInstanceNodesArgs, GetInstanceNodesResult, GetInstanceNodesOutputArgs } from "./getInstanceNodes";
+export const getInstanceNodes: typeof import("./getInstanceNodes").getInstanceNodes = null as any;
+export const getInstanceNodesOutput: typeof import("./getInstanceNodes").getInstanceNodesOutput = null as any;
+utilities.lazyLoad(exports, ["getInstanceNodes","getInstanceNodesOutput"], () => require("./getInstanceNodes"));
+
 export { GetInstanceShardsArgs, GetInstanceShardsResult, GetInstanceShardsOutputArgs } from "./getInstanceShards";
 export const getInstanceShards: typeof import("./getInstanceShards").getInstanceShards = null as any;
 export const getInstanceShardsOutput: typeof import("./getInstanceShards").getInstanceShardsOutput = null as any;

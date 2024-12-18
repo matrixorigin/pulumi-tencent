@@ -30,7 +30,13 @@ class RocketmqInstanceArgs:
         """
         The set of arguments for constructing a RocketmqInstance resource.
         :param pulumi.Input[str] instance_type: Instance type. Valid values: `EXPERIMENT`, `BASIC`, `PRO`, `PLATINUM`.
-        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+               basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+               pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+               pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+               platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+               platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+               platinum_90w, platinum_100w.
         :param pulumi.Input[str] subnet_id: Subnet id.
         :param pulumi.Input[str] vpc_id: VPC id.
         :param pulumi.Input[int] bandwidth: Public network bandwidth. `bandwidth` must be greater than zero when `enable_public` equal true.
@@ -76,7 +82,13 @@ class RocketmqInstanceArgs:
     @pulumi.getter(name="skuCode")
     def sku_code(self) -> pulumi.Input[str]:
         """
-        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+        basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+        pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+        pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+        platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+        platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+        platinum_90w, platinum_100w.
         """
         return pulumi.get(self, "sku_code")
 
@@ -219,7 +231,13 @@ class _RocketmqInstanceState:
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[str] public_end_point: Public network access address.
         :param pulumi.Input[str] remark: Remark.
-        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+               basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+               pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+               pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+               platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+               platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+               platinum_90w, platinum_100w.
         :param pulumi.Input[str] subnet_id: Subnet id.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         :param pulumi.Input[str] vpc_end_point: VPC access address.
@@ -352,7 +370,13 @@ class _RocketmqInstanceState:
     @pulumi.getter(name="skuCode")
     def sku_code(self) -> Optional[pulumi.Input[str]]:
         """
-        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+        basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+        pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+        pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+        platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+        platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+        platinum_90w, platinum_100w.
         """
         return pulumi.get(self, "sku_code")
 
@@ -437,7 +461,13 @@ class RocketmqInstance(pulumi.CustomResource):
         :param pulumi.Input[int] message_retention: Message retention time in hours.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[str] remark: Remark.
-        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+               basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+               pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+               pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+               platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+               platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+               platinum_90w, platinum_100w.
         :param pulumi.Input[str] subnet_id: Subnet id.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         :param pulumi.Input[str] vpc_id: VPC id.
@@ -544,7 +574,13 @@ class RocketmqInstance(pulumi.CustomResource):
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[str] public_end_point: Public network access address.
         :param pulumi.Input[str] remark: Remark.
-        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        :param pulumi.Input[str] sku_code: SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+               basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+               pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+               pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+               platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+               platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+               platinum_90w, platinum_100w.
         :param pulumi.Input[str] subnet_id: Subnet id.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
         :param pulumi.Input[str] vpc_end_point: VPC access address.
@@ -637,7 +673,13 @@ class RocketmqInstance(pulumi.CustomResource):
     @pulumi.getter(name="skuCode")
     def sku_code(self) -> pulumi.Output[str]:
         """
-        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_4k, basic_6k.
+        SKU code. Available specifications are as follows: experiment_500, basic_1k, basic_2k, basic_3k, basic_4k, basic_5k,
+        basic_6k, basic_7k, basic_8k, basic_9k, basic_10k, pro_4k, pro_6k, pro_8k, pro_1w, pro_15k, pro_2w, pro_25k, pro_3w,
+        pro_35k, pro_4w, pro_45k, pro_5w, pro_55k, pro_60k, pro_65k, pro_70k, pro_75k, pro_80k, pro_85k, pro_90k, pro_95k,
+        pro_100k, platinum_1w, platinum_2w, platinum_3w, platinum_4w, platinum_5w, platinum_6w, platinum_7w, platinum_8w,
+        platinum_9w, platinum_10w, platinum_12w, platinum_14w, platinum_16w, platinum_18w, platinum_20w, platinum_25w,
+        platinum_30w, platinum_35w, platinum_40w, platinum_45w, platinum_50w, platinum_60w, platinum_70w, platinum_80w,
+        platinum_90w, platinum_100w.
         """
         return pulumi.get(self, "sku_code")
 

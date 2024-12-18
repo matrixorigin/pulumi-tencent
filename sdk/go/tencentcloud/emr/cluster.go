@@ -15,8 +15,12 @@ import (
 type Cluster struct {
 	pulumi.CustomResourceState
 
+	// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+	AutoRenew pulumi.IntOutput `pulumi:"autoRenew"`
 	// Display strategy of EMR instance.
-	DisplayStrategy pulumi.StringOutput `pulumi:"displayStrategy"`
+	//
+	// Deprecated: It will be deprecated in later versions.
+	DisplayStrategy pulumi.StringPtrOutput `pulumi:"displayStrategy"`
 	// Access the external file system.
 	ExtendFsField pulumi.StringPtrOutput `pulumi:"extendFsField"`
 	// Created EMR instance id.
@@ -24,7 +28,10 @@ type Cluster struct {
 	// Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringOutput `pulumi:"instanceName"`
-	// Instance login settings.
+	// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+	// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+	// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+	// instance can be accessed through the corresponding private key.
 	LoginSettings pulumi.MapOutput `pulumi:"loginSettings"`
 	// Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
 	// Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
@@ -33,11 +40,18 @@ type Cluster struct {
 	// The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
 	PayMode pulumi.IntOutput `pulumi:"payMode"`
 	// The location of the instance.
+	//
+	// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 	Placement pulumi.MapOutput `pulumi:"placement"`
+	// The location of the instance.
+	PlacementInfo ClusterPlacementInfoOutput `pulumi:"placementInfo"`
+	// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+	PreExecutedFileSettings ClusterPreExecutedFileSettingArrayOutput `pulumi:"preExecutedFileSettings"`
 	// Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-	// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-	// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-	// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+	// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+	// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+	// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+	// represents STARROCKS-V2.0.0.
 	ProductId pulumi.IntOutput `pulumi:"productId"`
 	// Resource specification of EMR instance.
 	ResourceSpec ClusterResourceSpecPtrOutput `pulumi:"resourceSpec"`
@@ -49,13 +63,15 @@ type Cluster struct {
 	SupportHa pulumi.IntOutput `pulumi:"supportHa"`
 	// Tag description list.
 	Tags pulumi.MapOutput `pulumi:"tags"`
+	// Terminate nodes. Note: it only works when the number of nodes decreases.
+	TerminateNodeInfos ClusterTerminateNodeInfoArrayOutput `pulumi:"terminateNodeInfos"`
 	// The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 	// at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 	// length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
-	TimeSpan pulumi.IntOutput `pulumi:"timeSpan"`
+	TimeSpan pulumi.IntPtrOutput `pulumi:"timeSpan"`
 	// The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
 	// When PayMode is 1, TimeUnit can only take the value m(month).
-	TimeUnit pulumi.StringOutput `pulumi:"timeUnit"`
+	TimeUnit pulumi.StringPtrOutput `pulumi:"timeUnit"`
 	// The private net config of EMR instance.
 	VpcSettings pulumi.MapOutput `pulumi:"vpcSettings"`
 }
@@ -67,20 +83,11 @@ func NewCluster(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.DisplayStrategy == nil {
-		return nil, errors.New("invalid value for required argument 'DisplayStrategy'")
-	}
 	if args.InstanceName == nil {
 		return nil, errors.New("invalid value for required argument 'InstanceName'")
 	}
-	if args.LoginSettings == nil {
-		return nil, errors.New("invalid value for required argument 'LoginSettings'")
-	}
 	if args.PayMode == nil {
 		return nil, errors.New("invalid value for required argument 'PayMode'")
-	}
-	if args.Placement == nil {
-		return nil, errors.New("invalid value for required argument 'Placement'")
 	}
 	if args.ProductId == nil {
 		return nil, errors.New("invalid value for required argument 'ProductId'")
@@ -91,15 +98,16 @@ func NewCluster(ctx *pulumi.Context,
 	if args.SupportHa == nil {
 		return nil, errors.New("invalid value for required argument 'SupportHa'")
 	}
-	if args.TimeSpan == nil {
-		return nil, errors.New("invalid value for required argument 'TimeSpan'")
-	}
-	if args.TimeUnit == nil {
-		return nil, errors.New("invalid value for required argument 'TimeUnit'")
-	}
 	if args.VpcSettings == nil {
 		return nil, errors.New("invalid value for required argument 'VpcSettings'")
 	}
+	if args.LoginSettings != nil {
+		args.LoginSettings = pulumi.ToSecret(args.LoginSettings).(pulumi.MapInput)
+	}
+	secrets := pulumi.AdditionalSecretOutputs([]string{
+		"loginSettings",
+	})
+	opts = append(opts, secrets)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Cluster
 	err := ctx.RegisterResource("tencentcloud:Emr/cluster:Cluster", name, args, &resource, opts...)
@@ -123,7 +131,11 @@ func GetCluster(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Cluster resources.
 type clusterState struct {
+	// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+	AutoRenew *int `pulumi:"autoRenew"`
 	// Display strategy of EMR instance.
+	//
+	// Deprecated: It will be deprecated in later versions.
 	DisplayStrategy *string `pulumi:"displayStrategy"`
 	// Access the external file system.
 	ExtendFsField *string `pulumi:"extendFsField"`
@@ -132,7 +144,10 @@ type clusterState struct {
 	// Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName *string `pulumi:"instanceName"`
-	// Instance login settings.
+	// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+	// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+	// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+	// instance can be accessed through the corresponding private key.
 	LoginSettings map[string]interface{} `pulumi:"loginSettings"`
 	// Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
 	// Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
@@ -141,11 +156,18 @@ type clusterState struct {
 	// The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
 	PayMode *int `pulumi:"payMode"`
 	// The location of the instance.
+	//
+	// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 	Placement map[string]interface{} `pulumi:"placement"`
+	// The location of the instance.
+	PlacementInfo *ClusterPlacementInfo `pulumi:"placementInfo"`
+	// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+	PreExecutedFileSettings []ClusterPreExecutedFileSetting `pulumi:"preExecutedFileSettings"`
 	// Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-	// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-	// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-	// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+	// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+	// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+	// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+	// represents STARROCKS-V2.0.0.
 	ProductId *int `pulumi:"productId"`
 	// Resource specification of EMR instance.
 	ResourceSpec *ClusterResourceSpec `pulumi:"resourceSpec"`
@@ -157,6 +179,8 @@ type clusterState struct {
 	SupportHa *int `pulumi:"supportHa"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
+	// Terminate nodes. Note: it only works when the number of nodes decreases.
+	TerminateNodeInfos []ClusterTerminateNodeInfo `pulumi:"terminateNodeInfos"`
 	// The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 	// at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 	// length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
@@ -169,7 +193,11 @@ type clusterState struct {
 }
 
 type ClusterState struct {
+	// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+	AutoRenew pulumi.IntPtrInput
 	// Display strategy of EMR instance.
+	//
+	// Deprecated: It will be deprecated in later versions.
 	DisplayStrategy pulumi.StringPtrInput
 	// Access the external file system.
 	ExtendFsField pulumi.StringPtrInput
@@ -178,7 +206,10 @@ type ClusterState struct {
 	// Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringPtrInput
-	// Instance login settings.
+	// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+	// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+	// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+	// instance can be accessed through the corresponding private key.
 	LoginSettings pulumi.MapInput
 	// Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
 	// Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
@@ -187,11 +218,18 @@ type ClusterState struct {
 	// The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
 	PayMode pulumi.IntPtrInput
 	// The location of the instance.
+	//
+	// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 	Placement pulumi.MapInput
+	// The location of the instance.
+	PlacementInfo ClusterPlacementInfoPtrInput
+	// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+	PreExecutedFileSettings ClusterPreExecutedFileSettingArrayInput
 	// Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-	// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-	// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-	// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+	// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+	// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+	// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+	// represents STARROCKS-V2.0.0.
 	ProductId pulumi.IntPtrInput
 	// Resource specification of EMR instance.
 	ResourceSpec ClusterResourceSpecPtrInput
@@ -203,6 +241,8 @@ type ClusterState struct {
 	SupportHa pulumi.IntPtrInput
 	// Tag description list.
 	Tags pulumi.MapInput
+	// Terminate nodes. Note: it only works when the number of nodes decreases.
+	TerminateNodeInfos ClusterTerminateNodeInfoArrayInput
 	// The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 	// at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 	// length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
@@ -219,14 +259,21 @@ func (ClusterState) ElementType() reflect.Type {
 }
 
 type clusterArgs struct {
+	// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+	AutoRenew *int `pulumi:"autoRenew"`
 	// Display strategy of EMR instance.
-	DisplayStrategy string `pulumi:"displayStrategy"`
+	//
+	// Deprecated: It will be deprecated in later versions.
+	DisplayStrategy *string `pulumi:"displayStrategy"`
 	// Access the external file system.
 	ExtendFsField *string `pulumi:"extendFsField"`
 	// Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName string `pulumi:"instanceName"`
-	// Instance login settings.
+	// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+	// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+	// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+	// instance can be accessed through the corresponding private key.
 	LoginSettings map[string]interface{} `pulumi:"loginSettings"`
 	// Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
 	// Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
@@ -235,11 +282,18 @@ type clusterArgs struct {
 	// The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
 	PayMode int `pulumi:"payMode"`
 	// The location of the instance.
+	//
+	// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 	Placement map[string]interface{} `pulumi:"placement"`
+	// The location of the instance.
+	PlacementInfo *ClusterPlacementInfo `pulumi:"placementInfo"`
+	// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+	PreExecutedFileSettings []ClusterPreExecutedFileSetting `pulumi:"preExecutedFileSettings"`
 	// Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-	// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-	// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-	// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+	// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+	// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+	// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+	// represents STARROCKS-V2.0.0.
 	ProductId int `pulumi:"productId"`
 	// Resource specification of EMR instance.
 	ResourceSpec *ClusterResourceSpec `pulumi:"resourceSpec"`
@@ -251,27 +305,36 @@ type clusterArgs struct {
 	SupportHa int `pulumi:"supportHa"`
 	// Tag description list.
 	Tags map[string]interface{} `pulumi:"tags"`
+	// Terminate nodes. Note: it only works when the number of nodes decreases.
+	TerminateNodeInfos []ClusterTerminateNodeInfo `pulumi:"terminateNodeInfos"`
 	// The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 	// at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 	// length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
-	TimeSpan int `pulumi:"timeSpan"`
+	TimeSpan *int `pulumi:"timeSpan"`
 	// The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
 	// When PayMode is 1, TimeUnit can only take the value m(month).
-	TimeUnit string `pulumi:"timeUnit"`
+	TimeUnit *string `pulumi:"timeUnit"`
 	// The private net config of EMR instance.
 	VpcSettings map[string]interface{} `pulumi:"vpcSettings"`
 }
 
 // The set of arguments for constructing a Cluster resource.
 type ClusterArgs struct {
+	// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+	AutoRenew pulumi.IntPtrInput
 	// Display strategy of EMR instance.
-	DisplayStrategy pulumi.StringInput
+	//
+	// Deprecated: It will be deprecated in later versions.
+	DisplayStrategy pulumi.StringPtrInput
 	// Access the external file system.
 	ExtendFsField pulumi.StringPtrInput
 	// Name of the instance, which can contain 6 to 36 English letters, Chinese characters, digits, dashes(-), or
 	// underscores(_).
 	InstanceName pulumi.StringInput
-	// Instance login settings.
+	// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+	// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+	// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+	// instance can be accessed through the corresponding private key.
 	LoginSettings pulumi.MapInput
 	// Whether to enable the cluster Master node public network. Value range: - NEED_MASTER_WAN: Indicates that the cluster
 	// Master node public network is enabled. - NOT_NEED_MASTER_WAN: Indicates that it is not turned on. By default, the
@@ -280,11 +343,18 @@ type ClusterArgs struct {
 	// The pay mode of instance. 0 represent POSTPAID_BY_HOUR, 1 represent PREPAID.
 	PayMode pulumi.IntInput
 	// The location of the instance.
+	//
+	// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 	Placement pulumi.MapInput
+	// The location of the instance.
+	PlacementInfo ClusterPlacementInfoPtrInput
+	// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+	PreExecutedFileSettings ClusterPreExecutedFileSettingArrayInput
 	// Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-	// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-	// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-	// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+	// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+	// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+	// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+	// represents STARROCKS-V2.0.0.
 	ProductId pulumi.IntInput
 	// Resource specification of EMR instance.
 	ResourceSpec ClusterResourceSpecPtrInput
@@ -296,13 +366,15 @@ type ClusterArgs struct {
 	SupportHa pulumi.IntInput
 	// Tag description list.
 	Tags pulumi.MapInput
+	// Terminate nodes. Note: it only works when the number of nodes decreases.
+	TerminateNodeInfos ClusterTerminateNodeInfoArrayInput
 	// The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 	// at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 	// length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
-	TimeSpan pulumi.IntInput
+	TimeSpan pulumi.IntPtrInput
 	// The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
 	// When PayMode is 1, TimeUnit can only take the value m(month).
-	TimeUnit pulumi.StringInput
+	TimeUnit pulumi.StringPtrInput
 	// The private net config of EMR instance.
 	VpcSettings pulumi.MapInput
 }
@@ -394,9 +466,16 @@ func (o ClusterOutput) ToClusterOutputWithContext(ctx context.Context) ClusterOu
 	return o
 }
 
+// 0 means turn off automatic renewal, 1 means turn on automatic renewal. Default is 0.
+func (o ClusterOutput) AutoRenew() pulumi.IntOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.IntOutput { return v.AutoRenew }).(pulumi.IntOutput)
+}
+
 // Display strategy of EMR instance.
-func (o ClusterOutput) DisplayStrategy() pulumi.StringOutput {
-	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.DisplayStrategy }).(pulumi.StringOutput)
+//
+// Deprecated: It will be deprecated in later versions.
+func (o ClusterOutput) DisplayStrategy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.DisplayStrategy }).(pulumi.StringPtrOutput)
 }
 
 // Access the external file system.
@@ -415,7 +494,10 @@ func (o ClusterOutput) InstanceName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.InstanceName }).(pulumi.StringOutput)
 }
 
-// Instance login settings.
+// Instance login settings. There are two optional fields:- password: Instance login password: 8-16 characters, including
+// uppercase letters, lowercase letters, numbers and special characters. Special symbols only support! @% ^ *. The first
+// bit of the password cannot be a special character;- public_key_id: Public key id. After the key is associated, the
+// instance can be accessed through the corresponding private key.
 func (o ClusterOutput) LoginSettings() pulumi.MapOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.MapOutput { return v.LoginSettings }).(pulumi.MapOutput)
 }
@@ -433,14 +515,27 @@ func (o ClusterOutput) PayMode() pulumi.IntOutput {
 }
 
 // The location of the instance.
+//
+// Deprecated: It will be deprecated in later versions. Use `placement_info` instead.
 func (o ClusterOutput) Placement() pulumi.MapOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.MapOutput { return v.Placement }).(pulumi.MapOutput)
 }
 
+// The location of the instance.
+func (o ClusterOutput) PlacementInfo() ClusterPlacementInfoOutput {
+	return o.ApplyT(func(v *Cluster) ClusterPlacementInfoOutput { return v.PlacementInfo }).(ClusterPlacementInfoOutput)
+}
+
+// Pre executed file settings. It can only be set at the time of creation, and cannot be modified.
+func (o ClusterOutput) PreExecutedFileSettings() ClusterPreExecutedFileSettingArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterPreExecutedFileSettingArrayOutput { return v.PreExecutedFileSettings }).(ClusterPreExecutedFileSettingArrayOutput)
+}
+
 // Product ID. Different products ID represents different EMR product versions. Value range: - 16: represents EMR-V2.3.0 -
-// 20: indicates EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: indicates EMR-V2.6.0 - 33:
-// represents EMR-V3.2.1 - 34: stands for EMR-V3.3.0 - 36: represents STARROCKS-V1.0.0 - 37: indicates EMR-V3.4.0 - 38:
-// represents EMR-V2.7.0 - 39: stands for STARROCKS-V1.1.0 - 41: represents DRUID-V1.1.0.
+// 20: represents EMR-V2.5.0 - 25: represents EMR-V3.1.0 - 27: represents KAFKA-V1.0.0 - 30: represents EMR-V2.6.0 - 33:
+// represents EMR-V3.2.1 - 34: represents EMR-V3.3.0 - 37: represents EMR-V3.4.0 - 38: represents EMR-V2.7.0 - 44:
+// represents EMR-V3.5.0 - 50: represents KAFKA-V2.0.0 - 51: represents STARROCKS-V1.4.0 - 53: represents EMR-V3.6.0 - 54:
+// represents STARROCKS-V2.0.0.
 func (o ClusterOutput) ProductId() pulumi.IntOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.IntOutput { return v.ProductId }).(pulumi.IntOutput)
 }
@@ -470,17 +565,22 @@ func (o ClusterOutput) Tags() pulumi.MapOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.MapOutput { return v.Tags }).(pulumi.MapOutput)
 }
 
+// Terminate nodes. Note: it only works when the number of nodes decreases.
+func (o ClusterOutput) TerminateNodeInfos() ClusterTerminateNodeInfoArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterTerminateNodeInfoArrayOutput { return v.TerminateNodeInfos }).(ClusterTerminateNodeInfoArrayOutput)
+}
+
 // The length of time the instance was purchased. Use with TimeUnit.When TimeUnit is s, the parameter can only be filled in
 // at 3600, representing a metered instance. When TimeUnit is m, the number filled in by this parameter indicates the
 // length of purchase of the monthly instance of the package year, such as 1 for one month of purchase.
-func (o ClusterOutput) TimeSpan() pulumi.IntOutput {
-	return o.ApplyT(func(v *Cluster) pulumi.IntOutput { return v.TimeSpan }).(pulumi.IntOutput)
+func (o ClusterOutput) TimeSpan() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.IntPtrOutput { return v.TimeSpan }).(pulumi.IntPtrOutput)
 }
 
 // The unit of time in which the instance was purchased. When PayMode is 0, TimeUnit can only take values of s(second).
 // When PayMode is 1, TimeUnit can only take the value m(month).
-func (o ClusterOutput) TimeUnit() pulumi.StringOutput {
-	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.TimeUnit }).(pulumi.StringOutput)
+func (o ClusterOutput) TimeUnit() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.TimeUnit }).(pulumi.StringPtrOutput)
 }
 
 // The private net config of EMR instance.

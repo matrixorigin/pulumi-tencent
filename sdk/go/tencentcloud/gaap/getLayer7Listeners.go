@@ -23,6 +23,7 @@ func GetLayer7Listeners(ctx *pulumi.Context, args *GetLayer7ListenersArgs, opts 
 
 // A collection of arguments for invoking getLayer7Listeners.
 type GetLayer7ListenersArgs struct {
+	GroupId          *string `pulumi:"groupId"`
 	ListenerId       *string `pulumi:"listenerId"`
 	ListenerName     *string `pulumi:"listenerName"`
 	Port             *int    `pulumi:"port"`
@@ -33,6 +34,7 @@ type GetLayer7ListenersArgs struct {
 
 // A collection of values returned by getLayer7Listeners.
 type GetLayer7ListenersResult struct {
+	GroupId *string `pulumi:"groupId"`
 	// The provider-assigned unique ID for this managed resource.
 	Id               string                       `pulumi:"id"`
 	ListenerId       *string                      `pulumi:"listenerId"`
@@ -59,6 +61,7 @@ func GetLayer7ListenersOutput(ctx *pulumi.Context, args GetLayer7ListenersOutput
 
 // A collection of arguments for invoking getLayer7Listeners.
 type GetLayer7ListenersOutputArgs struct {
+	GroupId          pulumi.StringPtrInput `pulumi:"groupId"`
 	ListenerId       pulumi.StringPtrInput `pulumi:"listenerId"`
 	ListenerName     pulumi.StringPtrInput `pulumi:"listenerName"`
 	Port             pulumi.IntPtrInput    `pulumi:"port"`
@@ -84,6 +87,10 @@ func (o GetLayer7ListenersResultOutput) ToGetLayer7ListenersResultOutput() GetLa
 
 func (o GetLayer7ListenersResultOutput) ToGetLayer7ListenersResultOutputWithContext(ctx context.Context) GetLayer7ListenersResultOutput {
 	return o
+}
+
+func (o GetLayer7ListenersResultOutput) GroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v GetLayer7ListenersResult) *string { return v.GroupId }).(pulumi.StringPtrOutput)
 }
 
 // The provider-assigned unique ID for this managed resource.

@@ -746,6 +746,7 @@ class GetHttpDomainsDomainResult(dict):
                  domain: str,
                  gaap_auth: bool,
                  gaap_auth_id: str,
+                 is_default_server: bool,
                  realserver_auth: bool,
                  realserver_certificate_domain: str,
                  realserver_certificate_id: str,
@@ -758,6 +759,7 @@ class GetHttpDomainsDomainResult(dict):
         pulumi.set(__self__, "domain", domain)
         pulumi.set(__self__, "gaap_auth", gaap_auth)
         pulumi.set(__self__, "gaap_auth_id", gaap_auth_id)
+        pulumi.set(__self__, "is_default_server", is_default_server)
         pulumi.set(__self__, "realserver_auth", realserver_auth)
         pulumi.set(__self__, "realserver_certificate_domain", realserver_certificate_domain)
         pulumi.set(__self__, "realserver_certificate_id", realserver_certificate_id)
@@ -805,6 +807,11 @@ class GetHttpDomainsDomainResult(dict):
     @pulumi.getter(name="gaapAuthId")
     def gaap_auth_id(self) -> str:
         return pulumi.get(self, "gaap_auth_id")
+
+    @property
+    @pulumi.getter(name="isDefaultServer")
+    def is_default_server(self) -> bool:
+        return pulumi.get(self, "is_default_server")
 
     @property
     @pulumi.getter(name="realserverAuth")
@@ -1097,7 +1104,9 @@ class GetLayer7ListenersListenerResult(dict):
                  port: int,
                  protocol: str,
                  proxy_id: str,
-                 status: int):
+                 status: int,
+                 tls_ciphers: str,
+                 tls_support_versions: Sequence[str]):
         pulumi.set(__self__, "auth_type", auth_type)
         pulumi.set(__self__, "certificate_id", certificate_id)
         pulumi.set(__self__, "client_certificate_id", client_certificate_id)
@@ -1110,6 +1119,8 @@ class GetLayer7ListenersListenerResult(dict):
         pulumi.set(__self__, "protocol", protocol)
         pulumi.set(__self__, "proxy_id", proxy_id)
         pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "tls_ciphers", tls_ciphers)
+        pulumi.set(__self__, "tls_support_versions", tls_support_versions)
 
     @property
     @pulumi.getter(name="authType")
@@ -1173,6 +1184,16 @@ class GetLayer7ListenersListenerResult(dict):
     @pulumi.getter
     def status(self) -> int:
         return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="tlsCiphers")
+    def tls_ciphers(self) -> str:
+        return pulumi.get(self, "tls_ciphers")
+
+    @property
+    @pulumi.getter(name="tlsSupportVersions")
+    def tls_support_versions(self) -> Sequence[str]:
+        return pulumi.get(self, "tls_support_versions")
 
 
 @pulumi.output_type
@@ -1530,6 +1551,7 @@ class GetProxyDetailProxyDetailResult(dict):
                  ip: str,
                  ip_address_version: str,
                  ip_lists: Sequence['outputs.GetProxyDetailProxyDetailIpListResult'],
+                 is_support_tls_choice: int,
                  modify_config_time: int,
                  network_type: str,
                  package_type: str,
@@ -1565,6 +1587,7 @@ class GetProxyDetailProxyDetailResult(dict):
         pulumi.set(__self__, "ip", ip)
         pulumi.set(__self__, "ip_address_version", ip_address_version)
         pulumi.set(__self__, "ip_lists", ip_lists)
+        pulumi.set(__self__, "is_support_tls_choice", is_support_tls_choice)
         pulumi.set(__self__, "modify_config_time", modify_config_time)
         pulumi.set(__self__, "network_type", network_type)
         pulumi.set(__self__, "package_type", package_type)
@@ -1672,6 +1695,11 @@ class GetProxyDetailProxyDetailResult(dict):
     @pulumi.getter(name="ipLists")
     def ip_lists(self) -> Sequence['outputs.GetProxyDetailProxyDetailIpListResult']:
         return pulumi.get(self, "ip_lists")
+
+    @property
+    @pulumi.getter(name="isSupportTlsChoice")
+    def is_support_tls_choice(self) -> int:
+        return pulumi.get(self, "is_support_tls_choice")
 
     @property
     @pulumi.getter(name="modifyConfigTime")

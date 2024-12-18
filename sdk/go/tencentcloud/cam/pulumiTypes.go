@@ -1930,6 +1930,260 @@ func (o GetPolicyGrantingServiceAccessListServiceArrayOutput) Index(i pulumi.Int
 	}).(GetPolicyGrantingServiceAccessListServiceOutput)
 }
 
+type GetRoleDetailRoleInfo struct {
+	AddTime         string                     `pulumi:"addTime"`
+	ConsoleLogin    int                        `pulumi:"consoleLogin"`
+	DeletionTaskId  string                     `pulumi:"deletionTaskId"`
+	Description     string                     `pulumi:"description"`
+	PolicyDocument  string                     `pulumi:"policyDocument"`
+	RoleId          string                     `pulumi:"roleId"`
+	RoleName        string                     `pulumi:"roleName"`
+	RoleType        string                     `pulumi:"roleType"`
+	SessionDuration int                        `pulumi:"sessionDuration"`
+	Tags            []GetRoleDetailRoleInfoTag `pulumi:"tags"`
+	UpdateTime      string                     `pulumi:"updateTime"`
+}
+
+// GetRoleDetailRoleInfoInput is an input type that accepts GetRoleDetailRoleInfoArgs and GetRoleDetailRoleInfoOutput values.
+// You can construct a concrete instance of `GetRoleDetailRoleInfoInput` via:
+//
+//	GetRoleDetailRoleInfoArgs{...}
+type GetRoleDetailRoleInfoInput interface {
+	pulumi.Input
+
+	ToGetRoleDetailRoleInfoOutput() GetRoleDetailRoleInfoOutput
+	ToGetRoleDetailRoleInfoOutputWithContext(context.Context) GetRoleDetailRoleInfoOutput
+}
+
+type GetRoleDetailRoleInfoArgs struct {
+	AddTime         pulumi.StringInput                 `pulumi:"addTime"`
+	ConsoleLogin    pulumi.IntInput                    `pulumi:"consoleLogin"`
+	DeletionTaskId  pulumi.StringInput                 `pulumi:"deletionTaskId"`
+	Description     pulumi.StringInput                 `pulumi:"description"`
+	PolicyDocument  pulumi.StringInput                 `pulumi:"policyDocument"`
+	RoleId          pulumi.StringInput                 `pulumi:"roleId"`
+	RoleName        pulumi.StringInput                 `pulumi:"roleName"`
+	RoleType        pulumi.StringInput                 `pulumi:"roleType"`
+	SessionDuration pulumi.IntInput                    `pulumi:"sessionDuration"`
+	Tags            GetRoleDetailRoleInfoTagArrayInput `pulumi:"tags"`
+	UpdateTime      pulumi.StringInput                 `pulumi:"updateTime"`
+}
+
+func (GetRoleDetailRoleInfoArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRoleDetailRoleInfo)(nil)).Elem()
+}
+
+func (i GetRoleDetailRoleInfoArgs) ToGetRoleDetailRoleInfoOutput() GetRoleDetailRoleInfoOutput {
+	return i.ToGetRoleDetailRoleInfoOutputWithContext(context.Background())
+}
+
+func (i GetRoleDetailRoleInfoArgs) ToGetRoleDetailRoleInfoOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRoleDetailRoleInfoOutput)
+}
+
+// GetRoleDetailRoleInfoArrayInput is an input type that accepts GetRoleDetailRoleInfoArray and GetRoleDetailRoleInfoArrayOutput values.
+// You can construct a concrete instance of `GetRoleDetailRoleInfoArrayInput` via:
+//
+//	GetRoleDetailRoleInfoArray{ GetRoleDetailRoleInfoArgs{...} }
+type GetRoleDetailRoleInfoArrayInput interface {
+	pulumi.Input
+
+	ToGetRoleDetailRoleInfoArrayOutput() GetRoleDetailRoleInfoArrayOutput
+	ToGetRoleDetailRoleInfoArrayOutputWithContext(context.Context) GetRoleDetailRoleInfoArrayOutput
+}
+
+type GetRoleDetailRoleInfoArray []GetRoleDetailRoleInfoInput
+
+func (GetRoleDetailRoleInfoArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRoleDetailRoleInfo)(nil)).Elem()
+}
+
+func (i GetRoleDetailRoleInfoArray) ToGetRoleDetailRoleInfoArrayOutput() GetRoleDetailRoleInfoArrayOutput {
+	return i.ToGetRoleDetailRoleInfoArrayOutputWithContext(context.Background())
+}
+
+func (i GetRoleDetailRoleInfoArray) ToGetRoleDetailRoleInfoArrayOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRoleDetailRoleInfoArrayOutput)
+}
+
+type GetRoleDetailRoleInfoOutput struct{ *pulumi.OutputState }
+
+func (GetRoleDetailRoleInfoOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRoleDetailRoleInfo)(nil)).Elem()
+}
+
+func (o GetRoleDetailRoleInfoOutput) ToGetRoleDetailRoleInfoOutput() GetRoleDetailRoleInfoOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoOutput) ToGetRoleDetailRoleInfoOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoOutput) AddTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.AddTime }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) ConsoleLogin() pulumi.IntOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) int { return v.ConsoleLogin }).(pulumi.IntOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) DeletionTaskId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.DeletionTaskId }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) PolicyDocument() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.PolicyDocument }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) RoleId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.RoleId }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) RoleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.RoleName }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) RoleType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.RoleType }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) SessionDuration() pulumi.IntOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) int { return v.SessionDuration }).(pulumi.IntOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) Tags() GetRoleDetailRoleInfoTagArrayOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) []GetRoleDetailRoleInfoTag { return v.Tags }).(GetRoleDetailRoleInfoTagArrayOutput)
+}
+
+func (o GetRoleDetailRoleInfoOutput) UpdateTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfo) string { return v.UpdateTime }).(pulumi.StringOutput)
+}
+
+type GetRoleDetailRoleInfoArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRoleDetailRoleInfoArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRoleDetailRoleInfo)(nil)).Elem()
+}
+
+func (o GetRoleDetailRoleInfoArrayOutput) ToGetRoleDetailRoleInfoArrayOutput() GetRoleDetailRoleInfoArrayOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoArrayOutput) ToGetRoleDetailRoleInfoArrayOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoArrayOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoArrayOutput) Index(i pulumi.IntInput) GetRoleDetailRoleInfoOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRoleDetailRoleInfo {
+		return vs[0].([]GetRoleDetailRoleInfo)[vs[1].(int)]
+	}).(GetRoleDetailRoleInfoOutput)
+}
+
+type GetRoleDetailRoleInfoTag struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// GetRoleDetailRoleInfoTagInput is an input type that accepts GetRoleDetailRoleInfoTagArgs and GetRoleDetailRoleInfoTagOutput values.
+// You can construct a concrete instance of `GetRoleDetailRoleInfoTagInput` via:
+//
+//	GetRoleDetailRoleInfoTagArgs{...}
+type GetRoleDetailRoleInfoTagInput interface {
+	pulumi.Input
+
+	ToGetRoleDetailRoleInfoTagOutput() GetRoleDetailRoleInfoTagOutput
+	ToGetRoleDetailRoleInfoTagOutputWithContext(context.Context) GetRoleDetailRoleInfoTagOutput
+}
+
+type GetRoleDetailRoleInfoTagArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetRoleDetailRoleInfoTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRoleDetailRoleInfoTag)(nil)).Elem()
+}
+
+func (i GetRoleDetailRoleInfoTagArgs) ToGetRoleDetailRoleInfoTagOutput() GetRoleDetailRoleInfoTagOutput {
+	return i.ToGetRoleDetailRoleInfoTagOutputWithContext(context.Background())
+}
+
+func (i GetRoleDetailRoleInfoTagArgs) ToGetRoleDetailRoleInfoTagOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRoleDetailRoleInfoTagOutput)
+}
+
+// GetRoleDetailRoleInfoTagArrayInput is an input type that accepts GetRoleDetailRoleInfoTagArray and GetRoleDetailRoleInfoTagArrayOutput values.
+// You can construct a concrete instance of `GetRoleDetailRoleInfoTagArrayInput` via:
+//
+//	GetRoleDetailRoleInfoTagArray{ GetRoleDetailRoleInfoTagArgs{...} }
+type GetRoleDetailRoleInfoTagArrayInput interface {
+	pulumi.Input
+
+	ToGetRoleDetailRoleInfoTagArrayOutput() GetRoleDetailRoleInfoTagArrayOutput
+	ToGetRoleDetailRoleInfoTagArrayOutputWithContext(context.Context) GetRoleDetailRoleInfoTagArrayOutput
+}
+
+type GetRoleDetailRoleInfoTagArray []GetRoleDetailRoleInfoTagInput
+
+func (GetRoleDetailRoleInfoTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRoleDetailRoleInfoTag)(nil)).Elem()
+}
+
+func (i GetRoleDetailRoleInfoTagArray) ToGetRoleDetailRoleInfoTagArrayOutput() GetRoleDetailRoleInfoTagArrayOutput {
+	return i.ToGetRoleDetailRoleInfoTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetRoleDetailRoleInfoTagArray) ToGetRoleDetailRoleInfoTagArrayOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetRoleDetailRoleInfoTagArrayOutput)
+}
+
+type GetRoleDetailRoleInfoTagOutput struct{ *pulumi.OutputState }
+
+func (GetRoleDetailRoleInfoTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetRoleDetailRoleInfoTag)(nil)).Elem()
+}
+
+func (o GetRoleDetailRoleInfoTagOutput) ToGetRoleDetailRoleInfoTagOutput() GetRoleDetailRoleInfoTagOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoTagOutput) ToGetRoleDetailRoleInfoTagOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoTagOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoTagOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfoTag) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetRoleDetailRoleInfoTagOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetRoleDetailRoleInfoTag) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetRoleDetailRoleInfoTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetRoleDetailRoleInfoTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetRoleDetailRoleInfoTag)(nil)).Elem()
+}
+
+func (o GetRoleDetailRoleInfoTagArrayOutput) ToGetRoleDetailRoleInfoTagArrayOutput() GetRoleDetailRoleInfoTagArrayOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoTagArrayOutput) ToGetRoleDetailRoleInfoTagArrayOutputWithContext(ctx context.Context) GetRoleDetailRoleInfoTagArrayOutput {
+	return o
+}
+
+func (o GetRoleDetailRoleInfoTagArrayOutput) Index(i pulumi.IntInput) GetRoleDetailRoleInfoTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetRoleDetailRoleInfoTag {
+		return vs[0].([]GetRoleDetailRoleInfoTag)[vs[1].(int)]
+	}).(GetRoleDetailRoleInfoTagOutput)
+}
+
 type GetRolePolicyAttachmentsRolePolicyAttachmentList struct {
 	CreateMode int    `pulumi:"createMode"`
 	CreateTime string `pulumi:"createTime"`
@@ -2402,6 +2656,142 @@ func (o GetSecretLastUsedTimeSecretIdLastUsedRowArrayOutput) Index(i pulumi.IntI
 	}).(GetSecretLastUsedTimeSecretIdLastUsedRowOutput)
 }
 
+type GetSubAccountsSubAccount struct {
+	CreateTime    string `pulumi:"createTime"`
+	LastLoginIp   string `pulumi:"lastLoginIp"`
+	LastLoginTime string `pulumi:"lastLoginTime"`
+	Name          string `pulumi:"name"`
+	Remark        string `pulumi:"remark"`
+	Uid           int    `pulumi:"uid"`
+	Uin           int    `pulumi:"uin"`
+	UserType      int    `pulumi:"userType"`
+}
+
+// GetSubAccountsSubAccountInput is an input type that accepts GetSubAccountsSubAccountArgs and GetSubAccountsSubAccountOutput values.
+// You can construct a concrete instance of `GetSubAccountsSubAccountInput` via:
+//
+//	GetSubAccountsSubAccountArgs{...}
+type GetSubAccountsSubAccountInput interface {
+	pulumi.Input
+
+	ToGetSubAccountsSubAccountOutput() GetSubAccountsSubAccountOutput
+	ToGetSubAccountsSubAccountOutputWithContext(context.Context) GetSubAccountsSubAccountOutput
+}
+
+type GetSubAccountsSubAccountArgs struct {
+	CreateTime    pulumi.StringInput `pulumi:"createTime"`
+	LastLoginIp   pulumi.StringInput `pulumi:"lastLoginIp"`
+	LastLoginTime pulumi.StringInput `pulumi:"lastLoginTime"`
+	Name          pulumi.StringInput `pulumi:"name"`
+	Remark        pulumi.StringInput `pulumi:"remark"`
+	Uid           pulumi.IntInput    `pulumi:"uid"`
+	Uin           pulumi.IntInput    `pulumi:"uin"`
+	UserType      pulumi.IntInput    `pulumi:"userType"`
+}
+
+func (GetSubAccountsSubAccountArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSubAccountsSubAccount)(nil)).Elem()
+}
+
+func (i GetSubAccountsSubAccountArgs) ToGetSubAccountsSubAccountOutput() GetSubAccountsSubAccountOutput {
+	return i.ToGetSubAccountsSubAccountOutputWithContext(context.Background())
+}
+
+func (i GetSubAccountsSubAccountArgs) ToGetSubAccountsSubAccountOutputWithContext(ctx context.Context) GetSubAccountsSubAccountOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSubAccountsSubAccountOutput)
+}
+
+// GetSubAccountsSubAccountArrayInput is an input type that accepts GetSubAccountsSubAccountArray and GetSubAccountsSubAccountArrayOutput values.
+// You can construct a concrete instance of `GetSubAccountsSubAccountArrayInput` via:
+//
+//	GetSubAccountsSubAccountArray{ GetSubAccountsSubAccountArgs{...} }
+type GetSubAccountsSubAccountArrayInput interface {
+	pulumi.Input
+
+	ToGetSubAccountsSubAccountArrayOutput() GetSubAccountsSubAccountArrayOutput
+	ToGetSubAccountsSubAccountArrayOutputWithContext(context.Context) GetSubAccountsSubAccountArrayOutput
+}
+
+type GetSubAccountsSubAccountArray []GetSubAccountsSubAccountInput
+
+func (GetSubAccountsSubAccountArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSubAccountsSubAccount)(nil)).Elem()
+}
+
+func (i GetSubAccountsSubAccountArray) ToGetSubAccountsSubAccountArrayOutput() GetSubAccountsSubAccountArrayOutput {
+	return i.ToGetSubAccountsSubAccountArrayOutputWithContext(context.Background())
+}
+
+func (i GetSubAccountsSubAccountArray) ToGetSubAccountsSubAccountArrayOutputWithContext(ctx context.Context) GetSubAccountsSubAccountArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetSubAccountsSubAccountArrayOutput)
+}
+
+type GetSubAccountsSubAccountOutput struct{ *pulumi.OutputState }
+
+func (GetSubAccountsSubAccountOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetSubAccountsSubAccount)(nil)).Elem()
+}
+
+func (o GetSubAccountsSubAccountOutput) ToGetSubAccountsSubAccountOutput() GetSubAccountsSubAccountOutput {
+	return o
+}
+
+func (o GetSubAccountsSubAccountOutput) ToGetSubAccountsSubAccountOutputWithContext(ctx context.Context) GetSubAccountsSubAccountOutput {
+	return o
+}
+
+func (o GetSubAccountsSubAccountOutput) CreateTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) string { return v.CreateTime }).(pulumi.StringOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) LastLoginIp() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) string { return v.LastLoginIp }).(pulumi.StringOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) LastLoginTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) string { return v.LastLoginTime }).(pulumi.StringOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) Remark() pulumi.StringOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) string { return v.Remark }).(pulumi.StringOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) Uid() pulumi.IntOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) int { return v.Uid }).(pulumi.IntOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) Uin() pulumi.IntOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) int { return v.Uin }).(pulumi.IntOutput)
+}
+
+func (o GetSubAccountsSubAccountOutput) UserType() pulumi.IntOutput {
+	return o.ApplyT(func(v GetSubAccountsSubAccount) int { return v.UserType }).(pulumi.IntOutput)
+}
+
+type GetSubAccountsSubAccountArrayOutput struct{ *pulumi.OutputState }
+
+func (GetSubAccountsSubAccountArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetSubAccountsSubAccount)(nil)).Elem()
+}
+
+func (o GetSubAccountsSubAccountArrayOutput) ToGetSubAccountsSubAccountArrayOutput() GetSubAccountsSubAccountArrayOutput {
+	return o
+}
+
+func (o GetSubAccountsSubAccountArrayOutput) ToGetSubAccountsSubAccountArrayOutputWithContext(ctx context.Context) GetSubAccountsSubAccountArrayOutput {
+	return o
+}
+
+func (o GetSubAccountsSubAccountArrayOutput) Index(i pulumi.IntInput) GetSubAccountsSubAccountOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetSubAccountsSubAccount {
+		return vs[0].([]GetSubAccountsSubAccount)[vs[1].(int)]
+	}).(GetSubAccountsSubAccountOutput)
+}
+
 type GetUserPolicyAttachmentsUserPolicyAttachmentList struct {
 	CreateMode int    `pulumi:"createMode"`
 	CreateTime string `pulumi:"createTime"`
@@ -2710,6 +3100,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPolicyGrantingServiceAccessListPolicyArrayInput)(nil)).Elem(), GetPolicyGrantingServiceAccessListPolicyArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPolicyGrantingServiceAccessListServiceInput)(nil)).Elem(), GetPolicyGrantingServiceAccessListServiceArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetPolicyGrantingServiceAccessListServiceArrayInput)(nil)).Elem(), GetPolicyGrantingServiceAccessListServiceArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRoleDetailRoleInfoInput)(nil)).Elem(), GetRoleDetailRoleInfoArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRoleDetailRoleInfoArrayInput)(nil)).Elem(), GetRoleDetailRoleInfoArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRoleDetailRoleInfoTagInput)(nil)).Elem(), GetRoleDetailRoleInfoTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetRoleDetailRoleInfoTagArrayInput)(nil)).Elem(), GetRoleDetailRoleInfoTagArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRolePolicyAttachmentsRolePolicyAttachmentListInput)(nil)).Elem(), GetRolePolicyAttachmentsRolePolicyAttachmentListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRolePolicyAttachmentsRolePolicyAttachmentListArrayInput)(nil)).Elem(), GetRolePolicyAttachmentsRolePolicyAttachmentListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRolesRoleListInput)(nil)).Elem(), GetRolesRoleListArgs{})
@@ -2718,6 +3112,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetSamlProvidersProviderListArrayInput)(nil)).Elem(), GetSamlProvidersProviderListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetSecretLastUsedTimeSecretIdLastUsedRowInput)(nil)).Elem(), GetSecretLastUsedTimeSecretIdLastUsedRowArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetSecretLastUsedTimeSecretIdLastUsedRowArrayInput)(nil)).Elem(), GetSecretLastUsedTimeSecretIdLastUsedRowArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSubAccountsSubAccountInput)(nil)).Elem(), GetSubAccountsSubAccountArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetSubAccountsSubAccountArrayInput)(nil)).Elem(), GetSubAccountsSubAccountArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUserPolicyAttachmentsUserPolicyAttachmentListInput)(nil)).Elem(), GetUserPolicyAttachmentsUserPolicyAttachmentListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUserPolicyAttachmentsUserPolicyAttachmentListArrayInput)(nil)).Elem(), GetUserPolicyAttachmentsUserPolicyAttachmentListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetUsersUserListInput)(nil)).Elem(), GetUsersUserListArgs{})
@@ -2754,6 +3150,10 @@ func init() {
 	pulumi.RegisterOutputType(GetPolicyGrantingServiceAccessListPolicyArrayOutput{})
 	pulumi.RegisterOutputType(GetPolicyGrantingServiceAccessListServiceOutput{})
 	pulumi.RegisterOutputType(GetPolicyGrantingServiceAccessListServiceArrayOutput{})
+	pulumi.RegisterOutputType(GetRoleDetailRoleInfoOutput{})
+	pulumi.RegisterOutputType(GetRoleDetailRoleInfoArrayOutput{})
+	pulumi.RegisterOutputType(GetRoleDetailRoleInfoTagOutput{})
+	pulumi.RegisterOutputType(GetRoleDetailRoleInfoTagArrayOutput{})
 	pulumi.RegisterOutputType(GetRolePolicyAttachmentsRolePolicyAttachmentListOutput{})
 	pulumi.RegisterOutputType(GetRolePolicyAttachmentsRolePolicyAttachmentListArrayOutput{})
 	pulumi.RegisterOutputType(GetRolesRoleListOutput{})
@@ -2762,6 +3162,8 @@ func init() {
 	pulumi.RegisterOutputType(GetSamlProvidersProviderListArrayOutput{})
 	pulumi.RegisterOutputType(GetSecretLastUsedTimeSecretIdLastUsedRowOutput{})
 	pulumi.RegisterOutputType(GetSecretLastUsedTimeSecretIdLastUsedRowArrayOutput{})
+	pulumi.RegisterOutputType(GetSubAccountsSubAccountOutput{})
+	pulumi.RegisterOutputType(GetSubAccountsSubAccountArrayOutput{})
 	pulumi.RegisterOutputType(GetUserPolicyAttachmentsUserPolicyAttachmentListOutput{})
 	pulumi.RegisterOutputType(GetUserPolicyAttachmentsUserPolicyAttachmentListArrayOutput{})
 	pulumi.RegisterOutputType(GetUsersUserListOutput{})

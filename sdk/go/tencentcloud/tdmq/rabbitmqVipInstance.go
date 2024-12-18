@@ -24,8 +24,10 @@ type RabbitmqVipInstance struct {
 	// The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
 	// zone is 1, and the multi-availability zone is 3.
 	NodeNum pulumi.IntPtrOutput `pulumi:"nodeNum"`
-	// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-	// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+	// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+	// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+	// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+	// removed from the shelves.
 	NodeSpec pulumi.StringPtrOutput `pulumi:"nodeSpec"`
 	// Single node storage specification, the default is 200G.
 	StorageSize pulumi.IntPtrOutput `pulumi:"storageSize"`
@@ -90,8 +92,10 @@ type rabbitmqVipInstanceState struct {
 	// The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
 	// zone is 1, and the multi-availability zone is 3.
 	NodeNum *int `pulumi:"nodeNum"`
-	// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-	// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+	// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+	// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+	// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+	// removed from the shelves.
 	NodeSpec *string `pulumi:"nodeSpec"`
 	// Single node storage specification, the default is 200G.
 	StorageSize *int `pulumi:"storageSize"`
@@ -115,8 +119,10 @@ type RabbitmqVipInstanceState struct {
 	// The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
 	// zone is 1, and the multi-availability zone is 3.
 	NodeNum pulumi.IntPtrInput
-	// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-	// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+	// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+	// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+	// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+	// removed from the shelves.
 	NodeSpec pulumi.StringPtrInput
 	// Single node storage specification, the default is 200G.
 	StorageSize pulumi.IntPtrInput
@@ -144,8 +150,10 @@ type rabbitmqVipInstanceArgs struct {
 	// The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
 	// zone is 1, and the multi-availability zone is 3.
 	NodeNum *int `pulumi:"nodeNum"`
-	// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-	// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+	// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+	// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+	// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+	// removed from the shelves.
 	NodeSpec *string `pulumi:"nodeSpec"`
 	// Single node storage specification, the default is 200G.
 	StorageSize *int `pulumi:"storageSize"`
@@ -170,8 +178,10 @@ type RabbitmqVipInstanceArgs struct {
 	// The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
 	// zone is 1, and the multi-availability zone is 3.
 	NodeNum pulumi.IntPtrInput
-	// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-	// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+	// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+	// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+	// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+	// removed from the shelves.
 	NodeSpec pulumi.StringPtrInput
 	// Single node storage specification, the default is 200G.
 	StorageSize pulumi.IntPtrInput
@@ -293,8 +303,10 @@ func (o RabbitmqVipInstanceOutput) NodeNum() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *RabbitmqVipInstance) pulumi.IntPtrOutput { return v.NodeNum }).(pulumi.IntPtrOutput)
 }
 
-// Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-// rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+// Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+// (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+// rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+// removed from the shelves.
 func (o RabbitmqVipInstanceOutput) NodeSpec() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RabbitmqVipInstance) pulumi.StringPtrOutput { return v.NodeSpec }).(pulumi.StringPtrOutput)
 }

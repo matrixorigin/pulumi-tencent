@@ -53,10 +53,12 @@ func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi
 		r = &Role{}
 	case "tencentcloud:Tdmq/sendRocketmqMessage:SendRocketmqMessage":
 		r = &SendRocketmqMessage{}
-	case "tencentcloud:Tdmq/subscriptionAttachment:SubscriptionAttachment":
-		r = &SubscriptionAttachment{}
+	case "tencentcloud:Tdmq/subscription:Subscription":
+		r = &Subscription{}
 	case "tencentcloud:Tdmq/topic:Topic":
 		r = &Topic{}
+	case "tencentcloud:Tdmq/topicWithFullId:TopicWithFullId":
+		r = &TopicWithFullId{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}
@@ -152,12 +154,17 @@ func init() {
 	)
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
-		"Tdmq/subscriptionAttachment",
+		"Tdmq/subscription",
 		&module{version},
 	)
 	pulumi.RegisterResourceModule(
 		"tencentcloud",
 		"Tdmq/topic",
+		&module{version},
+	)
+	pulumi.RegisterResourceModule(
+		"tencentcloud",
+		"Tdmq/topicWithFullId",
 		&module{version},
 	)
 }

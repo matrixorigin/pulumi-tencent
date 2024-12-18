@@ -52,6 +52,10 @@ export class Instance extends pulumi.CustomResource {
      */
     public readonly chargeType!: pulumi.Output<string | undefined>;
     /**
+     * COS automatic backup information.
+     */
+    public readonly cosBackup!: pulumi.Output<outputs.Elasticsearch.InstanceCosBackup | undefined>;
+    /**
      * Instance creation time.
      */
     public /*out*/ readonly createTime!: pulumi.Output<string>;
@@ -81,6 +85,10 @@ export class Instance extends pulumi.CustomResource {
      * underscores(_).
      */
     public readonly instanceName!: pulumi.Output<string | undefined>;
+    /**
+     * Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+     */
+    public readonly kibanaPublicAccess!: pulumi.Output<string>;
     /**
      * Kibana access URL.
      */
@@ -128,7 +136,7 @@ export class Instance extends pulumi.CustomResource {
     /**
      * Visual node configuration.
      */
-    public readonly webNodeTypeInfos!: pulumi.Output<outputs.Elasticsearch.InstanceWebNodeTypeInfo[] | undefined>;
+    public readonly webNodeTypeInfos!: pulumi.Output<outputs.Elasticsearch.InstanceWebNodeTypeInfo[]>;
 
     /**
      * Create a Instance resource with the given unique name, arguments, and options.
@@ -147,6 +155,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["basicSecurityType"] = state ? state.basicSecurityType : undefined;
             resourceInputs["chargePeriod"] = state ? state.chargePeriod : undefined;
             resourceInputs["chargeType"] = state ? state.chargeType : undefined;
+            resourceInputs["cosBackup"] = state ? state.cosBackup : undefined;
             resourceInputs["createTime"] = state ? state.createTime : undefined;
             resourceInputs["deployMode"] = state ? state.deployMode : undefined;
             resourceInputs["elasticsearchDomain"] = state ? state.elasticsearchDomain : undefined;
@@ -154,6 +163,7 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["elasticsearchVip"] = state ? state.elasticsearchVip : undefined;
             resourceInputs["esAcl"] = state ? state.esAcl : undefined;
             resourceInputs["instanceName"] = state ? state.instanceName : undefined;
+            resourceInputs["kibanaPublicAccess"] = state ? state.kibanaPublicAccess : undefined;
             resourceInputs["kibanaUrl"] = state ? state.kibanaUrl : undefined;
             resourceInputs["licenseType"] = state ? state.licenseType : undefined;
             resourceInputs["multiZoneInfos"] = state ? state.multiZoneInfos : undefined;
@@ -183,9 +193,11 @@ export class Instance extends pulumi.CustomResource {
             resourceInputs["basicSecurityType"] = args ? args.basicSecurityType : undefined;
             resourceInputs["chargePeriod"] = args ? args.chargePeriod : undefined;
             resourceInputs["chargeType"] = args ? args.chargeType : undefined;
+            resourceInputs["cosBackup"] = args ? args.cosBackup : undefined;
             resourceInputs["deployMode"] = args ? args.deployMode : undefined;
             resourceInputs["esAcl"] = args ? args.esAcl : undefined;
             resourceInputs["instanceName"] = args ? args.instanceName : undefined;
+            resourceInputs["kibanaPublicAccess"] = args ? args.kibanaPublicAccess : undefined;
             resourceInputs["licenseType"] = args ? args.licenseType : undefined;
             resourceInputs["multiZoneInfos"] = args ? args.multiZoneInfos : undefined;
             resourceInputs["nodeInfoLists"] = args ? args.nodeInfoLists : undefined;
@@ -231,6 +243,10 @@ export interface InstanceState {
      */
     chargeType?: pulumi.Input<string>;
     /**
+     * COS automatic backup information.
+     */
+    cosBackup?: pulumi.Input<inputs.Elasticsearch.InstanceCosBackup>;
+    /**
      * Instance creation time.
      */
     createTime?: pulumi.Input<string>;
@@ -260,6 +276,10 @@ export interface InstanceState {
      * underscores(_).
      */
     instanceName?: pulumi.Input<string>;
+    /**
+     * Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+     */
+    kibanaPublicAccess?: pulumi.Input<string>;
     /**
      * Kibana access URL.
      */
@@ -332,6 +352,10 @@ export interface InstanceArgs {
      */
     chargeType?: pulumi.Input<string>;
     /**
+     * COS automatic backup information.
+     */
+    cosBackup?: pulumi.Input<inputs.Elasticsearch.InstanceCosBackup>;
+    /**
      * Cluster deployment mode. Valid values are `0` and `1`. `0` is single-AZ deployment, and `1` is multi-AZ deployment.
      * Default value is `0`.
      */
@@ -345,6 +369,10 @@ export interface InstanceArgs {
      * underscores(_).
      */
     instanceName?: pulumi.Input<string>;
+    /**
+     * Kibana public network access status. Valid values are `OPEN` and `CLOSE`.
+     */
+    kibanaPublicAccess?: pulumi.Input<string>;
     /**
      * License type. Valid values are `oss`, `basic` and `platinum`. The default value is `platinum`.
      */

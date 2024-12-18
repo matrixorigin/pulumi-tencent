@@ -553,6 +553,154 @@ func (o InstanceSnatIpArrayOutput) Index(i pulumi.IntInput) InstanceSnatIpOutput
 	}).(InstanceSnatIpOutput)
 }
 
+type ListenerRuleOauth struct {
+	OauthEnable        *bool   `pulumi:"oauthEnable"`
+	OauthFailureStatus *string `pulumi:"oauthFailureStatus"`
+}
+
+// ListenerRuleOauthInput is an input type that accepts ListenerRuleOauthArgs and ListenerRuleOauthOutput values.
+// You can construct a concrete instance of `ListenerRuleOauthInput` via:
+//
+//	ListenerRuleOauthArgs{...}
+type ListenerRuleOauthInput interface {
+	pulumi.Input
+
+	ToListenerRuleOauthOutput() ListenerRuleOauthOutput
+	ToListenerRuleOauthOutputWithContext(context.Context) ListenerRuleOauthOutput
+}
+
+type ListenerRuleOauthArgs struct {
+	OauthEnable        pulumi.BoolPtrInput   `pulumi:"oauthEnable"`
+	OauthFailureStatus pulumi.StringPtrInput `pulumi:"oauthFailureStatus"`
+}
+
+func (ListenerRuleOauthArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListenerRuleOauth)(nil)).Elem()
+}
+
+func (i ListenerRuleOauthArgs) ToListenerRuleOauthOutput() ListenerRuleOauthOutput {
+	return i.ToListenerRuleOauthOutputWithContext(context.Background())
+}
+
+func (i ListenerRuleOauthArgs) ToListenerRuleOauthOutputWithContext(ctx context.Context) ListenerRuleOauthOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListenerRuleOauthOutput)
+}
+
+func (i ListenerRuleOauthArgs) ToListenerRuleOauthPtrOutput() ListenerRuleOauthPtrOutput {
+	return i.ToListenerRuleOauthPtrOutputWithContext(context.Background())
+}
+
+func (i ListenerRuleOauthArgs) ToListenerRuleOauthPtrOutputWithContext(ctx context.Context) ListenerRuleOauthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListenerRuleOauthOutput).ToListenerRuleOauthPtrOutputWithContext(ctx)
+}
+
+// ListenerRuleOauthPtrInput is an input type that accepts ListenerRuleOauthArgs, ListenerRuleOauthPtr and ListenerRuleOauthPtrOutput values.
+// You can construct a concrete instance of `ListenerRuleOauthPtrInput` via:
+//
+//	        ListenerRuleOauthArgs{...}
+//
+//	or:
+//
+//	        nil
+type ListenerRuleOauthPtrInput interface {
+	pulumi.Input
+
+	ToListenerRuleOauthPtrOutput() ListenerRuleOauthPtrOutput
+	ToListenerRuleOauthPtrOutputWithContext(context.Context) ListenerRuleOauthPtrOutput
+}
+
+type listenerRuleOauthPtrType ListenerRuleOauthArgs
+
+func ListenerRuleOauthPtr(v *ListenerRuleOauthArgs) ListenerRuleOauthPtrInput {
+	return (*listenerRuleOauthPtrType)(v)
+}
+
+func (*listenerRuleOauthPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListenerRuleOauth)(nil)).Elem()
+}
+
+func (i *listenerRuleOauthPtrType) ToListenerRuleOauthPtrOutput() ListenerRuleOauthPtrOutput {
+	return i.ToListenerRuleOauthPtrOutputWithContext(context.Background())
+}
+
+func (i *listenerRuleOauthPtrType) ToListenerRuleOauthPtrOutputWithContext(ctx context.Context) ListenerRuleOauthPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ListenerRuleOauthPtrOutput)
+}
+
+type ListenerRuleOauthOutput struct{ *pulumi.OutputState }
+
+func (ListenerRuleOauthOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ListenerRuleOauth)(nil)).Elem()
+}
+
+func (o ListenerRuleOauthOutput) ToListenerRuleOauthOutput() ListenerRuleOauthOutput {
+	return o
+}
+
+func (o ListenerRuleOauthOutput) ToListenerRuleOauthOutputWithContext(ctx context.Context) ListenerRuleOauthOutput {
+	return o
+}
+
+func (o ListenerRuleOauthOutput) ToListenerRuleOauthPtrOutput() ListenerRuleOauthPtrOutput {
+	return o.ToListenerRuleOauthPtrOutputWithContext(context.Background())
+}
+
+func (o ListenerRuleOauthOutput) ToListenerRuleOauthPtrOutputWithContext(ctx context.Context) ListenerRuleOauthPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListenerRuleOauth) *ListenerRuleOauth {
+		return &v
+	}).(ListenerRuleOauthPtrOutput)
+}
+
+func (o ListenerRuleOauthOutput) OauthEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v ListenerRuleOauth) *bool { return v.OauthEnable }).(pulumi.BoolPtrOutput)
+}
+
+func (o ListenerRuleOauthOutput) OauthFailureStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ListenerRuleOauth) *string { return v.OauthFailureStatus }).(pulumi.StringPtrOutput)
+}
+
+type ListenerRuleOauthPtrOutput struct{ *pulumi.OutputState }
+
+func (ListenerRuleOauthPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ListenerRuleOauth)(nil)).Elem()
+}
+
+func (o ListenerRuleOauthPtrOutput) ToListenerRuleOauthPtrOutput() ListenerRuleOauthPtrOutput {
+	return o
+}
+
+func (o ListenerRuleOauthPtrOutput) ToListenerRuleOauthPtrOutputWithContext(ctx context.Context) ListenerRuleOauthPtrOutput {
+	return o
+}
+
+func (o ListenerRuleOauthPtrOutput) Elem() ListenerRuleOauthOutput {
+	return o.ApplyT(func(v *ListenerRuleOauth) ListenerRuleOauth {
+		if v != nil {
+			return *v
+		}
+		var ret ListenerRuleOauth
+		return ret
+	}).(ListenerRuleOauthOutput)
+}
+
+func (o ListenerRuleOauthPtrOutput) OauthEnable() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *ListenerRuleOauth) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OauthEnable
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o ListenerRuleOauthPtrOutput) OauthFailureStatus() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ListenerRuleOauth) *string {
+		if v == nil {
+			return nil
+		}
+		return v.OauthFailureStatus
+	}).(pulumi.StringPtrOutput)
+}
+
 type ReplaceCertForLbsCertificate struct {
 	CertCaContent *string `pulumi:"certCaContent"`
 	CertCaId      *string `pulumi:"certCaId"`
@@ -892,9 +1040,10 @@ func (o SnatIpIpArrayOutput) Index(i pulumi.IntInput) SnatIpIpOutput {
 }
 
 type TargetGroupAttachmentsAssociation struct {
-	ListenerId    *string `pulumi:"listenerId"`
-	LocationId    *string `pulumi:"locationId"`
-	TargetGroupId string  `pulumi:"targetGroupId"`
+	ListenerId     *string `pulumi:"listenerId"`
+	LoadBalancerId *string `pulumi:"loadBalancerId"`
+	LocationId     *string `pulumi:"locationId"`
+	TargetGroupId  *string `pulumi:"targetGroupId"`
 }
 
 // TargetGroupAttachmentsAssociationInput is an input type that accepts TargetGroupAttachmentsAssociationArgs and TargetGroupAttachmentsAssociationOutput values.
@@ -909,9 +1058,10 @@ type TargetGroupAttachmentsAssociationInput interface {
 }
 
 type TargetGroupAttachmentsAssociationArgs struct {
-	ListenerId    pulumi.StringPtrInput `pulumi:"listenerId"`
-	LocationId    pulumi.StringPtrInput `pulumi:"locationId"`
-	TargetGroupId pulumi.StringInput    `pulumi:"targetGroupId"`
+	ListenerId     pulumi.StringPtrInput `pulumi:"listenerId"`
+	LoadBalancerId pulumi.StringPtrInput `pulumi:"loadBalancerId"`
+	LocationId     pulumi.StringPtrInput `pulumi:"locationId"`
+	TargetGroupId  pulumi.StringPtrInput `pulumi:"targetGroupId"`
 }
 
 func (TargetGroupAttachmentsAssociationArgs) ElementType() reflect.Type {
@@ -969,12 +1119,16 @@ func (o TargetGroupAttachmentsAssociationOutput) ListenerId() pulumi.StringPtrOu
 	return o.ApplyT(func(v TargetGroupAttachmentsAssociation) *string { return v.ListenerId }).(pulumi.StringPtrOutput)
 }
 
+func (o TargetGroupAttachmentsAssociationOutput) LoadBalancerId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TargetGroupAttachmentsAssociation) *string { return v.LoadBalancerId }).(pulumi.StringPtrOutput)
+}
+
 func (o TargetGroupAttachmentsAssociationOutput) LocationId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TargetGroupAttachmentsAssociation) *string { return v.LocationId }).(pulumi.StringPtrOutput)
 }
 
-func (o TargetGroupAttachmentsAssociationOutput) TargetGroupId() pulumi.StringOutput {
-	return o.ApplyT(func(v TargetGroupAttachmentsAssociation) string { return v.TargetGroupId }).(pulumi.StringOutput)
+func (o TargetGroupAttachmentsAssociationOutput) TargetGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TargetGroupAttachmentsAssociation) *string { return v.TargetGroupId }).(pulumi.StringPtrOutput)
 }
 
 type TargetGroupAttachmentsAssociationArrayOutput struct{ *pulumi.OutputState }
@@ -1228,6 +1382,7 @@ func (o GetAttachmentsAttachmentListArrayOutput) Index(i pulumi.IntInput) GetAtt
 }
 
 type GetAttachmentsAttachmentListTarget struct {
+	EniIp      string `pulumi:"eniIp"`
 	InstanceId string `pulumi:"instanceId"`
 	Port       int    `pulumi:"port"`
 	Weight     int    `pulumi:"weight"`
@@ -1245,6 +1400,7 @@ type GetAttachmentsAttachmentListTargetInput interface {
 }
 
 type GetAttachmentsAttachmentListTargetArgs struct {
+	EniIp      pulumi.StringInput `pulumi:"eniIp"`
 	InstanceId pulumi.StringInput `pulumi:"instanceId"`
 	Port       pulumi.IntInput    `pulumi:"port"`
 	Weight     pulumi.IntInput    `pulumi:"weight"`
@@ -1299,6 +1455,10 @@ func (o GetAttachmentsAttachmentListTargetOutput) ToGetAttachmentsAttachmentList
 
 func (o GetAttachmentsAttachmentListTargetOutput) ToGetAttachmentsAttachmentListTargetOutputWithContext(ctx context.Context) GetAttachmentsAttachmentListTargetOutput {
 	return o
+}
+
+func (o GetAttachmentsAttachmentListTargetOutput) EniIp() pulumi.StringOutput {
+	return o.ApplyT(func(v GetAttachmentsAttachmentListTarget) string { return v.EniIp }).(pulumi.StringOutput)
 }
 
 func (o GetAttachmentsAttachmentListTargetOutput) InstanceId() pulumi.StringOutput {
@@ -5242,6 +5402,7 @@ type GetInstancesClbList struct {
 	ClbId                   string                 `pulumi:"clbId"`
 	ClbName                 string                 `pulumi:"clbName"`
 	ClbVips                 []string               `pulumi:"clbVips"`
+	ClusterId               string                 `pulumi:"clusterId"`
 	CreateTime              string                 `pulumi:"createTime"`
 	InternetBandwidthMaxOut int                    `pulumi:"internetBandwidthMaxOut"`
 	InternetChargeType      string                 `pulumi:"internetChargeType"`
@@ -5279,6 +5440,7 @@ type GetInstancesClbListArgs struct {
 	ClbId                   pulumi.StringInput      `pulumi:"clbId"`
 	ClbName                 pulumi.StringInput      `pulumi:"clbName"`
 	ClbVips                 pulumi.StringArrayInput `pulumi:"clbVips"`
+	ClusterId               pulumi.StringInput      `pulumi:"clusterId"`
 	CreateTime              pulumi.StringInput      `pulumi:"createTime"`
 	InternetBandwidthMaxOut pulumi.IntInput         `pulumi:"internetBandwidthMaxOut"`
 	InternetChargeType      pulumi.StringInput      `pulumi:"internetChargeType"`
@@ -5365,6 +5527,10 @@ func (o GetInstancesClbListOutput) ClbName() pulumi.StringOutput {
 
 func (o GetInstancesClbListOutput) ClbVips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetInstancesClbList) []string { return v.ClbVips }).(pulumi.StringArrayOutput)
+}
+
+func (o GetInstancesClbListOutput) ClusterId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstancesClbList) string { return v.ClusterId }).(pulumi.StringOutput)
 }
 
 func (o GetInstancesClbListOutput) CreateTime() pulumi.StringOutput {
@@ -8424,6 +8590,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*FunctionTargetsAttachmentFunctionTargetsFunctionPtrInput)(nil)).Elem(), FunctionTargetsAttachmentFunctionTargetsFunctionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceSnatIpInput)(nil)).Elem(), InstanceSnatIpArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceSnatIpArrayInput)(nil)).Elem(), InstanceSnatIpArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListenerRuleOauthInput)(nil)).Elem(), ListenerRuleOauthArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ListenerRuleOauthPtrInput)(nil)).Elem(), ListenerRuleOauthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReplaceCertForLbsCertificateInput)(nil)).Elem(), ReplaceCertForLbsCertificateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ReplaceCertForLbsCertificatePtrInput)(nil)).Elem(), ReplaceCertForLbsCertificateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SnatIpIpInput)(nil)).Elem(), SnatIpIpArgs{})
@@ -8552,6 +8720,8 @@ func init() {
 	pulumi.RegisterOutputType(FunctionTargetsAttachmentFunctionTargetsFunctionPtrOutput{})
 	pulumi.RegisterOutputType(InstanceSnatIpOutput{})
 	pulumi.RegisterOutputType(InstanceSnatIpArrayOutput{})
+	pulumi.RegisterOutputType(ListenerRuleOauthOutput{})
+	pulumi.RegisterOutputType(ListenerRuleOauthPtrOutput{})
 	pulumi.RegisterOutputType(ReplaceCertForLbsCertificateOutput{})
 	pulumi.RegisterOutputType(ReplaceCertForLbsCertificatePtrOutput{})
 	pulumi.RegisterOutputType(SnatIpIpOutput{})

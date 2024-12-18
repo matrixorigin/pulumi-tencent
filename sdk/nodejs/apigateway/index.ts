@@ -180,6 +180,11 @@ export type UpdateApiAppKey = import("./updateApiAppKey").UpdateApiAppKey;
 export const UpdateApiAppKey: typeof import("./updateApiAppKey").UpdateApiAppKey = null as any;
 utilities.lazyLoad(exports, ["UpdateApiAppKey"], () => require("./updateApiAppKey"));
 
+export { UpdateServiceArgs, UpdateServiceState } from "./updateService";
+export type UpdateService = import("./updateService").UpdateService;
+export const UpdateService: typeof import("./updateService").UpdateService = null as any;
+utilities.lazyLoad(exports, ["UpdateService"], () => require("./updateService"));
+
 export { UpstreamArgs, UpstreamState } from "./upstream";
 export type Upstream = import("./upstream").Upstream;
 export const Upstream: typeof import("./upstream").Upstream = null as any;
@@ -230,6 +235,8 @@ const _module = {
                 return new StrategyAttachment(name, <any>undefined, { urn })
             case "tencentcloud:ApiGateway/updateApiAppKey:UpdateApiAppKey":
                 return new UpdateApiAppKey(name, <any>undefined, { urn })
+            case "tencentcloud:ApiGateway/updateService:UpdateService":
+                return new UpdateService(name, <any>undefined, { urn })
             case "tencentcloud:ApiGateway/upstream:Upstream":
                 return new Upstream(name, <any>undefined, { urn })
             case "tencentcloud:ApiGateway/usagePlan:UsagePlan":
@@ -256,6 +263,7 @@ pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/service", _mod
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/serviceRelease", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/strategyAttachment", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/updateApiAppKey", _module)
+pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/updateService", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/upstream", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/usagePlan", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "ApiGateway/usagePlanAttachment", _module)

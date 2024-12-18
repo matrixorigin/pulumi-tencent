@@ -14,11 +14,13 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type GetInstanceEni struct {
+	CdcId          string                 `pulumi:"cdcId"`
 	CreateTime     string                 `pulumi:"createTime"`
 	Description    string                 `pulumi:"description"`
 	Id             string                 `pulumi:"id"`
 	InstanceId     string                 `pulumi:"instanceId"`
 	Ipv4s          []GetInstanceEniIpv4   `pulumi:"ipv4s"`
+	Ipv6s          []GetInstanceEniIpv6   `pulumi:"ipv6s"`
 	Mac            string                 `pulumi:"mac"`
 	Name           string                 `pulumi:"name"`
 	Primary        bool                   `pulumi:"primary"`
@@ -41,11 +43,13 @@ type GetInstanceEniInput interface {
 }
 
 type GetInstanceEniArgs struct {
+	CdcId          pulumi.StringInput           `pulumi:"cdcId"`
 	CreateTime     pulumi.StringInput           `pulumi:"createTime"`
 	Description    pulumi.StringInput           `pulumi:"description"`
 	Id             pulumi.StringInput           `pulumi:"id"`
 	InstanceId     pulumi.StringInput           `pulumi:"instanceId"`
 	Ipv4s          GetInstanceEniIpv4ArrayInput `pulumi:"ipv4s"`
+	Ipv6s          GetInstanceEniIpv6ArrayInput `pulumi:"ipv6s"`
 	Mac            pulumi.StringInput           `pulumi:"mac"`
 	Name           pulumi.StringInput           `pulumi:"name"`
 	Primary        pulumi.BoolInput             `pulumi:"primary"`
@@ -107,6 +111,10 @@ func (o GetInstanceEniOutput) ToGetInstanceEniOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o GetInstanceEniOutput) CdcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceEni) string { return v.CdcId }).(pulumi.StringOutput)
+}
+
 func (o GetInstanceEniOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v GetInstanceEni) string { return v.CreateTime }).(pulumi.StringOutput)
 }
@@ -125,6 +133,10 @@ func (o GetInstanceEniOutput) InstanceId() pulumi.StringOutput {
 
 func (o GetInstanceEniOutput) Ipv4s() GetInstanceEniIpv4ArrayOutput {
 	return o.ApplyT(func(v GetInstanceEni) []GetInstanceEniIpv4 { return v.Ipv4s }).(GetInstanceEniIpv4ArrayOutput)
+}
+
+func (o GetInstanceEniOutput) Ipv6s() GetInstanceEniIpv6ArrayOutput {
+	return o.ApplyT(func(v GetInstanceEni) []GetInstanceEniIpv6 { return v.Ipv6s }).(GetInstanceEniIpv6ArrayOutput)
 }
 
 func (o GetInstanceEniOutput) Mac() pulumi.StringOutput {
@@ -285,13 +297,135 @@ func (o GetInstanceEniIpv4ArrayOutput) Index(i pulumi.IntInput) GetInstanceEniIp
 	}).(GetInstanceEniIpv4Output)
 }
 
+type GetInstanceEniIpv6 struct {
+	Address        string `pulumi:"address"`
+	AddressId      string `pulumi:"addressId"`
+	Description    string `pulumi:"description"`
+	IsWanIpBlocked bool   `pulumi:"isWanIpBlocked"`
+	Primary        bool   `pulumi:"primary"`
+}
+
+// GetInstanceEniIpv6Input is an input type that accepts GetInstanceEniIpv6Args and GetInstanceEniIpv6Output values.
+// You can construct a concrete instance of `GetInstanceEniIpv6Input` via:
+//
+//	GetInstanceEniIpv6Args{...}
+type GetInstanceEniIpv6Input interface {
+	pulumi.Input
+
+	ToGetInstanceEniIpv6Output() GetInstanceEniIpv6Output
+	ToGetInstanceEniIpv6OutputWithContext(context.Context) GetInstanceEniIpv6Output
+}
+
+type GetInstanceEniIpv6Args struct {
+	Address        pulumi.StringInput `pulumi:"address"`
+	AddressId      pulumi.StringInput `pulumi:"addressId"`
+	Description    pulumi.StringInput `pulumi:"description"`
+	IsWanIpBlocked pulumi.BoolInput   `pulumi:"isWanIpBlocked"`
+	Primary        pulumi.BoolInput   `pulumi:"primary"`
+}
+
+func (GetInstanceEniIpv6Args) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetInstanceEniIpv6)(nil)).Elem()
+}
+
+func (i GetInstanceEniIpv6Args) ToGetInstanceEniIpv6Output() GetInstanceEniIpv6Output {
+	return i.ToGetInstanceEniIpv6OutputWithContext(context.Background())
+}
+
+func (i GetInstanceEniIpv6Args) ToGetInstanceEniIpv6OutputWithContext(ctx context.Context) GetInstanceEniIpv6Output {
+	return pulumi.ToOutputWithContext(ctx, i).(GetInstanceEniIpv6Output)
+}
+
+// GetInstanceEniIpv6ArrayInput is an input type that accepts GetInstanceEniIpv6Array and GetInstanceEniIpv6ArrayOutput values.
+// You can construct a concrete instance of `GetInstanceEniIpv6ArrayInput` via:
+//
+//	GetInstanceEniIpv6Array{ GetInstanceEniIpv6Args{...} }
+type GetInstanceEniIpv6ArrayInput interface {
+	pulumi.Input
+
+	ToGetInstanceEniIpv6ArrayOutput() GetInstanceEniIpv6ArrayOutput
+	ToGetInstanceEniIpv6ArrayOutputWithContext(context.Context) GetInstanceEniIpv6ArrayOutput
+}
+
+type GetInstanceEniIpv6Array []GetInstanceEniIpv6Input
+
+func (GetInstanceEniIpv6Array) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetInstanceEniIpv6)(nil)).Elem()
+}
+
+func (i GetInstanceEniIpv6Array) ToGetInstanceEniIpv6ArrayOutput() GetInstanceEniIpv6ArrayOutput {
+	return i.ToGetInstanceEniIpv6ArrayOutputWithContext(context.Background())
+}
+
+func (i GetInstanceEniIpv6Array) ToGetInstanceEniIpv6ArrayOutputWithContext(ctx context.Context) GetInstanceEniIpv6ArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetInstanceEniIpv6ArrayOutput)
+}
+
+type GetInstanceEniIpv6Output struct{ *pulumi.OutputState }
+
+func (GetInstanceEniIpv6Output) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetInstanceEniIpv6)(nil)).Elem()
+}
+
+func (o GetInstanceEniIpv6Output) ToGetInstanceEniIpv6Output() GetInstanceEniIpv6Output {
+	return o
+}
+
+func (o GetInstanceEniIpv6Output) ToGetInstanceEniIpv6OutputWithContext(ctx context.Context) GetInstanceEniIpv6Output {
+	return o
+}
+
+func (o GetInstanceEniIpv6Output) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceEniIpv6) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o GetInstanceEniIpv6Output) AddressId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceEniIpv6) string { return v.AddressId }).(pulumi.StringOutput)
+}
+
+func (o GetInstanceEniIpv6Output) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v GetInstanceEniIpv6) string { return v.Description }).(pulumi.StringOutput)
+}
+
+func (o GetInstanceEniIpv6Output) IsWanIpBlocked() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetInstanceEniIpv6) bool { return v.IsWanIpBlocked }).(pulumi.BoolOutput)
+}
+
+func (o GetInstanceEniIpv6Output) Primary() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetInstanceEniIpv6) bool { return v.Primary }).(pulumi.BoolOutput)
+}
+
+type GetInstanceEniIpv6ArrayOutput struct{ *pulumi.OutputState }
+
+func (GetInstanceEniIpv6ArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetInstanceEniIpv6)(nil)).Elem()
+}
+
+func (o GetInstanceEniIpv6ArrayOutput) ToGetInstanceEniIpv6ArrayOutput() GetInstanceEniIpv6ArrayOutput {
+	return o
+}
+
+func (o GetInstanceEniIpv6ArrayOutput) ToGetInstanceEniIpv6ArrayOutputWithContext(ctx context.Context) GetInstanceEniIpv6ArrayOutput {
+	return o
+}
+
+func (o GetInstanceEniIpv6ArrayOutput) Index(i pulumi.IntInput) GetInstanceEniIpv6Output {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetInstanceEniIpv6 {
+		return vs[0].([]GetInstanceEniIpv6)[vs[1].(int)]
+	}).(GetInstanceEniIpv6Output)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniInput)(nil)).Elem(), GetInstanceEniArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniArrayInput)(nil)).Elem(), GetInstanceEniArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniIpv4Input)(nil)).Elem(), GetInstanceEniIpv4Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniIpv4ArrayInput)(nil)).Elem(), GetInstanceEniIpv4Array{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniIpv6Input)(nil)).Elem(), GetInstanceEniIpv6Args{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceEniIpv6ArrayInput)(nil)).Elem(), GetInstanceEniIpv6Array{})
 	pulumi.RegisterOutputType(GetInstanceEniOutput{})
 	pulumi.RegisterOutputType(GetInstanceEniArrayOutput{})
 	pulumi.RegisterOutputType(GetInstanceEniIpv4Output{})
 	pulumi.RegisterOutputType(GetInstanceEniIpv4ArrayOutput{})
+	pulumi.RegisterOutputType(GetInstanceEniIpv6Output{})
+	pulumi.RegisterOutputType(GetInstanceEniIpv6ArrayOutput{})
 }

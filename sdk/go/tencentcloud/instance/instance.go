@@ -29,13 +29,20 @@ type Instance struct {
 	// Type of instance created on cdh, the value of this parameter is in the format of CDH_XCXG based on the number of CPU
 	// cores and memory capacity. Note: it only works when instance_charge_type is set to `CDHPAID`.
 	CdhInstanceType pulumi.StringPtrOutput `pulumi:"cdhInstanceType"`
+	// The number of CPU cores of the instance.
+	Cpu pulumi.IntOutput `pulumi:"cpu"`
 	// Create time of the instance.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Settings for data disks.
 	DataDisks InstanceDataDiskArrayOutput `pulumi:"dataDisks"`
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrOutput `pulumi:"dedicatedClusterId"`
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 	// be deleted by an API action.
 	DisableApiTermination pulumi.BoolPtrOutput `pulumi:"disableApiTermination"`
+	// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+	// installed. Modifying will cause the instance reset.
+	DisableAutomationService pulumi.BoolPtrOutput `pulumi:"disableAutomationService"`
 	// Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
 	// installed. Modifying will cause the instance reset.
 	DisableMonitorService pulumi.BoolPtrOutput `pulumi:"disableMonitorService"`
@@ -55,13 +62,13 @@ type Instance struct {
 	Hostname pulumi.StringPtrOutput `pulumi:"hostname"`
 	// The image to use for the instance. Changing `image_id` will cause the instance reset.
 	ImageId pulumi.StringOutput `pulumi:"imageId"`
-	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-	// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-	// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-	// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+	// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+	// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+	// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 	InstanceChargeType pulumi.StringPtrOutput `pulumi:"instanceChargeType"`
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 	InstanceChargeTypePrepaidPeriod pulumi.IntPtrOutput `pulumi:"instanceChargeTypePrepaidPeriod"`
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically,
 	// `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`:
@@ -96,8 +103,12 @@ type Instance struct {
 	//
 	// Deprecated: Please use `key_ids` instead.
 	KeyName pulumi.StringOutput `pulumi:"keyName"`
+	// Instance memory capacity, unit in GB.
+	Memory pulumi.IntOutput `pulumi:"memory"`
 	// A list of orderly security group IDs to associate with.
 	OrderlySecurityGroups pulumi.StringArrayOutput `pulumi:"orderlySecurityGroups"`
+	// Instance os name.
+	OsName pulumi.StringOutput `pulumi:"osName"`
 	// Password for the instance. In order for the new password to take effect, the instance will be restarted after the
 	// password change. Modifying will cause the instance reset.
 	Password pulumi.StringPtrOutput `pulumi:"password"`
@@ -128,6 +139,8 @@ type Instance struct {
 	// System disk snapshot ID used to initialize the system disk. When system disk type is `LOCAL_BASIC` and `LOCAL_SSD`, disk
 	// id is not supported.
 	SystemDiskId pulumi.StringOutput `pulumi:"systemDiskId"`
+	// Resize online.
+	SystemDiskResizeOnline pulumi.BoolPtrOutput `pulumi:"systemDiskResizeOnline"`
 	// Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 	SystemDiskSize pulumi.IntPtrOutput `pulumi:"systemDiskSize"`
 	// System disk type. For more information on limits of system disk types, see [Storage
@@ -144,6 +157,8 @@ type Instance struct {
 	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64
 	// encoded.
 	UserDataRaw pulumi.StringPtrOutput `pulumi:"userDataRaw"`
+	// Globally unique ID of the instance.
+	Uuid pulumi.StringOutput `pulumi:"uuid"`
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
 }
@@ -205,13 +220,20 @@ type instanceState struct {
 	// Type of instance created on cdh, the value of this parameter is in the format of CDH_XCXG based on the number of CPU
 	// cores and memory capacity. Note: it only works when instance_charge_type is set to `CDHPAID`.
 	CdhInstanceType *string `pulumi:"cdhInstanceType"`
+	// The number of CPU cores of the instance.
+	Cpu *int `pulumi:"cpu"`
 	// Create time of the instance.
 	CreateTime *string `pulumi:"createTime"`
 	// Settings for data disks.
 	DataDisks []InstanceDataDisk `pulumi:"dataDisks"`
+	// Exclusive cluster id.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 	// be deleted by an API action.
 	DisableApiTermination *bool `pulumi:"disableApiTermination"`
+	// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+	// installed. Modifying will cause the instance reset.
+	DisableAutomationService *bool `pulumi:"disableAutomationService"`
 	// Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
 	// installed. Modifying will cause the instance reset.
 	DisableMonitorService *bool `pulumi:"disableMonitorService"`
@@ -231,13 +253,13 @@ type instanceState struct {
 	Hostname *string `pulumi:"hostname"`
 	// The image to use for the instance. Changing `image_id` will cause the instance reset.
 	ImageId *string `pulumi:"imageId"`
-	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-	// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-	// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-	// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+	// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+	// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+	// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 	InstanceChargeType *string `pulumi:"instanceChargeType"`
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 	InstanceChargeTypePrepaidPeriod *int `pulumi:"instanceChargeTypePrepaidPeriod"`
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically,
 	// `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`:
@@ -272,8 +294,12 @@ type instanceState struct {
 	//
 	// Deprecated: Please use `key_ids` instead.
 	KeyName *string `pulumi:"keyName"`
+	// Instance memory capacity, unit in GB.
+	Memory *int `pulumi:"memory"`
 	// A list of orderly security group IDs to associate with.
 	OrderlySecurityGroups []string `pulumi:"orderlySecurityGroups"`
+	// Instance os name.
+	OsName *string `pulumi:"osName"`
 	// Password for the instance. In order for the new password to take effect, the instance will be restarted after the
 	// password change. Modifying will cause the instance reset.
 	Password *string `pulumi:"password"`
@@ -304,6 +330,8 @@ type instanceState struct {
 	// System disk snapshot ID used to initialize the system disk. When system disk type is `LOCAL_BASIC` and `LOCAL_SSD`, disk
 	// id is not supported.
 	SystemDiskId *string `pulumi:"systemDiskId"`
+	// Resize online.
+	SystemDiskResizeOnline *bool `pulumi:"systemDiskResizeOnline"`
 	// Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 	SystemDiskSize *int `pulumi:"systemDiskSize"`
 	// System disk type. For more information on limits of system disk types, see [Storage
@@ -320,6 +348,8 @@ type instanceState struct {
 	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64
 	// encoded.
 	UserDataRaw *string `pulumi:"userDataRaw"`
+	// Globally unique ID of the instance.
+	Uuid *string `pulumi:"uuid"`
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	VpcId *string `pulumi:"vpcId"`
 }
@@ -339,13 +369,20 @@ type InstanceState struct {
 	// Type of instance created on cdh, the value of this parameter is in the format of CDH_XCXG based on the number of CPU
 	// cores and memory capacity. Note: it only works when instance_charge_type is set to `CDHPAID`.
 	CdhInstanceType pulumi.StringPtrInput
+	// The number of CPU cores of the instance.
+	Cpu pulumi.IntPtrInput
 	// Create time of the instance.
 	CreateTime pulumi.StringPtrInput
 	// Settings for data disks.
 	DataDisks InstanceDataDiskArrayInput
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrInput
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 	// be deleted by an API action.
 	DisableApiTermination pulumi.BoolPtrInput
+	// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+	// installed. Modifying will cause the instance reset.
+	DisableAutomationService pulumi.BoolPtrInput
 	// Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
 	// installed. Modifying will cause the instance reset.
 	DisableMonitorService pulumi.BoolPtrInput
@@ -365,13 +402,13 @@ type InstanceState struct {
 	Hostname pulumi.StringPtrInput
 	// The image to use for the instance. Changing `image_id` will cause the instance reset.
 	ImageId pulumi.StringPtrInput
-	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-	// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-	// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-	// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+	// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+	// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+	// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 	InstanceChargeType pulumi.StringPtrInput
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 	InstanceChargeTypePrepaidPeriod pulumi.IntPtrInput
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically,
 	// `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`:
@@ -406,8 +443,12 @@ type InstanceState struct {
 	//
 	// Deprecated: Please use `key_ids` instead.
 	KeyName pulumi.StringPtrInput
+	// Instance memory capacity, unit in GB.
+	Memory pulumi.IntPtrInput
 	// A list of orderly security group IDs to associate with.
 	OrderlySecurityGroups pulumi.StringArrayInput
+	// Instance os name.
+	OsName pulumi.StringPtrInput
 	// Password for the instance. In order for the new password to take effect, the instance will be restarted after the
 	// password change. Modifying will cause the instance reset.
 	Password pulumi.StringPtrInput
@@ -438,6 +479,8 @@ type InstanceState struct {
 	// System disk snapshot ID used to initialize the system disk. When system disk type is `LOCAL_BASIC` and `LOCAL_SSD`, disk
 	// id is not supported.
 	SystemDiskId pulumi.StringPtrInput
+	// Resize online.
+	SystemDiskResizeOnline pulumi.BoolPtrInput
 	// Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 	SystemDiskSize pulumi.IntPtrInput
 	// System disk type. For more information on limits of system disk types, see [Storage
@@ -454,6 +497,8 @@ type InstanceState struct {
 	// The user data to be injected into this instance, in plain text. Conflicts with `user_data`. Up to 16 KB after base64
 	// encoded.
 	UserDataRaw pulumi.StringPtrInput
+	// Globally unique ID of the instance.
+	Uuid pulumi.StringPtrInput
 	// The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.
 	VpcId pulumi.StringPtrInput
 }
@@ -479,9 +524,14 @@ type instanceArgs struct {
 	CdhInstanceType *string `pulumi:"cdhInstanceType"`
 	// Settings for data disks.
 	DataDisks []InstanceDataDisk `pulumi:"dataDisks"`
+	// Exclusive cluster id.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 	// be deleted by an API action.
 	DisableApiTermination *bool `pulumi:"disableApiTermination"`
+	// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+	// installed. Modifying will cause the instance reset.
+	DisableAutomationService *bool `pulumi:"disableAutomationService"`
 	// Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
 	// installed. Modifying will cause the instance reset.
 	DisableMonitorService *bool `pulumi:"disableMonitorService"`
@@ -499,13 +549,13 @@ type instanceArgs struct {
 	Hostname *string `pulumi:"hostname"`
 	// The image to use for the instance. Changing `image_id` will cause the instance reset.
 	ImageId string `pulumi:"imageId"`
-	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-	// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-	// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-	// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+	// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+	// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+	// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 	InstanceChargeType *string `pulumi:"instanceChargeType"`
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 	InstanceChargeTypePrepaidPeriod *int `pulumi:"instanceChargeTypePrepaidPeriod"`
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically,
 	// `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`:
@@ -568,6 +618,8 @@ type instanceArgs struct {
 	// System disk snapshot ID used to initialize the system disk. When system disk type is `LOCAL_BASIC` and `LOCAL_SSD`, disk
 	// id is not supported.
 	SystemDiskId *string `pulumi:"systemDiskId"`
+	// Resize online.
+	SystemDiskResizeOnline *bool `pulumi:"systemDiskResizeOnline"`
 	// Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 	SystemDiskSize *int `pulumi:"systemDiskSize"`
 	// System disk type. For more information on limits of system disk types, see [Storage
@@ -606,9 +658,14 @@ type InstanceArgs struct {
 	CdhInstanceType pulumi.StringPtrInput
 	// Settings for data disks.
 	DataDisks InstanceDataDiskArrayInput
+	// Exclusive cluster id.
+	DedicatedClusterId pulumi.StringPtrInput
 	// Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 	// be deleted by an API action.
 	DisableApiTermination pulumi.BoolPtrInput
+	// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+	// installed. Modifying will cause the instance reset.
+	DisableAutomationService pulumi.BoolPtrInput
 	// Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
 	// installed. Modifying will cause the instance reset.
 	DisableMonitorService pulumi.BoolPtrInput
@@ -626,13 +683,13 @@ type InstanceArgs struct {
 	Hostname pulumi.StringPtrInput
 	// The image to use for the instance. Changing `image_id` will cause the instance reset.
 	ImageId pulumi.StringInput
-	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-	// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-	// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-	// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+	// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+	// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+	// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+	// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 	InstanceChargeType pulumi.StringPtrInput
 	// The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+	// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 	InstanceChargeTypePrepaidPeriod pulumi.IntPtrInput
 	// Auto renewal flag. Valid values: `NOTIFY_AND_AUTO_RENEW`: notify upon expiration and renew automatically,
 	// `NOTIFY_AND_MANUAL_RENEW`: notify upon expiration but do not renew automatically, `DISABLE_NOTIFY_AND_MANUAL_RENEW`:
@@ -695,6 +752,8 @@ type InstanceArgs struct {
 	// System disk snapshot ID used to initialize the system disk. When system disk type is `LOCAL_BASIC` and `LOCAL_SSD`, disk
 	// id is not supported.
 	SystemDiskId pulumi.StringPtrInput
+	// Resize online.
+	SystemDiskResizeOnline pulumi.BoolPtrInput
 	// Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 	SystemDiskSize pulumi.IntPtrInput
 	// System disk type. For more information on limits of system disk types, see [Storage
@@ -834,6 +893,11 @@ func (o InstanceOutput) CdhInstanceType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.CdhInstanceType }).(pulumi.StringPtrOutput)
 }
 
+// The number of CPU cores of the instance.
+func (o InstanceOutput) Cpu() pulumi.IntOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.Cpu }).(pulumi.IntOutput)
+}
+
 // Create time of the instance.
 func (o InstanceOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -844,10 +908,21 @@ func (o InstanceOutput) DataDisks() InstanceDataDiskArrayOutput {
 	return o.ApplyT(func(v *Instance) InstanceDataDiskArrayOutput { return v.DataDisks }).(InstanceDataDiskArrayOutput)
 }
 
+// Exclusive cluster id.
+func (o InstanceOutput) DedicatedClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.DedicatedClusterId }).(pulumi.StringPtrOutput)
+}
+
 // Whether the termination protection is enabled. Default is `false`. If set true, which means that this instance can not
 // be deleted by an API action.
 func (o InstanceOutput) DisableApiTermination() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.DisableApiTermination }).(pulumi.BoolPtrOutput)
+}
+
+// Disable enhance service for automation, it is enabled by default. When this options is set, monitor agent won't be
+// installed. Modifying will cause the instance reset.
+func (o InstanceOutput) DisableAutomationService() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.DisableAutomationService }).(pulumi.BoolPtrOutput)
 }
 
 // Disable enhance service for monitor, it is enabled by default. When this options is set, monitor agent won't be
@@ -887,16 +962,16 @@ func (o InstanceOutput) ImageId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.ImageId }).(pulumi.StringOutput)
 }
 
-// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID` and `CDHPAID`. The default is
-// `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`. `PREPAID` instance
-// may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and `spot_max_price` at the
-// same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
+// The charge type of instance. Valid values are `PREPAID`, `POSTPAID_BY_HOUR`, `SPOTPAID`, `CDHPAID` and `CDCPAID`. The
+// default is `POSTPAID_BY_HOUR`. Note: TencentCloud International only supports `POSTPAID_BY_HOUR` and `CDHPAID`.
+// `PREPAID` instance may not allow to delete before expired. `SPOTPAID` instance must set `spot_instance_type` and
+// `spot_max_price` at the same time. `CDHPAID` instance must set `cdh_instance_type` and `cdh_host_id`.
 func (o InstanceOutput) InstanceChargeType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.InstanceChargeType }).(pulumi.StringPtrOutput)
 }
 
 // The tenancy (time unit is month) of the prepaid instance, NOTE: it only works when instance_charge_type is set to
-// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`.
+// `PREPAID`. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`, `11`, `12`, `24`, `36`, `48`, `60`.
 func (o InstanceOutput) InstanceChargeTypePrepaidPeriod() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.InstanceChargeTypePrepaidPeriod }).(pulumi.IntPtrOutput)
 }
@@ -964,9 +1039,19 @@ func (o InstanceOutput) KeyName() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.KeyName }).(pulumi.StringOutput)
 }
 
+// Instance memory capacity, unit in GB.
+func (o InstanceOutput) Memory() pulumi.IntOutput {
+	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.Memory }).(pulumi.IntOutput)
+}
+
 // A list of orderly security group IDs to associate with.
 func (o InstanceOutput) OrderlySecurityGroups() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringArrayOutput { return v.OrderlySecurityGroups }).(pulumi.StringArrayOutput)
+}
+
+// Instance os name.
+func (o InstanceOutput) OsName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.OsName }).(pulumi.StringOutput)
 }
 
 // Password for the instance. In order for the new password to take effect, the instance will be restarted after the
@@ -1035,6 +1120,11 @@ func (o InstanceOutput) SystemDiskId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.SystemDiskId }).(pulumi.StringOutput)
 }
 
+// Resize online.
+func (o InstanceOutput) SystemDiskResizeOnline() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.SystemDiskResizeOnline }).(pulumi.BoolPtrOutput)
+}
+
 // Size of the system disk. unit is GB, Default is 50GB. If modified, the instance may force stop.
 func (o InstanceOutput) SystemDiskSize() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntPtrOutput { return v.SystemDiskSize }).(pulumi.IntPtrOutput)
@@ -1064,6 +1154,11 @@ func (o InstanceOutput) UserData() pulumi.StringPtrOutput {
 // encoded.
 func (o InstanceOutput) UserDataRaw() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.UserDataRaw }).(pulumi.StringPtrOutput)
+}
+
+// Globally unique ID of the instance.
+func (o InstanceOutput) Uuid() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Uuid }).(pulumi.StringOutput)
 }
 
 // The ID of a VPC network. If you want to create instances in a VPC network, this parameter must be set.

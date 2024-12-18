@@ -19,10 +19,14 @@ type ReadonlyInstance struct {
 	AutoRenewFlag pulumi.IntPtrOutput `pulumi:"autoRenewFlag"`
 	// Whether to use voucher, `1` for enabled.
 	AutoVoucher pulumi.IntPtrOutput `pulumi:"autoVoucher"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntOutput `pulumi:"cpu"`
 	// Create time of the postgresql instance.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// PostgreSQL kernel version, which must be the same as that of the primary instance.
 	DbVersion pulumi.StringOutput `pulumi:"dbVersion"`
+	// Dedicated cluster ID.
+	DedicatedClusterId pulumi.StringPtrOutput `pulumi:"dedicatedClusterId"`
 	// instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
 	InstanceChargeType pulumi.StringPtrOutput `pulumi:"instanceChargeType"`
 	// The instance ID of this readonly resource.
@@ -122,10 +126,14 @@ type readonlyInstanceState struct {
 	AutoRenewFlag *int `pulumi:"autoRenewFlag"`
 	// Whether to use voucher, `1` for enabled.
 	AutoVoucher *int `pulumi:"autoVoucher"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu *int `pulumi:"cpu"`
 	// Create time of the postgresql instance.
 	CreateTime *string `pulumi:"createTime"`
 	// PostgreSQL kernel version, which must be the same as that of the primary instance.
 	DbVersion *string `pulumi:"dbVersion"`
+	// Dedicated cluster ID.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
 	InstanceChargeType *string `pulumi:"instanceChargeType"`
 	// The instance ID of this readonly resource.
@@ -169,10 +177,14 @@ type ReadonlyInstanceState struct {
 	AutoRenewFlag pulumi.IntPtrInput
 	// Whether to use voucher, `1` for enabled.
 	AutoVoucher pulumi.IntPtrInput
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntPtrInput
 	// Create time of the postgresql instance.
 	CreateTime pulumi.StringPtrInput
 	// PostgreSQL kernel version, which must be the same as that of the primary instance.
 	DbVersion pulumi.StringPtrInput
+	// Dedicated cluster ID.
+	DedicatedClusterId pulumi.StringPtrInput
 	// instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
 	InstanceChargeType pulumi.StringPtrInput
 	// The instance ID of this readonly resource.
@@ -220,8 +232,12 @@ type readonlyInstanceArgs struct {
 	AutoRenewFlag *int `pulumi:"autoRenewFlag"`
 	// Whether to use voucher, `1` for enabled.
 	AutoVoucher *int `pulumi:"autoVoucher"`
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu *int `pulumi:"cpu"`
 	// PostgreSQL kernel version, which must be the same as that of the primary instance.
 	DbVersion string `pulumi:"dbVersion"`
+	// Dedicated cluster ID.
+	DedicatedClusterId *string `pulumi:"dedicatedClusterId"`
 	// instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
 	InstanceChargeType *string `pulumi:"instanceChargeType"`
 	// ID of the primary instance to which the read-only replica belongs.
@@ -260,8 +276,12 @@ type ReadonlyInstanceArgs struct {
 	AutoRenewFlag pulumi.IntPtrInput
 	// Whether to use voucher, `1` for enabled.
 	AutoVoucher pulumi.IntPtrInput
+	// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+	Cpu pulumi.IntPtrInput
 	// PostgreSQL kernel version, which must be the same as that of the primary instance.
 	DbVersion pulumi.StringInput
+	// Dedicated cluster ID.
+	DedicatedClusterId pulumi.StringPtrInput
 	// instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).
 	InstanceChargeType pulumi.StringPtrInput
 	// ID of the primary instance to which the read-only replica belongs.
@@ -391,6 +411,11 @@ func (o ReadonlyInstanceOutput) AutoVoucher() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReadonlyInstance) pulumi.IntPtrOutput { return v.AutoVoucher }).(pulumi.IntPtrOutput)
 }
 
+// Number of CPU cores. Allowed value must be equal `cpu` that data source `tencentcloud_postgresql_specinfos` provides.
+func (o ReadonlyInstanceOutput) Cpu() pulumi.IntOutput {
+	return o.ApplyT(func(v *ReadonlyInstance) pulumi.IntOutput { return v.Cpu }).(pulumi.IntOutput)
+}
+
 // Create time of the postgresql instance.
 func (o ReadonlyInstanceOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *ReadonlyInstance) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -399,6 +424,11 @@ func (o ReadonlyInstanceOutput) CreateTime() pulumi.StringOutput {
 // PostgreSQL kernel version, which must be the same as that of the primary instance.
 func (o ReadonlyInstanceOutput) DbVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *ReadonlyInstance) pulumi.StringOutput { return v.DbVersion }).(pulumi.StringOutput)
+}
+
+// Dedicated cluster ID.
+func (o ReadonlyInstanceOutput) DedicatedClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ReadonlyInstance) pulumi.StringPtrOutput { return v.DedicatedClusterId }).(pulumi.StringPtrOutput)
 }
 
 // instance billing mode. Valid values: PREPAID (monthly subscription), POSTPAID_BY_HOUR (pay-as-you-go).

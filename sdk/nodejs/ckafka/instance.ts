@@ -96,8 +96,6 @@ export class Instance extends pulumi.CustomResource {
     public readonly period!: pulumi.Output<number | undefined>;
     /**
      * Bandwidth of the public network.
-     *
-     * @deprecated It has been deprecated from version 1.81.6. If set public network value, it will cause error.
      */
     public readonly publicNetwork!: pulumi.Output<number>;
     /**
@@ -299,8 +297,6 @@ export interface InstanceState {
     period?: pulumi.Input<number>;
     /**
      * Bandwidth of the public network.
-     *
-     * @deprecated It has been deprecated from version 1.81.6. If set public network value, it will cause error.
      */
     publicNetwork?: pulumi.Input<number>;
     /**
@@ -422,8 +418,6 @@ export interface InstanceArgs {
     period?: pulumi.Input<number>;
     /**
      * Bandwidth of the public network.
-     *
-     * @deprecated It has been deprecated from version 1.81.6. If set public network value, it will cause error.
      */
     publicNetwork?: pulumi.Input<number>;
     /**

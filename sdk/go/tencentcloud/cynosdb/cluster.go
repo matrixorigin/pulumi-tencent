@@ -38,7 +38,7 @@ type Cluster struct {
 	DbMode pulumi.StringPtrOutput `pulumi:"dbMode"`
 	// Type of CynosDB, and available values include `MYSQL`.
 	DbType pulumi.StringOutput `pulumi:"dbType"`
-	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 	DbVersion pulumi.StringOutput `pulumi:"dbVersion"`
 	// Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All
 	// RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR`
@@ -50,6 +50,9 @@ type Cluster struct {
 	InstanceCpuCore pulumi.IntPtrOutput `pulumi:"instanceCpuCore"`
 	// ID of instance.
 	InstanceId pulumi.StringOutput `pulumi:"instanceId"`
+	// Instance initialization configuration information, mainly used to select instances of different specifications when
+	// purchasing a cluster.
+	InstanceInitInfos ClusterInstanceInitInfoArrayOutput `pulumi:"instanceInitInfos"`
 	// Duration time for maintenance, unit in second. `3600` by default.
 	InstanceMaintainDuration pulumi.IntPtrOutput `pulumi:"instanceMaintainDuration"`
 	// Offset time from 00:00, unit in second. For example, 03:00am should be `10800`. `10800` by default.
@@ -74,14 +77,18 @@ type Cluster struct {
 	// Recycling time of the old address, must be filled in when modifying the vpcRecycling time of the old address, must be
 	// filled in when modifying the vpc.
 	OldIpReserveHours pulumi.IntPtrOutput `pulumi:"oldIpReserveHours"`
-	// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+	// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 	// `data.tencentcloud_mysql_default_params` to query available parameter details.
 	ParamItems ClusterParamItemArrayOutput `pulumi:"paramItems"`
+	// The ID of the parameter template.
+	ParamTemplateId pulumi.IntOutput `pulumi:"paramTemplateId"`
 	// Password of `root` account.
 	Password pulumi.StringOutput `pulumi:"password"`
 	// Port of CynosDB cluster.
 	Port pulumi.IntPtrOutput `pulumi:"port"`
 	// The ID of the parameter template.
+	//
+	// Deprecated: It will be deprecated. Use `param_template_id` instead.
 	PrarmTemplateId pulumi.IntOutput `pulumi:"prarmTemplateId"`
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`,
 	// `10`, `11`, `12`, `24`, `36`. NOTE: it only works when charge_type is set to `PREPAID`.
@@ -108,6 +115,8 @@ type Cluster struct {
 	ServerlessStatus pulumi.StringOutput `pulumi:"serverlessStatus"`
 	// Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 	ServerlessStatusFlag pulumi.StringPtrOutput `pulumi:"serverlessStatusFlag"`
+	// Multi zone Addresses of the CynosDB Cluster.
+	SlaveZone pulumi.StringPtrOutput `pulumi:"slaveZone"`
 	// Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
 	// db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
 	// and memory specifications, and the transaction mode is `order and pay`. when charge_type is `POSTPAID_BY_HOUR`, this
@@ -208,7 +217,7 @@ type clusterState struct {
 	DbMode *string `pulumi:"dbMode"`
 	// Type of CynosDB, and available values include `MYSQL`.
 	DbType *string `pulumi:"dbType"`
-	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 	DbVersion *string `pulumi:"dbVersion"`
 	// Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All
 	// RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR`
@@ -220,6 +229,9 @@ type clusterState struct {
 	InstanceCpuCore *int `pulumi:"instanceCpuCore"`
 	// ID of instance.
 	InstanceId *string `pulumi:"instanceId"`
+	// Instance initialization configuration information, mainly used to select instances of different specifications when
+	// purchasing a cluster.
+	InstanceInitInfos []ClusterInstanceInitInfo `pulumi:"instanceInitInfos"`
 	// Duration time for maintenance, unit in second. `3600` by default.
 	InstanceMaintainDuration *int `pulumi:"instanceMaintainDuration"`
 	// Offset time from 00:00, unit in second. For example, 03:00am should be `10800`. `10800` by default.
@@ -244,14 +256,18 @@ type clusterState struct {
 	// Recycling time of the old address, must be filled in when modifying the vpcRecycling time of the old address, must be
 	// filled in when modifying the vpc.
 	OldIpReserveHours *int `pulumi:"oldIpReserveHours"`
-	// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+	// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 	// `data.tencentcloud_mysql_default_params` to query available parameter details.
 	ParamItems []ClusterParamItem `pulumi:"paramItems"`
+	// The ID of the parameter template.
+	ParamTemplateId *int `pulumi:"paramTemplateId"`
 	// Password of `root` account.
 	Password *string `pulumi:"password"`
 	// Port of CynosDB cluster.
 	Port *int `pulumi:"port"`
 	// The ID of the parameter template.
+	//
+	// Deprecated: It will be deprecated. Use `param_template_id` instead.
 	PrarmTemplateId *int `pulumi:"prarmTemplateId"`
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`,
 	// `10`, `11`, `12`, `24`, `36`. NOTE: it only works when charge_type is set to `PREPAID`.
@@ -278,6 +294,8 @@ type clusterState struct {
 	ServerlessStatus *string `pulumi:"serverlessStatus"`
 	// Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 	ServerlessStatusFlag *string `pulumi:"serverlessStatusFlag"`
+	// Multi zone Addresses of the CynosDB Cluster.
+	SlaveZone *string `pulumi:"slaveZone"`
 	// Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
 	// db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
 	// and memory specifications, and the transaction mode is `order and pay`. when charge_type is `POSTPAID_BY_HOUR`, this
@@ -321,7 +339,7 @@ type ClusterState struct {
 	DbMode pulumi.StringPtrInput
 	// Type of CynosDB, and available values include `MYSQL`.
 	DbType pulumi.StringPtrInput
-	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 	DbVersion pulumi.StringPtrInput
 	// Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All
 	// RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR`
@@ -333,6 +351,9 @@ type ClusterState struct {
 	InstanceCpuCore pulumi.IntPtrInput
 	// ID of instance.
 	InstanceId pulumi.StringPtrInput
+	// Instance initialization configuration information, mainly used to select instances of different specifications when
+	// purchasing a cluster.
+	InstanceInitInfos ClusterInstanceInitInfoArrayInput
 	// Duration time for maintenance, unit in second. `3600` by default.
 	InstanceMaintainDuration pulumi.IntPtrInput
 	// Offset time from 00:00, unit in second. For example, 03:00am should be `10800`. `10800` by default.
@@ -357,14 +378,18 @@ type ClusterState struct {
 	// Recycling time of the old address, must be filled in when modifying the vpcRecycling time of the old address, must be
 	// filled in when modifying the vpc.
 	OldIpReserveHours pulumi.IntPtrInput
-	// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+	// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 	// `data.tencentcloud_mysql_default_params` to query available parameter details.
 	ParamItems ClusterParamItemArrayInput
+	// The ID of the parameter template.
+	ParamTemplateId pulumi.IntPtrInput
 	// Password of `root` account.
 	Password pulumi.StringPtrInput
 	// Port of CynosDB cluster.
 	Port pulumi.IntPtrInput
 	// The ID of the parameter template.
+	//
+	// Deprecated: It will be deprecated. Use `param_template_id` instead.
 	PrarmTemplateId pulumi.IntPtrInput
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`,
 	// `10`, `11`, `12`, `24`, `36`. NOTE: it only works when charge_type is set to `PREPAID`.
@@ -391,6 +416,8 @@ type ClusterState struct {
 	ServerlessStatus pulumi.StringPtrInput
 	// Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 	ServerlessStatusFlag pulumi.StringPtrInput
+	// Multi zone Addresses of the CynosDB Cluster.
+	SlaveZone pulumi.StringPtrInput
 	// Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
 	// db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
 	// and memory specifications, and the transaction mode is `order and pay`. when charge_type is `POSTPAID_BY_HOUR`, this
@@ -432,7 +459,7 @@ type clusterArgs struct {
 	DbMode *string `pulumi:"dbMode"`
 	// Type of CynosDB, and available values include `MYSQL`.
 	DbType string `pulumi:"dbType"`
-	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 	DbVersion string `pulumi:"dbVersion"`
 	// Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All
 	// RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR`
@@ -442,6 +469,9 @@ type clusterArgs struct {
 	// Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade
 	// from console.
 	InstanceCpuCore *int `pulumi:"instanceCpuCore"`
+	// Instance initialization configuration information, mainly used to select instances of different specifications when
+	// purchasing a cluster.
+	InstanceInitInfos []ClusterInstanceInitInfo `pulumi:"instanceInitInfos"`
 	// Duration time for maintenance, unit in second. `3600` by default.
 	InstanceMaintainDuration *int `pulumi:"instanceMaintainDuration"`
 	// Offset time from 00:00, unit in second. For example, 03:00am should be `10800`. `10800` by default.
@@ -460,14 +490,18 @@ type clusterArgs struct {
 	// Recycling time of the old address, must be filled in when modifying the vpcRecycling time of the old address, must be
 	// filled in when modifying the vpc.
 	OldIpReserveHours *int `pulumi:"oldIpReserveHours"`
-	// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+	// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 	// `data.tencentcloud_mysql_default_params` to query available parameter details.
 	ParamItems []ClusterParamItem `pulumi:"paramItems"`
+	// The ID of the parameter template.
+	ParamTemplateId *int `pulumi:"paramTemplateId"`
 	// Password of `root` account.
 	Password string `pulumi:"password"`
 	// Port of CynosDB cluster.
 	Port *int `pulumi:"port"`
 	// The ID of the parameter template.
+	//
+	// Deprecated: It will be deprecated. Use `param_template_id` instead.
 	PrarmTemplateId *int `pulumi:"prarmTemplateId"`
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`,
 	// `10`, `11`, `12`, `24`, `36`. NOTE: it only works when charge_type is set to `PREPAID`.
@@ -480,6 +514,8 @@ type clusterArgs struct {
 	RwGroupSgs []string `pulumi:"rwGroupSgs"`
 	// Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 	ServerlessStatusFlag *string `pulumi:"serverlessStatusFlag"`
+	// Multi zone Addresses of the CynosDB Cluster.
+	SlaveZone *string `pulumi:"slaveZone"`
 	// Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
 	// db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
 	// and memory specifications, and the transaction mode is `order and pay`. when charge_type is `POSTPAID_BY_HOUR`, this
@@ -516,7 +552,7 @@ type ClusterArgs struct {
 	DbMode pulumi.StringPtrInput
 	// Type of CynosDB, and available values include `MYSQL`.
 	DbType pulumi.StringInput
-	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+	// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 	DbVersion pulumi.StringInput
 	// Indicate whether to delete cluster instance directly or not. Default is false. If set true, the cluster and its `All
 	// RELATED INSTANCES` will be deleted instead of staying recycle bin. Note: works for both `PREPAID` and `POSTPAID_BY_HOUR`
@@ -526,6 +562,9 @@ type ClusterArgs struct {
 	// Note: modification of this field will take effect immediately, if want to upgrade on maintenance window, please upgrade
 	// from console.
 	InstanceCpuCore pulumi.IntPtrInput
+	// Instance initialization configuration information, mainly used to select instances of different specifications when
+	// purchasing a cluster.
+	InstanceInitInfos ClusterInstanceInitInfoArrayInput
 	// Duration time for maintenance, unit in second. `3600` by default.
 	InstanceMaintainDuration pulumi.IntPtrInput
 	// Offset time from 00:00, unit in second. For example, 03:00am should be `10800`. `10800` by default.
@@ -544,14 +583,18 @@ type ClusterArgs struct {
 	// Recycling time of the old address, must be filled in when modifying the vpcRecycling time of the old address, must be
 	// filled in when modifying the vpc.
 	OldIpReserveHours pulumi.IntPtrInput
-	// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+	// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 	// `data.tencentcloud_mysql_default_params` to query available parameter details.
 	ParamItems ClusterParamItemArrayInput
+	// The ID of the parameter template.
+	ParamTemplateId pulumi.IntPtrInput
 	// Password of `root` account.
 	Password pulumi.StringInput
 	// Port of CynosDB cluster.
 	Port pulumi.IntPtrInput
 	// The ID of the parameter template.
+	//
+	// Deprecated: It will be deprecated. Use `param_template_id` instead.
 	PrarmTemplateId pulumi.IntPtrInput
 	// The tenancy (time unit is month) of the prepaid instance. Valid values are `1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`,
 	// `10`, `11`, `12`, `24`, `36`. NOTE: it only works when charge_type is set to `PREPAID`.
@@ -564,6 +607,8 @@ type ClusterArgs struct {
 	RwGroupSgs pulumi.StringArrayInput
 	// Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 	ServerlessStatusFlag pulumi.StringPtrInput
+	// Multi zone Addresses of the CynosDB Cluster.
+	SlaveZone pulumi.StringPtrInput
 	// Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
 	// db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
 	// and memory specifications, and the transaction mode is `order and pay`. when charge_type is `POSTPAID_BY_HOUR`, this
@@ -724,7 +769,7 @@ func (o ClusterOutput) DbType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.DbType }).(pulumi.StringOutput)
 }
 
-// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+// Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
 func (o ClusterOutput) DbVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.DbVersion }).(pulumi.StringOutput)
 }
@@ -746,6 +791,12 @@ func (o ClusterOutput) InstanceCpuCore() pulumi.IntPtrOutput {
 // ID of instance.
 func (o ClusterOutput) InstanceId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringOutput { return v.InstanceId }).(pulumi.StringOutput)
+}
+
+// Instance initialization configuration information, mainly used to select instances of different specifications when
+// purchasing a cluster.
+func (o ClusterOutput) InstanceInitInfos() ClusterInstanceInitInfoArrayOutput {
+	return o.ApplyT(func(v *Cluster) ClusterInstanceInitInfoArrayOutput { return v.InstanceInitInfos }).(ClusterInstanceInitInfoArrayOutput)
 }
 
 // Duration time for maintenance, unit in second. `3600` by default.
@@ -802,10 +853,15 @@ func (o ClusterOutput) OldIpReserveHours() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.IntPtrOutput { return v.OldIpReserveHours }).(pulumi.IntPtrOutput)
 }
 
-// Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+// Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
 // `data.tencentcloud_mysql_default_params` to query available parameter details.
 func (o ClusterOutput) ParamItems() ClusterParamItemArrayOutput {
 	return o.ApplyT(func(v *Cluster) ClusterParamItemArrayOutput { return v.ParamItems }).(ClusterParamItemArrayOutput)
+}
+
+// The ID of the parameter template.
+func (o ClusterOutput) ParamTemplateId() pulumi.IntOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.IntOutput { return v.ParamTemplateId }).(pulumi.IntOutput)
 }
 
 // Password of `root` account.
@@ -819,6 +875,8 @@ func (o ClusterOutput) Port() pulumi.IntPtrOutput {
 }
 
 // The ID of the parameter template.
+//
+// Deprecated: It will be deprecated. Use `param_template_id` instead.
 func (o ClusterOutput) PrarmTemplateId() pulumi.IntOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.IntOutput { return v.PrarmTemplateId }).(pulumi.IntOutput)
 }
@@ -882,6 +940,11 @@ func (o ClusterOutput) ServerlessStatus() pulumi.StringOutput {
 // Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
 func (o ClusterOutput) ServerlessStatusFlag() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.ServerlessStatusFlag }).(pulumi.StringPtrOutput)
+}
+
+// Multi zone Addresses of the CynosDB Cluster.
+func (o ClusterOutput) SlaveZone() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Cluster) pulumi.StringPtrOutput { return v.SlaveZone }).(pulumi.StringPtrOutput)
 }
 
 // Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If

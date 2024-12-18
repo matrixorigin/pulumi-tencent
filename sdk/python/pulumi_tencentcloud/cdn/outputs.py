@@ -43,6 +43,7 @@ __all__ = [
     'DomainOriginPullOptimization',
     'DomainOriginPullTimeout',
     'DomainOssPrivateAccess',
+    'DomainOthersPrivateAccess',
     'DomainPostMaxSize',
     'DomainQnPrivateAccess',
     'DomainReferer',
@@ -1813,6 +1814,8 @@ class DomainOrigin(dict):
             suggest = "backup_server_name"
         elif key == "cosPrivateAccess":
             suggest = "cos_private_access"
+        elif key == "originCompany":
+            suggest = "origin_company"
         elif key == "originPullProtocol":
             suggest = "origin_pull_protocol"
         elif key == "serverName":
@@ -1836,6 +1839,7 @@ class DomainOrigin(dict):
                  backup_origin_type: Optional[str] = None,
                  backup_server_name: Optional[str] = None,
                  cos_private_access: Optional[str] = None,
+                 origin_company: Optional[str] = None,
                  origin_pull_protocol: Optional[str] = None,
                  server_name: Optional[str] = None):
         pulumi.set(__self__, "origin_lists", origin_lists)
@@ -1848,6 +1852,8 @@ class DomainOrigin(dict):
             pulumi.set(__self__, "backup_server_name", backup_server_name)
         if cos_private_access is not None:
             pulumi.set(__self__, "cos_private_access", cos_private_access)
+        if origin_company is not None:
+            pulumi.set(__self__, "origin_company", origin_company)
         if origin_pull_protocol is not None:
             pulumi.set(__self__, "origin_pull_protocol", origin_pull_protocol)
         if server_name is not None:
@@ -1882,6 +1888,11 @@ class DomainOrigin(dict):
     @pulumi.getter(name="cosPrivateAccess")
     def cos_private_access(self) -> Optional[str]:
         return pulumi.get(self, "cos_private_access")
+
+    @property
+    @pulumi.getter(name="originCompany")
+    def origin_company(self) -> Optional[str]:
+        return pulumi.get(self, "origin_company")
 
     @property
     @pulumi.getter(name="originPullProtocol")
@@ -1988,6 +1999,69 @@ class DomainOssPrivateAccess(dict):
 
     def get(self, key: str, default = None) -> Any:
         DomainOssPrivateAccess.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 switch: str,
+                 access_key: Optional[str] = None,
+                 bucket: Optional[str] = None,
+                 region: Optional[str] = None,
+                 secret_key: Optional[str] = None):
+        pulumi.set(__self__, "switch", switch)
+        if access_key is not None:
+            pulumi.set(__self__, "access_key", access_key)
+        if bucket is not None:
+            pulumi.set(__self__, "bucket", bucket)
+        if region is not None:
+            pulumi.set(__self__, "region", region)
+        if secret_key is not None:
+            pulumi.set(__self__, "secret_key", secret_key)
+
+    @property
+    @pulumi.getter
+    def switch(self) -> str:
+        return pulumi.get(self, "switch")
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> Optional[str]:
+        return pulumi.get(self, "access_key")
+
+    @property
+    @pulumi.getter
+    def bucket(self) -> Optional[str]:
+        return pulumi.get(self, "bucket")
+
+    @property
+    @pulumi.getter
+    def region(self) -> Optional[str]:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="secretKey")
+    def secret_key(self) -> Optional[str]:
+        return pulumi.get(self, "secret_key")
+
+
+@pulumi.output_type
+class DomainOthersPrivateAccess(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessKey":
+            suggest = "access_key"
+        elif key == "secretKey":
+            suggest = "secret_key"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in DomainOthersPrivateAccess. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        DomainOthersPrivateAccess.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        DomainOthersPrivateAccess.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,

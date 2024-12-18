@@ -19,12 +19,16 @@ type DomainInstance struct {
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// The Domain.
 	Domain pulumi.StringOutput `pulumi:"domain"`
+	// ID of the domain.
+	DomainId pulumi.IntOutput `pulumi:"domainId"`
 	// The Group Id of Domain.
 	GroupId pulumi.IntPtrOutput `pulumi:"groupId"`
 	// Whether to Mark the Domain.
 	IsMark pulumi.StringOutput `pulumi:"isMark"`
 	// The remark of Domain.
 	Remark pulumi.StringPtrOutput `pulumi:"remark"`
+	// Is secondary DNS enabled.
+	SlaveDns pulumi.StringOutput `pulumi:"slaveDns"`
 	// The status of Domain.
 	Status pulumi.StringPtrOutput `pulumi:"status"`
 }
@@ -66,12 +70,16 @@ type domainInstanceState struct {
 	CreateTime *string `pulumi:"createTime"`
 	// The Domain.
 	Domain *string `pulumi:"domain"`
+	// ID of the domain.
+	DomainId *int `pulumi:"domainId"`
 	// The Group Id of Domain.
 	GroupId *int `pulumi:"groupId"`
 	// Whether to Mark the Domain.
 	IsMark *string `pulumi:"isMark"`
 	// The remark of Domain.
 	Remark *string `pulumi:"remark"`
+	// Is secondary DNS enabled.
+	SlaveDns *string `pulumi:"slaveDns"`
 	// The status of Domain.
 	Status *string `pulumi:"status"`
 }
@@ -81,12 +89,16 @@ type DomainInstanceState struct {
 	CreateTime pulumi.StringPtrInput
 	// The Domain.
 	Domain pulumi.StringPtrInput
+	// ID of the domain.
+	DomainId pulumi.IntPtrInput
 	// The Group Id of Domain.
 	GroupId pulumi.IntPtrInput
 	// Whether to Mark the Domain.
 	IsMark pulumi.StringPtrInput
 	// The remark of Domain.
 	Remark pulumi.StringPtrInput
+	// Is secondary DNS enabled.
+	SlaveDns pulumi.StringPtrInput
 	// The status of Domain.
 	Status pulumi.StringPtrInput
 }
@@ -219,6 +231,11 @@ func (o DomainInstanceOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *DomainInstance) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
+// ID of the domain.
+func (o DomainInstanceOutput) DomainId() pulumi.IntOutput {
+	return o.ApplyT(func(v *DomainInstance) pulumi.IntOutput { return v.DomainId }).(pulumi.IntOutput)
+}
+
 // The Group Id of Domain.
 func (o DomainInstanceOutput) GroupId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *DomainInstance) pulumi.IntPtrOutput { return v.GroupId }).(pulumi.IntPtrOutput)
@@ -232,6 +249,11 @@ func (o DomainInstanceOutput) IsMark() pulumi.StringOutput {
 // The remark of Domain.
 func (o DomainInstanceOutput) Remark() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DomainInstance) pulumi.StringPtrOutput { return v.Remark }).(pulumi.StringPtrOutput)
+}
+
+// Is secondary DNS enabled.
+func (o DomainInstanceOutput) SlaveDns() pulumi.StringOutput {
+	return o.ApplyT(func(v *DomainInstance) pulumi.StringOutput { return v.SlaveDns }).(pulumi.StringOutput)
 }
 
 // The status of Domain.

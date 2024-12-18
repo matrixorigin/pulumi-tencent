@@ -80,7 +80,7 @@ export class Cluster extends pulumi.CustomResource {
      */
     public readonly dbType!: pulumi.Output<string>;
     /**
-     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
      */
     public readonly dbVersion!: pulumi.Output<string>;
     /**
@@ -99,6 +99,11 @@ export class Cluster extends pulumi.CustomResource {
      * ID of instance.
      */
     public /*out*/ readonly instanceId!: pulumi.Output<string>;
+    /**
+     * Instance initialization configuration information, mainly used to select instances of different specifications when
+     * purchasing a cluster.
+     */
+    public readonly instanceInitInfos!: pulumi.Output<outputs.Cynosdb.ClusterInstanceInitInfo[] | undefined>;
     /**
      * Duration time for maintenance, unit in second. `3600` by default.
      */
@@ -144,10 +149,14 @@ export class Cluster extends pulumi.CustomResource {
      */
     public readonly oldIpReserveHours!: pulumi.Output<number | undefined>;
     /**
-     * Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+     * Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
      * `data.tencentcloud_mysql_default_params` to query available parameter details.
      */
     public readonly paramItems!: pulumi.Output<outputs.Cynosdb.ClusterParamItem[] | undefined>;
+    /**
+     * The ID of the parameter template.
+     */
+    public readonly paramTemplateId!: pulumi.Output<number>;
     /**
      * Password of `root` account.
      */
@@ -158,6 +167,8 @@ export class Cluster extends pulumi.CustomResource {
     public readonly port!: pulumi.Output<number | undefined>;
     /**
      * The ID of the parameter template.
+     *
+     * @deprecated It will be deprecated. Use `param_template_id` instead.
      */
     public readonly prarmTemplateId!: pulumi.Output<number>;
     /**
@@ -209,6 +220,10 @@ export class Cluster extends pulumi.CustomResource {
      * Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
      */
     public readonly serverlessStatusFlag!: pulumi.Output<string | undefined>;
+    /**
+     * Multi zone Addresses of the CynosDB Cluster.
+     */
+    public readonly slaveZone!: pulumi.Output<string | undefined>;
     /**
      * Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
      * db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
@@ -267,6 +282,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["forceDelete"] = state ? state.forceDelete : undefined;
             resourceInputs["instanceCpuCore"] = state ? state.instanceCpuCore : undefined;
             resourceInputs["instanceId"] = state ? state.instanceId : undefined;
+            resourceInputs["instanceInitInfos"] = state ? state.instanceInitInfos : undefined;
             resourceInputs["instanceMaintainDuration"] = state ? state.instanceMaintainDuration : undefined;
             resourceInputs["instanceMaintainStartTime"] = state ? state.instanceMaintainStartTime : undefined;
             resourceInputs["instanceMaintainWeekdays"] = state ? state.instanceMaintainWeekdays : undefined;
@@ -278,6 +294,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["minCpu"] = state ? state.minCpu : undefined;
             resourceInputs["oldIpReserveHours"] = state ? state.oldIpReserveHours : undefined;
             resourceInputs["paramItems"] = state ? state.paramItems : undefined;
+            resourceInputs["paramTemplateId"] = state ? state.paramTemplateId : undefined;
             resourceInputs["password"] = state ? state.password : undefined;
             resourceInputs["port"] = state ? state.port : undefined;
             resourceInputs["prarmTemplateId"] = state ? state.prarmTemplateId : undefined;
@@ -293,6 +310,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["rwGroupSgs"] = state ? state.rwGroupSgs : undefined;
             resourceInputs["serverlessStatus"] = state ? state.serverlessStatus : undefined;
             resourceInputs["serverlessStatusFlag"] = state ? state.serverlessStatusFlag : undefined;
+            resourceInputs["slaveZone"] = state ? state.slaveZone : undefined;
             resourceInputs["storageLimit"] = state ? state.storageLimit : undefined;
             resourceInputs["storagePayMode"] = state ? state.storagePayMode : undefined;
             resourceInputs["storageUsed"] = state ? state.storageUsed : undefined;
@@ -333,6 +351,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["dbVersion"] = args ? args.dbVersion : undefined;
             resourceInputs["forceDelete"] = args ? args.forceDelete : undefined;
             resourceInputs["instanceCpuCore"] = args ? args.instanceCpuCore : undefined;
+            resourceInputs["instanceInitInfos"] = args ? args.instanceInitInfos : undefined;
             resourceInputs["instanceMaintainDuration"] = args ? args.instanceMaintainDuration : undefined;
             resourceInputs["instanceMaintainStartTime"] = args ? args.instanceMaintainStartTime : undefined;
             resourceInputs["instanceMaintainWeekdays"] = args ? args.instanceMaintainWeekdays : undefined;
@@ -341,6 +360,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["minCpu"] = args ? args.minCpu : undefined;
             resourceInputs["oldIpReserveHours"] = args ? args.oldIpReserveHours : undefined;
             resourceInputs["paramItems"] = args ? args.paramItems : undefined;
+            resourceInputs["paramTemplateId"] = args ? args.paramTemplateId : undefined;
             resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["port"] = args ? args.port : undefined;
             resourceInputs["prarmTemplateId"] = args ? args.prarmTemplateId : undefined;
@@ -349,6 +369,7 @@ export class Cluster extends pulumi.CustomResource {
             resourceInputs["roGroupSgs"] = args ? args.roGroupSgs : undefined;
             resourceInputs["rwGroupSgs"] = args ? args.rwGroupSgs : undefined;
             resourceInputs["serverlessStatusFlag"] = args ? args.serverlessStatusFlag : undefined;
+            resourceInputs["slaveZone"] = args ? args.slaveZone : undefined;
             resourceInputs["storageLimit"] = args ? args.storageLimit : undefined;
             resourceInputs["storagePayMode"] = args ? args.storagePayMode : undefined;
             resourceInputs["subnetId"] = args ? args.subnetId : undefined;
@@ -427,7 +448,7 @@ export interface ClusterState {
      */
     dbType?: pulumi.Input<string>;
     /**
-     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
      */
     dbVersion?: pulumi.Input<string>;
     /**
@@ -446,6 +467,11 @@ export interface ClusterState {
      * ID of instance.
      */
     instanceId?: pulumi.Input<string>;
+    /**
+     * Instance initialization configuration information, mainly used to select instances of different specifications when
+     * purchasing a cluster.
+     */
+    instanceInitInfos?: pulumi.Input<pulumi.Input<inputs.Cynosdb.ClusterInstanceInitInfo>[]>;
     /**
      * Duration time for maintenance, unit in second. `3600` by default.
      */
@@ -491,10 +517,14 @@ export interface ClusterState {
      */
     oldIpReserveHours?: pulumi.Input<number>;
     /**
-     * Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+     * Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
      * `data.tencentcloud_mysql_default_params` to query available parameter details.
      */
     paramItems?: pulumi.Input<pulumi.Input<inputs.Cynosdb.ClusterParamItem>[]>;
+    /**
+     * The ID of the parameter template.
+     */
+    paramTemplateId?: pulumi.Input<number>;
     /**
      * Password of `root` account.
      */
@@ -505,6 +535,8 @@ export interface ClusterState {
     port?: pulumi.Input<number>;
     /**
      * The ID of the parameter template.
+     *
+     * @deprecated It will be deprecated. Use `param_template_id` instead.
      */
     prarmTemplateId?: pulumi.Input<number>;
     /**
@@ -556,6 +588,10 @@ export interface ClusterState {
      * Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
      */
     serverlessStatusFlag?: pulumi.Input<string>;
+    /**
+     * Multi zone Addresses of the CynosDB Cluster.
+     */
+    slaveZone?: pulumi.Input<string>;
     /**
      * Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
      * db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU
@@ -625,7 +661,7 @@ export interface ClusterArgs {
      */
     dbType: pulumi.Input<string>;
     /**
-     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`.
+     * Version of CynosDB, which is related to `db_type`. For `MYSQL`, available value is `5.7`, `8.0`.
      */
     dbVersion: pulumi.Input<string>;
     /**
@@ -640,6 +676,11 @@ export interface ClusterArgs {
      * from console.
      */
     instanceCpuCore?: pulumi.Input<number>;
+    /**
+     * Instance initialization configuration information, mainly used to select instances of different specifications when
+     * purchasing a cluster.
+     */
+    instanceInitInfos?: pulumi.Input<pulumi.Input<inputs.Cynosdb.ClusterInstanceInitInfo>[]>;
     /**
      * Duration time for maintenance, unit in second. `3600` by default.
      */
@@ -673,10 +714,14 @@ export interface ClusterArgs {
      */
     oldIpReserveHours?: pulumi.Input<number>;
     /**
-     * Specify parameter list of database. It is valid when prarm_template_id is set in create cluster. Use
+     * Specify parameter list of database. It is valid when `param_template_id` is set in create cluster. Use
      * `data.tencentcloud_mysql_default_params` to query available parameter details.
      */
     paramItems?: pulumi.Input<pulumi.Input<inputs.Cynosdb.ClusterParamItem>[]>;
+    /**
+     * The ID of the parameter template.
+     */
+    paramTemplateId?: pulumi.Input<number>;
     /**
      * Password of `root` account.
      */
@@ -687,6 +732,8 @@ export interface ClusterArgs {
     port?: pulumi.Input<number>;
     /**
      * The ID of the parameter template.
+     *
+     * @deprecated It will be deprecated. Use `param_template_id` instead.
      */
     prarmTemplateId?: pulumi.Input<number>;
     /**
@@ -710,6 +757,10 @@ export interface ClusterArgs {
      * Specify whether to pause or resume serverless cluster. values: `resume`, `pause`.
      */
     serverlessStatusFlag?: pulumi.Input<string>;
+    /**
+     * Multi zone Addresses of the CynosDB Cluster.
+     */
+    slaveZone?: pulumi.Input<string>;
     /**
      * Storage limit of CynosDB cluster instance, unit in GB. The maximum storage of a non-serverless instance in GB. NOTE: If
      * db_type is `MYSQL` and charge_type is `PREPAID`, the value cannot exceed the maximum storage corresponding to the CPU

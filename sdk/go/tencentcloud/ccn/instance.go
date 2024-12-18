@@ -30,8 +30,12 @@ type Instance struct {
 	InstanceCount pulumi.IntOutput `pulumi:"instanceCount"`
 	// Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+	// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 	Qos pulumi.StringPtrOutput `pulumi:"qos"`
+	// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+	RouteEcmpFlag pulumi.BoolPtrOutput `pulumi:"routeEcmpFlag"`
+	// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+	RouteOverlapFlag pulumi.BoolPtrOutput `pulumi:"routeOverlapFlag"`
 	// States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
 	State pulumi.StringOutput `pulumi:"state"`
 	// Instance tag.
@@ -84,8 +88,12 @@ type instanceState struct {
 	InstanceCount *int `pulumi:"instanceCount"`
 	// Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
 	Name *string `pulumi:"name"`
-	// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+	// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 	Qos *string `pulumi:"qos"`
+	// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+	RouteEcmpFlag *bool `pulumi:"routeEcmpFlag"`
+	// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+	RouteOverlapFlag *bool `pulumi:"routeOverlapFlag"`
 	// States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
 	State *string `pulumi:"state"`
 	// Instance tag.
@@ -109,8 +117,12 @@ type InstanceState struct {
 	InstanceCount pulumi.IntPtrInput
 	// Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
 	Name pulumi.StringPtrInput
-	// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+	// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 	Qos pulumi.StringPtrInput
+	// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+	RouteEcmpFlag pulumi.BoolPtrInput
+	// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+	RouteOverlapFlag pulumi.BoolPtrInput
 	// States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
 	State pulumi.StringPtrInput
 	// Instance tag.
@@ -134,8 +146,12 @@ type instanceArgs struct {
 	Description *string `pulumi:"description"`
 	// Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
 	Name *string `pulumi:"name"`
-	// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+	// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 	Qos *string `pulumi:"qos"`
+	// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+	RouteEcmpFlag *bool `pulumi:"routeEcmpFlag"`
+	// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+	RouteOverlapFlag *bool `pulumi:"routeOverlapFlag"`
 	// Instance tag.
 	Tags map[string]interface{} `pulumi:"tags"`
 }
@@ -154,8 +170,12 @@ type InstanceArgs struct {
 	Description pulumi.StringPtrInput
 	// Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
 	Name pulumi.StringPtrInput
-	// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+	// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 	Qos pulumi.StringPtrInput
+	// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+	RouteEcmpFlag pulumi.BoolPtrInput
+	// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+	RouteOverlapFlag pulumi.BoolPtrInput
 	// Instance tag.
 	Tags pulumi.MapInput
 }
@@ -281,9 +301,19 @@ func (o InstanceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+// CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
 func (o InstanceOutput) Qos() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.Qos }).(pulumi.StringPtrOutput)
+}
+
+// Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+func (o InstanceOutput) RouteEcmpFlag() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.RouteEcmpFlag }).(pulumi.BoolPtrOutput)
+}
+
+// Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+func (o InstanceOutput) RouteOverlapFlag() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.RouteOverlapFlag }).(pulumi.BoolPtrOutput)
 }
 
 // States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.

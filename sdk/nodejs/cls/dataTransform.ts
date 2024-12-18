@@ -35,31 +35,33 @@ export class DataTransform extends pulumi.CustomResource {
     }
 
     /**
-     * data transform des resources.
+     * Data transform des resources. If `func_type` is `1`, this parameter is required. If `func_type` is `2`, this parameter
+     * does not need to be filled in.
      */
     public readonly dstResources!: pulumi.Output<outputs.Cls.DataTransformDstResource[] | undefined>;
     /**
-     * task enable flag.
+     * Task enable flag. `1`: enable, `2`: disable, Default is `1`.
      */
     public readonly enableFlag!: pulumi.Output<number | undefined>;
     /**
-     * data transform content.
+     * Data transform content. If `func_type` is `2`, must use `log_auto_output`.
      */
     public readonly etlContent!: pulumi.Output<string>;
     /**
-     * task type.
+     * Task type. `1`: Specify the theme; `2`: Dynamic creation.
      */
     public readonly funcType!: pulumi.Output<number>;
     /**
-     * task name.
+     * Task name.
      */
     public readonly name!: pulumi.Output<string>;
     /**
-     * src topic id.
+     * Source topic ID.
      */
     public readonly srcTopicId!: pulumi.Output<string>;
     /**
-     * task type.
+     * Task type. `1`: Use random data from the source log theme for processing preview; `2`: Use user-defined test data for
+     * processing preview; `3`: Create real machining tasks.
      */
     public readonly taskType!: pulumi.Output<number>;
 
@@ -115,31 +117,33 @@ export class DataTransform extends pulumi.CustomResource {
  */
 export interface DataTransformState {
     /**
-     * data transform des resources.
+     * Data transform des resources. If `func_type` is `1`, this parameter is required. If `func_type` is `2`, this parameter
+     * does not need to be filled in.
      */
     dstResources?: pulumi.Input<pulumi.Input<inputs.Cls.DataTransformDstResource>[]>;
     /**
-     * task enable flag.
+     * Task enable flag. `1`: enable, `2`: disable, Default is `1`.
      */
     enableFlag?: pulumi.Input<number>;
     /**
-     * data transform content.
+     * Data transform content. If `func_type` is `2`, must use `log_auto_output`.
      */
     etlContent?: pulumi.Input<string>;
     /**
-     * task type.
+     * Task type. `1`: Specify the theme; `2`: Dynamic creation.
      */
     funcType?: pulumi.Input<number>;
     /**
-     * task name.
+     * Task name.
      */
     name?: pulumi.Input<string>;
     /**
-     * src topic id.
+     * Source topic ID.
      */
     srcTopicId?: pulumi.Input<string>;
     /**
-     * task type.
+     * Task type. `1`: Use random data from the source log theme for processing preview; `2`: Use user-defined test data for
+     * processing preview; `3`: Create real machining tasks.
      */
     taskType?: pulumi.Input<number>;
 }
@@ -149,31 +153,33 @@ export interface DataTransformState {
  */
 export interface DataTransformArgs {
     /**
-     * data transform des resources.
+     * Data transform des resources. If `func_type` is `1`, this parameter is required. If `func_type` is `2`, this parameter
+     * does not need to be filled in.
      */
     dstResources?: pulumi.Input<pulumi.Input<inputs.Cls.DataTransformDstResource>[]>;
     /**
-     * task enable flag.
+     * Task enable flag. `1`: enable, `2`: disable, Default is `1`.
      */
     enableFlag?: pulumi.Input<number>;
     /**
-     * data transform content.
+     * Data transform content. If `func_type` is `2`, must use `log_auto_output`.
      */
     etlContent: pulumi.Input<string>;
     /**
-     * task type.
+     * Task type. `1`: Specify the theme; `2`: Dynamic creation.
      */
     funcType: pulumi.Input<number>;
     /**
-     * task name.
+     * Task name.
      */
     name?: pulumi.Input<string>;
     /**
-     * src topic id.
+     * Source topic ID.
      */
     srcTopicId: pulumi.Input<string>;
     /**
-     * task type.
+     * Task type. `1`: Use random data from the source log theme for processing preview; `2`: Use user-defined test data for
+     * processing preview; `3`: Create real machining tasks.
      */
     taskType: pulumi.Input<number>;
 }

@@ -39,7 +39,11 @@ export class ScaleWorker extends pulumi.CustomResource {
      */
     public readonly clusterId!: pulumi.Output<string>;
     /**
-     * Configurations of data disk.
+     * Used to save results of CVMs creation error messages.
+     */
+    public readonly createResultOutputFile!: pulumi.Output<string | undefined>;
+    /**
+     * Configurations of tke data disk.
      */
     public readonly dataDisks!: pulumi.Output<outputs.Kubernetes.ScaleWorkerDataDisk[] | undefined>;
     /**
@@ -67,9 +71,27 @@ export class ScaleWorker extends pulumi.CustomResource {
      */
     public readonly mountTarget!: pulumi.Output<string | undefined>;
     /**
-     * Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    public readonly preStartUserScript!: pulumi.Output<string | undefined>;
+    /**
+     * Node taint.
+     */
+    public readonly taints!: pulumi.Output<outputs.Kubernetes.ScaleWorkerTaint[] | undefined>;
+    /**
+     * Set whether the added node participates in scheduling. The default value is 0, which means participating in scheduling;
+     * non-0 means not participating in scheduling. After the node initialization is completed, you can execute kubectl
+     * uncordon nodename to join the node in scheduling.
      */
     public readonly unschedulable!: pulumi.Output<number | undefined>;
+    /**
+     * Base64 encoded user script, this script will be executed after the k8s component is run. The user needs to ensure that
+     * the script is reentrant and retry logic. The script and its generated log files can be viewed in the
+     * /data/ccs_userscript/ path of the node, if required. The node needs to be initialized before it can be added to the
+     * schedule. It can be used with the unschedulable parameter. After the final initialization of userScript is completed,
+     * add the kubectl uncordon nodename --kubeconfig=/root/.kube/config command to add the node to the schedule.
+     */
+    public readonly userScript!: pulumi.Output<string | undefined>;
     /**
      * Deploy the machine configuration information of the 'WORK' service, and create <=20 units for common users.
      */
@@ -93,6 +115,7 @@ export class ScaleWorker extends pulumi.CustomResource {
         if (opts.id) {
             const state = argsOrState as ScaleWorkerState | undefined;
             resourceInputs["clusterId"] = state ? state.clusterId : undefined;
+            resourceInputs["createResultOutputFile"] = state ? state.createResultOutputFile : undefined;
             resourceInputs["dataDisks"] = state ? state.dataDisks : undefined;
             resourceInputs["desiredPodNum"] = state ? state.desiredPodNum : undefined;
             resourceInputs["dockerGraphPath"] = state ? state.dockerGraphPath : undefined;
@@ -100,7 +123,10 @@ export class ScaleWorker extends pulumi.CustomResource {
             resourceInputs["gpuArgs"] = state ? state.gpuArgs : undefined;
             resourceInputs["labels"] = state ? state.labels : undefined;
             resourceInputs["mountTarget"] = state ? state.mountTarget : undefined;
+            resourceInputs["preStartUserScript"] = state ? state.preStartUserScript : undefined;
+            resourceInputs["taints"] = state ? state.taints : undefined;
             resourceInputs["unschedulable"] = state ? state.unschedulable : undefined;
+            resourceInputs["userScript"] = state ? state.userScript : undefined;
             resourceInputs["workerConfig"] = state ? state.workerConfig : undefined;
             resourceInputs["workerInstancesLists"] = state ? state.workerInstancesLists : undefined;
         } else {
@@ -112,6 +138,7 @@ export class ScaleWorker extends pulumi.CustomResource {
                 throw new Error("Missing required property 'workerConfig'");
             }
             resourceInputs["clusterId"] = args ? args.clusterId : undefined;
+            resourceInputs["createResultOutputFile"] = args ? args.createResultOutputFile : undefined;
             resourceInputs["dataDisks"] = args ? args.dataDisks : undefined;
             resourceInputs["desiredPodNum"] = args ? args.desiredPodNum : undefined;
             resourceInputs["dockerGraphPath"] = args ? args.dockerGraphPath : undefined;
@@ -119,7 +146,10 @@ export class ScaleWorker extends pulumi.CustomResource {
             resourceInputs["gpuArgs"] = args ? args.gpuArgs : undefined;
             resourceInputs["labels"] = args ? args.labels : undefined;
             resourceInputs["mountTarget"] = args ? args.mountTarget : undefined;
+            resourceInputs["preStartUserScript"] = args ? args.preStartUserScript : undefined;
+            resourceInputs["taints"] = args ? args.taints : undefined;
             resourceInputs["unschedulable"] = args ? args.unschedulable : undefined;
+            resourceInputs["userScript"] = args ? args.userScript : undefined;
             resourceInputs["workerConfig"] = args ? args.workerConfig : undefined;
             resourceInputs["workerInstancesLists"] = undefined /*out*/;
         }
@@ -137,7 +167,11 @@ export interface ScaleWorkerState {
      */
     clusterId?: pulumi.Input<string>;
     /**
-     * Configurations of data disk.
+     * Used to save results of CVMs creation error messages.
+     */
+    createResultOutputFile?: pulumi.Input<string>;
+    /**
+     * Configurations of tke data disk.
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ScaleWorkerDataDisk>[]>;
     /**
@@ -165,9 +199,27 @@ export interface ScaleWorkerState {
      */
     mountTarget?: pulumi.Input<string>;
     /**
-     * Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    preStartUserScript?: pulumi.Input<string>;
+    /**
+     * Node taint.
+     */
+    taints?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ScaleWorkerTaint>[]>;
+    /**
+     * Set whether the added node participates in scheduling. The default value is 0, which means participating in scheduling;
+     * non-0 means not participating in scheduling. After the node initialization is completed, you can execute kubectl
+     * uncordon nodename to join the node in scheduling.
      */
     unschedulable?: pulumi.Input<number>;
+    /**
+     * Base64 encoded user script, this script will be executed after the k8s component is run. The user needs to ensure that
+     * the script is reentrant and retry logic. The script and its generated log files can be viewed in the
+     * /data/ccs_userscript/ path of the node, if required. The node needs to be initialized before it can be added to the
+     * schedule. It can be used with the unschedulable parameter. After the final initialization of userScript is completed,
+     * add the kubectl uncordon nodename --kubeconfig=/root/.kube/config command to add the node to the schedule.
+     */
+    userScript?: pulumi.Input<string>;
     /**
      * Deploy the machine configuration information of the 'WORK' service, and create <=20 units for common users.
      */
@@ -187,7 +239,11 @@ export interface ScaleWorkerArgs {
      */
     clusterId: pulumi.Input<string>;
     /**
-     * Configurations of data disk.
+     * Used to save results of CVMs creation error messages.
+     */
+    createResultOutputFile?: pulumi.Input<string>;
+    /**
+     * Configurations of tke data disk.
      */
     dataDisks?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ScaleWorkerDataDisk>[]>;
     /**
@@ -215,9 +271,27 @@ export interface ScaleWorkerArgs {
      */
     mountTarget?: pulumi.Input<string>;
     /**
-     * Sets whether the joining node participates in the schedule. Default is '0'. Participate in scheduling.
+     * Base64-encoded user script, executed before initializing the node, currently only effective for adding existing nodes.
+     */
+    preStartUserScript?: pulumi.Input<string>;
+    /**
+     * Node taint.
+     */
+    taints?: pulumi.Input<pulumi.Input<inputs.Kubernetes.ScaleWorkerTaint>[]>;
+    /**
+     * Set whether the added node participates in scheduling. The default value is 0, which means participating in scheduling;
+     * non-0 means not participating in scheduling. After the node initialization is completed, you can execute kubectl
+     * uncordon nodename to join the node in scheduling.
      */
     unschedulable?: pulumi.Input<number>;
+    /**
+     * Base64 encoded user script, this script will be executed after the k8s component is run. The user needs to ensure that
+     * the script is reentrant and retry logic. The script and its generated log files can be viewed in the
+     * /data/ccs_userscript/ path of the node, if required. The node needs to be initialized before it can be added to the
+     * schedule. It can be used with the unschedulable parameter. After the final initialization of userScript is completed,
+     * add the kubectl uncordon nodename --kubeconfig=/root/.kube/config command to add the node to the schedule.
+     */
+    userScript?: pulumi.Input<string>;
     /**
      * Deploy the machine configuration information of the 'WORK' service, and create <=20 units for common users.
      */

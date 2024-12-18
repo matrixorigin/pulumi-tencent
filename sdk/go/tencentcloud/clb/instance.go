@@ -15,25 +15,35 @@ import (
 type Instance struct {
 	pulumi.CustomResourceState
 
-	// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+	// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIpVersion pulumi.StringOutput `pulumi:"addressIpVersion"`
+	// The IPv6 address of the load balancing instance.
+	AddressIpv6 pulumi.StringOutput `pulumi:"addressIpv6"`
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageId pulumi.StringPtrOutput `pulumi:"bandwidthPackageId"`
 	// Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
 	ClbName pulumi.StringOutput `pulumi:"clbName"`
 	// The virtual service address table of the CLB.
 	ClbVips pulumi.StringArrayOutput `pulumi:"clbVips"`
+	// Cluster ID.
+	ClusterId pulumi.StringPtrOutput `pulumi:"clusterId"`
 	// Whether to enable delete protection.
 	DeleteProtect pulumi.BoolPtrOutput `pulumi:"deleteProtect"`
 	// Domain name of the CLB instance.
 	Domain pulumi.StringOutput `pulumi:"domain"`
 	// If create dynamic vip CLB instance, `true` or `false`.
 	DynamicVip pulumi.BoolPtrOutput `pulumi:"dynamicVip"`
+	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+	// the EIP change, there may be a brief network interruption.
+	EipAddressId pulumi.StringPtrOutput `pulumi:"eipAddressId"`
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 	InternetBandwidthMaxOut pulumi.IntOutput `pulumi:"internetBandwidthMaxOut"`
 	// Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
 	// `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
 	InternetChargeType pulumi.StringOutput `pulumi:"internetChargeType"`
+	// This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+	Ipv6Mode pulumi.StringOutput `pulumi:"ipv6Mode"`
 	// Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
 	// backend instance security group.
 	LoadBalancerPassToTarget pulumi.BoolPtrOutput `pulumi:"loadBalancerPassToTarget"`
@@ -42,7 +52,7 @@ type Instance struct {
 	// The id of log topic.
 	LogTopicId pulumi.StringPtrOutput `pulumi:"logTopicId"`
 	// Setting master zone id of cross available zone disaster recovery, only applicable to open CLB.
-	MasterZoneId pulumi.StringPtrOutput `pulumi:"masterZoneId"`
+	MasterZoneId pulumi.StringOutput `pulumi:"masterZoneId"`
 	// Type of CLB instance. Valid values: `OPEN` and `INTERNAL`.
 	NetworkType pulumi.StringOutput `pulumi:"networkType"`
 	// ID of the project within the CLB instance, `0` - Default Project.
@@ -57,13 +67,14 @@ type Instance struct {
 	SlaType pulumi.StringOutput `pulumi:"slaType"`
 	// Setting slave zone id of cross available zone disaster recovery, only applicable to open CLB. this zone will undertake
 	// traffic when the master is down.
-	SlaveZoneId pulumi.StringPtrOutput `pulumi:"slaveZoneId"`
+	SlaveZoneId pulumi.StringOutput `pulumi:"slaveZoneId"`
 	// Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
 	// untraceable, please import resource `tencentcloud_clb_snat_ip` to handle fixed ips.
 	SnatIps InstanceSnatIpArrayOutput `pulumi:"snatIps"`
 	// Indicates whether Binding IPs of other VPCs feature switch.
 	SnatPro pulumi.BoolPtrOutput `pulumi:"snatPro"`
-	// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+	// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+	// instance will be generated from this subnet.
 	SubnetId pulumi.StringPtrOutput `pulumi:"subnetId"`
 	// The available tags within this CLB.
 	Tags pulumi.MapOutput `pulumi:"tags"`
@@ -71,6 +82,10 @@ type Instance struct {
 	TargetRegionInfoRegion pulumi.StringOutput `pulumi:"targetRegionInfoRegion"`
 	// Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
 	TargetRegionInfoVpcId pulumi.StringOutput `pulumi:"targetRegionInfoVpcId"`
+	// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+	// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+	// parameter, but IPv6 NAT64 CLB instances do not.
+	Vip pulumi.StringOutput `pulumi:"vip"`
 	// Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 	// Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 	// (BANDWIDTH_PACKAGE).
@@ -78,7 +93,7 @@ type Instance struct {
 	// VPC ID of the CLB.
 	VpcId pulumi.StringOutput `pulumi:"vpcId"`
 	// Available zone id, only applicable to open CLB.
-	ZoneId pulumi.StringPtrOutput `pulumi:"zoneId"`
+	ZoneId pulumi.StringOutput `pulumi:"zoneId"`
 }
 
 // NewInstance registers a new resource with the given unique name, arguments, and options.
@@ -117,25 +132,35 @@ func GetInstance(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Instance resources.
 type instanceState struct {
-	// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+	// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIpVersion *string `pulumi:"addressIpVersion"`
+	// The IPv6 address of the load balancing instance.
+	AddressIpv6 *string `pulumi:"addressIpv6"`
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageId *string `pulumi:"bandwidthPackageId"`
 	// Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
 	ClbName *string `pulumi:"clbName"`
 	// The virtual service address table of the CLB.
 	ClbVips []string `pulumi:"clbVips"`
+	// Cluster ID.
+	ClusterId *string `pulumi:"clusterId"`
 	// Whether to enable delete protection.
 	DeleteProtect *bool `pulumi:"deleteProtect"`
 	// Domain name of the CLB instance.
 	Domain *string `pulumi:"domain"`
 	// If create dynamic vip CLB instance, `true` or `false`.
 	DynamicVip *bool `pulumi:"dynamicVip"`
+	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+	// the EIP change, there may be a brief network interruption.
+	EipAddressId *string `pulumi:"eipAddressId"`
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 	InternetBandwidthMaxOut *int `pulumi:"internetBandwidthMaxOut"`
 	// Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
 	// `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
 	InternetChargeType *string `pulumi:"internetChargeType"`
+	// This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+	Ipv6Mode *string `pulumi:"ipv6Mode"`
 	// Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
 	// backend instance security group.
 	LoadBalancerPassToTarget *bool `pulumi:"loadBalancerPassToTarget"`
@@ -165,7 +190,8 @@ type instanceState struct {
 	SnatIps []InstanceSnatIp `pulumi:"snatIps"`
 	// Indicates whether Binding IPs of other VPCs feature switch.
 	SnatPro *bool `pulumi:"snatPro"`
-	// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+	// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+	// instance will be generated from this subnet.
 	SubnetId *string `pulumi:"subnetId"`
 	// The available tags within this CLB.
 	Tags map[string]interface{} `pulumi:"tags"`
@@ -173,6 +199,10 @@ type instanceState struct {
 	TargetRegionInfoRegion *string `pulumi:"targetRegionInfoRegion"`
 	// Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
 	TargetRegionInfoVpcId *string `pulumi:"targetRegionInfoVpcId"`
+	// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+	// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+	// parameter, but IPv6 NAT64 CLB instances do not.
+	Vip *string `pulumi:"vip"`
 	// Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 	// Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 	// (BANDWIDTH_PACKAGE).
@@ -184,25 +214,35 @@ type instanceState struct {
 }
 
 type InstanceState struct {
-	// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+	// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIpVersion pulumi.StringPtrInput
+	// The IPv6 address of the load balancing instance.
+	AddressIpv6 pulumi.StringPtrInput
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageId pulumi.StringPtrInput
 	// Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
 	ClbName pulumi.StringPtrInput
 	// The virtual service address table of the CLB.
 	ClbVips pulumi.StringArrayInput
+	// Cluster ID.
+	ClusterId pulumi.StringPtrInput
 	// Whether to enable delete protection.
 	DeleteProtect pulumi.BoolPtrInput
 	// Domain name of the CLB instance.
 	Domain pulumi.StringPtrInput
 	// If create dynamic vip CLB instance, `true` or `false`.
 	DynamicVip pulumi.BoolPtrInput
+	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+	// the EIP change, there may be a brief network interruption.
+	EipAddressId pulumi.StringPtrInput
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 	InternetBandwidthMaxOut pulumi.IntPtrInput
 	// Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
 	// `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
 	InternetChargeType pulumi.StringPtrInput
+	// This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+	Ipv6Mode pulumi.StringPtrInput
 	// Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
 	// backend instance security group.
 	LoadBalancerPassToTarget pulumi.BoolPtrInput
@@ -232,7 +272,8 @@ type InstanceState struct {
 	SnatIps InstanceSnatIpArrayInput
 	// Indicates whether Binding IPs of other VPCs feature switch.
 	SnatPro pulumi.BoolPtrInput
-	// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+	// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+	// instance will be generated from this subnet.
 	SubnetId pulumi.StringPtrInput
 	// The available tags within this CLB.
 	Tags pulumi.MapInput
@@ -240,6 +281,10 @@ type InstanceState struct {
 	TargetRegionInfoRegion pulumi.StringPtrInput
 	// Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
 	TargetRegionInfoVpcId pulumi.StringPtrInput
+	// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+	// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+	// parameter, but IPv6 NAT64 CLB instances do not.
+	Vip pulumi.StringPtrInput
 	// Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 	// Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 	// (BANDWIDTH_PACKAGE).
@@ -255,16 +300,22 @@ func (InstanceState) ElementType() reflect.Type {
 }
 
 type instanceArgs struct {
-	// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+	// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIpVersion *string `pulumi:"addressIpVersion"`
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageId *string `pulumi:"bandwidthPackageId"`
 	// Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
 	ClbName string `pulumi:"clbName"`
+	// Cluster ID.
+	ClusterId *string `pulumi:"clusterId"`
 	// Whether to enable delete protection.
 	DeleteProtect *bool `pulumi:"deleteProtect"`
 	// If create dynamic vip CLB instance, `true` or `false`.
 	DynamicVip *bool `pulumi:"dynamicVip"`
+	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+	// the EIP change, there may be a brief network interruption.
+	EipAddressId *string `pulumi:"eipAddressId"`
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 	InternetBandwidthMaxOut *int `pulumi:"internetBandwidthMaxOut"`
 	// Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
@@ -299,7 +350,8 @@ type instanceArgs struct {
 	SnatIps []InstanceSnatIp `pulumi:"snatIps"`
 	// Indicates whether Binding IPs of other VPCs feature switch.
 	SnatPro *bool `pulumi:"snatPro"`
-	// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+	// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+	// instance will be generated from this subnet.
 	SubnetId *string `pulumi:"subnetId"`
 	// The available tags within this CLB.
 	Tags map[string]interface{} `pulumi:"tags"`
@@ -307,6 +359,10 @@ type instanceArgs struct {
 	TargetRegionInfoRegion *string `pulumi:"targetRegionInfoRegion"`
 	// Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
 	TargetRegionInfoVpcId *string `pulumi:"targetRegionInfoVpcId"`
+	// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+	// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+	// parameter, but IPv6 NAT64 CLB instances do not.
+	Vip *string `pulumi:"vip"`
 	// Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 	// Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 	// (BANDWIDTH_PACKAGE).
@@ -319,16 +375,22 @@ type instanceArgs struct {
 
 // The set of arguments for constructing a Instance resource.
 type InstanceArgs struct {
-	// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+	// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+	// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 	AddressIpVersion pulumi.StringPtrInput
 	// Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
 	BandwidthPackageId pulumi.StringPtrInput
 	// Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
 	ClbName pulumi.StringInput
+	// Cluster ID.
+	ClusterId pulumi.StringPtrInput
 	// Whether to enable delete protection.
 	DeleteProtect pulumi.BoolPtrInput
 	// If create dynamic vip CLB instance, `true` or `false`.
 	DynamicVip pulumi.BoolPtrInput
+	// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+	// the EIP change, there may be a brief network interruption.
+	EipAddressId pulumi.StringPtrInput
 	// Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 	InternetBandwidthMaxOut pulumi.IntPtrInput
 	// Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
@@ -363,7 +425,8 @@ type InstanceArgs struct {
 	SnatIps InstanceSnatIpArrayInput
 	// Indicates whether Binding IPs of other VPCs feature switch.
 	SnatPro pulumi.BoolPtrInput
-	// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+	// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+	// instance will be generated from this subnet.
 	SubnetId pulumi.StringPtrInput
 	// The available tags within this CLB.
 	Tags pulumi.MapInput
@@ -371,6 +434,10 @@ type InstanceArgs struct {
 	TargetRegionInfoRegion pulumi.StringPtrInput
 	// Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
 	TargetRegionInfoVpcId pulumi.StringPtrInput
+	// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+	// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+	// parameter, but IPv6 NAT64 CLB instances do not.
+	Vip pulumi.StringPtrInput
 	// Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 	// Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 	// (BANDWIDTH_PACKAGE).
@@ -468,9 +535,15 @@ func (o InstanceOutput) ToInstanceOutputWithContext(ctx context.Context) Instanc
 	return o
 }
 
-// IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+// It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+// (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
 func (o InstanceOutput) AddressIpVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.AddressIpVersion }).(pulumi.StringOutput)
+}
+
+// The IPv6 address of the load balancing instance.
+func (o InstanceOutput) AddressIpv6() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.AddressIpv6 }).(pulumi.StringOutput)
 }
 
 // Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
@@ -488,6 +561,11 @@ func (o InstanceOutput) ClbVips() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringArrayOutput { return v.ClbVips }).(pulumi.StringArrayOutput)
 }
 
+// Cluster ID.
+func (o InstanceOutput) ClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.ClusterId }).(pulumi.StringPtrOutput)
+}
+
 // Whether to enable delete protection.
 func (o InstanceOutput) DeleteProtect() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.DeleteProtect }).(pulumi.BoolPtrOutput)
@@ -503,6 +581,12 @@ func (o InstanceOutput) DynamicVip() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.DynamicVip }).(pulumi.BoolPtrOutput)
 }
 
+// The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+// the EIP change, there may be a brief network interruption.
+func (o InstanceOutput) EipAddressId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.EipAddressId }).(pulumi.StringPtrOutput)
+}
+
 // Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
 func (o InstanceOutput) InternetBandwidthMaxOut() pulumi.IntOutput {
 	return o.ApplyT(func(v *Instance) pulumi.IntOutput { return v.InternetBandwidthMaxOut }).(pulumi.IntOutput)
@@ -512,6 +596,11 @@ func (o InstanceOutput) InternetBandwidthMaxOut() pulumi.IntOutput {
 // `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
 func (o InstanceOutput) InternetChargeType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.InternetChargeType }).(pulumi.StringOutput)
+}
+
+// This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+func (o InstanceOutput) Ipv6Mode() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Ipv6Mode }).(pulumi.StringOutput)
 }
 
 // Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
@@ -531,8 +620,8 @@ func (o InstanceOutput) LogTopicId() pulumi.StringPtrOutput {
 }
 
 // Setting master zone id of cross available zone disaster recovery, only applicable to open CLB.
-func (o InstanceOutput) MasterZoneId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.MasterZoneId }).(pulumi.StringPtrOutput)
+func (o InstanceOutput) MasterZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.MasterZoneId }).(pulumi.StringOutput)
 }
 
 // Type of CLB instance. Valid values: `OPEN` and `INTERNAL`.
@@ -561,8 +650,8 @@ func (o InstanceOutput) SlaType() pulumi.StringOutput {
 
 // Setting slave zone id of cross available zone disaster recovery, only applicable to open CLB. this zone will undertake
 // traffic when the master is down.
-func (o InstanceOutput) SlaveZoneId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.SlaveZoneId }).(pulumi.StringPtrOutput)
+func (o InstanceOutput) SlaveZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.SlaveZoneId }).(pulumi.StringOutput)
 }
 
 // Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
@@ -576,7 +665,8 @@ func (o InstanceOutput) SnatPro() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.BoolPtrOutput { return v.SnatPro }).(pulumi.BoolPtrOutput)
 }
 
-// Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+// In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+// instance will be generated from this subnet.
 func (o InstanceOutput) SubnetId() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.SubnetId }).(pulumi.StringPtrOutput)
 }
@@ -596,6 +686,13 @@ func (o InstanceOutput) TargetRegionInfoVpcId() pulumi.StringOutput {
 	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.TargetRegionInfoVpcId }).(pulumi.StringOutput)
 }
 
+// Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+// parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+// parameter, but IPv6 NAT64 CLB instances do not.
+func (o InstanceOutput) Vip() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.Vip }).(pulumi.StringOutput)
+}
+
 // Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
 // Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
 // (BANDWIDTH_PACKAGE).
@@ -609,8 +706,8 @@ func (o InstanceOutput) VpcId() pulumi.StringOutput {
 }
 
 // Available zone id, only applicable to open CLB.
-func (o InstanceOutput) ZoneId() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Instance) pulumi.StringPtrOutput { return v.ZoneId }).(pulumi.StringPtrOutput)
+func (o InstanceOutput) ZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.ZoneId }).(pulumi.StringOutput)
 }
 
 type InstanceArrayOutput struct{ *pulumi.OutputState }

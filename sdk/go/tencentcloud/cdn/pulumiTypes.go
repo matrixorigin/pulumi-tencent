@@ -4792,6 +4792,7 @@ type DomainOrigin struct {
 	BackupOriginType   *string  `pulumi:"backupOriginType"`
 	BackupServerName   *string  `pulumi:"backupServerName"`
 	CosPrivateAccess   *string  `pulumi:"cosPrivateAccess"`
+	OriginCompany      *string  `pulumi:"originCompany"`
 	OriginLists        []string `pulumi:"originLists"`
 	OriginPullProtocol *string  `pulumi:"originPullProtocol"`
 	OriginType         string   `pulumi:"originType"`
@@ -4814,6 +4815,7 @@ type DomainOriginArgs struct {
 	BackupOriginType   pulumi.StringPtrInput   `pulumi:"backupOriginType"`
 	BackupServerName   pulumi.StringPtrInput   `pulumi:"backupServerName"`
 	CosPrivateAccess   pulumi.StringPtrInput   `pulumi:"cosPrivateAccess"`
+	OriginCompany      pulumi.StringPtrInput   `pulumi:"originCompany"`
 	OriginLists        pulumi.StringArrayInput `pulumi:"originLists"`
 	OriginPullProtocol pulumi.StringPtrInput   `pulumi:"originPullProtocol"`
 	OriginType         pulumi.StringInput      `pulumi:"originType"`
@@ -4913,6 +4915,10 @@ func (o DomainOriginOutput) CosPrivateAccess() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v DomainOrigin) *string { return v.CosPrivateAccess }).(pulumi.StringPtrOutput)
 }
 
+func (o DomainOriginOutput) OriginCompany() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DomainOrigin) *string { return v.OriginCompany }).(pulumi.StringPtrOutput)
+}
+
 func (o DomainOriginOutput) OriginLists() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v DomainOrigin) []string { return v.OriginLists }).(pulumi.StringArrayOutput)
 }
@@ -4986,6 +4992,15 @@ func (o DomainOriginPtrOutput) CosPrivateAccess() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.CosPrivateAccess
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOriginPtrOutput) OriginCompany() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOrigin) *string {
+		if v == nil {
+			return nil
+		}
+		return v.OriginCompany
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -5507,6 +5522,199 @@ func (o DomainOssPrivateAccessPtrOutput) SecretKey() pulumi.StringPtrOutput {
 
 func (o DomainOssPrivateAccessPtrOutput) Switch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *DomainOssPrivateAccess) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Switch
+	}).(pulumi.StringPtrOutput)
+}
+
+type DomainOthersPrivateAccess struct {
+	AccessKey *string `pulumi:"accessKey"`
+	Bucket    *string `pulumi:"bucket"`
+	Region    *string `pulumi:"region"`
+	SecretKey *string `pulumi:"secretKey"`
+	Switch    string  `pulumi:"switch"`
+}
+
+// DomainOthersPrivateAccessInput is an input type that accepts DomainOthersPrivateAccessArgs and DomainOthersPrivateAccessOutput values.
+// You can construct a concrete instance of `DomainOthersPrivateAccessInput` via:
+//
+//	DomainOthersPrivateAccessArgs{...}
+type DomainOthersPrivateAccessInput interface {
+	pulumi.Input
+
+	ToDomainOthersPrivateAccessOutput() DomainOthersPrivateAccessOutput
+	ToDomainOthersPrivateAccessOutputWithContext(context.Context) DomainOthersPrivateAccessOutput
+}
+
+type DomainOthersPrivateAccessArgs struct {
+	AccessKey pulumi.StringPtrInput `pulumi:"accessKey"`
+	Bucket    pulumi.StringPtrInput `pulumi:"bucket"`
+	Region    pulumi.StringPtrInput `pulumi:"region"`
+	SecretKey pulumi.StringPtrInput `pulumi:"secretKey"`
+	Switch    pulumi.StringInput    `pulumi:"switch"`
+}
+
+func (DomainOthersPrivateAccessArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*DomainOthersPrivateAccess)(nil)).Elem()
+}
+
+func (i DomainOthersPrivateAccessArgs) ToDomainOthersPrivateAccessOutput() DomainOthersPrivateAccessOutput {
+	return i.ToDomainOthersPrivateAccessOutputWithContext(context.Background())
+}
+
+func (i DomainOthersPrivateAccessArgs) ToDomainOthersPrivateAccessOutputWithContext(ctx context.Context) DomainOthersPrivateAccessOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DomainOthersPrivateAccessOutput)
+}
+
+func (i DomainOthersPrivateAccessArgs) ToDomainOthersPrivateAccessPtrOutput() DomainOthersPrivateAccessPtrOutput {
+	return i.ToDomainOthersPrivateAccessPtrOutputWithContext(context.Background())
+}
+
+func (i DomainOthersPrivateAccessArgs) ToDomainOthersPrivateAccessPtrOutputWithContext(ctx context.Context) DomainOthersPrivateAccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DomainOthersPrivateAccessOutput).ToDomainOthersPrivateAccessPtrOutputWithContext(ctx)
+}
+
+// DomainOthersPrivateAccessPtrInput is an input type that accepts DomainOthersPrivateAccessArgs, DomainOthersPrivateAccessPtr and DomainOthersPrivateAccessPtrOutput values.
+// You can construct a concrete instance of `DomainOthersPrivateAccessPtrInput` via:
+//
+//	        DomainOthersPrivateAccessArgs{...}
+//
+//	or:
+//
+//	        nil
+type DomainOthersPrivateAccessPtrInput interface {
+	pulumi.Input
+
+	ToDomainOthersPrivateAccessPtrOutput() DomainOthersPrivateAccessPtrOutput
+	ToDomainOthersPrivateAccessPtrOutputWithContext(context.Context) DomainOthersPrivateAccessPtrOutput
+}
+
+type domainOthersPrivateAccessPtrType DomainOthersPrivateAccessArgs
+
+func DomainOthersPrivateAccessPtr(v *DomainOthersPrivateAccessArgs) DomainOthersPrivateAccessPtrInput {
+	return (*domainOthersPrivateAccessPtrType)(v)
+}
+
+func (*domainOthersPrivateAccessPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**DomainOthersPrivateAccess)(nil)).Elem()
+}
+
+func (i *domainOthersPrivateAccessPtrType) ToDomainOthersPrivateAccessPtrOutput() DomainOthersPrivateAccessPtrOutput {
+	return i.ToDomainOthersPrivateAccessPtrOutputWithContext(context.Background())
+}
+
+func (i *domainOthersPrivateAccessPtrType) ToDomainOthersPrivateAccessPtrOutputWithContext(ctx context.Context) DomainOthersPrivateAccessPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(DomainOthersPrivateAccessPtrOutput)
+}
+
+type DomainOthersPrivateAccessOutput struct{ *pulumi.OutputState }
+
+func (DomainOthersPrivateAccessOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*DomainOthersPrivateAccess)(nil)).Elem()
+}
+
+func (o DomainOthersPrivateAccessOutput) ToDomainOthersPrivateAccessOutput() DomainOthersPrivateAccessOutput {
+	return o
+}
+
+func (o DomainOthersPrivateAccessOutput) ToDomainOthersPrivateAccessOutputWithContext(ctx context.Context) DomainOthersPrivateAccessOutput {
+	return o
+}
+
+func (o DomainOthersPrivateAccessOutput) ToDomainOthersPrivateAccessPtrOutput() DomainOthersPrivateAccessPtrOutput {
+	return o.ToDomainOthersPrivateAccessPtrOutputWithContext(context.Background())
+}
+
+func (o DomainOthersPrivateAccessOutput) ToDomainOthersPrivateAccessPtrOutputWithContext(ctx context.Context) DomainOthersPrivateAccessPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v DomainOthersPrivateAccess) *DomainOthersPrivateAccess {
+		return &v
+	}).(DomainOthersPrivateAccessPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessOutput) AccessKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DomainOthersPrivateAccess) *string { return v.AccessKey }).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessOutput) Bucket() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DomainOthersPrivateAccess) *string { return v.Bucket }).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DomainOthersPrivateAccess) *string { return v.Region }).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessOutput) SecretKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v DomainOthersPrivateAccess) *string { return v.SecretKey }).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessOutput) Switch() pulumi.StringOutput {
+	return o.ApplyT(func(v DomainOthersPrivateAccess) string { return v.Switch }).(pulumi.StringOutput)
+}
+
+type DomainOthersPrivateAccessPtrOutput struct{ *pulumi.OutputState }
+
+func (DomainOthersPrivateAccessPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**DomainOthersPrivateAccess)(nil)).Elem()
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) ToDomainOthersPrivateAccessPtrOutput() DomainOthersPrivateAccessPtrOutput {
+	return o
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) ToDomainOthersPrivateAccessPtrOutputWithContext(ctx context.Context) DomainOthersPrivateAccessPtrOutput {
+	return o
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) Elem() DomainOthersPrivateAccessOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) DomainOthersPrivateAccess {
+		if v != nil {
+			return *v
+		}
+		var ret DomainOthersPrivateAccess
+		return ret
+	}).(DomainOthersPrivateAccessOutput)
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) AccessKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) *string {
+		if v == nil {
+			return nil
+		}
+		return v.AccessKey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) Bucket() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Bucket
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) Region() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Region
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) SecretKey() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SecretKey
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o DomainOthersPrivateAccessPtrOutput) Switch() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *DomainOthersPrivateAccess) *string {
 		if v == nil {
 			return nil
 		}
@@ -8107,6 +8315,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainOriginPullTimeoutPtrInput)(nil)).Elem(), DomainOriginPullTimeoutArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainOssPrivateAccessInput)(nil)).Elem(), DomainOssPrivateAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainOssPrivateAccessPtrInput)(nil)).Elem(), DomainOssPrivateAccessArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DomainOthersPrivateAccessInput)(nil)).Elem(), DomainOthersPrivateAccessArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*DomainOthersPrivateAccessPtrInput)(nil)).Elem(), DomainOthersPrivateAccessArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainPostMaxSizeInput)(nil)).Elem(), DomainPostMaxSizeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainPostMaxSizeArrayInput)(nil)).Elem(), DomainPostMaxSizeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*DomainQnPrivateAccessInput)(nil)).Elem(), DomainQnPrivateAccessArgs{})
@@ -8208,6 +8418,8 @@ func init() {
 	pulumi.RegisterOutputType(DomainOriginPullTimeoutPtrOutput{})
 	pulumi.RegisterOutputType(DomainOssPrivateAccessOutput{})
 	pulumi.RegisterOutputType(DomainOssPrivateAccessPtrOutput{})
+	pulumi.RegisterOutputType(DomainOthersPrivateAccessOutput{})
+	pulumi.RegisterOutputType(DomainOthersPrivateAccessPtrOutput{})
 	pulumi.RegisterOutputType(DomainPostMaxSizeOutput{})
 	pulumi.RegisterOutputType(DomainPostMaxSizeArrayOutput{})
 	pulumi.RegisterOutputType(DomainQnPrivateAccessOutput{})

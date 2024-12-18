@@ -10,6 +10,11 @@ export const getGroup: typeof import("./getGroup").getGroup = null as any;
 export const getGroupOutput: typeof import("./getGroup").getGroupOutput = null as any;
 utilities.lazyLoad(exports, ["getGroup","getGroupOutput"], () => require("./getGroup"));
 
+export { GroupLiteRuleArgs, GroupLiteRuleState } from "./groupLiteRule";
+export type GroupLiteRule = import("./groupLiteRule").GroupLiteRule;
+export const GroupLiteRule: typeof import("./groupLiteRule").GroupLiteRule = null as any;
+utilities.lazyLoad(exports, ["GroupLiteRule"], () => require("./groupLiteRule"));
+
 export { GroupRuleArgs, GroupRuleState } from "./groupRule";
 export type GroupRule = import("./groupRule").GroupRule;
 export const GroupRule: typeof import("./groupRule").GroupRule = null as any;
@@ -20,6 +25,8 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "tencentcloud:Deprecatedsecurity/groupLiteRule:GroupLiteRule":
+                return new GroupLiteRule(name, <any>undefined, { urn })
             case "tencentcloud:Deprecatedsecurity/groupRule:GroupRule":
                 return new GroupRule(name, <any>undefined, { urn })
             default:
@@ -27,4 +34,5 @@ const _module = {
         }
     },
 };
+pulumi.runtime.registerResourceModule("tencentcloud", "Deprecatedsecurity/groupLiteRule", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Deprecatedsecurity/groupRule", _module)

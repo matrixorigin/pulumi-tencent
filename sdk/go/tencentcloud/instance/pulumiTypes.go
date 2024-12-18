@@ -14,13 +14,14 @@ import (
 var _ = internal.GetEnvOrDefault
 
 type InstanceDataDisk struct {
-	DataDiskId            *string `pulumi:"dataDiskId"`
-	DataDiskSize          int     `pulumi:"dataDiskSize"`
-	DataDiskSnapshotId    *string `pulumi:"dataDiskSnapshotId"`
-	DataDiskType          string  `pulumi:"dataDiskType"`
-	DeleteWithInstance    *bool   `pulumi:"deleteWithInstance"`
-	Encrypt               *bool   `pulumi:"encrypt"`
-	ThroughputPerformance *int    `pulumi:"throughputPerformance"`
+	DataDiskId                *string `pulumi:"dataDiskId"`
+	DataDiskSize              int     `pulumi:"dataDiskSize"`
+	DataDiskSnapshotId        *string `pulumi:"dataDiskSnapshotId"`
+	DataDiskType              string  `pulumi:"dataDiskType"`
+	DeleteWithInstance        *bool   `pulumi:"deleteWithInstance"`
+	DeleteWithInstancePrepaid *bool   `pulumi:"deleteWithInstancePrepaid"`
+	Encrypt                   *bool   `pulumi:"encrypt"`
+	ThroughputPerformance     *int    `pulumi:"throughputPerformance"`
 }
 
 // InstanceDataDiskInput is an input type that accepts InstanceDataDiskArgs and InstanceDataDiskOutput values.
@@ -35,13 +36,14 @@ type InstanceDataDiskInput interface {
 }
 
 type InstanceDataDiskArgs struct {
-	DataDiskId            pulumi.StringPtrInput `pulumi:"dataDiskId"`
-	DataDiskSize          pulumi.IntInput       `pulumi:"dataDiskSize"`
-	DataDiskSnapshotId    pulumi.StringPtrInput `pulumi:"dataDiskSnapshotId"`
-	DataDiskType          pulumi.StringInput    `pulumi:"dataDiskType"`
-	DeleteWithInstance    pulumi.BoolPtrInput   `pulumi:"deleteWithInstance"`
-	Encrypt               pulumi.BoolPtrInput   `pulumi:"encrypt"`
-	ThroughputPerformance pulumi.IntPtrInput    `pulumi:"throughputPerformance"`
+	DataDiskId                pulumi.StringPtrInput `pulumi:"dataDiskId"`
+	DataDiskSize              pulumi.IntInput       `pulumi:"dataDiskSize"`
+	DataDiskSnapshotId        pulumi.StringPtrInput `pulumi:"dataDiskSnapshotId"`
+	DataDiskType              pulumi.StringInput    `pulumi:"dataDiskType"`
+	DeleteWithInstance        pulumi.BoolPtrInput   `pulumi:"deleteWithInstance"`
+	DeleteWithInstancePrepaid pulumi.BoolPtrInput   `pulumi:"deleteWithInstancePrepaid"`
+	Encrypt                   pulumi.BoolPtrInput   `pulumi:"encrypt"`
+	ThroughputPerformance     pulumi.IntPtrInput    `pulumi:"throughputPerformance"`
 }
 
 func (InstanceDataDiskArgs) ElementType() reflect.Type {
@@ -113,6 +115,10 @@ func (o InstanceDataDiskOutput) DataDiskType() pulumi.StringOutput {
 
 func (o InstanceDataDiskOutput) DeleteWithInstance() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v InstanceDataDisk) *bool { return v.DeleteWithInstance }).(pulumi.BoolPtrOutput)
+}
+
+func (o InstanceDataDiskOutput) DeleteWithInstancePrepaid() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v InstanceDataDisk) *bool { return v.DeleteWithInstancePrepaid }).(pulumi.BoolPtrOutput)
 }
 
 func (o InstanceDataDiskOutput) Encrypt() pulumi.BoolPtrOutput {

@@ -20,8 +20,10 @@ class InstanceArgs:
                  network_type: pulumi.Input[str],
                  address_ip_version: Optional[pulumi.Input[str]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  delete_protect: Optional[pulumi.Input[bool]] = None,
                  dynamic_vip: Optional[pulumi.Input[bool]] = None,
+                 eip_address_id: Optional[pulumi.Input[str]] = None,
                  internet_bandwidth_max_out: Optional[pulumi.Input[int]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  load_balancer_pass_to_target: Optional[pulumi.Input[bool]] = None,
@@ -38,6 +40,7 @@ class InstanceArgs:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  target_region_info_region: Optional[pulumi.Input[str]] = None,
                  target_region_info_vpc_id: Optional[pulumi.Input[str]] = None,
+                 vip: Optional[pulumi.Input[str]] = None,
                  vip_isp: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None):
@@ -45,10 +48,14 @@ class InstanceArgs:
         The set of arguments for constructing a Instance resource.
         :param pulumi.Input[str] clb_name: Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
         :param pulumi.Input[str] network_type: Type of CLB instance. Valid values: `OPEN` and `INTERNAL`.
-        :param pulumi.Input[str] address_ip_version: IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        :param pulumi.Input[str] address_ip_version: It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+               (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
         :param pulumi.Input[str] bandwidth_package_id: Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] cluster_id: Cluster ID.
         :param pulumi.Input[bool] delete_protect: Whether to enable delete protection.
         :param pulumi.Input[bool] dynamic_vip: If create dynamic vip CLB instance, `true` or `false`.
+        :param pulumi.Input[str] eip_address_id: The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+               the EIP change, there may be a brief network interruption.
         :param pulumi.Input[int] internet_bandwidth_max_out: Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
         :param pulumi.Input[str] internet_charge_type: Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
                `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
@@ -69,10 +76,14 @@ class InstanceArgs:
         :param pulumi.Input[Sequence[pulumi.Input['InstanceSnatIpArgs']]] snat_ips: Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
                untraceable, please import resource `tencentcloud_clb_snat_ip` to handle fixed ips.
         :param pulumi.Input[bool] snat_pro: Indicates whether Binding IPs of other VPCs feature switch.
-        :param pulumi.Input[str] subnet_id: Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        :param pulumi.Input[str] subnet_id: In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+               instance will be generated from this subnet.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this CLB.
         :param pulumi.Input[str] target_region_info_region: Region information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
         :param pulumi.Input[str] target_region_info_vpc_id: Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
+        :param pulumi.Input[str] vip: Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+               parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+               parameter, but IPv6 NAT64 CLB instances do not.
         :param pulumi.Input[str] vip_isp: Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
                Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
                (BANDWIDTH_PACKAGE).
@@ -85,10 +96,14 @@ class InstanceArgs:
             pulumi.set(__self__, "address_ip_version", address_ip_version)
         if bandwidth_package_id is not None:
             pulumi.set(__self__, "bandwidth_package_id", bandwidth_package_id)
+        if cluster_id is not None:
+            pulumi.set(__self__, "cluster_id", cluster_id)
         if delete_protect is not None:
             pulumi.set(__self__, "delete_protect", delete_protect)
         if dynamic_vip is not None:
             pulumi.set(__self__, "dynamic_vip", dynamic_vip)
+        if eip_address_id is not None:
+            pulumi.set(__self__, "eip_address_id", eip_address_id)
         if internet_bandwidth_max_out is not None:
             pulumi.set(__self__, "internet_bandwidth_max_out", internet_bandwidth_max_out)
         if internet_charge_type is not None:
@@ -121,6 +136,8 @@ class InstanceArgs:
             pulumi.set(__self__, "target_region_info_region", target_region_info_region)
         if target_region_info_vpc_id is not None:
             pulumi.set(__self__, "target_region_info_vpc_id", target_region_info_vpc_id)
+        if vip is not None:
+            pulumi.set(__self__, "vip", vip)
         if vip_isp is not None:
             pulumi.set(__self__, "vip_isp", vip_isp)
         if vpc_id is not None:
@@ -156,7 +173,8 @@ class InstanceArgs:
     @pulumi.getter(name="addressIpVersion")
     def address_ip_version(self) -> Optional[pulumi.Input[str]]:
         """
-        IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+        (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
         """
         return pulumi.get(self, "address_ip_version")
 
@@ -175,6 +193,18 @@ class InstanceArgs:
     @bandwidth_package_id.setter
     def bandwidth_package_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "bandwidth_package_id", value)
+
+    @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Cluster ID.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @cluster_id.setter
+    def cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_id", value)
 
     @property
     @pulumi.getter(name="deleteProtect")
@@ -199,6 +229,19 @@ class InstanceArgs:
     @dynamic_vip.setter
     def dynamic_vip(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "dynamic_vip", value)
+
+    @property
+    @pulumi.getter(name="eipAddressId")
+    def eip_address_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+        the EIP change, there may be a brief network interruption.
+        """
+        return pulumi.get(self, "eip_address_id")
+
+    @eip_address_id.setter
+    def eip_address_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "eip_address_id", value)
 
     @property
     @pulumi.getter(name="internetBandwidthMaxOut")
@@ -356,7 +399,8 @@ class InstanceArgs:
     @pulumi.getter(name="subnetId")
     def subnet_id(self) -> Optional[pulumi.Input[str]]:
         """
-        Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+        instance will be generated from this subnet.
         """
         return pulumi.get(self, "subnet_id")
 
@@ -401,6 +445,20 @@ class InstanceArgs:
         pulumi.set(self, "target_region_info_vpc_id", value)
 
     @property
+    @pulumi.getter
+    def vip(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+        parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+        parameter, but IPv6 NAT64 CLB instances do not.
+        """
+        return pulumi.get(self, "vip")
+
+    @vip.setter
+    def vip(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "vip", value)
+
+    @property
     @pulumi.getter(name="vipIsp")
     def vip_isp(self) -> Optional[pulumi.Input[str]]:
         """
@@ -443,14 +501,18 @@ class InstanceArgs:
 class _InstanceState:
     def __init__(__self__, *,
                  address_ip_version: Optional[pulumi.Input[str]] = None,
+                 address_ipv6: Optional[pulumi.Input[str]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
                  clb_name: Optional[pulumi.Input[str]] = None,
                  clb_vips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  delete_protect: Optional[pulumi.Input[bool]] = None,
                  domain: Optional[pulumi.Input[str]] = None,
                  dynamic_vip: Optional[pulumi.Input[bool]] = None,
+                 eip_address_id: Optional[pulumi.Input[str]] = None,
                  internet_bandwidth_max_out: Optional[pulumi.Input[int]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
+                 ipv6_mode: Optional[pulumi.Input[str]] = None,
                  load_balancer_pass_to_target: Optional[pulumi.Input[bool]] = None,
                  log_set_id: Optional[pulumi.Input[str]] = None,
                  log_topic_id: Optional[pulumi.Input[str]] = None,
@@ -466,21 +528,28 @@ class _InstanceState:
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  target_region_info_region: Optional[pulumi.Input[str]] = None,
                  target_region_info_vpc_id: Optional[pulumi.Input[str]] = None,
+                 vip: Optional[pulumi.Input[str]] = None,
                  vip_isp: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
-        :param pulumi.Input[str] address_ip_version: IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        :param pulumi.Input[str] address_ip_version: It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+               (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
+        :param pulumi.Input[str] address_ipv6: The IPv6 address of the load balancing instance.
         :param pulumi.Input[str] bandwidth_package_id: Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
         :param pulumi.Input[str] clb_name: Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] clb_vips: The virtual service address table of the CLB.
+        :param pulumi.Input[str] cluster_id: Cluster ID.
         :param pulumi.Input[bool] delete_protect: Whether to enable delete protection.
         :param pulumi.Input[str] domain: Domain name of the CLB instance.
         :param pulumi.Input[bool] dynamic_vip: If create dynamic vip CLB instance, `true` or `false`.
+        :param pulumi.Input[str] eip_address_id: The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+               the EIP change, there may be a brief network interruption.
         :param pulumi.Input[int] internet_bandwidth_max_out: Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
         :param pulumi.Input[str] internet_charge_type: Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
                `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] ipv6_mode: This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
         :param pulumi.Input[bool] load_balancer_pass_to_target: Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
                backend instance security group.
         :param pulumi.Input[str] log_set_id: The id of log set.
@@ -499,10 +568,14 @@ class _InstanceState:
         :param pulumi.Input[Sequence[pulumi.Input['InstanceSnatIpArgs']]] snat_ips: Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
                untraceable, please import resource `tencentcloud_clb_snat_ip` to handle fixed ips.
         :param pulumi.Input[bool] snat_pro: Indicates whether Binding IPs of other VPCs feature switch.
-        :param pulumi.Input[str] subnet_id: Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        :param pulumi.Input[str] subnet_id: In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+               instance will be generated from this subnet.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this CLB.
         :param pulumi.Input[str] target_region_info_region: Region information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
         :param pulumi.Input[str] target_region_info_vpc_id: Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
+        :param pulumi.Input[str] vip: Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+               parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+               parameter, but IPv6 NAT64 CLB instances do not.
         :param pulumi.Input[str] vip_isp: Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
                Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
                (BANDWIDTH_PACKAGE).
@@ -511,22 +584,30 @@ class _InstanceState:
         """
         if address_ip_version is not None:
             pulumi.set(__self__, "address_ip_version", address_ip_version)
+        if address_ipv6 is not None:
+            pulumi.set(__self__, "address_ipv6", address_ipv6)
         if bandwidth_package_id is not None:
             pulumi.set(__self__, "bandwidth_package_id", bandwidth_package_id)
         if clb_name is not None:
             pulumi.set(__self__, "clb_name", clb_name)
         if clb_vips is not None:
             pulumi.set(__self__, "clb_vips", clb_vips)
+        if cluster_id is not None:
+            pulumi.set(__self__, "cluster_id", cluster_id)
         if delete_protect is not None:
             pulumi.set(__self__, "delete_protect", delete_protect)
         if domain is not None:
             pulumi.set(__self__, "domain", domain)
         if dynamic_vip is not None:
             pulumi.set(__self__, "dynamic_vip", dynamic_vip)
+        if eip_address_id is not None:
+            pulumi.set(__self__, "eip_address_id", eip_address_id)
         if internet_bandwidth_max_out is not None:
             pulumi.set(__self__, "internet_bandwidth_max_out", internet_bandwidth_max_out)
         if internet_charge_type is not None:
             pulumi.set(__self__, "internet_charge_type", internet_charge_type)
+        if ipv6_mode is not None:
+            pulumi.set(__self__, "ipv6_mode", ipv6_mode)
         if load_balancer_pass_to_target is not None:
             pulumi.set(__self__, "load_balancer_pass_to_target", load_balancer_pass_to_target)
         if log_set_id is not None:
@@ -557,6 +638,8 @@ class _InstanceState:
             pulumi.set(__self__, "target_region_info_region", target_region_info_region)
         if target_region_info_vpc_id is not None:
             pulumi.set(__self__, "target_region_info_vpc_id", target_region_info_vpc_id)
+        if vip is not None:
+            pulumi.set(__self__, "vip", vip)
         if vip_isp is not None:
             pulumi.set(__self__, "vip_isp", vip_isp)
         if vpc_id is not None:
@@ -568,13 +651,26 @@ class _InstanceState:
     @pulumi.getter(name="addressIpVersion")
     def address_ip_version(self) -> Optional[pulumi.Input[str]]:
         """
-        IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+        (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
         """
         return pulumi.get(self, "address_ip_version")
 
     @address_ip_version.setter
     def address_ip_version(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "address_ip_version", value)
+
+    @property
+    @pulumi.getter(name="addressIpv6")
+    def address_ipv6(self) -> Optional[pulumi.Input[str]]:
+        """
+        The IPv6 address of the load balancing instance.
+        """
+        return pulumi.get(self, "address_ipv6")
+
+    @address_ipv6.setter
+    def address_ipv6(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "address_ipv6", value)
 
     @property
     @pulumi.getter(name="bandwidthPackageId")
@@ -613,6 +709,18 @@ class _InstanceState:
         pulumi.set(self, "clb_vips", value)
 
     @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Cluster ID.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @cluster_id.setter
+    def cluster_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "cluster_id", value)
+
+    @property
     @pulumi.getter(name="deleteProtect")
     def delete_protect(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -649,6 +757,19 @@ class _InstanceState:
         pulumi.set(self, "dynamic_vip", value)
 
     @property
+    @pulumi.getter(name="eipAddressId")
+    def eip_address_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+        the EIP change, there may be a brief network interruption.
+        """
+        return pulumi.get(self, "eip_address_id")
+
+    @eip_address_id.setter
+    def eip_address_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "eip_address_id", value)
+
+    @property
     @pulumi.getter(name="internetBandwidthMaxOut")
     def internet_bandwidth_max_out(self) -> Optional[pulumi.Input[int]]:
         """
@@ -672,6 +793,18 @@ class _InstanceState:
     @internet_charge_type.setter
     def internet_charge_type(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "internet_charge_type", value)
+
+    @property
+    @pulumi.getter(name="ipv6Mode")
+    def ipv6_mode(self) -> Optional[pulumi.Input[str]]:
+        """
+        This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+        """
+        return pulumi.get(self, "ipv6_mode")
+
+    @ipv6_mode.setter
+    def ipv6_mode(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ipv6_mode", value)
 
     @property
     @pulumi.getter(name="loadBalancerPassToTarget")
@@ -816,7 +949,8 @@ class _InstanceState:
     @pulumi.getter(name="subnetId")
     def subnet_id(self) -> Optional[pulumi.Input[str]]:
         """
-        Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+        instance will be generated from this subnet.
         """
         return pulumi.get(self, "subnet_id")
 
@@ -859,6 +993,20 @@ class _InstanceState:
     @target_region_info_vpc_id.setter
     def target_region_info_vpc_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "target_region_info_vpc_id", value)
+
+    @property
+    @pulumi.getter
+    def vip(self) -> Optional[pulumi.Input[str]]:
+        """
+        Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+        parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+        parameter, but IPv6 NAT64 CLB instances do not.
+        """
+        return pulumi.get(self, "vip")
+
+    @vip.setter
+    def vip(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "vip", value)
 
     @property
     @pulumi.getter(name="vipIsp")
@@ -907,8 +1055,10 @@ class Instance(pulumi.CustomResource):
                  address_ip_version: Optional[pulumi.Input[str]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
                  clb_name: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  delete_protect: Optional[pulumi.Input[bool]] = None,
                  dynamic_vip: Optional[pulumi.Input[bool]] = None,
+                 eip_address_id: Optional[pulumi.Input[str]] = None,
                  internet_bandwidth_max_out: Optional[pulumi.Input[int]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  load_balancer_pass_to_target: Optional[pulumi.Input[bool]] = None,
@@ -926,6 +1076,7 @@ class Instance(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  target_region_info_region: Optional[pulumi.Input[str]] = None,
                  target_region_info_vpc_id: Optional[pulumi.Input[str]] = None,
+                 vip: Optional[pulumi.Input[str]] = None,
                  vip_isp: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None,
@@ -934,11 +1085,15 @@ class Instance(pulumi.CustomResource):
         Create a Instance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] address_ip_version: IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        :param pulumi.Input[str] address_ip_version: It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+               (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
         :param pulumi.Input[str] bandwidth_package_id: Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
         :param pulumi.Input[str] clb_name: Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
+        :param pulumi.Input[str] cluster_id: Cluster ID.
         :param pulumi.Input[bool] delete_protect: Whether to enable delete protection.
         :param pulumi.Input[bool] dynamic_vip: If create dynamic vip CLB instance, `true` or `false`.
+        :param pulumi.Input[str] eip_address_id: The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+               the EIP change, there may be a brief network interruption.
         :param pulumi.Input[int] internet_bandwidth_max_out: Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
         :param pulumi.Input[str] internet_charge_type: Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
                `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
@@ -960,10 +1115,14 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceSnatIpArgs']]]] snat_ips: Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
                untraceable, please import resource `tencentcloud_clb_snat_ip` to handle fixed ips.
         :param pulumi.Input[bool] snat_pro: Indicates whether Binding IPs of other VPCs feature switch.
-        :param pulumi.Input[str] subnet_id: Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        :param pulumi.Input[str] subnet_id: In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+               instance will be generated from this subnet.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this CLB.
         :param pulumi.Input[str] target_region_info_region: Region information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
         :param pulumi.Input[str] target_region_info_vpc_id: Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
+        :param pulumi.Input[str] vip: Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+               parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+               parameter, but IPv6 NAT64 CLB instances do not.
         :param pulumi.Input[str] vip_isp: Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
                Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
                (BANDWIDTH_PACKAGE).
@@ -996,8 +1155,10 @@ class Instance(pulumi.CustomResource):
                  address_ip_version: Optional[pulumi.Input[str]] = None,
                  bandwidth_package_id: Optional[pulumi.Input[str]] = None,
                  clb_name: Optional[pulumi.Input[str]] = None,
+                 cluster_id: Optional[pulumi.Input[str]] = None,
                  delete_protect: Optional[pulumi.Input[bool]] = None,
                  dynamic_vip: Optional[pulumi.Input[bool]] = None,
+                 eip_address_id: Optional[pulumi.Input[str]] = None,
                  internet_bandwidth_max_out: Optional[pulumi.Input[int]] = None,
                  internet_charge_type: Optional[pulumi.Input[str]] = None,
                  load_balancer_pass_to_target: Optional[pulumi.Input[bool]] = None,
@@ -1015,6 +1176,7 @@ class Instance(pulumi.CustomResource):
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  target_region_info_region: Optional[pulumi.Input[str]] = None,
                  target_region_info_vpc_id: Optional[pulumi.Input[str]] = None,
+                 vip: Optional[pulumi.Input[str]] = None,
                  vip_isp: Optional[pulumi.Input[str]] = None,
                  vpc_id: Optional[pulumi.Input[str]] = None,
                  zone_id: Optional[pulumi.Input[str]] = None,
@@ -1032,8 +1194,10 @@ class Instance(pulumi.CustomResource):
             if clb_name is None and not opts.urn:
                 raise TypeError("Missing required property 'clb_name'")
             __props__.__dict__["clb_name"] = clb_name
+            __props__.__dict__["cluster_id"] = cluster_id
             __props__.__dict__["delete_protect"] = delete_protect
             __props__.__dict__["dynamic_vip"] = dynamic_vip
+            __props__.__dict__["eip_address_id"] = eip_address_id
             __props__.__dict__["internet_bandwidth_max_out"] = internet_bandwidth_max_out
             __props__.__dict__["internet_charge_type"] = internet_charge_type
             __props__.__dict__["load_balancer_pass_to_target"] = load_balancer_pass_to_target
@@ -1053,11 +1217,14 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["tags"] = tags
             __props__.__dict__["target_region_info_region"] = target_region_info_region
             __props__.__dict__["target_region_info_vpc_id"] = target_region_info_vpc_id
+            __props__.__dict__["vip"] = vip
             __props__.__dict__["vip_isp"] = vip_isp
             __props__.__dict__["vpc_id"] = vpc_id
             __props__.__dict__["zone_id"] = zone_id
+            __props__.__dict__["address_ipv6"] = None
             __props__.__dict__["clb_vips"] = None
             __props__.__dict__["domain"] = None
+            __props__.__dict__["ipv6_mode"] = None
         super(Instance, __self__).__init__(
             'tencentcloud:Clb/instance:Instance',
             resource_name,
@@ -1069,14 +1236,18 @@ class Instance(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             address_ip_version: Optional[pulumi.Input[str]] = None,
+            address_ipv6: Optional[pulumi.Input[str]] = None,
             bandwidth_package_id: Optional[pulumi.Input[str]] = None,
             clb_name: Optional[pulumi.Input[str]] = None,
             clb_vips: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            cluster_id: Optional[pulumi.Input[str]] = None,
             delete_protect: Optional[pulumi.Input[bool]] = None,
             domain: Optional[pulumi.Input[str]] = None,
             dynamic_vip: Optional[pulumi.Input[bool]] = None,
+            eip_address_id: Optional[pulumi.Input[str]] = None,
             internet_bandwidth_max_out: Optional[pulumi.Input[int]] = None,
             internet_charge_type: Optional[pulumi.Input[str]] = None,
+            ipv6_mode: Optional[pulumi.Input[str]] = None,
             load_balancer_pass_to_target: Optional[pulumi.Input[bool]] = None,
             log_set_id: Optional[pulumi.Input[str]] = None,
             log_topic_id: Optional[pulumi.Input[str]] = None,
@@ -1092,6 +1263,7 @@ class Instance(pulumi.CustomResource):
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
             target_region_info_region: Optional[pulumi.Input[str]] = None,
             target_region_info_vpc_id: Optional[pulumi.Input[str]] = None,
+            vip: Optional[pulumi.Input[str]] = None,
             vip_isp: Optional[pulumi.Input[str]] = None,
             vpc_id: Optional[pulumi.Input[str]] = None,
             zone_id: Optional[pulumi.Input[str]] = None) -> 'Instance':
@@ -1102,16 +1274,22 @@ class Instance(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] address_ip_version: IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        :param pulumi.Input[str] address_ip_version: It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+               (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
+        :param pulumi.Input[str] address_ipv6: The IPv6 address of the load balancing instance.
         :param pulumi.Input[str] bandwidth_package_id: Bandwidth package id. If set, the `internet_charge_type` must be `BANDWIDTH_PACKAGE`.
         :param pulumi.Input[str] clb_name: Name of the CLB. The name can only contain Chinese characters, English letters, numbers, underscore and hyphen '-'.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] clb_vips: The virtual service address table of the CLB.
+        :param pulumi.Input[str] cluster_id: Cluster ID.
         :param pulumi.Input[bool] delete_protect: Whether to enable delete protection.
         :param pulumi.Input[str] domain: Domain name of the CLB instance.
         :param pulumi.Input[bool] dynamic_vip: If create dynamic vip CLB instance, `true` or `false`.
+        :param pulumi.Input[str] eip_address_id: The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+               the EIP change, there may be a brief network interruption.
         :param pulumi.Input[int] internet_bandwidth_max_out: Max bandwidth out, only applicable to open CLB. Valid value ranges is [1, 2048]. Unit is MB.
         :param pulumi.Input[str] internet_charge_type: Internet charge type, only applicable to open CLB. Valid values are `TRAFFIC_POSTPAID_BY_HOUR`,
                `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
+        :param pulumi.Input[str] ipv6_mode: This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
         :param pulumi.Input[bool] load_balancer_pass_to_target: Whether the target allow flow come from clb. If value is true, only check security group of clb, or check both clb and
                backend instance security group.
         :param pulumi.Input[str] log_set_id: The id of log set.
@@ -1130,10 +1308,14 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceSnatIpArgs']]]] snat_ips: Snat Ip List, required with `snat_pro=true`. NOTE: This argument cannot be read and modified here because dynamic ip is
                untraceable, please import resource `tencentcloud_clb_snat_ip` to handle fixed ips.
         :param pulumi.Input[bool] snat_pro: Indicates whether Binding IPs of other VPCs feature switch.
-        :param pulumi.Input[str] subnet_id: Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        :param pulumi.Input[str] subnet_id: In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+               instance will be generated from this subnet.
         :param pulumi.Input[Mapping[str, Any]] tags: The available tags within this CLB.
         :param pulumi.Input[str] target_region_info_region: Region information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
         :param pulumi.Input[str] target_region_info_vpc_id: Vpc information of backend services are attached the CLB instance. Only supports `OPEN` CLBs.
+        :param pulumi.Input[str] vip: Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+               parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+               parameter, but IPv6 NAT64 CLB instances do not.
         :param pulumi.Input[str] vip_isp: Network operator, only applicable to open CLB. Valid values are `CMCC`(China Mobile), `CTCC`(Telecom), `CUCC`(China
                Unicom) and `BGP`. If this ISP is specified, network billing method can only use the bandwidth package billing
                (BANDWIDTH_PACKAGE).
@@ -1145,14 +1327,18 @@ class Instance(pulumi.CustomResource):
         __props__ = _InstanceState.__new__(_InstanceState)
 
         __props__.__dict__["address_ip_version"] = address_ip_version
+        __props__.__dict__["address_ipv6"] = address_ipv6
         __props__.__dict__["bandwidth_package_id"] = bandwidth_package_id
         __props__.__dict__["clb_name"] = clb_name
         __props__.__dict__["clb_vips"] = clb_vips
+        __props__.__dict__["cluster_id"] = cluster_id
         __props__.__dict__["delete_protect"] = delete_protect
         __props__.__dict__["domain"] = domain
         __props__.__dict__["dynamic_vip"] = dynamic_vip
+        __props__.__dict__["eip_address_id"] = eip_address_id
         __props__.__dict__["internet_bandwidth_max_out"] = internet_bandwidth_max_out
         __props__.__dict__["internet_charge_type"] = internet_charge_type
+        __props__.__dict__["ipv6_mode"] = ipv6_mode
         __props__.__dict__["load_balancer_pass_to_target"] = load_balancer_pass_to_target
         __props__.__dict__["log_set_id"] = log_set_id
         __props__.__dict__["log_topic_id"] = log_topic_id
@@ -1168,6 +1354,7 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["tags"] = tags
         __props__.__dict__["target_region_info_region"] = target_region_info_region
         __props__.__dict__["target_region_info_vpc_id"] = target_region_info_vpc_id
+        __props__.__dict__["vip"] = vip
         __props__.__dict__["vip_isp"] = vip_isp
         __props__.__dict__["vpc_id"] = vpc_id
         __props__.__dict__["zone_id"] = zone_id
@@ -1177,9 +1364,18 @@ class Instance(pulumi.CustomResource):
     @pulumi.getter(name="addressIpVersion")
     def address_ip_version(self) -> pulumi.Output[str]:
         """
-        IP version, only applicable to open CLB. Valid values are `ipv4`, `ipv6` and `IPv6FullChain`.
+        It's only applicable to public network CLB instances. IP version. Values: `IPV4`, `IPV6` and `IPv6FullChain`
+        (case-insensitive). Default: `IPV4`. Note: IPV6 indicates IPv6 NAT64, while IPv6FullChain indicates IPv6.
         """
         return pulumi.get(self, "address_ip_version")
+
+    @property
+    @pulumi.getter(name="addressIpv6")
+    def address_ipv6(self) -> pulumi.Output[str]:
+        """
+        The IPv6 address of the load balancing instance.
+        """
+        return pulumi.get(self, "address_ipv6")
 
     @property
     @pulumi.getter(name="bandwidthPackageId")
@@ -1206,6 +1402,14 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "clb_vips")
 
     @property
+    @pulumi.getter(name="clusterId")
+    def cluster_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        Cluster ID.
+        """
+        return pulumi.get(self, "cluster_id")
+
+    @property
     @pulumi.getter(name="deleteProtect")
     def delete_protect(self) -> pulumi.Output[Optional[bool]]:
         """
@@ -1230,6 +1434,15 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "dynamic_vip")
 
     @property
+    @pulumi.getter(name="eipAddressId")
+    def eip_address_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        The unique ID of the EIP, such as eip-1v2rmbwk, is only applicable to the intranet load balancing binding EIP. During
+        the EIP change, there may be a brief network interruption.
+        """
+        return pulumi.get(self, "eip_address_id")
+
+    @property
     @pulumi.getter(name="internetBandwidthMaxOut")
     def internet_bandwidth_max_out(self) -> pulumi.Output[int]:
         """
@@ -1245,6 +1458,14 @@ class Instance(pulumi.CustomResource):
         `BANDWIDTH_POSTPAID_BY_HOUR` and `BANDWIDTH_PACKAGE`.
         """
         return pulumi.get(self, "internet_charge_type")
+
+    @property
+    @pulumi.getter(name="ipv6Mode")
+    def ipv6_mode(self) -> pulumi.Output[str]:
+        """
+        This field is meaningful when the IP address version is ipv6, `IPv6Nat64` | `IPv6FullChain`.
+        """
+        return pulumi.get(self, "ipv6_mode")
 
     @property
     @pulumi.getter(name="loadBalancerPassToTarget")
@@ -1273,7 +1494,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="masterZoneId")
-    def master_zone_id(self) -> pulumi.Output[Optional[str]]:
+    def master_zone_id(self) -> pulumi.Output[str]:
         """
         Setting master zone id of cross available zone disaster recovery, only applicable to open CLB.
         """
@@ -1317,7 +1538,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="slaveZoneId")
-    def slave_zone_id(self) -> pulumi.Output[Optional[str]]:
+    def slave_zone_id(self) -> pulumi.Output[str]:
         """
         Setting slave zone id of cross available zone disaster recovery, only applicable to open CLB. this zone will undertake
         traffic when the master is down.
@@ -1345,7 +1566,8 @@ class Instance(pulumi.CustomResource):
     @pulumi.getter(name="subnetId")
     def subnet_id(self) -> pulumi.Output[Optional[str]]:
         """
-        Subnet ID of the CLB. Effective only for CLB within the VPC. Only supports `INTERNAL` CLBs. Default is `ipv4`.
+        In the case of purchasing a `INTERNAL` clb instance, the subnet id must be specified. The VIP of the `INTERNAL` clb
+        instance will be generated from this subnet.
         """
         return pulumi.get(self, "subnet_id")
 
@@ -1374,6 +1596,16 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "target_region_info_vpc_id")
 
     @property
+    @pulumi.getter
+    def vip(self) -> pulumi.Output[str]:
+        """
+        Specifies the VIP for the application of a CLB instance. This parameter is optional. If you do not specify this
+        parameter, the system automatically assigns a value for the parameter. IPv4 and IPv6 CLB instances support this
+        parameter, but IPv6 NAT64 CLB instances do not.
+        """
+        return pulumi.get(self, "vip")
+
+    @property
     @pulumi.getter(name="vipIsp")
     def vip_isp(self) -> pulumi.Output[str]:
         """
@@ -1393,7 +1625,7 @@ class Instance(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="zoneId")
-    def zone_id(self) -> pulumi.Output[Optional[str]]:
+    def zone_id(self) -> pulumi.Output[str]:
         """
         Available zone id, only applicable to open CLB.
         """

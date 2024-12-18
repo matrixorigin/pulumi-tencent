@@ -15,12 +15,14 @@ import (
 type RocketmqVipInstance struct {
 	pulumi.CustomResourceState
 
+	// Public IP access control rules.
+	IpRules RocketmqVipInstanceIpRuleArrayOutput `pulumi:"ipRules"`
 	// Instance name.
 	Name pulumi.StringOutput `pulumi:"name"`
 	// Number of nodes, minimum 2, maximum 20.
 	NodeCount pulumi.IntOutput `pulumi:"nodeCount"`
-	// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-	// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+	// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+	// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 	Spec pulumi.StringOutput `pulumi:"spec"`
 	// Single node storage space, in GB, minimum 200GB.
 	StorageSize pulumi.IntOutput `pulumi:"storageSize"`
@@ -81,12 +83,14 @@ func GetRocketmqVipInstance(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering RocketmqVipInstance resources.
 type rocketmqVipInstanceState struct {
+	// Public IP access control rules.
+	IpRules []RocketmqVipInstanceIpRule `pulumi:"ipRules"`
 	// Instance name.
 	Name *string `pulumi:"name"`
 	// Number of nodes, minimum 2, maximum 20.
 	NodeCount *int `pulumi:"nodeCount"`
-	// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-	// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+	// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+	// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 	Spec *string `pulumi:"spec"`
 	// Single node storage space, in GB, minimum 200GB.
 	StorageSize *int `pulumi:"storageSize"`
@@ -100,12 +104,14 @@ type rocketmqVipInstanceState struct {
 }
 
 type RocketmqVipInstanceState struct {
+	// Public IP access control rules.
+	IpRules RocketmqVipInstanceIpRuleArrayInput
 	// Instance name.
 	Name pulumi.StringPtrInput
 	// Number of nodes, minimum 2, maximum 20.
 	NodeCount pulumi.IntPtrInput
-	// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-	// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+	// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+	// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 	Spec pulumi.StringPtrInput
 	// Single node storage space, in GB, minimum 200GB.
 	StorageSize pulumi.IntPtrInput
@@ -123,12 +129,14 @@ func (RocketmqVipInstanceState) ElementType() reflect.Type {
 }
 
 type rocketmqVipInstanceArgs struct {
+	// Public IP access control rules.
+	IpRules []RocketmqVipInstanceIpRule `pulumi:"ipRules"`
 	// Instance name.
 	Name *string `pulumi:"name"`
 	// Number of nodes, minimum 2, maximum 20.
 	NodeCount int `pulumi:"nodeCount"`
-	// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-	// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+	// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+	// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 	Spec string `pulumi:"spec"`
 	// Single node storage space, in GB, minimum 200GB.
 	StorageSize int `pulumi:"storageSize"`
@@ -143,12 +151,14 @@ type rocketmqVipInstanceArgs struct {
 
 // The set of arguments for constructing a RocketmqVipInstance resource.
 type RocketmqVipInstanceArgs struct {
+	// Public IP access control rules.
+	IpRules RocketmqVipInstanceIpRuleArrayInput
 	// Instance name.
 	Name pulumi.StringPtrInput
 	// Number of nodes, minimum 2, maximum 20.
 	NodeCount pulumi.IntInput
-	// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-	// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+	// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+	// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 	Spec pulumi.StringInput
 	// Single node storage space, in GB, minimum 200GB.
 	StorageSize pulumi.IntInput
@@ -248,6 +258,11 @@ func (o RocketmqVipInstanceOutput) ToRocketmqVipInstanceOutputWithContext(ctx co
 	return o
 }
 
+// Public IP access control rules.
+func (o RocketmqVipInstanceOutput) IpRules() RocketmqVipInstanceIpRuleArrayOutput {
+	return o.ApplyT(func(v *RocketmqVipInstance) RocketmqVipInstanceIpRuleArrayOutput { return v.IpRules }).(RocketmqVipInstanceIpRuleArrayOutput)
+}
+
 // Instance name.
 func (o RocketmqVipInstanceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *RocketmqVipInstance) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
@@ -258,8 +273,8 @@ func (o RocketmqVipInstanceOutput) NodeCount() pulumi.IntOutput {
 	return o.ApplyT(func(v *RocketmqVipInstance) pulumi.IntOutput { return v.NodeCount }).(pulumi.IntOutput)
 }
 
-// Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-// `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+// Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+// `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
 func (o RocketmqVipInstanceOutput) Spec() pulumi.StringOutput {
 	return o.ApplyT(func(v *RocketmqVipInstance) pulumi.StringOutput { return v.Spec }).(pulumi.StringOutput)
 }

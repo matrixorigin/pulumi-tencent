@@ -65,14 +65,19 @@ export class AdaptiveDynamicStreamingTemplate extends pulumi.CustomResource {
      */
     public readonly name!: pulumi.Output<string>;
     /**
+     * Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+     */
+    public readonly segmentType!: pulumi.Output<string>;
+    /**
      * List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
      * substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
      * first substream will be used as the output frame rate.
      */
     public readonly streamInfos!: pulumi.Output<outputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfo[]>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     public readonly subAppId!: pulumi.Output<number | undefined>;
     /**
@@ -100,6 +105,7 @@ export class AdaptiveDynamicStreamingTemplate extends pulumi.CustomResource {
             resourceInputs["drmType"] = state ? state.drmType : undefined;
             resourceInputs["format"] = state ? state.format : undefined;
             resourceInputs["name"] = state ? state.name : undefined;
+            resourceInputs["segmentType"] = state ? state.segmentType : undefined;
             resourceInputs["streamInfos"] = state ? state.streamInfos : undefined;
             resourceInputs["subAppId"] = state ? state.subAppId : undefined;
             resourceInputs["updateTime"] = state ? state.updateTime : undefined;
@@ -117,6 +123,7 @@ export class AdaptiveDynamicStreamingTemplate extends pulumi.CustomResource {
             resourceInputs["drmType"] = args ? args.drmType : undefined;
             resourceInputs["format"] = args ? args.format : undefined;
             resourceInputs["name"] = args ? args.name : undefined;
+            resourceInputs["segmentType"] = args ? args.segmentType : undefined;
             resourceInputs["streamInfos"] = args ? args.streamInfos : undefined;
             resourceInputs["subAppId"] = args ? args.subAppId : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
@@ -162,14 +169,19 @@ export interface AdaptiveDynamicStreamingTemplateState {
      */
     name?: pulumi.Input<string>;
     /**
+     * Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+     */
+    segmentType?: pulumi.Input<string>;
+    /**
      * List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
      * substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
      * first substream will be used as the output frame rate.
      */
     streamInfos?: pulumi.Input<pulumi.Input<inputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfo>[]>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     subAppId?: pulumi.Input<number>;
     /**
@@ -209,14 +221,19 @@ export interface AdaptiveDynamicStreamingTemplateArgs {
      */
     name?: pulumi.Input<string>;
     /**
+     * Segment type, valid when Format is HLS, optional values: - ts: ts segment; - fmp4: fmp4 segment; Default value: ts.
+     */
+    segmentType?: pulumi.Input<string>;
+    /**
      * List of AdaptiveStreamTemplate parameter information of output substream for adaptive bitrate streaming. Up to 10
      * substreams can be output. Note: the frame rate of all substreams must be the same; otherwise, the frame rate of the
      * first substream will be used as the output frame rate.
      */
     streamInfos: pulumi.Input<pulumi.Input<inputs.Vod.AdaptiveDynamicStreamingTemplateStreamInfo>[]>;
     /**
-     * Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-     * field; otherwise, leave it empty.
+     * The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+     * service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+     * application or a newly created one), they must fill in this field with the application ID.
      */
     subAppId?: pulumi.Input<number>;
 }

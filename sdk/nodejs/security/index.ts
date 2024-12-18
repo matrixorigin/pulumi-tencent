@@ -15,11 +15,6 @@ export type Group = import("./group").Group;
 export const Group: typeof import("./group").Group = null as any;
 utilities.lazyLoad(exports, ["Group"], () => require("./group"));
 
-export { GroupLiteRuleArgs, GroupLiteRuleState } from "./groupLiteRule";
-export type GroupLiteRule = import("./groupLiteRule").GroupLiteRule;
-export const GroupLiteRule: typeof import("./groupLiteRule").GroupLiteRule = null as any;
-utilities.lazyLoad(exports, ["GroupLiteRule"], () => require("./groupLiteRule"));
-
 export { GroupRuleSetArgs, GroupRuleSetState } from "./groupRuleSet";
 export type GroupRuleSet = import("./groupRuleSet").GroupRuleSet;
 export const GroupRuleSet: typeof import("./groupRuleSet").GroupRuleSet = null as any;
@@ -32,8 +27,6 @@ const _module = {
         switch (type) {
             case "tencentcloud:Security/group:Group":
                 return new Group(name, <any>undefined, { urn })
-            case "tencentcloud:Security/groupLiteRule:GroupLiteRule":
-                return new GroupLiteRule(name, <any>undefined, { urn })
             case "tencentcloud:Security/groupRuleSet:GroupRuleSet":
                 return new GroupRuleSet(name, <any>undefined, { urn })
             default:
@@ -42,5 +35,4 @@ const _module = {
     },
 };
 pulumi.runtime.registerResourceModule("tencentcloud", "Security/group", _module)
-pulumi.runtime.registerResourceModule("tencentcloud", "Security/groupLiteRule", _module)
 pulumi.runtime.registerResourceModule("tencentcloud", "Security/groupRuleSet", _module)

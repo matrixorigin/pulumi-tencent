@@ -15,7 +15,7 @@ import (
 type Project struct {
 	pulumi.CustomResourceState
 
-	// Creata Time.
+	// Create Time.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Creator ID.
 	Creator pulumi.StringOutput `pulumi:"creator"`
@@ -90,7 +90,7 @@ func GetProject(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Project resources.
 type projectState struct {
-	// Creata Time.
+	// Create Time.
 	CreateTime *string `pulumi:"createTime"`
 	// Creator ID.
 	Creator *string `pulumi:"creator"`
@@ -124,7 +124,7 @@ type projectState struct {
 }
 
 type ProjectState struct {
-	// Creata Time.
+	// Create Time.
 	CreateTime pulumi.StringPtrInput
 	// Creator ID.
 	Creator pulumi.StringPtrInput
@@ -287,7 +287,7 @@ func (o ProjectOutput) ToProjectOutputWithContext(ctx context.Context) ProjectOu
 	return o
 }
 
-// Creata Time.
+// Create Time.
 func (o ProjectOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Project) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
 }

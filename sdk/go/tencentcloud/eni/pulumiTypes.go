@@ -225,13 +225,281 @@ func (o InstanceIpv4InfoArrayOutput) Index(i pulumi.IntInput) InstanceIpv4InfoOu
 	}).(InstanceIpv4InfoOutput)
 }
 
+type Ipv4AddressPrivateIpAddress struct {
+	AddressId        *string `pulumi:"addressId"`
+	Description      *string `pulumi:"description"`
+	IsWanIpBlocked   *bool   `pulumi:"isWanIpBlocked"`
+	Primary          *bool   `pulumi:"primary"`
+	PrivateIpAddress string  `pulumi:"privateIpAddress"`
+	PublicIpAddress  *string `pulumi:"publicIpAddress"`
+	QosLevel         *string `pulumi:"qosLevel"`
+	State            *string `pulumi:"state"`
+}
+
+// Ipv4AddressPrivateIpAddressInput is an input type that accepts Ipv4AddressPrivateIpAddressArgs and Ipv4AddressPrivateIpAddressOutput values.
+// You can construct a concrete instance of `Ipv4AddressPrivateIpAddressInput` via:
+//
+//	Ipv4AddressPrivateIpAddressArgs{...}
+type Ipv4AddressPrivateIpAddressInput interface {
+	pulumi.Input
+
+	ToIpv4AddressPrivateIpAddressOutput() Ipv4AddressPrivateIpAddressOutput
+	ToIpv4AddressPrivateIpAddressOutputWithContext(context.Context) Ipv4AddressPrivateIpAddressOutput
+}
+
+type Ipv4AddressPrivateIpAddressArgs struct {
+	AddressId        pulumi.StringPtrInput `pulumi:"addressId"`
+	Description      pulumi.StringPtrInput `pulumi:"description"`
+	IsWanIpBlocked   pulumi.BoolPtrInput   `pulumi:"isWanIpBlocked"`
+	Primary          pulumi.BoolPtrInput   `pulumi:"primary"`
+	PrivateIpAddress pulumi.StringInput    `pulumi:"privateIpAddress"`
+	PublicIpAddress  pulumi.StringPtrInput `pulumi:"publicIpAddress"`
+	QosLevel         pulumi.StringPtrInput `pulumi:"qosLevel"`
+	State            pulumi.StringPtrInput `pulumi:"state"`
+}
+
+func (Ipv4AddressPrivateIpAddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ipv4AddressPrivateIpAddress)(nil)).Elem()
+}
+
+func (i Ipv4AddressPrivateIpAddressArgs) ToIpv4AddressPrivateIpAddressOutput() Ipv4AddressPrivateIpAddressOutput {
+	return i.ToIpv4AddressPrivateIpAddressOutputWithContext(context.Background())
+}
+
+func (i Ipv4AddressPrivateIpAddressArgs) ToIpv4AddressPrivateIpAddressOutputWithContext(ctx context.Context) Ipv4AddressPrivateIpAddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(Ipv4AddressPrivateIpAddressOutput)
+}
+
+// Ipv4AddressPrivateIpAddressArrayInput is an input type that accepts Ipv4AddressPrivateIpAddressArray and Ipv4AddressPrivateIpAddressArrayOutput values.
+// You can construct a concrete instance of `Ipv4AddressPrivateIpAddressArrayInput` via:
+//
+//	Ipv4AddressPrivateIpAddressArray{ Ipv4AddressPrivateIpAddressArgs{...} }
+type Ipv4AddressPrivateIpAddressArrayInput interface {
+	pulumi.Input
+
+	ToIpv4AddressPrivateIpAddressArrayOutput() Ipv4AddressPrivateIpAddressArrayOutput
+	ToIpv4AddressPrivateIpAddressArrayOutputWithContext(context.Context) Ipv4AddressPrivateIpAddressArrayOutput
+}
+
+type Ipv4AddressPrivateIpAddressArray []Ipv4AddressPrivateIpAddressInput
+
+func (Ipv4AddressPrivateIpAddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ipv4AddressPrivateIpAddress)(nil)).Elem()
+}
+
+func (i Ipv4AddressPrivateIpAddressArray) ToIpv4AddressPrivateIpAddressArrayOutput() Ipv4AddressPrivateIpAddressArrayOutput {
+	return i.ToIpv4AddressPrivateIpAddressArrayOutputWithContext(context.Background())
+}
+
+func (i Ipv4AddressPrivateIpAddressArray) ToIpv4AddressPrivateIpAddressArrayOutputWithContext(ctx context.Context) Ipv4AddressPrivateIpAddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(Ipv4AddressPrivateIpAddressArrayOutput)
+}
+
+type Ipv4AddressPrivateIpAddressOutput struct{ *pulumi.OutputState }
+
+func (Ipv4AddressPrivateIpAddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ipv4AddressPrivateIpAddress)(nil)).Elem()
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) ToIpv4AddressPrivateIpAddressOutput() Ipv4AddressPrivateIpAddressOutput {
+	return o
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) ToIpv4AddressPrivateIpAddressOutputWithContext(ctx context.Context) Ipv4AddressPrivateIpAddressOutput {
+	return o
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) AddressId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *string { return v.AddressId }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) IsWanIpBlocked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *bool { return v.IsWanIpBlocked }).(pulumi.BoolPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) Primary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *bool { return v.Primary }).(pulumi.BoolPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) PrivateIpAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) string { return v.PrivateIpAddress }).(pulumi.StringOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) PublicIpAddress() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *string { return v.PublicIpAddress }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) QosLevel() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *string { return v.QosLevel }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv4AddressPrivateIpAddressOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv4AddressPrivateIpAddress) *string { return v.State }).(pulumi.StringPtrOutput)
+}
+
+type Ipv4AddressPrivateIpAddressArrayOutput struct{ *pulumi.OutputState }
+
+func (Ipv4AddressPrivateIpAddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ipv4AddressPrivateIpAddress)(nil)).Elem()
+}
+
+func (o Ipv4AddressPrivateIpAddressArrayOutput) ToIpv4AddressPrivateIpAddressArrayOutput() Ipv4AddressPrivateIpAddressArrayOutput {
+	return o
+}
+
+func (o Ipv4AddressPrivateIpAddressArrayOutput) ToIpv4AddressPrivateIpAddressArrayOutputWithContext(ctx context.Context) Ipv4AddressPrivateIpAddressArrayOutput {
+	return o
+}
+
+func (o Ipv4AddressPrivateIpAddressArrayOutput) Index(i pulumi.IntInput) Ipv4AddressPrivateIpAddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Ipv4AddressPrivateIpAddress {
+		return vs[0].([]Ipv4AddressPrivateIpAddress)[vs[1].(int)]
+	}).(Ipv4AddressPrivateIpAddressOutput)
+}
+
+type Ipv6AddressIpv6Address struct {
+	Address        string  `pulumi:"address"`
+	AddressId      *string `pulumi:"addressId"`
+	Description    *string `pulumi:"description"`
+	IsWanIpBlocked *bool   `pulumi:"isWanIpBlocked"`
+	Primary        *bool   `pulumi:"primary"`
+	State          *string `pulumi:"state"`
+}
+
+// Ipv6AddressIpv6AddressInput is an input type that accepts Ipv6AddressIpv6AddressArgs and Ipv6AddressIpv6AddressOutput values.
+// You can construct a concrete instance of `Ipv6AddressIpv6AddressInput` via:
+//
+//	Ipv6AddressIpv6AddressArgs{...}
+type Ipv6AddressIpv6AddressInput interface {
+	pulumi.Input
+
+	ToIpv6AddressIpv6AddressOutput() Ipv6AddressIpv6AddressOutput
+	ToIpv6AddressIpv6AddressOutputWithContext(context.Context) Ipv6AddressIpv6AddressOutput
+}
+
+type Ipv6AddressIpv6AddressArgs struct {
+	Address        pulumi.StringInput    `pulumi:"address"`
+	AddressId      pulumi.StringPtrInput `pulumi:"addressId"`
+	Description    pulumi.StringPtrInput `pulumi:"description"`
+	IsWanIpBlocked pulumi.BoolPtrInput   `pulumi:"isWanIpBlocked"`
+	Primary        pulumi.BoolPtrInput   `pulumi:"primary"`
+	State          pulumi.StringPtrInput `pulumi:"state"`
+}
+
+func (Ipv6AddressIpv6AddressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ipv6AddressIpv6Address)(nil)).Elem()
+}
+
+func (i Ipv6AddressIpv6AddressArgs) ToIpv6AddressIpv6AddressOutput() Ipv6AddressIpv6AddressOutput {
+	return i.ToIpv6AddressIpv6AddressOutputWithContext(context.Background())
+}
+
+func (i Ipv6AddressIpv6AddressArgs) ToIpv6AddressIpv6AddressOutputWithContext(ctx context.Context) Ipv6AddressIpv6AddressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(Ipv6AddressIpv6AddressOutput)
+}
+
+// Ipv6AddressIpv6AddressArrayInput is an input type that accepts Ipv6AddressIpv6AddressArray and Ipv6AddressIpv6AddressArrayOutput values.
+// You can construct a concrete instance of `Ipv6AddressIpv6AddressArrayInput` via:
+//
+//	Ipv6AddressIpv6AddressArray{ Ipv6AddressIpv6AddressArgs{...} }
+type Ipv6AddressIpv6AddressArrayInput interface {
+	pulumi.Input
+
+	ToIpv6AddressIpv6AddressArrayOutput() Ipv6AddressIpv6AddressArrayOutput
+	ToIpv6AddressIpv6AddressArrayOutputWithContext(context.Context) Ipv6AddressIpv6AddressArrayOutput
+}
+
+type Ipv6AddressIpv6AddressArray []Ipv6AddressIpv6AddressInput
+
+func (Ipv6AddressIpv6AddressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ipv6AddressIpv6Address)(nil)).Elem()
+}
+
+func (i Ipv6AddressIpv6AddressArray) ToIpv6AddressIpv6AddressArrayOutput() Ipv6AddressIpv6AddressArrayOutput {
+	return i.ToIpv6AddressIpv6AddressArrayOutputWithContext(context.Background())
+}
+
+func (i Ipv6AddressIpv6AddressArray) ToIpv6AddressIpv6AddressArrayOutputWithContext(ctx context.Context) Ipv6AddressIpv6AddressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(Ipv6AddressIpv6AddressArrayOutput)
+}
+
+type Ipv6AddressIpv6AddressOutput struct{ *pulumi.OutputState }
+
+func (Ipv6AddressIpv6AddressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Ipv6AddressIpv6Address)(nil)).Elem()
+}
+
+func (o Ipv6AddressIpv6AddressOutput) ToIpv6AddressIpv6AddressOutput() Ipv6AddressIpv6AddressOutput {
+	return o
+}
+
+func (o Ipv6AddressIpv6AddressOutput) ToIpv6AddressIpv6AddressOutputWithContext(ctx context.Context) Ipv6AddressIpv6AddressOutput {
+	return o
+}
+
+func (o Ipv6AddressIpv6AddressOutput) Address() pulumi.StringOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) string { return v.Address }).(pulumi.StringOutput)
+}
+
+func (o Ipv6AddressIpv6AddressOutput) AddressId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) *string { return v.AddressId }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv6AddressIpv6AddressOutput) Description() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) *string { return v.Description }).(pulumi.StringPtrOutput)
+}
+
+func (o Ipv6AddressIpv6AddressOutput) IsWanIpBlocked() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) *bool { return v.IsWanIpBlocked }).(pulumi.BoolPtrOutput)
+}
+
+func (o Ipv6AddressIpv6AddressOutput) Primary() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) *bool { return v.Primary }).(pulumi.BoolPtrOutput)
+}
+
+func (o Ipv6AddressIpv6AddressOutput) State() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Ipv6AddressIpv6Address) *string { return v.State }).(pulumi.StringPtrOutput)
+}
+
+type Ipv6AddressIpv6AddressArrayOutput struct{ *pulumi.OutputState }
+
+func (Ipv6AddressIpv6AddressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Ipv6AddressIpv6Address)(nil)).Elem()
+}
+
+func (o Ipv6AddressIpv6AddressArrayOutput) ToIpv6AddressIpv6AddressArrayOutput() Ipv6AddressIpv6AddressArrayOutput {
+	return o
+}
+
+func (o Ipv6AddressIpv6AddressArrayOutput) ToIpv6AddressIpv6AddressArrayOutputWithContext(ctx context.Context) Ipv6AddressIpv6AddressArrayOutput {
+	return o
+}
+
+func (o Ipv6AddressIpv6AddressArrayOutput) Index(i pulumi.IntInput) Ipv6AddressIpv6AddressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Ipv6AddressIpv6Address {
+		return vs[0].([]Ipv6AddressIpv6Address)[vs[1].(int)]
+	}).(Ipv6AddressIpv6AddressOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceIpv4Input)(nil)).Elem(), InstanceIpv4Args{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceIpv4ArrayInput)(nil)).Elem(), InstanceIpv4Array{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceIpv4InfoInput)(nil)).Elem(), InstanceIpv4InfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceIpv4InfoArrayInput)(nil)).Elem(), InstanceIpv4InfoArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*Ipv4AddressPrivateIpAddressInput)(nil)).Elem(), Ipv4AddressPrivateIpAddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*Ipv4AddressPrivateIpAddressArrayInput)(nil)).Elem(), Ipv4AddressPrivateIpAddressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*Ipv6AddressIpv6AddressInput)(nil)).Elem(), Ipv6AddressIpv6AddressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*Ipv6AddressIpv6AddressArrayInput)(nil)).Elem(), Ipv6AddressIpv6AddressArray{})
 	pulumi.RegisterOutputType(InstanceIpv4Output{})
 	pulumi.RegisterOutputType(InstanceIpv4ArrayOutput{})
 	pulumi.RegisterOutputType(InstanceIpv4InfoOutput{})
 	pulumi.RegisterOutputType(InstanceIpv4InfoArrayOutput{})
+	pulumi.RegisterOutputType(Ipv4AddressPrivateIpAddressOutput{})
+	pulumi.RegisterOutputType(Ipv4AddressPrivateIpAddressArrayOutput{})
+	pulumi.RegisterOutputType(Ipv6AddressIpv6AddressOutput{})
+	pulumi.RegisterOutputType(Ipv6AddressIpv6AddressArrayOutput{})
 }

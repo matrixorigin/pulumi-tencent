@@ -12,6 +12,7 @@ export function getInstance(args?: GetInstanceArgs, opts?: pulumi.InvokeOptions)
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("tencentcloud:Instances/getInstance:getInstance", {
         "availabilityZone": args.availabilityZone,
+        "dedicatedClusterId": args.dedicatedClusterId,
         "instanceId": args.instanceId,
         "instanceName": args.instanceName,
         "instanceSetIds": args.instanceSetIds,
@@ -28,6 +29,7 @@ export function getInstance(args?: GetInstanceArgs, opts?: pulumi.InvokeOptions)
  */
 export interface GetInstanceArgs {
     availabilityZone?: string;
+    dedicatedClusterId?: string;
     instanceId?: string;
     instanceName?: string;
     instanceSetIds?: string[];
@@ -43,6 +45,7 @@ export interface GetInstanceArgs {
  */
 export interface GetInstanceResult {
     readonly availabilityZone?: string;
+    readonly dedicatedClusterId?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
@@ -66,6 +69,7 @@ export function getInstanceOutput(args?: GetInstanceOutputArgs, opts?: pulumi.In
  */
 export interface GetInstanceOutputArgs {
     availabilityZone?: pulumi.Input<string>;
+    dedicatedClusterId?: pulumi.Input<string>;
     instanceId?: pulumi.Input<string>;
     instanceName?: pulumi.Input<string>;
     instanceSetIds?: pulumi.Input<pulumi.Input<string>[]>;

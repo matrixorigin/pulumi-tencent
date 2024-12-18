@@ -47,8 +47,8 @@ export class GroupRule extends pulumi.CustomResource {
      */
     public readonly description!: pulumi.Output<string>;
     /**
-     * Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-     * `protocol_template`.
+     * Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+     * conflicts with `protocol_template`.
      */
     public readonly ipProtocol!: pulumi.Output<string>;
     /**
@@ -150,8 +150,8 @@ export interface GroupRuleState {
      */
     description?: pulumi.Input<string>;
     /**
-     * Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-     * `protocol_template`.
+     * Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+     * conflicts with `protocol_template`.
      */
     ipProtocol?: pulumi.Input<string>;
     /**
@@ -202,8 +202,8 @@ export interface GroupRuleArgs {
      */
     description?: pulumi.Input<string>;
     /**
-     * Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-     * `protocol_template`.
+     * Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+     * conflicts with `protocol_template`.
      */
     ipProtocol?: pulumi.Input<string>;
     /**

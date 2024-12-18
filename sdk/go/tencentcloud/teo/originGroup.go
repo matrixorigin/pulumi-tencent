@@ -15,19 +15,26 @@ import (
 type OriginGroup struct {
 	pulumi.CustomResourceState
 
-	// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-	// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-	// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-	ConfigurationType pulumi.StringOutput `pulumi:"configurationType"`
+	// Origin site group creation time.
+	CreateTime pulumi.StringOutput `pulumi:"createTime"`
+	// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+	// configuration priority to be higher than the Host Header of the origin site group.
+	HostHeader pulumi.StringPtrOutput `pulumi:"hostHeader"`
+	// OriginGroup Name.
+	Name pulumi.StringOutput `pulumi:"name"`
 	// OriginGroup ID.
 	OriginGroupId pulumi.StringOutput `pulumi:"originGroupId"`
-	// OriginGroup Name.
-	OriginGroupName pulumi.StringOutput `pulumi:"originGroupName"`
 	// Origin site records.
-	OriginRecords OriginGroupOriginRecordArrayOutput `pulumi:"originRecords"`
-	// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-	OriginType pulumi.StringOutput `pulumi:"originType"`
-	// Last modification date.
+	Records OriginGroupRecordArrayOutput `pulumi:"records"`
+	// List of referenced instances of the origin site group.
+	References OriginGroupReferenceArrayOutput `pulumi:"references"`
+	// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+	// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+	// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+	// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+	// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+	Type pulumi.StringOutput `pulumi:"type"`
+	// Origin site group update time.
 	UpdateTime pulumi.StringOutput `pulumi:"updateTime"`
 	// Site ID.
 	ZoneId pulumi.StringOutput `pulumi:"zoneId"`
@@ -40,17 +47,11 @@ func NewOriginGroup(ctx *pulumi.Context,
 		return nil, errors.New("missing one or more required arguments")
 	}
 
-	if args.ConfigurationType == nil {
-		return nil, errors.New("invalid value for required argument 'ConfigurationType'")
+	if args.Records == nil {
+		return nil, errors.New("invalid value for required argument 'Records'")
 	}
-	if args.OriginGroupName == nil {
-		return nil, errors.New("invalid value for required argument 'OriginGroupName'")
-	}
-	if args.OriginRecords == nil {
-		return nil, errors.New("invalid value for required argument 'OriginRecords'")
-	}
-	if args.OriginType == nil {
-		return nil, errors.New("invalid value for required argument 'OriginType'")
+	if args.Type == nil {
+		return nil, errors.New("invalid value for required argument 'Type'")
 	}
 	if args.ZoneId == nil {
 		return nil, errors.New("invalid value for required argument 'ZoneId'")
@@ -78,38 +79,52 @@ func GetOriginGroup(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering OriginGroup resources.
 type originGroupState struct {
-	// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-	// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-	// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-	ConfigurationType *string `pulumi:"configurationType"`
+	// Origin site group creation time.
+	CreateTime *string `pulumi:"createTime"`
+	// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+	// configuration priority to be higher than the Host Header of the origin site group.
+	HostHeader *string `pulumi:"hostHeader"`
+	// OriginGroup Name.
+	Name *string `pulumi:"name"`
 	// OriginGroup ID.
 	OriginGroupId *string `pulumi:"originGroupId"`
-	// OriginGroup Name.
-	OriginGroupName *string `pulumi:"originGroupName"`
 	// Origin site records.
-	OriginRecords []OriginGroupOriginRecord `pulumi:"originRecords"`
-	// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-	OriginType *string `pulumi:"originType"`
-	// Last modification date.
+	Records []OriginGroupRecord `pulumi:"records"`
+	// List of referenced instances of the origin site group.
+	References []OriginGroupReference `pulumi:"references"`
+	// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+	// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+	// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+	// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+	// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+	Type *string `pulumi:"type"`
+	// Origin site group update time.
 	UpdateTime *string `pulumi:"updateTime"`
 	// Site ID.
 	ZoneId *string `pulumi:"zoneId"`
 }
 
 type OriginGroupState struct {
-	// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-	// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-	// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-	ConfigurationType pulumi.StringPtrInput
+	// Origin site group creation time.
+	CreateTime pulumi.StringPtrInput
+	// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+	// configuration priority to be higher than the Host Header of the origin site group.
+	HostHeader pulumi.StringPtrInput
+	// OriginGroup Name.
+	Name pulumi.StringPtrInput
 	// OriginGroup ID.
 	OriginGroupId pulumi.StringPtrInput
-	// OriginGroup Name.
-	OriginGroupName pulumi.StringPtrInput
 	// Origin site records.
-	OriginRecords OriginGroupOriginRecordArrayInput
-	// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-	OriginType pulumi.StringPtrInput
-	// Last modification date.
+	Records OriginGroupRecordArrayInput
+	// List of referenced instances of the origin site group.
+	References OriginGroupReferenceArrayInput
+	// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+	// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+	// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+	// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+	// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+	Type pulumi.StringPtrInput
+	// Origin site group update time.
 	UpdateTime pulumi.StringPtrInput
 	// Site ID.
 	ZoneId pulumi.StringPtrInput
@@ -120,32 +135,38 @@ func (OriginGroupState) ElementType() reflect.Type {
 }
 
 type originGroupArgs struct {
-	// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-	// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-	// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-	ConfigurationType string `pulumi:"configurationType"`
+	// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+	// configuration priority to be higher than the Host Header of the origin site group.
+	HostHeader *string `pulumi:"hostHeader"`
 	// OriginGroup Name.
-	OriginGroupName string `pulumi:"originGroupName"`
+	Name *string `pulumi:"name"`
 	// Origin site records.
-	OriginRecords []OriginGroupOriginRecord `pulumi:"originRecords"`
-	// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-	OriginType string `pulumi:"originType"`
+	Records []OriginGroupRecord `pulumi:"records"`
+	// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+	// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+	// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+	// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+	// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+	Type string `pulumi:"type"`
 	// Site ID.
 	ZoneId string `pulumi:"zoneId"`
 }
 
 // The set of arguments for constructing a OriginGroup resource.
 type OriginGroupArgs struct {
-	// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-	// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-	// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-	ConfigurationType pulumi.StringInput
+	// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+	// configuration priority to be higher than the Host Header of the origin site group.
+	HostHeader pulumi.StringPtrInput
 	// OriginGroup Name.
-	OriginGroupName pulumi.StringInput
+	Name pulumi.StringPtrInput
 	// Origin site records.
-	OriginRecords OriginGroupOriginRecordArrayInput
-	// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-	OriginType pulumi.StringInput
+	Records OriginGroupRecordArrayInput
+	// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+	// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+	// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+	// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+	// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+	Type pulumi.StringInput
 	// Site ID.
 	ZoneId pulumi.StringInput
 }
@@ -237,11 +258,20 @@ func (o OriginGroupOutput) ToOriginGroupOutputWithContext(ctx context.Context) O
 	return o
 }
 
-// Type of the origin group, this field should be set when `OriginType` is self, otherwise leave it empty. Valid values:
-// `area`: select an origin by using Geo info of the client IP and `Area` field in Records; `weight`: weighted select an
-// origin by using `Weight` field in Records; `proto`: config by HTTP protocol.
-func (o OriginGroupOutput) ConfigurationType() pulumi.StringOutput {
-	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.ConfigurationType }).(pulumi.StringOutput)
+// Origin site group creation time.
+func (o OriginGroupOutput) CreateTime() pulumi.StringOutput {
+	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
+}
+
+// Back-to-origin Host Header, it only takes effect when type = HTTP is passed in. The rule engine modifies the Host Header
+// configuration priority to be higher than the Host Header of the origin site group.
+func (o OriginGroupOutput) HostHeader() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *OriginGroup) pulumi.StringPtrOutput { return v.HostHeader }).(pulumi.StringPtrOutput)
+}
+
+// OriginGroup Name.
+func (o OriginGroupOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
 // OriginGroup ID.
@@ -249,22 +279,26 @@ func (o OriginGroupOutput) OriginGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.OriginGroupId }).(pulumi.StringOutput)
 }
 
-// OriginGroup Name.
-func (o OriginGroupOutput) OriginGroupName() pulumi.StringOutput {
-	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.OriginGroupName }).(pulumi.StringOutput)
-}
-
 // Origin site records.
-func (o OriginGroupOutput) OriginRecords() OriginGroupOriginRecordArrayOutput {
-	return o.ApplyT(func(v *OriginGroup) OriginGroupOriginRecordArrayOutput { return v.OriginRecords }).(OriginGroupOriginRecordArrayOutput)
+func (o OriginGroupOutput) Records() OriginGroupRecordArrayOutput {
+	return o.ApplyT(func(v *OriginGroup) OriginGroupRecordArrayOutput { return v.Records }).(OriginGroupRecordArrayOutput)
 }
 
-// Type of the origin site. Valid values: `self`: self-build website; `cos`: tencent cos; `third_party`: third party cos.
-func (o OriginGroupOutput) OriginType() pulumi.StringOutput {
-	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.OriginType }).(pulumi.StringOutput)
+// List of referenced instances of the origin site group.
+func (o OriginGroupOutput) References() OriginGroupReferenceArrayOutput {
+	return o.ApplyT(func(v *OriginGroup) OriginGroupReferenceArrayOutput { return v.References }).(OriginGroupReferenceArrayOutput)
 }
 
-// Last modification date.
+// Type of the origin site. Valid values: - `GENERAL`: Universal origin site group, only supports adding IP/domain name
+// origin sites, which can be referenced by domain name service, rule engine, four-layer proxy, general load balancing, and
+// HTTP-specific load balancing. - `HTTP`: The HTTP-specific origin site group, supports adding IP/domain name and object
+// storage origin site as the origin site, it cannot be referenced by the four-layer proxy, it can only be added to the
+// acceleration domain name, rule engine-modify origin site, and HTTP-specific load balancing reference.
+func (o OriginGroupOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
+}
+
+// Origin site group update time.
 func (o OriginGroupOutput) UpdateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *OriginGroup) pulumi.StringOutput { return v.UpdateTime }).(pulumi.StringOutput)
 }

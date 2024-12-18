@@ -34,8 +34,10 @@ class RabbitmqVipInstanceArgs:
         :param pulumi.Input[bool] enable_create_default_ha_mirror_queue: Mirrored queue, the default is false.
         :param pulumi.Input[int] node_num: The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
                zone is 1, and the multi-availability zone is 3.
-        :param pulumi.Input[str] node_spec: Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-               rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        :param pulumi.Input[str] node_spec: Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+               (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+               rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+               removed from the shelves.
         :param pulumi.Input[int] storage_size: Single node storage specification, the default is 200G.
         :param pulumi.Input[int] time_span: Purchase duration, the default is 1 (month).
         """
@@ -145,8 +147,10 @@ class RabbitmqVipInstanceArgs:
     @pulumi.getter(name="nodeSpec")
     def node_spec(self) -> Optional[pulumi.Input[str]]:
         """
-        Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-        rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+        (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+        rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+        removed from the shelves.
         """
         return pulumi.get(self, "node_spec")
 
@@ -199,8 +203,10 @@ class _RabbitmqVipInstanceState:
         :param pulumi.Input[bool] enable_create_default_ha_mirror_queue: Mirrored queue, the default is false.
         :param pulumi.Input[int] node_num: The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
                zone is 1, and the multi-availability zone is 3.
-        :param pulumi.Input[str] node_spec: Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-               rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        :param pulumi.Input[str] node_spec: Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+               (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+               rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+               removed from the shelves.
         :param pulumi.Input[int] storage_size: Single node storage specification, the default is 200G.
         :param pulumi.Input[str] subnet_id: Private network SubnetId.
         :param pulumi.Input[int] time_span: Purchase duration, the default is 1 (month).
@@ -281,8 +287,10 @@ class _RabbitmqVipInstanceState:
     @pulumi.getter(name="nodeSpec")
     def node_spec(self) -> Optional[pulumi.Input[str]]:
         """
-        Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-        rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+        (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+        rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+        removed from the shelves.
         """
         return pulumi.get(self, "node_spec")
 
@@ -376,8 +384,10 @@ class RabbitmqVipInstance(pulumi.CustomResource):
         :param pulumi.Input[bool] enable_create_default_ha_mirror_queue: Mirrored queue, the default is false.
         :param pulumi.Input[int] node_num: The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
                zone is 1, and the multi-availability zone is 3.
-        :param pulumi.Input[str] node_spec: Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-               rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        :param pulumi.Input[str] node_spec: Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+               (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+               rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+               removed from the shelves.
         :param pulumi.Input[int] storage_size: Single node storage specification, the default is 200G.
         :param pulumi.Input[str] subnet_id: Private network SubnetId.
         :param pulumi.Input[int] time_span: Purchase duration, the default is 1 (month).
@@ -476,8 +486,10 @@ class RabbitmqVipInstance(pulumi.CustomResource):
         :param pulumi.Input[bool] enable_create_default_ha_mirror_queue: Mirrored queue, the default is false.
         :param pulumi.Input[int] node_num: The number of nodes, a minimum of 3 nodes for a multi-availability zone. If not passed, the default single availability
                zone is 1, and the multi-availability zone is 3.
-        :param pulumi.Input[str] node_spec: Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-               rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        :param pulumi.Input[str] node_spec: Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+               (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+               rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+               removed from the shelves.
         :param pulumi.Input[int] storage_size: Single node storage specification, the default is 200G.
         :param pulumi.Input[str] subnet_id: Private network SubnetId.
         :param pulumi.Input[int] time_span: Purchase duration, the default is 1 (month).
@@ -537,8 +549,10 @@ class RabbitmqVipInstance(pulumi.CustomResource):
     @pulumi.getter(name="nodeSpec")
     def node_spec(self) -> pulumi.Output[Optional[str]]:
         """
-        Node specifications, basic type rabbit-vip-basic-1, standard type rabbit-vip-basic-2, high-level type 1
-        rabbit-vip-basic-3, high-level type 2 rabbit-vip-basic-4. If not passed, the default is the basic type.
+        Node specifications. Valid values: rabbit-vip-basic-1 (for 4C8G), rabbit-vip-basic-2 (for 8C16G), rabbit-vip-basic-3
+        (for 12C24G), rabbit-vip-basic-4 (for 16C32G), rabbit-vip-basic-5 (for 2C4G), rabbit-vip-basic-6 (for 4C12G),
+        rabbit-vip-basic-7 (for 8C24G). The default is rabbit-vip-basic-1. NOTE: The above specifications may be sold out or
+        removed from the shelves.
         """
         return pulumi.get(self, "node_spec")
 

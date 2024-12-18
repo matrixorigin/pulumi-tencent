@@ -15,8 +15,21 @@ __all__ = [
     'AccelerationDomainOriginInfoPrivateParameter',
     'ApplicationProxyIpv6',
     'CertificateConfigServerCertInfo',
-    'OriginGroupOriginRecord',
-    'OriginGroupOriginRecordPrivateParameter',
+    'FunctionRuleFunctionRuleCondition',
+    'FunctionRuleFunctionRuleConditionRuleCondition',
+    'FunctionRuntimeEnvironmentEnvironmentVariable',
+    'L4ProxyDdosProtectionConfig',
+    'OriginGroupRecord',
+    'OriginGroupRecordPrivateParameter',
+    'OriginGroupReference',
+    'RealtimeLogDeliveryCls',
+    'RealtimeLogDeliveryCustomEndpoint',
+    'RealtimeLogDeliveryCustomEndpointHeader',
+    'RealtimeLogDeliveryCustomField',
+    'RealtimeLogDeliveryDeliveryCondition',
+    'RealtimeLogDeliveryDeliveryConditionCondition',
+    'RealtimeLogDeliveryLogFormat',
+    'RealtimeLogDeliveryS3',
     'RuleEngineRule',
     'RuleEngineRuleAction',
     'RuleEngineRuleActionCodeAction',
@@ -38,6 +51,7 @@ __all__ = [
     'RuleEngineRuleSubRuleRuleActionRewriteActionParameter',
     'RuleEngineRuleSubRuleRuleOr',
     'RuleEngineRuleSubRuleRuleOrAnd',
+    'SecurityIpGroupIpGroup',
     'ZoneOwnershipVerification',
     'ZoneOwnershipVerificationDnsVerification',
     'ZoneSettingCache',
@@ -252,7 +266,172 @@ class CertificateConfigServerCertInfo(dict):
 
 
 @pulumi.output_type
-class OriginGroupOriginRecord(dict):
+class FunctionRuleFunctionRuleCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ruleConditions":
+            suggest = "rule_conditions"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FunctionRuleFunctionRuleCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FunctionRuleFunctionRuleCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FunctionRuleFunctionRuleCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 rule_conditions: Sequence['outputs.FunctionRuleFunctionRuleConditionRuleCondition']):
+        pulumi.set(__self__, "rule_conditions", rule_conditions)
+
+    @property
+    @pulumi.getter(name="ruleConditions")
+    def rule_conditions(self) -> Sequence['outputs.FunctionRuleFunctionRuleConditionRuleCondition']:
+        return pulumi.get(self, "rule_conditions")
+
+
+@pulumi.output_type
+class FunctionRuleFunctionRuleConditionRuleCondition(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "ignoreCase":
+            suggest = "ignore_case"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in FunctionRuleFunctionRuleConditionRuleCondition. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        FunctionRuleFunctionRuleConditionRuleCondition.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        FunctionRuleFunctionRuleConditionRuleCondition.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 operator: str,
+                 target: str,
+                 ignore_case: Optional[bool] = None,
+                 name: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "target", target)
+        if ignore_case is not None:
+            pulumi.set(__self__, "ignore_case", ignore_case)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def operator(self) -> str:
+        return pulumi.get(self, "operator")
+
+    @property
+    @pulumi.getter
+    def target(self) -> str:
+        return pulumi.get(self, "target")
+
+    @property
+    @pulumi.getter(name="ignoreCase")
+    def ignore_case(self) -> Optional[bool]:
+        return pulumi.get(self, "ignore_case")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class FunctionRuntimeEnvironmentEnvironmentVariable(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 type: str,
+                 value: str):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class L4ProxyDdosProtectionConfig(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "levelMainland":
+            suggest = "level_mainland"
+        elif key == "levelOverseas":
+            suggest = "level_overseas"
+        elif key == "maxBandwidthMainland":
+            suggest = "max_bandwidth_mainland"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in L4ProxyDdosProtectionConfig. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        L4ProxyDdosProtectionConfig.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        L4ProxyDdosProtectionConfig.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 level_mainland: Optional[str] = None,
+                 level_overseas: Optional[str] = None,
+                 max_bandwidth_mainland: Optional[int] = None):
+        if level_mainland is not None:
+            pulumi.set(__self__, "level_mainland", level_mainland)
+        if level_overseas is not None:
+            pulumi.set(__self__, "level_overseas", level_overseas)
+        if max_bandwidth_mainland is not None:
+            pulumi.set(__self__, "max_bandwidth_mainland", max_bandwidth_mainland)
+
+    @property
+    @pulumi.getter(name="levelMainland")
+    def level_mainland(self) -> Optional[str]:
+        return pulumi.get(self, "level_mainland")
+
+    @property
+    @pulumi.getter(name="levelOverseas")
+    def level_overseas(self) -> Optional[str]:
+        return pulumi.get(self, "level_overseas")
+
+    @property
+    @pulumi.getter(name="maxBandwidthMainland")
+    def max_bandwidth_mainland(self) -> Optional[int]:
+        return pulumi.get(self, "max_bandwidth_mainland")
+
+
+@pulumi.output_type
+class OriginGroupRecord(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
@@ -262,41 +441,34 @@ class OriginGroupOriginRecord(dict):
             suggest = "record_id"
 
         if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in OriginGroupOriginRecord. Access the value via the '{suggest}' property getter instead.")
+            pulumi.log.warn(f"Key '{key}' not found in OriginGroupRecord. Access the value via the '{suggest}' property getter instead.")
 
     def __getitem__(self, key: str) -> Any:
-        OriginGroupOriginRecord.__key_warning(key)
+        OriginGroupRecord.__key_warning(key)
         return super().__getitem__(key)
 
     def get(self, key: str, default = None) -> Any:
-        OriginGroupOriginRecord.__key_warning(key)
+        OriginGroupRecord.__key_warning(key)
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 port: int,
                  record: str,
-                 areas: Optional[Sequence[str]] = None,
                  private: Optional[bool] = None,
-                 private_parameters: Optional[Sequence['outputs.OriginGroupOriginRecordPrivateParameter']] = None,
+                 private_parameters: Optional[Sequence['outputs.OriginGroupRecordPrivateParameter']] = None,
                  record_id: Optional[str] = None,
+                 type: Optional[str] = None,
                  weight: Optional[int] = None):
-        pulumi.set(__self__, "port", port)
         pulumi.set(__self__, "record", record)
-        if areas is not None:
-            pulumi.set(__self__, "areas", areas)
         if private is not None:
             pulumi.set(__self__, "private", private)
         if private_parameters is not None:
             pulumi.set(__self__, "private_parameters", private_parameters)
         if record_id is not None:
             pulumi.set(__self__, "record_id", record_id)
+        if type is not None:
+            pulumi.set(__self__, "type", type)
         if weight is not None:
             pulumi.set(__self__, "weight", weight)
-
-    @property
-    @pulumi.getter
-    def port(self) -> int:
-        return pulumi.get(self, "port")
 
     @property
     @pulumi.getter
@@ -305,17 +477,12 @@ class OriginGroupOriginRecord(dict):
 
     @property
     @pulumi.getter
-    def areas(self) -> Optional[Sequence[str]]:
-        return pulumi.get(self, "areas")
-
-    @property
-    @pulumi.getter
     def private(self) -> Optional[bool]:
         return pulumi.get(self, "private")
 
     @property
     @pulumi.getter(name="privateParameters")
-    def private_parameters(self) -> Optional[Sequence['outputs.OriginGroupOriginRecordPrivateParameter']]:
+    def private_parameters(self) -> Optional[Sequence['outputs.OriginGroupRecordPrivateParameter']]:
         return pulumi.get(self, "private_parameters")
 
     @property
@@ -325,12 +492,17 @@ class OriginGroupOriginRecord(dict):
 
     @property
     @pulumi.getter
+    def type(self) -> Optional[str]:
+        return pulumi.get(self, "type")
+
+    @property
+    @pulumi.getter
     def weight(self) -> Optional[int]:
         return pulumi.get(self, "weight")
 
 
 @pulumi.output_type
-class OriginGroupOriginRecordPrivateParameter(dict):
+class OriginGroupRecordPrivateParameter(dict):
     def __init__(__self__, *,
                  name: str,
                  value: str):
@@ -346,6 +518,419 @@ class OriginGroupOriginRecordPrivateParameter(dict):
     @pulumi.getter
     def value(self) -> str:
         return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class OriginGroupReference(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "instanceId":
+            suggest = "instance_id"
+        elif key == "instanceName":
+            suggest = "instance_name"
+        elif key == "instanceType":
+            suggest = "instance_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in OriginGroupReference. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        OriginGroupReference.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        OriginGroupReference.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 instance_id: Optional[str] = None,
+                 instance_name: Optional[str] = None,
+                 instance_type: Optional[str] = None):
+        if instance_id is not None:
+            pulumi.set(__self__, "instance_id", instance_id)
+        if instance_name is not None:
+            pulumi.set(__self__, "instance_name", instance_name)
+        if instance_type is not None:
+            pulumi.set(__self__, "instance_type", instance_type)
+
+    @property
+    @pulumi.getter(name="instanceId")
+    def instance_id(self) -> Optional[str]:
+        return pulumi.get(self, "instance_id")
+
+    @property
+    @pulumi.getter(name="instanceName")
+    def instance_name(self) -> Optional[str]:
+        return pulumi.get(self, "instance_name")
+
+    @property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> Optional[str]:
+        return pulumi.get(self, "instance_type")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryCls(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "logSetId":
+            suggest = "log_set_id"
+        elif key == "logSetRegion":
+            suggest = "log_set_region"
+        elif key == "topicId":
+            suggest = "topic_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RealtimeLogDeliveryCls. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RealtimeLogDeliveryCls.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RealtimeLogDeliveryCls.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 log_set_id: str,
+                 log_set_region: str,
+                 topic_id: str):
+        pulumi.set(__self__, "log_set_id", log_set_id)
+        pulumi.set(__self__, "log_set_region", log_set_region)
+        pulumi.set(__self__, "topic_id", topic_id)
+
+    @property
+    @pulumi.getter(name="logSetId")
+    def log_set_id(self) -> str:
+        return pulumi.get(self, "log_set_id")
+
+    @property
+    @pulumi.getter(name="logSetRegion")
+    def log_set_region(self) -> str:
+        return pulumi.get(self, "log_set_region")
+
+    @property
+    @pulumi.getter(name="topicId")
+    def topic_id(self) -> str:
+        return pulumi.get(self, "topic_id")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryCustomEndpoint(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessId":
+            suggest = "access_id"
+        elif key == "accessKey":
+            suggest = "access_key"
+        elif key == "compressType":
+            suggest = "compress_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RealtimeLogDeliveryCustomEndpoint. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RealtimeLogDeliveryCustomEndpoint.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RealtimeLogDeliveryCustomEndpoint.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 url: str,
+                 access_id: Optional[str] = None,
+                 access_key: Optional[str] = None,
+                 compress_type: Optional[str] = None,
+                 headers: Optional[Sequence['outputs.RealtimeLogDeliveryCustomEndpointHeader']] = None,
+                 protocol: Optional[str] = None):
+        pulumi.set(__self__, "url", url)
+        if access_id is not None:
+            pulumi.set(__self__, "access_id", access_id)
+        if access_key is not None:
+            pulumi.set(__self__, "access_key", access_key)
+        if compress_type is not None:
+            pulumi.set(__self__, "compress_type", compress_type)
+        if headers is not None:
+            pulumi.set(__self__, "headers", headers)
+        if protocol is not None:
+            pulumi.set(__self__, "protocol", protocol)
+
+    @property
+    @pulumi.getter
+    def url(self) -> str:
+        return pulumi.get(self, "url")
+
+    @property
+    @pulumi.getter(name="accessId")
+    def access_id(self) -> Optional[str]:
+        return pulumi.get(self, "access_id")
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> Optional[str]:
+        return pulumi.get(self, "access_key")
+
+    @property
+    @pulumi.getter(name="compressType")
+    def compress_type(self) -> Optional[str]:
+        return pulumi.get(self, "compress_type")
+
+    @property
+    @pulumi.getter
+    def headers(self) -> Optional[Sequence['outputs.RealtimeLogDeliveryCustomEndpointHeader']]:
+        return pulumi.get(self, "headers")
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> Optional[str]:
+        return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryCustomEndpointHeader(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 value: str):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryCustomField(dict):
+    def __init__(__self__, *,
+                 name: str,
+                 value: str,
+                 enabled: Optional[bool] = None):
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "value", value)
+        if enabled is not None:
+            pulumi.set(__self__, "enabled", enabled)
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def value(self) -> str:
+        return pulumi.get(self, "value")
+
+    @property
+    @pulumi.getter
+    def enabled(self) -> Optional[bool]:
+        return pulumi.get(self, "enabled")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryDeliveryCondition(dict):
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['outputs.RealtimeLogDeliveryDeliveryConditionCondition']] = None):
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['outputs.RealtimeLogDeliveryDeliveryConditionCondition']]:
+        return pulumi.get(self, "conditions")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryDeliveryConditionCondition(dict):
+    def __init__(__self__, *,
+                 key: str,
+                 operator: str,
+                 values: Sequence[str]):
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "operator", operator)
+        pulumi.set(__self__, "values", values)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter
+    def operator(self) -> str:
+        return pulumi.get(self, "operator")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Sequence[str]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryLogFormat(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "formatType":
+            suggest = "format_type"
+        elif key == "batchPrefix":
+            suggest = "batch_prefix"
+        elif key == "batchSuffix":
+            suggest = "batch_suffix"
+        elif key == "fieldDelimiter":
+            suggest = "field_delimiter"
+        elif key == "recordDelimiter":
+            suggest = "record_delimiter"
+        elif key == "recordPrefix":
+            suggest = "record_prefix"
+        elif key == "recordSuffix":
+            suggest = "record_suffix"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RealtimeLogDeliveryLogFormat. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RealtimeLogDeliveryLogFormat.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RealtimeLogDeliveryLogFormat.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 format_type: str,
+                 batch_prefix: Optional[str] = None,
+                 batch_suffix: Optional[str] = None,
+                 field_delimiter: Optional[str] = None,
+                 record_delimiter: Optional[str] = None,
+                 record_prefix: Optional[str] = None,
+                 record_suffix: Optional[str] = None):
+        pulumi.set(__self__, "format_type", format_type)
+        if batch_prefix is not None:
+            pulumi.set(__self__, "batch_prefix", batch_prefix)
+        if batch_suffix is not None:
+            pulumi.set(__self__, "batch_suffix", batch_suffix)
+        if field_delimiter is not None:
+            pulumi.set(__self__, "field_delimiter", field_delimiter)
+        if record_delimiter is not None:
+            pulumi.set(__self__, "record_delimiter", record_delimiter)
+        if record_prefix is not None:
+            pulumi.set(__self__, "record_prefix", record_prefix)
+        if record_suffix is not None:
+            pulumi.set(__self__, "record_suffix", record_suffix)
+
+    @property
+    @pulumi.getter(name="formatType")
+    def format_type(self) -> str:
+        return pulumi.get(self, "format_type")
+
+    @property
+    @pulumi.getter(name="batchPrefix")
+    def batch_prefix(self) -> Optional[str]:
+        return pulumi.get(self, "batch_prefix")
+
+    @property
+    @pulumi.getter(name="batchSuffix")
+    def batch_suffix(self) -> Optional[str]:
+        return pulumi.get(self, "batch_suffix")
+
+    @property
+    @pulumi.getter(name="fieldDelimiter")
+    def field_delimiter(self) -> Optional[str]:
+        return pulumi.get(self, "field_delimiter")
+
+    @property
+    @pulumi.getter(name="recordDelimiter")
+    def record_delimiter(self) -> Optional[str]:
+        return pulumi.get(self, "record_delimiter")
+
+    @property
+    @pulumi.getter(name="recordPrefix")
+    def record_prefix(self) -> Optional[str]:
+        return pulumi.get(self, "record_prefix")
+
+    @property
+    @pulumi.getter(name="recordSuffix")
+    def record_suffix(self) -> Optional[str]:
+        return pulumi.get(self, "record_suffix")
+
+
+@pulumi.output_type
+class RealtimeLogDeliveryS3(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "accessId":
+            suggest = "access_id"
+        elif key == "accessKey":
+            suggest = "access_key"
+        elif key == "compressType":
+            suggest = "compress_type"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in RealtimeLogDeliveryS3. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        RealtimeLogDeliveryS3.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        RealtimeLogDeliveryS3.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 access_id: str,
+                 access_key: str,
+                 bucket: str,
+                 endpoint: str,
+                 region: str,
+                 compress_type: Optional[str] = None):
+        pulumi.set(__self__, "access_id", access_id)
+        pulumi.set(__self__, "access_key", access_key)
+        pulumi.set(__self__, "bucket", bucket)
+        pulumi.set(__self__, "endpoint", endpoint)
+        pulumi.set(__self__, "region", region)
+        if compress_type is not None:
+            pulumi.set(__self__, "compress_type", compress_type)
+
+    @property
+    @pulumi.getter(name="accessId")
+    def access_id(self) -> str:
+        return pulumi.get(self, "access_id")
+
+    @property
+    @pulumi.getter(name="accessKey")
+    def access_key(self) -> str:
+        return pulumi.get(self, "access_key")
+
+    @property
+    @pulumi.getter
+    def bucket(self) -> str:
+        return pulumi.get(self, "bucket")
+
+    @property
+    @pulumi.getter
+    def endpoint(self) -> str:
+        return pulumi.get(self, "endpoint")
+
+    @property
+    @pulumi.getter
+    def region(self) -> str:
+        return pulumi.get(self, "region")
+
+    @property
+    @pulumi.getter(name="compressType")
+    def compress_type(self) -> Optional[str]:
+        return pulumi.get(self, "compress_type")
 
 
 @pulumi.output_type
@@ -368,23 +953,24 @@ class RuleEngineRule(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
-                 actions: Sequence['outputs.RuleEngineRuleAction'],
                  ors: Sequence['outputs.RuleEngineRuleOr'],
+                 actions: Optional[Sequence['outputs.RuleEngineRuleAction']] = None,
                  sub_rules: Optional[Sequence['outputs.RuleEngineRuleSubRule']] = None):
-        pulumi.set(__self__, "actions", actions)
         pulumi.set(__self__, "ors", ors)
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
         if sub_rules is not None:
             pulumi.set(__self__, "sub_rules", sub_rules)
 
     @property
     @pulumi.getter
-    def actions(self) -> Sequence['outputs.RuleEngineRuleAction']:
-        return pulumi.get(self, "actions")
+    def ors(self) -> Sequence['outputs.RuleEngineRuleOr']:
+        return pulumi.get(self, "ors")
 
     @property
     @pulumi.getter
-    def ors(self) -> Sequence['outputs.RuleEngineRuleOr']:
-        return pulumi.get(self, "ors")
+    def actions(self) -> Optional[Sequence['outputs.RuleEngineRuleAction']]:
+        return pulumi.get(self, "actions")
 
     @property
     @pulumi.getter(name="subRules")
@@ -621,16 +1207,17 @@ class RuleEngineRuleOrAnd(dict):
     def __init__(__self__, *,
                  operator: str,
                  target: str,
-                 values: Sequence[str],
                  ignore_case: Optional[bool] = None,
-                 name: Optional[str] = None):
+                 name: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
         pulumi.set(__self__, "operator", operator)
         pulumi.set(__self__, "target", target)
-        pulumi.set(__self__, "values", values)
         if ignore_case is not None:
             pulumi.set(__self__, "ignore_case", ignore_case)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -643,11 +1230,6 @@ class RuleEngineRuleOrAnd(dict):
         return pulumi.get(self, "target")
 
     @property
-    @pulumi.getter
-    def values(self) -> Sequence[str]:
-        return pulumi.get(self, "values")
-
-    @property
     @pulumi.getter(name="ignoreCase")
     def ignore_case(self) -> Optional[bool]:
         return pulumi.get(self, "ignore_case")
@@ -656,6 +1238,11 @@ class RuleEngineRuleOrAnd(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "values")
 
 
 @pulumi.output_type
@@ -681,20 +1268,21 @@ class RuleEngineRuleSubRule(dict):
 @pulumi.output_type
 class RuleEngineRuleSubRuleRule(dict):
     def __init__(__self__, *,
-                 actions: Sequence['outputs.RuleEngineRuleSubRuleRuleAction'],
-                 ors: Sequence['outputs.RuleEngineRuleSubRuleRuleOr']):
-        pulumi.set(__self__, "actions", actions)
+                 ors: Sequence['outputs.RuleEngineRuleSubRuleRuleOr'],
+                 actions: Optional[Sequence['outputs.RuleEngineRuleSubRuleRuleAction']] = None):
         pulumi.set(__self__, "ors", ors)
-
-    @property
-    @pulumi.getter
-    def actions(self) -> Sequence['outputs.RuleEngineRuleSubRuleRuleAction']:
-        return pulumi.get(self, "actions")
+        if actions is not None:
+            pulumi.set(__self__, "actions", actions)
 
     @property
     @pulumi.getter
     def ors(self) -> Sequence['outputs.RuleEngineRuleSubRuleRuleOr']:
         return pulumi.get(self, "ors")
+
+    @property
+    @pulumi.getter
+    def actions(self) -> Optional[Sequence['outputs.RuleEngineRuleSubRuleRuleAction']]:
+        return pulumi.get(self, "actions")
 
 
 @pulumi.output_type
@@ -926,16 +1514,17 @@ class RuleEngineRuleSubRuleRuleOrAnd(dict):
     def __init__(__self__, *,
                  operator: str,
                  target: str,
-                 values: Sequence[str],
                  ignore_case: Optional[bool] = None,
-                 name: Optional[str] = None):
+                 name: Optional[str] = None,
+                 values: Optional[Sequence[str]] = None):
         pulumi.set(__self__, "operator", operator)
         pulumi.set(__self__, "target", target)
-        pulumi.set(__self__, "values", values)
         if ignore_case is not None:
             pulumi.set(__self__, "ignore_case", ignore_case)
         if name is not None:
             pulumi.set(__self__, "name", name)
+        if values is not None:
+            pulumi.set(__self__, "values", values)
 
     @property
     @pulumi.getter
@@ -948,11 +1537,6 @@ class RuleEngineRuleSubRuleRuleOrAnd(dict):
         return pulumi.get(self, "target")
 
     @property
-    @pulumi.getter
-    def values(self) -> Sequence[str]:
-        return pulumi.get(self, "values")
-
-    @property
     @pulumi.getter(name="ignoreCase")
     def ignore_case(self) -> Optional[bool]:
         return pulumi.get(self, "ignore_case")
@@ -961,6 +1545,55 @@ class RuleEngineRuleSubRuleRuleOrAnd(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def values(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class SecurityIpGroupIpGroup(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "groupId":
+            suggest = "group_id"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in SecurityIpGroupIpGroup. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        SecurityIpGroupIpGroup.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        SecurityIpGroupIpGroup.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 contents: Sequence[str],
+                 name: str,
+                 group_id: Optional[int] = None):
+        pulumi.set(__self__, "contents", contents)
+        pulumi.set(__self__, "name", name)
+        if group_id is not None:
+            pulumi.set(__self__, "group_id", group_id)
+
+    @property
+    @pulumi.getter
+    def contents(self) -> Sequence[str]:
+        return pulumi.get(self, "contents")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter(name="groupId")
+    def group_id(self) -> Optional[int]:
+        return pulumi.get(self, "group_id")
 
 
 @pulumi.output_type
@@ -1096,8 +1729,6 @@ class ZoneSettingCacheCache(dict):
         suggest = None
         if key == "cacheTime":
             suggest = "cache_time"
-        elif key == "ignoreCacheControl":
-            suggest = "ignore_cache_control"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ZoneSettingCacheCache. Access the value via the '{suggest}' property getter instead.")
@@ -1112,12 +1743,9 @@ class ZoneSettingCacheCache(dict):
 
     def __init__(__self__, *,
                  cache_time: Optional[int] = None,
-                 ignore_cache_control: Optional[str] = None,
                  switch: Optional[str] = None):
         if cache_time is not None:
             pulumi.set(__self__, "cache_time", cache_time)
-        if ignore_cache_control is not None:
-            pulumi.set(__self__, "ignore_cache_control", ignore_cache_control)
         if switch is not None:
             pulumi.set(__self__, "switch", switch)
 
@@ -1125,11 +1753,6 @@ class ZoneSettingCacheCache(dict):
     @pulumi.getter(name="cacheTime")
     def cache_time(self) -> Optional[int]:
         return pulumi.get(self, "cache_time")
-
-    @property
-    @pulumi.getter(name="ignoreCacheControl")
-    def ignore_cache_control(self) -> Optional[str]:
-        return pulumi.get(self, "ignore_cache_control")
 
     @property
     @pulumi.getter
@@ -1537,8 +2160,6 @@ class ZoneSettingOrigin(dict):
         suggest = None
         if key == "backupOrigins":
             suggest = "backup_origins"
-        elif key == "cosPrivateAccess":
-            suggest = "cos_private_access"
         elif key == "originPullProtocol":
             suggest = "origin_pull_protocol"
 
@@ -1555,13 +2176,10 @@ class ZoneSettingOrigin(dict):
 
     def __init__(__self__, *,
                  backup_origins: Optional[Sequence[str]] = None,
-                 cos_private_access: Optional[str] = None,
                  origin_pull_protocol: Optional[str] = None,
                  origins: Optional[Sequence[str]] = None):
         if backup_origins is not None:
             pulumi.set(__self__, "backup_origins", backup_origins)
-        if cos_private_access is not None:
-            pulumi.set(__self__, "cos_private_access", cos_private_access)
         if origin_pull_protocol is not None:
             pulumi.set(__self__, "origin_pull_protocol", origin_pull_protocol)
         if origins is not None:
@@ -1571,11 +2189,6 @@ class ZoneSettingOrigin(dict):
     @pulumi.getter(name="backupOrigins")
     def backup_origins(self) -> Optional[Sequence[str]]:
         return pulumi.get(self, "backup_origins")
-
-    @property
-    @pulumi.getter(name="cosPrivateAccess")
-    def cos_private_access(self) -> Optional[str]:
-        return pulumi.get(self, "cos_private_access")
 
     @property
     @pulumi.getter(name="originPullProtocol")
@@ -1889,7 +2502,7 @@ class GetZoneAvailablePlansPlanInfoListResult(dict):
                  flux: int,
                  frequency: str,
                  plan_type: str,
-                 price: int,
+                 price: float,
                  request: int,
                  site_number: int):
         pulumi.set(__self__, "area", area)
@@ -1928,7 +2541,7 @@ class GetZoneAvailablePlansPlanInfoListResult(dict):
 
     @property
     @pulumi.getter
-    def price(self) -> int:
+    def price(self) -> float:
         return pulumi.get(self, "price")
 
     @property

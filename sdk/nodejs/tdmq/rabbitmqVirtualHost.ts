@@ -43,7 +43,7 @@ export class RabbitmqVirtualHost extends pulumi.CustomResource {
     /**
      * Message track switch, true is on, false is off, default is off.
      */
-    public readonly traceFlag!: pulumi.Output<boolean | undefined>;
+    public readonly traceFlag!: pulumi.Output<boolean>;
     /**
      * vhost name.
      */

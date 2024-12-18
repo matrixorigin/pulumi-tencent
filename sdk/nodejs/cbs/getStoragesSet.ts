@@ -13,6 +13,7 @@ export function getStoragesSet(args?: GetStoragesSetArgs, opts?: pulumi.InvokeOp
     return pulumi.runtime.invoke("tencentcloud:Cbs/getStoragesSet:getStoragesSet", {
         "availabilityZone": args.availabilityZone,
         "chargeTypes": args.chargeTypes,
+        "dedicatedClusterId": args.dedicatedClusterId,
         "instanceIps": args.instanceIps,
         "instanceNames": args.instanceNames,
         "portable": args.portable,
@@ -34,6 +35,7 @@ export function getStoragesSet(args?: GetStoragesSetArgs, opts?: pulumi.InvokeOp
 export interface GetStoragesSetArgs {
     availabilityZone?: string;
     chargeTypes?: string[];
+    dedicatedClusterId?: string;
     instanceIps?: string[];
     instanceNames?: string[];
     portable?: boolean;
@@ -54,6 +56,7 @@ export interface GetStoragesSetArgs {
 export interface GetStoragesSetResult {
     readonly availabilityZone?: string;
     readonly chargeTypes?: string[];
+    readonly dedicatedClusterId?: string;
     /**
      * The provider-assigned unique ID for this managed resource.
      */
@@ -82,6 +85,7 @@ export function getStoragesSetOutput(args?: GetStoragesSetOutputArgs, opts?: pul
 export interface GetStoragesSetOutputArgs {
     availabilityZone?: pulumi.Input<string>;
     chargeTypes?: pulumi.Input<pulumi.Input<string>[]>;
+    dedicatedClusterId?: pulumi.Input<string>;
     instanceIps?: pulumi.Input<pulumi.Input<string>[]>;
     instanceNames?: pulumi.Input<pulumi.Input<string>[]>;
     portable?: pulumi.Input<boolean>;

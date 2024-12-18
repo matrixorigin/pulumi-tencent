@@ -8,6 +8,7 @@ export function getInstance(args: GetInstanceArgs, opts?: pulumi.InvokeOptions):
 
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("tencentcloud:Deprecatedsubnet/getInstance:getInstance", {
+        "cdcId": args.cdcId,
         "subnetId": args.subnetId,
         "vpcId": args.vpcId,
     }, opts);
@@ -17,6 +18,7 @@ export function getInstance(args: GetInstanceArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getInstance.
  */
 export interface GetInstanceArgs {
+    cdcId?: string;
     subnetId: string;
     vpcId: string;
 }
@@ -26,6 +28,7 @@ export interface GetInstanceArgs {
  */
 export interface GetInstanceResult {
     readonly availabilityZone: string;
+    readonly cdcId: string;
     readonly cidrBlock: string;
     /**
      * The provider-assigned unique ID for this managed resource.
@@ -44,6 +47,7 @@ export function getInstanceOutput(args: GetInstanceOutputArgs, opts?: pulumi.Inv
  * A collection of arguments for invoking getInstance.
  */
 export interface GetInstanceOutputArgs {
+    cdcId?: pulumi.Input<string>;
     subnetId: pulumi.Input<string>;
     vpcId: pulumi.Input<string>;
 }

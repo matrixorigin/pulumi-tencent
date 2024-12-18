@@ -39,6 +39,7 @@ __all__ = [
     'GetClustersClusterSetTagResult',
     'GetClustersClusterSetVersionResult',
     'GetClustersFilterResult',
+    'GetJobEventsEventResult',
     'GetJobSubmissionLogJobInstanceListResult',
     'GetJobSubmissionLogLogContentListResult',
     'GetResourceRelatedJobRefJobInfoResult',
@@ -1281,6 +1282,53 @@ class GetClustersFilterResult(dict):
     @pulumi.getter
     def values(self) -> Sequence[str]:
         return pulumi.get(self, "values")
+
+
+@pulumi.output_type
+class GetJobEventsEventResult(dict):
+    def __init__(__self__, *,
+                 description: str,
+                 message: str,
+                 running_order_id: int,
+                 solution_link: str,
+                 timestamp: int,
+                 type: str):
+        pulumi.set(__self__, "description", description)
+        pulumi.set(__self__, "message", message)
+        pulumi.set(__self__, "running_order_id", running_order_id)
+        pulumi.set(__self__, "solution_link", solution_link)
+        pulumi.set(__self__, "timestamp", timestamp)
+        pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def description(self) -> str:
+        return pulumi.get(self, "description")
+
+    @property
+    @pulumi.getter
+    def message(self) -> str:
+        return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="runningOrderId")
+    def running_order_id(self) -> int:
+        return pulumi.get(self, "running_order_id")
+
+    @property
+    @pulumi.getter(name="solutionLink")
+    def solution_link(self) -> str:
+        return pulumi.get(self, "solution_link")
+
+    @property
+    @pulumi.getter
+    def timestamp(self) -> int:
+        return pulumi.get(self, "timestamp")
+
+    @property
+    @pulumi.getter
+    def type(self) -> str:
+        return pulumi.get(self, "type")
 
 
 @pulumi.output_type

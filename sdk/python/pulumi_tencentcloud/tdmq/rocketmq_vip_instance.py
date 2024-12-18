@@ -22,17 +22,19 @@ class RocketmqVipInstanceArgs:
                  time_span: pulumi.Input[int],
                  vpc_info: pulumi.Input['RocketmqVipInstanceVpcInfoArgs'],
                  zone_ids: pulumi.Input[Sequence[pulumi.Input[str]]],
+                 ip_rules: Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a RocketmqVipInstance resource.
         :param pulumi.Input[int] node_count: Number of nodes, minimum 2, maximum 20.
-        :param pulumi.Input[str] spec: Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-               `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        :param pulumi.Input[str] spec: Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+               `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         :param pulumi.Input[int] storage_size: Single node storage space, in GB, minimum 200GB.
         :param pulumi.Input[int] time_span: Purchase period, in months.
         :param pulumi.Input['RocketmqVipInstanceVpcInfoArgs'] vpc_info: VPC information.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zone_ids: The Zone ID list for node deployment, such as Guangzhou Zone 1, is 100001. For details, please refer to the official
                website of Tencent Cloud.
+        :param pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]] ip_rules: Public IP access control rules.
         :param pulumi.Input[str] name: Instance name.
         """
         pulumi.set(__self__, "node_count", node_count)
@@ -41,6 +43,8 @@ class RocketmqVipInstanceArgs:
         pulumi.set(__self__, "time_span", time_span)
         pulumi.set(__self__, "vpc_info", vpc_info)
         pulumi.set(__self__, "zone_ids", zone_ids)
+        if ip_rules is not None:
+            pulumi.set(__self__, "ip_rules", ip_rules)
         if name is not None:
             pulumi.set(__self__, "name", name)
 
@@ -60,8 +64,8 @@ class RocketmqVipInstanceArgs:
     @pulumi.getter
     def spec(self) -> pulumi.Input[str]:
         """
-        Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-        `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+        `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         """
         return pulumi.get(self, "spec")
 
@@ -119,6 +123,18 @@ class RocketmqVipInstanceArgs:
         pulumi.set(self, "zone_ids", value)
 
     @property
+    @pulumi.getter(name="ipRules")
+    def ip_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]]:
+        """
+        Public IP access control rules.
+        """
+        return pulumi.get(self, "ip_rules")
+
+    @ip_rules.setter
+    def ip_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]]):
+        pulumi.set(self, "ip_rules", value)
+
+    @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
@@ -134,6 +150,7 @@ class RocketmqVipInstanceArgs:
 @pulumi.input_type
 class _RocketmqVipInstanceState:
     def __init__(__self__, *,
+                 ip_rules: Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  node_count: Optional[pulumi.Input[int]] = None,
                  spec: Optional[pulumi.Input[str]] = None,
@@ -143,16 +160,19 @@ class _RocketmqVipInstanceState:
                  zone_ids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         Input properties used for looking up and filtering RocketmqVipInstance resources.
+        :param pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]] ip_rules: Public IP access control rules.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[int] node_count: Number of nodes, minimum 2, maximum 20.
-        :param pulumi.Input[str] spec: Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-               `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        :param pulumi.Input[str] spec: Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+               `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         :param pulumi.Input[int] storage_size: Single node storage space, in GB, minimum 200GB.
         :param pulumi.Input[int] time_span: Purchase period, in months.
         :param pulumi.Input['RocketmqVipInstanceVpcInfoArgs'] vpc_info: VPC information.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] zone_ids: The Zone ID list for node deployment, such as Guangzhou Zone 1, is 100001. For details, please refer to the official
                website of Tencent Cloud.
         """
+        if ip_rules is not None:
+            pulumi.set(__self__, "ip_rules", ip_rules)
         if name is not None:
             pulumi.set(__self__, "name", name)
         if node_count is not None:
@@ -167,6 +187,18 @@ class _RocketmqVipInstanceState:
             pulumi.set(__self__, "vpc_info", vpc_info)
         if zone_ids is not None:
             pulumi.set(__self__, "zone_ids", zone_ids)
+
+    @property
+    @pulumi.getter(name="ipRules")
+    def ip_rules(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]]:
+        """
+        Public IP access control rules.
+        """
+        return pulumi.get(self, "ip_rules")
+
+    @ip_rules.setter
+    def ip_rules(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['RocketmqVipInstanceIpRuleArgs']]]]):
+        pulumi.set(self, "ip_rules", value)
 
     @property
     @pulumi.getter
@@ -196,8 +228,8 @@ class _RocketmqVipInstanceState:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input[str]]:
         """
-        Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-        `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+        `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         """
         return pulumi.get(self, "spec")
 
@@ -260,6 +292,7 @@ class RocketmqVipInstance(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 ip_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RocketmqVipInstanceIpRuleArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  node_count: Optional[pulumi.Input[int]] = None,
                  spec: Optional[pulumi.Input[str]] = None,
@@ -272,10 +305,11 @@ class RocketmqVipInstance(pulumi.CustomResource):
         Create a RocketmqVipInstance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RocketmqVipInstanceIpRuleArgs']]]] ip_rules: Public IP access control rules.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[int] node_count: Number of nodes, minimum 2, maximum 20.
-        :param pulumi.Input[str] spec: Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-               `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        :param pulumi.Input[str] spec: Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+               `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         :param pulumi.Input[int] storage_size: Single node storage space, in GB, minimum 200GB.
         :param pulumi.Input[int] time_span: Purchase period, in months.
         :param pulumi.Input[pulumi.InputType['RocketmqVipInstanceVpcInfoArgs']] vpc_info: VPC information.
@@ -305,6 +339,7 @@ class RocketmqVipInstance(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 ip_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RocketmqVipInstanceIpRuleArgs']]]]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  node_count: Optional[pulumi.Input[int]] = None,
                  spec: Optional[pulumi.Input[str]] = None,
@@ -321,6 +356,7 @@ class RocketmqVipInstance(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = RocketmqVipInstanceArgs.__new__(RocketmqVipInstanceArgs)
 
+            __props__.__dict__["ip_rules"] = ip_rules
             __props__.__dict__["name"] = name
             if node_count is None and not opts.urn:
                 raise TypeError("Missing required property 'node_count'")
@@ -350,6 +386,7 @@ class RocketmqVipInstance(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            ip_rules: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RocketmqVipInstanceIpRuleArgs']]]]] = None,
             name: Optional[pulumi.Input[str]] = None,
             node_count: Optional[pulumi.Input[int]] = None,
             spec: Optional[pulumi.Input[str]] = None,
@@ -364,10 +401,11 @@ class RocketmqVipInstance(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['RocketmqVipInstanceIpRuleArgs']]]] ip_rules: Public IP access control rules.
         :param pulumi.Input[str] name: Instance name.
         :param pulumi.Input[int] node_count: Number of nodes, minimum 2, maximum 20.
-        :param pulumi.Input[str] spec: Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-               `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        :param pulumi.Input[str] spec: Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+               `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         :param pulumi.Input[int] storage_size: Single node storage space, in GB, minimum 200GB.
         :param pulumi.Input[int] time_span: Purchase period, in months.
         :param pulumi.Input[pulumi.InputType['RocketmqVipInstanceVpcInfoArgs']] vpc_info: VPC information.
@@ -378,6 +416,7 @@ class RocketmqVipInstance(pulumi.CustomResource):
 
         __props__ = _RocketmqVipInstanceState.__new__(_RocketmqVipInstanceState)
 
+        __props__.__dict__["ip_rules"] = ip_rules
         __props__.__dict__["name"] = name
         __props__.__dict__["node_count"] = node_count
         __props__.__dict__["spec"] = spec
@@ -386,6 +425,14 @@ class RocketmqVipInstance(pulumi.CustomResource):
         __props__.__dict__["vpc_info"] = vpc_info
         __props__.__dict__["zone_ids"] = zone_ids
         return RocketmqVipInstance(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="ipRules")
+    def ip_rules(self) -> pulumi.Output[Optional[Sequence['outputs.RocketmqVipInstanceIpRule']]]:
+        """
+        Public IP access control rules.
+        """
+        return pulumi.get(self, "ip_rules")
 
     @property
     @pulumi.getter
@@ -407,8 +454,8 @@ class RocketmqVipInstance(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output[str]:
         """
-        Instance specification: Basic type: `rocket-vip-basic-1`, Standard type: `rocket-vip-basic-2`, Advanced Type I:
-        `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
+        Instance specification: Universal type, rocket-vip-basic-0, Basic type: `rocket-vip-basic-1`, Standard type:
+        `rocket-vip-basic-2`, Advanced Type I: `rocket-vip-basic-3`, Advanced Type II: `rocket-vip-basic-4`.
         """
         return pulumi.get(self, "spec")
 

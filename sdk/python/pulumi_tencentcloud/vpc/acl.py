@@ -24,12 +24,12 @@ class AclArgs:
         :param pulumi.Input[str] vpc_id: ID of the VPC instance.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] egresses: Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ingresses: Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[str] name: Name of the network ACL.
         :param pulumi.Input[Mapping[str, Any]] tags: Tags of the vpc acl.
         """
@@ -61,8 +61,8 @@ class AclArgs:
         """
         Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "egresses")
 
@@ -76,8 +76,8 @@ class AclArgs:
         """
         Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "ingresses")
 
@@ -124,12 +124,12 @@ class _AclState:
         :param pulumi.Input[str] create_time: Creation time of ACL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] egresses: Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ingresses: Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[str] name: Name of the network ACL.
         :param pulumi.Input[Mapping[str, Any]] tags: Tags of the vpc acl.
         :param pulumi.Input[str] vpc_id: ID of the VPC instance.
@@ -165,8 +165,8 @@ class _AclState:
         """
         Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "egresses")
 
@@ -180,8 +180,8 @@ class _AclState:
         """
         Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "ingresses")
 
@@ -243,12 +243,12 @@ class Acl(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] egresses: Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ingresses: Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[str] name: Name of the network ACL.
         :param pulumi.Input[Mapping[str, Any]] tags: Tags of the vpc acl.
         :param pulumi.Input[str] vpc_id: ID of the VPC instance.
@@ -324,12 +324,12 @@ class Acl(pulumi.CustomResource):
         :param pulumi.Input[str] create_time: Creation time of ACL.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] egresses: Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] ingresses: Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
                'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-               `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-               is `ICMP` or `ALL`, the 'port' must be `ALL`.
+               `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+               or `ALL`, the 'port' must be `ALL`.
         :param pulumi.Input[str] name: Name of the network ACL.
         :param pulumi.Input[Mapping[str, Any]] tags: Tags of the vpc acl.
         :param pulumi.Input[str] vpc_id: ID of the VPC instance.
@@ -360,8 +360,8 @@ class Acl(pulumi.CustomResource):
         """
         Egress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "egresses")
 
@@ -371,8 +371,8 @@ class Acl(pulumi.CustomResource):
         """
         Ingress rules. A rule must match the following format: [action]#[cidr_ip]#[port]#[protocol]. The available value of
         'action' is `ACCEPT` and `DROP`. The 'cidr_ip' must be an IP address network or segment. The 'port' valid format is
-        `80`, `80,443`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol'
-        is `ICMP` or `ALL`, the 'port' must be `ALL`.
+        `80`, `80-90` or `ALL`. The available value of 'protocol' is `TCP`, `UDP`, `ICMP` and `ALL`. When 'protocol' is `ICMP`
+        or `ALL`, the 'port' must be `ALL`.
         """
         return pulumi.get(self, "ingresses")
 

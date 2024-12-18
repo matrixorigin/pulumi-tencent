@@ -15,10 +15,12 @@ import (
 type TargetGroupAttachments struct {
 	pulumi.CustomResourceState
 
-	// Association array, the combination cannot exceed 20
+	// Association array, the combination cannot exceed 20.
 	Associations TargetGroupAttachmentsAssociationArrayOutput `pulumi:"associations"`
-	// CLB instance ID
-	LoadBalancerId pulumi.StringOutput `pulumi:"loadBalancerId"`
+	// CLB instance ID, (load_balancer_id and target_group_id require at least one).
+	LoadBalancerId pulumi.StringPtrOutput `pulumi:"loadBalancerId"`
+	// Target group ID, (load_balancer_id and target_group_id require at least one).
+	TargetGroupId pulumi.StringPtrOutput `pulumi:"targetGroupId"`
 }
 
 // NewTargetGroupAttachments registers a new resource with the given unique name, arguments, and options.
@@ -30,9 +32,6 @@ func NewTargetGroupAttachments(ctx *pulumi.Context,
 
 	if args.Associations == nil {
 		return nil, errors.New("invalid value for required argument 'Associations'")
-	}
-	if args.LoadBalancerId == nil {
-		return nil, errors.New("invalid value for required argument 'LoadBalancerId'")
 	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource TargetGroupAttachments
@@ -57,17 +56,21 @@ func GetTargetGroupAttachments(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering TargetGroupAttachments resources.
 type targetGroupAttachmentsState struct {
-	// Association array, the combination cannot exceed 20
+	// Association array, the combination cannot exceed 20.
 	Associations []TargetGroupAttachmentsAssociation `pulumi:"associations"`
-	// CLB instance ID
+	// CLB instance ID, (load_balancer_id and target_group_id require at least one).
 	LoadBalancerId *string `pulumi:"loadBalancerId"`
+	// Target group ID, (load_balancer_id and target_group_id require at least one).
+	TargetGroupId *string `pulumi:"targetGroupId"`
 }
 
 type TargetGroupAttachmentsState struct {
-	// Association array, the combination cannot exceed 20
+	// Association array, the combination cannot exceed 20.
 	Associations TargetGroupAttachmentsAssociationArrayInput
-	// CLB instance ID
+	// CLB instance ID, (load_balancer_id and target_group_id require at least one).
 	LoadBalancerId pulumi.StringPtrInput
+	// Target group ID, (load_balancer_id and target_group_id require at least one).
+	TargetGroupId pulumi.StringPtrInput
 }
 
 func (TargetGroupAttachmentsState) ElementType() reflect.Type {
@@ -75,18 +78,22 @@ func (TargetGroupAttachmentsState) ElementType() reflect.Type {
 }
 
 type targetGroupAttachmentsArgs struct {
-	// Association array, the combination cannot exceed 20
+	// Association array, the combination cannot exceed 20.
 	Associations []TargetGroupAttachmentsAssociation `pulumi:"associations"`
-	// CLB instance ID
-	LoadBalancerId string `pulumi:"loadBalancerId"`
+	// CLB instance ID, (load_balancer_id and target_group_id require at least one).
+	LoadBalancerId *string `pulumi:"loadBalancerId"`
+	// Target group ID, (load_balancer_id and target_group_id require at least one).
+	TargetGroupId *string `pulumi:"targetGroupId"`
 }
 
 // The set of arguments for constructing a TargetGroupAttachments resource.
 type TargetGroupAttachmentsArgs struct {
-	// Association array, the combination cannot exceed 20
+	// Association array, the combination cannot exceed 20.
 	Associations TargetGroupAttachmentsAssociationArrayInput
-	// CLB instance ID
-	LoadBalancerId pulumi.StringInput
+	// CLB instance ID, (load_balancer_id and target_group_id require at least one).
+	LoadBalancerId pulumi.StringPtrInput
+	// Target group ID, (load_balancer_id and target_group_id require at least one).
+	TargetGroupId pulumi.StringPtrInput
 }
 
 func (TargetGroupAttachmentsArgs) ElementType() reflect.Type {
@@ -176,14 +183,19 @@ func (o TargetGroupAttachmentsOutput) ToTargetGroupAttachmentsOutputWithContext(
 	return o
 }
 
-// Association array, the combination cannot exceed 20
+// Association array, the combination cannot exceed 20.
 func (o TargetGroupAttachmentsOutput) Associations() TargetGroupAttachmentsAssociationArrayOutput {
 	return o.ApplyT(func(v *TargetGroupAttachments) TargetGroupAttachmentsAssociationArrayOutput { return v.Associations }).(TargetGroupAttachmentsAssociationArrayOutput)
 }
 
-// CLB instance ID
-func (o TargetGroupAttachmentsOutput) LoadBalancerId() pulumi.StringOutput {
-	return o.ApplyT(func(v *TargetGroupAttachments) pulumi.StringOutput { return v.LoadBalancerId }).(pulumi.StringOutput)
+// CLB instance ID, (load_balancer_id and target_group_id require at least one).
+func (o TargetGroupAttachmentsOutput) LoadBalancerId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TargetGroupAttachments) pulumi.StringPtrOutput { return v.LoadBalancerId }).(pulumi.StringPtrOutput)
+}
+
+// Target group ID, (load_balancer_id and target_group_id require at least one).
+func (o TargetGroupAttachmentsOutput) TargetGroupId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TargetGroupAttachments) pulumi.StringPtrOutput { return v.TargetGroupId }).(pulumi.StringPtrOutput)
 }
 
 type TargetGroupAttachmentsArrayOutput struct{ *pulumi.OutputState }

@@ -30,6 +30,8 @@ class InstanceDataDisk(dict):
             suggest = "data_disk_snapshot_id"
         elif key == "deleteWithInstance":
             suggest = "delete_with_instance"
+        elif key == "deleteWithInstancePrepaid":
+            suggest = "delete_with_instance_prepaid"
         elif key == "throughputPerformance":
             suggest = "throughput_performance"
 
@@ -50,6 +52,7 @@ class InstanceDataDisk(dict):
                  data_disk_id: Optional[str] = None,
                  data_disk_snapshot_id: Optional[str] = None,
                  delete_with_instance: Optional[bool] = None,
+                 delete_with_instance_prepaid: Optional[bool] = None,
                  encrypt: Optional[bool] = None,
                  throughput_performance: Optional[int] = None):
         pulumi.set(__self__, "data_disk_size", data_disk_size)
@@ -60,6 +63,8 @@ class InstanceDataDisk(dict):
             pulumi.set(__self__, "data_disk_snapshot_id", data_disk_snapshot_id)
         if delete_with_instance is not None:
             pulumi.set(__self__, "delete_with_instance", delete_with_instance)
+        if delete_with_instance_prepaid is not None:
+            pulumi.set(__self__, "delete_with_instance_prepaid", delete_with_instance_prepaid)
         if encrypt is not None:
             pulumi.set(__self__, "encrypt", encrypt)
         if throughput_performance is not None:
@@ -89,6 +94,11 @@ class InstanceDataDisk(dict):
     @pulumi.getter(name="deleteWithInstance")
     def delete_with_instance(self) -> Optional[bool]:
         return pulumi.get(self, "delete_with_instance")
+
+    @property
+    @pulumi.getter(name="deleteWithInstancePrepaid")
+    def delete_with_instance_prepaid(self) -> Optional[bool]:
+        return pulumi.get(self, "delete_with_instance_prepaid")
 
     @property
     @pulumi.getter

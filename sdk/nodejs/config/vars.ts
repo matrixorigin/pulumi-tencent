@@ -21,12 +21,70 @@ Object.defineProperty(exports, "assumeRole", {
 });
 
 /**
+ * The `assume_role_with_saml` block. If provided, terraform will attempt to assume this role using the supplied
+ * credentials.
+ */
+export declare const assumeRoleWithSaml: outputs.config.AssumeRoleWithSaml | undefined;
+Object.defineProperty(exports, "assumeRoleWithSaml", {
+    get() {
+        return __config.getObject<outputs.config.AssumeRoleWithSaml>("assumeRoleWithSaml");
+    },
+    enumerable: true,
+});
+
+/**
+ * The `assume_role_with_web_identity` block. If provided, terraform will attempt to assume this role using the supplied
+ * credentials.
+ */
+export declare const assumeRoleWithWebIdentity: outputs.config.AssumeRoleWithWebIdentity | undefined;
+Object.defineProperty(exports, "assumeRoleWithWebIdentity", {
+    get() {
+        return __config.getObject<outputs.config.AssumeRoleWithWebIdentity>("assumeRoleWithWebIdentity");
+    },
+    enumerable: true,
+});
+
+/**
+ * The name of the CVM instance CAM role. It can be sourced from the `TENCENTCLOUD_CAM_ROLE_NAME` environment variable.
+ */
+export declare const camRoleName: string | undefined;
+Object.defineProperty(exports, "camRoleName", {
+    get() {
+        return __config.get("camRoleName");
+    },
+    enumerable: true,
+});
+
+/**
+ * The cos domain of the API request, Default is `https://cos.{region}.myqcloud.com`, Other Examples:
+ * `https://cluster-123456.cos-cdc.ap-guangzhou.myqcloud.com`.
+ */
+export declare const cosDomain: string | undefined;
+Object.defineProperty(exports, "cosDomain", {
+    get() {
+        return __config.get("cosDomain");
+    },
+    enumerable: true,
+});
+
+/**
  * The root domain of the API request, Default is `tencentcloudapi.com`.
  */
 export declare const domain: string | undefined;
 Object.defineProperty(exports, "domain", {
     get() {
         return __config.get("domain");
+    },
+    enumerable: true,
+});
+
+/**
+ * Whether to enable pod oidc.
+ */
+export declare const enablePodOidc: boolean | undefined;
+Object.defineProperty(exports, "enablePodOidc", {
+    get() {
+        return __config.getObject<boolean>("enablePodOidc");
     },
     enumerable: true,
 });
@@ -55,8 +113,8 @@ Object.defineProperty(exports, "protocol", {
 });
 
 /**
- * This is the TencentCloud region. It must be provided, but it can also be sourced from the `TENCENTCLOUD_REGION`
- * environment variables. The default input value is ap-guangzhou.
+ * This is the TencentCloud region. It can also be sourced from the `TENCENTCLOUD_REGION` environment variables. The
+ * default input value is ap-guangzhou.
  */
 export declare const region: string | undefined;
 Object.defineProperty(exports, "region", {
@@ -67,8 +125,7 @@ Object.defineProperty(exports, "region", {
 });
 
 /**
- * This is the TencentCloud access key. It must be provided, but it can also be sourced from the `TENCENTCLOUD_SECRET_ID`
- * environment variable.
+ * This is the TencentCloud access key. It can also be sourced from the `TENCENTCLOUD_SECRET_ID` environment variable.
  */
 export declare const secretId: string | undefined;
 Object.defineProperty(exports, "secretId", {
@@ -79,8 +136,7 @@ Object.defineProperty(exports, "secretId", {
 });
 
 /**
- * This is the TencentCloud secret key. It must be provided, but it can also be sourced from the `TENCENTCLOUD_SECRET_KEY`
- * environment variable.
+ * This is the TencentCloud secret key. It can also be sourced from the `TENCENTCLOUD_SECRET_KEY` environment variable.
  */
 export declare const secretKey: string | undefined;
 Object.defineProperty(exports, "secretKey", {

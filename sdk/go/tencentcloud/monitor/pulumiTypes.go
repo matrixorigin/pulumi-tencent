@@ -1938,6 +1938,425 @@ func (o PolicyBindingObjectDimensionArrayOutput) Index(i pulumi.IntInput) Policy
 	}).(PolicyBindingObjectDimensionOutput)
 }
 
+type TmpAlertGroupCustomReceiver struct {
+	AllowedTimeRanges []TmpAlertGroupCustomReceiverAllowedTimeRange `pulumi:"allowedTimeRanges"`
+	ClusterId         *string                                       `pulumi:"clusterId"`
+	ClusterType       *string                                       `pulumi:"clusterType"`
+	Type              *string                                       `pulumi:"type"`
+	Url               *string                                       `pulumi:"url"`
+}
+
+// TmpAlertGroupCustomReceiverInput is an input type that accepts TmpAlertGroupCustomReceiverArgs and TmpAlertGroupCustomReceiverOutput values.
+// You can construct a concrete instance of `TmpAlertGroupCustomReceiverInput` via:
+//
+//	TmpAlertGroupCustomReceiverArgs{...}
+type TmpAlertGroupCustomReceiverInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupCustomReceiverOutput() TmpAlertGroupCustomReceiverOutput
+	ToTmpAlertGroupCustomReceiverOutputWithContext(context.Context) TmpAlertGroupCustomReceiverOutput
+}
+
+type TmpAlertGroupCustomReceiverArgs struct {
+	AllowedTimeRanges TmpAlertGroupCustomReceiverAllowedTimeRangeArrayInput `pulumi:"allowedTimeRanges"`
+	ClusterId         pulumi.StringPtrInput                                 `pulumi:"clusterId"`
+	ClusterType       pulumi.StringPtrInput                                 `pulumi:"clusterType"`
+	Type              pulumi.StringPtrInput                                 `pulumi:"type"`
+	Url               pulumi.StringPtrInput                                 `pulumi:"url"`
+}
+
+func (TmpAlertGroupCustomReceiverArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupCustomReceiver)(nil)).Elem()
+}
+
+func (i TmpAlertGroupCustomReceiverArgs) ToTmpAlertGroupCustomReceiverOutput() TmpAlertGroupCustomReceiverOutput {
+	return i.ToTmpAlertGroupCustomReceiverOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupCustomReceiverArgs) ToTmpAlertGroupCustomReceiverOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupCustomReceiverOutput)
+}
+
+func (i TmpAlertGroupCustomReceiverArgs) ToTmpAlertGroupCustomReceiverPtrOutput() TmpAlertGroupCustomReceiverPtrOutput {
+	return i.ToTmpAlertGroupCustomReceiverPtrOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupCustomReceiverArgs) ToTmpAlertGroupCustomReceiverPtrOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupCustomReceiverOutput).ToTmpAlertGroupCustomReceiverPtrOutputWithContext(ctx)
+}
+
+// TmpAlertGroupCustomReceiverPtrInput is an input type that accepts TmpAlertGroupCustomReceiverArgs, TmpAlertGroupCustomReceiverPtr and TmpAlertGroupCustomReceiverPtrOutput values.
+// You can construct a concrete instance of `TmpAlertGroupCustomReceiverPtrInput` via:
+//
+//	        TmpAlertGroupCustomReceiverArgs{...}
+//
+//	or:
+//
+//	        nil
+type TmpAlertGroupCustomReceiverPtrInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupCustomReceiverPtrOutput() TmpAlertGroupCustomReceiverPtrOutput
+	ToTmpAlertGroupCustomReceiverPtrOutputWithContext(context.Context) TmpAlertGroupCustomReceiverPtrOutput
+}
+
+type tmpAlertGroupCustomReceiverPtrType TmpAlertGroupCustomReceiverArgs
+
+func TmpAlertGroupCustomReceiverPtr(v *TmpAlertGroupCustomReceiverArgs) TmpAlertGroupCustomReceiverPtrInput {
+	return (*tmpAlertGroupCustomReceiverPtrType)(v)
+}
+
+func (*tmpAlertGroupCustomReceiverPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TmpAlertGroupCustomReceiver)(nil)).Elem()
+}
+
+func (i *tmpAlertGroupCustomReceiverPtrType) ToTmpAlertGroupCustomReceiverPtrOutput() TmpAlertGroupCustomReceiverPtrOutput {
+	return i.ToTmpAlertGroupCustomReceiverPtrOutputWithContext(context.Background())
+}
+
+func (i *tmpAlertGroupCustomReceiverPtrType) ToTmpAlertGroupCustomReceiverPtrOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupCustomReceiverPtrOutput)
+}
+
+type TmpAlertGroupCustomReceiverOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupCustomReceiverOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupCustomReceiver)(nil)).Elem()
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ToTmpAlertGroupCustomReceiverOutput() TmpAlertGroupCustomReceiverOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ToTmpAlertGroupCustomReceiverOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ToTmpAlertGroupCustomReceiverPtrOutput() TmpAlertGroupCustomReceiverPtrOutput {
+	return o.ToTmpAlertGroupCustomReceiverPtrOutputWithContext(context.Background())
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ToTmpAlertGroupCustomReceiverPtrOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TmpAlertGroupCustomReceiver) *TmpAlertGroupCustomReceiver {
+		return &v
+	}).(TmpAlertGroupCustomReceiverPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) AllowedTimeRanges() TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiver) []TmpAlertGroupCustomReceiverAllowedTimeRange {
+		return v.AllowedTimeRanges
+	}).(TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiver) *string { return v.ClusterId }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) ClusterType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiver) *string { return v.ClusterType }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiver) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiver) *string { return v.Url }).(pulumi.StringPtrOutput)
+}
+
+type TmpAlertGroupCustomReceiverPtrOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupCustomReceiverPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TmpAlertGroupCustomReceiver)(nil)).Elem()
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) ToTmpAlertGroupCustomReceiverPtrOutput() TmpAlertGroupCustomReceiverPtrOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) ToTmpAlertGroupCustomReceiverPtrOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverPtrOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) Elem() TmpAlertGroupCustomReceiverOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) TmpAlertGroupCustomReceiver {
+		if v != nil {
+			return *v
+		}
+		var ret TmpAlertGroupCustomReceiver
+		return ret
+	}).(TmpAlertGroupCustomReceiverOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) AllowedTimeRanges() TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) []TmpAlertGroupCustomReceiverAllowedTimeRange {
+		if v == nil {
+			return nil
+		}
+		return v.AllowedTimeRanges
+	}).(TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) ClusterId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) ClusterType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ClusterType
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Type
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverPtrOutput) Url() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *TmpAlertGroupCustomReceiver) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Url
+	}).(pulumi.StringPtrOutput)
+}
+
+type TmpAlertGroupCustomReceiverAllowedTimeRange struct {
+	End   *string `pulumi:"end"`
+	Start *string `pulumi:"start"`
+}
+
+// TmpAlertGroupCustomReceiverAllowedTimeRangeInput is an input type that accepts TmpAlertGroupCustomReceiverAllowedTimeRangeArgs and TmpAlertGroupCustomReceiverAllowedTimeRangeOutput values.
+// You can construct a concrete instance of `TmpAlertGroupCustomReceiverAllowedTimeRangeInput` via:
+//
+//	TmpAlertGroupCustomReceiverAllowedTimeRangeArgs{...}
+type TmpAlertGroupCustomReceiverAllowedTimeRangeInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeOutput
+	ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutputWithContext(context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeOutput
+}
+
+type TmpAlertGroupCustomReceiverAllowedTimeRangeArgs struct {
+	End   pulumi.StringPtrInput `pulumi:"end"`
+	Start pulumi.StringPtrInput `pulumi:"start"`
+}
+
+func (TmpAlertGroupCustomReceiverAllowedTimeRangeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupCustomReceiverAllowedTimeRange)(nil)).Elem()
+}
+
+func (i TmpAlertGroupCustomReceiverAllowedTimeRangeArgs) ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeOutput {
+	return i.ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupCustomReceiverAllowedTimeRangeArgs) ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupCustomReceiverAllowedTimeRangeOutput)
+}
+
+// TmpAlertGroupCustomReceiverAllowedTimeRangeArrayInput is an input type that accepts TmpAlertGroupCustomReceiverAllowedTimeRangeArray and TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput values.
+// You can construct a concrete instance of `TmpAlertGroupCustomReceiverAllowedTimeRangeArrayInput` via:
+//
+//	TmpAlertGroupCustomReceiverAllowedTimeRangeArray{ TmpAlertGroupCustomReceiverAllowedTimeRangeArgs{...} }
+type TmpAlertGroupCustomReceiverAllowedTimeRangeArrayInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput
+	ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutputWithContext(context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput
+}
+
+type TmpAlertGroupCustomReceiverAllowedTimeRangeArray []TmpAlertGroupCustomReceiverAllowedTimeRangeInput
+
+func (TmpAlertGroupCustomReceiverAllowedTimeRangeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TmpAlertGroupCustomReceiverAllowedTimeRange)(nil)).Elem()
+}
+
+func (i TmpAlertGroupCustomReceiverAllowedTimeRangeArray) ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return i.ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupCustomReceiverAllowedTimeRangeArray) ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput)
+}
+
+type TmpAlertGroupCustomReceiverAllowedTimeRangeOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupCustomReceiverAllowedTimeRangeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupCustomReceiverAllowedTimeRange)(nil)).Elem()
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeOutput) ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeOutput) ToTmpAlertGroupCustomReceiverAllowedTimeRangeOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeOutput) End() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiverAllowedTimeRange) *string { return v.End }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeOutput) Start() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupCustomReceiverAllowedTimeRange) *string { return v.Start }).(pulumi.StringPtrOutput)
+}
+
+type TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TmpAlertGroupCustomReceiverAllowedTimeRange)(nil)).Elem()
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput) ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput() TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput) ToTmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutputWithContext(ctx context.Context) TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput {
+	return o
+}
+
+func (o TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput) Index(i pulumi.IntInput) TmpAlertGroupCustomReceiverAllowedTimeRangeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TmpAlertGroupCustomReceiverAllowedTimeRange {
+		return vs[0].([]TmpAlertGroupCustomReceiverAllowedTimeRange)[vs[1].(int)]
+	}).(TmpAlertGroupCustomReceiverAllowedTimeRangeOutput)
+}
+
+type TmpAlertGroupRule struct {
+	Annotations map[string]interface{} `pulumi:"annotations"`
+	Duration    *string                `pulumi:"duration"`
+	Expr        *string                `pulumi:"expr"`
+	Labels      map[string]interface{} `pulumi:"labels"`
+	RuleName    *string                `pulumi:"ruleName"`
+	State       *int                   `pulumi:"state"`
+}
+
+// TmpAlertGroupRuleInput is an input type that accepts TmpAlertGroupRuleArgs and TmpAlertGroupRuleOutput values.
+// You can construct a concrete instance of `TmpAlertGroupRuleInput` via:
+//
+//	TmpAlertGroupRuleArgs{...}
+type TmpAlertGroupRuleInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupRuleOutput() TmpAlertGroupRuleOutput
+	ToTmpAlertGroupRuleOutputWithContext(context.Context) TmpAlertGroupRuleOutput
+}
+
+type TmpAlertGroupRuleArgs struct {
+	Annotations pulumi.MapInput       `pulumi:"annotations"`
+	Duration    pulumi.StringPtrInput `pulumi:"duration"`
+	Expr        pulumi.StringPtrInput `pulumi:"expr"`
+	Labels      pulumi.MapInput       `pulumi:"labels"`
+	RuleName    pulumi.StringPtrInput `pulumi:"ruleName"`
+	State       pulumi.IntPtrInput    `pulumi:"state"`
+}
+
+func (TmpAlertGroupRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupRule)(nil)).Elem()
+}
+
+func (i TmpAlertGroupRuleArgs) ToTmpAlertGroupRuleOutput() TmpAlertGroupRuleOutput {
+	return i.ToTmpAlertGroupRuleOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupRuleArgs) ToTmpAlertGroupRuleOutputWithContext(ctx context.Context) TmpAlertGroupRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupRuleOutput)
+}
+
+// TmpAlertGroupRuleArrayInput is an input type that accepts TmpAlertGroupRuleArray and TmpAlertGroupRuleArrayOutput values.
+// You can construct a concrete instance of `TmpAlertGroupRuleArrayInput` via:
+//
+//	TmpAlertGroupRuleArray{ TmpAlertGroupRuleArgs{...} }
+type TmpAlertGroupRuleArrayInput interface {
+	pulumi.Input
+
+	ToTmpAlertGroupRuleArrayOutput() TmpAlertGroupRuleArrayOutput
+	ToTmpAlertGroupRuleArrayOutputWithContext(context.Context) TmpAlertGroupRuleArrayOutput
+}
+
+type TmpAlertGroupRuleArray []TmpAlertGroupRuleInput
+
+func (TmpAlertGroupRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TmpAlertGroupRule)(nil)).Elem()
+}
+
+func (i TmpAlertGroupRuleArray) ToTmpAlertGroupRuleArrayOutput() TmpAlertGroupRuleArrayOutput {
+	return i.ToTmpAlertGroupRuleArrayOutputWithContext(context.Background())
+}
+
+func (i TmpAlertGroupRuleArray) ToTmpAlertGroupRuleArrayOutputWithContext(ctx context.Context) TmpAlertGroupRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TmpAlertGroupRuleArrayOutput)
+}
+
+type TmpAlertGroupRuleOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TmpAlertGroupRule)(nil)).Elem()
+}
+
+func (o TmpAlertGroupRuleOutput) ToTmpAlertGroupRuleOutput() TmpAlertGroupRuleOutput {
+	return o
+}
+
+func (o TmpAlertGroupRuleOutput) ToTmpAlertGroupRuleOutputWithContext(ctx context.Context) TmpAlertGroupRuleOutput {
+	return o
+}
+
+func (o TmpAlertGroupRuleOutput) Annotations() pulumi.MapOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) map[string]interface{} { return v.Annotations }).(pulumi.MapOutput)
+}
+
+func (o TmpAlertGroupRuleOutput) Duration() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) *string { return v.Duration }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupRuleOutput) Expr() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) *string { return v.Expr }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupRuleOutput) Labels() pulumi.MapOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) map[string]interface{} { return v.Labels }).(pulumi.MapOutput)
+}
+
+func (o TmpAlertGroupRuleOutput) RuleName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) *string { return v.RuleName }).(pulumi.StringPtrOutput)
+}
+
+func (o TmpAlertGroupRuleOutput) State() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v TmpAlertGroupRule) *int { return v.State }).(pulumi.IntPtrOutput)
+}
+
+type TmpAlertGroupRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (TmpAlertGroupRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]TmpAlertGroupRule)(nil)).Elem()
+}
+
+func (o TmpAlertGroupRuleArrayOutput) ToTmpAlertGroupRuleArrayOutput() TmpAlertGroupRuleArrayOutput {
+	return o
+}
+
+func (o TmpAlertGroupRuleArrayOutput) ToTmpAlertGroupRuleArrayOutputWithContext(ctx context.Context) TmpAlertGroupRuleArrayOutput {
+	return o
+}
+
+func (o TmpAlertGroupRuleArrayOutput) Index(i pulumi.IntInput) TmpAlertGroupRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) TmpAlertGroupRule {
+		return vs[0].([]TmpAlertGroupRule)[vs[1].(int)]
+	}).(TmpAlertGroupRuleOutput)
+}
+
 type TmpAlertRuleAnnotation struct {
 	Key   string `pulumi:"key"`
 	Value string `pulumi:"value"`
@@ -3201,6 +3620,7 @@ type TmpTkeClusterAgentAgents struct {
 	InClusterPodConfig    *TmpTkeClusterAgentAgentsInClusterPodConfig `pulumi:"inClusterPodConfig"`
 	NotInstallBasicScrape *bool                                       `pulumi:"notInstallBasicScrape"`
 	NotScrape             *bool                                       `pulumi:"notScrape"`
+	OpenDefaultRecord     *bool                                       `pulumi:"openDefaultRecord"`
 	Region                string                                      `pulumi:"region"`
 	Status                *string                                     `pulumi:"status"`
 }
@@ -3225,6 +3645,7 @@ type TmpTkeClusterAgentAgentsArgs struct {
 	InClusterPodConfig    TmpTkeClusterAgentAgentsInClusterPodConfigPtrInput `pulumi:"inClusterPodConfig"`
 	NotInstallBasicScrape pulumi.BoolPtrInput                                `pulumi:"notInstallBasicScrape"`
 	NotScrape             pulumi.BoolPtrInput                                `pulumi:"notScrape"`
+	OpenDefaultRecord     pulumi.BoolPtrInput                                `pulumi:"openDefaultRecord"`
 	Region                pulumi.StringInput                                 `pulumi:"region"`
 	Status                pulumi.StringPtrInput                              `pulumi:"status"`
 }
@@ -3340,6 +3761,10 @@ func (o TmpTkeClusterAgentAgentsOutput) NotScrape() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v TmpTkeClusterAgentAgents) *bool { return v.NotScrape }).(pulumi.BoolPtrOutput)
 }
 
+func (o TmpTkeClusterAgentAgentsOutput) OpenDefaultRecord() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v TmpTkeClusterAgentAgents) *bool { return v.OpenDefaultRecord }).(pulumi.BoolPtrOutput)
+}
+
 func (o TmpTkeClusterAgentAgentsOutput) Region() pulumi.StringOutput {
 	return o.ApplyT(func(v TmpTkeClusterAgentAgents) string { return v.Region }).(pulumi.StringOutput)
 }
@@ -3441,6 +3866,15 @@ func (o TmpTkeClusterAgentAgentsPtrOutput) NotScrape() pulumi.BoolPtrOutput {
 			return nil
 		}
 		return v.NotScrape
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o TmpTkeClusterAgentAgentsPtrOutput) OpenDefaultRecord() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *TmpTkeClusterAgentAgents) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.OpenDefaultRecord
 	}).(pulumi.BoolPtrOutput)
 }
 
@@ -15828,6 +16262,600 @@ func (o GetStatisticDataDataPointValueArrayOutput) Index(i pulumi.IntInput) GetS
 	}).(GetStatisticDataDataPointValueOutput)
 }
 
+type GetTmpInstancesInstanceSet struct {
+	AlertRuleLimit     int                                          `pulumi:"alertRuleLimit"`
+	ApiRootPath        string                                       `pulumi:"apiRootPath"`
+	AuthToken          string                                       `pulumi:"authToken"`
+	AutoRenewFlag      int                                          `pulumi:"autoRenewFlag"`
+	ChargeStatus       int                                          `pulumi:"chargeStatus"`
+	CreatedAt          string                                       `pulumi:"createdAt"`
+	DataRetentionTime  int                                          `pulumi:"dataRetentionTime"`
+	EnableGrafana      int                                          `pulumi:"enableGrafana"`
+	ExpireTime         string                                       `pulumi:"expireTime"`
+	GrafanaInstanceId  string                                       `pulumi:"grafanaInstanceId"`
+	GrafanaIpWhiteList string                                       `pulumi:"grafanaIpWhiteList"`
+	GrafanaStatus      int                                          `pulumi:"grafanaStatus"`
+	GrafanaUrl         string                                       `pulumi:"grafanaUrl"`
+	Grants             []GetTmpInstancesInstanceSetGrant            `pulumi:"grants"`
+	InstanceChargeType int                                          `pulumi:"instanceChargeType"`
+	InstanceId         string                                       `pulumi:"instanceId"`
+	InstanceName       string                                       `pulumi:"instanceName"`
+	InstanceStatus     int                                          `pulumi:"instanceStatus"`
+	Ipv4Address        string                                       `pulumi:"ipv4Address"`
+	IsNearExpire       int                                          `pulumi:"isNearExpire"`
+	MigrationType      int                                          `pulumi:"migrationType"`
+	ProxyAddress       string                                       `pulumi:"proxyAddress"`
+	RecordingRuleLimit int                                          `pulumi:"recordingRuleLimit"`
+	RegionId           int                                          `pulumi:"regionId"`
+	RemoteWrite        string                                       `pulumi:"remoteWrite"`
+	SpecName           string                                       `pulumi:"specName"`
+	SubnetId           string                                       `pulumi:"subnetId"`
+	TagSpecifications  []GetTmpInstancesInstanceSetTagSpecification `pulumi:"tagSpecifications"`
+	VpcId              string                                       `pulumi:"vpcId"`
+	Zone               string                                       `pulumi:"zone"`
+}
+
+// GetTmpInstancesInstanceSetInput is an input type that accepts GetTmpInstancesInstanceSetArgs and GetTmpInstancesInstanceSetOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetInput` via:
+//
+//	GetTmpInstancesInstanceSetArgs{...}
+type GetTmpInstancesInstanceSetInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetOutput() GetTmpInstancesInstanceSetOutput
+	ToGetTmpInstancesInstanceSetOutputWithContext(context.Context) GetTmpInstancesInstanceSetOutput
+}
+
+type GetTmpInstancesInstanceSetArgs struct {
+	AlertRuleLimit     pulumi.IntInput                                      `pulumi:"alertRuleLimit"`
+	ApiRootPath        pulumi.StringInput                                   `pulumi:"apiRootPath"`
+	AuthToken          pulumi.StringInput                                   `pulumi:"authToken"`
+	AutoRenewFlag      pulumi.IntInput                                      `pulumi:"autoRenewFlag"`
+	ChargeStatus       pulumi.IntInput                                      `pulumi:"chargeStatus"`
+	CreatedAt          pulumi.StringInput                                   `pulumi:"createdAt"`
+	DataRetentionTime  pulumi.IntInput                                      `pulumi:"dataRetentionTime"`
+	EnableGrafana      pulumi.IntInput                                      `pulumi:"enableGrafana"`
+	ExpireTime         pulumi.StringInput                                   `pulumi:"expireTime"`
+	GrafanaInstanceId  pulumi.StringInput                                   `pulumi:"grafanaInstanceId"`
+	GrafanaIpWhiteList pulumi.StringInput                                   `pulumi:"grafanaIpWhiteList"`
+	GrafanaStatus      pulumi.IntInput                                      `pulumi:"grafanaStatus"`
+	GrafanaUrl         pulumi.StringInput                                   `pulumi:"grafanaUrl"`
+	Grants             GetTmpInstancesInstanceSetGrantArrayInput            `pulumi:"grants"`
+	InstanceChargeType pulumi.IntInput                                      `pulumi:"instanceChargeType"`
+	InstanceId         pulumi.StringInput                                   `pulumi:"instanceId"`
+	InstanceName       pulumi.StringInput                                   `pulumi:"instanceName"`
+	InstanceStatus     pulumi.IntInput                                      `pulumi:"instanceStatus"`
+	Ipv4Address        pulumi.StringInput                                   `pulumi:"ipv4Address"`
+	IsNearExpire       pulumi.IntInput                                      `pulumi:"isNearExpire"`
+	MigrationType      pulumi.IntInput                                      `pulumi:"migrationType"`
+	ProxyAddress       pulumi.StringInput                                   `pulumi:"proxyAddress"`
+	RecordingRuleLimit pulumi.IntInput                                      `pulumi:"recordingRuleLimit"`
+	RegionId           pulumi.IntInput                                      `pulumi:"regionId"`
+	RemoteWrite        pulumi.StringInput                                   `pulumi:"remoteWrite"`
+	SpecName           pulumi.StringInput                                   `pulumi:"specName"`
+	SubnetId           pulumi.StringInput                                   `pulumi:"subnetId"`
+	TagSpecifications  GetTmpInstancesInstanceSetTagSpecificationArrayInput `pulumi:"tagSpecifications"`
+	VpcId              pulumi.StringInput                                   `pulumi:"vpcId"`
+	Zone               pulumi.StringInput                                   `pulumi:"zone"`
+}
+
+func (GetTmpInstancesInstanceSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSet)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetArgs) ToGetTmpInstancesInstanceSetOutput() GetTmpInstancesInstanceSetOutput {
+	return i.ToGetTmpInstancesInstanceSetOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetArgs) ToGetTmpInstancesInstanceSetOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetOutput)
+}
+
+// GetTmpInstancesInstanceSetArrayInput is an input type that accepts GetTmpInstancesInstanceSetArray and GetTmpInstancesInstanceSetArrayOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetArrayInput` via:
+//
+//	GetTmpInstancesInstanceSetArray{ GetTmpInstancesInstanceSetArgs{...} }
+type GetTmpInstancesInstanceSetArrayInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetArrayOutput() GetTmpInstancesInstanceSetArrayOutput
+	ToGetTmpInstancesInstanceSetArrayOutputWithContext(context.Context) GetTmpInstancesInstanceSetArrayOutput
+}
+
+type GetTmpInstancesInstanceSetArray []GetTmpInstancesInstanceSetInput
+
+func (GetTmpInstancesInstanceSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSet)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetArray) ToGetTmpInstancesInstanceSetArrayOutput() GetTmpInstancesInstanceSetArrayOutput {
+	return i.ToGetTmpInstancesInstanceSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetArray) ToGetTmpInstancesInstanceSetArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetArrayOutput)
+}
+
+type GetTmpInstancesInstanceSetOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSet)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ToGetTmpInstancesInstanceSetOutput() GetTmpInstancesInstanceSetOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ToGetTmpInstancesInstanceSetOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetOutput) AlertRuleLimit() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.AlertRuleLimit }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ApiRootPath() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.ApiRootPath }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) AuthToken() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.AuthToken }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) AutoRenewFlag() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.AutoRenewFlag }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ChargeStatus() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.ChargeStatus }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) CreatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) DataRetentionTime() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.DataRetentionTime }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) EnableGrafana() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.EnableGrafana }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ExpireTime() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.ExpireTime }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) GrafanaInstanceId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.GrafanaInstanceId }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) GrafanaIpWhiteList() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.GrafanaIpWhiteList }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) GrafanaStatus() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.GrafanaStatus }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) GrafanaUrl() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.GrafanaUrl }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) Grants() GetTmpInstancesInstanceSetGrantArrayOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) []GetTmpInstancesInstanceSetGrant { return v.Grants }).(GetTmpInstancesInstanceSetGrantArrayOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) InstanceChargeType() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.InstanceChargeType }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) InstanceId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.InstanceId }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) InstanceName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.InstanceName }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) InstanceStatus() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.InstanceStatus }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) Ipv4Address() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.Ipv4Address }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) IsNearExpire() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.IsNearExpire }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) MigrationType() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.MigrationType }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) ProxyAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.ProxyAddress }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) RecordingRuleLimit() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.RecordingRuleLimit }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) RegionId() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) int { return v.RegionId }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) RemoteWrite() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.RemoteWrite }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) SpecName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.SpecName }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) SubnetId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.SubnetId }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) TagSpecifications() GetTmpInstancesInstanceSetTagSpecificationArrayOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) []GetTmpInstancesInstanceSetTagSpecification {
+		return v.TagSpecifications
+	}).(GetTmpInstancesInstanceSetTagSpecificationArrayOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) VpcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.VpcId }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetOutput) Zone() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSet) string { return v.Zone }).(pulumi.StringOutput)
+}
+
+type GetTmpInstancesInstanceSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSet)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetArrayOutput) ToGetTmpInstancesInstanceSetArrayOutput() GetTmpInstancesInstanceSetArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetArrayOutput) ToGetTmpInstancesInstanceSetArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetArrayOutput) Index(i pulumi.IntInput) GetTmpInstancesInstanceSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTmpInstancesInstanceSet {
+		return vs[0].([]GetTmpInstancesInstanceSet)[vs[1].(int)]
+	}).(GetTmpInstancesInstanceSetOutput)
+}
+
+type GetTmpInstancesInstanceSetGrant struct {
+	HasAgentManage         int `pulumi:"hasAgentManage"`
+	HasApiOperation        int `pulumi:"hasApiOperation"`
+	HasChargeOperation     int `pulumi:"hasChargeOperation"`
+	HasGrafanaStatusChange int `pulumi:"hasGrafanaStatusChange"`
+	HasTkeManage           int `pulumi:"hasTkeManage"`
+	HasVpcDisplay          int `pulumi:"hasVpcDisplay"`
+}
+
+// GetTmpInstancesInstanceSetGrantInput is an input type that accepts GetTmpInstancesInstanceSetGrantArgs and GetTmpInstancesInstanceSetGrantOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetGrantInput` via:
+//
+//	GetTmpInstancesInstanceSetGrantArgs{...}
+type GetTmpInstancesInstanceSetGrantInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetGrantOutput() GetTmpInstancesInstanceSetGrantOutput
+	ToGetTmpInstancesInstanceSetGrantOutputWithContext(context.Context) GetTmpInstancesInstanceSetGrantOutput
+}
+
+type GetTmpInstancesInstanceSetGrantArgs struct {
+	HasAgentManage         pulumi.IntInput `pulumi:"hasAgentManage"`
+	HasApiOperation        pulumi.IntInput `pulumi:"hasApiOperation"`
+	HasChargeOperation     pulumi.IntInput `pulumi:"hasChargeOperation"`
+	HasGrafanaStatusChange pulumi.IntInput `pulumi:"hasGrafanaStatusChange"`
+	HasTkeManage           pulumi.IntInput `pulumi:"hasTkeManage"`
+	HasVpcDisplay          pulumi.IntInput `pulumi:"hasVpcDisplay"`
+}
+
+func (GetTmpInstancesInstanceSetGrantArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSetGrant)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetGrantArgs) ToGetTmpInstancesInstanceSetGrantOutput() GetTmpInstancesInstanceSetGrantOutput {
+	return i.ToGetTmpInstancesInstanceSetGrantOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetGrantArgs) ToGetTmpInstancesInstanceSetGrantOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetGrantOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetGrantOutput)
+}
+
+// GetTmpInstancesInstanceSetGrantArrayInput is an input type that accepts GetTmpInstancesInstanceSetGrantArray and GetTmpInstancesInstanceSetGrantArrayOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetGrantArrayInput` via:
+//
+//	GetTmpInstancesInstanceSetGrantArray{ GetTmpInstancesInstanceSetGrantArgs{...} }
+type GetTmpInstancesInstanceSetGrantArrayInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetGrantArrayOutput() GetTmpInstancesInstanceSetGrantArrayOutput
+	ToGetTmpInstancesInstanceSetGrantArrayOutputWithContext(context.Context) GetTmpInstancesInstanceSetGrantArrayOutput
+}
+
+type GetTmpInstancesInstanceSetGrantArray []GetTmpInstancesInstanceSetGrantInput
+
+func (GetTmpInstancesInstanceSetGrantArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSetGrant)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetGrantArray) ToGetTmpInstancesInstanceSetGrantArrayOutput() GetTmpInstancesInstanceSetGrantArrayOutput {
+	return i.ToGetTmpInstancesInstanceSetGrantArrayOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetGrantArray) ToGetTmpInstancesInstanceSetGrantArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetGrantArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetGrantArrayOutput)
+}
+
+type GetTmpInstancesInstanceSetGrantOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetGrantOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSetGrant)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) ToGetTmpInstancesInstanceSetGrantOutput() GetTmpInstancesInstanceSetGrantOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) ToGetTmpInstancesInstanceSetGrantOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetGrantOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasAgentManage() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasAgentManage }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasApiOperation() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasApiOperation }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasChargeOperation() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasChargeOperation }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasGrafanaStatusChange() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasGrafanaStatusChange }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasTkeManage() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasTkeManage }).(pulumi.IntOutput)
+}
+
+func (o GetTmpInstancesInstanceSetGrantOutput) HasVpcDisplay() pulumi.IntOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetGrant) int { return v.HasVpcDisplay }).(pulumi.IntOutput)
+}
+
+type GetTmpInstancesInstanceSetGrantArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetGrantArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSetGrant)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetGrantArrayOutput) ToGetTmpInstancesInstanceSetGrantArrayOutput() GetTmpInstancesInstanceSetGrantArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetGrantArrayOutput) ToGetTmpInstancesInstanceSetGrantArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetGrantArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetGrantArrayOutput) Index(i pulumi.IntInput) GetTmpInstancesInstanceSetGrantOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTmpInstancesInstanceSetGrant {
+		return vs[0].([]GetTmpInstancesInstanceSetGrant)[vs[1].(int)]
+	}).(GetTmpInstancesInstanceSetGrantOutput)
+}
+
+type GetTmpInstancesInstanceSetTagSpecification struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// GetTmpInstancesInstanceSetTagSpecificationInput is an input type that accepts GetTmpInstancesInstanceSetTagSpecificationArgs and GetTmpInstancesInstanceSetTagSpecificationOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetTagSpecificationInput` via:
+//
+//	GetTmpInstancesInstanceSetTagSpecificationArgs{...}
+type GetTmpInstancesInstanceSetTagSpecificationInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetTagSpecificationOutput() GetTmpInstancesInstanceSetTagSpecificationOutput
+	ToGetTmpInstancesInstanceSetTagSpecificationOutputWithContext(context.Context) GetTmpInstancesInstanceSetTagSpecificationOutput
+}
+
+type GetTmpInstancesInstanceSetTagSpecificationArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetTmpInstancesInstanceSetTagSpecificationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSetTagSpecification)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetTagSpecificationArgs) ToGetTmpInstancesInstanceSetTagSpecificationOutput() GetTmpInstancesInstanceSetTagSpecificationOutput {
+	return i.ToGetTmpInstancesInstanceSetTagSpecificationOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetTagSpecificationArgs) ToGetTmpInstancesInstanceSetTagSpecificationOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetTagSpecificationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetTagSpecificationOutput)
+}
+
+// GetTmpInstancesInstanceSetTagSpecificationArrayInput is an input type that accepts GetTmpInstancesInstanceSetTagSpecificationArray and GetTmpInstancesInstanceSetTagSpecificationArrayOutput values.
+// You can construct a concrete instance of `GetTmpInstancesInstanceSetTagSpecificationArrayInput` via:
+//
+//	GetTmpInstancesInstanceSetTagSpecificationArray{ GetTmpInstancesInstanceSetTagSpecificationArgs{...} }
+type GetTmpInstancesInstanceSetTagSpecificationArrayInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesInstanceSetTagSpecificationArrayOutput() GetTmpInstancesInstanceSetTagSpecificationArrayOutput
+	ToGetTmpInstancesInstanceSetTagSpecificationArrayOutputWithContext(context.Context) GetTmpInstancesInstanceSetTagSpecificationArrayOutput
+}
+
+type GetTmpInstancesInstanceSetTagSpecificationArray []GetTmpInstancesInstanceSetTagSpecificationInput
+
+func (GetTmpInstancesInstanceSetTagSpecificationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSetTagSpecification)(nil)).Elem()
+}
+
+func (i GetTmpInstancesInstanceSetTagSpecificationArray) ToGetTmpInstancesInstanceSetTagSpecificationArrayOutput() GetTmpInstancesInstanceSetTagSpecificationArrayOutput {
+	return i.ToGetTmpInstancesInstanceSetTagSpecificationArrayOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesInstanceSetTagSpecificationArray) ToGetTmpInstancesInstanceSetTagSpecificationArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetTagSpecificationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesInstanceSetTagSpecificationArrayOutput)
+}
+
+type GetTmpInstancesInstanceSetTagSpecificationOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetTagSpecificationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesInstanceSetTagSpecification)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationOutput) ToGetTmpInstancesInstanceSetTagSpecificationOutput() GetTmpInstancesInstanceSetTagSpecificationOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationOutput) ToGetTmpInstancesInstanceSetTagSpecificationOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetTagSpecificationOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetTagSpecification) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesInstanceSetTagSpecification) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetTmpInstancesInstanceSetTagSpecificationArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesInstanceSetTagSpecificationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesInstanceSetTagSpecification)(nil)).Elem()
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationArrayOutput) ToGetTmpInstancesInstanceSetTagSpecificationArrayOutput() GetTmpInstancesInstanceSetTagSpecificationArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationArrayOutput) ToGetTmpInstancesInstanceSetTagSpecificationArrayOutputWithContext(ctx context.Context) GetTmpInstancesInstanceSetTagSpecificationArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesInstanceSetTagSpecificationArrayOutput) Index(i pulumi.IntInput) GetTmpInstancesInstanceSetTagSpecificationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTmpInstancesInstanceSetTagSpecification {
+		return vs[0].([]GetTmpInstancesInstanceSetTagSpecification)[vs[1].(int)]
+	}).(GetTmpInstancesInstanceSetTagSpecificationOutput)
+}
+
+type GetTmpInstancesTagFilter struct {
+	Key   string `pulumi:"key"`
+	Value string `pulumi:"value"`
+}
+
+// GetTmpInstancesTagFilterInput is an input type that accepts GetTmpInstancesTagFilterArgs and GetTmpInstancesTagFilterOutput values.
+// You can construct a concrete instance of `GetTmpInstancesTagFilterInput` via:
+//
+//	GetTmpInstancesTagFilterArgs{...}
+type GetTmpInstancesTagFilterInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesTagFilterOutput() GetTmpInstancesTagFilterOutput
+	ToGetTmpInstancesTagFilterOutputWithContext(context.Context) GetTmpInstancesTagFilterOutput
+}
+
+type GetTmpInstancesTagFilterArgs struct {
+	Key   pulumi.StringInput `pulumi:"key"`
+	Value pulumi.StringInput `pulumi:"value"`
+}
+
+func (GetTmpInstancesTagFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesTagFilter)(nil)).Elem()
+}
+
+func (i GetTmpInstancesTagFilterArgs) ToGetTmpInstancesTagFilterOutput() GetTmpInstancesTagFilterOutput {
+	return i.ToGetTmpInstancesTagFilterOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesTagFilterArgs) ToGetTmpInstancesTagFilterOutputWithContext(ctx context.Context) GetTmpInstancesTagFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesTagFilterOutput)
+}
+
+// GetTmpInstancesTagFilterArrayInput is an input type that accepts GetTmpInstancesTagFilterArray and GetTmpInstancesTagFilterArrayOutput values.
+// You can construct a concrete instance of `GetTmpInstancesTagFilterArrayInput` via:
+//
+//	GetTmpInstancesTagFilterArray{ GetTmpInstancesTagFilterArgs{...} }
+type GetTmpInstancesTagFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetTmpInstancesTagFilterArrayOutput() GetTmpInstancesTagFilterArrayOutput
+	ToGetTmpInstancesTagFilterArrayOutputWithContext(context.Context) GetTmpInstancesTagFilterArrayOutput
+}
+
+type GetTmpInstancesTagFilterArray []GetTmpInstancesTagFilterInput
+
+func (GetTmpInstancesTagFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesTagFilter)(nil)).Elem()
+}
+
+func (i GetTmpInstancesTagFilterArray) ToGetTmpInstancesTagFilterArrayOutput() GetTmpInstancesTagFilterArrayOutput {
+	return i.ToGetTmpInstancesTagFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetTmpInstancesTagFilterArray) ToGetTmpInstancesTagFilterArrayOutputWithContext(ctx context.Context) GetTmpInstancesTagFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetTmpInstancesTagFilterArrayOutput)
+}
+
+type GetTmpInstancesTagFilterOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesTagFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetTmpInstancesTagFilter)(nil)).Elem()
+}
+
+func (o GetTmpInstancesTagFilterOutput) ToGetTmpInstancesTagFilterOutput() GetTmpInstancesTagFilterOutput {
+	return o
+}
+
+func (o GetTmpInstancesTagFilterOutput) ToGetTmpInstancesTagFilterOutputWithContext(ctx context.Context) GetTmpInstancesTagFilterOutput {
+	return o
+}
+
+func (o GetTmpInstancesTagFilterOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesTagFilter) string { return v.Key }).(pulumi.StringOutput)
+}
+
+func (o GetTmpInstancesTagFilterOutput) Value() pulumi.StringOutput {
+	return o.ApplyT(func(v GetTmpInstancesTagFilter) string { return v.Value }).(pulumi.StringOutput)
+}
+
+type GetTmpInstancesTagFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetTmpInstancesTagFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetTmpInstancesTagFilter)(nil)).Elem()
+}
+
+func (o GetTmpInstancesTagFilterArrayOutput) ToGetTmpInstancesTagFilterArrayOutput() GetTmpInstancesTagFilterArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesTagFilterArrayOutput) ToGetTmpInstancesTagFilterArrayOutputWithContext(ctx context.Context) GetTmpInstancesTagFilterArrayOutput {
+	return o
+}
+
+func (o GetTmpInstancesTagFilterArrayOutput) Index(i pulumi.IntInput) GetTmpInstancesTagFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetTmpInstancesTagFilter {
+		return vs[0].([]GetTmpInstancesTagFilter)[vs[1].(int)]
+	}).(GetTmpInstancesTagFilterOutput)
+}
+
 type GetTmpRegionsRegionSet struct {
 	Area            string `pulumi:"area"`
 	Region          string `pulumi:"region"`
@@ -15987,6 +17015,12 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GrafanaSsoAccountRoleArrayInput)(nil)).Elem(), GrafanaSsoAccountRoleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PolicyBindingObjectDimensionInput)(nil)).Elem(), PolicyBindingObjectDimensionArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PolicyBindingObjectDimensionArrayInput)(nil)).Elem(), PolicyBindingObjectDimensionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupCustomReceiverInput)(nil)).Elem(), TmpAlertGroupCustomReceiverArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupCustomReceiverPtrInput)(nil)).Elem(), TmpAlertGroupCustomReceiverArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupCustomReceiverAllowedTimeRangeInput)(nil)).Elem(), TmpAlertGroupCustomReceiverAllowedTimeRangeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupCustomReceiverAllowedTimeRangeArrayInput)(nil)).Elem(), TmpAlertGroupCustomReceiverAllowedTimeRangeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupRuleInput)(nil)).Elem(), TmpAlertGroupRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertGroupRuleArrayInput)(nil)).Elem(), TmpAlertGroupRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertRuleAnnotationInput)(nil)).Elem(), TmpAlertRuleAnnotationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertRuleAnnotationArrayInput)(nil)).Elem(), TmpAlertRuleAnnotationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*TmpAlertRuleLabelInput)(nil)).Elem(), TmpAlertRuleLabelArgs{})
@@ -16191,6 +17225,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetStatisticDataDataPointDimensionArrayInput)(nil)).Elem(), GetStatisticDataDataPointDimensionArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetStatisticDataDataPointValueInput)(nil)).Elem(), GetStatisticDataDataPointValueArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetStatisticDataDataPointValueArrayInput)(nil)).Elem(), GetStatisticDataDataPointValueArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetInput)(nil)).Elem(), GetTmpInstancesInstanceSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetArrayInput)(nil)).Elem(), GetTmpInstancesInstanceSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetGrantInput)(nil)).Elem(), GetTmpInstancesInstanceSetGrantArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetGrantArrayInput)(nil)).Elem(), GetTmpInstancesInstanceSetGrantArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetTagSpecificationInput)(nil)).Elem(), GetTmpInstancesInstanceSetTagSpecificationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesInstanceSetTagSpecificationArrayInput)(nil)).Elem(), GetTmpInstancesInstanceSetTagSpecificationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesTagFilterInput)(nil)).Elem(), GetTmpInstancesTagFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpInstancesTagFilterArrayInput)(nil)).Elem(), GetTmpInstancesTagFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpRegionsRegionSetInput)(nil)).Elem(), GetTmpRegionsRegionSetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetTmpRegionsRegionSetArrayInput)(nil)).Elem(), GetTmpRegionsRegionSetArray{})
 	pulumi.RegisterOutputType(AlarmNoticeClsNoticeOutput{})
@@ -16221,6 +17263,12 @@ func init() {
 	pulumi.RegisterOutputType(GrafanaSsoAccountRoleArrayOutput{})
 	pulumi.RegisterOutputType(PolicyBindingObjectDimensionOutput{})
 	pulumi.RegisterOutputType(PolicyBindingObjectDimensionArrayOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupCustomReceiverOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupCustomReceiverPtrOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupCustomReceiverAllowedTimeRangeOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupCustomReceiverAllowedTimeRangeArrayOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupRuleOutput{})
+	pulumi.RegisterOutputType(TmpAlertGroupRuleArrayOutput{})
 	pulumi.RegisterOutputType(TmpAlertRuleAnnotationOutput{})
 	pulumi.RegisterOutputType(TmpAlertRuleAnnotationArrayOutput{})
 	pulumi.RegisterOutputType(TmpAlertRuleLabelOutput{})
@@ -16425,6 +17473,14 @@ func init() {
 	pulumi.RegisterOutputType(GetStatisticDataDataPointDimensionArrayOutput{})
 	pulumi.RegisterOutputType(GetStatisticDataDataPointValueOutput{})
 	pulumi.RegisterOutputType(GetStatisticDataDataPointValueArrayOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetArrayOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetGrantOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetGrantArrayOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetTagSpecificationOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesInstanceSetTagSpecificationArrayOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesTagFilterOutput{})
+	pulumi.RegisterOutputType(GetTmpInstancesTagFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetTmpRegionsRegionSetOutput{})
 	pulumi.RegisterOutputType(GetTmpRegionsRegionSetArrayOutput{})
 }

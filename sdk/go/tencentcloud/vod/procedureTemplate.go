@@ -14,6 +14,10 @@ import (
 type ProcedureTemplate struct {
 	pulumi.CustomResourceState
 
+	// Parameter of AI-based content analysis task.
+	AiAnalysisTask ProcedureTemplateAiAnalysisTaskOutput `pulumi:"aiAnalysisTask"`
+	// Type parameter of AI-based content recognition task.
+	AiRecognitionTask ProcedureTemplateAiRecognitionTaskOutput `pulumi:"aiRecognitionTask"`
 	// Template description. Length limit: 256 characters.
 	Comment pulumi.StringPtrOutput `pulumi:"comment"`
 	// Creation time of template in ISO date format.
@@ -22,9 +26,14 @@ type ProcedureTemplate struct {
 	MediaProcessTask ProcedureTemplateMediaProcessTaskPtrOutput `pulumi:"mediaProcessTask"`
 	// Task flow name (up to 20 characters).
 	Name pulumi.StringOutput `pulumi:"name"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// Type parameter of AI-based content recognition task.
+	ReviewAudioVideoTask ProcedureTemplateReviewAudioVideoTaskOutput `pulumi:"reviewAudioVideoTask"`
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrOutput `pulumi:"subAppId"`
+	// Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+	Type pulumi.StringOutput `pulumi:"type"`
 	// Last modified time of template in ISO date format.
 	UpdateTime pulumi.StringOutput `pulumi:"updateTime"`
 }
@@ -59,6 +68,10 @@ func GetProcedureTemplate(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering ProcedureTemplate resources.
 type procedureTemplateState struct {
+	// Parameter of AI-based content analysis task.
+	AiAnalysisTask *ProcedureTemplateAiAnalysisTask `pulumi:"aiAnalysisTask"`
+	// Type parameter of AI-based content recognition task.
+	AiRecognitionTask *ProcedureTemplateAiRecognitionTask `pulumi:"aiRecognitionTask"`
 	// Template description. Length limit: 256 characters.
 	Comment *string `pulumi:"comment"`
 	// Creation time of template in ISO date format.
@@ -67,14 +80,23 @@ type procedureTemplateState struct {
 	MediaProcessTask *ProcedureTemplateMediaProcessTask `pulumi:"mediaProcessTask"`
 	// Task flow name (up to 20 characters).
 	Name *string `pulumi:"name"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// Type parameter of AI-based content recognition task.
+	ReviewAudioVideoTask *ProcedureTemplateReviewAudioVideoTask `pulumi:"reviewAudioVideoTask"`
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId *int `pulumi:"subAppId"`
+	// Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+	Type *string `pulumi:"type"`
 	// Last modified time of template in ISO date format.
 	UpdateTime *string `pulumi:"updateTime"`
 }
 
 type ProcedureTemplateState struct {
+	// Parameter of AI-based content analysis task.
+	AiAnalysisTask ProcedureTemplateAiAnalysisTaskPtrInput
+	// Type parameter of AI-based content recognition task.
+	AiRecognitionTask ProcedureTemplateAiRecognitionTaskPtrInput
 	// Template description. Length limit: 256 characters.
 	Comment pulumi.StringPtrInput
 	// Creation time of template in ISO date format.
@@ -83,9 +105,14 @@ type ProcedureTemplateState struct {
 	MediaProcessTask ProcedureTemplateMediaProcessTaskPtrInput
 	// Task flow name (up to 20 characters).
 	Name pulumi.StringPtrInput
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// Type parameter of AI-based content recognition task.
+	ReviewAudioVideoTask ProcedureTemplateReviewAudioVideoTaskPtrInput
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrInput
+	// Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+	Type pulumi.StringPtrInput
 	// Last modified time of template in ISO date format.
 	UpdateTime pulumi.StringPtrInput
 }
@@ -95,27 +122,41 @@ func (ProcedureTemplateState) ElementType() reflect.Type {
 }
 
 type procedureTemplateArgs struct {
+	// Parameter of AI-based content analysis task.
+	AiAnalysisTask *ProcedureTemplateAiAnalysisTask `pulumi:"aiAnalysisTask"`
+	// Type parameter of AI-based content recognition task.
+	AiRecognitionTask *ProcedureTemplateAiRecognitionTask `pulumi:"aiRecognitionTask"`
 	// Template description. Length limit: 256 characters.
 	Comment *string `pulumi:"comment"`
 	// Parameter of video processing task.
 	MediaProcessTask *ProcedureTemplateMediaProcessTask `pulumi:"mediaProcessTask"`
 	// Task flow name (up to 20 characters).
 	Name *string `pulumi:"name"`
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// Type parameter of AI-based content recognition task.
+	ReviewAudioVideoTask *ProcedureTemplateReviewAudioVideoTask `pulumi:"reviewAudioVideoTask"`
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId *int `pulumi:"subAppId"`
 }
 
 // The set of arguments for constructing a ProcedureTemplate resource.
 type ProcedureTemplateArgs struct {
+	// Parameter of AI-based content analysis task.
+	AiAnalysisTask ProcedureTemplateAiAnalysisTaskPtrInput
+	// Type parameter of AI-based content recognition task.
+	AiRecognitionTask ProcedureTemplateAiRecognitionTaskPtrInput
 	// Template description. Length limit: 256 characters.
 	Comment pulumi.StringPtrInput
 	// Parameter of video processing task.
 	MediaProcessTask ProcedureTemplateMediaProcessTaskPtrInput
 	// Task flow name (up to 20 characters).
 	Name pulumi.StringPtrInput
-	// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-	// field; otherwise, leave it empty.
+	// Type parameter of AI-based content recognition task.
+	ReviewAudioVideoTask ProcedureTemplateReviewAudioVideoTaskPtrInput
+	// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+	// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+	// application or a newly created one), they must fill in this field with the application ID.
 	SubAppId pulumi.IntPtrInput
 }
 
@@ -206,6 +247,16 @@ func (o ProcedureTemplateOutput) ToProcedureTemplateOutputWithContext(ctx contex
 	return o
 }
 
+// Parameter of AI-based content analysis task.
+func (o ProcedureTemplateOutput) AiAnalysisTask() ProcedureTemplateAiAnalysisTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplate) ProcedureTemplateAiAnalysisTaskOutput { return v.AiAnalysisTask }).(ProcedureTemplateAiAnalysisTaskOutput)
+}
+
+// Type parameter of AI-based content recognition task.
+func (o ProcedureTemplateOutput) AiRecognitionTask() ProcedureTemplateAiRecognitionTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplate) ProcedureTemplateAiRecognitionTaskOutput { return v.AiRecognitionTask }).(ProcedureTemplateAiRecognitionTaskOutput)
+}
+
 // Template description. Length limit: 256 characters.
 func (o ProcedureTemplateOutput) Comment() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProcedureTemplate) pulumi.StringPtrOutput { return v.Comment }).(pulumi.StringPtrOutput)
@@ -226,10 +277,21 @@ func (o ProcedureTemplateOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *ProcedureTemplate) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// Subapplication ID in VOD. If you need to access a resource in a subapplication, enter the subapplication ID in this
-// field; otherwise, leave it empty.
+// Type parameter of AI-based content recognition task.
+func (o ProcedureTemplateOutput) ReviewAudioVideoTask() ProcedureTemplateReviewAudioVideoTaskOutput {
+	return o.ApplyT(func(v *ProcedureTemplate) ProcedureTemplateReviewAudioVideoTaskOutput { return v.ReviewAudioVideoTask }).(ProcedureTemplateReviewAudioVideoTaskOutput)
+}
+
+// The VOD [application](https://intl.cloud.tencent.com/document/product/266/14574) ID. For customers who activate VOD
+// service from December 25, 2023, if they want to access resources in a VOD application (whether it's the default
+// application or a newly created one), they must fill in this field with the application ID.
 func (o ProcedureTemplateOutput) SubAppId() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ProcedureTemplate) pulumi.IntPtrOutput { return v.SubAppId }).(pulumi.IntPtrOutput)
+}
+
+// Template type, value range: - Preset: system preset template; - Custom: user-defined templates.
+func (o ProcedureTemplateOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *ProcedureTemplate) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
 // Last modified time of template in ISO date format.

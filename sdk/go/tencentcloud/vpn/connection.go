@@ -15,6 +15,8 @@ import (
 type Connection struct {
 	pulumi.CustomResourceState
 
+	// BGP config.
+	BgpConfig ConnectionBgpConfigOutput `pulumi:"bgpConfig"`
 	// Create time of the VPN connection.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// ID of the customer gateway.
@@ -30,6 +32,8 @@ type Connection struct {
 	EnableHealthCheck pulumi.BoolOutput `pulumi:"enableHealthCheck"`
 	// Encrypt proto of the VPN connection.
 	EncryptProto pulumi.StringOutput `pulumi:"encryptProto"`
+	// VPN channel health check configuration.
+	HealthCheckConfig ConnectionHealthCheckConfigOutput `pulumi:"healthCheckConfig"`
 	// Health check the address of this terminal.
 	HealthCheckLocalIp pulumi.StringOutput `pulumi:"healthCheckLocalIp"`
 	// Health check peer address.
@@ -43,7 +47,7 @@ type Connection struct {
 	// `public_ip_address` of the related VPN gateway.
 	IkeLocalAddress pulumi.StringPtrOutput `pulumi:"ikeLocalAddress"`
 	// Local FQDN name of the IKE operation specification.
-	IkeLocalFqdnName pulumi.StringPtrOutput `pulumi:"ikeLocalFqdnName"`
+	IkeLocalFqdnName pulumi.StringOutput `pulumi:"ikeLocalFqdnName"`
 	// Local identity way of IKE operation specification. Valid values: `ADDRESS`, `FQDN`. Default value is `ADDRESS`.
 	IkeLocalIdentity pulumi.StringPtrOutput `pulumi:"ikeLocalIdentity"`
 	// Proto authenticate algorithm of the IKE operation specification. Valid values: `MD5`, `SHA`, `SHA-256`. Default Value is
@@ -57,7 +61,7 @@ type Connection struct {
 	// `public_ip_address` of the related customer gateway.
 	IkeRemoteAddress pulumi.StringPtrOutput `pulumi:"ikeRemoteAddress"`
 	// Remote FQDN name of the IKE operation specification.
-	IkeRemoteFqdnName pulumi.StringPtrOutput `pulumi:"ikeRemoteFqdnName"`
+	IkeRemoteFqdnName pulumi.StringOutput `pulumi:"ikeRemoteFqdnName"`
 	// Remote identity way of IKE operation specification. Valid values: `ADDRESS`, `FQDN`. Default value is `ADDRESS`.
 	IkeRemoteIdentity pulumi.StringPtrOutput `pulumi:"ikeRemoteIdentity"`
 	// SA lifetime of the IKE operation specification, unit is `second`. The value ranges from 60 to 604800. Default value is
@@ -71,7 +75,8 @@ type Connection struct {
 	// Integrity algorithm of the IPSEC operation specification. Valid values: `SHA1`, `MD5`, `SHA-256`. Default value is
 	// `MD5`.
 	IpsecIntegrityAlgorithm pulumi.StringPtrOutput `pulumi:"ipsecIntegrityAlgorithm"`
-	// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+	// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+	// `NULL`.
 	IpsecPfsDhGroup pulumi.StringPtrOutput `pulumi:"ipsecPfsDhGroup"`
 	// SA lifetime of the IPSEC operation specification, unit is second. Valid value ranges: [180~604800]. Default value is
 	// 3600 seconds.
@@ -84,11 +89,14 @@ type Connection struct {
 	IsCcnType pulumi.BoolOutput `pulumi:"isCcnType"`
 	// Name of the VPN connection. The length of character is limited to 1-60.
 	Name pulumi.StringOutput `pulumi:"name"`
+	// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+	// negotiation), `flowTrigger` (traffic negotiation).
+	NegotiationType pulumi.StringOutput `pulumi:"negotiationType"`
 	// Net status of the VPN connection. Valid value: `AVAILABLE`.
 	NetStatus pulumi.StringOutput `pulumi:"netStatus"`
 	// Pre-shared key of the VPN connection.
 	PreShareKey pulumi.StringOutput `pulumi:"preShareKey"`
-	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 	RouteType pulumi.StringOutput `pulumi:"routeType"`
 	// SPD policy group, for example: {"10.0.0.5/24":["172.123.10.5/16"]}, 10.0.0.5/24 is the vpc intranet segment, and
 	// 172.123.10.5/16 is the IDC network segment. Users specify which network segments in the VPC can communicate with which
@@ -145,6 +153,8 @@ func GetConnection(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Connection resources.
 type connectionState struct {
+	// BGP config.
+	BgpConfig *ConnectionBgpConfig `pulumi:"bgpConfig"`
 	// Create time of the VPN connection.
 	CreateTime *string `pulumi:"createTime"`
 	// ID of the customer gateway.
@@ -160,6 +170,8 @@ type connectionState struct {
 	EnableHealthCheck *bool `pulumi:"enableHealthCheck"`
 	// Encrypt proto of the VPN connection.
 	EncryptProto *string `pulumi:"encryptProto"`
+	// VPN channel health check configuration.
+	HealthCheckConfig *ConnectionHealthCheckConfig `pulumi:"healthCheckConfig"`
 	// Health check the address of this terminal.
 	HealthCheckLocalIp *string `pulumi:"healthCheckLocalIp"`
 	// Health check peer address.
@@ -201,7 +213,8 @@ type connectionState struct {
 	// Integrity algorithm of the IPSEC operation specification. Valid values: `SHA1`, `MD5`, `SHA-256`. Default value is
 	// `MD5`.
 	IpsecIntegrityAlgorithm *string `pulumi:"ipsecIntegrityAlgorithm"`
-	// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+	// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+	// `NULL`.
 	IpsecPfsDhGroup *string `pulumi:"ipsecPfsDhGroup"`
 	// SA lifetime of the IPSEC operation specification, unit is second. Valid value ranges: [180~604800]. Default value is
 	// 3600 seconds.
@@ -214,11 +227,14 @@ type connectionState struct {
 	IsCcnType *bool `pulumi:"isCcnType"`
 	// Name of the VPN connection. The length of character is limited to 1-60.
 	Name *string `pulumi:"name"`
+	// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+	// negotiation), `flowTrigger` (traffic negotiation).
+	NegotiationType *string `pulumi:"negotiationType"`
 	// Net status of the VPN connection. Valid value: `AVAILABLE`.
 	NetStatus *string `pulumi:"netStatus"`
 	// Pre-shared key of the VPN connection.
 	PreShareKey *string `pulumi:"preShareKey"`
-	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 	RouteType *string `pulumi:"routeType"`
 	// SPD policy group, for example: {"10.0.0.5/24":["172.123.10.5/16"]}, 10.0.0.5/24 is the vpc intranet segment, and
 	// 172.123.10.5/16 is the IDC network segment. Users specify which network segments in the VPC can communicate with which
@@ -237,6 +253,8 @@ type connectionState struct {
 }
 
 type ConnectionState struct {
+	// BGP config.
+	BgpConfig ConnectionBgpConfigPtrInput
 	// Create time of the VPN connection.
 	CreateTime pulumi.StringPtrInput
 	// ID of the customer gateway.
@@ -252,6 +270,8 @@ type ConnectionState struct {
 	EnableHealthCheck pulumi.BoolPtrInput
 	// Encrypt proto of the VPN connection.
 	EncryptProto pulumi.StringPtrInput
+	// VPN channel health check configuration.
+	HealthCheckConfig ConnectionHealthCheckConfigPtrInput
 	// Health check the address of this terminal.
 	HealthCheckLocalIp pulumi.StringPtrInput
 	// Health check peer address.
@@ -293,7 +313,8 @@ type ConnectionState struct {
 	// Integrity algorithm of the IPSEC operation specification. Valid values: `SHA1`, `MD5`, `SHA-256`. Default value is
 	// `MD5`.
 	IpsecIntegrityAlgorithm pulumi.StringPtrInput
-	// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+	// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+	// `NULL`.
 	IpsecPfsDhGroup pulumi.StringPtrInput
 	// SA lifetime of the IPSEC operation specification, unit is second. Valid value ranges: [180~604800]. Default value is
 	// 3600 seconds.
@@ -306,11 +327,14 @@ type ConnectionState struct {
 	IsCcnType pulumi.BoolPtrInput
 	// Name of the VPN connection. The length of character is limited to 1-60.
 	Name pulumi.StringPtrInput
+	// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+	// negotiation), `flowTrigger` (traffic negotiation).
+	NegotiationType pulumi.StringPtrInput
 	// Net status of the VPN connection. Valid value: `AVAILABLE`.
 	NetStatus pulumi.StringPtrInput
 	// Pre-shared key of the VPN connection.
 	PreShareKey pulumi.StringPtrInput
-	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 	RouteType pulumi.StringPtrInput
 	// SPD policy group, for example: {"10.0.0.5/24":["172.123.10.5/16"]}, 10.0.0.5/24 is the vpc intranet segment, and
 	// 172.123.10.5/16 is the IDC network segment. Users specify which network segments in the VPC can communicate with which
@@ -333,6 +357,8 @@ func (ConnectionState) ElementType() reflect.Type {
 }
 
 type connectionArgs struct {
+	// BGP config.
+	BgpConfig *ConnectionBgpConfig `pulumi:"bgpConfig"`
 	// ID of the customer gateway.
 	CustomerGatewayId string `pulumi:"customerGatewayId"`
 	// The action after DPD timeout. Valid values: clear (disconnect) and restart (try again). It is valid when DpdEnable is 1.
@@ -344,6 +370,8 @@ type connectionArgs struct {
 	DpdTimeout *int `pulumi:"dpdTimeout"`
 	// Whether intra-tunnel health checks are supported.
 	EnableHealthCheck *bool `pulumi:"enableHealthCheck"`
+	// VPN channel health check configuration.
+	HealthCheckConfig *ConnectionHealthCheckConfig `pulumi:"healthCheckConfig"`
 	// Health check the address of this terminal.
 	HealthCheckLocalIp *string `pulumi:"healthCheckLocalIp"`
 	// Health check peer address.
@@ -385,7 +413,8 @@ type connectionArgs struct {
 	// Integrity algorithm of the IPSEC operation specification. Valid values: `SHA1`, `MD5`, `SHA-256`. Default value is
 	// `MD5`.
 	IpsecIntegrityAlgorithm *string `pulumi:"ipsecIntegrityAlgorithm"`
-	// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+	// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+	// `NULL`.
 	IpsecPfsDhGroup *string `pulumi:"ipsecPfsDhGroup"`
 	// SA lifetime of the IPSEC operation specification, unit is second. Valid value ranges: [180~604800]. Default value is
 	// 3600 seconds.
@@ -395,9 +424,12 @@ type connectionArgs struct {
 	IpsecSaLifetimeTraffic *int `pulumi:"ipsecSaLifetimeTraffic"`
 	// Name of the VPN connection. The length of character is limited to 1-60.
 	Name *string `pulumi:"name"`
+	// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+	// negotiation), `flowTrigger` (traffic negotiation).
+	NegotiationType *string `pulumi:"negotiationType"`
 	// Pre-shared key of the VPN connection.
 	PreShareKey string `pulumi:"preShareKey"`
-	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 	RouteType *string `pulumi:"routeType"`
 	// SPD policy group, for example: {"10.0.0.5/24":["172.123.10.5/16"]}, 10.0.0.5/24 is the vpc intranet segment, and
 	// 172.123.10.5/16 is the IDC network segment. Users specify which network segments in the VPC can communicate with which
@@ -413,6 +445,8 @@ type connectionArgs struct {
 
 // The set of arguments for constructing a Connection resource.
 type ConnectionArgs struct {
+	// BGP config.
+	BgpConfig ConnectionBgpConfigPtrInput
 	// ID of the customer gateway.
 	CustomerGatewayId pulumi.StringInput
 	// The action after DPD timeout. Valid values: clear (disconnect) and restart (try again). It is valid when DpdEnable is 1.
@@ -424,6 +458,8 @@ type ConnectionArgs struct {
 	DpdTimeout pulumi.IntPtrInput
 	// Whether intra-tunnel health checks are supported.
 	EnableHealthCheck pulumi.BoolPtrInput
+	// VPN channel health check configuration.
+	HealthCheckConfig ConnectionHealthCheckConfigPtrInput
 	// Health check the address of this terminal.
 	HealthCheckLocalIp pulumi.StringPtrInput
 	// Health check peer address.
@@ -465,7 +501,8 @@ type ConnectionArgs struct {
 	// Integrity algorithm of the IPSEC operation specification. Valid values: `SHA1`, `MD5`, `SHA-256`. Default value is
 	// `MD5`.
 	IpsecIntegrityAlgorithm pulumi.StringPtrInput
-	// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+	// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+	// `NULL`.
 	IpsecPfsDhGroup pulumi.StringPtrInput
 	// SA lifetime of the IPSEC operation specification, unit is second. Valid value ranges: [180~604800]. Default value is
 	// 3600 seconds.
@@ -475,9 +512,12 @@ type ConnectionArgs struct {
 	IpsecSaLifetimeTraffic pulumi.IntPtrInput
 	// Name of the VPN connection. The length of character is limited to 1-60.
 	Name pulumi.StringPtrInput
+	// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+	// negotiation), `flowTrigger` (traffic negotiation).
+	NegotiationType pulumi.StringPtrInput
 	// Pre-shared key of the VPN connection.
 	PreShareKey pulumi.StringInput
-	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+	// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 	RouteType pulumi.StringPtrInput
 	// SPD policy group, for example: {"10.0.0.5/24":["172.123.10.5/16"]}, 10.0.0.5/24 is the vpc intranet segment, and
 	// 172.123.10.5/16 is the IDC network segment. Users specify which network segments in the VPC can communicate with which
@@ -578,6 +618,11 @@ func (o ConnectionOutput) ToConnectionOutputWithContext(ctx context.Context) Con
 	return o
 }
 
+// BGP config.
+func (o ConnectionOutput) BgpConfig() ConnectionBgpConfigOutput {
+	return o.ApplyT(func(v *Connection) ConnectionBgpConfigOutput { return v.BgpConfig }).(ConnectionBgpConfigOutput)
+}
+
 // Create time of the VPN connection.
 func (o ConnectionOutput) CreateTime() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.CreateTime }).(pulumi.StringOutput)
@@ -614,6 +659,11 @@ func (o ConnectionOutput) EncryptProto() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.EncryptProto }).(pulumi.StringOutput)
 }
 
+// VPN channel health check configuration.
+func (o ConnectionOutput) HealthCheckConfig() ConnectionHealthCheckConfigOutput {
+	return o.ApplyT(func(v *Connection) ConnectionHealthCheckConfigOutput { return v.HealthCheckConfig }).(ConnectionHealthCheckConfigOutput)
+}
+
 // Health check the address of this terminal.
 func (o ConnectionOutput) HealthCheckLocalIp() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.HealthCheckLocalIp }).(pulumi.StringOutput)
@@ -642,8 +692,8 @@ func (o ConnectionOutput) IkeLocalAddress() pulumi.StringPtrOutput {
 }
 
 // Local FQDN name of the IKE operation specification.
-func (o ConnectionOutput) IkeLocalFqdnName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.IkeLocalFqdnName }).(pulumi.StringPtrOutput)
+func (o ConnectionOutput) IkeLocalFqdnName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.IkeLocalFqdnName }).(pulumi.StringOutput)
 }
 
 // Local identity way of IKE operation specification. Valid values: `ADDRESS`, `FQDN`. Default value is `ADDRESS`.
@@ -671,8 +721,8 @@ func (o ConnectionOutput) IkeRemoteAddress() pulumi.StringPtrOutput {
 }
 
 // Remote FQDN name of the IKE operation specification.
-func (o ConnectionOutput) IkeRemoteFqdnName() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.IkeRemoteFqdnName }).(pulumi.StringPtrOutput)
+func (o ConnectionOutput) IkeRemoteFqdnName() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.IkeRemoteFqdnName }).(pulumi.StringOutput)
 }
 
 // Remote identity way of IKE operation specification. Valid values: `ADDRESS`, `FQDN`. Default value is `ADDRESS`.
@@ -703,7 +753,8 @@ func (o ConnectionOutput) IpsecIntegrityAlgorithm() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.IpsecIntegrityAlgorithm }).(pulumi.StringPtrOutput)
 }
 
-// PFS DH group. Valid value: `GROUP1`, `GROUP2`, `GROUP5`, `GROUP14`, `GROUP24`, `NULL`. Default value is `NULL`.
+// PFS DH group. Valid value: `DH-GROUP1`, `DH-GROUP2`, `DH-GROUP5`, `DH-GROUP14`, `DH-GROUP24`, `NULL`. Default value is
+// `NULL`.
 func (o ConnectionOutput) IpsecPfsDhGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringPtrOutput { return v.IpsecPfsDhGroup }).(pulumi.StringPtrOutput)
 }
@@ -731,6 +782,12 @@ func (o ConnectionOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
+// The default negotiation type is `active`. Optional values: `active` (active negotiation), `passive` (passive
+// negotiation), `flowTrigger` (traffic negotiation).
+func (o ConnectionOutput) NegotiationType() pulumi.StringOutput {
+	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.NegotiationType }).(pulumi.StringOutput)
+}
+
 // Net status of the VPN connection. Valid value: `AVAILABLE`.
 func (o ConnectionOutput) NetStatus() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.NetStatus }).(pulumi.StringOutput)
@@ -741,7 +798,7 @@ func (o ConnectionOutput) PreShareKey() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.PreShareKey }).(pulumi.StringOutput)
 }
 
-// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`.
+// Route type of the VPN connection. Valid value: `STATIC`, `StaticRoute`, `Policy`, `Bgp`.
 func (o ConnectionOutput) RouteType() pulumi.StringOutput {
 	return o.ApplyT(func(v *Connection) pulumi.StringOutput { return v.RouteType }).(pulumi.StringOutput)
 }

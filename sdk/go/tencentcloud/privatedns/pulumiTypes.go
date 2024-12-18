@@ -636,6 +636,1502 @@ func (o ZoneVpcSetArrayOutput) Index(i pulumi.IntInput) ZoneVpcSetOutput {
 	}).(ZoneVpcSetOutput)
 }
 
+type GetEndPointsEndPointSet struct {
+	EndPointId        string                       `pulumi:"endPointId"`
+	EndPointName      string                       `pulumi:"endPointName"`
+	EndPointServiceId string                       `pulumi:"endPointServiceId"`
+	EndPointVipSets   []string                     `pulumi:"endPointVipSets"`
+	RegionCode        string                       `pulumi:"regionCode"`
+	Tags              []GetEndPointsEndPointSetTag `pulumi:"tags"`
+}
+
+// GetEndPointsEndPointSetInput is an input type that accepts GetEndPointsEndPointSetArgs and GetEndPointsEndPointSetOutput values.
+// You can construct a concrete instance of `GetEndPointsEndPointSetInput` via:
+//
+//	GetEndPointsEndPointSetArgs{...}
+type GetEndPointsEndPointSetInput interface {
+	pulumi.Input
+
+	ToGetEndPointsEndPointSetOutput() GetEndPointsEndPointSetOutput
+	ToGetEndPointsEndPointSetOutputWithContext(context.Context) GetEndPointsEndPointSetOutput
+}
+
+type GetEndPointsEndPointSetArgs struct {
+	EndPointId        pulumi.StringInput                   `pulumi:"endPointId"`
+	EndPointName      pulumi.StringInput                   `pulumi:"endPointName"`
+	EndPointServiceId pulumi.StringInput                   `pulumi:"endPointServiceId"`
+	EndPointVipSets   pulumi.StringArrayInput              `pulumi:"endPointVipSets"`
+	RegionCode        pulumi.StringInput                   `pulumi:"regionCode"`
+	Tags              GetEndPointsEndPointSetTagArrayInput `pulumi:"tags"`
+}
+
+func (GetEndPointsEndPointSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsEndPointSet)(nil)).Elem()
+}
+
+func (i GetEndPointsEndPointSetArgs) ToGetEndPointsEndPointSetOutput() GetEndPointsEndPointSetOutput {
+	return i.ToGetEndPointsEndPointSetOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsEndPointSetArgs) ToGetEndPointsEndPointSetOutputWithContext(ctx context.Context) GetEndPointsEndPointSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsEndPointSetOutput)
+}
+
+// GetEndPointsEndPointSetArrayInput is an input type that accepts GetEndPointsEndPointSetArray and GetEndPointsEndPointSetArrayOutput values.
+// You can construct a concrete instance of `GetEndPointsEndPointSetArrayInput` via:
+//
+//	GetEndPointsEndPointSetArray{ GetEndPointsEndPointSetArgs{...} }
+type GetEndPointsEndPointSetArrayInput interface {
+	pulumi.Input
+
+	ToGetEndPointsEndPointSetArrayOutput() GetEndPointsEndPointSetArrayOutput
+	ToGetEndPointsEndPointSetArrayOutputWithContext(context.Context) GetEndPointsEndPointSetArrayOutput
+}
+
+type GetEndPointsEndPointSetArray []GetEndPointsEndPointSetInput
+
+func (GetEndPointsEndPointSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsEndPointSet)(nil)).Elem()
+}
+
+func (i GetEndPointsEndPointSetArray) ToGetEndPointsEndPointSetArrayOutput() GetEndPointsEndPointSetArrayOutput {
+	return i.ToGetEndPointsEndPointSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsEndPointSetArray) ToGetEndPointsEndPointSetArrayOutputWithContext(ctx context.Context) GetEndPointsEndPointSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsEndPointSetArrayOutput)
+}
+
+type GetEndPointsEndPointSetOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsEndPointSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsEndPointSet)(nil)).Elem()
+}
+
+func (o GetEndPointsEndPointSetOutput) ToGetEndPointsEndPointSetOutput() GetEndPointsEndPointSetOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetOutput) ToGetEndPointsEndPointSetOutputWithContext(ctx context.Context) GetEndPointsEndPointSetOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetOutput) EndPointId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) string { return v.EndPointId }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsEndPointSetOutput) EndPointName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) string { return v.EndPointName }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsEndPointSetOutput) EndPointServiceId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) string { return v.EndPointServiceId }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsEndPointSetOutput) EndPointVipSets() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) []string { return v.EndPointVipSets }).(pulumi.StringArrayOutput)
+}
+
+func (o GetEndPointsEndPointSetOutput) RegionCode() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) string { return v.RegionCode }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsEndPointSetOutput) Tags() GetEndPointsEndPointSetTagArrayOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSet) []GetEndPointsEndPointSetTag { return v.Tags }).(GetEndPointsEndPointSetTagArrayOutput)
+}
+
+type GetEndPointsEndPointSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsEndPointSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsEndPointSet)(nil)).Elem()
+}
+
+func (o GetEndPointsEndPointSetArrayOutput) ToGetEndPointsEndPointSetArrayOutput() GetEndPointsEndPointSetArrayOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetArrayOutput) ToGetEndPointsEndPointSetArrayOutputWithContext(ctx context.Context) GetEndPointsEndPointSetArrayOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetArrayOutput) Index(i pulumi.IntInput) GetEndPointsEndPointSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetEndPointsEndPointSet {
+		return vs[0].([]GetEndPointsEndPointSet)[vs[1].(int)]
+	}).(GetEndPointsEndPointSetOutput)
+}
+
+type GetEndPointsEndPointSetTag struct {
+	TagKey   string `pulumi:"tagKey"`
+	TagValue string `pulumi:"tagValue"`
+}
+
+// GetEndPointsEndPointSetTagInput is an input type that accepts GetEndPointsEndPointSetTagArgs and GetEndPointsEndPointSetTagOutput values.
+// You can construct a concrete instance of `GetEndPointsEndPointSetTagInput` via:
+//
+//	GetEndPointsEndPointSetTagArgs{...}
+type GetEndPointsEndPointSetTagInput interface {
+	pulumi.Input
+
+	ToGetEndPointsEndPointSetTagOutput() GetEndPointsEndPointSetTagOutput
+	ToGetEndPointsEndPointSetTagOutputWithContext(context.Context) GetEndPointsEndPointSetTagOutput
+}
+
+type GetEndPointsEndPointSetTagArgs struct {
+	TagKey   pulumi.StringInput `pulumi:"tagKey"`
+	TagValue pulumi.StringInput `pulumi:"tagValue"`
+}
+
+func (GetEndPointsEndPointSetTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsEndPointSetTag)(nil)).Elem()
+}
+
+func (i GetEndPointsEndPointSetTagArgs) ToGetEndPointsEndPointSetTagOutput() GetEndPointsEndPointSetTagOutput {
+	return i.ToGetEndPointsEndPointSetTagOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsEndPointSetTagArgs) ToGetEndPointsEndPointSetTagOutputWithContext(ctx context.Context) GetEndPointsEndPointSetTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsEndPointSetTagOutput)
+}
+
+// GetEndPointsEndPointSetTagArrayInput is an input type that accepts GetEndPointsEndPointSetTagArray and GetEndPointsEndPointSetTagArrayOutput values.
+// You can construct a concrete instance of `GetEndPointsEndPointSetTagArrayInput` via:
+//
+//	GetEndPointsEndPointSetTagArray{ GetEndPointsEndPointSetTagArgs{...} }
+type GetEndPointsEndPointSetTagArrayInput interface {
+	pulumi.Input
+
+	ToGetEndPointsEndPointSetTagArrayOutput() GetEndPointsEndPointSetTagArrayOutput
+	ToGetEndPointsEndPointSetTagArrayOutputWithContext(context.Context) GetEndPointsEndPointSetTagArrayOutput
+}
+
+type GetEndPointsEndPointSetTagArray []GetEndPointsEndPointSetTagInput
+
+func (GetEndPointsEndPointSetTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsEndPointSetTag)(nil)).Elem()
+}
+
+func (i GetEndPointsEndPointSetTagArray) ToGetEndPointsEndPointSetTagArrayOutput() GetEndPointsEndPointSetTagArrayOutput {
+	return i.ToGetEndPointsEndPointSetTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsEndPointSetTagArray) ToGetEndPointsEndPointSetTagArrayOutputWithContext(ctx context.Context) GetEndPointsEndPointSetTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsEndPointSetTagArrayOutput)
+}
+
+type GetEndPointsEndPointSetTagOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsEndPointSetTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsEndPointSetTag)(nil)).Elem()
+}
+
+func (o GetEndPointsEndPointSetTagOutput) ToGetEndPointsEndPointSetTagOutput() GetEndPointsEndPointSetTagOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetTagOutput) ToGetEndPointsEndPointSetTagOutputWithContext(ctx context.Context) GetEndPointsEndPointSetTagOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetTagOutput) TagKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSetTag) string { return v.TagKey }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsEndPointSetTagOutput) TagValue() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsEndPointSetTag) string { return v.TagValue }).(pulumi.StringOutput)
+}
+
+type GetEndPointsEndPointSetTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsEndPointSetTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsEndPointSetTag)(nil)).Elem()
+}
+
+func (o GetEndPointsEndPointSetTagArrayOutput) ToGetEndPointsEndPointSetTagArrayOutput() GetEndPointsEndPointSetTagArrayOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetTagArrayOutput) ToGetEndPointsEndPointSetTagArrayOutputWithContext(ctx context.Context) GetEndPointsEndPointSetTagArrayOutput {
+	return o
+}
+
+func (o GetEndPointsEndPointSetTagArrayOutput) Index(i pulumi.IntInput) GetEndPointsEndPointSetTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetEndPointsEndPointSetTag {
+		return vs[0].([]GetEndPointsEndPointSetTag)[vs[1].(int)]
+	}).(GetEndPointsEndPointSetTagOutput)
+}
+
+type GetEndPointsFilter struct {
+	Name   string   `pulumi:"name"`
+	Values []string `pulumi:"values"`
+}
+
+// GetEndPointsFilterInput is an input type that accepts GetEndPointsFilterArgs and GetEndPointsFilterOutput values.
+// You can construct a concrete instance of `GetEndPointsFilterInput` via:
+//
+//	GetEndPointsFilterArgs{...}
+type GetEndPointsFilterInput interface {
+	pulumi.Input
+
+	ToGetEndPointsFilterOutput() GetEndPointsFilterOutput
+	ToGetEndPointsFilterOutputWithContext(context.Context) GetEndPointsFilterOutput
+}
+
+type GetEndPointsFilterArgs struct {
+	Name   pulumi.StringInput      `pulumi:"name"`
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetEndPointsFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsFilter)(nil)).Elem()
+}
+
+func (i GetEndPointsFilterArgs) ToGetEndPointsFilterOutput() GetEndPointsFilterOutput {
+	return i.ToGetEndPointsFilterOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsFilterArgs) ToGetEndPointsFilterOutputWithContext(ctx context.Context) GetEndPointsFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsFilterOutput)
+}
+
+// GetEndPointsFilterArrayInput is an input type that accepts GetEndPointsFilterArray and GetEndPointsFilterArrayOutput values.
+// You can construct a concrete instance of `GetEndPointsFilterArrayInput` via:
+//
+//	GetEndPointsFilterArray{ GetEndPointsFilterArgs{...} }
+type GetEndPointsFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetEndPointsFilterArrayOutput() GetEndPointsFilterArrayOutput
+	ToGetEndPointsFilterArrayOutputWithContext(context.Context) GetEndPointsFilterArrayOutput
+}
+
+type GetEndPointsFilterArray []GetEndPointsFilterInput
+
+func (GetEndPointsFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsFilter)(nil)).Elem()
+}
+
+func (i GetEndPointsFilterArray) ToGetEndPointsFilterArrayOutput() GetEndPointsFilterArrayOutput {
+	return i.ToGetEndPointsFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetEndPointsFilterArray) ToGetEndPointsFilterArrayOutputWithContext(ctx context.Context) GetEndPointsFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetEndPointsFilterArrayOutput)
+}
+
+type GetEndPointsFilterOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetEndPointsFilter)(nil)).Elem()
+}
+
+func (o GetEndPointsFilterOutput) ToGetEndPointsFilterOutput() GetEndPointsFilterOutput {
+	return o
+}
+
+func (o GetEndPointsFilterOutput) ToGetEndPointsFilterOutputWithContext(ctx context.Context) GetEndPointsFilterOutput {
+	return o
+}
+
+func (o GetEndPointsFilterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetEndPointsFilter) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetEndPointsFilterOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetEndPointsFilter) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetEndPointsFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetEndPointsFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetEndPointsFilter)(nil)).Elem()
+}
+
+func (o GetEndPointsFilterArrayOutput) ToGetEndPointsFilterArrayOutput() GetEndPointsFilterArrayOutput {
+	return o
+}
+
+func (o GetEndPointsFilterArrayOutput) ToGetEndPointsFilterArrayOutputWithContext(ctx context.Context) GetEndPointsFilterArrayOutput {
+	return o
+}
+
+func (o GetEndPointsFilterArrayOutput) Index(i pulumi.IntInput) GetEndPointsFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetEndPointsFilter {
+		return vs[0].([]GetEndPointsFilter)[vs[1].(int)]
+	}).(GetEndPointsFilterOutput)
+}
+
+type GetForwardRulesFilter struct {
+	Name   string   `pulumi:"name"`
+	Values []string `pulumi:"values"`
+}
+
+// GetForwardRulesFilterInput is an input type that accepts GetForwardRulesFilterArgs and GetForwardRulesFilterOutput values.
+// You can construct a concrete instance of `GetForwardRulesFilterInput` via:
+//
+//	GetForwardRulesFilterArgs{...}
+type GetForwardRulesFilterInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesFilterOutput() GetForwardRulesFilterOutput
+	ToGetForwardRulesFilterOutputWithContext(context.Context) GetForwardRulesFilterOutput
+}
+
+type GetForwardRulesFilterArgs struct {
+	Name   pulumi.StringInput      `pulumi:"name"`
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetForwardRulesFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesFilter)(nil)).Elem()
+}
+
+func (i GetForwardRulesFilterArgs) ToGetForwardRulesFilterOutput() GetForwardRulesFilterOutput {
+	return i.ToGetForwardRulesFilterOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesFilterArgs) ToGetForwardRulesFilterOutputWithContext(ctx context.Context) GetForwardRulesFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesFilterOutput)
+}
+
+// GetForwardRulesFilterArrayInput is an input type that accepts GetForwardRulesFilterArray and GetForwardRulesFilterArrayOutput values.
+// You can construct a concrete instance of `GetForwardRulesFilterArrayInput` via:
+//
+//	GetForwardRulesFilterArray{ GetForwardRulesFilterArgs{...} }
+type GetForwardRulesFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesFilterArrayOutput() GetForwardRulesFilterArrayOutput
+	ToGetForwardRulesFilterArrayOutputWithContext(context.Context) GetForwardRulesFilterArrayOutput
+}
+
+type GetForwardRulesFilterArray []GetForwardRulesFilterInput
+
+func (GetForwardRulesFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesFilter)(nil)).Elem()
+}
+
+func (i GetForwardRulesFilterArray) ToGetForwardRulesFilterArrayOutput() GetForwardRulesFilterArrayOutput {
+	return i.ToGetForwardRulesFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesFilterArray) ToGetForwardRulesFilterArrayOutputWithContext(ctx context.Context) GetForwardRulesFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesFilterArrayOutput)
+}
+
+type GetForwardRulesFilterOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesFilter)(nil)).Elem()
+}
+
+func (o GetForwardRulesFilterOutput) ToGetForwardRulesFilterOutput() GetForwardRulesFilterOutput {
+	return o
+}
+
+func (o GetForwardRulesFilterOutput) ToGetForwardRulesFilterOutputWithContext(ctx context.Context) GetForwardRulesFilterOutput {
+	return o
+}
+
+func (o GetForwardRulesFilterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesFilter) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesFilterOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetForwardRulesFilter) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetForwardRulesFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesFilter)(nil)).Elem()
+}
+
+func (o GetForwardRulesFilterArrayOutput) ToGetForwardRulesFilterArrayOutput() GetForwardRulesFilterArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesFilterArrayOutput) ToGetForwardRulesFilterArrayOutputWithContext(ctx context.Context) GetForwardRulesFilterArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesFilterArrayOutput) Index(i pulumi.IntInput) GetForwardRulesFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetForwardRulesFilter {
+		return vs[0].([]GetForwardRulesFilter)[vs[1].(int)]
+	}).(GetForwardRulesFilterOutput)
+}
+
+type GetForwardRulesForwardRuleSet struct {
+	CreatedAt        string                                `pulumi:"createdAt"`
+	Domain           string                                `pulumi:"domain"`
+	EndPointId       string                                `pulumi:"endPointId"`
+	EndPointName     string                                `pulumi:"endPointName"`
+	ForwardAddresses []string                              `pulumi:"forwardAddresses"`
+	RuleId           string                                `pulumi:"ruleId"`
+	RuleName         string                                `pulumi:"ruleName"`
+	RuleType         string                                `pulumi:"ruleType"`
+	Tags             []GetForwardRulesForwardRuleSetTag    `pulumi:"tags"`
+	UpdatedAt        string                                `pulumi:"updatedAt"`
+	VpcSets          []GetForwardRulesForwardRuleSetVpcSet `pulumi:"vpcSets"`
+	ZoneId           string                                `pulumi:"zoneId"`
+}
+
+// GetForwardRulesForwardRuleSetInput is an input type that accepts GetForwardRulesForwardRuleSetArgs and GetForwardRulesForwardRuleSetOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetInput` via:
+//
+//	GetForwardRulesForwardRuleSetArgs{...}
+type GetForwardRulesForwardRuleSetInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetOutput() GetForwardRulesForwardRuleSetOutput
+	ToGetForwardRulesForwardRuleSetOutputWithContext(context.Context) GetForwardRulesForwardRuleSetOutput
+}
+
+type GetForwardRulesForwardRuleSetArgs struct {
+	CreatedAt        pulumi.StringInput                            `pulumi:"createdAt"`
+	Domain           pulumi.StringInput                            `pulumi:"domain"`
+	EndPointId       pulumi.StringInput                            `pulumi:"endPointId"`
+	EndPointName     pulumi.StringInput                            `pulumi:"endPointName"`
+	ForwardAddresses pulumi.StringArrayInput                       `pulumi:"forwardAddresses"`
+	RuleId           pulumi.StringInput                            `pulumi:"ruleId"`
+	RuleName         pulumi.StringInput                            `pulumi:"ruleName"`
+	RuleType         pulumi.StringInput                            `pulumi:"ruleType"`
+	Tags             GetForwardRulesForwardRuleSetTagArrayInput    `pulumi:"tags"`
+	UpdatedAt        pulumi.StringInput                            `pulumi:"updatedAt"`
+	VpcSets          GetForwardRulesForwardRuleSetVpcSetArrayInput `pulumi:"vpcSets"`
+	ZoneId           pulumi.StringInput                            `pulumi:"zoneId"`
+}
+
+func (GetForwardRulesForwardRuleSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSet)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetArgs) ToGetForwardRulesForwardRuleSetOutput() GetForwardRulesForwardRuleSetOutput {
+	return i.ToGetForwardRulesForwardRuleSetOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetArgs) ToGetForwardRulesForwardRuleSetOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetOutput)
+}
+
+// GetForwardRulesForwardRuleSetArrayInput is an input type that accepts GetForwardRulesForwardRuleSetArray and GetForwardRulesForwardRuleSetArrayOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetArrayInput` via:
+//
+//	GetForwardRulesForwardRuleSetArray{ GetForwardRulesForwardRuleSetArgs{...} }
+type GetForwardRulesForwardRuleSetArrayInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetArrayOutput() GetForwardRulesForwardRuleSetArrayOutput
+	ToGetForwardRulesForwardRuleSetArrayOutputWithContext(context.Context) GetForwardRulesForwardRuleSetArrayOutput
+}
+
+type GetForwardRulesForwardRuleSetArray []GetForwardRulesForwardRuleSetInput
+
+func (GetForwardRulesForwardRuleSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSet)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetArray) ToGetForwardRulesForwardRuleSetArrayOutput() GetForwardRulesForwardRuleSetArrayOutput {
+	return i.ToGetForwardRulesForwardRuleSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetArray) ToGetForwardRulesForwardRuleSetArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetArrayOutput)
+}
+
+type GetForwardRulesForwardRuleSetOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSet)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) ToGetForwardRulesForwardRuleSetOutput() GetForwardRulesForwardRuleSetOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) ToGetForwardRulesForwardRuleSetOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) CreatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.CreatedAt }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) Domain() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.Domain }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) EndPointId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.EndPointId }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) EndPointName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.EndPointName }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) ForwardAddresses() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) []string { return v.ForwardAddresses }).(pulumi.StringArrayOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) RuleId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.RuleId }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) RuleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.RuleName }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) RuleType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.RuleType }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) Tags() GetForwardRulesForwardRuleSetTagArrayOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) []GetForwardRulesForwardRuleSetTag { return v.Tags }).(GetForwardRulesForwardRuleSetTagArrayOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) UpdatedAt() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.UpdatedAt }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) VpcSets() GetForwardRulesForwardRuleSetVpcSetArrayOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) []GetForwardRulesForwardRuleSetVpcSet { return v.VpcSets }).(GetForwardRulesForwardRuleSetVpcSetArrayOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetOutput) ZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSet) string { return v.ZoneId }).(pulumi.StringOutput)
+}
+
+type GetForwardRulesForwardRuleSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSet)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetArrayOutput) ToGetForwardRulesForwardRuleSetArrayOutput() GetForwardRulesForwardRuleSetArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetArrayOutput) ToGetForwardRulesForwardRuleSetArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetArrayOutput) Index(i pulumi.IntInput) GetForwardRulesForwardRuleSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetForwardRulesForwardRuleSet {
+		return vs[0].([]GetForwardRulesForwardRuleSet)[vs[1].(int)]
+	}).(GetForwardRulesForwardRuleSetOutput)
+}
+
+type GetForwardRulesForwardRuleSetTag struct {
+	TagKey   string `pulumi:"tagKey"`
+	TagValue string `pulumi:"tagValue"`
+}
+
+// GetForwardRulesForwardRuleSetTagInput is an input type that accepts GetForwardRulesForwardRuleSetTagArgs and GetForwardRulesForwardRuleSetTagOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetTagInput` via:
+//
+//	GetForwardRulesForwardRuleSetTagArgs{...}
+type GetForwardRulesForwardRuleSetTagInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetTagOutput() GetForwardRulesForwardRuleSetTagOutput
+	ToGetForwardRulesForwardRuleSetTagOutputWithContext(context.Context) GetForwardRulesForwardRuleSetTagOutput
+}
+
+type GetForwardRulesForwardRuleSetTagArgs struct {
+	TagKey   pulumi.StringInput `pulumi:"tagKey"`
+	TagValue pulumi.StringInput `pulumi:"tagValue"`
+}
+
+func (GetForwardRulesForwardRuleSetTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSetTag)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetTagArgs) ToGetForwardRulesForwardRuleSetTagOutput() GetForwardRulesForwardRuleSetTagOutput {
+	return i.ToGetForwardRulesForwardRuleSetTagOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetTagArgs) ToGetForwardRulesForwardRuleSetTagOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetTagOutput)
+}
+
+// GetForwardRulesForwardRuleSetTagArrayInput is an input type that accepts GetForwardRulesForwardRuleSetTagArray and GetForwardRulesForwardRuleSetTagArrayOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetTagArrayInput` via:
+//
+//	GetForwardRulesForwardRuleSetTagArray{ GetForwardRulesForwardRuleSetTagArgs{...} }
+type GetForwardRulesForwardRuleSetTagArrayInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetTagArrayOutput() GetForwardRulesForwardRuleSetTagArrayOutput
+	ToGetForwardRulesForwardRuleSetTagArrayOutputWithContext(context.Context) GetForwardRulesForwardRuleSetTagArrayOutput
+}
+
+type GetForwardRulesForwardRuleSetTagArray []GetForwardRulesForwardRuleSetTagInput
+
+func (GetForwardRulesForwardRuleSetTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSetTag)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetTagArray) ToGetForwardRulesForwardRuleSetTagArrayOutput() GetForwardRulesForwardRuleSetTagArrayOutput {
+	return i.ToGetForwardRulesForwardRuleSetTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetTagArray) ToGetForwardRulesForwardRuleSetTagArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetTagArrayOutput)
+}
+
+type GetForwardRulesForwardRuleSetTagOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSetTag)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetTagOutput) ToGetForwardRulesForwardRuleSetTagOutput() GetForwardRulesForwardRuleSetTagOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetTagOutput) ToGetForwardRulesForwardRuleSetTagOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetTagOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetTagOutput) TagKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSetTag) string { return v.TagKey }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetTagOutput) TagValue() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSetTag) string { return v.TagValue }).(pulumi.StringOutput)
+}
+
+type GetForwardRulesForwardRuleSetTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSetTag)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetTagArrayOutput) ToGetForwardRulesForwardRuleSetTagArrayOutput() GetForwardRulesForwardRuleSetTagArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetTagArrayOutput) ToGetForwardRulesForwardRuleSetTagArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetTagArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetTagArrayOutput) Index(i pulumi.IntInput) GetForwardRulesForwardRuleSetTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetForwardRulesForwardRuleSetTag {
+		return vs[0].([]GetForwardRulesForwardRuleSetTag)[vs[1].(int)]
+	}).(GetForwardRulesForwardRuleSetTagOutput)
+}
+
+type GetForwardRulesForwardRuleSetVpcSet struct {
+	Region    string `pulumi:"region"`
+	UniqVpcId string `pulumi:"uniqVpcId"`
+}
+
+// GetForwardRulesForwardRuleSetVpcSetInput is an input type that accepts GetForwardRulesForwardRuleSetVpcSetArgs and GetForwardRulesForwardRuleSetVpcSetOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetVpcSetInput` via:
+//
+//	GetForwardRulesForwardRuleSetVpcSetArgs{...}
+type GetForwardRulesForwardRuleSetVpcSetInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetVpcSetOutput() GetForwardRulesForwardRuleSetVpcSetOutput
+	ToGetForwardRulesForwardRuleSetVpcSetOutputWithContext(context.Context) GetForwardRulesForwardRuleSetVpcSetOutput
+}
+
+type GetForwardRulesForwardRuleSetVpcSetArgs struct {
+	Region    pulumi.StringInput `pulumi:"region"`
+	UniqVpcId pulumi.StringInput `pulumi:"uniqVpcId"`
+}
+
+func (GetForwardRulesForwardRuleSetVpcSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSetVpcSet)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetVpcSetArgs) ToGetForwardRulesForwardRuleSetVpcSetOutput() GetForwardRulesForwardRuleSetVpcSetOutput {
+	return i.ToGetForwardRulesForwardRuleSetVpcSetOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetVpcSetArgs) ToGetForwardRulesForwardRuleSetVpcSetOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetVpcSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetVpcSetOutput)
+}
+
+// GetForwardRulesForwardRuleSetVpcSetArrayInput is an input type that accepts GetForwardRulesForwardRuleSetVpcSetArray and GetForwardRulesForwardRuleSetVpcSetArrayOutput values.
+// You can construct a concrete instance of `GetForwardRulesForwardRuleSetVpcSetArrayInput` via:
+//
+//	GetForwardRulesForwardRuleSetVpcSetArray{ GetForwardRulesForwardRuleSetVpcSetArgs{...} }
+type GetForwardRulesForwardRuleSetVpcSetArrayInput interface {
+	pulumi.Input
+
+	ToGetForwardRulesForwardRuleSetVpcSetArrayOutput() GetForwardRulesForwardRuleSetVpcSetArrayOutput
+	ToGetForwardRulesForwardRuleSetVpcSetArrayOutputWithContext(context.Context) GetForwardRulesForwardRuleSetVpcSetArrayOutput
+}
+
+type GetForwardRulesForwardRuleSetVpcSetArray []GetForwardRulesForwardRuleSetVpcSetInput
+
+func (GetForwardRulesForwardRuleSetVpcSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSetVpcSet)(nil)).Elem()
+}
+
+func (i GetForwardRulesForwardRuleSetVpcSetArray) ToGetForwardRulesForwardRuleSetVpcSetArrayOutput() GetForwardRulesForwardRuleSetVpcSetArrayOutput {
+	return i.ToGetForwardRulesForwardRuleSetVpcSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetForwardRulesForwardRuleSetVpcSetArray) ToGetForwardRulesForwardRuleSetVpcSetArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetVpcSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetForwardRulesForwardRuleSetVpcSetArrayOutput)
+}
+
+type GetForwardRulesForwardRuleSetVpcSetOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetVpcSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetForwardRulesForwardRuleSetVpcSet)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetOutput) ToGetForwardRulesForwardRuleSetVpcSetOutput() GetForwardRulesForwardRuleSetVpcSetOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetOutput) ToGetForwardRulesForwardRuleSetVpcSetOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetVpcSetOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSetVpcSet) string { return v.Region }).(pulumi.StringOutput)
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetOutput) UniqVpcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetForwardRulesForwardRuleSetVpcSet) string { return v.UniqVpcId }).(pulumi.StringOutput)
+}
+
+type GetForwardRulesForwardRuleSetVpcSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetForwardRulesForwardRuleSetVpcSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetForwardRulesForwardRuleSetVpcSet)(nil)).Elem()
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetArrayOutput) ToGetForwardRulesForwardRuleSetVpcSetArrayOutput() GetForwardRulesForwardRuleSetVpcSetArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetArrayOutput) ToGetForwardRulesForwardRuleSetVpcSetArrayOutputWithContext(ctx context.Context) GetForwardRulesForwardRuleSetVpcSetArrayOutput {
+	return o
+}
+
+func (o GetForwardRulesForwardRuleSetVpcSetArrayOutput) Index(i pulumi.IntInput) GetForwardRulesForwardRuleSetVpcSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetForwardRulesForwardRuleSetVpcSet {
+		return vs[0].([]GetForwardRulesForwardRuleSetVpcSet)[vs[1].(int)]
+	}).(GetForwardRulesForwardRuleSetVpcSetOutput)
+}
+
+type GetPrivateZoneListFilter struct {
+	Name   string   `pulumi:"name"`
+	Values []string `pulumi:"values"`
+}
+
+// GetPrivateZoneListFilterInput is an input type that accepts GetPrivateZoneListFilterArgs and GetPrivateZoneListFilterOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListFilterInput` via:
+//
+//	GetPrivateZoneListFilterArgs{...}
+type GetPrivateZoneListFilterInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListFilterOutput() GetPrivateZoneListFilterOutput
+	ToGetPrivateZoneListFilterOutputWithContext(context.Context) GetPrivateZoneListFilterOutput
+}
+
+type GetPrivateZoneListFilterArgs struct {
+	Name   pulumi.StringInput      `pulumi:"name"`
+	Values pulumi.StringArrayInput `pulumi:"values"`
+}
+
+func (GetPrivateZoneListFilterArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListFilter)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListFilterArgs) ToGetPrivateZoneListFilterOutput() GetPrivateZoneListFilterOutput {
+	return i.ToGetPrivateZoneListFilterOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListFilterArgs) ToGetPrivateZoneListFilterOutputWithContext(ctx context.Context) GetPrivateZoneListFilterOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListFilterOutput)
+}
+
+// GetPrivateZoneListFilterArrayInput is an input type that accepts GetPrivateZoneListFilterArray and GetPrivateZoneListFilterArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListFilterArrayInput` via:
+//
+//	GetPrivateZoneListFilterArray{ GetPrivateZoneListFilterArgs{...} }
+type GetPrivateZoneListFilterArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListFilterArrayOutput() GetPrivateZoneListFilterArrayOutput
+	ToGetPrivateZoneListFilterArrayOutputWithContext(context.Context) GetPrivateZoneListFilterArrayOutput
+}
+
+type GetPrivateZoneListFilterArray []GetPrivateZoneListFilterInput
+
+func (GetPrivateZoneListFilterArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListFilter)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListFilterArray) ToGetPrivateZoneListFilterArrayOutput() GetPrivateZoneListFilterArrayOutput {
+	return i.ToGetPrivateZoneListFilterArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListFilterArray) ToGetPrivateZoneListFilterArrayOutputWithContext(ctx context.Context) GetPrivateZoneListFilterArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListFilterArrayOutput)
+}
+
+type GetPrivateZoneListFilterOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListFilterOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListFilter)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListFilterOutput) ToGetPrivateZoneListFilterOutput() GetPrivateZoneListFilterOutput {
+	return o
+}
+
+func (o GetPrivateZoneListFilterOutput) ToGetPrivateZoneListFilterOutputWithContext(ctx context.Context) GetPrivateZoneListFilterOutput {
+	return o
+}
+
+func (o GetPrivateZoneListFilterOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListFilter) string { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListFilterOutput) Values() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v GetPrivateZoneListFilter) []string { return v.Values }).(pulumi.StringArrayOutput)
+}
+
+type GetPrivateZoneListFilterArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListFilterArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListFilter)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListFilterArrayOutput) ToGetPrivateZoneListFilterArrayOutput() GetPrivateZoneListFilterArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListFilterArrayOutput) ToGetPrivateZoneListFilterArrayOutputWithContext(ctx context.Context) GetPrivateZoneListFilterArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListFilterArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListFilterOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListFilter {
+		return vs[0].([]GetPrivateZoneListFilter)[vs[1].(int)]
+	}).(GetPrivateZoneListFilterOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSet struct {
+	AccountVpcSets     []GetPrivateZoneListPrivateZoneSetAccountVpcSet `pulumi:"accountVpcSets"`
+	CnameSpeedupStatus string                                          `pulumi:"cnameSpeedupStatus"`
+	CreatedOn          string                                          `pulumi:"createdOn"`
+	DeletedVpcSets     []GetPrivateZoneListPrivateZoneSetDeletedVpcSet `pulumi:"deletedVpcSets"`
+	DnsForwardStatus   string                                          `pulumi:"dnsForwardStatus"`
+	Domain             string                                          `pulumi:"domain"`
+	EndPointName       string                                          `pulumi:"endPointName"`
+	ForwardAddress     string                                          `pulumi:"forwardAddress"`
+	ForwardRuleName    string                                          `pulumi:"forwardRuleName"`
+	ForwardRuleType    string                                          `pulumi:"forwardRuleType"`
+	IsCustomTld        bool                                            `pulumi:"isCustomTld"`
+	OwnerUin           int                                             `pulumi:"ownerUin"`
+	RecordCount        int                                             `pulumi:"recordCount"`
+	Remark             string                                          `pulumi:"remark"`
+	Status             string                                          `pulumi:"status"`
+	Tags               []GetPrivateZoneListPrivateZoneSetTag           `pulumi:"tags"`
+	UpdatedOn          string                                          `pulumi:"updatedOn"`
+	VpcSets            []GetPrivateZoneListPrivateZoneSetVpcSet        `pulumi:"vpcSets"`
+	ZoneId             string                                          `pulumi:"zoneId"`
+}
+
+// GetPrivateZoneListPrivateZoneSetInput is an input type that accepts GetPrivateZoneListPrivateZoneSetArgs and GetPrivateZoneListPrivateZoneSetOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetArgs{...}
+type GetPrivateZoneListPrivateZoneSetInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetOutput() GetPrivateZoneListPrivateZoneSetOutput
+	ToGetPrivateZoneListPrivateZoneSetOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetArgs struct {
+	AccountVpcSets     GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayInput `pulumi:"accountVpcSets"`
+	CnameSpeedupStatus pulumi.StringInput                                      `pulumi:"cnameSpeedupStatus"`
+	CreatedOn          pulumi.StringInput                                      `pulumi:"createdOn"`
+	DeletedVpcSets     GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayInput `pulumi:"deletedVpcSets"`
+	DnsForwardStatus   pulumi.StringInput                                      `pulumi:"dnsForwardStatus"`
+	Domain             pulumi.StringInput                                      `pulumi:"domain"`
+	EndPointName       pulumi.StringInput                                      `pulumi:"endPointName"`
+	ForwardAddress     pulumi.StringInput                                      `pulumi:"forwardAddress"`
+	ForwardRuleName    pulumi.StringInput                                      `pulumi:"forwardRuleName"`
+	ForwardRuleType    pulumi.StringInput                                      `pulumi:"forwardRuleType"`
+	IsCustomTld        pulumi.BoolInput                                        `pulumi:"isCustomTld"`
+	OwnerUin           pulumi.IntInput                                         `pulumi:"ownerUin"`
+	RecordCount        pulumi.IntInput                                         `pulumi:"recordCount"`
+	Remark             pulumi.StringInput                                      `pulumi:"remark"`
+	Status             pulumi.StringInput                                      `pulumi:"status"`
+	Tags               GetPrivateZoneListPrivateZoneSetTagArrayInput           `pulumi:"tags"`
+	UpdatedOn          pulumi.StringInput                                      `pulumi:"updatedOn"`
+	VpcSets            GetPrivateZoneListPrivateZoneSetVpcSetArrayInput        `pulumi:"vpcSets"`
+	ZoneId             pulumi.StringInput                                      `pulumi:"zoneId"`
+}
+
+func (GetPrivateZoneListPrivateZoneSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetArgs) ToGetPrivateZoneListPrivateZoneSetOutput() GetPrivateZoneListPrivateZoneSetOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetArgs) ToGetPrivateZoneListPrivateZoneSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetOutput)
+}
+
+// GetPrivateZoneListPrivateZoneSetArrayInput is an input type that accepts GetPrivateZoneListPrivateZoneSetArray and GetPrivateZoneListPrivateZoneSetArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetArrayInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetArray{ GetPrivateZoneListPrivateZoneSetArgs{...} }
+type GetPrivateZoneListPrivateZoneSetArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetArrayOutput() GetPrivateZoneListPrivateZoneSetArrayOutput
+	ToGetPrivateZoneListPrivateZoneSetArrayOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetArrayOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetArray []GetPrivateZoneListPrivateZoneSetInput
+
+func (GetPrivateZoneListPrivateZoneSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetArray) ToGetPrivateZoneListPrivateZoneSetArrayOutput() GetPrivateZoneListPrivateZoneSetArrayOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetArray) ToGetPrivateZoneListPrivateZoneSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetArrayOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ToGetPrivateZoneListPrivateZoneSetOutput() GetPrivateZoneListPrivateZoneSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ToGetPrivateZoneListPrivateZoneSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) AccountVpcSets() GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) []GetPrivateZoneListPrivateZoneSetAccountVpcSet {
+		return v.AccountVpcSets
+	}).(GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) CnameSpeedupStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.CnameSpeedupStatus }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) CreatedOn() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.CreatedOn }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) DeletedVpcSets() GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) []GetPrivateZoneListPrivateZoneSetDeletedVpcSet {
+		return v.DeletedVpcSets
+	}).(GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) DnsForwardStatus() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.DnsForwardStatus }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) Domain() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.Domain }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) EndPointName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.EndPointName }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ForwardAddress() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.ForwardAddress }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ForwardRuleName() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.ForwardRuleName }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ForwardRuleType() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.ForwardRuleType }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) IsCustomTld() pulumi.BoolOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) bool { return v.IsCustomTld }).(pulumi.BoolOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) OwnerUin() pulumi.IntOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) int { return v.OwnerUin }).(pulumi.IntOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) RecordCount() pulumi.IntOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) int { return v.RecordCount }).(pulumi.IntOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) Remark() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.Remark }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.Status }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) Tags() GetPrivateZoneListPrivateZoneSetTagArrayOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) []GetPrivateZoneListPrivateZoneSetTag { return v.Tags }).(GetPrivateZoneListPrivateZoneSetTagArrayOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) UpdatedOn() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.UpdatedOn }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) VpcSets() GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) []GetPrivateZoneListPrivateZoneSetVpcSet { return v.VpcSets }).(GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetOutput) ZoneId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSet) string { return v.ZoneId }).(pulumi.StringOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetArrayOutput() GetPrivateZoneListPrivateZoneSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListPrivateZoneSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListPrivateZoneSet {
+		return vs[0].([]GetPrivateZoneListPrivateZoneSet)[vs[1].(int)]
+	}).(GetPrivateZoneListPrivateZoneSetOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetAccountVpcSet struct {
+	Region    string `pulumi:"region"`
+	Uin       string `pulumi:"uin"`
+	UniqVpcId string `pulumi:"uniqVpcId"`
+}
+
+// GetPrivateZoneListPrivateZoneSetAccountVpcSetInput is an input type that accepts GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs and GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetAccountVpcSetInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs{...}
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput
+	ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs struct {
+	Region    pulumi.StringInput `pulumi:"region"`
+	Uin       pulumi.StringInput `pulumi:"uin"`
+	UniqVpcId pulumi.StringInput `pulumi:"uniqVpcId"`
+}
+
+func (GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetAccountVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput)
+}
+
+// GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayInput is an input type that accepts GetPrivateZoneListPrivateZoneSetAccountVpcSetArray and GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetAccountVpcSetArray{ GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs{...} }
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput
+	ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetArray []GetPrivateZoneListPrivateZoneSetAccountVpcSetInput
+
+func (GetPrivateZoneListPrivateZoneSetAccountVpcSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetAccountVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetAccountVpcSetArray) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetAccountVpcSetArray) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetAccountVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetAccountVpcSet) string { return v.Region }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) Uin() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetAccountVpcSet) string { return v.Uin }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput) UniqVpcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetAccountVpcSet) string { return v.UniqVpcId }).(pulumi.StringOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetAccountVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListPrivateZoneSetAccountVpcSet {
+		return vs[0].([]GetPrivateZoneListPrivateZoneSetAccountVpcSet)[vs[1].(int)]
+	}).(GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSet struct {
+	Region    string `pulumi:"region"`
+	UniqVpcId string `pulumi:"uniqVpcId"`
+}
+
+// GetPrivateZoneListPrivateZoneSetDeletedVpcSetInput is an input type that accepts GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs and GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetDeletedVpcSetInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs{...}
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput
+	ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs struct {
+	Region    pulumi.StringInput `pulumi:"region"`
+	UniqVpcId pulumi.StringInput `pulumi:"uniqVpcId"`
+}
+
+func (GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetDeletedVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput)
+}
+
+// GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayInput is an input type that accepts GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray and GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray{ GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs{...} }
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput
+	ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray []GetPrivateZoneListPrivateZoneSetDeletedVpcSetInput
+
+func (GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetDeletedVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetDeletedVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetDeletedVpcSet) string { return v.Region }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput) UniqVpcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetDeletedVpcSet) string { return v.UniqVpcId }).(pulumi.StringOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetDeletedVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListPrivateZoneSetDeletedVpcSet {
+		return vs[0].([]GetPrivateZoneListPrivateZoneSetDeletedVpcSet)[vs[1].(int)]
+	}).(GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetTag struct {
+	TagKey   string `pulumi:"tagKey"`
+	TagValue string `pulumi:"tagValue"`
+}
+
+// GetPrivateZoneListPrivateZoneSetTagInput is an input type that accepts GetPrivateZoneListPrivateZoneSetTagArgs and GetPrivateZoneListPrivateZoneSetTagOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetTagInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetTagArgs{...}
+type GetPrivateZoneListPrivateZoneSetTagInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetTagOutput() GetPrivateZoneListPrivateZoneSetTagOutput
+	ToGetPrivateZoneListPrivateZoneSetTagOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetTagOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetTagArgs struct {
+	TagKey   pulumi.StringInput `pulumi:"tagKey"`
+	TagValue pulumi.StringInput `pulumi:"tagValue"`
+}
+
+func (GetPrivateZoneListPrivateZoneSetTagArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetTag)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetTagArgs) ToGetPrivateZoneListPrivateZoneSetTagOutput() GetPrivateZoneListPrivateZoneSetTagOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetTagOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetTagArgs) ToGetPrivateZoneListPrivateZoneSetTagOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetTagOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetTagOutput)
+}
+
+// GetPrivateZoneListPrivateZoneSetTagArrayInput is an input type that accepts GetPrivateZoneListPrivateZoneSetTagArray and GetPrivateZoneListPrivateZoneSetTagArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetTagArrayInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetTagArray{ GetPrivateZoneListPrivateZoneSetTagArgs{...} }
+type GetPrivateZoneListPrivateZoneSetTagArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetTagArrayOutput() GetPrivateZoneListPrivateZoneSetTagArrayOutput
+	ToGetPrivateZoneListPrivateZoneSetTagArrayOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetTagArrayOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetTagArray []GetPrivateZoneListPrivateZoneSetTagInput
+
+func (GetPrivateZoneListPrivateZoneSetTagArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetTag)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetTagArray) ToGetPrivateZoneListPrivateZoneSetTagArrayOutput() GetPrivateZoneListPrivateZoneSetTagArrayOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetTagArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetTagArray) ToGetPrivateZoneListPrivateZoneSetTagArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetTagArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetTagArrayOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetTagOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetTagOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetTag)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagOutput) ToGetPrivateZoneListPrivateZoneSetTagOutput() GetPrivateZoneListPrivateZoneSetTagOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagOutput) ToGetPrivateZoneListPrivateZoneSetTagOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetTagOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagOutput) TagKey() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetTag) string { return v.TagKey }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagOutput) TagValue() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetTag) string { return v.TagValue }).(pulumi.StringOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetTagArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetTagArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetTag)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagArrayOutput) ToGetPrivateZoneListPrivateZoneSetTagArrayOutput() GetPrivateZoneListPrivateZoneSetTagArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagArrayOutput) ToGetPrivateZoneListPrivateZoneSetTagArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetTagArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetTagArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListPrivateZoneSetTagOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListPrivateZoneSetTag {
+		return vs[0].([]GetPrivateZoneListPrivateZoneSetTag)[vs[1].(int)]
+	}).(GetPrivateZoneListPrivateZoneSetTagOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetVpcSet struct {
+	Region    string `pulumi:"region"`
+	UniqVpcId string `pulumi:"uniqVpcId"`
+}
+
+// GetPrivateZoneListPrivateZoneSetVpcSetInput is an input type that accepts GetPrivateZoneListPrivateZoneSetVpcSetArgs and GetPrivateZoneListPrivateZoneSetVpcSetOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetVpcSetInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetVpcSetArgs{...}
+type GetPrivateZoneListPrivateZoneSetVpcSetInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetVpcSetOutput() GetPrivateZoneListPrivateZoneSetVpcSetOutput
+	ToGetPrivateZoneListPrivateZoneSetVpcSetOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetVpcSetOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetVpcSetArgs struct {
+	Region    pulumi.StringInput `pulumi:"region"`
+	UniqVpcId pulumi.StringInput `pulumi:"uniqVpcId"`
+}
+
+func (GetPrivateZoneListPrivateZoneSetVpcSetArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetVpcSetOutput() GetPrivateZoneListPrivateZoneSetVpcSetOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetVpcSetOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetVpcSetArgs) ToGetPrivateZoneListPrivateZoneSetVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetVpcSetOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetVpcSetOutput)
+}
+
+// GetPrivateZoneListPrivateZoneSetVpcSetArrayInput is an input type that accepts GetPrivateZoneListPrivateZoneSetVpcSetArray and GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput values.
+// You can construct a concrete instance of `GetPrivateZoneListPrivateZoneSetVpcSetArrayInput` via:
+//
+//	GetPrivateZoneListPrivateZoneSetVpcSetArray{ GetPrivateZoneListPrivateZoneSetVpcSetArgs{...} }
+type GetPrivateZoneListPrivateZoneSetVpcSetArrayInput interface {
+	pulumi.Input
+
+	ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput
+	ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutputWithContext(context.Context) GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput
+}
+
+type GetPrivateZoneListPrivateZoneSetVpcSetArray []GetPrivateZoneListPrivateZoneSetVpcSetInput
+
+func (GetPrivateZoneListPrivateZoneSetVpcSetArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetVpcSet)(nil)).Elem()
+}
+
+func (i GetPrivateZoneListPrivateZoneSetVpcSetArray) ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput {
+	return i.ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutputWithContext(context.Background())
+}
+
+func (i GetPrivateZoneListPrivateZoneSetVpcSetArray) ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetVpcSetOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetVpcSetOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetVpcSetOutput() GetPrivateZoneListPrivateZoneSetVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetOutput) ToGetPrivateZoneListPrivateZoneSetVpcSetOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetVpcSetOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetOutput) Region() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetVpcSet) string { return v.Region }).(pulumi.StringOutput)
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetOutput) UniqVpcId() pulumi.StringOutput {
+	return o.ApplyT(func(v GetPrivateZoneListPrivateZoneSetVpcSet) string { return v.UniqVpcId }).(pulumi.StringOutput)
+}
+
+type GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput struct{ *pulumi.OutputState }
+
+func (GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]GetPrivateZoneListPrivateZoneSetVpcSet)(nil)).Elem()
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutput() GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput) ToGetPrivateZoneListPrivateZoneSetVpcSetArrayOutputWithContext(ctx context.Context) GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput {
+	return o
+}
+
+func (o GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput) Index(i pulumi.IntInput) GetPrivateZoneListPrivateZoneSetVpcSetOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) GetPrivateZoneListPrivateZoneSetVpcSet {
+		return vs[0].([]GetPrivateZoneListPrivateZoneSetVpcSet)[vs[1].(int)]
+	}).(GetPrivateZoneListPrivateZoneSetVpcSetOutput)
+}
+
 type GetRecordsFilter struct {
 	Name   string   `pulumi:"name"`
 	Values []string `pulumi:"values"`
@@ -913,6 +2409,32 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneVpcAttachmentVpcSetPtrInput)(nil)).Elem(), ZoneVpcAttachmentVpcSetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneVpcSetInput)(nil)).Elem(), ZoneVpcSetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ZoneVpcSetArrayInput)(nil)).Elem(), ZoneVpcSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsEndPointSetInput)(nil)).Elem(), GetEndPointsEndPointSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsEndPointSetArrayInput)(nil)).Elem(), GetEndPointsEndPointSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsEndPointSetTagInput)(nil)).Elem(), GetEndPointsEndPointSetTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsEndPointSetTagArrayInput)(nil)).Elem(), GetEndPointsEndPointSetTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsFilterInput)(nil)).Elem(), GetEndPointsFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetEndPointsFilterArrayInput)(nil)).Elem(), GetEndPointsFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesFilterInput)(nil)).Elem(), GetForwardRulesFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesFilterArrayInput)(nil)).Elem(), GetForwardRulesFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetInput)(nil)).Elem(), GetForwardRulesForwardRuleSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetArrayInput)(nil)).Elem(), GetForwardRulesForwardRuleSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetTagInput)(nil)).Elem(), GetForwardRulesForwardRuleSetTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetTagArrayInput)(nil)).Elem(), GetForwardRulesForwardRuleSetTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetVpcSetInput)(nil)).Elem(), GetForwardRulesForwardRuleSetVpcSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetForwardRulesForwardRuleSetVpcSetArrayInput)(nil)).Elem(), GetForwardRulesForwardRuleSetVpcSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListFilterInput)(nil)).Elem(), GetPrivateZoneListFilterArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListFilterArrayInput)(nil)).Elem(), GetPrivateZoneListFilterArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetArrayInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetAccountVpcSetInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetAccountVpcSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetAccountVpcSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetDeletedVpcSetInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetDeletedVpcSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetDeletedVpcSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetTagInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetTagArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetTagArrayInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetTagArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetVpcSetInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetVpcSetArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*GetPrivateZoneListPrivateZoneSetVpcSetArrayInput)(nil)).Elem(), GetPrivateZoneListPrivateZoneSetVpcSetArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRecordsFilterInput)(nil)).Elem(), GetRecordsFilterArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRecordsFilterArrayInput)(nil)).Elem(), GetRecordsFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetRecordsRecordSetInput)(nil)).Elem(), GetRecordsRecordSetArgs{})
@@ -927,6 +2449,32 @@ func init() {
 	pulumi.RegisterOutputType(ZoneVpcAttachmentVpcSetPtrOutput{})
 	pulumi.RegisterOutputType(ZoneVpcSetOutput{})
 	pulumi.RegisterOutputType(ZoneVpcSetArrayOutput{})
+	pulumi.RegisterOutputType(GetEndPointsEndPointSetOutput{})
+	pulumi.RegisterOutputType(GetEndPointsEndPointSetArrayOutput{})
+	pulumi.RegisterOutputType(GetEndPointsEndPointSetTagOutput{})
+	pulumi.RegisterOutputType(GetEndPointsEndPointSetTagArrayOutput{})
+	pulumi.RegisterOutputType(GetEndPointsFilterOutput{})
+	pulumi.RegisterOutputType(GetEndPointsFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesFilterOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetArrayOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetTagOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetTagArrayOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetVpcSetOutput{})
+	pulumi.RegisterOutputType(GetForwardRulesForwardRuleSetVpcSetArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListFilterOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListFilterArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetAccountVpcSetOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetAccountVpcSetArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetDeletedVpcSetOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetDeletedVpcSetArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetTagOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetTagArrayOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetVpcSetOutput{})
+	pulumi.RegisterOutputType(GetPrivateZoneListPrivateZoneSetVpcSetArrayOutput{})
 	pulumi.RegisterOutputType(GetRecordsFilterOutput{})
 	pulumi.RegisterOutputType(GetRecordsFilterArrayOutput{})
 	pulumi.RegisterOutputType(GetRecordsRecordSetOutput{})

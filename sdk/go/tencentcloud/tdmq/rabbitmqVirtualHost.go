@@ -20,7 +20,7 @@ type RabbitmqVirtualHost struct {
 	// Cluster instance ID.
 	InstanceId pulumi.StringOutput `pulumi:"instanceId"`
 	// Message track switch, true is on, false is off, default is off.
-	TraceFlag pulumi.BoolPtrOutput `pulumi:"traceFlag"`
+	TraceFlag pulumi.BoolOutput `pulumi:"traceFlag"`
 	// vhost name.
 	VirtualHost pulumi.StringOutput `pulumi:"virtualHost"`
 }
@@ -207,8 +207,8 @@ func (o RabbitmqVirtualHostOutput) InstanceId() pulumi.StringOutput {
 }
 
 // Message track switch, true is on, false is off, default is off.
-func (o RabbitmqVirtualHostOutput) TraceFlag() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *RabbitmqVirtualHost) pulumi.BoolPtrOutput { return v.TraceFlag }).(pulumi.BoolPtrOutput)
+func (o RabbitmqVirtualHostOutput) TraceFlag() pulumi.BoolOutput {
+	return o.ApplyT(func(v *RabbitmqVirtualHost) pulumi.BoolOutput { return v.TraceFlag }).(pulumi.BoolOutput)
 }
 
 // vhost name.

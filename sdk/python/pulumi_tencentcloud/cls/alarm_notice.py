@@ -23,11 +23,11 @@ class AlarmNoticeArgs:
                  web_callbacks: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]]] = None):
         """
         The set of arguments for constructing a AlarmNotice resource.
-        :param pulumi.Input[str] type: notice type.
-        :param pulumi.Input[str] name: alarm notice name.
-        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]] notice_receivers: notice receivers.
+        :param pulumi.Input[str] type: Notice type. Value: Trigger, Recovery, All.
+        :param pulumi.Input[str] name: Alarm notice name.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]] notice_receivers: Notice receivers.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]] web_callbacks: callback info.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]] web_callbacks: Callback info.
         """
         pulumi.set(__self__, "type", type)
         if name is not None:
@@ -43,7 +43,7 @@ class AlarmNoticeArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        notice type.
+        Notice type. Value: Trigger, Recovery, All.
         """
         return pulumi.get(self, "type")
 
@@ -55,7 +55,7 @@ class AlarmNoticeArgs:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        alarm notice name.
+        Alarm notice name.
         """
         return pulumi.get(self, "name")
 
@@ -67,7 +67,7 @@ class AlarmNoticeArgs:
     @pulumi.getter(name="noticeReceivers")
     def notice_receivers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]]]:
         """
-        notice receivers.
+        Notice receivers.
         """
         return pulumi.get(self, "notice_receivers")
 
@@ -91,7 +91,7 @@ class AlarmNoticeArgs:
     @pulumi.getter(name="webCallbacks")
     def web_callbacks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]]]:
         """
-        callback info.
+        Callback info.
         """
         return pulumi.get(self, "web_callbacks")
 
@@ -110,11 +110,11 @@ class _AlarmNoticeState:
                  web_callbacks: Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]]] = None):
         """
         Input properties used for looking up and filtering AlarmNotice resources.
-        :param pulumi.Input[str] name: alarm notice name.
-        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]] notice_receivers: notice receivers.
+        :param pulumi.Input[str] name: Alarm notice name.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]] notice_receivers: Notice receivers.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: notice type.
-        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]] web_callbacks: callback info.
+        :param pulumi.Input[str] type: Notice type. Value: Trigger, Recovery, All.
+        :param pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]] web_callbacks: Callback info.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
@@ -131,7 +131,7 @@ class _AlarmNoticeState:
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        alarm notice name.
+        Alarm notice name.
         """
         return pulumi.get(self, "name")
 
@@ -143,7 +143,7 @@ class _AlarmNoticeState:
     @pulumi.getter(name="noticeReceivers")
     def notice_receivers(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeNoticeReceiverArgs']]]]:
         """
-        notice receivers.
+        Notice receivers.
         """
         return pulumi.get(self, "notice_receivers")
 
@@ -167,7 +167,7 @@ class _AlarmNoticeState:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        notice type.
+        Notice type. Value: Trigger, Recovery, All.
         """
         return pulumi.get(self, "type")
 
@@ -179,7 +179,7 @@ class _AlarmNoticeState:
     @pulumi.getter(name="webCallbacks")
     def web_callbacks(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['AlarmNoticeWebCallbackArgs']]]]:
         """
-        callback info.
+        Callback info.
         """
         return pulumi.get(self, "web_callbacks")
 
@@ -203,11 +203,11 @@ class AlarmNotice(pulumi.CustomResource):
         Create a AlarmNotice resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: alarm notice name.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeNoticeReceiverArgs']]]] notice_receivers: notice receivers.
+        :param pulumi.Input[str] name: Alarm notice name.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeNoticeReceiverArgs']]]] notice_receivers: Notice receivers.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: notice type.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeWebCallbackArgs']]]] web_callbacks: callback info.
+        :param pulumi.Input[str] type: Notice type. Value: Trigger, Recovery, All.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeWebCallbackArgs']]]] web_callbacks: Callback info.
         """
         ...
     @overload
@@ -275,11 +275,11 @@ class AlarmNotice(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] name: alarm notice name.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeNoticeReceiverArgs']]]] notice_receivers: notice receivers.
+        :param pulumi.Input[str] name: Alarm notice name.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeNoticeReceiverArgs']]]] notice_receivers: Notice receivers.
         :param pulumi.Input[Mapping[str, Any]] tags: Tag description list.
-        :param pulumi.Input[str] type: notice type.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeWebCallbackArgs']]]] web_callbacks: callback info.
+        :param pulumi.Input[str] type: Notice type. Value: Trigger, Recovery, All.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['AlarmNoticeWebCallbackArgs']]]] web_callbacks: Callback info.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -296,7 +296,7 @@ class AlarmNotice(pulumi.CustomResource):
     @pulumi.getter
     def name(self) -> pulumi.Output[str]:
         """
-        alarm notice name.
+        Alarm notice name.
         """
         return pulumi.get(self, "name")
 
@@ -304,7 +304,7 @@ class AlarmNotice(pulumi.CustomResource):
     @pulumi.getter(name="noticeReceivers")
     def notice_receivers(self) -> pulumi.Output[Optional[Sequence['outputs.AlarmNoticeNoticeReceiver']]]:
         """
-        notice receivers.
+        Notice receivers.
         """
         return pulumi.get(self, "notice_receivers")
 
@@ -320,7 +320,7 @@ class AlarmNotice(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[str]:
         """
-        notice type.
+        Notice type. Value: Trigger, Recovery, All.
         """
         return pulumi.get(self, "type")
 
@@ -328,7 +328,7 @@ class AlarmNotice(pulumi.CustomResource):
     @pulumi.getter(name="webCallbacks")
     def web_callbacks(self) -> pulumi.Output[Optional[Sequence['outputs.AlarmNoticeWebCallback']]]:
         """
-        callback info.
+        Callback info.
         """
         return pulumi.get(self, "web_callbacks")
 

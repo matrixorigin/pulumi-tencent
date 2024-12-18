@@ -15,6 +15,7 @@ __all__ = [
     'AccountPrivilegesTablePrivilege',
     'AuditLogFileFilter',
     'ClusterDatabasesUserHostPrivilege',
+    'ClusterInstanceInitInfo',
     'ClusterParamItem',
     'ClusterRoGroupAddr',
     'ClusterRoGroupInstance',
@@ -316,6 +317,108 @@ class ClusterDatabasesUserHostPrivilege(dict):
     @pulumi.getter(name="dbUserName")
     def db_user_name(self) -> str:
         return pulumi.get(self, "db_user_name")
+
+
+@pulumi.output_type
+class ClusterInstanceInitInfo(dict):
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "instanceCount":
+            suggest = "instance_count"
+        elif key == "instanceType":
+            suggest = "instance_type"
+        elif key == "deviceType":
+            suggest = "device_type"
+        elif key == "maxRoCount":
+            suggest = "max_ro_count"
+        elif key == "maxRoCpu":
+            suggest = "max_ro_cpu"
+        elif key == "minRoCount":
+            suggest = "min_ro_count"
+        elif key == "minRoCpu":
+            suggest = "min_ro_cpu"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ClusterInstanceInitInfo. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ClusterInstanceInitInfo.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ClusterInstanceInitInfo.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 cpu: int,
+                 instance_count: int,
+                 instance_type: str,
+                 memory: int,
+                 device_type: Optional[str] = None,
+                 max_ro_count: Optional[int] = None,
+                 max_ro_cpu: Optional[float] = None,
+                 min_ro_count: Optional[int] = None,
+                 min_ro_cpu: Optional[float] = None):
+        pulumi.set(__self__, "cpu", cpu)
+        pulumi.set(__self__, "instance_count", instance_count)
+        pulumi.set(__self__, "instance_type", instance_type)
+        pulumi.set(__self__, "memory", memory)
+        if device_type is not None:
+            pulumi.set(__self__, "device_type", device_type)
+        if max_ro_count is not None:
+            pulumi.set(__self__, "max_ro_count", max_ro_count)
+        if max_ro_cpu is not None:
+            pulumi.set(__self__, "max_ro_cpu", max_ro_cpu)
+        if min_ro_count is not None:
+            pulumi.set(__self__, "min_ro_count", min_ro_count)
+        if min_ro_cpu is not None:
+            pulumi.set(__self__, "min_ro_cpu", min_ro_cpu)
+
+    @property
+    @pulumi.getter
+    def cpu(self) -> int:
+        return pulumi.get(self, "cpu")
+
+    @property
+    @pulumi.getter(name="instanceCount")
+    def instance_count(self) -> int:
+        return pulumi.get(self, "instance_count")
+
+    @property
+    @pulumi.getter(name="instanceType")
+    def instance_type(self) -> str:
+        return pulumi.get(self, "instance_type")
+
+    @property
+    @pulumi.getter
+    def memory(self) -> int:
+        return pulumi.get(self, "memory")
+
+    @property
+    @pulumi.getter(name="deviceType")
+    def device_type(self) -> Optional[str]:
+        return pulumi.get(self, "device_type")
+
+    @property
+    @pulumi.getter(name="maxRoCount")
+    def max_ro_count(self) -> Optional[int]:
+        return pulumi.get(self, "max_ro_count")
+
+    @property
+    @pulumi.getter(name="maxRoCpu")
+    def max_ro_cpu(self) -> Optional[float]:
+        return pulumi.get(self, "max_ro_cpu")
+
+    @property
+    @pulumi.getter(name="minRoCount")
+    def min_ro_count(self) -> Optional[int]:
+        return pulumi.get(self, "min_ro_count")
+
+    @property
+    @pulumi.getter(name="minRoCpu")
+    def min_ro_cpu(self) -> Optional[float]:
+        return pulumi.get(self, "min_ro_cpu")
 
 
 @pulumi.output_type

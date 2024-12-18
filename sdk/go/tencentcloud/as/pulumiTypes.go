@@ -13,6 +13,154 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type LifecycleHookLifecycleCommand struct {
+	CommandId  string  `pulumi:"commandId"`
+	Parameters *string `pulumi:"parameters"`
+}
+
+// LifecycleHookLifecycleCommandInput is an input type that accepts LifecycleHookLifecycleCommandArgs and LifecycleHookLifecycleCommandOutput values.
+// You can construct a concrete instance of `LifecycleHookLifecycleCommandInput` via:
+//
+//	LifecycleHookLifecycleCommandArgs{...}
+type LifecycleHookLifecycleCommandInput interface {
+	pulumi.Input
+
+	ToLifecycleHookLifecycleCommandOutput() LifecycleHookLifecycleCommandOutput
+	ToLifecycleHookLifecycleCommandOutputWithContext(context.Context) LifecycleHookLifecycleCommandOutput
+}
+
+type LifecycleHookLifecycleCommandArgs struct {
+	CommandId  pulumi.StringInput    `pulumi:"commandId"`
+	Parameters pulumi.StringPtrInput `pulumi:"parameters"`
+}
+
+func (LifecycleHookLifecycleCommandArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LifecycleHookLifecycleCommand)(nil)).Elem()
+}
+
+func (i LifecycleHookLifecycleCommandArgs) ToLifecycleHookLifecycleCommandOutput() LifecycleHookLifecycleCommandOutput {
+	return i.ToLifecycleHookLifecycleCommandOutputWithContext(context.Background())
+}
+
+func (i LifecycleHookLifecycleCommandArgs) ToLifecycleHookLifecycleCommandOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHookLifecycleCommandOutput)
+}
+
+func (i LifecycleHookLifecycleCommandArgs) ToLifecycleHookLifecycleCommandPtrOutput() LifecycleHookLifecycleCommandPtrOutput {
+	return i.ToLifecycleHookLifecycleCommandPtrOutputWithContext(context.Background())
+}
+
+func (i LifecycleHookLifecycleCommandArgs) ToLifecycleHookLifecycleCommandPtrOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHookLifecycleCommandOutput).ToLifecycleHookLifecycleCommandPtrOutputWithContext(ctx)
+}
+
+// LifecycleHookLifecycleCommandPtrInput is an input type that accepts LifecycleHookLifecycleCommandArgs, LifecycleHookLifecycleCommandPtr and LifecycleHookLifecycleCommandPtrOutput values.
+// You can construct a concrete instance of `LifecycleHookLifecycleCommandPtrInput` via:
+//
+//	        LifecycleHookLifecycleCommandArgs{...}
+//
+//	or:
+//
+//	        nil
+type LifecycleHookLifecycleCommandPtrInput interface {
+	pulumi.Input
+
+	ToLifecycleHookLifecycleCommandPtrOutput() LifecycleHookLifecycleCommandPtrOutput
+	ToLifecycleHookLifecycleCommandPtrOutputWithContext(context.Context) LifecycleHookLifecycleCommandPtrOutput
+}
+
+type lifecycleHookLifecycleCommandPtrType LifecycleHookLifecycleCommandArgs
+
+func LifecycleHookLifecycleCommandPtr(v *LifecycleHookLifecycleCommandArgs) LifecycleHookLifecycleCommandPtrInput {
+	return (*lifecycleHookLifecycleCommandPtrType)(v)
+}
+
+func (*lifecycleHookLifecycleCommandPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**LifecycleHookLifecycleCommand)(nil)).Elem()
+}
+
+func (i *lifecycleHookLifecycleCommandPtrType) ToLifecycleHookLifecycleCommandPtrOutput() LifecycleHookLifecycleCommandPtrOutput {
+	return i.ToLifecycleHookLifecycleCommandPtrOutputWithContext(context.Background())
+}
+
+func (i *lifecycleHookLifecycleCommandPtrType) ToLifecycleHookLifecycleCommandPtrOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LifecycleHookLifecycleCommandPtrOutput)
+}
+
+type LifecycleHookLifecycleCommandOutput struct{ *pulumi.OutputState }
+
+func (LifecycleHookLifecycleCommandOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LifecycleHookLifecycleCommand)(nil)).Elem()
+}
+
+func (o LifecycleHookLifecycleCommandOutput) ToLifecycleHookLifecycleCommandOutput() LifecycleHookLifecycleCommandOutput {
+	return o
+}
+
+func (o LifecycleHookLifecycleCommandOutput) ToLifecycleHookLifecycleCommandOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandOutput {
+	return o
+}
+
+func (o LifecycleHookLifecycleCommandOutput) ToLifecycleHookLifecycleCommandPtrOutput() LifecycleHookLifecycleCommandPtrOutput {
+	return o.ToLifecycleHookLifecycleCommandPtrOutputWithContext(context.Background())
+}
+
+func (o LifecycleHookLifecycleCommandOutput) ToLifecycleHookLifecycleCommandPtrOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v LifecycleHookLifecycleCommand) *LifecycleHookLifecycleCommand {
+		return &v
+	}).(LifecycleHookLifecycleCommandPtrOutput)
+}
+
+func (o LifecycleHookLifecycleCommandOutput) CommandId() pulumi.StringOutput {
+	return o.ApplyT(func(v LifecycleHookLifecycleCommand) string { return v.CommandId }).(pulumi.StringOutput)
+}
+
+func (o LifecycleHookLifecycleCommandOutput) Parameters() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LifecycleHookLifecycleCommand) *string { return v.Parameters }).(pulumi.StringPtrOutput)
+}
+
+type LifecycleHookLifecycleCommandPtrOutput struct{ *pulumi.OutputState }
+
+func (LifecycleHookLifecycleCommandPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**LifecycleHookLifecycleCommand)(nil)).Elem()
+}
+
+func (o LifecycleHookLifecycleCommandPtrOutput) ToLifecycleHookLifecycleCommandPtrOutput() LifecycleHookLifecycleCommandPtrOutput {
+	return o
+}
+
+func (o LifecycleHookLifecycleCommandPtrOutput) ToLifecycleHookLifecycleCommandPtrOutputWithContext(ctx context.Context) LifecycleHookLifecycleCommandPtrOutput {
+	return o
+}
+
+func (o LifecycleHookLifecycleCommandPtrOutput) Elem() LifecycleHookLifecycleCommandOutput {
+	return o.ApplyT(func(v *LifecycleHookLifecycleCommand) LifecycleHookLifecycleCommand {
+		if v != nil {
+			return *v
+		}
+		var ret LifecycleHookLifecycleCommand
+		return ret
+	}).(LifecycleHookLifecycleCommandOutput)
+}
+
+func (o LifecycleHookLifecycleCommandPtrOutput) CommandId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LifecycleHookLifecycleCommand) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.CommandId
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o LifecycleHookLifecycleCommandPtrOutput) Parameters() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *LifecycleHookLifecycleCommand) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Parameters
+	}).(pulumi.StringPtrOutput)
+}
+
 type LoadBalancerForwardLoadBalancer struct {
 	ListenerId       string                                           `pulumi:"listenerId"`
 	LoadBalancerId   string                                           `pulumi:"loadBalancerId"`
@@ -853,6 +1001,319 @@ func (o ScalingGroupForwardBalancerIdTargetAttributeArrayOutput) Index(i pulumi.
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ScalingGroupForwardBalancerIdTargetAttribute {
 		return vs[0].([]ScalingGroupForwardBalancerIdTargetAttribute)[vs[1].(int)]
 	}).(ScalingGroupForwardBalancerIdTargetAttributeOutput)
+}
+
+type StartInstanceRefreshRefreshSettings struct {
+	CheckInstanceTargetHealth *bool                                                    `pulumi:"checkInstanceTargetHealth"`
+	RollingUpdateSettings     StartInstanceRefreshRefreshSettingsRollingUpdateSettings `pulumi:"rollingUpdateSettings"`
+}
+
+// StartInstanceRefreshRefreshSettingsInput is an input type that accepts StartInstanceRefreshRefreshSettingsArgs and StartInstanceRefreshRefreshSettingsOutput values.
+// You can construct a concrete instance of `StartInstanceRefreshRefreshSettingsInput` via:
+//
+//	StartInstanceRefreshRefreshSettingsArgs{...}
+type StartInstanceRefreshRefreshSettingsInput interface {
+	pulumi.Input
+
+	ToStartInstanceRefreshRefreshSettingsOutput() StartInstanceRefreshRefreshSettingsOutput
+	ToStartInstanceRefreshRefreshSettingsOutputWithContext(context.Context) StartInstanceRefreshRefreshSettingsOutput
+}
+
+type StartInstanceRefreshRefreshSettingsArgs struct {
+	CheckInstanceTargetHealth pulumi.BoolPtrInput                                           `pulumi:"checkInstanceTargetHealth"`
+	RollingUpdateSettings     StartInstanceRefreshRefreshSettingsRollingUpdateSettingsInput `pulumi:"rollingUpdateSettings"`
+}
+
+func (StartInstanceRefreshRefreshSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartInstanceRefreshRefreshSettings)(nil)).Elem()
+}
+
+func (i StartInstanceRefreshRefreshSettingsArgs) ToStartInstanceRefreshRefreshSettingsOutput() StartInstanceRefreshRefreshSettingsOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsOutputWithContext(context.Background())
+}
+
+func (i StartInstanceRefreshRefreshSettingsArgs) ToStartInstanceRefreshRefreshSettingsOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsOutput)
+}
+
+func (i StartInstanceRefreshRefreshSettingsArgs) ToStartInstanceRefreshRefreshSettingsPtrOutput() StartInstanceRefreshRefreshSettingsPtrOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i StartInstanceRefreshRefreshSettingsArgs) ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsOutput).ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(ctx)
+}
+
+// StartInstanceRefreshRefreshSettingsPtrInput is an input type that accepts StartInstanceRefreshRefreshSettingsArgs, StartInstanceRefreshRefreshSettingsPtr and StartInstanceRefreshRefreshSettingsPtrOutput values.
+// You can construct a concrete instance of `StartInstanceRefreshRefreshSettingsPtrInput` via:
+//
+//	        StartInstanceRefreshRefreshSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type StartInstanceRefreshRefreshSettingsPtrInput interface {
+	pulumi.Input
+
+	ToStartInstanceRefreshRefreshSettingsPtrOutput() StartInstanceRefreshRefreshSettingsPtrOutput
+	ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(context.Context) StartInstanceRefreshRefreshSettingsPtrOutput
+}
+
+type startInstanceRefreshRefreshSettingsPtrType StartInstanceRefreshRefreshSettingsArgs
+
+func StartInstanceRefreshRefreshSettingsPtr(v *StartInstanceRefreshRefreshSettingsArgs) StartInstanceRefreshRefreshSettingsPtrInput {
+	return (*startInstanceRefreshRefreshSettingsPtrType)(v)
+}
+
+func (*startInstanceRefreshRefreshSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartInstanceRefreshRefreshSettings)(nil)).Elem()
+}
+
+func (i *startInstanceRefreshRefreshSettingsPtrType) ToStartInstanceRefreshRefreshSettingsPtrOutput() StartInstanceRefreshRefreshSettingsPtrOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *startInstanceRefreshRefreshSettingsPtrType) ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsPtrOutput)
+}
+
+type StartInstanceRefreshRefreshSettingsOutput struct{ *pulumi.OutputState }
+
+func (StartInstanceRefreshRefreshSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartInstanceRefreshRefreshSettings)(nil)).Elem()
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) ToStartInstanceRefreshRefreshSettingsOutput() StartInstanceRefreshRefreshSettingsOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) ToStartInstanceRefreshRefreshSettingsOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) ToStartInstanceRefreshRefreshSettingsPtrOutput() StartInstanceRefreshRefreshSettingsPtrOutput {
+	return o.ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StartInstanceRefreshRefreshSettings) *StartInstanceRefreshRefreshSettings {
+		return &v
+	}).(StartInstanceRefreshRefreshSettingsPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) CheckInstanceTargetHealth() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v StartInstanceRefreshRefreshSettings) *bool { return v.CheckInstanceTargetHealth }).(pulumi.BoolPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsOutput) RollingUpdateSettings() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return o.ApplyT(func(v StartInstanceRefreshRefreshSettings) StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+		return v.RollingUpdateSettings
+	}).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput)
+}
+
+type StartInstanceRefreshRefreshSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (StartInstanceRefreshRefreshSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartInstanceRefreshRefreshSettings)(nil)).Elem()
+}
+
+func (o StartInstanceRefreshRefreshSettingsPtrOutput) ToStartInstanceRefreshRefreshSettingsPtrOutput() StartInstanceRefreshRefreshSettingsPtrOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsPtrOutput) ToStartInstanceRefreshRefreshSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsPtrOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsPtrOutput) Elem() StartInstanceRefreshRefreshSettingsOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettings) StartInstanceRefreshRefreshSettings {
+		if v != nil {
+			return *v
+		}
+		var ret StartInstanceRefreshRefreshSettings
+		return ret
+	}).(StartInstanceRefreshRefreshSettingsOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsPtrOutput) CheckInstanceTargetHealth() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettings) *bool {
+		if v == nil {
+			return nil
+		}
+		return v.CheckInstanceTargetHealth
+	}).(pulumi.BoolPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsPtrOutput) RollingUpdateSettings() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettings) *StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+		if v == nil {
+			return nil
+		}
+		return &v.RollingUpdateSettings
+	}).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput)
+}
+
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettings struct {
+	BatchNumber int     `pulumi:"batchNumber"`
+	BatchPause  *string `pulumi:"batchPause"`
+	MaxSurge    *int    `pulumi:"maxSurge"`
+}
+
+// StartInstanceRefreshRefreshSettingsRollingUpdateSettingsInput is an input type that accepts StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs and StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput values.
+// You can construct a concrete instance of `StartInstanceRefreshRefreshSettingsRollingUpdateSettingsInput` via:
+//
+//	StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs{...}
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettingsInput interface {
+	pulumi.Input
+
+	ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput
+	ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutputWithContext(context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput
+}
+
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs struct {
+	BatchNumber pulumi.IntInput       `pulumi:"batchNumber"`
+	BatchPause  pulumi.StringPtrInput `pulumi:"batchPause"`
+	MaxSurge    pulumi.IntPtrInput    `pulumi:"maxSurge"`
+}
+
+func (StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartInstanceRefreshRefreshSettingsRollingUpdateSettings)(nil)).Elem()
+}
+
+func (i StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutputWithContext(context.Background())
+}
+
+func (i StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput)
+}
+
+func (i StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput).ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(ctx)
+}
+
+// StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrInput is an input type that accepts StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs, StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtr and StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput values.
+// You can construct a concrete instance of `StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrInput` via:
+//
+//	        StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs{...}
+//
+//	or:
+//
+//	        nil
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrInput interface {
+	pulumi.Input
+
+	ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput
+	ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput
+}
+
+type startInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrType StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs
+
+func StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtr(v *StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrInput {
+	return (*startInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrType)(v)
+}
+
+func (*startInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartInstanceRefreshRefreshSettingsRollingUpdateSettings)(nil)).Elem()
+}
+
+func (i *startInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrType) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return i.ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(context.Background())
+}
+
+func (i *startInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrType) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput)
+}
+
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput struct{ *pulumi.OutputState }
+
+func (StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StartInstanceRefreshRefreshSettingsRollingUpdateSettings)(nil)).Elem()
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return o.ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(context.Background())
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+		return &v
+	}).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) BatchNumber() pulumi.IntOutput {
+	return o.ApplyT(func(v StartInstanceRefreshRefreshSettingsRollingUpdateSettings) int { return v.BatchNumber }).(pulumi.IntOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) BatchPause() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *string { return v.BatchPause }).(pulumi.StringPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput) MaxSurge() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *int { return v.MaxSurge }).(pulumi.IntPtrOutput)
+}
+
+type StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput struct{ *pulumi.OutputState }
+
+func (StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StartInstanceRefreshRefreshSettingsRollingUpdateSettings)(nil)).Elem()
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) ToStartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutputWithContext(ctx context.Context) StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput {
+	return o
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) Elem() StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettingsRollingUpdateSettings) StartInstanceRefreshRefreshSettingsRollingUpdateSettings {
+		if v != nil {
+			return *v
+		}
+		var ret StartInstanceRefreshRefreshSettingsRollingUpdateSettings
+		return ret
+	}).(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) BatchNumber() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *int {
+		if v == nil {
+			return nil
+		}
+		return &v.BatchNumber
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) BatchPause() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *string {
+		if v == nil {
+			return nil
+		}
+		return v.BatchPause
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput) MaxSurge() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StartInstanceRefreshRefreshSettingsRollingUpdateSettings) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxSurge
+	}).(pulumi.IntPtrOutput)
 }
 
 type GetAdvicesAutoScalingAdviceSet struct {
@@ -2024,6 +2485,7 @@ type GetScalingConfigsConfigurationList struct {
 	SystemDiskSize          int                                          `pulumi:"systemDiskSize"`
 	SystemDiskType          string                                       `pulumi:"systemDiskType"`
 	UserData                string                                       `pulumi:"userData"`
+	VersionNumber           int                                          `pulumi:"versionNumber"`
 }
 
 // GetScalingConfigsConfigurationListInput is an input type that accepts GetScalingConfigsConfigurationListArgs and GetScalingConfigsConfigurationListOutput values.
@@ -2058,6 +2520,7 @@ type GetScalingConfigsConfigurationListArgs struct {
 	SystemDiskSize          pulumi.IntInput                                      `pulumi:"systemDiskSize"`
 	SystemDiskType          pulumi.StringInput                                   `pulumi:"systemDiskType"`
 	UserData                pulumi.StringInput                                   `pulumi:"userData"`
+	VersionNumber           pulumi.IntInput                                      `pulumi:"versionNumber"`
 }
 
 func (GetScalingConfigsConfigurationListArgs) ElementType() reflect.Type {
@@ -2191,6 +2654,10 @@ func (o GetScalingConfigsConfigurationListOutput) SystemDiskType() pulumi.String
 
 func (o GetScalingConfigsConfigurationListOutput) UserData() pulumi.StringOutput {
 	return o.ApplyT(func(v GetScalingConfigsConfigurationList) string { return v.UserData }).(pulumi.StringOutput)
+}
+
+func (o GetScalingConfigsConfigurationListOutput) VersionNumber() pulumi.IntOutput {
+	return o.ApplyT(func(v GetScalingConfigsConfigurationList) int { return v.VersionNumber }).(pulumi.IntOutput)
 }
 
 type GetScalingConfigsConfigurationListArrayOutput struct{ *pulumi.OutputState }
@@ -2910,6 +3377,8 @@ func (o GetScalingPoliciesScalingPolicyListArrayOutput) Index(i pulumi.IntInput)
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleHookLifecycleCommandInput)(nil)).Elem(), LifecycleHookLifecycleCommandArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LifecycleHookLifecycleCommandPtrInput)(nil)).Elem(), LifecycleHookLifecycleCommandArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerForwardLoadBalancerInput)(nil)).Elem(), LoadBalancerForwardLoadBalancerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerForwardLoadBalancerArrayInput)(nil)).Elem(), LoadBalancerForwardLoadBalancerArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*LoadBalancerForwardLoadBalancerTargetAttributeInput)(nil)).Elem(), LoadBalancerForwardLoadBalancerTargetAttributeArgs{})
@@ -2924,6 +3393,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ScalingGroupForwardBalancerIdArrayInput)(nil)).Elem(), ScalingGroupForwardBalancerIdArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScalingGroupForwardBalancerIdTargetAttributeInput)(nil)).Elem(), ScalingGroupForwardBalancerIdTargetAttributeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ScalingGroupForwardBalancerIdTargetAttributeArrayInput)(nil)).Elem(), ScalingGroupForwardBalancerIdTargetAttributeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartInstanceRefreshRefreshSettingsInput)(nil)).Elem(), StartInstanceRefreshRefreshSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartInstanceRefreshRefreshSettingsPtrInput)(nil)).Elem(), StartInstanceRefreshRefreshSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartInstanceRefreshRefreshSettingsRollingUpdateSettingsInput)(nil)).Elem(), StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrInput)(nil)).Elem(), StartInstanceRefreshRefreshSettingsRollingUpdateSettingsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdvicesAutoScalingAdviceSetInput)(nil)).Elem(), GetAdvicesAutoScalingAdviceSetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdvicesAutoScalingAdviceSetArrayInput)(nil)).Elem(), GetAdvicesAutoScalingAdviceSetArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetAdvicesAutoScalingAdviceSetAdviceInput)(nil)).Elem(), GetAdvicesAutoScalingAdviceSetAdviceArgs{})
@@ -2954,6 +3427,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetScalingGroupsScalingGroupListForwardBalancerIdTargetAttributeArrayInput)(nil)).Elem(), GetScalingGroupsScalingGroupListForwardBalancerIdTargetAttributeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetScalingPoliciesScalingPolicyListInput)(nil)).Elem(), GetScalingPoliciesScalingPolicyListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetScalingPoliciesScalingPolicyListArrayInput)(nil)).Elem(), GetScalingPoliciesScalingPolicyListArray{})
+	pulumi.RegisterOutputType(LifecycleHookLifecycleCommandOutput{})
+	pulumi.RegisterOutputType(LifecycleHookLifecycleCommandPtrOutput{})
 	pulumi.RegisterOutputType(LoadBalancerForwardLoadBalancerOutput{})
 	pulumi.RegisterOutputType(LoadBalancerForwardLoadBalancerArrayOutput{})
 	pulumi.RegisterOutputType(LoadBalancerForwardLoadBalancerTargetAttributeOutput{})
@@ -2968,6 +3443,10 @@ func init() {
 	pulumi.RegisterOutputType(ScalingGroupForwardBalancerIdArrayOutput{})
 	pulumi.RegisterOutputType(ScalingGroupForwardBalancerIdTargetAttributeOutput{})
 	pulumi.RegisterOutputType(ScalingGroupForwardBalancerIdTargetAttributeArrayOutput{})
+	pulumi.RegisterOutputType(StartInstanceRefreshRefreshSettingsOutput{})
+	pulumi.RegisterOutputType(StartInstanceRefreshRefreshSettingsPtrOutput{})
+	pulumi.RegisterOutputType(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsOutput{})
+	pulumi.RegisterOutputType(StartInstanceRefreshRefreshSettingsRollingUpdateSettingsPtrOutput{})
 	pulumi.RegisterOutputType(GetAdvicesAutoScalingAdviceSetOutput{})
 	pulumi.RegisterOutputType(GetAdvicesAutoScalingAdviceSetArrayOutput{})
 	pulumi.RegisterOutputType(GetAdvicesAutoScalingAdviceSetAdviceOutput{})

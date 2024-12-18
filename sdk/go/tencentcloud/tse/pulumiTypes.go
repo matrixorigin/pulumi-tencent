@@ -1497,6 +1497,169 @@ func (o CngwGroupNodeConfigPtrOutput) Specification() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type CngwNetworkAccessControlAccessControl struct {
+	CidrBlackLists []string `pulumi:"cidrBlackLists"`
+	CidrWhiteLists []string `pulumi:"cidrWhiteLists"`
+	Mode           *string  `pulumi:"mode"`
+}
+
+// CngwNetworkAccessControlAccessControlInput is an input type that accepts CngwNetworkAccessControlAccessControlArgs and CngwNetworkAccessControlAccessControlOutput values.
+// You can construct a concrete instance of `CngwNetworkAccessControlAccessControlInput` via:
+//
+//	CngwNetworkAccessControlAccessControlArgs{...}
+type CngwNetworkAccessControlAccessControlInput interface {
+	pulumi.Input
+
+	ToCngwNetworkAccessControlAccessControlOutput() CngwNetworkAccessControlAccessControlOutput
+	ToCngwNetworkAccessControlAccessControlOutputWithContext(context.Context) CngwNetworkAccessControlAccessControlOutput
+}
+
+type CngwNetworkAccessControlAccessControlArgs struct {
+	CidrBlackLists pulumi.StringArrayInput `pulumi:"cidrBlackLists"`
+	CidrWhiteLists pulumi.StringArrayInput `pulumi:"cidrWhiteLists"`
+	Mode           pulumi.StringPtrInput   `pulumi:"mode"`
+}
+
+func (CngwNetworkAccessControlAccessControlArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwNetworkAccessControlAccessControl)(nil)).Elem()
+}
+
+func (i CngwNetworkAccessControlAccessControlArgs) ToCngwNetworkAccessControlAccessControlOutput() CngwNetworkAccessControlAccessControlOutput {
+	return i.ToCngwNetworkAccessControlAccessControlOutputWithContext(context.Background())
+}
+
+func (i CngwNetworkAccessControlAccessControlArgs) ToCngwNetworkAccessControlAccessControlOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwNetworkAccessControlAccessControlOutput)
+}
+
+func (i CngwNetworkAccessControlAccessControlArgs) ToCngwNetworkAccessControlAccessControlPtrOutput() CngwNetworkAccessControlAccessControlPtrOutput {
+	return i.ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(context.Background())
+}
+
+func (i CngwNetworkAccessControlAccessControlArgs) ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwNetworkAccessControlAccessControlOutput).ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(ctx)
+}
+
+// CngwNetworkAccessControlAccessControlPtrInput is an input type that accepts CngwNetworkAccessControlAccessControlArgs, CngwNetworkAccessControlAccessControlPtr and CngwNetworkAccessControlAccessControlPtrOutput values.
+// You can construct a concrete instance of `CngwNetworkAccessControlAccessControlPtrInput` via:
+//
+//	        CngwNetworkAccessControlAccessControlArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwNetworkAccessControlAccessControlPtrInput interface {
+	pulumi.Input
+
+	ToCngwNetworkAccessControlAccessControlPtrOutput() CngwNetworkAccessControlAccessControlPtrOutput
+	ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(context.Context) CngwNetworkAccessControlAccessControlPtrOutput
+}
+
+type cngwNetworkAccessControlAccessControlPtrType CngwNetworkAccessControlAccessControlArgs
+
+func CngwNetworkAccessControlAccessControlPtr(v *CngwNetworkAccessControlAccessControlArgs) CngwNetworkAccessControlAccessControlPtrInput {
+	return (*cngwNetworkAccessControlAccessControlPtrType)(v)
+}
+
+func (*cngwNetworkAccessControlAccessControlPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwNetworkAccessControlAccessControl)(nil)).Elem()
+}
+
+func (i *cngwNetworkAccessControlAccessControlPtrType) ToCngwNetworkAccessControlAccessControlPtrOutput() CngwNetworkAccessControlAccessControlPtrOutput {
+	return i.ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwNetworkAccessControlAccessControlPtrType) ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwNetworkAccessControlAccessControlPtrOutput)
+}
+
+type CngwNetworkAccessControlAccessControlOutput struct{ *pulumi.OutputState }
+
+func (CngwNetworkAccessControlAccessControlOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwNetworkAccessControlAccessControl)(nil)).Elem()
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) ToCngwNetworkAccessControlAccessControlOutput() CngwNetworkAccessControlAccessControlOutput {
+	return o
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) ToCngwNetworkAccessControlAccessControlOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlOutput {
+	return o
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) ToCngwNetworkAccessControlAccessControlPtrOutput() CngwNetworkAccessControlAccessControlPtrOutput {
+	return o.ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(context.Background())
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwNetworkAccessControlAccessControl) *CngwNetworkAccessControlAccessControl {
+		return &v
+	}).(CngwNetworkAccessControlAccessControlPtrOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) CidrBlackLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CngwNetworkAccessControlAccessControl) []string { return v.CidrBlackLists }).(pulumi.StringArrayOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) CidrWhiteLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CngwNetworkAccessControlAccessControl) []string { return v.CidrWhiteLists }).(pulumi.StringArrayOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwNetworkAccessControlAccessControl) *string { return v.Mode }).(pulumi.StringPtrOutput)
+}
+
+type CngwNetworkAccessControlAccessControlPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwNetworkAccessControlAccessControlPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwNetworkAccessControlAccessControl)(nil)).Elem()
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) ToCngwNetworkAccessControlAccessControlPtrOutput() CngwNetworkAccessControlAccessControlPtrOutput {
+	return o
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) ToCngwNetworkAccessControlAccessControlPtrOutputWithContext(ctx context.Context) CngwNetworkAccessControlAccessControlPtrOutput {
+	return o
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) Elem() CngwNetworkAccessControlAccessControlOutput {
+	return o.ApplyT(func(v *CngwNetworkAccessControlAccessControl) CngwNetworkAccessControlAccessControl {
+		if v != nil {
+			return *v
+		}
+		var ret CngwNetworkAccessControlAccessControl
+		return ret
+	}).(CngwNetworkAccessControlAccessControlOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) CidrBlackLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CngwNetworkAccessControlAccessControl) []string {
+		if v == nil {
+			return nil
+		}
+		return v.CidrBlackLists
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) CidrWhiteLists() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *CngwNetworkAccessControlAccessControl) []string {
+		if v == nil {
+			return nil
+		}
+		return v.CidrWhiteLists
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o CngwNetworkAccessControlAccessControlPtrOutput) Mode() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwNetworkAccessControlAccessControl) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Mode
+	}).(pulumi.StringPtrOutput)
+}
+
 type CngwRouteHeader struct {
 	Key   *string `pulumi:"key"`
 	Value *string `pulumi:"value"`
@@ -3846,6 +4009,1274 @@ func (o CngwServiceUpstreamInfoTargetArrayOutput) Index(i pulumi.IntInput) CngwS
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CngwServiceUpstreamInfoTarget {
 		return vs[0].([]CngwServiceUpstreamInfoTarget)[vs[1].(int)]
 	}).(CngwServiceUpstreamInfoTargetOutput)
+}
+
+type CngwStrategyConfig struct {
+	Behavior    *CngwStrategyConfigBehavior `pulumi:"behavior"`
+	CreateTime  *string                     `pulumi:"createTime"`
+	MaxReplicas *int                        `pulumi:"maxReplicas"`
+	Metrics     []CngwStrategyConfigMetric  `pulumi:"metrics"`
+	ModifyTime  *string                     `pulumi:"modifyTime"`
+	StrategyId  *string                     `pulumi:"strategyId"`
+}
+
+// CngwStrategyConfigInput is an input type that accepts CngwStrategyConfigArgs and CngwStrategyConfigOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigInput` via:
+//
+//	CngwStrategyConfigArgs{...}
+type CngwStrategyConfigInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigOutput() CngwStrategyConfigOutput
+	ToCngwStrategyConfigOutputWithContext(context.Context) CngwStrategyConfigOutput
+}
+
+type CngwStrategyConfigArgs struct {
+	Behavior    CngwStrategyConfigBehaviorPtrInput `pulumi:"behavior"`
+	CreateTime  pulumi.StringPtrInput              `pulumi:"createTime"`
+	MaxReplicas pulumi.IntPtrInput                 `pulumi:"maxReplicas"`
+	Metrics     CngwStrategyConfigMetricArrayInput `pulumi:"metrics"`
+	ModifyTime  pulumi.StringPtrInput              `pulumi:"modifyTime"`
+	StrategyId  pulumi.StringPtrInput              `pulumi:"strategyId"`
+}
+
+func (CngwStrategyConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfig)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigArgs) ToCngwStrategyConfigOutput() CngwStrategyConfigOutput {
+	return i.ToCngwStrategyConfigOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigArgs) ToCngwStrategyConfigOutputWithContext(ctx context.Context) CngwStrategyConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigOutput)
+}
+
+func (i CngwStrategyConfigArgs) ToCngwStrategyConfigPtrOutput() CngwStrategyConfigPtrOutput {
+	return i.ToCngwStrategyConfigPtrOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigArgs) ToCngwStrategyConfigPtrOutputWithContext(ctx context.Context) CngwStrategyConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigOutput).ToCngwStrategyConfigPtrOutputWithContext(ctx)
+}
+
+// CngwStrategyConfigPtrInput is an input type that accepts CngwStrategyConfigArgs, CngwStrategyConfigPtr and CngwStrategyConfigPtrOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigPtrInput` via:
+//
+//	        CngwStrategyConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwStrategyConfigPtrInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigPtrOutput() CngwStrategyConfigPtrOutput
+	ToCngwStrategyConfigPtrOutputWithContext(context.Context) CngwStrategyConfigPtrOutput
+}
+
+type cngwStrategyConfigPtrType CngwStrategyConfigArgs
+
+func CngwStrategyConfigPtr(v *CngwStrategyConfigArgs) CngwStrategyConfigPtrInput {
+	return (*cngwStrategyConfigPtrType)(v)
+}
+
+func (*cngwStrategyConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfig)(nil)).Elem()
+}
+
+func (i *cngwStrategyConfigPtrType) ToCngwStrategyConfigPtrOutput() CngwStrategyConfigPtrOutput {
+	return i.ToCngwStrategyConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwStrategyConfigPtrType) ToCngwStrategyConfigPtrOutputWithContext(ctx context.Context) CngwStrategyConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigPtrOutput)
+}
+
+type CngwStrategyConfigOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfig)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigOutput) ToCngwStrategyConfigOutput() CngwStrategyConfigOutput {
+	return o
+}
+
+func (o CngwStrategyConfigOutput) ToCngwStrategyConfigOutputWithContext(ctx context.Context) CngwStrategyConfigOutput {
+	return o
+}
+
+func (o CngwStrategyConfigOutput) ToCngwStrategyConfigPtrOutput() CngwStrategyConfigPtrOutput {
+	return o.ToCngwStrategyConfigPtrOutputWithContext(context.Background())
+}
+
+func (o CngwStrategyConfigOutput) ToCngwStrategyConfigPtrOutputWithContext(ctx context.Context) CngwStrategyConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwStrategyConfig) *CngwStrategyConfig {
+		return &v
+	}).(CngwStrategyConfigPtrOutput)
+}
+
+func (o CngwStrategyConfigOutput) Behavior() CngwStrategyConfigBehaviorPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) *CngwStrategyConfigBehavior { return v.Behavior }).(CngwStrategyConfigBehaviorPtrOutput)
+}
+
+func (o CngwStrategyConfigOutput) CreateTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) *string { return v.CreateTime }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigOutput) MaxReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
+}
+
+func (o CngwStrategyConfigOutput) Metrics() CngwStrategyConfigMetricArrayOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) []CngwStrategyConfigMetric { return v.Metrics }).(CngwStrategyConfigMetricArrayOutput)
+}
+
+func (o CngwStrategyConfigOutput) ModifyTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) *string { return v.ModifyTime }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigOutput) StrategyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfig) *string { return v.StrategyId }).(pulumi.StringPtrOutput)
+}
+
+type CngwStrategyConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfig)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigPtrOutput) ToCngwStrategyConfigPtrOutput() CngwStrategyConfigPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigPtrOutput) ToCngwStrategyConfigPtrOutputWithContext(ctx context.Context) CngwStrategyConfigPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigPtrOutput) Elem() CngwStrategyConfigOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) CngwStrategyConfig {
+		if v != nil {
+			return *v
+		}
+		var ret CngwStrategyConfig
+		return ret
+	}).(CngwStrategyConfigOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) Behavior() CngwStrategyConfigBehaviorPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) *CngwStrategyConfigBehavior {
+		if v == nil {
+			return nil
+		}
+		return v.Behavior
+	}).(CngwStrategyConfigBehaviorPtrOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) CreateTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.CreateTime
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) *int {
+		if v == nil {
+			return nil
+		}
+		return v.MaxReplicas
+	}).(pulumi.IntPtrOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) Metrics() CngwStrategyConfigMetricArrayOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) []CngwStrategyConfigMetric {
+		if v == nil {
+			return nil
+		}
+		return v.Metrics
+	}).(CngwStrategyConfigMetricArrayOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) ModifyTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ModifyTime
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigPtrOutput) StrategyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StrategyId
+	}).(pulumi.StringPtrOutput)
+}
+
+type CngwStrategyConfigBehavior struct {
+	ScaleDown *CngwStrategyConfigBehaviorScaleDown `pulumi:"scaleDown"`
+	ScaleUp   *CngwStrategyConfigBehaviorScaleUp   `pulumi:"scaleUp"`
+}
+
+// CngwStrategyConfigBehaviorInput is an input type that accepts CngwStrategyConfigBehaviorArgs and CngwStrategyConfigBehaviorOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorInput` via:
+//
+//	CngwStrategyConfigBehaviorArgs{...}
+type CngwStrategyConfigBehaviorInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorOutput() CngwStrategyConfigBehaviorOutput
+	ToCngwStrategyConfigBehaviorOutputWithContext(context.Context) CngwStrategyConfigBehaviorOutput
+}
+
+type CngwStrategyConfigBehaviorArgs struct {
+	ScaleDown CngwStrategyConfigBehaviorScaleDownPtrInput `pulumi:"scaleDown"`
+	ScaleUp   CngwStrategyConfigBehaviorScaleUpPtrInput   `pulumi:"scaleUp"`
+}
+
+func (CngwStrategyConfigBehaviorArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehavior)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorArgs) ToCngwStrategyConfigBehaviorOutput() CngwStrategyConfigBehaviorOutput {
+	return i.ToCngwStrategyConfigBehaviorOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorArgs) ToCngwStrategyConfigBehaviorOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorOutput)
+}
+
+func (i CngwStrategyConfigBehaviorArgs) ToCngwStrategyConfigBehaviorPtrOutput() CngwStrategyConfigBehaviorPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorArgs) ToCngwStrategyConfigBehaviorPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorOutput).ToCngwStrategyConfigBehaviorPtrOutputWithContext(ctx)
+}
+
+// CngwStrategyConfigBehaviorPtrInput is an input type that accepts CngwStrategyConfigBehaviorArgs, CngwStrategyConfigBehaviorPtr and CngwStrategyConfigBehaviorPtrOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorPtrInput` via:
+//
+//	        CngwStrategyConfigBehaviorArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwStrategyConfigBehaviorPtrInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorPtrOutput() CngwStrategyConfigBehaviorPtrOutput
+	ToCngwStrategyConfigBehaviorPtrOutputWithContext(context.Context) CngwStrategyConfigBehaviorPtrOutput
+}
+
+type cngwStrategyConfigBehaviorPtrType CngwStrategyConfigBehaviorArgs
+
+func CngwStrategyConfigBehaviorPtr(v *CngwStrategyConfigBehaviorArgs) CngwStrategyConfigBehaviorPtrInput {
+	return (*cngwStrategyConfigBehaviorPtrType)(v)
+}
+
+func (*cngwStrategyConfigBehaviorPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehavior)(nil)).Elem()
+}
+
+func (i *cngwStrategyConfigBehaviorPtrType) ToCngwStrategyConfigBehaviorPtrOutput() CngwStrategyConfigBehaviorPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwStrategyConfigBehaviorPtrType) ToCngwStrategyConfigBehaviorPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehavior)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ToCngwStrategyConfigBehaviorOutput() CngwStrategyConfigBehaviorOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ToCngwStrategyConfigBehaviorOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ToCngwStrategyConfigBehaviorPtrOutput() CngwStrategyConfigBehaviorPtrOutput {
+	return o.ToCngwStrategyConfigBehaviorPtrOutputWithContext(context.Background())
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ToCngwStrategyConfigBehaviorPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwStrategyConfigBehavior) *CngwStrategyConfigBehavior {
+		return &v
+	}).(CngwStrategyConfigBehaviorPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ScaleDown() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehavior) *CngwStrategyConfigBehaviorScaleDown { return v.ScaleDown }).(CngwStrategyConfigBehaviorScaleDownPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorOutput) ScaleUp() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehavior) *CngwStrategyConfigBehaviorScaleUp { return v.ScaleUp }).(CngwStrategyConfigBehaviorScaleUpPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehavior)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorPtrOutput) ToCngwStrategyConfigBehaviorPtrOutput() CngwStrategyConfigBehaviorPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorPtrOutput) ToCngwStrategyConfigBehaviorPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorPtrOutput) Elem() CngwStrategyConfigBehaviorOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehavior) CngwStrategyConfigBehavior {
+		if v != nil {
+			return *v
+		}
+		var ret CngwStrategyConfigBehavior
+		return ret
+	}).(CngwStrategyConfigBehaviorOutput)
+}
+
+func (o CngwStrategyConfigBehaviorPtrOutput) ScaleDown() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehavior) *CngwStrategyConfigBehaviorScaleDown {
+		if v == nil {
+			return nil
+		}
+		return v.ScaleDown
+	}).(CngwStrategyConfigBehaviorScaleDownPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorPtrOutput) ScaleUp() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehavior) *CngwStrategyConfigBehaviorScaleUp {
+		if v == nil {
+			return nil
+		}
+		return v.ScaleUp
+	}).(CngwStrategyConfigBehaviorScaleUpPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDown struct {
+	Policies                   []CngwStrategyConfigBehaviorScaleDownPolicy `pulumi:"policies"`
+	SelectPolicy               *string                                     `pulumi:"selectPolicy"`
+	StabilizationWindowSeconds *int                                        `pulumi:"stabilizationWindowSeconds"`
+}
+
+// CngwStrategyConfigBehaviorScaleDownInput is an input type that accepts CngwStrategyConfigBehaviorScaleDownArgs and CngwStrategyConfigBehaviorScaleDownOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleDownInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleDownArgs{...}
+type CngwStrategyConfigBehaviorScaleDownInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleDownOutput() CngwStrategyConfigBehaviorScaleDownOutput
+	ToCngwStrategyConfigBehaviorScaleDownOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleDownOutput
+}
+
+type CngwStrategyConfigBehaviorScaleDownArgs struct {
+	Policies                   CngwStrategyConfigBehaviorScaleDownPolicyArrayInput `pulumi:"policies"`
+	SelectPolicy               pulumi.StringPtrInput                               `pulumi:"selectPolicy"`
+	StabilizationWindowSeconds pulumi.IntPtrInput                                  `pulumi:"stabilizationWindowSeconds"`
+}
+
+func (CngwStrategyConfigBehaviorScaleDownArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDown)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownArgs) ToCngwStrategyConfigBehaviorScaleDownOutput() CngwStrategyConfigBehaviorScaleDownOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleDownOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownArgs) ToCngwStrategyConfigBehaviorScaleDownOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleDownOutput)
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownArgs) ToCngwStrategyConfigBehaviorScaleDownPtrOutput() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownArgs) ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleDownOutput).ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(ctx)
+}
+
+// CngwStrategyConfigBehaviorScaleDownPtrInput is an input type that accepts CngwStrategyConfigBehaviorScaleDownArgs, CngwStrategyConfigBehaviorScaleDownPtr and CngwStrategyConfigBehaviorScaleDownPtrOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleDownPtrInput` via:
+//
+//	        CngwStrategyConfigBehaviorScaleDownArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwStrategyConfigBehaviorScaleDownPtrInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleDownPtrOutput() CngwStrategyConfigBehaviorScaleDownPtrOutput
+	ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleDownPtrOutput
+}
+
+type cngwStrategyConfigBehaviorScaleDownPtrType CngwStrategyConfigBehaviorScaleDownArgs
+
+func CngwStrategyConfigBehaviorScaleDownPtr(v *CngwStrategyConfigBehaviorScaleDownArgs) CngwStrategyConfigBehaviorScaleDownPtrInput {
+	return (*cngwStrategyConfigBehaviorScaleDownPtrType)(v)
+}
+
+func (*cngwStrategyConfigBehaviorScaleDownPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehaviorScaleDown)(nil)).Elem()
+}
+
+func (i *cngwStrategyConfigBehaviorScaleDownPtrType) ToCngwStrategyConfigBehaviorScaleDownPtrOutput() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwStrategyConfigBehaviorScaleDownPtrType) ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleDownPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDownOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleDownOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDown)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) ToCngwStrategyConfigBehaviorScaleDownOutput() CngwStrategyConfigBehaviorScaleDownOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) ToCngwStrategyConfigBehaviorScaleDownOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) ToCngwStrategyConfigBehaviorScaleDownPtrOutput() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o.ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(context.Background())
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwStrategyConfigBehaviorScaleDown) *CngwStrategyConfigBehaviorScaleDown {
+		return &v
+	}).(CngwStrategyConfigBehaviorScaleDownPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) Policies() CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDown) []CngwStrategyConfigBehaviorScaleDownPolicy {
+		return v.Policies
+	}).(CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDown) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDown) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDownPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleDownPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehaviorScaleDown)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) ToCngwStrategyConfigBehaviorScaleDownPtrOutput() CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) ToCngwStrategyConfigBehaviorScaleDownPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) Elem() CngwStrategyConfigBehaviorScaleDownOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleDown) CngwStrategyConfigBehaviorScaleDown {
+		if v != nil {
+			return *v
+		}
+		var ret CngwStrategyConfigBehaviorScaleDown
+		return ret
+	}).(CngwStrategyConfigBehaviorScaleDownOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) Policies() CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleDown) []CngwStrategyConfigBehaviorScaleDownPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.Policies
+	}).(CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleDown) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SelectPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleDown) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StabilizationWindowSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDownPolicy struct {
+	PeriodSeconds *int    `pulumi:"periodSeconds"`
+	Type          *string `pulumi:"type"`
+	Value         *int    `pulumi:"value"`
+}
+
+// CngwStrategyConfigBehaviorScaleDownPolicyInput is an input type that accepts CngwStrategyConfigBehaviorScaleDownPolicyArgs and CngwStrategyConfigBehaviorScaleDownPolicyOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleDownPolicyInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleDownPolicyArgs{...}
+type CngwStrategyConfigBehaviorScaleDownPolicyInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleDownPolicyOutput() CngwStrategyConfigBehaviorScaleDownPolicyOutput
+	ToCngwStrategyConfigBehaviorScaleDownPolicyOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleDownPolicyOutput
+}
+
+type CngwStrategyConfigBehaviorScaleDownPolicyArgs struct {
+	PeriodSeconds pulumi.IntPtrInput    `pulumi:"periodSeconds"`
+	Type          pulumi.StringPtrInput `pulumi:"type"`
+	Value         pulumi.IntPtrInput    `pulumi:"value"`
+}
+
+func (CngwStrategyConfigBehaviorScaleDownPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownPolicy)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownPolicyArgs) ToCngwStrategyConfigBehaviorScaleDownPolicyOutput() CngwStrategyConfigBehaviorScaleDownPolicyOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleDownPolicyOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownPolicyArgs) ToCngwStrategyConfigBehaviorScaleDownPolicyOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleDownPolicyOutput)
+}
+
+// CngwStrategyConfigBehaviorScaleDownPolicyArrayInput is an input type that accepts CngwStrategyConfigBehaviorScaleDownPolicyArray and CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleDownPolicyArrayInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleDownPolicyArray{ CngwStrategyConfigBehaviorScaleDownPolicyArgs{...} }
+type CngwStrategyConfigBehaviorScaleDownPolicyArrayInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutput() CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput
+	ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput
+}
+
+type CngwStrategyConfigBehaviorScaleDownPolicyArray []CngwStrategyConfigBehaviorScaleDownPolicyInput
+
+func (CngwStrategyConfigBehaviorScaleDownPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigBehaviorScaleDownPolicy)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownPolicyArray) ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutput() CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleDownPolicyArray) ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDownPolicyOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleDownPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownPolicy)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyOutput) ToCngwStrategyConfigBehaviorScaleDownPolicyOutput() CngwStrategyConfigBehaviorScaleDownPolicyOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyOutput) ToCngwStrategyConfigBehaviorScaleDownPolicyOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPolicyOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyOutput) PeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDownPolicy) *int { return v.PeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDownPolicy) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleDownPolicy) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigBehaviorScaleDownPolicy)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput) ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutput() CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput) ToCngwStrategyConfigBehaviorScaleDownPolicyArrayOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput) Index(i pulumi.IntInput) CngwStrategyConfigBehaviorScaleDownPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CngwStrategyConfigBehaviorScaleDownPolicy {
+		return vs[0].([]CngwStrategyConfigBehaviorScaleDownPolicy)[vs[1].(int)]
+	}).(CngwStrategyConfigBehaviorScaleDownPolicyOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUp struct {
+	Policies                   []CngwStrategyConfigBehaviorScaleUpPolicy `pulumi:"policies"`
+	SelectPolicy               *string                                   `pulumi:"selectPolicy"`
+	StabilizationWindowSeconds *int                                      `pulumi:"stabilizationWindowSeconds"`
+}
+
+// CngwStrategyConfigBehaviorScaleUpInput is an input type that accepts CngwStrategyConfigBehaviorScaleUpArgs and CngwStrategyConfigBehaviorScaleUpOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleUpInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleUpArgs{...}
+type CngwStrategyConfigBehaviorScaleUpInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleUpOutput() CngwStrategyConfigBehaviorScaleUpOutput
+	ToCngwStrategyConfigBehaviorScaleUpOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleUpOutput
+}
+
+type CngwStrategyConfigBehaviorScaleUpArgs struct {
+	Policies                   CngwStrategyConfigBehaviorScaleUpPolicyArrayInput `pulumi:"policies"`
+	SelectPolicy               pulumi.StringPtrInput                             `pulumi:"selectPolicy"`
+	StabilizationWindowSeconds pulumi.IntPtrInput                                `pulumi:"stabilizationWindowSeconds"`
+}
+
+func (CngwStrategyConfigBehaviorScaleUpArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUp)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpArgs) ToCngwStrategyConfigBehaviorScaleUpOutput() CngwStrategyConfigBehaviorScaleUpOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleUpOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpArgs) ToCngwStrategyConfigBehaviorScaleUpOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleUpOutput)
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpArgs) ToCngwStrategyConfigBehaviorScaleUpPtrOutput() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpArgs) ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleUpOutput).ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(ctx)
+}
+
+// CngwStrategyConfigBehaviorScaleUpPtrInput is an input type that accepts CngwStrategyConfigBehaviorScaleUpArgs, CngwStrategyConfigBehaviorScaleUpPtr and CngwStrategyConfigBehaviorScaleUpPtrOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleUpPtrInput` via:
+//
+//	        CngwStrategyConfigBehaviorScaleUpArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwStrategyConfigBehaviorScaleUpPtrInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleUpPtrOutput() CngwStrategyConfigBehaviorScaleUpPtrOutput
+	ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleUpPtrOutput
+}
+
+type cngwStrategyConfigBehaviorScaleUpPtrType CngwStrategyConfigBehaviorScaleUpArgs
+
+func CngwStrategyConfigBehaviorScaleUpPtr(v *CngwStrategyConfigBehaviorScaleUpArgs) CngwStrategyConfigBehaviorScaleUpPtrInput {
+	return (*cngwStrategyConfigBehaviorScaleUpPtrType)(v)
+}
+
+func (*cngwStrategyConfigBehaviorScaleUpPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehaviorScaleUp)(nil)).Elem()
+}
+
+func (i *cngwStrategyConfigBehaviorScaleUpPtrType) ToCngwStrategyConfigBehaviorScaleUpPtrOutput() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwStrategyConfigBehaviorScaleUpPtrType) ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleUpPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUpOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleUpOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUp)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) ToCngwStrategyConfigBehaviorScaleUpOutput() CngwStrategyConfigBehaviorScaleUpOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) ToCngwStrategyConfigBehaviorScaleUpOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) ToCngwStrategyConfigBehaviorScaleUpPtrOutput() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o.ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(context.Background())
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwStrategyConfigBehaviorScaleUp) *CngwStrategyConfigBehaviorScaleUp {
+		return &v
+	}).(CngwStrategyConfigBehaviorScaleUpPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) Policies() CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUp) []CngwStrategyConfigBehaviorScaleUpPolicy { return v.Policies }).(CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUp) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUp) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUpPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleUpPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyConfigBehaviorScaleUp)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) ToCngwStrategyConfigBehaviorScaleUpPtrOutput() CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) ToCngwStrategyConfigBehaviorScaleUpPtrOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPtrOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) Elem() CngwStrategyConfigBehaviorScaleUpOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleUp) CngwStrategyConfigBehaviorScaleUp {
+		if v != nil {
+			return *v
+		}
+		var ret CngwStrategyConfigBehaviorScaleUp
+		return ret
+	}).(CngwStrategyConfigBehaviorScaleUpOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) Policies() CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleUp) []CngwStrategyConfigBehaviorScaleUpPolicy {
+		if v == nil {
+			return nil
+		}
+		return v.Policies
+	}).(CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) SelectPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleUp) *string {
+		if v == nil {
+			return nil
+		}
+		return v.SelectPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyConfigBehaviorScaleUp) *int {
+		if v == nil {
+			return nil
+		}
+		return v.StabilizationWindowSeconds
+	}).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUpPolicy struct {
+	PeriodSeconds *int    `pulumi:"periodSeconds"`
+	Type          *string `pulumi:"type"`
+	Value         *int    `pulumi:"value"`
+}
+
+// CngwStrategyConfigBehaviorScaleUpPolicyInput is an input type that accepts CngwStrategyConfigBehaviorScaleUpPolicyArgs and CngwStrategyConfigBehaviorScaleUpPolicyOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleUpPolicyInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleUpPolicyArgs{...}
+type CngwStrategyConfigBehaviorScaleUpPolicyInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleUpPolicyOutput() CngwStrategyConfigBehaviorScaleUpPolicyOutput
+	ToCngwStrategyConfigBehaviorScaleUpPolicyOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleUpPolicyOutput
+}
+
+type CngwStrategyConfigBehaviorScaleUpPolicyArgs struct {
+	PeriodSeconds pulumi.IntPtrInput    `pulumi:"periodSeconds"`
+	Type          pulumi.StringPtrInput `pulumi:"type"`
+	Value         pulumi.IntPtrInput    `pulumi:"value"`
+}
+
+func (CngwStrategyConfigBehaviorScaleUpPolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpPolicy)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpPolicyArgs) ToCngwStrategyConfigBehaviorScaleUpPolicyOutput() CngwStrategyConfigBehaviorScaleUpPolicyOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleUpPolicyOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpPolicyArgs) ToCngwStrategyConfigBehaviorScaleUpPolicyOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleUpPolicyOutput)
+}
+
+// CngwStrategyConfigBehaviorScaleUpPolicyArrayInput is an input type that accepts CngwStrategyConfigBehaviorScaleUpPolicyArray and CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigBehaviorScaleUpPolicyArrayInput` via:
+//
+//	CngwStrategyConfigBehaviorScaleUpPolicyArray{ CngwStrategyConfigBehaviorScaleUpPolicyArgs{...} }
+type CngwStrategyConfigBehaviorScaleUpPolicyArrayInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutput() CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput
+	ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutputWithContext(context.Context) CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput
+}
+
+type CngwStrategyConfigBehaviorScaleUpPolicyArray []CngwStrategyConfigBehaviorScaleUpPolicyInput
+
+func (CngwStrategyConfigBehaviorScaleUpPolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigBehaviorScaleUpPolicy)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpPolicyArray) ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutput() CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return i.ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigBehaviorScaleUpPolicyArray) ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUpPolicyOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleUpPolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpPolicy)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyOutput) ToCngwStrategyConfigBehaviorScaleUpPolicyOutput() CngwStrategyConfigBehaviorScaleUpPolicyOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyOutput) ToCngwStrategyConfigBehaviorScaleUpPolicyOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPolicyOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyOutput) PeriodSeconds() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUpPolicy) *int { return v.PeriodSeconds }).(pulumi.IntPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUpPolicy) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyOutput) Value() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigBehaviorScaleUpPolicy) *int { return v.Value }).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigBehaviorScaleUpPolicy)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput) ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutput() CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput) ToCngwStrategyConfigBehaviorScaleUpPolicyArrayOutputWithContext(ctx context.Context) CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput) Index(i pulumi.IntInput) CngwStrategyConfigBehaviorScaleUpPolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CngwStrategyConfigBehaviorScaleUpPolicy {
+		return vs[0].([]CngwStrategyConfigBehaviorScaleUpPolicy)[vs[1].(int)]
+	}).(CngwStrategyConfigBehaviorScaleUpPolicyOutput)
+}
+
+type CngwStrategyConfigMetric struct {
+	ResourceName *string `pulumi:"resourceName"`
+	TargetType   *string `pulumi:"targetType"`
+	TargetValue  *int    `pulumi:"targetValue"`
+	Type         *string `pulumi:"type"`
+}
+
+// CngwStrategyConfigMetricInput is an input type that accepts CngwStrategyConfigMetricArgs and CngwStrategyConfigMetricOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigMetricInput` via:
+//
+//	CngwStrategyConfigMetricArgs{...}
+type CngwStrategyConfigMetricInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigMetricOutput() CngwStrategyConfigMetricOutput
+	ToCngwStrategyConfigMetricOutputWithContext(context.Context) CngwStrategyConfigMetricOutput
+}
+
+type CngwStrategyConfigMetricArgs struct {
+	ResourceName pulumi.StringPtrInput `pulumi:"resourceName"`
+	TargetType   pulumi.StringPtrInput `pulumi:"targetType"`
+	TargetValue  pulumi.IntPtrInput    `pulumi:"targetValue"`
+	Type         pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (CngwStrategyConfigMetricArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigMetric)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigMetricArgs) ToCngwStrategyConfigMetricOutput() CngwStrategyConfigMetricOutput {
+	return i.ToCngwStrategyConfigMetricOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigMetricArgs) ToCngwStrategyConfigMetricOutputWithContext(ctx context.Context) CngwStrategyConfigMetricOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigMetricOutput)
+}
+
+// CngwStrategyConfigMetricArrayInput is an input type that accepts CngwStrategyConfigMetricArray and CngwStrategyConfigMetricArrayOutput values.
+// You can construct a concrete instance of `CngwStrategyConfigMetricArrayInput` via:
+//
+//	CngwStrategyConfigMetricArray{ CngwStrategyConfigMetricArgs{...} }
+type CngwStrategyConfigMetricArrayInput interface {
+	pulumi.Input
+
+	ToCngwStrategyConfigMetricArrayOutput() CngwStrategyConfigMetricArrayOutput
+	ToCngwStrategyConfigMetricArrayOutputWithContext(context.Context) CngwStrategyConfigMetricArrayOutput
+}
+
+type CngwStrategyConfigMetricArray []CngwStrategyConfigMetricInput
+
+func (CngwStrategyConfigMetricArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigMetric)(nil)).Elem()
+}
+
+func (i CngwStrategyConfigMetricArray) ToCngwStrategyConfigMetricArrayOutput() CngwStrategyConfigMetricArrayOutput {
+	return i.ToCngwStrategyConfigMetricArrayOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyConfigMetricArray) ToCngwStrategyConfigMetricArrayOutputWithContext(ctx context.Context) CngwStrategyConfigMetricArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyConfigMetricArrayOutput)
+}
+
+type CngwStrategyConfigMetricOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigMetricOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyConfigMetric)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigMetricOutput) ToCngwStrategyConfigMetricOutput() CngwStrategyConfigMetricOutput {
+	return o
+}
+
+func (o CngwStrategyConfigMetricOutput) ToCngwStrategyConfigMetricOutputWithContext(ctx context.Context) CngwStrategyConfigMetricOutput {
+	return o
+}
+
+func (o CngwStrategyConfigMetricOutput) ResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigMetric) *string { return v.ResourceName }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigMetricOutput) TargetType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigMetric) *string { return v.TargetType }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyConfigMetricOutput) TargetValue() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigMetric) *int { return v.TargetValue }).(pulumi.IntPtrOutput)
+}
+
+func (o CngwStrategyConfigMetricOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyConfigMetric) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type CngwStrategyConfigMetricArrayOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyConfigMetricArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyConfigMetric)(nil)).Elem()
+}
+
+func (o CngwStrategyConfigMetricArrayOutput) ToCngwStrategyConfigMetricArrayOutput() CngwStrategyConfigMetricArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigMetricArrayOutput) ToCngwStrategyConfigMetricArrayOutputWithContext(ctx context.Context) CngwStrategyConfigMetricArrayOutput {
+	return o
+}
+
+func (o CngwStrategyConfigMetricArrayOutput) Index(i pulumi.IntInput) CngwStrategyConfigMetricOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CngwStrategyConfigMetric {
+		return vs[0].([]CngwStrategyConfigMetric)[vs[1].(int)]
+	}).(CngwStrategyConfigMetricOutput)
+}
+
+type CngwStrategyCronConfig struct {
+	Params     []CngwStrategyCronConfigParam `pulumi:"params"`
+	StrategyId *string                       `pulumi:"strategyId"`
+}
+
+// CngwStrategyCronConfigInput is an input type that accepts CngwStrategyCronConfigArgs and CngwStrategyCronConfigOutput values.
+// You can construct a concrete instance of `CngwStrategyCronConfigInput` via:
+//
+//	CngwStrategyCronConfigArgs{...}
+type CngwStrategyCronConfigInput interface {
+	pulumi.Input
+
+	ToCngwStrategyCronConfigOutput() CngwStrategyCronConfigOutput
+	ToCngwStrategyCronConfigOutputWithContext(context.Context) CngwStrategyCronConfigOutput
+}
+
+type CngwStrategyCronConfigArgs struct {
+	Params     CngwStrategyCronConfigParamArrayInput `pulumi:"params"`
+	StrategyId pulumi.StringPtrInput                 `pulumi:"strategyId"`
+}
+
+func (CngwStrategyCronConfigArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyCronConfig)(nil)).Elem()
+}
+
+func (i CngwStrategyCronConfigArgs) ToCngwStrategyCronConfigOutput() CngwStrategyCronConfigOutput {
+	return i.ToCngwStrategyCronConfigOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyCronConfigArgs) ToCngwStrategyCronConfigOutputWithContext(ctx context.Context) CngwStrategyCronConfigOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyCronConfigOutput)
+}
+
+func (i CngwStrategyCronConfigArgs) ToCngwStrategyCronConfigPtrOutput() CngwStrategyCronConfigPtrOutput {
+	return i.ToCngwStrategyCronConfigPtrOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyCronConfigArgs) ToCngwStrategyCronConfigPtrOutputWithContext(ctx context.Context) CngwStrategyCronConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyCronConfigOutput).ToCngwStrategyCronConfigPtrOutputWithContext(ctx)
+}
+
+// CngwStrategyCronConfigPtrInput is an input type that accepts CngwStrategyCronConfigArgs, CngwStrategyCronConfigPtr and CngwStrategyCronConfigPtrOutput values.
+// You can construct a concrete instance of `CngwStrategyCronConfigPtrInput` via:
+//
+//	        CngwStrategyCronConfigArgs{...}
+//
+//	or:
+//
+//	        nil
+type CngwStrategyCronConfigPtrInput interface {
+	pulumi.Input
+
+	ToCngwStrategyCronConfigPtrOutput() CngwStrategyCronConfigPtrOutput
+	ToCngwStrategyCronConfigPtrOutputWithContext(context.Context) CngwStrategyCronConfigPtrOutput
+}
+
+type cngwStrategyCronConfigPtrType CngwStrategyCronConfigArgs
+
+func CngwStrategyCronConfigPtr(v *CngwStrategyCronConfigArgs) CngwStrategyCronConfigPtrInput {
+	return (*cngwStrategyCronConfigPtrType)(v)
+}
+
+func (*cngwStrategyCronConfigPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyCronConfig)(nil)).Elem()
+}
+
+func (i *cngwStrategyCronConfigPtrType) ToCngwStrategyCronConfigPtrOutput() CngwStrategyCronConfigPtrOutput {
+	return i.ToCngwStrategyCronConfigPtrOutputWithContext(context.Background())
+}
+
+func (i *cngwStrategyCronConfigPtrType) ToCngwStrategyCronConfigPtrOutputWithContext(ctx context.Context) CngwStrategyCronConfigPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyCronConfigPtrOutput)
+}
+
+type CngwStrategyCronConfigOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyCronConfigOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyCronConfig)(nil)).Elem()
+}
+
+func (o CngwStrategyCronConfigOutput) ToCngwStrategyCronConfigOutput() CngwStrategyCronConfigOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigOutput) ToCngwStrategyCronConfigOutputWithContext(ctx context.Context) CngwStrategyCronConfigOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigOutput) ToCngwStrategyCronConfigPtrOutput() CngwStrategyCronConfigPtrOutput {
+	return o.ToCngwStrategyCronConfigPtrOutputWithContext(context.Background())
+}
+
+func (o CngwStrategyCronConfigOutput) ToCngwStrategyCronConfigPtrOutputWithContext(ctx context.Context) CngwStrategyCronConfigPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v CngwStrategyCronConfig) *CngwStrategyCronConfig {
+		return &v
+	}).(CngwStrategyCronConfigPtrOutput)
+}
+
+func (o CngwStrategyCronConfigOutput) Params() CngwStrategyCronConfigParamArrayOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfig) []CngwStrategyCronConfigParam { return v.Params }).(CngwStrategyCronConfigParamArrayOutput)
+}
+
+func (o CngwStrategyCronConfigOutput) StrategyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfig) *string { return v.StrategyId }).(pulumi.StringPtrOutput)
+}
+
+type CngwStrategyCronConfigPtrOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyCronConfigPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**CngwStrategyCronConfig)(nil)).Elem()
+}
+
+func (o CngwStrategyCronConfigPtrOutput) ToCngwStrategyCronConfigPtrOutput() CngwStrategyCronConfigPtrOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigPtrOutput) ToCngwStrategyCronConfigPtrOutputWithContext(ctx context.Context) CngwStrategyCronConfigPtrOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigPtrOutput) Elem() CngwStrategyCronConfigOutput {
+	return o.ApplyT(func(v *CngwStrategyCronConfig) CngwStrategyCronConfig {
+		if v != nil {
+			return *v
+		}
+		var ret CngwStrategyCronConfig
+		return ret
+	}).(CngwStrategyCronConfigOutput)
+}
+
+func (o CngwStrategyCronConfigPtrOutput) Params() CngwStrategyCronConfigParamArrayOutput {
+	return o.ApplyT(func(v *CngwStrategyCronConfig) []CngwStrategyCronConfigParam {
+		if v == nil {
+			return nil
+		}
+		return v.Params
+	}).(CngwStrategyCronConfigParamArrayOutput)
+}
+
+func (o CngwStrategyCronConfigPtrOutput) StrategyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *CngwStrategyCronConfig) *string {
+		if v == nil {
+			return nil
+		}
+		return v.StrategyId
+	}).(pulumi.StringPtrOutput)
+}
+
+type CngwStrategyCronConfigParam struct {
+	Crontab        *string `pulumi:"crontab"`
+	Period         *string `pulumi:"period"`
+	StartAt        *string `pulumi:"startAt"`
+	TargetReplicas *int    `pulumi:"targetReplicas"`
+}
+
+// CngwStrategyCronConfigParamInput is an input type that accepts CngwStrategyCronConfigParamArgs and CngwStrategyCronConfigParamOutput values.
+// You can construct a concrete instance of `CngwStrategyCronConfigParamInput` via:
+//
+//	CngwStrategyCronConfigParamArgs{...}
+type CngwStrategyCronConfigParamInput interface {
+	pulumi.Input
+
+	ToCngwStrategyCronConfigParamOutput() CngwStrategyCronConfigParamOutput
+	ToCngwStrategyCronConfigParamOutputWithContext(context.Context) CngwStrategyCronConfigParamOutput
+}
+
+type CngwStrategyCronConfigParamArgs struct {
+	Crontab        pulumi.StringPtrInput `pulumi:"crontab"`
+	Period         pulumi.StringPtrInput `pulumi:"period"`
+	StartAt        pulumi.StringPtrInput `pulumi:"startAt"`
+	TargetReplicas pulumi.IntPtrInput    `pulumi:"targetReplicas"`
+}
+
+func (CngwStrategyCronConfigParamArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyCronConfigParam)(nil)).Elem()
+}
+
+func (i CngwStrategyCronConfigParamArgs) ToCngwStrategyCronConfigParamOutput() CngwStrategyCronConfigParamOutput {
+	return i.ToCngwStrategyCronConfigParamOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyCronConfigParamArgs) ToCngwStrategyCronConfigParamOutputWithContext(ctx context.Context) CngwStrategyCronConfigParamOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyCronConfigParamOutput)
+}
+
+// CngwStrategyCronConfigParamArrayInput is an input type that accepts CngwStrategyCronConfigParamArray and CngwStrategyCronConfigParamArrayOutput values.
+// You can construct a concrete instance of `CngwStrategyCronConfigParamArrayInput` via:
+//
+//	CngwStrategyCronConfigParamArray{ CngwStrategyCronConfigParamArgs{...} }
+type CngwStrategyCronConfigParamArrayInput interface {
+	pulumi.Input
+
+	ToCngwStrategyCronConfigParamArrayOutput() CngwStrategyCronConfigParamArrayOutput
+	ToCngwStrategyCronConfigParamArrayOutputWithContext(context.Context) CngwStrategyCronConfigParamArrayOutput
+}
+
+type CngwStrategyCronConfigParamArray []CngwStrategyCronConfigParamInput
+
+func (CngwStrategyCronConfigParamArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyCronConfigParam)(nil)).Elem()
+}
+
+func (i CngwStrategyCronConfigParamArray) ToCngwStrategyCronConfigParamArrayOutput() CngwStrategyCronConfigParamArrayOutput {
+	return i.ToCngwStrategyCronConfigParamArrayOutputWithContext(context.Background())
+}
+
+func (i CngwStrategyCronConfigParamArray) ToCngwStrategyCronConfigParamArrayOutputWithContext(ctx context.Context) CngwStrategyCronConfigParamArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CngwStrategyCronConfigParamArrayOutput)
+}
+
+type CngwStrategyCronConfigParamOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyCronConfigParamOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CngwStrategyCronConfigParam)(nil)).Elem()
+}
+
+func (o CngwStrategyCronConfigParamOutput) ToCngwStrategyCronConfigParamOutput() CngwStrategyCronConfigParamOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigParamOutput) ToCngwStrategyCronConfigParamOutputWithContext(ctx context.Context) CngwStrategyCronConfigParamOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigParamOutput) Crontab() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfigParam) *string { return v.Crontab }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyCronConfigParamOutput) Period() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfigParam) *string { return v.Period }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyCronConfigParamOutput) StartAt() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfigParam) *string { return v.StartAt }).(pulumi.StringPtrOutput)
+}
+
+func (o CngwStrategyCronConfigParamOutput) TargetReplicas() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CngwStrategyCronConfigParam) *int { return v.TargetReplicas }).(pulumi.IntPtrOutput)
+}
+
+type CngwStrategyCronConfigParamArrayOutput struct{ *pulumi.OutputState }
+
+func (CngwStrategyCronConfigParamArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CngwStrategyCronConfigParam)(nil)).Elem()
+}
+
+func (o CngwStrategyCronConfigParamArrayOutput) ToCngwStrategyCronConfigParamArrayOutput() CngwStrategyCronConfigParamArrayOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigParamArrayOutput) ToCngwStrategyCronConfigParamArrayOutputWithContext(ctx context.Context) CngwStrategyCronConfigParamArrayOutput {
+	return o
+}
+
+func (o CngwStrategyCronConfigParamArrayOutput) Index(i pulumi.IntInput) CngwStrategyCronConfigParamOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CngwStrategyCronConfigParam {
+		return vs[0].([]CngwStrategyCronConfigParam)[vs[1].(int)]
+	}).(CngwStrategyCronConfigParamOutput)
 }
 
 type InstanceEngineRegionInfo struct {
@@ -8673,6 +10104,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwGroupInternetConfigPtrInput)(nil)).Elem(), CngwGroupInternetConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwGroupNodeConfigInput)(nil)).Elem(), CngwGroupNodeConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwGroupNodeConfigPtrInput)(nil)).Elem(), CngwGroupNodeConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwNetworkAccessControlAccessControlInput)(nil)).Elem(), CngwNetworkAccessControlAccessControlArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwNetworkAccessControlAccessControlPtrInput)(nil)).Elem(), CngwNetworkAccessControlAccessControlArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwRouteHeaderInput)(nil)).Elem(), CngwRouteHeaderArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwRouteHeaderArrayInput)(nil)).Elem(), CngwRouteHeaderArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwRouteRateLimitLimitDetailInput)(nil)).Elem(), CngwRouteRateLimitLimitDetailArgs{})
@@ -8699,6 +10132,24 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwServiceUpstreamInfoPtrInput)(nil)).Elem(), CngwServiceUpstreamInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwServiceUpstreamInfoTargetInput)(nil)).Elem(), CngwServiceUpstreamInfoTargetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*CngwServiceUpstreamInfoTargetArrayInput)(nil)).Elem(), CngwServiceUpstreamInfoTargetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigInput)(nil)).Elem(), CngwStrategyConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigPtrInput)(nil)).Elem(), CngwStrategyConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorInput)(nil)).Elem(), CngwStrategyConfigBehaviorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorPtrInput)(nil)).Elem(), CngwStrategyConfigBehaviorArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleDownArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownPtrInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleDownArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownPolicyInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleDownPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleDownPolicyArrayInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleDownPolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleUpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpPtrInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleUpArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpPolicyInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleUpPolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigBehaviorScaleUpPolicyArrayInput)(nil)).Elem(), CngwStrategyConfigBehaviorScaleUpPolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigMetricInput)(nil)).Elem(), CngwStrategyConfigMetricArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyConfigMetricArrayInput)(nil)).Elem(), CngwStrategyConfigMetricArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyCronConfigInput)(nil)).Elem(), CngwStrategyCronConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyCronConfigPtrInput)(nil)).Elem(), CngwStrategyCronConfigArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyCronConfigParamInput)(nil)).Elem(), CngwStrategyCronConfigParamArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CngwStrategyCronConfigParamArrayInput)(nil)).Elem(), CngwStrategyCronConfigParamArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceEngineRegionInfoInput)(nil)).Elem(), InstanceEngineRegionInfoArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceEngineRegionInfoArrayInput)(nil)).Elem(), InstanceEngineRegionInfoArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceEngineRegionInfoVpcInfoInput)(nil)).Elem(), InstanceEngineRegionInfoVpcInfoArgs{})
@@ -8797,6 +10248,8 @@ func init() {
 	pulumi.RegisterOutputType(CngwGroupInternetConfigPtrOutput{})
 	pulumi.RegisterOutputType(CngwGroupNodeConfigOutput{})
 	pulumi.RegisterOutputType(CngwGroupNodeConfigPtrOutput{})
+	pulumi.RegisterOutputType(CngwNetworkAccessControlAccessControlOutput{})
+	pulumi.RegisterOutputType(CngwNetworkAccessControlAccessControlPtrOutput{})
 	pulumi.RegisterOutputType(CngwRouteHeaderOutput{})
 	pulumi.RegisterOutputType(CngwRouteHeaderArrayOutput{})
 	pulumi.RegisterOutputType(CngwRouteRateLimitLimitDetailOutput{})
@@ -8823,6 +10276,24 @@ func init() {
 	pulumi.RegisterOutputType(CngwServiceUpstreamInfoPtrOutput{})
 	pulumi.RegisterOutputType(CngwServiceUpstreamInfoTargetOutput{})
 	pulumi.RegisterOutputType(CngwServiceUpstreamInfoTargetArrayOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigPtrOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorPtrOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleDownOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleDownPtrOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleDownPolicyOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleDownPolicyArrayOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleUpOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleUpPtrOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleUpPolicyOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigBehaviorScaleUpPolicyArrayOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigMetricOutput{})
+	pulumi.RegisterOutputType(CngwStrategyConfigMetricArrayOutput{})
+	pulumi.RegisterOutputType(CngwStrategyCronConfigOutput{})
+	pulumi.RegisterOutputType(CngwStrategyCronConfigPtrOutput{})
+	pulumi.RegisterOutputType(CngwStrategyCronConfigParamOutput{})
+	pulumi.RegisterOutputType(CngwStrategyCronConfigParamArrayOutput{})
 	pulumi.RegisterOutputType(InstanceEngineRegionInfoOutput{})
 	pulumi.RegisterOutputType(InstanceEngineRegionInfoArrayOutput{})
 	pulumi.RegisterOutputType(InstanceEngineRegionInfoVpcInfoOutput{})

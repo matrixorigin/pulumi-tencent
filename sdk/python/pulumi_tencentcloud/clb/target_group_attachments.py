@@ -17,20 +17,25 @@ __all__ = ['TargetGroupAttachmentsArgs', 'TargetGroupAttachments']
 class TargetGroupAttachmentsArgs:
     def __init__(__self__, *,
                  associations: pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]],
-                 load_balancer_id: pulumi.Input[str]):
+                 load_balancer_id: Optional[pulumi.Input[str]] = None,
+                 target_group_id: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a TargetGroupAttachments resource.
-        :param pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]] associations: Association array, the combination cannot exceed 20
-        :param pulumi.Input[str] load_balancer_id: CLB instance ID
+        :param pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]] associations: Association array, the combination cannot exceed 20.
+        :param pulumi.Input[str] load_balancer_id: CLB instance ID, (load_balancer_id and target_group_id require at least one).
+        :param pulumi.Input[str] target_group_id: Target group ID, (load_balancer_id and target_group_id require at least one).
         """
         pulumi.set(__self__, "associations", associations)
-        pulumi.set(__self__, "load_balancer_id", load_balancer_id)
+        if load_balancer_id is not None:
+            pulumi.set(__self__, "load_balancer_id", load_balancer_id)
+        if target_group_id is not None:
+            pulumi.set(__self__, "target_group_id", target_group_id)
 
     @property
     @pulumi.getter
     def associations(self) -> pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]]:
         """
-        Association array, the combination cannot exceed 20
+        Association array, the combination cannot exceed 20.
         """
         return pulumi.get(self, "associations")
 
@@ -40,37 +45,53 @@ class TargetGroupAttachmentsArgs:
 
     @property
     @pulumi.getter(name="loadBalancerId")
-    def load_balancer_id(self) -> pulumi.Input[str]:
+    def load_balancer_id(self) -> Optional[pulumi.Input[str]]:
         """
-        CLB instance ID
+        CLB instance ID, (load_balancer_id and target_group_id require at least one).
         """
         return pulumi.get(self, "load_balancer_id")
 
     @load_balancer_id.setter
-    def load_balancer_id(self, value: pulumi.Input[str]):
+    def load_balancer_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "load_balancer_id", value)
+
+    @property
+    @pulumi.getter(name="targetGroupId")
+    def target_group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Target group ID, (load_balancer_id and target_group_id require at least one).
+        """
+        return pulumi.get(self, "target_group_id")
+
+    @target_group_id.setter
+    def target_group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target_group_id", value)
 
 
 @pulumi.input_type
 class _TargetGroupAttachmentsState:
     def __init__(__self__, *,
                  associations: Optional[pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]]] = None,
-                 load_balancer_id: Optional[pulumi.Input[str]] = None):
+                 load_balancer_id: Optional[pulumi.Input[str]] = None,
+                 target_group_id: Optional[pulumi.Input[str]] = None):
         """
         Input properties used for looking up and filtering TargetGroupAttachments resources.
-        :param pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]] associations: Association array, the combination cannot exceed 20
-        :param pulumi.Input[str] load_balancer_id: CLB instance ID
+        :param pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]] associations: Association array, the combination cannot exceed 20.
+        :param pulumi.Input[str] load_balancer_id: CLB instance ID, (load_balancer_id and target_group_id require at least one).
+        :param pulumi.Input[str] target_group_id: Target group ID, (load_balancer_id and target_group_id require at least one).
         """
         if associations is not None:
             pulumi.set(__self__, "associations", associations)
         if load_balancer_id is not None:
             pulumi.set(__self__, "load_balancer_id", load_balancer_id)
+        if target_group_id is not None:
+            pulumi.set(__self__, "target_group_id", target_group_id)
 
     @property
     @pulumi.getter
     def associations(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['TargetGroupAttachmentsAssociationArgs']]]]:
         """
-        Association array, the combination cannot exceed 20
+        Association array, the combination cannot exceed 20.
         """
         return pulumi.get(self, "associations")
 
@@ -82,13 +103,25 @@ class _TargetGroupAttachmentsState:
     @pulumi.getter(name="loadBalancerId")
     def load_balancer_id(self) -> Optional[pulumi.Input[str]]:
         """
-        CLB instance ID
+        CLB instance ID, (load_balancer_id and target_group_id require at least one).
         """
         return pulumi.get(self, "load_balancer_id")
 
     @load_balancer_id.setter
     def load_balancer_id(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "load_balancer_id", value)
+
+    @property
+    @pulumi.getter(name="targetGroupId")
+    def target_group_id(self) -> Optional[pulumi.Input[str]]:
+        """
+        Target group ID, (load_balancer_id and target_group_id require at least one).
+        """
+        return pulumi.get(self, "target_group_id")
+
+    @target_group_id.setter
+    def target_group_id(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "target_group_id", value)
 
 
 class TargetGroupAttachments(pulumi.CustomResource):
@@ -98,13 +131,15 @@ class TargetGroupAttachments(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  associations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]]] = None,
                  load_balancer_id: Optional[pulumi.Input[str]] = None,
+                 target_group_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         Create a TargetGroupAttachments resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]] associations: Association array, the combination cannot exceed 20
-        :param pulumi.Input[str] load_balancer_id: CLB instance ID
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]] associations: Association array, the combination cannot exceed 20.
+        :param pulumi.Input[str] load_balancer_id: CLB instance ID, (load_balancer_id and target_group_id require at least one).
+        :param pulumi.Input[str] target_group_id: Target group ID, (load_balancer_id and target_group_id require at least one).
         """
         ...
     @overload
@@ -131,6 +166,7 @@ class TargetGroupAttachments(pulumi.CustomResource):
                  opts: Optional[pulumi.ResourceOptions] = None,
                  associations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]]] = None,
                  load_balancer_id: Optional[pulumi.Input[str]] = None,
+                 target_group_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -143,9 +179,8 @@ class TargetGroupAttachments(pulumi.CustomResource):
             if associations is None and not opts.urn:
                 raise TypeError("Missing required property 'associations'")
             __props__.__dict__["associations"] = associations
-            if load_balancer_id is None and not opts.urn:
-                raise TypeError("Missing required property 'load_balancer_id'")
             __props__.__dict__["load_balancer_id"] = load_balancer_id
+            __props__.__dict__["target_group_id"] = target_group_id
         super(TargetGroupAttachments, __self__).__init__(
             'tencentcloud:Clb/targetGroupAttachments:TargetGroupAttachments',
             resource_name,
@@ -157,7 +192,8 @@ class TargetGroupAttachments(pulumi.CustomResource):
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
             associations: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]]] = None,
-            load_balancer_id: Optional[pulumi.Input[str]] = None) -> 'TargetGroupAttachments':
+            load_balancer_id: Optional[pulumi.Input[str]] = None,
+            target_group_id: Optional[pulumi.Input[str]] = None) -> 'TargetGroupAttachments':
         """
         Get an existing TargetGroupAttachments resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
@@ -165,8 +201,9 @@ class TargetGroupAttachments(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]] associations: Association array, the combination cannot exceed 20
-        :param pulumi.Input[str] load_balancer_id: CLB instance ID
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['TargetGroupAttachmentsAssociationArgs']]]] associations: Association array, the combination cannot exceed 20.
+        :param pulumi.Input[str] load_balancer_id: CLB instance ID, (load_balancer_id and target_group_id require at least one).
+        :param pulumi.Input[str] target_group_id: Target group ID, (load_balancer_id and target_group_id require at least one).
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
@@ -174,21 +211,30 @@ class TargetGroupAttachments(pulumi.CustomResource):
 
         __props__.__dict__["associations"] = associations
         __props__.__dict__["load_balancer_id"] = load_balancer_id
+        __props__.__dict__["target_group_id"] = target_group_id
         return TargetGroupAttachments(resource_name, opts=opts, __props__=__props__)
 
     @property
     @pulumi.getter
     def associations(self) -> pulumi.Output[Sequence['outputs.TargetGroupAttachmentsAssociation']]:
         """
-        Association array, the combination cannot exceed 20
+        Association array, the combination cannot exceed 20.
         """
         return pulumi.get(self, "associations")
 
     @property
     @pulumi.getter(name="loadBalancerId")
-    def load_balancer_id(self) -> pulumi.Output[str]:
+    def load_balancer_id(self) -> pulumi.Output[Optional[str]]:
         """
-        CLB instance ID
+        CLB instance ID, (load_balancer_id and target_group_id require at least one).
         """
         return pulumi.get(self, "load_balancer_id")
+
+    @property
+    @pulumi.getter(name="targetGroupId")
+    def target_group_id(self) -> pulumi.Output[Optional[str]]:
+        """
+        Target group ID, (load_balancer_id and target_group_id require at least one).
+        """
+        return pulumi.get(self, "target_group_id")
 

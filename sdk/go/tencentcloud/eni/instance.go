@@ -15,6 +15,8 @@ import (
 type Instance struct {
 	pulumi.CustomResourceState
 
+	// CDC instance ID.
+	CdcId pulumi.StringOutput `pulumi:"cdcId"`
 	// Creation time of the ENI.
 	CreateTime pulumi.StringOutput `pulumi:"createTime"`
 	// Description of the ENI, maximum length 60.
@@ -81,6 +83,8 @@ func GetInstance(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Instance resources.
 type instanceState struct {
+	// CDC instance ID.
+	CdcId *string `pulumi:"cdcId"`
 	// Creation time of the ENI.
 	CreateTime *string `pulumi:"createTime"`
 	// Description of the ENI, maximum length 60.
@@ -112,6 +116,8 @@ type instanceState struct {
 }
 
 type InstanceState struct {
+	// CDC instance ID.
+	CdcId pulumi.StringPtrInput
 	// Creation time of the ENI.
 	CreateTime pulumi.StringPtrInput
 	// Description of the ENI, maximum length 60.
@@ -274,6 +280,11 @@ func (o InstanceOutput) ToInstanceOutput() InstanceOutput {
 
 func (o InstanceOutput) ToInstanceOutputWithContext(ctx context.Context) InstanceOutput {
 	return o
+}
+
+// CDC instance ID.
+func (o InstanceOutput) CdcId() pulumi.StringOutput {
+	return o.ApplyT(func(v *Instance) pulumi.StringOutput { return v.CdcId }).(pulumi.StringOutput)
 }
 
 // Creation time of the ENI.

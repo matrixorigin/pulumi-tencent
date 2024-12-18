@@ -51,7 +51,7 @@ export class SshKeyPairSecret extends pulumi.CustomResource {
      * Specifies a KMS CMK to encrypt the secret.If this parameter is left empty, the CMK created by Secrets Manager by default
      * will be used for encryption.You can also specify a custom KMS CMK created in the same region for encryption.
      */
-    public readonly kmsKeyId!: pulumi.Output<string | undefined>;
+    public readonly kmsKeyId!: pulumi.Output<string>;
     /**
      * ID of the project to which the created SSH key belongs.
      */
@@ -70,7 +70,7 @@ export class SshKeyPairSecret extends pulumi.CustomResource {
      * Name of the SSH key pair, which only contains digits, letters and underscores and must start with a digit or letter. The
      * maximum length is 25 characters.
      */
-    public readonly sshKeyName!: pulumi.Output<string | undefined>;
+    public readonly sshKeyName!: pulumi.Output<string>;
     /**
      * Enable or Disable Secret. Valid values is `Enabled` or `Disabled`. Default is `Enabled`.
      */

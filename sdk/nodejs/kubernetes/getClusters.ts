@@ -13,6 +13,7 @@ export function getClusters(args?: GetClustersArgs, opts?: pulumi.InvokeOptions)
     return pulumi.runtime.invoke("tencentcloud:Kubernetes/getClusters:getClusters", {
         "clusterId": args.clusterId,
         "clusterName": args.clusterName,
+        "kubeConfigFilePrefix": args.kubeConfigFilePrefix,
         "resultOutputFile": args.resultOutputFile,
         "tags": args.tags,
     }, opts);
@@ -24,6 +25,7 @@ export function getClusters(args?: GetClustersArgs, opts?: pulumi.InvokeOptions)
 export interface GetClustersArgs {
     clusterId?: string;
     clusterName?: string;
+    kubeConfigFilePrefix?: string;
     resultOutputFile?: string;
     tags?: {[key: string]: any};
 }
@@ -38,6 +40,7 @@ export interface GetClustersResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
+    readonly kubeConfigFilePrefix?: string;
     readonly lists: outputs.Kubernetes.GetClustersList[];
     readonly resultOutputFile?: string;
     readonly tags?: {[key: string]: any};
@@ -52,6 +55,7 @@ export function getClustersOutput(args?: GetClustersOutputArgs, opts?: pulumi.In
 export interface GetClustersOutputArgs {
     clusterId?: pulumi.Input<string>;
     clusterName?: pulumi.Input<string>;
+    kubeConfigFilePrefix?: pulumi.Input<string>;
     resultOutputFile?: pulumi.Input<string>;
     tags?: pulumi.Input<{[key: string]: any}>;
 }

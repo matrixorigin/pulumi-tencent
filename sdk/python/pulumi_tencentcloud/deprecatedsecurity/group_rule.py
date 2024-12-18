@@ -35,8 +35,8 @@ class GroupRuleArgs:
         :param pulumi.Input['GroupRuleAddressTemplateArgs'] address_template: ID of the address template, and confilicts with `source_sgid` and `cidr_ip`.
         :param pulumi.Input[str] cidr_ip: An IP address network or segment, and conflict with `source_sgid` and `address_template`.
         :param pulumi.Input[str] description: Description of the security group rule.
-        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-               `protocol_template`.
+        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+               conflicts with `protocol_template`.
         :param pulumi.Input[int] policy_index: The security group rule index number, the value of which dynamically changes as the security group rule changes.
         :param pulumi.Input[str] port_range: Range of the port. The available value can be one, multiple or one segment. E.g. `80`, `80,90` and `80-90`. Default to
                all ports, and confilicts with `protocol_template`.
@@ -139,8 +139,8 @@ class GroupRuleArgs:
     @pulumi.getter(name="ipProtocol")
     def ip_protocol(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-        `protocol_template`.
+        Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+        conflicts with `protocol_template`.
         """
         return pulumi.get(self, "ip_protocol")
 
@@ -217,8 +217,8 @@ class _GroupRuleState:
         :param pulumi.Input['GroupRuleAddressTemplateArgs'] address_template: ID of the address template, and confilicts with `source_sgid` and `cidr_ip`.
         :param pulumi.Input[str] cidr_ip: An IP address network or segment, and conflict with `source_sgid` and `address_template`.
         :param pulumi.Input[str] description: Description of the security group rule.
-        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-               `protocol_template`.
+        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+               conflicts with `protocol_template`.
         :param pulumi.Input[str] policy: Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
         :param pulumi.Input[int] policy_index: The security group rule index number, the value of which dynamically changes as the security group rule changes.
         :param pulumi.Input[str] port_range: Range of the port. The available value can be one, multiple or one segment. E.g. `80`, `80,90` and `80-90`. Default to
@@ -291,8 +291,8 @@ class _GroupRuleState:
     @pulumi.getter(name="ipProtocol")
     def ip_protocol(self) -> Optional[pulumi.Input[str]]:
         """
-        Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-        `protocol_template`.
+        Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+        conflicts with `protocol_template`.
         """
         return pulumi.get(self, "ip_protocol")
 
@@ -410,8 +410,8 @@ class GroupRule(pulumi.CustomResource):
         :param pulumi.Input[pulumi.InputType['GroupRuleAddressTemplateArgs']] address_template: ID of the address template, and confilicts with `source_sgid` and `cidr_ip`.
         :param pulumi.Input[str] cidr_ip: An IP address network or segment, and conflict with `source_sgid` and `address_template`.
         :param pulumi.Input[str] description: Description of the security group rule.
-        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-               `protocol_template`.
+        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+               conflicts with `protocol_template`.
         :param pulumi.Input[str] policy: Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
         :param pulumi.Input[int] policy_index: The security group rule index number, the value of which dynamically changes as the security group rule changes.
         :param pulumi.Input[str] port_range: Range of the port. The available value can be one, multiple or one segment. E.g. `80`, `80,90` and `80-90`. Default to
@@ -512,8 +512,8 @@ class GroupRule(pulumi.CustomResource):
         :param pulumi.Input[pulumi.InputType['GroupRuleAddressTemplateArgs']] address_template: ID of the address template, and confilicts with `source_sgid` and `cidr_ip`.
         :param pulumi.Input[str] cidr_ip: An IP address network or segment, and conflict with `source_sgid` and `address_template`.
         :param pulumi.Input[str] description: Description of the security group rule.
-        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-               `protocol_template`.
+        :param pulumi.Input[str] ip_protocol: Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+               conflicts with `protocol_template`.
         :param pulumi.Input[str] policy: Rule policy of security group. Valid values: `ACCEPT` and `DROP`.
         :param pulumi.Input[int] policy_index: The security group rule index number, the value of which dynamically changes as the security group rule changes.
         :param pulumi.Input[str] port_range: Range of the port. The available value can be one, multiple or one segment. E.g. `80`, `80,90` and `80-90`. Default to
@@ -568,8 +568,8 @@ class GroupRule(pulumi.CustomResource):
     @pulumi.getter(name="ipProtocol")
     def ip_protocol(self) -> pulumi.Output[str]:
         """
-        Type of IP protocol. Valid values: `TCP`, `UDP` and `ICMP`. Default to all types protocol, and conflicts with
-        `protocol_template`.
+        Type of IP protocol. Valid values: `TCP`, `UDP`, `ICMP`, `ICMPv6` and `ALL`. Default to all types protocol, and
+        conflicts with `protocol_template`.
         """
         return pulumi.get(self, "ip_protocol")
 

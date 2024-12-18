@@ -22,14 +22,18 @@ class InstanceArgs:
                  machine_type: pulumi.Input[str],
                  memory: pulumi.Input[int],
                  volume: pulumi.Input[int],
+                 add_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  availability_zone_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  charge_type: Optional[pulumi.Input[str]] = None,
                  hidden_zone: Optional[pulumi.Input[str]] = None,
+                 maintenance_end: Optional[pulumi.Input[str]] = None,
+                 maintenance_start: Optional[pulumi.Input[str]] = None,
                  node_num: Optional[pulumi.Input[int]] = None,
                  password: Optional[pulumi.Input[str]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
+                 remove_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]] = None,
                  security_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -45,6 +49,7 @@ class InstanceArgs:
                `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
         :param pulumi.Input[int] memory: Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
         :param pulumi.Input[int] volume: Disk size. The minimum value is 25, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
+        :param pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]] add_node_lists: Add node attribute list.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
                `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
                `1` for creation.
@@ -58,11 +63,16 @@ class InstanceArgs:
                delete old instances and create new one with new charge type.
         :param pulumi.Input[str] hidden_zone: The availability zone to which the Hidden node belongs. This parameter must be configured to deploy instances across
                availability zones.
+        :param pulumi.Input[str] maintenance_end: Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+               time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        :param pulumi.Input[str] maintenance_start: Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+               00:30.
         :param pulumi.Input[int] node_num: The number of nodes in each replica set. Default value: 3.
         :param pulumi.Input[str] password: Password of this Mongodb account.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24,
                36. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[int] project_id: ID of the project which the instance belongs.
+        :param pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]] remove_node_lists: Add node attribute list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups: ID of the security group.
         :param pulumi.Input[str] subnet_id: ID of the subnet within this VPC. The value is required if `vpc_id` is set.
         :param pulumi.Input[Mapping[str, Any]] tags: The tags of the Mongodb. Key name `project` is system reserved and can't be used.
@@ -74,6 +84,8 @@ class InstanceArgs:
         pulumi.set(__self__, "machine_type", machine_type)
         pulumi.set(__self__, "memory", memory)
         pulumi.set(__self__, "volume", volume)
+        if add_node_lists is not None:
+            pulumi.set(__self__, "add_node_lists", add_node_lists)
         if auto_renew_flag is not None:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if availability_zone_lists is not None:
@@ -82,6 +94,10 @@ class InstanceArgs:
             pulumi.set(__self__, "charge_type", charge_type)
         if hidden_zone is not None:
             pulumi.set(__self__, "hidden_zone", hidden_zone)
+        if maintenance_end is not None:
+            pulumi.set(__self__, "maintenance_end", maintenance_end)
+        if maintenance_start is not None:
+            pulumi.set(__self__, "maintenance_start", maintenance_start)
         if node_num is not None:
             pulumi.set(__self__, "node_num", node_num)
         if password is not None:
@@ -90,6 +106,8 @@ class InstanceArgs:
             pulumi.set(__self__, "prepaid_period", prepaid_period)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
+        if remove_node_lists is not None:
+            pulumi.set(__self__, "remove_node_lists", remove_node_lists)
         if security_groups is not None:
             pulumi.set(__self__, "security_groups", security_groups)
         if subnet_id is not None:
@@ -175,6 +193,18 @@ class InstanceArgs:
         pulumi.set(self, "volume", value)
 
     @property
+    @pulumi.getter(name="addNodeLists")
+    def add_node_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "add_node_lists")
+
+    @add_node_lists.setter
+    def add_node_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]]):
+        pulumi.set(self, "add_node_lists", value)
+
+    @property
     @pulumi.getter(name="autoRenewFlag")
     def auto_renew_flag(self) -> Optional[pulumi.Input[int]]:
         """
@@ -232,6 +262,32 @@ class InstanceArgs:
         pulumi.set(self, "hidden_zone", value)
 
     @property
+    @pulumi.getter(name="maintenanceEnd")
+    def maintenance_end(self) -> Optional[pulumi.Input[str]]:
+        """
+        Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+        time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        """
+        return pulumi.get(self, "maintenance_end")
+
+    @maintenance_end.setter
+    def maintenance_end(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "maintenance_end", value)
+
+    @property
+    @pulumi.getter(name="maintenanceStart")
+    def maintenance_start(self) -> Optional[pulumi.Input[str]]:
+        """
+        Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+        00:30.
+        """
+        return pulumi.get(self, "maintenance_start")
+
+    @maintenance_start.setter
+    def maintenance_start(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "maintenance_start", value)
+
+    @property
     @pulumi.getter(name="nodeNum")
     def node_num(self) -> Optional[pulumi.Input[int]]:
         """
@@ -279,6 +335,18 @@ class InstanceArgs:
     @project_id.setter
     def project_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="removeNodeLists")
+    def remove_node_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "remove_node_lists")
+
+    @remove_node_lists.setter
+    def remove_node_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]]):
+        pulumi.set(self, "remove_node_lists", value)
 
     @property
     @pulumi.getter(name="securityGroups")
@@ -332,6 +400,7 @@ class InstanceArgs:
 @pulumi.input_type
 class _InstanceState:
     def __init__(__self__, *,
+                 add_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  availability_zone_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  available_zone: Optional[pulumi.Input[str]] = None,
@@ -341,11 +410,14 @@ class _InstanceState:
                  hidden_zone: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
                  machine_type: Optional[pulumi.Input[str]] = None,
+                 maintenance_end: Optional[pulumi.Input[str]] = None,
+                 maintenance_start: Optional[pulumi.Input[str]] = None,
                  memory: Optional[pulumi.Input[int]] = None,
                  node_num: Optional[pulumi.Input[int]] = None,
                  password: Optional[pulumi.Input[str]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
+                 remove_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]] = None,
                  security_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  standby_instance_lists: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceStandbyInstanceListArgs']]]] = None,
                  status: Optional[pulumi.Input[int]] = None,
@@ -357,6 +429,7 @@ class _InstanceState:
                  vport: Optional[pulumi.Input[int]] = None):
         """
         Input properties used for looking up and filtering Instance resources.
+        :param pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]] add_node_lists: Add node attribute list.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
                `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
                `1` for creation.
@@ -378,12 +451,17 @@ class _InstanceState:
         :param pulumi.Input[str] instance_name: Name of the Mongodb instance.
         :param pulumi.Input[str] machine_type: Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
                `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
+        :param pulumi.Input[str] maintenance_end: Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+               time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        :param pulumi.Input[str] maintenance_start: Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+               00:30.
         :param pulumi.Input[int] memory: Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
         :param pulumi.Input[int] node_num: The number of nodes in each replica set. Default value: 3.
         :param pulumi.Input[str] password: Password of this Mongodb account.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24,
                36. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[int] project_id: ID of the project which the instance belongs.
+        :param pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]] remove_node_lists: Add node attribute list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups: ID of the security group.
         :param pulumi.Input[Sequence[pulumi.Input['InstanceStandbyInstanceListArgs']]] standby_instance_lists: List of standby instances' info.
         :param pulumi.Input[int] status: Status of the Mongodb instance, and available values include pending initialization(expressed with 0),
@@ -395,6 +473,8 @@ class _InstanceState:
         :param pulumi.Input[str] vpc_id: ID of the VPC.
         :param pulumi.Input[int] vport: IP port of the Mongodb instance.
         """
+        if add_node_lists is not None:
+            pulumi.set(__self__, "add_node_lists", add_node_lists)
         if auto_renew_flag is not None:
             pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
         if availability_zone_lists is not None:
@@ -413,6 +493,10 @@ class _InstanceState:
             pulumi.set(__self__, "instance_name", instance_name)
         if machine_type is not None:
             pulumi.set(__self__, "machine_type", machine_type)
+        if maintenance_end is not None:
+            pulumi.set(__self__, "maintenance_end", maintenance_end)
+        if maintenance_start is not None:
+            pulumi.set(__self__, "maintenance_start", maintenance_start)
         if memory is not None:
             pulumi.set(__self__, "memory", memory)
         if node_num is not None:
@@ -423,6 +507,8 @@ class _InstanceState:
             pulumi.set(__self__, "prepaid_period", prepaid_period)
         if project_id is not None:
             pulumi.set(__self__, "project_id", project_id)
+        if remove_node_lists is not None:
+            pulumi.set(__self__, "remove_node_lists", remove_node_lists)
         if security_groups is not None:
             pulumi.set(__self__, "security_groups", security_groups)
         if standby_instance_lists is not None:
@@ -441,6 +527,18 @@ class _InstanceState:
             pulumi.set(__self__, "vpc_id", vpc_id)
         if vport is not None:
             pulumi.set(__self__, "vport", vport)
+
+    @property
+    @pulumi.getter(name="addNodeLists")
+    def add_node_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "add_node_lists")
+
+    @add_node_lists.setter
+    def add_node_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceAddNodeListArgs']]]]):
+        pulumi.set(self, "add_node_lists", value)
 
     @property
     @pulumi.getter(name="autoRenewFlag")
@@ -563,6 +661,32 @@ class _InstanceState:
         pulumi.set(self, "machine_type", value)
 
     @property
+    @pulumi.getter(name="maintenanceEnd")
+    def maintenance_end(self) -> Optional[pulumi.Input[str]]:
+        """
+        Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+        time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        """
+        return pulumi.get(self, "maintenance_end")
+
+    @maintenance_end.setter
+    def maintenance_end(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "maintenance_end", value)
+
+    @property
+    @pulumi.getter(name="maintenanceStart")
+    def maintenance_start(self) -> Optional[pulumi.Input[str]]:
+        """
+        Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+        00:30.
+        """
+        return pulumi.get(self, "maintenance_start")
+
+    @maintenance_start.setter
+    def maintenance_start(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "maintenance_start", value)
+
+    @property
     @pulumi.getter
     def memory(self) -> Optional[pulumi.Input[int]]:
         """
@@ -622,6 +746,18 @@ class _InstanceState:
     @project_id.setter
     def project_id(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "project_id", value)
+
+    @property
+    @pulumi.getter(name="removeNodeLists")
+    def remove_node_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "remove_node_lists")
+
+    @remove_node_lists.setter
+    def remove_node_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['InstanceRemoveNodeListArgs']]]]):
+        pulumi.set(self, "remove_node_lists", value)
 
     @property
     @pulumi.getter(name="securityGroups")
@@ -738,6 +874,7 @@ class Instance(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 add_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceAddNodeListArgs']]]]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  availability_zone_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  available_zone: Optional[pulumi.Input[str]] = None,
@@ -746,11 +883,14 @@ class Instance(pulumi.CustomResource):
                  hidden_zone: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
                  machine_type: Optional[pulumi.Input[str]] = None,
+                 maintenance_end: Optional[pulumi.Input[str]] = None,
+                 maintenance_start: Optional[pulumi.Input[str]] = None,
                  memory: Optional[pulumi.Input[int]] = None,
                  node_num: Optional[pulumi.Input[int]] = None,
                  password: Optional[pulumi.Input[str]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
+                 remove_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceRemoveNodeListArgs']]]]] = None,
                  security_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -761,6 +901,7 @@ class Instance(pulumi.CustomResource):
         Create a Instance resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceAddNodeListArgs']]]] add_node_lists: Add node attribute list.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
                `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
                `1` for creation.
@@ -781,12 +922,17 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] instance_name: Name of the Mongodb instance.
         :param pulumi.Input[str] machine_type: Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
                `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
+        :param pulumi.Input[str] maintenance_end: Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+               time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        :param pulumi.Input[str] maintenance_start: Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+               00:30.
         :param pulumi.Input[int] memory: Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
         :param pulumi.Input[int] node_num: The number of nodes in each replica set. Default value: 3.
         :param pulumi.Input[str] password: Password of this Mongodb account.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24,
                36. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[int] project_id: ID of the project which the instance belongs.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceRemoveNodeListArgs']]]] remove_node_lists: Add node attribute list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups: ID of the security group.
         :param pulumi.Input[str] subnet_id: ID of the subnet within this VPC. The value is required if `vpc_id` is set.
         :param pulumi.Input[Mapping[str, Any]] tags: The tags of the Mongodb. Key name `project` is system reserved and can't be used.
@@ -816,6 +962,7 @@ class Instance(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 add_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceAddNodeListArgs']]]]] = None,
                  auto_renew_flag: Optional[pulumi.Input[int]] = None,
                  availability_zone_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  available_zone: Optional[pulumi.Input[str]] = None,
@@ -824,11 +971,14 @@ class Instance(pulumi.CustomResource):
                  hidden_zone: Optional[pulumi.Input[str]] = None,
                  instance_name: Optional[pulumi.Input[str]] = None,
                  machine_type: Optional[pulumi.Input[str]] = None,
+                 maintenance_end: Optional[pulumi.Input[str]] = None,
+                 maintenance_start: Optional[pulumi.Input[str]] = None,
                  memory: Optional[pulumi.Input[int]] = None,
                  node_num: Optional[pulumi.Input[int]] = None,
                  password: Optional[pulumi.Input[str]] = None,
                  prepaid_period: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
+                 remove_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceRemoveNodeListArgs']]]]] = None,
                  security_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  subnet_id: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
@@ -843,6 +993,7 @@ class Instance(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = InstanceArgs.__new__(InstanceArgs)
 
+            __props__.__dict__["add_node_lists"] = add_node_lists
             __props__.__dict__["auto_renew_flag"] = auto_renew_flag
             __props__.__dict__["availability_zone_lists"] = availability_zone_lists
             if available_zone is None and not opts.urn:
@@ -859,6 +1010,8 @@ class Instance(pulumi.CustomResource):
             if machine_type is None and not opts.urn:
                 raise TypeError("Missing required property 'machine_type'")
             __props__.__dict__["machine_type"] = machine_type
+            __props__.__dict__["maintenance_end"] = maintenance_end
+            __props__.__dict__["maintenance_start"] = maintenance_start
             if memory is None and not opts.urn:
                 raise TypeError("Missing required property 'memory'")
             __props__.__dict__["memory"] = memory
@@ -866,6 +1019,7 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["password"] = None if password is None else pulumi.Output.secret(password)
             __props__.__dict__["prepaid_period"] = prepaid_period
             __props__.__dict__["project_id"] = project_id
+            __props__.__dict__["remove_node_lists"] = remove_node_lists
             __props__.__dict__["security_groups"] = security_groups
             __props__.__dict__["subnet_id"] = subnet_id
             __props__.__dict__["tags"] = tags
@@ -890,6 +1044,7 @@ class Instance(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
+            add_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceAddNodeListArgs']]]]] = None,
             auto_renew_flag: Optional[pulumi.Input[int]] = None,
             availability_zone_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             available_zone: Optional[pulumi.Input[str]] = None,
@@ -899,11 +1054,14 @@ class Instance(pulumi.CustomResource):
             hidden_zone: Optional[pulumi.Input[str]] = None,
             instance_name: Optional[pulumi.Input[str]] = None,
             machine_type: Optional[pulumi.Input[str]] = None,
+            maintenance_end: Optional[pulumi.Input[str]] = None,
+            maintenance_start: Optional[pulumi.Input[str]] = None,
             memory: Optional[pulumi.Input[int]] = None,
             node_num: Optional[pulumi.Input[int]] = None,
             password: Optional[pulumi.Input[str]] = None,
             prepaid_period: Optional[pulumi.Input[int]] = None,
             project_id: Optional[pulumi.Input[int]] = None,
+            remove_node_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceRemoveNodeListArgs']]]]] = None,
             security_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             standby_instance_lists: Optional[pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceStandbyInstanceListArgs']]]]] = None,
             status: Optional[pulumi.Input[int]] = None,
@@ -920,6 +1078,7 @@ class Instance(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceAddNodeListArgs']]]] add_node_lists: Add node attribute list.
         :param pulumi.Input[int] auto_renew_flag: Auto renew flag. Valid values are `0`(NOTIFY_AND_MANUAL_RENEW), `1`(NOTIFY_AND_AUTO_RENEW) and
                `2`(DISABLE_NOTIFY_AND_MANUAL_RENEW). Default value is `0`. Note: only works for PREPAID instance. Only supports`0` and
                `1` for creation.
@@ -941,12 +1100,17 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] instance_name: Name of the Mongodb instance.
         :param pulumi.Input[str] machine_type: Type of Mongodb instance, and available values include `HIO`(or `GIO` which will be deprecated, represents high IO) and
                `HIO10G`(or `TGIO` which will be deprecated, represents 10-gigabit high IO).
+        :param pulumi.Input[str] maintenance_end: Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+               time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        :param pulumi.Input[str] maintenance_start: Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+               00:30.
         :param pulumi.Input[int] memory: Memory size. The minimum value is 2, and unit is GB. Memory and volume must be upgraded or degraded simultaneously.
         :param pulumi.Input[int] node_num: The number of nodes in each replica set. Default value: 3.
         :param pulumi.Input[str] password: Password of this Mongodb account.
         :param pulumi.Input[int] prepaid_period: The tenancy (time unit is month) of the prepaid instance. Valid values are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 24,
                36. NOTE: it only works when charge_type is set to `PREPAID`.
         :param pulumi.Input[int] project_id: ID of the project which the instance belongs.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceRemoveNodeListArgs']]]] remove_node_lists: Add node attribute list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] security_groups: ID of the security group.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['InstanceStandbyInstanceListArgs']]]] standby_instance_lists: List of standby instances' info.
         :param pulumi.Input[int] status: Status of the Mongodb instance, and available values include pending initialization(expressed with 0),
@@ -962,6 +1126,7 @@ class Instance(pulumi.CustomResource):
 
         __props__ = _InstanceState.__new__(_InstanceState)
 
+        __props__.__dict__["add_node_lists"] = add_node_lists
         __props__.__dict__["auto_renew_flag"] = auto_renew_flag
         __props__.__dict__["availability_zone_lists"] = availability_zone_lists
         __props__.__dict__["available_zone"] = available_zone
@@ -971,11 +1136,14 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["hidden_zone"] = hidden_zone
         __props__.__dict__["instance_name"] = instance_name
         __props__.__dict__["machine_type"] = machine_type
+        __props__.__dict__["maintenance_end"] = maintenance_end
+        __props__.__dict__["maintenance_start"] = maintenance_start
         __props__.__dict__["memory"] = memory
         __props__.__dict__["node_num"] = node_num
         __props__.__dict__["password"] = password
         __props__.__dict__["prepaid_period"] = prepaid_period
         __props__.__dict__["project_id"] = project_id
+        __props__.__dict__["remove_node_lists"] = remove_node_lists
         __props__.__dict__["security_groups"] = security_groups
         __props__.__dict__["standby_instance_lists"] = standby_instance_lists
         __props__.__dict__["status"] = status
@@ -986,6 +1154,14 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["vpc_id"] = vpc_id
         __props__.__dict__["vport"] = vport
         return Instance(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="addNodeLists")
+    def add_node_lists(self) -> pulumi.Output[Optional[Sequence['outputs.InstanceAddNodeList']]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "add_node_lists")
 
     @property
     @pulumi.getter(name="autoRenewFlag")
@@ -1072,6 +1248,24 @@ class Instance(pulumi.CustomResource):
         return pulumi.get(self, "machine_type")
 
     @property
+    @pulumi.getter(name="maintenanceEnd")
+    def maintenance_end(self) -> pulumi.Output[str]:
+        """
+        Maintenance window end time. - The value range is any full point or half point from `00:00-23:00`, and the maintenance
+        time duration is at least 30 minutes and at most 3 hours. - The end time must be based on the start time backwards.
+        """
+        return pulumi.get(self, "maintenance_end")
+
+    @property
+    @pulumi.getter(name="maintenanceStart")
+    def maintenance_start(self) -> pulumi.Output[str]:
+        """
+        Maintenance window start time. The value range is any full point or half point from `00:00-23:00`, such as 00:00 or
+        00:30.
+        """
+        return pulumi.get(self, "maintenance_start")
+
+    @property
     @pulumi.getter
     def memory(self) -> pulumi.Output[int]:
         """
@@ -1111,6 +1305,14 @@ class Instance(pulumi.CustomResource):
         ID of the project which the instance belongs.
         """
         return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter(name="removeNodeLists")
+    def remove_node_lists(self) -> pulumi.Output[Optional[Sequence['outputs.InstanceRemoveNodeList']]]:
+        """
+        Add node attribute list.
+        """
+        return pulumi.get(self, "remove_node_lists")
 
     @property
     @pulumi.getter(name="securityGroups")

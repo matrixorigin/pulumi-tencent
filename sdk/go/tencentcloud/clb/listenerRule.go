@@ -23,10 +23,14 @@ type ListenerRule struct {
 	CertificateSslMode pulumi.StringPtrOutput `pulumi:"certificateSslMode"`
 	// ID of CLB instance.
 	ClbId pulumi.StringOutput `pulumi:"clbId"`
-	// Domain name of the listener rule.
+	// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
 	Domain pulumi.StringOutput `pulumi:"domain"`
-	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-	// `HTTP`.
+	// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domains pulumi.StringArrayOutput `pulumi:"domains"`
+	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+	// The default is `HTTP`.
 	ForwardType pulumi.StringOutput `pulumi:"forwardType"`
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, indicates that the forwarding is normal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener
@@ -52,7 +56,7 @@ type ListenerRule struct {
 	HealthCheckSwitch pulumi.BoolOutput `pulumi:"healthCheckSwitch"`
 	// Time out of health check. The value range is [2-60](SEC).
 	HealthCheckTimeOut pulumi.IntOutput `pulumi:"healthCheckTimeOut"`
-	// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+	// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 	HealthCheckType pulumi.StringOutput `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If the unhealthy result is returned 3 consecutive times,
 	// indicates that the forwarding is abnormal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows direct
@@ -62,6 +66,8 @@ type ListenerRule struct {
 	Http2Switch pulumi.BoolOutput `pulumi:"http2Switch"`
 	// ID of CLB listener.
 	ListenerId pulumi.StringOutput `pulumi:"listenerId"`
+	// OAuth configuration information.
+	Oauth ListenerRuleOauthOutput `pulumi:"oauth"`
 	// Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
 	Quic pulumi.BoolOutput `pulumi:"quic"`
 	// ID of this CLB listener rule.
@@ -90,9 +96,6 @@ func NewListenerRule(ctx *pulumi.Context,
 
 	if args.ClbId == nil {
 		return nil, errors.New("invalid value for required argument 'ClbId'")
-	}
-	if args.Domain == nil {
-		return nil, errors.New("invalid value for required argument 'Domain'")
 	}
 	if args.ListenerId == nil {
 		return nil, errors.New("invalid value for required argument 'ListenerId'")
@@ -131,10 +134,14 @@ type listenerRuleState struct {
 	CertificateSslMode *string `pulumi:"certificateSslMode"`
 	// ID of CLB instance.
 	ClbId *string `pulumi:"clbId"`
-	// Domain name of the listener rule.
+	// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
 	Domain *string `pulumi:"domain"`
-	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-	// `HTTP`.
+	// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domains []string `pulumi:"domains"`
+	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+	// The default is `HTTP`.
 	ForwardType *string `pulumi:"forwardType"`
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, indicates that the forwarding is normal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener
@@ -160,7 +167,7 @@ type listenerRuleState struct {
 	HealthCheckSwitch *bool `pulumi:"healthCheckSwitch"`
 	// Time out of health check. The value range is [2-60](SEC).
 	HealthCheckTimeOut *int `pulumi:"healthCheckTimeOut"`
-	// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+	// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 	HealthCheckType *string `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If the unhealthy result is returned 3 consecutive times,
 	// indicates that the forwarding is abnormal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows direct
@@ -170,6 +177,8 @@ type listenerRuleState struct {
 	Http2Switch *bool `pulumi:"http2Switch"`
 	// ID of CLB listener.
 	ListenerId *string `pulumi:"listenerId"`
+	// OAuth configuration information.
+	Oauth *ListenerRuleOauth `pulumi:"oauth"`
 	// Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
 	Quic *bool `pulumi:"quic"`
 	// ID of this CLB listener rule.
@@ -198,10 +207,14 @@ type ListenerRuleState struct {
 	CertificateSslMode pulumi.StringPtrInput
 	// ID of CLB instance.
 	ClbId pulumi.StringPtrInput
-	// Domain name of the listener rule.
+	// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
 	Domain pulumi.StringPtrInput
-	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-	// `HTTP`.
+	// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domains pulumi.StringArrayInput
+	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+	// The default is `HTTP`.
 	ForwardType pulumi.StringPtrInput
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, indicates that the forwarding is normal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener
@@ -227,7 +240,7 @@ type ListenerRuleState struct {
 	HealthCheckSwitch pulumi.BoolPtrInput
 	// Time out of health check. The value range is [2-60](SEC).
 	HealthCheckTimeOut pulumi.IntPtrInput
-	// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+	// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 	HealthCheckType pulumi.StringPtrInput
 	// Unhealthy threshold of health check, and the default is `3`. If the unhealthy result is returned 3 consecutive times,
 	// indicates that the forwarding is abnormal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows direct
@@ -237,6 +250,8 @@ type ListenerRuleState struct {
 	Http2Switch pulumi.BoolPtrInput
 	// ID of CLB listener.
 	ListenerId pulumi.StringPtrInput
+	// OAuth configuration information.
+	Oauth ListenerRuleOauthPtrInput
 	// Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
 	Quic pulumi.BoolPtrInput
 	// ID of this CLB listener rule.
@@ -269,10 +284,14 @@ type listenerRuleArgs struct {
 	CertificateSslMode *string `pulumi:"certificateSslMode"`
 	// ID of CLB instance.
 	ClbId string `pulumi:"clbId"`
-	// Domain name of the listener rule.
-	Domain string `pulumi:"domain"`
-	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-	// `HTTP`.
+	// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domain *string `pulumi:"domain"`
+	// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domains []string `pulumi:"domains"`
+	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+	// The default is `HTTP`.
 	ForwardType *string `pulumi:"forwardType"`
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, indicates that the forwarding is normal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener
@@ -298,7 +317,7 @@ type listenerRuleArgs struct {
 	HealthCheckSwitch *bool `pulumi:"healthCheckSwitch"`
 	// Time out of health check. The value range is [2-60](SEC).
 	HealthCheckTimeOut *int `pulumi:"healthCheckTimeOut"`
-	// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+	// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 	HealthCheckType *string `pulumi:"healthCheckType"`
 	// Unhealthy threshold of health check, and the default is `3`. If the unhealthy result is returned 3 consecutive times,
 	// indicates that the forwarding is abnormal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows direct
@@ -308,6 +327,8 @@ type listenerRuleArgs struct {
 	Http2Switch *bool `pulumi:"http2Switch"`
 	// ID of CLB listener.
 	ListenerId string `pulumi:"listenerId"`
+	// OAuth configuration information.
+	Oauth *ListenerRuleOauth `pulumi:"oauth"`
 	// Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
 	Quic *bool `pulumi:"quic"`
 	// Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR`. NOTES:
@@ -335,10 +356,14 @@ type ListenerRuleArgs struct {
 	CertificateSslMode pulumi.StringPtrInput
 	// ID of CLB instance.
 	ClbId pulumi.StringInput
-	// Domain name of the listener rule.
-	Domain pulumi.StringInput
-	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-	// `HTTP`.
+	// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domain pulumi.StringPtrInput
+	// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+	// `domains`.
+	Domains pulumi.StringArrayInput
+	// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+	// The default is `HTTP`.
 	ForwardType pulumi.StringPtrInput
 	// Health threshold of health check, and the default is `3`. If a success result is returned for the health check 3
 	// consecutive times, indicates that the forwarding is normal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener
@@ -364,7 +389,7 @@ type ListenerRuleArgs struct {
 	HealthCheckSwitch pulumi.BoolPtrInput
 	// Time out of health check. The value range is [2-60](SEC).
 	HealthCheckTimeOut pulumi.IntPtrInput
-	// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+	// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 	HealthCheckType pulumi.StringPtrInput
 	// Unhealthy threshold of health check, and the default is `3`. If the unhealthy result is returned 3 consecutive times,
 	// indicates that the forwarding is abnormal. The value range is [2-10]. NOTES: TCP/UDP/TCP_SSL listener allows direct
@@ -374,6 +399,8 @@ type ListenerRuleArgs struct {
 	Http2Switch pulumi.BoolPtrInput
 	// ID of CLB listener.
 	ListenerId pulumi.StringInput
+	// OAuth configuration information.
+	Oauth ListenerRuleOauthPtrInput
 	// Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.
 	Quic pulumi.BoolPtrInput
 	// Scheduling method of the CLB listener rules. Valid values: `WRR`, `IP HASH`, `LEAST_CONN`. The default is `WRR`. NOTES:
@@ -498,13 +525,20 @@ func (o ListenerRuleOutput) ClbId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.StringOutput { return v.ClbId }).(pulumi.StringOutput)
 }
 
-// Domain name of the listener rule.
+// Domain name of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+// `domains`.
 func (o ListenerRuleOutput) Domain() pulumi.StringOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.StringOutput { return v.Domain }).(pulumi.StringOutput)
 }
 
-// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `TRPC`. The default is
-// `HTTP`.
+// Domain name list of the listener rule. Single domain rules are passed to `domain`, and multi domain rules are passed to
+// `domains`.
+func (o ListenerRuleOutput) Domains() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ListenerRule) pulumi.StringArrayOutput { return v.Domains }).(pulumi.StringArrayOutput)
+}
+
+// Forwarding protocol between the CLB instance and real server. Valid values: `HTTP`, `HTTPS`, `GRPC`, `GRPCS`, `TRPC`.
+// The default is `HTTP`.
 func (o ListenerRuleOutput) ForwardType() pulumi.StringOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.StringOutput { return v.ForwardType }).(pulumi.StringOutput)
 }
@@ -557,7 +591,7 @@ func (o ListenerRuleOutput) HealthCheckTimeOut() pulumi.IntOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.IntOutput { return v.HealthCheckTimeOut }).(pulumi.IntOutput)
 }
 
-// Type of health check. Valid value is `CUSTOM`, `TCP`, `HTTP`.
+// Type of health check. Valid value is `CUSTOM`, `PING`, `TCP`, `HTTP`, `HTTPS`, `GRPC`, `GRPCS`.
 func (o ListenerRuleOutput) HealthCheckType() pulumi.StringOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.StringOutput { return v.HealthCheckType }).(pulumi.StringOutput)
 }
@@ -577,6 +611,11 @@ func (o ListenerRuleOutput) Http2Switch() pulumi.BoolOutput {
 // ID of CLB listener.
 func (o ListenerRuleOutput) ListenerId() pulumi.StringOutput {
 	return o.ApplyT(func(v *ListenerRule) pulumi.StringOutput { return v.ListenerId }).(pulumi.StringOutput)
+}
+
+// OAuth configuration information.
+func (o ListenerRuleOutput) Oauth() ListenerRuleOauthOutput {
+	return o.ApplyT(func(v *ListenerRule) ListenerRuleOauthOutput { return v.Oauth }).(ListenerRuleOauthOutput)
 }
 
 // Whether to enable QUIC. Note: QUIC can be enabled only for HTTPS domain names.

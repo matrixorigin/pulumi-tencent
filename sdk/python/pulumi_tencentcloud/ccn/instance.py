@@ -19,6 +19,8 @@ class InstanceArgs:
                  description: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  qos: Optional[pulumi.Input[str]] = None,
+                 route_ecmp_flag: Optional[pulumi.Input[bool]] = None,
+                 route_overlap_flag: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
         The set of arguments for constructing a Instance resource.
@@ -30,7 +32,9 @@ class InstanceArgs:
                inter-regional speed limit, and the post-paid model supports inter-regional speed limit and regional export speed limit.
         :param pulumi.Input[str] description: Description of CCN, and maximum length does not exceed 100 bytes.
         :param pulumi.Input[str] name: Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
-        :param pulumi.Input[str] qos: Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        :param pulumi.Input[str] qos: CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
+        :param pulumi.Input[bool] route_ecmp_flag: Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        :param pulumi.Input[bool] route_overlap_flag: Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
         :param pulumi.Input[Mapping[str, Any]] tags: Instance tag.
         """
         if bandwidth_limit_type is not None:
@@ -43,6 +47,10 @@ class InstanceArgs:
             pulumi.set(__self__, "name", name)
         if qos is not None:
             pulumi.set(__self__, "qos", qos)
+        if route_ecmp_flag is not None:
+            pulumi.set(__self__, "route_ecmp_flag", route_ecmp_flag)
+        if route_overlap_flag is not None:
+            pulumi.set(__self__, "route_overlap_flag", route_overlap_flag)
         if tags is not None:
             pulumi.set(__self__, "tags", tags)
 
@@ -102,13 +110,37 @@ class InstanceArgs:
     @pulumi.getter
     def qos(self) -> Optional[pulumi.Input[str]]:
         """
-        Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
         """
         return pulumi.get(self, "qos")
 
     @qos.setter
     def qos(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "qos", value)
+
+    @property
+    @pulumi.getter(name="routeEcmpFlag")
+    def route_ecmp_flag(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_ecmp_flag")
+
+    @route_ecmp_flag.setter
+    def route_ecmp_flag(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "route_ecmp_flag", value)
+
+    @property
+    @pulumi.getter(name="routeOverlapFlag")
+    def route_overlap_flag(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_overlap_flag")
+
+    @route_overlap_flag.setter
+    def route_overlap_flag(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "route_overlap_flag", value)
 
     @property
     @pulumi.getter
@@ -133,6 +165,8 @@ class _InstanceState:
                  instance_count: Optional[pulumi.Input[int]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  qos: Optional[pulumi.Input[str]] = None,
+                 route_ecmp_flag: Optional[pulumi.Input[bool]] = None,
+                 route_overlap_flag: Optional[pulumi.Input[bool]] = None,
                  state: Optional[pulumi.Input[str]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None):
         """
@@ -147,7 +181,9 @@ class _InstanceState:
         :param pulumi.Input[str] description: Description of CCN, and maximum length does not exceed 100 bytes.
         :param pulumi.Input[int] instance_count: Number of attached instances.
         :param pulumi.Input[str] name: Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
-        :param pulumi.Input[str] qos: Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        :param pulumi.Input[str] qos: CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
+        :param pulumi.Input[bool] route_ecmp_flag: Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        :param pulumi.Input[bool] route_overlap_flag: Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
         :param pulumi.Input[str] state: States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
         :param pulumi.Input[Mapping[str, Any]] tags: Instance tag.
         """
@@ -165,6 +201,10 @@ class _InstanceState:
             pulumi.set(__self__, "name", name)
         if qos is not None:
             pulumi.set(__self__, "qos", qos)
+        if route_ecmp_flag is not None:
+            pulumi.set(__self__, "route_ecmp_flag", route_ecmp_flag)
+        if route_overlap_flag is not None:
+            pulumi.set(__self__, "route_overlap_flag", route_overlap_flag)
         if state is not None:
             pulumi.set(__self__, "state", state)
         if tags is not None:
@@ -250,13 +290,37 @@ class _InstanceState:
     @pulumi.getter
     def qos(self) -> Optional[pulumi.Input[str]]:
         """
-        Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
         """
         return pulumi.get(self, "qos")
 
     @qos.setter
     def qos(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "qos", value)
+
+    @property
+    @pulumi.getter(name="routeEcmpFlag")
+    def route_ecmp_flag(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_ecmp_flag")
+
+    @route_ecmp_flag.setter
+    def route_ecmp_flag(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "route_ecmp_flag", value)
+
+    @property
+    @pulumi.getter(name="routeOverlapFlag")
+    def route_overlap_flag(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_overlap_flag")
+
+    @route_overlap_flag.setter
+    def route_overlap_flag(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "route_overlap_flag", value)
 
     @property
     @pulumi.getter
@@ -293,6 +357,8 @@ class Instance(pulumi.CustomResource):
                  description: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  qos: Optional[pulumi.Input[str]] = None,
+                 route_ecmp_flag: Optional[pulumi.Input[bool]] = None,
+                 route_overlap_flag: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  __props__=None):
         """
@@ -307,7 +373,9 @@ class Instance(pulumi.CustomResource):
                inter-regional speed limit, and the post-paid model supports inter-regional speed limit and regional export speed limit.
         :param pulumi.Input[str] description: Description of CCN, and maximum length does not exceed 100 bytes.
         :param pulumi.Input[str] name: Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
-        :param pulumi.Input[str] qos: Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        :param pulumi.Input[str] qos: CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
+        :param pulumi.Input[bool] route_ecmp_flag: Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        :param pulumi.Input[bool] route_overlap_flag: Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
         :param pulumi.Input[Mapping[str, Any]] tags: Instance tag.
         """
         ...
@@ -338,6 +406,8 @@ class Instance(pulumi.CustomResource):
                  description: Optional[pulumi.Input[str]] = None,
                  name: Optional[pulumi.Input[str]] = None,
                  qos: Optional[pulumi.Input[str]] = None,
+                 route_ecmp_flag: Optional[pulumi.Input[bool]] = None,
+                 route_overlap_flag: Optional[pulumi.Input[bool]] = None,
                  tags: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
@@ -353,6 +423,8 @@ class Instance(pulumi.CustomResource):
             __props__.__dict__["description"] = description
             __props__.__dict__["name"] = name
             __props__.__dict__["qos"] = qos
+            __props__.__dict__["route_ecmp_flag"] = route_ecmp_flag
+            __props__.__dict__["route_overlap_flag"] = route_overlap_flag
             __props__.__dict__["tags"] = tags
             __props__.__dict__["create_time"] = None
             __props__.__dict__["instance_count"] = None
@@ -374,6 +446,8 @@ class Instance(pulumi.CustomResource):
             instance_count: Optional[pulumi.Input[int]] = None,
             name: Optional[pulumi.Input[str]] = None,
             qos: Optional[pulumi.Input[str]] = None,
+            route_ecmp_flag: Optional[pulumi.Input[bool]] = None,
+            route_overlap_flag: Optional[pulumi.Input[bool]] = None,
             state: Optional[pulumi.Input[str]] = None,
             tags: Optional[pulumi.Input[Mapping[str, Any]]] = None) -> 'Instance':
         """
@@ -393,7 +467,9 @@ class Instance(pulumi.CustomResource):
         :param pulumi.Input[str] description: Description of CCN, and maximum length does not exceed 100 bytes.
         :param pulumi.Input[int] instance_count: Number of attached instances.
         :param pulumi.Input[str] name: Name of the CCN to be queried, and maximum length does not exceed 60 bytes.
-        :param pulumi.Input[str] qos: Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        :param pulumi.Input[str] qos: CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
+        :param pulumi.Input[bool] route_ecmp_flag: Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        :param pulumi.Input[bool] route_overlap_flag: Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
         :param pulumi.Input[str] state: States of instance. Valid values: `ISOLATED`(arrears) and `AVAILABLE`.
         :param pulumi.Input[Mapping[str, Any]] tags: Instance tag.
         """
@@ -408,6 +484,8 @@ class Instance(pulumi.CustomResource):
         __props__.__dict__["instance_count"] = instance_count
         __props__.__dict__["name"] = name
         __props__.__dict__["qos"] = qos
+        __props__.__dict__["route_ecmp_flag"] = route_ecmp_flag
+        __props__.__dict__["route_overlap_flag"] = route_overlap_flag
         __props__.__dict__["state"] = state
         __props__.__dict__["tags"] = tags
         return Instance(resource_name, opts=opts, __props__=__props__)
@@ -468,9 +546,25 @@ class Instance(pulumi.CustomResource):
     @pulumi.getter
     def qos(self) -> pulumi.Output[Optional[str]]:
         """
-        Service quality of CCN. Valid values: `PT`, `AU`, `AG`. The default is `AU`.
+        CCN service quality, 'PT': Platinum, 'AU': Gold, 'AG': Silver. The default is 'AU'.
         """
         return pulumi.get(self, "qos")
+
+    @property
+    @pulumi.getter(name="routeEcmpFlag")
+    def route_ecmp_flag(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether to enable the equivalent routing function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_ecmp_flag")
+
+    @property
+    @pulumi.getter(name="routeOverlapFlag")
+    def route_overlap_flag(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether to enable the routing overlap function. `true`: enabled, `false`: disabled.
+        """
+        return pulumi.get(self, "route_overlap_flag")
 
     @property
     @pulumi.getter

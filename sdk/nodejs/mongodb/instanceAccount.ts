@@ -46,13 +46,13 @@ export class InstanceAccount extends pulumi.CustomResource {
      * The password corresponding to the mongouser account. mongouser is the system default account, which is the password set
      * when creating an instance.
      */
-    public readonly mongoUserPassword!: pulumi.Output<string>;
+    public readonly mongoUserPassword!: pulumi.Output<string | undefined>;
     /**
      * New account password. Password complexity requirements are as follows: character length range [8,32]. Contains at least
      * letters, numbers and special characters (exclamation point!, at@, pound sign #, percent sign %, caret ^, asterisk *,
      * parentheses (), underscore _).
      */
-    public readonly password!: pulumi.Output<string>;
+    public readonly password!: pulumi.Output<string | undefined>;
     /**
      * Account remarks.
      */
@@ -87,23 +87,19 @@ export class InstanceAccount extends pulumi.CustomResource {
             if ((!args || args.instanceId === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'instanceId'");
             }
-            if ((!args || args.mongoUserPassword === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'mongoUserPassword'");
-            }
-            if ((!args || args.password === undefined) && !opts.urn) {
-                throw new Error("Missing required property 'password'");
-            }
             if ((!args || args.userName === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'userName'");
             }
             resourceInputs["authRoles"] = args ? args.authRoles : undefined;
             resourceInputs["instanceId"] = args ? args.instanceId : undefined;
-            resourceInputs["mongoUserPassword"] = args ? args.mongoUserPassword : undefined;
-            resourceInputs["password"] = args ? args.password : undefined;
+            resourceInputs["mongoUserPassword"] = args?.mongoUserPassword ? pulumi.secret(args.mongoUserPassword) : undefined;
+            resourceInputs["password"] = args?.password ? pulumi.secret(args.password) : undefined;
             resourceInputs["userDesc"] = args ? args.userDesc : undefined;
             resourceInputs["userName"] = args ? args.userName : undefined;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["mongoUserPassword", "password"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(InstanceAccount.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -158,13 +154,13 @@ export interface InstanceAccountArgs {
      * The password corresponding to the mongouser account. mongouser is the system default account, which is the password set
      * when creating an instance.
      */
-    mongoUserPassword: pulumi.Input<string>;
+    mongoUserPassword?: pulumi.Input<string>;
     /**
      * New account password. Password complexity requirements are as follows: character length range [8,32]. Contains at least
      * letters, numbers and special characters (exclamation point!, at@, pound sign #, percent sign %, caret ^, asterisk *,
      * parentheses (), underscore _).
      */
-    password: pulumi.Input<string>;
+    password?: pulumi.Input<string>;
     /**
      * Account remarks.
      */

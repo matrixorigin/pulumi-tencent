@@ -32,6 +32,7 @@ __all__ = [
     'BucketInventoryOptionalFieldsArgs',
     'BucketInventoryScheduleArgs',
     'BucketLifecycleRuleArgs',
+    'BucketLifecycleRuleAbortIncompleteMultipartUploadArgs',
     'BucketLifecycleRuleExpirationArgs',
     'BucketLifecycleRuleNonCurrentExpirationArgs',
     'BucketLifecycleRuleNonCurrentTransitionArgs',
@@ -936,12 +937,15 @@ class BucketInventoryScheduleArgs:
 class BucketLifecycleRuleArgs:
     def __init__(__self__, *,
                  filter_prefix: pulumi.Input[str],
+                 abort_incomplete_multipart_upload: Optional[pulumi.Input['BucketLifecycleRuleAbortIncompleteMultipartUploadArgs']] = None,
                  expiration: Optional[pulumi.Input['BucketLifecycleRuleExpirationArgs']] = None,
                  id: Optional[pulumi.Input[str]] = None,
                  non_current_expiration: Optional[pulumi.Input['BucketLifecycleRuleNonCurrentExpirationArgs']] = None,
                  non_current_transitions: Optional[pulumi.Input[Sequence[pulumi.Input['BucketLifecycleRuleNonCurrentTransitionArgs']]]] = None,
                  transitions: Optional[pulumi.Input[Sequence[pulumi.Input['BucketLifecycleRuleTransitionArgs']]]] = None):
         pulumi.set(__self__, "filter_prefix", filter_prefix)
+        if abort_incomplete_multipart_upload is not None:
+            pulumi.set(__self__, "abort_incomplete_multipart_upload", abort_incomplete_multipart_upload)
         if expiration is not None:
             pulumi.set(__self__, "expiration", expiration)
         if id is not None:
@@ -961,6 +965,15 @@ class BucketLifecycleRuleArgs:
     @filter_prefix.setter
     def filter_prefix(self, value: pulumi.Input[str]):
         pulumi.set(self, "filter_prefix", value)
+
+    @property
+    @pulumi.getter(name="abortIncompleteMultipartUpload")
+    def abort_incomplete_multipart_upload(self) -> Optional[pulumi.Input['BucketLifecycleRuleAbortIncompleteMultipartUploadArgs']]:
+        return pulumi.get(self, "abort_incomplete_multipart_upload")
+
+    @abort_incomplete_multipart_upload.setter
+    def abort_incomplete_multipart_upload(self, value: Optional[pulumi.Input['BucketLifecycleRuleAbortIncompleteMultipartUploadArgs']]):
+        pulumi.set(self, "abort_incomplete_multipart_upload", value)
 
     @property
     @pulumi.getter
@@ -1006,6 +1019,22 @@ class BucketLifecycleRuleArgs:
     @transitions.setter
     def transitions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['BucketLifecycleRuleTransitionArgs']]]]):
         pulumi.set(self, "transitions", value)
+
+
+@pulumi.input_type
+class BucketLifecycleRuleAbortIncompleteMultipartUploadArgs:
+    def __init__(__self__, *,
+                 days_after_initiation: pulumi.Input[int]):
+        pulumi.set(__self__, "days_after_initiation", days_after_initiation)
+
+    @property
+    @pulumi.getter(name="daysAfterInitiation")
+    def days_after_initiation(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "days_after_initiation")
+
+    @days_after_initiation.setter
+    def days_after_initiation(self, value: pulumi.Input[int]):
+        pulumi.set(self, "days_after_initiation", value)
 
 
 @pulumi.input_type
@@ -1353,13 +1382,16 @@ class BucketWebsiteArgs:
     def __init__(__self__, *,
                  endpoint: Optional[pulumi.Input[str]] = None,
                  error_document: Optional[pulumi.Input[str]] = None,
-                 index_document: Optional[pulumi.Input[str]] = None):
+                 index_document: Optional[pulumi.Input[str]] = None,
+                 redirect_all_requests_to: Optional[pulumi.Input[str]] = None):
         if endpoint is not None:
             pulumi.set(__self__, "endpoint", endpoint)
         if error_document is not None:
             pulumi.set(__self__, "error_document", error_document)
         if index_document is not None:
             pulumi.set(__self__, "index_document", index_document)
+        if redirect_all_requests_to is not None:
+            pulumi.set(__self__, "redirect_all_requests_to", redirect_all_requests_to)
 
     @property
     @pulumi.getter
@@ -1387,5 +1419,14 @@ class BucketWebsiteArgs:
     @index_document.setter
     def index_document(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "index_document", value)
+
+    @property
+    @pulumi.getter(name="redirectAllRequestsTo")
+    def redirect_all_requests_to(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "redirect_all_requests_to")
+
+    @redirect_all_requests_to.setter
+    def redirect_all_requests_to(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "redirect_all_requests_to", value)
 
 

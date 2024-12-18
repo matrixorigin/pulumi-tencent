@@ -12,7 +12,10 @@ from .. import _utilities
 __all__ = [
     'AdaptiveDynamicStreamingTemplateStreamInfoArgs',
     'AdaptiveDynamicStreamingTemplateStreamInfoAudioArgs',
+    'AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs',
     'AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs',
+    'ProcedureTemplateAiAnalysisTaskArgs',
+    'ProcedureTemplateAiRecognitionTaskArgs',
     'ProcedureTemplateMediaProcessTaskArgs',
     'ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListArgs',
     'ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkListArgs',
@@ -25,10 +28,20 @@ __all__ = [
     'ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListArgs',
     'ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArgs',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArgs',
+    'ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs',
     'ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs',
+    'ProcedureTemplateReviewAudioVideoTaskArgs',
     'SuperPlayerConfigDrmStreamingInfoArgs',
     'SuperPlayerConfigResolutionNameArgs',
+    'TranscodeTemplateAudioTemplateArgs',
+    'TranscodeTemplateTehdConfigArgs',
+    'TranscodeTemplateVideoTemplateArgs',
+    'WatermarkTemplateImageTemplateArgs',
+    'WatermarkTemplateSvgTemplateArgs',
+    'WatermarkTemplateTextTemplateArgs',
 ]
 
 @pulumi.input_type
@@ -36,11 +49,17 @@ class AdaptiveDynamicStreamingTemplateStreamInfoArgs:
     def __init__(__self__, *,
                  audio: pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoAudioArgs'],
                  video: pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs'],
-                 remove_audio: Optional[pulumi.Input[bool]] = None):
+                 remove_audio: Optional[pulumi.Input[bool]] = None,
+                 remove_video: Optional[pulumi.Input[bool]] = None,
+                 tehd_config: Optional[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs']] = None):
         pulumi.set(__self__, "audio", audio)
         pulumi.set(__self__, "video", video)
         if remove_audio is not None:
             pulumi.set(__self__, "remove_audio", remove_audio)
+        if remove_video is not None:
+            pulumi.set(__self__, "remove_video", remove_video)
+        if tehd_config is not None:
+            pulumi.set(__self__, "tehd_config", tehd_config)
 
     @property
     @pulumi.getter
@@ -68,6 +87,24 @@ class AdaptiveDynamicStreamingTemplateStreamInfoArgs:
     @remove_audio.setter
     def remove_audio(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "remove_audio", value)
+
+    @property
+    @pulumi.getter(name="removeVideo")
+    def remove_video(self) -> Optional[pulumi.Input[bool]]:
+        return pulumi.get(self, "remove_video")
+
+    @remove_video.setter
+    def remove_video(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "remove_video", value)
+
+    @property
+    @pulumi.getter(name="tehdConfig")
+    def tehd_config(self) -> Optional[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs']]:
+        return pulumi.get(self, "tehd_config")
+
+    @tehd_config.setter
+    def tehd_config(self, value: Optional[pulumi.Input['AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs']]):
+        pulumi.set(self, "tehd_config", value)
 
 
 @pulumi.input_type
@@ -121,24 +158,64 @@ class AdaptiveDynamicStreamingTemplateStreamInfoAudioArgs:
 
 
 @pulumi.input_type
+class AdaptiveDynamicStreamingTemplateStreamInfoTehdConfigArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[str],
+                 max_video_bitrate: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "type", type)
+        if max_video_bitrate is not None:
+            pulumi.set(__self__, "max_video_bitrate", max_video_bitrate)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="maxVideoBitrate")
+    def max_video_bitrate(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_video_bitrate")
+
+    @max_video_bitrate.setter
+    def max_video_bitrate(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_video_bitrate", value)
+
+
+@pulumi.input_type
 class AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs:
     def __init__(__self__, *,
                  bitrate: pulumi.Input[int],
                  codec: pulumi.Input[str],
                  fps: pulumi.Input[int],
+                 codec_tag: Optional[pulumi.Input[str]] = None,
                  fill_type: Optional[pulumi.Input[str]] = None,
+                 gop: Optional[pulumi.Input[int]] = None,
                  height: Optional[pulumi.Input[int]] = None,
+                 preserve_hdr_switch: Optional[pulumi.Input[str]] = None,
                  resolution_adaptive: Optional[pulumi.Input[bool]] = None,
+                 vcrf: Optional[pulumi.Input[int]] = None,
                  width: Optional[pulumi.Input[int]] = None):
         pulumi.set(__self__, "bitrate", bitrate)
         pulumi.set(__self__, "codec", codec)
         pulumi.set(__self__, "fps", fps)
+        if codec_tag is not None:
+            pulumi.set(__self__, "codec_tag", codec_tag)
         if fill_type is not None:
             pulumi.set(__self__, "fill_type", fill_type)
+        if gop is not None:
+            pulumi.set(__self__, "gop", gop)
         if height is not None:
             pulumi.set(__self__, "height", height)
+        if preserve_hdr_switch is not None:
+            pulumi.set(__self__, "preserve_hdr_switch", preserve_hdr_switch)
         if resolution_adaptive is not None:
             pulumi.set(__self__, "resolution_adaptive", resolution_adaptive)
+        if vcrf is not None:
+            pulumi.set(__self__, "vcrf", vcrf)
         if width is not None:
             pulumi.set(__self__, "width", width)
 
@@ -170,6 +247,15 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs:
         pulumi.set(self, "fps", value)
 
     @property
+    @pulumi.getter(name="codecTag")
+    def codec_tag(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "codec_tag")
+
+    @codec_tag.setter
+    def codec_tag(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "codec_tag", value)
+
+    @property
     @pulumi.getter(name="fillType")
     def fill_type(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "fill_type")
@@ -180,12 +266,30 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs:
 
     @property
     @pulumi.getter
+    def gop(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "gop")
+
+    @gop.setter
+    def gop(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "gop", value)
+
+    @property
+    @pulumi.getter
     def height(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "height")
 
     @height.setter
     def height(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "height", value)
+
+    @property
+    @pulumi.getter(name="preserveHdrSwitch")
+    def preserve_hdr_switch(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "preserve_hdr_switch")
+
+    @preserve_hdr_switch.setter
+    def preserve_hdr_switch(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "preserve_hdr_switch", value)
 
     @property
     @pulumi.getter(name="resolutionAdaptive")
@@ -198,12 +302,55 @@ class AdaptiveDynamicStreamingTemplateStreamInfoVideoArgs:
 
     @property
     @pulumi.getter
+    def vcrf(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "vcrf")
+
+    @vcrf.setter
+    def vcrf(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vcrf", value)
+
+    @property
+    @pulumi.getter
     def width(self) -> Optional[pulumi.Input[int]]:
         return pulumi.get(self, "width")
 
     @width.setter
     def width(self, value: Optional[pulumi.Input[int]]):
         pulumi.set(self, "width", value)
+
+
+@pulumi.input_type
+class ProcedureTemplateAiAnalysisTaskArgs:
+    def __init__(__self__, *,
+                 definition: Optional[pulumi.Input[str]] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "definition")
+
+    @definition.setter
+    def definition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "definition", value)
+
+
+@pulumi.input_type
+class ProcedureTemplateAiRecognitionTaskArgs:
+    def __init__(__self__, *,
+                 definition: Optional[pulumi.Input[str]] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "definition")
+
+    @definition.setter
+    def definition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "definition", value)
 
 
 @pulumi.input_type
@@ -299,8 +446,11 @@ class ProcedureTemplateMediaProcessTaskArgs:
 class ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListArgs:
     def __init__(__self__, *,
                  definition: pulumi.Input[str],
+                 subtitle_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  watermark_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListWatermarkListArgs']]]] = None):
         pulumi.set(__self__, "definition", definition)
+        if subtitle_lists is not None:
+            pulumi.set(__self__, "subtitle_lists", subtitle_lists)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -312,6 +462,15 @@ class ProcedureTemplateMediaProcessTaskAdaptiveDynamicStreamingTaskListArgs:
     @definition.setter
     def definition(self, value: pulumi.Input[str]):
         pulumi.set(self, "definition", value)
+
+    @property
+    @pulumi.getter(name="subtitleLists")
+    def subtitle_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "subtitle_lists")
+
+    @subtitle_lists.setter
+    def subtitle_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "subtitle_lists", value)
 
     @property
     @pulumi.getter(name="watermarkLists")
@@ -652,10 +811,13 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListArgs:
     def __init__(__self__, *,
                  definition: pulumi.Input[str],
                  ext_time_offset_lists: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 time_offset_lists: Optional[pulumi.Input[Sequence[pulumi.Input[float]]]] = None,
                  watermark_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkListArgs']]]] = None):
         pulumi.set(__self__, "definition", definition)
         if ext_time_offset_lists is not None:
             pulumi.set(__self__, "ext_time_offset_lists", ext_time_offset_lists)
+        if time_offset_lists is not None:
+            pulumi.set(__self__, "time_offset_lists", time_offset_lists)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -676,6 +838,15 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListArgs:
     @ext_time_offset_lists.setter
     def ext_time_offset_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "ext_time_offset_lists", value)
+
+    @property
+    @pulumi.getter(name="timeOffsetLists")
+    def time_offset_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[float]]]]:
+        return pulumi.get(self, "time_offset_lists")
+
+    @time_offset_lists.setter
+    def time_offset_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[float]]]]):
+        pulumi.set(self, "time_offset_lists", value)
 
     @property
     @pulumi.getter(name="watermarkLists")
@@ -755,11 +926,26 @@ class ProcedureTemplateMediaProcessTaskSnapshotByTimeOffsetTaskListWatermarkList
 class ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs:
     def __init__(__self__, *,
                  definition: pulumi.Input[str],
+                 copy_right_watermark: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs']] = None,
+                 end_time_offset: Optional[pulumi.Input[float]] = None,
+                 head_tail_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs']]]] = None,
                  mosaic_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArgs']]]] = None,
+                 start_time_offset: Optional[pulumi.Input[float]] = None,
+                 trace_watermark: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs']] = None,
                  watermark_lists: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs']]]] = None):
         pulumi.set(__self__, "definition", definition)
+        if copy_right_watermark is not None:
+            pulumi.set(__self__, "copy_right_watermark", copy_right_watermark)
+        if end_time_offset is not None:
+            pulumi.set(__self__, "end_time_offset", end_time_offset)
+        if head_tail_lists is not None:
+            pulumi.set(__self__, "head_tail_lists", head_tail_lists)
         if mosaic_lists is not None:
             pulumi.set(__self__, "mosaic_lists", mosaic_lists)
+        if start_time_offset is not None:
+            pulumi.set(__self__, "start_time_offset", start_time_offset)
+        if trace_watermark is not None:
+            pulumi.set(__self__, "trace_watermark", trace_watermark)
         if watermark_lists is not None:
             pulumi.set(__self__, "watermark_lists", watermark_lists)
 
@@ -773,6 +959,33 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs:
         pulumi.set(self, "definition", value)
 
     @property
+    @pulumi.getter(name="copyRightWatermark")
+    def copy_right_watermark(self) -> Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs']]:
+        return pulumi.get(self, "copy_right_watermark")
+
+    @copy_right_watermark.setter
+    def copy_right_watermark(self, value: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs']]):
+        pulumi.set(self, "copy_right_watermark", value)
+
+    @property
+    @pulumi.getter(name="endTimeOffset")
+    def end_time_offset(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "end_time_offset")
+
+    @end_time_offset.setter
+    def end_time_offset(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "end_time_offset", value)
+
+    @property
+    @pulumi.getter(name="headTailLists")
+    def head_tail_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs']]]]:
+        return pulumi.get(self, "head_tail_lists")
+
+    @head_tail_lists.setter
+    def head_tail_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs']]]]):
+        pulumi.set(self, "head_tail_lists", value)
+
+    @property
     @pulumi.getter(name="mosaicLists")
     def mosaic_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArgs']]]]:
         return pulumi.get(self, "mosaic_lists")
@@ -782,6 +995,24 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs:
         pulumi.set(self, "mosaic_lists", value)
 
     @property
+    @pulumi.getter(name="startTimeOffset")
+    def start_time_offset(self) -> Optional[pulumi.Input[float]]:
+        return pulumi.get(self, "start_time_offset")
+
+    @start_time_offset.setter
+    def start_time_offset(self, value: Optional[pulumi.Input[float]]):
+        pulumi.set(self, "start_time_offset", value)
+
+    @property
+    @pulumi.getter(name="traceWatermark")
+    def trace_watermark(self) -> Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs']]:
+        return pulumi.get(self, "trace_watermark")
+
+    @trace_watermark.setter
+    def trace_watermark(self, value: Optional[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs']]):
+        pulumi.set(self, "trace_watermark", value)
+
+    @property
     @pulumi.getter(name="watermarkLists")
     def watermark_lists(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs']]]]:
         return pulumi.get(self, "watermark_lists")
@@ -789,6 +1020,40 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListArgs:
     @watermark_lists.setter
     def watermark_lists(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs']]]]):
         pulumi.set(self, "watermark_lists", value)
+
+
+@pulumi.input_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListCopyRightWatermarkArgs:
+    def __init__(__self__, *,
+                 text: Optional[pulumi.Input[str]] = None):
+        if text is not None:
+            pulumi.set(__self__, "text", text)
+
+    @property
+    @pulumi.getter
+    def text(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "text")
+
+    @text.setter
+    def text(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "text", value)
+
+
+@pulumi.input_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListHeadTailListArgs:
+    def __init__(__self__, *,
+                 definition: Optional[pulumi.Input[str]] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "definition")
+
+    @definition.setter
+    def definition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "definition", value)
 
 
 @pulumi.input_type
@@ -881,6 +1146,23 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListMosaicListArgs:
 
 
 @pulumi.input_type
+class ProcedureTemplateMediaProcessTaskTranscodeTaskListTraceWatermarkArgs:
+    def __init__(__self__, *,
+                 switch: Optional[pulumi.Input[str]] = None):
+        if switch is not None:
+            pulumi.set(__self__, "switch", switch)
+
+    @property
+    @pulumi.getter
+    def switch(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "switch")
+
+    @switch.setter
+    def switch(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "switch", value)
+
+
+@pulumi.input_type
 class ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs:
     def __init__(__self__, *,
                  definition: pulumi.Input[str],
@@ -945,6 +1227,35 @@ class ProcedureTemplateMediaProcessTaskTranscodeTaskListWatermarkListArgs:
 
 
 @pulumi.input_type
+class ProcedureTemplateReviewAudioVideoTaskArgs:
+    def __init__(__self__, *,
+                 definition: Optional[pulumi.Input[str]] = None,
+                 review_contents: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
+        if definition is not None:
+            pulumi.set(__self__, "definition", definition)
+        if review_contents is not None:
+            pulumi.set(__self__, "review_contents", review_contents)
+
+    @property
+    @pulumi.getter
+    def definition(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "definition")
+
+    @definition.setter
+    def definition(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "definition", value)
+
+    @property
+    @pulumi.getter(name="reviewContents")
+    def review_contents(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "review_contents")
+
+    @review_contents.setter
+    def review_contents(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "review_contents", value)
+
+
+@pulumi.input_type
 class SuperPlayerConfigDrmStreamingInfoArgs:
     def __init__(__self__, *,
                  simple_aes_definition: Optional[pulumi.Input[str]] = None):
@@ -986,5 +1297,359 @@ class SuperPlayerConfigResolutionNameArgs:
     @name.setter
     def name(self, value: pulumi.Input[str]):
         pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class TranscodeTemplateAudioTemplateArgs:
+    def __init__(__self__, *,
+                 bitrate: pulumi.Input[int],
+                 codec: pulumi.Input[str],
+                 sample_rate: pulumi.Input[int],
+                 audio_channel: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "bitrate", bitrate)
+        pulumi.set(__self__, "codec", codec)
+        pulumi.set(__self__, "sample_rate", sample_rate)
+        if audio_channel is not None:
+            pulumi.set(__self__, "audio_channel", audio_channel)
+
+    @property
+    @pulumi.getter
+    def bitrate(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "bitrate")
+
+    @bitrate.setter
+    def bitrate(self, value: pulumi.Input[int]):
+        pulumi.set(self, "bitrate", value)
+
+    @property
+    @pulumi.getter
+    def codec(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "codec")
+
+    @codec.setter
+    def codec(self, value: pulumi.Input[str]):
+        pulumi.set(self, "codec", value)
+
+    @property
+    @pulumi.getter(name="sampleRate")
+    def sample_rate(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "sample_rate")
+
+    @sample_rate.setter
+    def sample_rate(self, value: pulumi.Input[int]):
+        pulumi.set(self, "sample_rate", value)
+
+    @property
+    @pulumi.getter(name="audioChannel")
+    def audio_channel(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "audio_channel")
+
+    @audio_channel.setter
+    def audio_channel(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "audio_channel", value)
+
+
+@pulumi.input_type
+class TranscodeTemplateTehdConfigArgs:
+    def __init__(__self__, *,
+                 type: pulumi.Input[str],
+                 max_video_bitrate: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "type", type)
+        if max_video_bitrate is not None:
+            pulumi.set(__self__, "max_video_bitrate", max_video_bitrate)
+
+    @property
+    @pulumi.getter
+    def type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "type")
+
+    @type.setter
+    def type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter(name="maxVideoBitrate")
+    def max_video_bitrate(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "max_video_bitrate")
+
+    @max_video_bitrate.setter
+    def max_video_bitrate(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "max_video_bitrate", value)
+
+
+@pulumi.input_type
+class TranscodeTemplateVideoTemplateArgs:
+    def __init__(__self__, *,
+                 bitrate: pulumi.Input[int],
+                 codec: pulumi.Input[str],
+                 fps: pulumi.Input[int],
+                 codec_tag: Optional[pulumi.Input[str]] = None,
+                 fill_type: Optional[pulumi.Input[str]] = None,
+                 gop: Optional[pulumi.Input[int]] = None,
+                 height: Optional[pulumi.Input[int]] = None,
+                 preserve_hdr_switch: Optional[pulumi.Input[str]] = None,
+                 resolution_adaptive: Optional[pulumi.Input[str]] = None,
+                 vcrf: Optional[pulumi.Input[int]] = None,
+                 width: Optional[pulumi.Input[int]] = None):
+        pulumi.set(__self__, "bitrate", bitrate)
+        pulumi.set(__self__, "codec", codec)
+        pulumi.set(__self__, "fps", fps)
+        if codec_tag is not None:
+            pulumi.set(__self__, "codec_tag", codec_tag)
+        if fill_type is not None:
+            pulumi.set(__self__, "fill_type", fill_type)
+        if gop is not None:
+            pulumi.set(__self__, "gop", gop)
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if preserve_hdr_switch is not None:
+            pulumi.set(__self__, "preserve_hdr_switch", preserve_hdr_switch)
+        if resolution_adaptive is not None:
+            pulumi.set(__self__, "resolution_adaptive", resolution_adaptive)
+        if vcrf is not None:
+            pulumi.set(__self__, "vcrf", vcrf)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter
+    def bitrate(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "bitrate")
+
+    @bitrate.setter
+    def bitrate(self, value: pulumi.Input[int]):
+        pulumi.set(self, "bitrate", value)
+
+    @property
+    @pulumi.getter
+    def codec(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "codec")
+
+    @codec.setter
+    def codec(self, value: pulumi.Input[str]):
+        pulumi.set(self, "codec", value)
+
+    @property
+    @pulumi.getter
+    def fps(self) -> pulumi.Input[int]:
+        return pulumi.get(self, "fps")
+
+    @fps.setter
+    def fps(self, value: pulumi.Input[int]):
+        pulumi.set(self, "fps", value)
+
+    @property
+    @pulumi.getter(name="codecTag")
+    def codec_tag(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "codec_tag")
+
+    @codec_tag.setter
+    def codec_tag(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "codec_tag", value)
+
+    @property
+    @pulumi.getter(name="fillType")
+    def fill_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "fill_type")
+
+    @fill_type.setter
+    def fill_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "fill_type", value)
+
+    @property
+    @pulumi.getter
+    def gop(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "gop")
+
+    @gop.setter
+    def gop(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "gop", value)
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "height")
+
+    @height.setter
+    def height(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "height", value)
+
+    @property
+    @pulumi.getter(name="preserveHdrSwitch")
+    def preserve_hdr_switch(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "preserve_hdr_switch")
+
+    @preserve_hdr_switch.setter
+    def preserve_hdr_switch(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "preserve_hdr_switch", value)
+
+    @property
+    @pulumi.getter(name="resolutionAdaptive")
+    def resolution_adaptive(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "resolution_adaptive")
+
+    @resolution_adaptive.setter
+    def resolution_adaptive(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "resolution_adaptive", value)
+
+    @property
+    @pulumi.getter
+    def vcrf(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "vcrf")
+
+    @vcrf.setter
+    def vcrf(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "vcrf", value)
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "width")
+
+    @width.setter
+    def width(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "width", value)
+
+
+@pulumi.input_type
+class WatermarkTemplateImageTemplateArgs:
+    def __init__(__self__, *,
+                 image_content: pulumi.Input[str],
+                 height: Optional[pulumi.Input[str]] = None,
+                 repeat_type: Optional[pulumi.Input[str]] = None,
+                 transparency: Optional[pulumi.Input[int]] = None,
+                 width: Optional[pulumi.Input[str]] = None):
+        pulumi.set(__self__, "image_content", image_content)
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if repeat_type is not None:
+            pulumi.set(__self__, "repeat_type", repeat_type)
+        if transparency is not None:
+            pulumi.set(__self__, "transparency", transparency)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter(name="imageContent")
+    def image_content(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "image_content")
+
+    @image_content.setter
+    def image_content(self, value: pulumi.Input[str]):
+        pulumi.set(self, "image_content", value)
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "height")
+
+    @height.setter
+    def height(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "height", value)
+
+    @property
+    @pulumi.getter(name="repeatType")
+    def repeat_type(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "repeat_type")
+
+    @repeat_type.setter
+    def repeat_type(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "repeat_type", value)
+
+    @property
+    @pulumi.getter
+    def transparency(self) -> Optional[pulumi.Input[int]]:
+        return pulumi.get(self, "transparency")
+
+    @transparency.setter
+    def transparency(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "transparency", value)
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "width")
+
+    @width.setter
+    def width(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "width", value)
+
+
+@pulumi.input_type
+class WatermarkTemplateSvgTemplateArgs:
+    def __init__(__self__, *,
+                 height: Optional[pulumi.Input[str]] = None,
+                 width: Optional[pulumi.Input[str]] = None):
+        if height is not None:
+            pulumi.set(__self__, "height", height)
+        if width is not None:
+            pulumi.set(__self__, "width", width)
+
+    @property
+    @pulumi.getter
+    def height(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "height")
+
+    @height.setter
+    def height(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "height", value)
+
+    @property
+    @pulumi.getter
+    def width(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "width")
+
+    @width.setter
+    def width(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "width", value)
+
+
+@pulumi.input_type
+class WatermarkTemplateTextTemplateArgs:
+    def __init__(__self__, *,
+                 font_alpha: pulumi.Input[float],
+                 font_color: pulumi.Input[str],
+                 font_size: pulumi.Input[str],
+                 font_type: pulumi.Input[str]):
+        pulumi.set(__self__, "font_alpha", font_alpha)
+        pulumi.set(__self__, "font_color", font_color)
+        pulumi.set(__self__, "font_size", font_size)
+        pulumi.set(__self__, "font_type", font_type)
+
+    @property
+    @pulumi.getter(name="fontAlpha")
+    def font_alpha(self) -> pulumi.Input[float]:
+        return pulumi.get(self, "font_alpha")
+
+    @font_alpha.setter
+    def font_alpha(self, value: pulumi.Input[float]):
+        pulumi.set(self, "font_alpha", value)
+
+    @property
+    @pulumi.getter(name="fontColor")
+    def font_color(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "font_color")
+
+    @font_color.setter
+    def font_color(self, value: pulumi.Input[str]):
+        pulumi.set(self, "font_color", value)
+
+    @property
+    @pulumi.getter(name="fontSize")
+    def font_size(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "font_size")
+
+    @font_size.setter
+    def font_size(self, value: pulumi.Input[str]):
+        pulumi.set(self, "font_size", value)
+
+    @property
+    @pulumi.getter(name="fontType")
+    def font_type(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "font_type")
+
+    @font_type.setter
+    def font_type(self, value: pulumi.Input[str]):
+        pulumi.set(self, "font_type", value)
 
 

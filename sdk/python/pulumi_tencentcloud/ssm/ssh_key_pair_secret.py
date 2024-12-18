@@ -516,7 +516,7 @@ class SshKeyPairSecret(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="kmsKeyId")
-    def kms_key_id(self) -> pulumi.Output[Optional[str]]:
+    def kms_key_id(self) -> pulumi.Output[str]:
         """
         Specifies a KMS CMK to encrypt the secret.If this parameter is left empty, the CMK created by Secrets Manager by default
         will be used for encryption.You can also specify a custom KMS CMK created in the same region for encryption.
@@ -551,7 +551,7 @@ class SshKeyPairSecret(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="sshKeyName")
-    def ssh_key_name(self) -> pulumi.Output[Optional[str]]:
+    def ssh_key_name(self) -> pulumi.Output[str]:
         """
         Name of the SSH key pair, which only contains digits, letters and underscores and must start with a digit or letter. The
         maximum length is 25 characters.

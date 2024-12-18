@@ -49,6 +49,10 @@ export class OrgNode extends pulumi.CustomResource {
      */
     public readonly remark!: pulumi.Output<string | undefined>;
     /**
+     * Tag description list.
+     */
+    public readonly tags!: pulumi.Output<{[key: string]: any} | undefined>;
+    /**
      * Node update time.
      */
     public /*out*/ readonly updateTime!: pulumi.Output<string>;
@@ -70,6 +74,7 @@ export class OrgNode extends pulumi.CustomResource {
             resourceInputs["name"] = state ? state.name : undefined;
             resourceInputs["parentNodeId"] = state ? state.parentNodeId : undefined;
             resourceInputs["remark"] = state ? state.remark : undefined;
+            resourceInputs["tags"] = state ? state.tags : undefined;
             resourceInputs["updateTime"] = state ? state.updateTime : undefined;
         } else {
             const args = argsOrState as OrgNodeArgs | undefined;
@@ -79,6 +84,7 @@ export class OrgNode extends pulumi.CustomResource {
             resourceInputs["name"] = args ? args.name : undefined;
             resourceInputs["parentNodeId"] = args ? args.parentNodeId : undefined;
             resourceInputs["remark"] = args ? args.remark : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["createTime"] = undefined /*out*/;
             resourceInputs["updateTime"] = undefined /*out*/;
         }
@@ -108,6 +114,10 @@ export interface OrgNodeState {
      */
     remark?: pulumi.Input<string>;
     /**
+     * Tag description list.
+     */
+    tags?: pulumi.Input<{[key: string]: any}>;
+    /**
      * Node update time.
      */
     updateTime?: pulumi.Input<string>;
@@ -129,4 +139,8 @@ export interface OrgNodeArgs {
      * Notes.
      */
     remark?: pulumi.Input<string>;
+    /**
+     * Tag description list.
+     */
+    tags?: pulumi.Input<{[key: string]: any}>;
 }

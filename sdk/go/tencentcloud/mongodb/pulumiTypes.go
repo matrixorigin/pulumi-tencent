@@ -113,6 +113,106 @@ func (o InstanceAccountAuthRoleArrayOutput) Index(i pulumi.IntInput) InstanceAcc
 	}).(InstanceAccountAuthRoleOutput)
 }
 
+type InstanceAddNodeList struct {
+	Role string `pulumi:"role"`
+	Zone string `pulumi:"zone"`
+}
+
+// InstanceAddNodeListInput is an input type that accepts InstanceAddNodeListArgs and InstanceAddNodeListOutput values.
+// You can construct a concrete instance of `InstanceAddNodeListInput` via:
+//
+//	InstanceAddNodeListArgs{...}
+type InstanceAddNodeListInput interface {
+	pulumi.Input
+
+	ToInstanceAddNodeListOutput() InstanceAddNodeListOutput
+	ToInstanceAddNodeListOutputWithContext(context.Context) InstanceAddNodeListOutput
+}
+
+type InstanceAddNodeListArgs struct {
+	Role pulumi.StringInput `pulumi:"role"`
+	Zone pulumi.StringInput `pulumi:"zone"`
+}
+
+func (InstanceAddNodeListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceAddNodeList)(nil)).Elem()
+}
+
+func (i InstanceAddNodeListArgs) ToInstanceAddNodeListOutput() InstanceAddNodeListOutput {
+	return i.ToInstanceAddNodeListOutputWithContext(context.Background())
+}
+
+func (i InstanceAddNodeListArgs) ToInstanceAddNodeListOutputWithContext(ctx context.Context) InstanceAddNodeListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceAddNodeListOutput)
+}
+
+// InstanceAddNodeListArrayInput is an input type that accepts InstanceAddNodeListArray and InstanceAddNodeListArrayOutput values.
+// You can construct a concrete instance of `InstanceAddNodeListArrayInput` via:
+//
+//	InstanceAddNodeListArray{ InstanceAddNodeListArgs{...} }
+type InstanceAddNodeListArrayInput interface {
+	pulumi.Input
+
+	ToInstanceAddNodeListArrayOutput() InstanceAddNodeListArrayOutput
+	ToInstanceAddNodeListArrayOutputWithContext(context.Context) InstanceAddNodeListArrayOutput
+}
+
+type InstanceAddNodeListArray []InstanceAddNodeListInput
+
+func (InstanceAddNodeListArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceAddNodeList)(nil)).Elem()
+}
+
+func (i InstanceAddNodeListArray) ToInstanceAddNodeListArrayOutput() InstanceAddNodeListArrayOutput {
+	return i.ToInstanceAddNodeListArrayOutputWithContext(context.Background())
+}
+
+func (i InstanceAddNodeListArray) ToInstanceAddNodeListArrayOutputWithContext(ctx context.Context) InstanceAddNodeListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceAddNodeListArrayOutput)
+}
+
+type InstanceAddNodeListOutput struct{ *pulumi.OutputState }
+
+func (InstanceAddNodeListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceAddNodeList)(nil)).Elem()
+}
+
+func (o InstanceAddNodeListOutput) ToInstanceAddNodeListOutput() InstanceAddNodeListOutput {
+	return o
+}
+
+func (o InstanceAddNodeListOutput) ToInstanceAddNodeListOutputWithContext(ctx context.Context) InstanceAddNodeListOutput {
+	return o
+}
+
+func (o InstanceAddNodeListOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v InstanceAddNodeList) string { return v.Role }).(pulumi.StringOutput)
+}
+
+func (o InstanceAddNodeListOutput) Zone() pulumi.StringOutput {
+	return o.ApplyT(func(v InstanceAddNodeList) string { return v.Zone }).(pulumi.StringOutput)
+}
+
+type InstanceAddNodeListArrayOutput struct{ *pulumi.OutputState }
+
+func (InstanceAddNodeListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceAddNodeList)(nil)).Elem()
+}
+
+func (o InstanceAddNodeListArrayOutput) ToInstanceAddNodeListArrayOutput() InstanceAddNodeListArrayOutput {
+	return o
+}
+
+func (o InstanceAddNodeListArrayOutput) ToInstanceAddNodeListArrayOutputWithContext(ctx context.Context) InstanceAddNodeListArrayOutput {
+	return o
+}
+
+func (o InstanceAddNodeListArrayOutput) Index(i pulumi.IntInput) InstanceAddNodeListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) InstanceAddNodeList {
+		return vs[0].([]InstanceAddNodeList)[vs[1].(int)]
+	}).(InstanceAddNodeListOutput)
+}
+
 type InstanceBackupDownloadTaskBackupSet struct {
 	ReplicaSetId string `pulumi:"replicaSetId"`
 }
@@ -205,6 +305,112 @@ func (o InstanceBackupDownloadTaskBackupSetArrayOutput) Index(i pulumi.IntInput)
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) InstanceBackupDownloadTaskBackupSet {
 		return vs[0].([]InstanceBackupDownloadTaskBackupSet)[vs[1].(int)]
 	}).(InstanceBackupDownloadTaskBackupSetOutput)
+}
+
+type InstanceRemoveNodeList struct {
+	NodeName string `pulumi:"nodeName"`
+	Role     string `pulumi:"role"`
+	Zone     string `pulumi:"zone"`
+}
+
+// InstanceRemoveNodeListInput is an input type that accepts InstanceRemoveNodeListArgs and InstanceRemoveNodeListOutput values.
+// You can construct a concrete instance of `InstanceRemoveNodeListInput` via:
+//
+//	InstanceRemoveNodeListArgs{...}
+type InstanceRemoveNodeListInput interface {
+	pulumi.Input
+
+	ToInstanceRemoveNodeListOutput() InstanceRemoveNodeListOutput
+	ToInstanceRemoveNodeListOutputWithContext(context.Context) InstanceRemoveNodeListOutput
+}
+
+type InstanceRemoveNodeListArgs struct {
+	NodeName pulumi.StringInput `pulumi:"nodeName"`
+	Role     pulumi.StringInput `pulumi:"role"`
+	Zone     pulumi.StringInput `pulumi:"zone"`
+}
+
+func (InstanceRemoveNodeListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceRemoveNodeList)(nil)).Elem()
+}
+
+func (i InstanceRemoveNodeListArgs) ToInstanceRemoveNodeListOutput() InstanceRemoveNodeListOutput {
+	return i.ToInstanceRemoveNodeListOutputWithContext(context.Background())
+}
+
+func (i InstanceRemoveNodeListArgs) ToInstanceRemoveNodeListOutputWithContext(ctx context.Context) InstanceRemoveNodeListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceRemoveNodeListOutput)
+}
+
+// InstanceRemoveNodeListArrayInput is an input type that accepts InstanceRemoveNodeListArray and InstanceRemoveNodeListArrayOutput values.
+// You can construct a concrete instance of `InstanceRemoveNodeListArrayInput` via:
+//
+//	InstanceRemoveNodeListArray{ InstanceRemoveNodeListArgs{...} }
+type InstanceRemoveNodeListArrayInput interface {
+	pulumi.Input
+
+	ToInstanceRemoveNodeListArrayOutput() InstanceRemoveNodeListArrayOutput
+	ToInstanceRemoveNodeListArrayOutputWithContext(context.Context) InstanceRemoveNodeListArrayOutput
+}
+
+type InstanceRemoveNodeListArray []InstanceRemoveNodeListInput
+
+func (InstanceRemoveNodeListArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceRemoveNodeList)(nil)).Elem()
+}
+
+func (i InstanceRemoveNodeListArray) ToInstanceRemoveNodeListArrayOutput() InstanceRemoveNodeListArrayOutput {
+	return i.ToInstanceRemoveNodeListArrayOutputWithContext(context.Background())
+}
+
+func (i InstanceRemoveNodeListArray) ToInstanceRemoveNodeListArrayOutputWithContext(ctx context.Context) InstanceRemoveNodeListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceRemoveNodeListArrayOutput)
+}
+
+type InstanceRemoveNodeListOutput struct{ *pulumi.OutputState }
+
+func (InstanceRemoveNodeListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceRemoveNodeList)(nil)).Elem()
+}
+
+func (o InstanceRemoveNodeListOutput) ToInstanceRemoveNodeListOutput() InstanceRemoveNodeListOutput {
+	return o
+}
+
+func (o InstanceRemoveNodeListOutput) ToInstanceRemoveNodeListOutputWithContext(ctx context.Context) InstanceRemoveNodeListOutput {
+	return o
+}
+
+func (o InstanceRemoveNodeListOutput) NodeName() pulumi.StringOutput {
+	return o.ApplyT(func(v InstanceRemoveNodeList) string { return v.NodeName }).(pulumi.StringOutput)
+}
+
+func (o InstanceRemoveNodeListOutput) Role() pulumi.StringOutput {
+	return o.ApplyT(func(v InstanceRemoveNodeList) string { return v.Role }).(pulumi.StringOutput)
+}
+
+func (o InstanceRemoveNodeListOutput) Zone() pulumi.StringOutput {
+	return o.ApplyT(func(v InstanceRemoveNodeList) string { return v.Zone }).(pulumi.StringOutput)
+}
+
+type InstanceRemoveNodeListArrayOutput struct{ *pulumi.OutputState }
+
+func (InstanceRemoveNodeListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceRemoveNodeList)(nil)).Elem()
+}
+
+func (o InstanceRemoveNodeListArrayOutput) ToInstanceRemoveNodeListArrayOutput() InstanceRemoveNodeListArrayOutput {
+	return o
+}
+
+func (o InstanceRemoveNodeListArrayOutput) ToInstanceRemoveNodeListArrayOutputWithContext(ctx context.Context) InstanceRemoveNodeListArrayOutput {
+	return o
+}
+
+func (o InstanceRemoveNodeListArrayOutput) Index(i pulumi.IntInput) InstanceRemoveNodeListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) InstanceRemoveNodeList {
+		return vs[0].([]InstanceRemoveNodeList)[vs[1].(int)]
+	}).(InstanceRemoveNodeListOutput)
 }
 
 type InstanceStandbyInstanceList struct {
@@ -305,6 +511,130 @@ func (o InstanceStandbyInstanceListArrayOutput) Index(i pulumi.IntInput) Instanc
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) InstanceStandbyInstanceList {
 		return vs[0].([]InstanceStandbyInstanceList)[vs[1].(int)]
 	}).(InstanceStandbyInstanceListOutput)
+}
+
+type InstanceTransparentDataEncryptionKeyInfoList struct {
+	CreateTime *string `pulumi:"createTime"`
+	KeyId      *string `pulumi:"keyId"`
+	KeyName    *string `pulumi:"keyName"`
+	KeyOrigin  *string `pulumi:"keyOrigin"`
+	KeyUsage   *string `pulumi:"keyUsage"`
+	Status     *string `pulumi:"status"`
+}
+
+// InstanceTransparentDataEncryptionKeyInfoListInput is an input type that accepts InstanceTransparentDataEncryptionKeyInfoListArgs and InstanceTransparentDataEncryptionKeyInfoListOutput values.
+// You can construct a concrete instance of `InstanceTransparentDataEncryptionKeyInfoListInput` via:
+//
+//	InstanceTransparentDataEncryptionKeyInfoListArgs{...}
+type InstanceTransparentDataEncryptionKeyInfoListInput interface {
+	pulumi.Input
+
+	ToInstanceTransparentDataEncryptionKeyInfoListOutput() InstanceTransparentDataEncryptionKeyInfoListOutput
+	ToInstanceTransparentDataEncryptionKeyInfoListOutputWithContext(context.Context) InstanceTransparentDataEncryptionKeyInfoListOutput
+}
+
+type InstanceTransparentDataEncryptionKeyInfoListArgs struct {
+	CreateTime pulumi.StringPtrInput `pulumi:"createTime"`
+	KeyId      pulumi.StringPtrInput `pulumi:"keyId"`
+	KeyName    pulumi.StringPtrInput `pulumi:"keyName"`
+	KeyOrigin  pulumi.StringPtrInput `pulumi:"keyOrigin"`
+	KeyUsage   pulumi.StringPtrInput `pulumi:"keyUsage"`
+	Status     pulumi.StringPtrInput `pulumi:"status"`
+}
+
+func (InstanceTransparentDataEncryptionKeyInfoListArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceTransparentDataEncryptionKeyInfoList)(nil)).Elem()
+}
+
+func (i InstanceTransparentDataEncryptionKeyInfoListArgs) ToInstanceTransparentDataEncryptionKeyInfoListOutput() InstanceTransparentDataEncryptionKeyInfoListOutput {
+	return i.ToInstanceTransparentDataEncryptionKeyInfoListOutputWithContext(context.Background())
+}
+
+func (i InstanceTransparentDataEncryptionKeyInfoListArgs) ToInstanceTransparentDataEncryptionKeyInfoListOutputWithContext(ctx context.Context) InstanceTransparentDataEncryptionKeyInfoListOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceTransparentDataEncryptionKeyInfoListOutput)
+}
+
+// InstanceTransparentDataEncryptionKeyInfoListArrayInput is an input type that accepts InstanceTransparentDataEncryptionKeyInfoListArray and InstanceTransparentDataEncryptionKeyInfoListArrayOutput values.
+// You can construct a concrete instance of `InstanceTransparentDataEncryptionKeyInfoListArrayInput` via:
+//
+//	InstanceTransparentDataEncryptionKeyInfoListArray{ InstanceTransparentDataEncryptionKeyInfoListArgs{...} }
+type InstanceTransparentDataEncryptionKeyInfoListArrayInput interface {
+	pulumi.Input
+
+	ToInstanceTransparentDataEncryptionKeyInfoListArrayOutput() InstanceTransparentDataEncryptionKeyInfoListArrayOutput
+	ToInstanceTransparentDataEncryptionKeyInfoListArrayOutputWithContext(context.Context) InstanceTransparentDataEncryptionKeyInfoListArrayOutput
+}
+
+type InstanceTransparentDataEncryptionKeyInfoListArray []InstanceTransparentDataEncryptionKeyInfoListInput
+
+func (InstanceTransparentDataEncryptionKeyInfoListArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceTransparentDataEncryptionKeyInfoList)(nil)).Elem()
+}
+
+func (i InstanceTransparentDataEncryptionKeyInfoListArray) ToInstanceTransparentDataEncryptionKeyInfoListArrayOutput() InstanceTransparentDataEncryptionKeyInfoListArrayOutput {
+	return i.ToInstanceTransparentDataEncryptionKeyInfoListArrayOutputWithContext(context.Background())
+}
+
+func (i InstanceTransparentDataEncryptionKeyInfoListArray) ToInstanceTransparentDataEncryptionKeyInfoListArrayOutputWithContext(ctx context.Context) InstanceTransparentDataEncryptionKeyInfoListArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(InstanceTransparentDataEncryptionKeyInfoListArrayOutput)
+}
+
+type InstanceTransparentDataEncryptionKeyInfoListOutput struct{ *pulumi.OutputState }
+
+func (InstanceTransparentDataEncryptionKeyInfoListOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*InstanceTransparentDataEncryptionKeyInfoList)(nil)).Elem()
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) ToInstanceTransparentDataEncryptionKeyInfoListOutput() InstanceTransparentDataEncryptionKeyInfoListOutput {
+	return o
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) ToInstanceTransparentDataEncryptionKeyInfoListOutputWithContext(ctx context.Context) InstanceTransparentDataEncryptionKeyInfoListOutput {
+	return o
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) CreateTime() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.CreateTime }).(pulumi.StringPtrOutput)
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) KeyId() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.KeyId }).(pulumi.StringPtrOutput)
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) KeyName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.KeyName }).(pulumi.StringPtrOutput)
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) KeyOrigin() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.KeyOrigin }).(pulumi.StringPtrOutput)
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) KeyUsage() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.KeyUsage }).(pulumi.StringPtrOutput)
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v InstanceTransparentDataEncryptionKeyInfoList) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+type InstanceTransparentDataEncryptionKeyInfoListArrayOutput struct{ *pulumi.OutputState }
+
+func (InstanceTransparentDataEncryptionKeyInfoListArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]InstanceTransparentDataEncryptionKeyInfoList)(nil)).Elem()
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListArrayOutput) ToInstanceTransparentDataEncryptionKeyInfoListArrayOutput() InstanceTransparentDataEncryptionKeyInfoListArrayOutput {
+	return o
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListArrayOutput) ToInstanceTransparentDataEncryptionKeyInfoListArrayOutputWithContext(ctx context.Context) InstanceTransparentDataEncryptionKeyInfoListArrayOutput {
+	return o
+}
+
+func (o InstanceTransparentDataEncryptionKeyInfoListArrayOutput) Index(i pulumi.IntInput) InstanceTransparentDataEncryptionKeyInfoListOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) InstanceTransparentDataEncryptionKeyInfoList {
+		return vs[0].([]InstanceTransparentDataEncryptionKeyInfoList)[vs[1].(int)]
+	}).(InstanceTransparentDataEncryptionKeyInfoListOutput)
 }
 
 type GetInstanceBackupsBackupList struct {
@@ -1612,10 +1942,16 @@ func (o GetZoneConfigListArrayOutput) Index(i pulumi.IntInput) GetZoneConfigList
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceAccountAuthRoleInput)(nil)).Elem(), InstanceAccountAuthRoleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceAccountAuthRoleArrayInput)(nil)).Elem(), InstanceAccountAuthRoleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceAddNodeListInput)(nil)).Elem(), InstanceAddNodeListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceAddNodeListArrayInput)(nil)).Elem(), InstanceAddNodeListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceBackupDownloadTaskBackupSetInput)(nil)).Elem(), InstanceBackupDownloadTaskBackupSetArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceBackupDownloadTaskBackupSetArrayInput)(nil)).Elem(), InstanceBackupDownloadTaskBackupSetArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceRemoveNodeListInput)(nil)).Elem(), InstanceRemoveNodeListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceRemoveNodeListArrayInput)(nil)).Elem(), InstanceRemoveNodeListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceStandbyInstanceListInput)(nil)).Elem(), InstanceStandbyInstanceListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*InstanceStandbyInstanceListArrayInput)(nil)).Elem(), InstanceStandbyInstanceListArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceTransparentDataEncryptionKeyInfoListInput)(nil)).Elem(), InstanceTransparentDataEncryptionKeyInfoListArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*InstanceTransparentDataEncryptionKeyInfoListArrayInput)(nil)).Elem(), InstanceTransparentDataEncryptionKeyInfoListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceBackupsBackupListInput)(nil)).Elem(), GetInstanceBackupsBackupListArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceBackupsBackupListArrayInput)(nil)).Elem(), GetInstanceBackupsBackupListArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetInstanceConnectionsClientInput)(nil)).Elem(), GetInstanceConnectionsClientArgs{})
@@ -1636,10 +1972,16 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetZoneConfigListArrayInput)(nil)).Elem(), GetZoneConfigListArray{})
 	pulumi.RegisterOutputType(InstanceAccountAuthRoleOutput{})
 	pulumi.RegisterOutputType(InstanceAccountAuthRoleArrayOutput{})
+	pulumi.RegisterOutputType(InstanceAddNodeListOutput{})
+	pulumi.RegisterOutputType(InstanceAddNodeListArrayOutput{})
 	pulumi.RegisterOutputType(InstanceBackupDownloadTaskBackupSetOutput{})
 	pulumi.RegisterOutputType(InstanceBackupDownloadTaskBackupSetArrayOutput{})
+	pulumi.RegisterOutputType(InstanceRemoveNodeListOutput{})
+	pulumi.RegisterOutputType(InstanceRemoveNodeListArrayOutput{})
 	pulumi.RegisterOutputType(InstanceStandbyInstanceListOutput{})
 	pulumi.RegisterOutputType(InstanceStandbyInstanceListArrayOutput{})
+	pulumi.RegisterOutputType(InstanceTransparentDataEncryptionKeyInfoListOutput{})
+	pulumi.RegisterOutputType(InstanceTransparentDataEncryptionKeyInfoListArrayOutput{})
 	pulumi.RegisterOutputType(GetInstanceBackupsBackupListOutput{})
 	pulumi.RegisterOutputType(GetInstanceBackupsBackupListArrayOutput{})
 	pulumi.RegisterOutputType(GetInstanceConnectionsClientOutput{})

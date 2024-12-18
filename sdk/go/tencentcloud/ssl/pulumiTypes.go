@@ -13,6 +13,144 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+type CheckCertificateDomainVerificationOperationVerificationResult struct {
+	CaCheck              *int     `pulumi:"caCheck"`
+	CheckValues          []string `pulumi:"checkValues"`
+	Domain               *string  `pulumi:"domain"`
+	Frequently           *bool    `pulumi:"frequently"`
+	Issued               *bool    `pulumi:"issued"`
+	LocalCheck           *int     `pulumi:"localCheck"`
+	LocalCheckFailReason *string  `pulumi:"localCheckFailReason"`
+	VerifyType           *string  `pulumi:"verifyType"`
+}
+
+// CheckCertificateDomainVerificationOperationVerificationResultInput is an input type that accepts CheckCertificateDomainVerificationOperationVerificationResultArgs and CheckCertificateDomainVerificationOperationVerificationResultOutput values.
+// You can construct a concrete instance of `CheckCertificateDomainVerificationOperationVerificationResultInput` via:
+//
+//	CheckCertificateDomainVerificationOperationVerificationResultArgs{...}
+type CheckCertificateDomainVerificationOperationVerificationResultInput interface {
+	pulumi.Input
+
+	ToCheckCertificateDomainVerificationOperationVerificationResultOutput() CheckCertificateDomainVerificationOperationVerificationResultOutput
+	ToCheckCertificateDomainVerificationOperationVerificationResultOutputWithContext(context.Context) CheckCertificateDomainVerificationOperationVerificationResultOutput
+}
+
+type CheckCertificateDomainVerificationOperationVerificationResultArgs struct {
+	CaCheck              pulumi.IntPtrInput      `pulumi:"caCheck"`
+	CheckValues          pulumi.StringArrayInput `pulumi:"checkValues"`
+	Domain               pulumi.StringPtrInput   `pulumi:"domain"`
+	Frequently           pulumi.BoolPtrInput     `pulumi:"frequently"`
+	Issued               pulumi.BoolPtrInput     `pulumi:"issued"`
+	LocalCheck           pulumi.IntPtrInput      `pulumi:"localCheck"`
+	LocalCheckFailReason pulumi.StringPtrInput   `pulumi:"localCheckFailReason"`
+	VerifyType           pulumi.StringPtrInput   `pulumi:"verifyType"`
+}
+
+func (CheckCertificateDomainVerificationOperationVerificationResultArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckCertificateDomainVerificationOperationVerificationResult)(nil)).Elem()
+}
+
+func (i CheckCertificateDomainVerificationOperationVerificationResultArgs) ToCheckCertificateDomainVerificationOperationVerificationResultOutput() CheckCertificateDomainVerificationOperationVerificationResultOutput {
+	return i.ToCheckCertificateDomainVerificationOperationVerificationResultOutputWithContext(context.Background())
+}
+
+func (i CheckCertificateDomainVerificationOperationVerificationResultArgs) ToCheckCertificateDomainVerificationOperationVerificationResultOutputWithContext(ctx context.Context) CheckCertificateDomainVerificationOperationVerificationResultOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckCertificateDomainVerificationOperationVerificationResultOutput)
+}
+
+// CheckCertificateDomainVerificationOperationVerificationResultArrayInput is an input type that accepts CheckCertificateDomainVerificationOperationVerificationResultArray and CheckCertificateDomainVerificationOperationVerificationResultArrayOutput values.
+// You can construct a concrete instance of `CheckCertificateDomainVerificationOperationVerificationResultArrayInput` via:
+//
+//	CheckCertificateDomainVerificationOperationVerificationResultArray{ CheckCertificateDomainVerificationOperationVerificationResultArgs{...} }
+type CheckCertificateDomainVerificationOperationVerificationResultArrayInput interface {
+	pulumi.Input
+
+	ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutput() CheckCertificateDomainVerificationOperationVerificationResultArrayOutput
+	ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutputWithContext(context.Context) CheckCertificateDomainVerificationOperationVerificationResultArrayOutput
+}
+
+type CheckCertificateDomainVerificationOperationVerificationResultArray []CheckCertificateDomainVerificationOperationVerificationResultInput
+
+func (CheckCertificateDomainVerificationOperationVerificationResultArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckCertificateDomainVerificationOperationVerificationResult)(nil)).Elem()
+}
+
+func (i CheckCertificateDomainVerificationOperationVerificationResultArray) ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutput() CheckCertificateDomainVerificationOperationVerificationResultArrayOutput {
+	return i.ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutputWithContext(context.Background())
+}
+
+func (i CheckCertificateDomainVerificationOperationVerificationResultArray) ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutputWithContext(ctx context.Context) CheckCertificateDomainVerificationOperationVerificationResultArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(CheckCertificateDomainVerificationOperationVerificationResultArrayOutput)
+}
+
+type CheckCertificateDomainVerificationOperationVerificationResultOutput struct{ *pulumi.OutputState }
+
+func (CheckCertificateDomainVerificationOperationVerificationResultOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*CheckCertificateDomainVerificationOperationVerificationResult)(nil)).Elem()
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) ToCheckCertificateDomainVerificationOperationVerificationResultOutput() CheckCertificateDomainVerificationOperationVerificationResultOutput {
+	return o
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) ToCheckCertificateDomainVerificationOperationVerificationResultOutputWithContext(ctx context.Context) CheckCertificateDomainVerificationOperationVerificationResultOutput {
+	return o
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) CaCheck() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *int { return v.CaCheck }).(pulumi.IntPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) CheckValues() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) []string { return v.CheckValues }).(pulumi.StringArrayOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) Domain() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *string { return v.Domain }).(pulumi.StringPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) Frequently() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *bool { return v.Frequently }).(pulumi.BoolPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) Issued() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *bool { return v.Issued }).(pulumi.BoolPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) LocalCheck() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *int { return v.LocalCheck }).(pulumi.IntPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) LocalCheckFailReason() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *string {
+		return v.LocalCheckFailReason
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultOutput) VerifyType() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v CheckCertificateDomainVerificationOperationVerificationResult) *string { return v.VerifyType }).(pulumi.StringPtrOutput)
+}
+
+type CheckCertificateDomainVerificationOperationVerificationResultArrayOutput struct{ *pulumi.OutputState }
+
+func (CheckCertificateDomainVerificationOperationVerificationResultArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]CheckCertificateDomainVerificationOperationVerificationResult)(nil)).Elem()
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultArrayOutput) ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutput() CheckCertificateDomainVerificationOperationVerificationResultArrayOutput {
+	return o
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultArrayOutput) ToCheckCertificateDomainVerificationOperationVerificationResultArrayOutputWithContext(ctx context.Context) CheckCertificateDomainVerificationOperationVerificationResultArrayOutput {
+	return o
+}
+
+func (o CheckCertificateDomainVerificationOperationVerificationResultArrayOutput) Index(i pulumi.IntInput) CheckCertificateDomainVerificationOperationVerificationResultOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CheckCertificateDomainVerificationOperationVerificationResult {
+		return vs[0].([]CheckCertificateDomainVerificationOperationVerificationResult)[vs[1].(int)]
+	}).(CheckCertificateDomainVerificationOperationVerificationResultOutput)
+}
+
 type FreeCertificateDvAuth struct {
 	DvAuthKey        *string `pulumi:"dvAuthKey"`
 	DvAuthValue      *string `pulumi:"dvAuthValue"`
@@ -819,21 +957,23 @@ func (o UpdateCertificateInstanceOperationResourceTypesRegionArrayOutput) Index(
 }
 
 type GetCertificatesCertificate struct {
-	BeginTime     string                             `pulumi:"beginTime"`
-	Cert          string                             `pulumi:"cert"`
-	CreateTime    string                             `pulumi:"createTime"`
-	Domain        string                             `pulumi:"domain"`
-	DvAuths       []GetCertificatesCertificateDvAuth `pulumi:"dvAuths"`
-	EndTime       string                             `pulumi:"endTime"`
-	Id            string                             `pulumi:"id"`
-	Key           string                             `pulumi:"key"`
-	Name          string                             `pulumi:"name"`
-	OrderId       string                             `pulumi:"orderId"`
-	ProductZhName string                             `pulumi:"productZhName"`
-	ProjectId     int                                `pulumi:"projectId"`
-	Status        int                                `pulumi:"status"`
-	SubjectNames  []string                           `pulumi:"subjectNames"`
-	Type          string                             `pulumi:"type"`
+	BeginTime      string                             `pulumi:"beginTime"`
+	Cert           string                             `pulumi:"cert"`
+	CreateTime     string                             `pulumi:"createTime"`
+	Domain         string                             `pulumi:"domain"`
+	DvAuths        []GetCertificatesCertificateDvAuth `pulumi:"dvAuths"`
+	EndTime        string                             `pulumi:"endTime"`
+	Id             string                             `pulumi:"id"`
+	Key            string                             `pulumi:"key"`
+	Name           string                             `pulumi:"name"`
+	OrderId        string                             `pulumi:"orderId"`
+	OwnerUin       string                             `pulumi:"ownerUin"`
+	ProductZhName  string                             `pulumi:"productZhName"`
+	ProjectId      int                                `pulumi:"projectId"`
+	Status         int                                `pulumi:"status"`
+	SubjectNames   []string                           `pulumi:"subjectNames"`
+	Type           string                             `pulumi:"type"`
+	ValidityPeriod string                             `pulumi:"validityPeriod"`
 }
 
 // GetCertificatesCertificateInput is an input type that accepts GetCertificatesCertificateArgs and GetCertificatesCertificateOutput values.
@@ -848,21 +988,23 @@ type GetCertificatesCertificateInput interface {
 }
 
 type GetCertificatesCertificateArgs struct {
-	BeginTime     pulumi.StringInput                         `pulumi:"beginTime"`
-	Cert          pulumi.StringInput                         `pulumi:"cert"`
-	CreateTime    pulumi.StringInput                         `pulumi:"createTime"`
-	Domain        pulumi.StringInput                         `pulumi:"domain"`
-	DvAuths       GetCertificatesCertificateDvAuthArrayInput `pulumi:"dvAuths"`
-	EndTime       pulumi.StringInput                         `pulumi:"endTime"`
-	Id            pulumi.StringInput                         `pulumi:"id"`
-	Key           pulumi.StringInput                         `pulumi:"key"`
-	Name          pulumi.StringInput                         `pulumi:"name"`
-	OrderId       pulumi.StringInput                         `pulumi:"orderId"`
-	ProductZhName pulumi.StringInput                         `pulumi:"productZhName"`
-	ProjectId     pulumi.IntInput                            `pulumi:"projectId"`
-	Status        pulumi.IntInput                            `pulumi:"status"`
-	SubjectNames  pulumi.StringArrayInput                    `pulumi:"subjectNames"`
-	Type          pulumi.StringInput                         `pulumi:"type"`
+	BeginTime      pulumi.StringInput                         `pulumi:"beginTime"`
+	Cert           pulumi.StringInput                         `pulumi:"cert"`
+	CreateTime     pulumi.StringInput                         `pulumi:"createTime"`
+	Domain         pulumi.StringInput                         `pulumi:"domain"`
+	DvAuths        GetCertificatesCertificateDvAuthArrayInput `pulumi:"dvAuths"`
+	EndTime        pulumi.StringInput                         `pulumi:"endTime"`
+	Id             pulumi.StringInput                         `pulumi:"id"`
+	Key            pulumi.StringInput                         `pulumi:"key"`
+	Name           pulumi.StringInput                         `pulumi:"name"`
+	OrderId        pulumi.StringInput                         `pulumi:"orderId"`
+	OwnerUin       pulumi.StringInput                         `pulumi:"ownerUin"`
+	ProductZhName  pulumi.StringInput                         `pulumi:"productZhName"`
+	ProjectId      pulumi.IntInput                            `pulumi:"projectId"`
+	Status         pulumi.IntInput                            `pulumi:"status"`
+	SubjectNames   pulumi.StringArrayInput                    `pulumi:"subjectNames"`
+	Type           pulumi.StringInput                         `pulumi:"type"`
+	ValidityPeriod pulumi.StringInput                         `pulumi:"validityPeriod"`
 }
 
 func (GetCertificatesCertificateArgs) ElementType() reflect.Type {
@@ -956,6 +1098,10 @@ func (o GetCertificatesCertificateOutput) OrderId() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCertificatesCertificate) string { return v.OrderId }).(pulumi.StringOutput)
 }
 
+func (o GetCertificatesCertificateOutput) OwnerUin() pulumi.StringOutput {
+	return o.ApplyT(func(v GetCertificatesCertificate) string { return v.OwnerUin }).(pulumi.StringOutput)
+}
+
 func (o GetCertificatesCertificateOutput) ProductZhName() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCertificatesCertificate) string { return v.ProductZhName }).(pulumi.StringOutput)
 }
@@ -974,6 +1120,10 @@ func (o GetCertificatesCertificateOutput) SubjectNames() pulumi.StringArrayOutpu
 
 func (o GetCertificatesCertificateOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v GetCertificatesCertificate) string { return v.Type }).(pulumi.StringOutput)
+}
+
+func (o GetCertificatesCertificateOutput) ValidityPeriod() pulumi.StringOutput {
+	return o.ApplyT(func(v GetCertificatesCertificate) string { return v.ValidityPeriod }).(pulumi.StringOutput)
 }
 
 type GetCertificatesCertificateArrayOutput struct{ *pulumi.OutputState }
@@ -6547,6 +6697,8 @@ func (o GetDescribeManagersManagerArrayOutput) Index(i pulumi.IntInput) GetDescr
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckCertificateDomainVerificationOperationVerificationResultInput)(nil)).Elem(), CheckCertificateDomainVerificationOperationVerificationResultArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*CheckCertificateDomainVerificationOperationVerificationResultArrayInput)(nil)).Elem(), CheckCertificateDomainVerificationOperationVerificationResultArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FreeCertificateDvAuthInput)(nil)).Elem(), FreeCertificateDvAuthArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FreeCertificateDvAuthArrayInput)(nil)).Elem(), FreeCertificateDvAuthArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*PayCertificateDvAuthInput)(nil)).Elem(), PayCertificateDvAuthArgs{})
@@ -6645,6 +6797,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDescribeManagerDetailCompanyInfoArrayInput)(nil)).Elem(), GetDescribeManagerDetailCompanyInfoArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDescribeManagersManagerInput)(nil)).Elem(), GetDescribeManagersManagerArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GetDescribeManagersManagerArrayInput)(nil)).Elem(), GetDescribeManagersManagerArray{})
+	pulumi.RegisterOutputType(CheckCertificateDomainVerificationOperationVerificationResultOutput{})
+	pulumi.RegisterOutputType(CheckCertificateDomainVerificationOperationVerificationResultArrayOutput{})
 	pulumi.RegisterOutputType(FreeCertificateDvAuthOutput{})
 	pulumi.RegisterOutputType(FreeCertificateDvAuthArrayOutput{})
 	pulumi.RegisterOutputType(PayCertificateDvAuthOutput{})

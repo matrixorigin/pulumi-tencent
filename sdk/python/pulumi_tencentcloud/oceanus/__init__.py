@@ -8,7 +8,9 @@ import typing
 from .folder import *
 from .get_check_savepoint import *
 from .get_clusters import *
+from .get_job_events import *
 from .get_job_submission_log import *
+from .get_meta_table import *
 from .get_resource_related_job import *
 from .get_savepoint_list import *
 from .get_system_resource import *

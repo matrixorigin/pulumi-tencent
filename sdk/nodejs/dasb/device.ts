@@ -43,7 +43,7 @@ export class Device extends pulumi.CustomResource {
     /**
      * Asset multi-node: fields ip and port.
      */
-    public readonly ipPortSets!: pulumi.Output<string[] | undefined>;
+    public readonly ipPortSets!: pulumi.Output<string[]>;
     /**
      * Hostname, can be empty.
      */

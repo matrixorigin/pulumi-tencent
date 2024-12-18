@@ -18,6 +18,9 @@ __all__ = [
     'GetBackupBackupSetResult',
     'GetBackupDownloadInfoBackupInfoResult',
     'GetBackupDownloadInfoLimitVpcResult',
+    'GetClustersResourceResult',
+    'GetClustersResourceBaseBundleResult',
+    'GetClustersResourceResourceBundleResult',
     'GetInstanceNodeInfoProxyResult',
     'GetInstanceNodeInfoRediResult',
     'GetInstanceShardsInstanceShardResult',
@@ -391,6 +394,161 @@ class GetBackupDownloadInfoLimitVpcResult(dict):
     @pulumi.getter(name="vpcLists")
     def vpc_lists(self) -> Sequence[str]:
         return pulumi.get(self, "vpc_lists")
+
+
+@pulumi.output_type
+class GetClustersResourceResult(dict):
+    def __init__(__self__, *,
+                 app_id: int,
+                 auto_renew_flag: int,
+                 base_bundles: Sequence['outputs.GetClustersResourceBaseBundleResult'],
+                 cluster_name: str,
+                 dedicated_cluster_id: str,
+                 end_time: str,
+                 pay_mode: int,
+                 project_id: int,
+                 redis_cluster_id: str,
+                 region_id: int,
+                 resource_bundles: Sequence['outputs.GetClustersResourceResourceBundleResult'],
+                 start_time: str,
+                 status: int,
+                 zone_id: int):
+        pulumi.set(__self__, "app_id", app_id)
+        pulumi.set(__self__, "auto_renew_flag", auto_renew_flag)
+        pulumi.set(__self__, "base_bundles", base_bundles)
+        pulumi.set(__self__, "cluster_name", cluster_name)
+        pulumi.set(__self__, "dedicated_cluster_id", dedicated_cluster_id)
+        pulumi.set(__self__, "end_time", end_time)
+        pulumi.set(__self__, "pay_mode", pay_mode)
+        pulumi.set(__self__, "project_id", project_id)
+        pulumi.set(__self__, "redis_cluster_id", redis_cluster_id)
+        pulumi.set(__self__, "region_id", region_id)
+        pulumi.set(__self__, "resource_bundles", resource_bundles)
+        pulumi.set(__self__, "start_time", start_time)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "zone_id", zone_id)
+
+    @property
+    @pulumi.getter(name="appId")
+    def app_id(self) -> int:
+        return pulumi.get(self, "app_id")
+
+    @property
+    @pulumi.getter(name="autoRenewFlag")
+    def auto_renew_flag(self) -> int:
+        return pulumi.get(self, "auto_renew_flag")
+
+    @property
+    @pulumi.getter(name="baseBundles")
+    def base_bundles(self) -> Sequence['outputs.GetClustersResourceBaseBundleResult']:
+        return pulumi.get(self, "base_bundles")
+
+    @property
+    @pulumi.getter(name="clusterName")
+    def cluster_name(self) -> str:
+        return pulumi.get(self, "cluster_name")
+
+    @property
+    @pulumi.getter(name="dedicatedClusterId")
+    def dedicated_cluster_id(self) -> str:
+        return pulumi.get(self, "dedicated_cluster_id")
+
+    @property
+    @pulumi.getter(name="endTime")
+    def end_time(self) -> str:
+        return pulumi.get(self, "end_time")
+
+    @property
+    @pulumi.getter(name="payMode")
+    def pay_mode(self) -> int:
+        return pulumi.get(self, "pay_mode")
+
+    @property
+    @pulumi.getter(name="projectId")
+    def project_id(self) -> int:
+        return pulumi.get(self, "project_id")
+
+    @property
+    @pulumi.getter(name="redisClusterId")
+    def redis_cluster_id(self) -> str:
+        return pulumi.get(self, "redis_cluster_id")
+
+    @property
+    @pulumi.getter(name="regionId")
+    def region_id(self) -> int:
+        return pulumi.get(self, "region_id")
+
+    @property
+    @pulumi.getter(name="resourceBundles")
+    def resource_bundles(self) -> Sequence['outputs.GetClustersResourceResourceBundleResult']:
+        return pulumi.get(self, "resource_bundles")
+
+    @property
+    @pulumi.getter(name="startTime")
+    def start_time(self) -> str:
+        return pulumi.get(self, "start_time")
+
+    @property
+    @pulumi.getter
+    def status(self) -> int:
+        return pulumi.get(self, "status")
+
+    @property
+    @pulumi.getter(name="zoneId")
+    def zone_id(self) -> int:
+        return pulumi.get(self, "zone_id")
+
+
+@pulumi.output_type
+class GetClustersResourceBaseBundleResult(dict):
+    def __init__(__self__, *,
+                 available_memory: int,
+                 count: int,
+                 resource_bundle_name: str):
+        pulumi.set(__self__, "available_memory", available_memory)
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "resource_bundle_name", resource_bundle_name)
+
+    @property
+    @pulumi.getter(name="availableMemory")
+    def available_memory(self) -> int:
+        return pulumi.get(self, "available_memory")
+
+    @property
+    @pulumi.getter
+    def count(self) -> int:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="resourceBundleName")
+    def resource_bundle_name(self) -> str:
+        return pulumi.get(self, "resource_bundle_name")
+
+
+@pulumi.output_type
+class GetClustersResourceResourceBundleResult(dict):
+    def __init__(__self__, *,
+                 available_memory: int,
+                 count: int,
+                 resource_bundle_name: str):
+        pulumi.set(__self__, "available_memory", available_memory)
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "resource_bundle_name", resource_bundle_name)
+
+    @property
+    @pulumi.getter(name="availableMemory")
+    def available_memory(self) -> int:
+        return pulumi.get(self, "available_memory")
+
+    @property
+    @pulumi.getter
+    def count(self) -> int:
+        return pulumi.get(self, "count")
+
+    @property
+    @pulumi.getter(name="resourceBundleName")
+    def resource_bundle_name(self) -> str:
+        return pulumi.get(self, "resource_bundle_name")
 
 
 @pulumi.output_type

@@ -18,6 +18,7 @@ class EmbedTokenApplyArgs:
                  page_id: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  scope: Optional[pulumi.Input[str]] = None,
+                 ticket_num: Optional[pulumi.Input[int]] = None,
                  user_corp_id: Optional[pulumi.Input[str]] = None,
                  user_id: Optional[pulumi.Input[str]] = None):
         """
@@ -26,6 +27,7 @@ class EmbedTokenApplyArgs:
         :param pulumi.Input[int] page_id: Sharing page id, this is empty value 0 when embedding the board.
         :param pulumi.Input[int] project_id: Share project id.
         :param pulumi.Input[str] scope: Page means embedding the page, and panel means embedding the entire board.
+        :param pulumi.Input[int] ticket_num: Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
         :param pulumi.Input[str] user_corp_id: User enterprise ID (for multi-user only).
         :param pulumi.Input[str] user_id: UserId (for multi-user only).
         """
@@ -37,6 +39,8 @@ class EmbedTokenApplyArgs:
             pulumi.set(__self__, "project_id", project_id)
         if scope is not None:
             pulumi.set(__self__, "scope", scope)
+        if ticket_num is not None:
+            pulumi.set(__self__, "ticket_num", ticket_num)
         if user_corp_id is not None:
             pulumi.set(__self__, "user_corp_id", user_corp_id)
         if user_id is not None:
@@ -91,6 +95,18 @@ class EmbedTokenApplyArgs:
         pulumi.set(self, "scope", value)
 
     @property
+    @pulumi.getter(name="ticketNum")
+    def ticket_num(self) -> Optional[pulumi.Input[int]]:
+        """
+        Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+        """
+        return pulumi.get(self, "ticket_num")
+
+    @ticket_num.setter
+    def ticket_num(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "ticket_num", value)
+
+    @property
     @pulumi.getter(name="userCorpId")
     def user_corp_id(self) -> Optional[pulumi.Input[str]]:
         """
@@ -124,6 +140,7 @@ class _EmbedTokenApplyState:
                  page_id: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  scope: Optional[pulumi.Input[str]] = None,
+                 ticket_num: Optional[pulumi.Input[int]] = None,
                  udpate_at: Optional[pulumi.Input[str]] = None,
                  user_corp_id: Optional[pulumi.Input[str]] = None,
                  user_id: Optional[pulumi.Input[str]] = None):
@@ -135,6 +152,7 @@ class _EmbedTokenApplyState:
         :param pulumi.Input[int] page_id: Sharing page id, this is empty value 0 when embedding the board.
         :param pulumi.Input[int] project_id: Share project id.
         :param pulumi.Input[str] scope: Page means embedding the page, and panel means embedding the entire board.
+        :param pulumi.Input[int] ticket_num: Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
         :param pulumi.Input[str] udpate_at: Upadte time.
         :param pulumi.Input[str] user_corp_id: User enterprise ID (for multi-user only).
         :param pulumi.Input[str] user_id: UserId (for multi-user only).
@@ -151,6 +169,8 @@ class _EmbedTokenApplyState:
             pulumi.set(__self__, "project_id", project_id)
         if scope is not None:
             pulumi.set(__self__, "scope", scope)
+        if ticket_num is not None:
+            pulumi.set(__self__, "ticket_num", ticket_num)
         if udpate_at is not None:
             pulumi.set(__self__, "udpate_at", udpate_at)
         if user_corp_id is not None:
@@ -231,6 +251,18 @@ class _EmbedTokenApplyState:
         pulumi.set(self, "scope", value)
 
     @property
+    @pulumi.getter(name="ticketNum")
+    def ticket_num(self) -> Optional[pulumi.Input[int]]:
+        """
+        Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+        """
+        return pulumi.get(self, "ticket_num")
+
+    @ticket_num.setter
+    def ticket_num(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "ticket_num", value)
+
+    @property
     @pulumi.getter(name="udpateAt")
     def udpate_at(self) -> Optional[pulumi.Input[str]]:
         """
@@ -276,6 +308,7 @@ class EmbedTokenApply(pulumi.CustomResource):
                  page_id: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  scope: Optional[pulumi.Input[str]] = None,
+                 ticket_num: Optional[pulumi.Input[int]] = None,
                  user_corp_id: Optional[pulumi.Input[str]] = None,
                  user_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -287,6 +320,7 @@ class EmbedTokenApply(pulumi.CustomResource):
         :param pulumi.Input[int] page_id: Sharing page id, this is empty value 0 when embedding the board.
         :param pulumi.Input[int] project_id: Share project id.
         :param pulumi.Input[str] scope: Page means embedding the page, and panel means embedding the entire board.
+        :param pulumi.Input[int] ticket_num: Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
         :param pulumi.Input[str] user_corp_id: User enterprise ID (for multi-user only).
         :param pulumi.Input[str] user_id: UserId (for multi-user only).
         """
@@ -317,6 +351,7 @@ class EmbedTokenApply(pulumi.CustomResource):
                  page_id: Optional[pulumi.Input[int]] = None,
                  project_id: Optional[pulumi.Input[int]] = None,
                  scope: Optional[pulumi.Input[str]] = None,
+                 ticket_num: Optional[pulumi.Input[int]] = None,
                  user_corp_id: Optional[pulumi.Input[str]] = None,
                  user_id: Optional[pulumi.Input[str]] = None,
                  __props__=None):
@@ -332,6 +367,7 @@ class EmbedTokenApply(pulumi.CustomResource):
             __props__.__dict__["page_id"] = page_id
             __props__.__dict__["project_id"] = project_id
             __props__.__dict__["scope"] = scope
+            __props__.__dict__["ticket_num"] = ticket_num
             __props__.__dict__["user_corp_id"] = user_corp_id
             __props__.__dict__["user_id"] = user_id
             __props__.__dict__["bi_token"] = None
@@ -353,6 +389,7 @@ class EmbedTokenApply(pulumi.CustomResource):
             page_id: Optional[pulumi.Input[int]] = None,
             project_id: Optional[pulumi.Input[int]] = None,
             scope: Optional[pulumi.Input[str]] = None,
+            ticket_num: Optional[pulumi.Input[int]] = None,
             udpate_at: Optional[pulumi.Input[str]] = None,
             user_corp_id: Optional[pulumi.Input[str]] = None,
             user_id: Optional[pulumi.Input[str]] = None) -> 'EmbedTokenApply':
@@ -369,6 +406,7 @@ class EmbedTokenApply(pulumi.CustomResource):
         :param pulumi.Input[int] page_id: Sharing page id, this is empty value 0 when embedding the board.
         :param pulumi.Input[int] project_id: Share project id.
         :param pulumi.Input[str] scope: Page means embedding the page, and panel means embedding the entire board.
+        :param pulumi.Input[int] ticket_num: Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
         :param pulumi.Input[str] udpate_at: Upadte time.
         :param pulumi.Input[str] user_corp_id: User enterprise ID (for multi-user only).
         :param pulumi.Input[str] user_id: UserId (for multi-user only).
@@ -383,6 +421,7 @@ class EmbedTokenApply(pulumi.CustomResource):
         __props__.__dict__["page_id"] = page_id
         __props__.__dict__["project_id"] = project_id
         __props__.__dict__["scope"] = scope
+        __props__.__dict__["ticket_num"] = ticket_num
         __props__.__dict__["udpate_at"] = udpate_at
         __props__.__dict__["user_corp_id"] = user_corp_id
         __props__.__dict__["user_id"] = user_id
@@ -435,6 +474,14 @@ class EmbedTokenApply(pulumi.CustomResource):
         Page means embedding the page, and panel means embedding the entire board.
         """
         return pulumi.get(self, "scope")
+
+    @property
+    @pulumi.getter(name="ticketNum")
+    def ticket_num(self) -> pulumi.Output[Optional[int]]:
+        """
+        Access limit, the limit range is 1-99999, if it is empty, no access limit will be set.
+        """
+        return pulumi.get(self, "ticket_num")
 
     @property
     @pulumi.getter(name="udpateAt")
